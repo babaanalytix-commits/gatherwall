@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GatherWall — A living wall of love for any event</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- Firebase (real-time across many phones). Safe to keep even before you add your config. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<style>
+/* ===================== THEME SYSTEM =====================
+   Each "vibe" repaints the whole experience. Subscribers can
+   also inject their own brand colour, making every wall unique. */
+:root{
+  --brand:#FF4D7E; --brand2:#FF9A52; --brand3:#7A5CFF;
+  --bg:#FFF7F2; --surface:#FFFFFF; --ink:#1C1430; --muted:#6C6480;
+  --line:#EFE6EE; --radius:20px; --shadow:0 18px 50px -22px rgba(60,20,80,.35);
+  --display:'Fraunces',Georgia,serif; --ui:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);line-height:1.6;
+  -webkit-font-smoothing:antialiased;transition:background .5s ease;}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;letter-spacing:-.02em;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px;}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;
+  font-family:var(--ui);font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;
+  transition:transform .15s ease, box-shadow .2s ease, opacity .2s;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{color:#fff;background:linear-gradient(120deg,var(--brand),var(--brand2));
+  box-shadow:0 12px 30px -10px var(--brand);}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink);}
+.btn-light{background:#fff;color:var(--brand);}
+.pill{display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 14px;border-radius:999px;
+  background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);}
+.muted{color:var(--muted);}
+.center{text-align:center;}
+
+/* ===================== NAV ===================== */
+header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.logo{font-family:var(--display);font-weight:600;font-size:23px;display:flex;align-items:center;gap:9px;}
+.logo .dot{width:13px;height:13px;border-radius:50%;
+  background:linear-gradient(120deg,var(--brand),var(--brand2));box-shadow:0 0 0 4px color-mix(in srgb,var(--brand) 18%,transparent);}
+.nav-links{display:flex;align-items:center;gap:28px;font-weight:500;font-size:15px;}
+.nav-links a:hover{color:var(--brand);}
+@media(max-width:760px){.nav-links a:not(.btn){display:none;}}
+
+/* ===================== HERO ===================== */
+.hero{position:relative;overflow:hidden;padding:84px 0 96px;}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(60% 60% at 12% 10%, color-mix(in srgb,var(--brand) 30%,transparent), transparent 60%),
+    radial-gradient(55% 55% at 92% 18%, color-mix(in srgb,var(--brand3) 28%,transparent), transparent 60%),
+    radial-gradient(60% 60% at 78% 96%, color-mix(in srgb,var(--brand2) 30%,transparent), transparent 60%);}
+.hero .wrap{position:relative;z-index:2;}
+.hero h1{font-size:clamp(40px,6.4vw,76px);max-width:14ch;}
+.hero h1 em{font-style:italic;color:var(--brand);}
+.hero p.lead{font-size:clamp(17px,2.1vw,21px);max-width:54ch;margin:22px 0 30px;color:var(--ink);opacity:.82;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-note{margin-top:18px;font-size:13.5px;color:var(--muted);}
+.floaties{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.floaty{position:absolute;background:var(--surface);border:1px solid var(--line);
+  box-shadow:var(--shadow);border-radius:16px;padding:12px 15px;font-size:13.5px;max-width:230px;
+  animation:bob 6s ease-in-out infinite;}
+.floaty b{display:block;font-family:var(--display);font-size:14.5px;}
+.floaty .who{color:var(--brand);font-weight:600;font-size:12px;margin-top:4px;}
+.floaty:nth-child(1){top:120px;right:40px;animation-delay:0s;}
+.floaty:nth-child(2){top:250px;right:160px;animation-delay:1.4s;}
+.floaty:nth-child(3){top:360px;right:18px;animation-delay:2.6s;}
+@media(max-width:900px){.floaties{display:none;}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-14px) rotate(1deg);}}
+
+/* ===================== SECTIONS ===================== */
+section{padding:74px 0;}
+.section-head{max-width:640px;margin:0 auto 46px;text-align:center;}
+.section-head h2{font-size:clamp(30px,4vw,44px);}
+.section-head p{margin-top:14px;color:var(--muted);font-size:17px;}
+.band{background:var(--ink);color:#fff;}
+.band .muted{color:#b7afd0;}
+.band .section-head p{color:#c7c0e0;}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
+.step .n{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:700;
+  font-family:var(--display);background:linear-gradient(120deg,var(--brand),var(--brand2));margin-bottom:16px;}
+.step h3{font-size:21px;margin-bottom:8px;}
+@media(max-width:820px){.steps{grid-template-columns:1fr;}}
+
+/* vibe cards */
+.vibes{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.vibe{border-radius:var(--radius);padding:26px 22px;color:#fff;min-height:184px;display:flex;flex-direction:column;
+  justify-content:flex-end;position:relative;overflow:hidden;cursor:default;transition:transform .2s;}
+.vibe:hover{transform:translateY(-5px);}
+.vibe h3{font-size:22px;}.vibe p{font-size:13.5px;opacity:.92;margin-top:4px;}
+.vibe .emoji{position:absolute;top:18px;left:20px;font-size:30px;}
+.v-celebration{background:linear-gradient(150deg,#FF4D7E,#FF9A52);}
+.v-wedding{background:linear-gradient(150deg,#C98BB0,#E8B4B8 70%,#D9A441);}
+.v-memorial{background:linear-gradient(150deg,#6E8E7B,#A9B89C);}
+.v-corporate{background:linear-gradient(150deg,#2D6CDF,#16B8A6);}
+@media(max-width:820px){.vibes{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.vibes{grid-template-columns:1fr;}}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
+.price{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;}
+.price.feat{border:2px solid var(--brand);box-shadow:var(--shadow);position:relative;}
+.price.feat::before{content:'Most popular';position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(120deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:600;
+  padding:5px 14px;border-radius:999px;}
+.price h3{font-size:22px;}
+.price .amt{font-family:var(--display);font-size:44px;margin:10px 0 4px;}
+.price .amt span{font-size:16px;color:var(--muted);font-family:var(--ui);}
+.price ul{list-style:none;margin:18px 0 24px;display:flex;flex-direction:column;gap:11px;font-size:14.5px;}
+.price li{display:flex;gap:10px;}.price li::before{content:'✦';color:var(--brand);}
+.price .btn{margin-top:auto;justify-content:center;}
+@media(max-width:820px){.prices{grid-template-columns:1fr;}}
+
+/* footer */
+footer{background:var(--ink);color:#c7c0e0;padding:48px 0;font-size:14px;}
+footer .logo{color:#fff;}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:center;}
+
+/* ===================== APP SCREENS ===================== */
+.screen{display:none;min-height:100vh;}
+.screen.active{display:block;}
+#screen-home.active{display:block;}
+.app-pad{padding:54px 0;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);}
+.field{margin-bottom:18px;}
+.field label{display:block;font-weight:600;font-size:14px;margin-bottom:7px;}
+.field input,.field textarea,.field select{width:100%;font-family:var(--ui);font-size:15px;padding:13px 15px;
+  border:1.5px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);outline:none;transition:border .15s;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--brand);}
+.field textarea{min-height:110px;resize:vertical;}
+.vibe-pick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.vibe-pick button{border:2px solid var(--line);background:#fff;border-radius:13px;padding:14px 8px;cursor:pointer;
+  font-family:var(--ui);font-weight:600;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s;}
+.vibe-pick button .sw{width:26px;height:26px;border-radius:50%;}
+.vibe-pick button.sel{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,#fff);}
+@media(max-width:560px){.vibe-pick{grid-template-columns:repeat(2,1fr);}}
+/* option chips */
+.opts{display:flex;flex-wrap:wrap;gap:9px;}
+.opt{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;cursor:pointer;
+  font-family:var(--ui);font-weight:600;font-size:13.5px;color:var(--muted);transition:all .15s;user-select:none;}
+.opt.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,#fff);color:var(--brand);}
+.opt.dim{opacity:.4;pointer-events:none;}
+.opt-group{margin-bottom:14px;}
+.opt-group .gl{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:560px){.row2{grid-template-columns:1fr;}}
+.linkbox{display:flex;gap:10px;align-items:center;background:color-mix(in srgb,var(--brand) 6%,#fff);
+  border:1px solid var(--line);border-radius:13px;padding:12px 14px;font-size:13.5px;word-break:break-all;}
+.linkbox .btn{padding:9px 16px;font-size:13px;flex-shrink:0;}
+#qr{display:grid;place-items:center;padding:18px;background:#fff;border-radius:16px;border:1px solid var(--line);}
+#qr img,#qr canvas{border-radius:8px;}
+
+/* guest */
+.guest-hero{padding:40px 0 22px;text-align:center;}
+.guest-hero .pill{margin-bottom:14px;}
+.guest-hero h1{font-size:clamp(30px,5vw,46px);}
+.guest-hero h1 em{color:var(--brand);font-style:italic;}
+
+/* WALL display */
+#screen-wall{background:var(--bg);}
+.wall-top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;
+  padding:20px 30px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(10px);}
+.wall-top h2{font-size:24px;}.wall-top .host{font-size:13px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;}
+.wall-grid{column-count:3;column-gap:22px;padding:96px 30px 40px;}
+@media(max-width:900px){.wall-grid{column-count:2;}}
+@media(max-width:560px){.wall-grid{column-count:1;}}
+.trib{break-inside:avoid;margin-bottom:22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:18px;padding:22px;box-shadow:var(--shadow);animation:pop .6s ease both;}
+.trib img{width:100%;border-radius:12px;margin-bottom:12px;display:block;}
+.trib .msg{font-family:var(--display);font-size:19px;line-height:1.4;}
+.trib .from{margin-top:12px;font-weight:600;color:var(--brand);font-size:14px;}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:none;}}
+.empty{text-align:center;color:var(--muted);padding:80px 20px;}
+.confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:5;pointer-events:none;border-radius:2px;}
+
+.back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
+.back:hover{color:var(--brand);}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(40px);background:var(--ink);color:#fff;
+  padding:13px 22px;border-radius:999px;font-size:14px;opacity:0;transition:all .3s;z-index:99;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.note-firebase{font-size:12.5px;color:var(--muted);background:color-mix(in srgb,var(--brand) 6%,#fff);
+  border:1px dashed var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;}
+</style>
+</head>
+<body>
+
+<!-- ============ HOME / MARKETING ============ -->
+<div id="screen-home" class="screen active">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo"><span class="dot"></span>GatherWall</div>
+  <nav class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#vibes">Occasions</a>
+    <a href="#pricing">Pricing</a>
+    <a class="btn btn-primary" onclick="go('create')">Create a wall</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="floaties">
+    <div class="floaty"><b>"50 years and you still light up every room."</b><span class="who">— Auntie Rose</span></div>
+    <div class="floaty"><b>"Best boss we ever had. Enjoy retirement!"</b><span class="who">— The whole team</span></div>
+    <div class="floaty"><b>"To the happy couple — here's to forever."</b><span class="who">— Tom &amp; Priya</span></div>
+  </div>
+  <div class="wrap">
+    <span class="pill">Live tribute walls for every celebration</span>
+    <h1 style="margin-top:18px;">A living wall of <em>love</em>, on the big screen.</h1>
+    <p class="lead">Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="go('create')">Create your wall — free to try</button>
+      <button class="btn btn-ghost" onclick="loadDemoAndWall()">See a live wall ▸</button>
+    </div>
+    <div class="hero-note">No app for guests · Works on any phone · Your event, your colours.</div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head"><span class="pill">How it works</span>
+      <h2>Three steps to a wall of love</h2>
+      <p>Set it up in minutes. Guests do the rest.</p></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Create the event</h3><p class="muted">Name the guest of honour, pick the occasion, choose your colours. Your wall is ready instantly.</p></div>
+      <div class="step"><div class="n">2</div><h3>Guests leave tributes</h3><p class="muted">Share a QR code or stand a tablet at the door. Guests add a message or photo in seconds — no app needed.</p></div>
+      <div class="step"><div class="n">3</div><h3>Watch it come alive</h3><p class="muted">Open the wall on the venue screen. Every tribute floats in live, all evening long.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="vibes" class="band">
+  <div class="wrap">
+    <div class="section-head"><span class="pill">One platform, every occasion</span>
+      <h2>Each wall, styled to the moment</h2>
+      <p>Pick a vibe and the whole experience — guest page and big screen — restyles to match. Pros can add their own brand.</p></div>
+    <div class="vibes">
+      <div class="vibe v-celebration"><span class="emoji">🎉</span><h3>Celebration</h3><p>Birthdays, anniversaries, graduations, retirements.</p></div>
+      <div class="vibe v-wedding"><span class="emoji">💍</span><h3>Wedding</h3><p>A wall of well-wishes for the happy couple.</p></div>
+      <div class="vibe v-memorial"><span class="emoji">🕊️</span><h3>In Memory</h3><p>A gentle space to share memories and love.</p></div>
+      <div class="vibe v-corporate"><span class="emoji">🏆</span><h3>Corporate</h3><p>Awards nights, farewells, company milestones.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head"><span class="pill">Pricing</span>
+      <h2>Pay once, or go pro</h2>
+      <p>Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.</p></div>
+    <div class="prices">
+      <div class="price">
+        <h3>Single Event</h3>
+        <div class="amt">£39<span> / event</span></div>
+        <p class="muted">Perfect for one celebration.</p>
+        <ul><li>Up to 150 guests</li><li>QR code + tablet kiosk mode</li><li>Live wall on your screen</li><li>Download the album after</li></ul>
+        <button class="btn btn-ghost" onclick="go('create')">Start free</button>
+      </div>
+      <div class="price feat">
+        <h3>Premium Event</h3>
+        <div class="amt">£79<span> / event</span></div>
+        <p class="muted">For the big one.</p>
+        <ul><li>Unlimited guests</li><li>Photos, video &amp; messages</li><li>Custom theme &amp; branding</li><li>Moderation &amp; priority support</li></ul>
+        <button class="btn btn-primary" onclick="go('create')">Start free</button>
+      </div>
+      <div class="price">
+        <h3>Pro / White-label</h3>
+        <div class="amt">£29<span> / month</span></div>
+        <p class="muted">For DJs, MCs &amp; planners.</p>
+        <ul><li>Unlimited events</li><li>Your brand &amp; colours on every wall</li><li>Resell to your clients, keep 100%</li><li>Re-usable templates</li></ul>
+        <button class="btn btn-ghost" onclick="go('create')">Become a partner</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap foot-in">
+  <div class="logo"><span class="dot"></span>GatherWall</div>
+  <div>A living wall of love for any event · Demo build · gatherwall.com</div>
+</div></footer>
+</div>
+
+<!-- ============ CREATE EVENT ============ -->
+<div id="screen-create" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="go('home')">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:640px;">
+  <div class="back" onclick="go('home')">← Back</div>
+  <h1 style="font-size:36px;margin-bottom:6px;">Create your wall</h1>
+  <p class="muted" style="margin-bottom:28px;">Takes about a minute. You can change everything later.</p>
+  <div class="card">
+    <div class="field"><label>What's the occasion?</label>
+      <div class="vibe-pick" id="vibePick">
+        <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF4D7E,#FF9A52)"></span>Celebration</button>
+        <button data-vibe="wedding" onclick="pickVibe('wedding',this)"><span class="sw" style="background:linear-gradient(120deg,#C98BB0,#D9A441)"></span>Wedding</button>
+        <button data-vibe="memorial" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
+        <button data-vibe="corporate" onclick="pickVibe('corporate',this)"><span class="sw" style="background:linear-gradient(120deg,#2D6CDF,#16B8A6)"></span>Corporate</button>
+      </div>
+    </div>
+    <div class="field"><label>Guest of honour / event name</label>
+      <input id="evName" placeholder="e.g. Grace's 50th · Tom & Priya's Wedding"></div>
+    <div class="row2">
+      <div class="field"><label>Event date</label><input id="evDate" type="date"></div>
+      <div class="field"><label>Brand colour <span class="muted">(optional)</span></label><input id="evColor" type="color" value="#FF4D7E"></div>
+    </div>
+    <div class="field"><label>Hosted / presented by <span class="muted">(your name or brand — shows on the wall)</span></label>
+      <input id="evHost" placeholder="e.g. DJ Marcus Events"></div>
+    <div class="field"><label>When do guests leave tributes?</label>
+      <select id="evMode">
+        <option value="live">Live on the day (scrolls on screen during the event)</option>
+        <option value="before">Collected beforehand (revealed/shared on the day)</option>
+      </select></div>
+
+    <div class="field"><label>Experience options</label>
+      <div class="opt-group">
+        <div class="gl">Music</div>
+        <div class="opts" id="optMusic">
+          <span class="opt on" data-grp="music" data-val="on" onclick="optPick(this)">With music</span>
+          <span class="opt" data-grp="music" data-val="off" onclick="optPick(this)">No music</span>
+        </div>
+      </div>
+      <div class="opt-group" id="composeGroup">
+        <div class="gl">How the music is made</div>
+        <div class="opts" id="optCompose">
+          <span class="opt on" data-grp="compose" data-val="ai" onclick="optPick(this)">AI-composed</span>
+          <span class="opt" data-grp="compose" data-val="original" onclick="optPick(this)">Originally composed (not AI)</span>
+        </div>
+      </div>
+      <div class="opt-group">
+        <div class="gl">What guests can add</div>
+        <div class="opts" id="optMedia">
+          <span class="opt on" data-grp="photos" data-val="on" onclick="optToggle(this)">📷 Photos</span>
+          <span class="opt" data-grp="video" data-val="on" onclick="optToggle(this)">🎬 Video</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createEvent()">Create wall ▸</button>
+    <div class="note-firebase">Demo note: walls are saved in this browser so you can try the full journey on one device. For real events with many guests on different phones in real time, this connects to your existing Firebase project (tributewall-27c75).</div>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ SHARE ============ -->
+<div id="screen-share" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="go('home')">Done</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:680px;">
+  <div class="center" style="margin-bottom:30px;">
+    <span class="pill" id="shareVibe">Celebration</span>
+    <h1 style="font-size:38px;margin-top:14px;" id="shareTitle">Your wall is ready 🎉</h1>
+    <p class="muted">Two links: one for guests to leave tributes, one for the big screen.</p>
+  </div>
+  <div class="card" style="margin-bottom:20px;">
+    <h3 style="font-size:20px;margin-bottom:6px;">1 · For your guests</h3>
+    <p class="muted" style="font-size:14px;margin-bottom:16px;">Share this link, or print the QR for the welcome table / put it on a tablet.</p>
+    <div id="qr"></div>
+    <div class="linkbox" style="margin-top:16px;"><span id="guestLink"></span>
+      <button class="btn btn-primary" onclick="copyLink('guest')">Copy</button></div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:12px;" onclick="openGuest()">Open guest page ▸</button>
+  </div>
+  <div class="card">
+    <h3 style="font-size:20px;margin-bottom:6px;">2 · For the big screen</h3>
+    <p class="muted" style="font-size:14px;margin-bottom:16px;">Open this on the laptop/TV at the venue. Tributes appear live.</p>
+    <div class="linkbox"><span id="wallLink"></span>
+      <button class="btn btn-primary" onclick="copyLink('wall')">Copy</button></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;" onclick="openWall()">Open the live wall ▸</button>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ GUEST SUBMIT ============ -->
+<div id="screen-guest" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo"><span class="dot"></span>GatherWall</div>
+</div></header>
+<div class="guest-hero"><div class="wrap" style="max-width:620px;">
+  <span class="pill" id="guestVibe">Celebration</span>
+  <h1>Leave a tribute for <em id="guestName">the guest of honour</em></h1>
+  <p class="muted" id="guestHostLine"></p>
+</div></div>
+<div class="app-pad" style="padding-top:10px;"><div class="wrap" style="max-width:560px;">
+  <div class="card">
+    <div class="field"><label>Your message</label>
+      <textarea id="tMsg" placeholder="Share a memory, a wish, or a few kind words…"></textarea></div>
+    <div class="field"><label>Your name</label><input id="tName" placeholder="e.g. Auntie Rose"></div>
+    <div class="field" id="photoField"><label>Add a photo <span class="muted">(optional)</span></label><input id="tPhoto" type="file" accept="image/*"></div>
+    <div class="field" id="videoField" style="display:none;"><label>Add a video <span class="muted">(optional)</span></label><input id="tVideo" type="file" accept="video/*"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitTribute()">Add to the wall ✦</button>
+  </div>
+  <p class="center muted" style="margin-top:18px;font-size:13.5px;">Your message will appear on the wall at the event.</p>
+</div></div>
+</div>
+
+<!-- ============ LIVE WALL ============ -->
+<div id="screen-wall" class="screen">
+  <div class="wall-top">
+    <div><h2 id="wallTitle">The Wall</h2><div class="host" id="wallHost"></div></div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" style="padding:9px 16px;font-size:13px;" onclick="openGuestFromWall()">+ Add tribute</button>
+      <button class="btn btn-ghost" style="padding:9px 16px;font-size:13px;" onclick="go('home')">Exit</button>
+    </div>
+  </div>
+  <div class="wall-grid" id="wallGrid"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== THEME DEFINITIONS ===================== */
+const VIBES = {
+  celebration:{label:'Celebration',emoji:'🎉',brand:'#FF4D7E',brand2:'#FF9A52',brand3:'#7A5CFF',bg:'#FFF7F2',ink:'#1C1430'},
+  wedding:{label:'Wedding',emoji:'💍',brand:'#C98BB0',brand2:'#D9A441',brand3:'#E8B4B8',bg:'#FBF6F2',ink:'#2A1E26'},
+  memorial:{label:'In Memory',emoji:'🕊️',brand:'#6E8E7B',brand2:'#A9B89C',brand3:'#C9B89A',bg:'#F5F4EF',ink:'#232A26'},
+  corporate:{label:'Corporate',emoji:'🏆',brand:'#2D6CDF',brand2:'#16B8A6',brand3:'#5B8DEF',bg:'#F3F7FC',ink:'#10243F'},
+};
+function applyVibe(vibe, brandOverride){
+  const v=VIBES[vibe]||VIBES.celebration; const r=document.documentElement.style;
+  r.setProperty('--brand', brandOverride||v.brand);
+  r.setProperty('--brand2', v.brand2); r.setProperty('--brand3', v.brand3);
+  r.setProperty('--bg', v.bg); r.setProperty('--ink', v.ink);
+}
+
+/* ===================== STORAGE ===================== */
+/* ── DEMO storage (one browser) ── */
+const DB={
+  events(){return JSON.parse(localStorage.getItem('gw_events')||'{}');},
+  saveEvents(o){localStorage.setItem('gw_events',JSON.stringify(o));},
+  event(id){return this.events()[id];},
+  addEvent(e){const o=this.events();o[e.id]=e;this.saveEvents(o);},
+  tributes(id){return JSON.parse(localStorage.getItem('gw_trib_'+id)||'[]');},
+  addTribute(id,t){const a=this.tributes(id);a.push(t);localStorage.setItem('gw_trib_'+id,JSON.stringify(a));},
+};
+function uid(){return Math.random().toString(36).slice(2,8);}
+
+/* ── LIVE storage (Firebase — works across many phones in real time) ──
+   TO GO LIVE: paste your Firebase web config below.
+   Where to find it: Firebase console → Project settings (gear) →
+   "Your apps" → Web app → SDK setup and configuration → "Config".
+   Until you fill in databaseURL, the site runs in DEMO mode automatically. */
+const FIREBASE_CONFIG = {
+  // apiKey: "AIza...........",
+  // authDomain: "tributewall-27c75.firebaseapp.com",
+  // databaseURL: "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app",
+  // projectId: "tributewall-27c75",
+  // storageBucket: "tributewall-27c75.appspot.com",
+  // messagingSenderId: "..........",
+  // appId: "1:....:web:......."
+};
+let fbdb=null, USE_FB=false, wallRef=null;
+try{
+  if(FIREBASE_CONFIG.databaseURL && typeof firebase!=='undefined'){
+    firebase.initializeApp(FIREBASE_CONFIG); fbdb=firebase.database(); USE_FB=true;
+    console.log('GatherWall: LIVE mode (Firebase) ✓');
+  } else { console.log('GatherWall: DEMO mode (single browser). Add FIREBASE_CONFIG to go live.'); }
+}catch(e){ console.warn('Firebase init failed — staying in demo mode.', e); }
+
+/* Unified data layer — uses Firebase when configured, else demo storage. */
+function getEvent(id, cb){
+  if(USE_FB){ fbdb.ref('events/'+id).once('value').then(s=>cb(s.val())).catch(()=>cb(null)); }
+  else { cb(DB.event(id)); }
+}
+function saveEvent(e, cb){
+  if(USE_FB){ fbdb.ref('events/'+e.id).set(e).then(()=>cb&&cb(true)).catch(()=>{toast('Could not save — check connection');cb&&cb(false);}); }
+  else { DB.addEvent(e); cb&&cb(true); }
+}
+function addTrib(id, t, cb){
+  if(USE_FB){ fbdb.ref('tributes/'+id).push(t).then(()=>cb&&cb(true)).catch(()=>cb&&cb(false)); }
+  else { try{DB.addTribute(id,t);cb&&cb(true);}catch(err){cb&&cb(false);} }
+}
+function watchTrib(id, cb){ // real-time listener (Firebase only)
+  if(wallRef){ try{wallRef.off();}catch(e){} wallRef=null; }
+  if(USE_FB){ wallRef=fbdb.ref('tributes/'+id); wallRef.on('value', s=>{ const o=s.val()||{}; cb(Object.values(o)); }); }
+}
+
+/* ===================== OPTIONS ARRAY ===================== */
+const OPTS={music:'on',compose:'ai',photos:true,video:false};
+function optPick(el){ // single-choice groups (music, compose)
+  const grp=el.dataset.grp;
+  document.querySelectorAll(`#opt${grp[0].toUpperCase()+grp.slice(1)} .opt`).forEach(o=>o.classList.remove('on'));
+  el.classList.add('on'); OPTS[grp]=el.dataset.val;
+  if(grp==='music'){document.getElementById('composeGroup').style.display=(OPTS.music==='off')?'none':'block';}
+}
+function optToggle(el){ const grp=el.dataset.grp; el.classList.toggle('on'); OPTS[grp]=el.classList.contains('on'); }
+
+/* ===================== ROUTER ===================== */
+let pickedVibe='celebration';
+function go(screen){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+screen).classList.add('active');
+  window.scrollTo(0,0);
+}
+function parseHash(){
+  const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
+  const params=new URLSearchParams(q||'');
+  return {path, ev:params.get('ev')};
+}
+function route(){
+  const {path,ev}=parseHash();
+  if(path==='guest'&&ev){return renderGuest(ev);}
+  if(path==='wall'&&ev){return renderWall(ev);}
+  if(path==='create'){applyVibe('celebration');return go('create');}
+  if(path==='home'||path===''){applyVibe('celebration');return go('home');}
+}
+window.addEventListener('hashchange',route);
+
+/* ===================== CREATE ===================== */
+function pickVibe(v,btn){
+  pickedVibe=v;
+  document.querySelectorAll('#vibePick button').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  applyVibe(v);
+  document.getElementById('evColor').value=VIBES[v].brand;
+}
+function createEvent(){
+  const name=document.getElementById('evName').value.trim();
+  if(!name){toast('Please name the event');return;}
+  const e={id:uid(),name,vibe:pickedVibe,
+    color:document.getElementById('evColor').value,
+    host:document.getElementById('evHost').value.trim(),
+    date:document.getElementById('evDate').value,
+    mode:document.getElementById('evMode').value,
+    opts:Object.assign({},OPTS)};
+  saveEvent(e, ()=>showShare(e));
+}
+
+/* ===================== SHARE ===================== */
+function baseURL(){return location.href.split('#')[0];}
+function showShare(e){
+  const id=e.id; applyVibe(e.vibe,e.color);
+  document.getElementById('shareVibe').textContent=VIBES[e.vibe].label;
+  document.getElementById('shareTitle').textContent='“'+e.name+'” is ready '+VIBES[e.vibe].emoji;
+  const g=baseURL()+'#guest?ev='+id, w=baseURL()+'#wall?ev='+id;
+  document.getElementById('guestLink').textContent=g;
+  document.getElementById('wallLink').textContent=w;
+  document.getElementById('qr').innerHTML='';
+  try{new QRCode(document.getElementById('qr'),{text:g,width:180,height:180,
+    colorDark:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#1C1430',colorLight:'#ffffff'});}
+  catch(err){document.getElementById('qr').innerHTML='<p class="muted" style="font-size:13px">QR needs internet — use the link below.</p>';}
+  go('share'); window._cur=id;
+}
+function copyLink(which){
+  const t=document.getElementById(which+'Link').textContent;
+  navigator.clipboard.writeText(t).then(()=>toast('Link copied ✦')).catch(()=>toast('Copy failed — long-press to copy'));
+}
+function openGuest(){location.hash='guest?ev='+window._cur;}
+function openWall(){location.hash='wall?ev='+window._cur;}
+
+/* ===================== GUEST ===================== */
+let guestEv=null;
+function renderGuest(id){
+  getEvent(id, e=>{
+    if(!e){toast('Event not found');return go('home');}
+    guestEv=id; applyVibe(e.vibe,e.color);
+    document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
+    document.getElementById('guestName').textContent=e.name;
+    let line=e.host?('Presented by '+e.host):'';
+    if(e.opts&&e.opts.music==='on'){line+=(line?' · ':'')+'🎵 '+(e.opts.compose==='ai'?'with a custom song':'with an original composition');}
+    document.getElementById('guestHostLine').textContent=line;
+    const o=e.opts||{photos:true,video:false};
+    document.getElementById('photoField').style.display=(o.photos!==false)?'block':'none';
+    document.getElementById('videoField').style.display=(o.video===true)?'block':'none';
+    go('guest');
+  });
+}
+let photoData=null;
+document.getElementById('tPhoto').addEventListener('change',function(){
+  const f=this.files[0]; if(!f){photoData=null;return;}
+  const reader=new FileReader();
+  reader.onload=ev=>{ // downscale to keep storage small
+    const img=new Image(); img.onload=()=>{
+      const max=900,sc=Math.min(1,max/img.width); const c=document.createElement('canvas');
+      c.width=img.width*sc;c.height=img.height*sc;c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      photoData=c.toDataURL('image/jpeg',0.8);
+    }; img.src=ev.target.result;
+  }; reader.readAsDataURL(f);
+});
+let videoData=null;
+const tv=document.getElementById('tVideo');
+if(tv) tv.addEventListener('change',function(){
+  const f=this.files[0]; if(!f){videoData=null;return;}
+  if(f.size>4*1024*1024){toast('Video too large for the demo (max ~4MB)');this.value='';videoData=null;return;}
+  const r=new FileReader(); r.onload=ev=>{videoData=ev.target.result;}; r.readAsDataURL(f);
+});
+function submitTribute(){
+  const msg=document.getElementById('tMsg').value.trim();
+  const name=document.getElementById('tName').value.trim()||'A guest';
+  if(!msg){toast('Please write a message');return;}
+  addTrib(guestEv,{msg,name,photo:photoData,video:videoData,ts:Date.now()}, ok=>{
+    if(!ok){ toast('Could not add — try a smaller/no photo or check connection'); return; }
+    document.getElementById('tMsg').value='';document.getElementById('tName').value='';
+    document.getElementById('tPhoto').value='';photoData=null;
+    if(tv)tv.value=''; videoData=null;
+    toast('Added to the wall ✦ thank you!');
+    burst();
+  });
+}
+
+/* ===================== WALL ===================== */
+let wallEv=null,wallTimer=null,lastCount=-1;
+function renderWall(id){
+  getEvent(id, e=>{
+    if(!e){toast('Event not found');return go('home');}
+    wallEv=id; lastCount=-1; applyVibe(e.vibe,e.color);
+    document.getElementById('wallTitle').textContent=e.name;
+    document.getElementById('wallHost').textContent=e.host?('Presented by '+e.host):VIBES[e.vibe].label;
+    go('wall');
+    clearInterval(wallTimer);
+    if(USE_FB){ watchTrib(id, paintList); }      // real-time across devices
+    else { paintWall(); wallTimer=setInterval(paintWall,1500); }  // demo polling
+  });
+}
+function paintWall(){ paintList(DB.tributes(wallEv)); }
+function paintList(list){
+  list=(list||[]).slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+  const grid=document.getElementById('wallGrid');
+  if(list.length===lastCount)return;
+  const grew=list.length>lastCount&&lastCount!==-1; lastCount=list.length;
+  if(!list.length){grid.innerHTML='<div class="empty"><h2 style="font-size:30px">No tributes yet…</h2><p>Be the first — scan the code and say something lovely.</p></div>';return;}
+  grid.innerHTML=list.slice().reverse().map(t=>`<div class="trib">
+    ${t.video?`<video src="${t.video}" controls style="width:100%;border-radius:12px;margin-bottom:12px;"></video>`:(t.photo?`<img src="${t.photo}" alt="">`:'')}
+    <div class="msg">“${escapeHTML(t.msg)}”</div>
+    <div class="from">— ${escapeHTML(t.name)}</div></div>`).join('');
+  if(grew)burst();
+}
+function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
+function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ===================== DEMO + FX ===================== */
+function loadDemoAndWall(){
+  const id='demo01';
+  const items=[
+    ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
+    ["From Accra to London — what a journey, what a woman.","Kwame"],
+    ["Happy birthday Mum. You're our hero, every single day.","Ama, Kofi & Esi"],
+    ["The best dancer at every party since 1976 💃","The Cousins"],
+    ["To my best friend of 30 years — here's to 30 more.","Linda"]];
+  getEvent(id, e=>{
+    if(e){ location.hash='wall?ev='+id; return; }
+    saveEvent({id,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Marcus Events',
+      date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false}}, ()=>{
+      let i=0;(function next(){ if(i>=items.length){location.hash='wall?ev='+id;return;}
+        addTrib(id,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
+    });
+  });
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function burst(){
+  const cols=[getComputedStyle(document.documentElement).getPropertyValue('--brand'),
+    getComputedStyle(document.documentElement).getPropertyValue('--brand2'),
+    getComputedStyle(document.documentElement).getPropertyValue('--brand3')];
+  for(let i=0;i<26;i++){const c=document.createElement('div');c.className='confetti';
+    c.style.left=Math.random()*100+'vw';c.style.background=cols[i%3];
+    c.style.transform='rotate('+Math.random()*360+'deg)';document.body.appendChild(c);
+    const dur=1400+Math.random()*1200;
+    c.animate([{top:'-10px',opacity:1},{top:'100vh',opacity:.9}],{duration:dur,easing:'ease-in'});
+    setTimeout(()=>c.remove(),dur);}
+}
+
+/* ===================== BOOT ===================== */
+if(location.hash){route();} else {applyVibe('celebration');go('home');}
+</script>
+</body>
+</html>
