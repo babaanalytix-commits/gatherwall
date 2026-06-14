@@ -328,7 +328,9 @@ footer .logo{color:#fff;}
       <div class="field"><label>Brand colour <span class="muted">(optional)</span></label><input id="evColor" type="color" value="#FF4D7E"></div>
     </div>
     <div class="field"><label>Hosted / presented by <span class="muted">(your name or brand — shows on the wall)</span></label>
-      <input id="evHost" placeholder="e.g. Moraks"></div>
+      <input id="evHost" placeholder="e.g. DJ Moraks - Premier AVE"></div>
+    <div class="field"><label>Your website / booking link <span class="muted">(optional — your brand on the wall becomes a clickable link)</span></label>
+      <input id="evLink" placeholder="e.g. https://premier-ave.co.uk/"></div>
     <div class="field"><label>When do guests leave tributes?</label>
       <select id="evMode">
         <option value="live">Live on the day (scrolls on screen during the event)</option>
@@ -558,6 +560,7 @@ function createEvent(){
   const e={id:uid(),name,vibe:pickedVibe,
     color:document.getElementById('evColor').value,
     host:document.getElementById('evHost').value.trim(),
+    hostLink:document.getElementById('evLink').value.trim(),
     date:document.getElementById('evDate').value,
     mode:document.getElementById('evMode').value,
     opts:Object.assign({},OPTS)};
@@ -594,9 +597,9 @@ function renderGuest(id){
     guestEv=id; applyVibe(e.vibe,e.color);
     document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
     document.getElementById('guestName').textContent=e.name;
-    let line=e.host?('Presented by '+e.host):'';
+    let line=e.host?hostHTML(e):'';
     if(e.opts&&e.opts.music==='on'){line+=(line?' · ':'')+'🎵 '+(e.opts.compose==='ai'?'with a custom song':'with an original composition');}
-    document.getElementById('guestHostLine').textContent=line;
+    document.getElementById('guestHostLine').innerHTML=line;
     const o=e.opts||{photos:true,video:false};
     document.getElementById('photoField').style.display=(o.photos!==false)?'block':'none';
     document.getElementById('videoField').style.display=(o.video===true)?'block':'none';
@@ -677,7 +680,7 @@ function renderWall(id){
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderWall(id));} toast('Event not found');return go('home'); }
     wallEv=id; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
-    document.getElementById('wallHost').textContent=e.host?('Presented by '+e.host):VIBES[e.vibe].label;
+    document.getElementById('wallHost').innerHTML=hostHTML(e);
     go('wall');
     clearInterval(wallTimer);
     if(USE_FB){ watchTrib(id, paintList); }      // real-time across devices
@@ -699,9 +702,16 @@ function paintList(list){
 }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function safeURL(u){ if(!u)return ''; u=String(u).trim(); if(!u)return ''; if(!/^https?:\/\//i.test(u))u='https://'+u;
+  try{const x=new URL(u); if(x.protocol==='http:'||x.protocol==='https:')return x.href;}catch(e){} return ''; }
+function hostHTML(e){ // brand name, linked to their site if provided (white-label marketing)
+  const name=e.host||VIBES[e.vibe].label; const link=safeURL(e.hostLink);
+  const inner=link?`<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--brand);text-decoration:none;border-bottom:1px solid currentColor;">${escapeHTML(name)}</a>`:escapeHTML(name);
+  return (e.host?'Presented by ':'')+inner;
+}
 
 /* ===================== DEMO + FX ===================== */
-const DEMO_ID='demo02';
+const DEMO_ID='demo03';
 function seedDemo(cb){
   const items=[
     ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
@@ -711,7 +721,8 @@ function seedDemo(cb){
     ["To my best friend of 30 years — here's to 30 more.","Linda"]];
   getEvent(DEMO_ID, e=>{
     if(e){ cb&&cb(); return; }
-    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'Moraks',
+    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Moraks - Premier AVE',
+      hostLink:'https://premier-ave.co.uk/',
       date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false}}, ()=>{
       let i=0;(function next(){ if(i>=items.length){cb&&cb();return;}
         addTrib(DEMO_ID,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
