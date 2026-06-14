@@ -168,6 +168,16 @@ footer .logo{color:#fff;}
 .guest-hero .pill{margin-bottom:14px;}
 .guest-hero h1{font-size:clamp(30px,5vw,46px);}
 .guest-hero h1 em{color:var(--brand);font-style:italic;}
+.photo-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.photo-actions .btn,.photo-actions label.btn{font-size:13.5px;padding:11px 18px;cursor:pointer;}
+#cameraBox{margin-top:14px;}
+#cameraBox video{width:100%;max-width:360px;border-radius:14px;background:#000;display:block;border:1px solid var(--line);}
+.cam-controls{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.cam-controls .btn{font-size:13.5px;padding:10px 16px;}
+#photoPreview{margin-top:12px;}
+#photoPreview img{width:120px;height:120px;object-fit:cover;border-radius:12px;border:1.5px solid var(--brand);}
+#photoPreview .rm{font-size:12px;margin-top:6px;color:var(--muted);}
+#photoPreview .rm a{color:var(--brand);cursor:pointer;}
 
 /* WALL display */
 #screen-wall{background:var(--bg);}
@@ -318,7 +328,7 @@ footer .logo{color:#fff;}
       <div class="field"><label>Brand colour <span class="muted">(optional)</span></label><input id="evColor" type="color" value="#FF4D7E"></div>
     </div>
     <div class="field"><label>Hosted / presented by <span class="muted">(your name or brand — shows on the wall)</span></label>
-      <input id="evHost" placeholder="e.g. DJ Marcus Events"></div>
+      <input id="evHost" placeholder="e.g. Moraks"></div>
     <div class="field"><label>When do guests leave tributes?</label>
       <select id="evMode">
         <option value="live">Live on the day (scrolls on screen during the event)</option>
@@ -400,7 +410,21 @@ footer .logo{color:#fff;}
     <div class="field"><label>Your message</label>
       <textarea id="tMsg" placeholder="Share a memory, a wish, or a few kind words…"></textarea></div>
     <div class="field"><label>Your name</label><input id="tName" placeholder="e.g. Auntie Rose"></div>
-    <div class="field" id="photoField"><label>Add a photo <span class="muted">(optional)</span></label><input id="tPhoto" type="file" accept="image/*"></div>
+    <div class="field" id="photoField"><label>Add a photo <span class="muted">(optional)</span></label>
+      <div class="photo-actions">
+        <button type="button" class="btn btn-primary" onclick="openCamera()">📸 Take a photo</button>
+        <label class="btn btn-ghost">⬆ Upload<input id="tPhoto" type="file" accept="image/*" style="display:none"></label>
+      </div>
+      <div id="cameraBox" style="display:none;">
+        <video id="camVideo" autoplay playsinline muted></video>
+        <div class="cam-controls">
+          <button type="button" class="btn btn-primary" onclick="snapPhoto()">Capture ✦</button>
+          <button type="button" class="btn btn-ghost" onclick="flipCamera()">⟲ Flip</button>
+          <button type="button" class="btn btn-ghost" onclick="closeCamera()">Cancel</button>
+        </div>
+      </div>
+      <div id="photoPreview"></div>
+    </div>
     <div class="field" id="videoField" style="display:none;"><label>Add a video <span class="muted">(optional)</span></label><input id="tVideo" type="file" accept="video/*"></div>
     <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitTribute()">Add to the wall ✦</button>
   </div>
@@ -587,10 +611,43 @@ document.getElementById('tPhoto').addEventListener('change',function(){
     const img=new Image(); img.onload=()=>{
       const max=900,sc=Math.min(1,max/img.width); const c=document.createElement('canvas');
       c.width=img.width*sc;c.height=img.height*sc;c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-      photoData=c.toDataURL('image/jpeg',0.8);
+      photoData=c.toDataURL('image/jpeg',0.8); showPhotoPreview();
     }; img.src=ev.target.result;
   }; reader.readAsDataURL(f);
 });
+
+/* ── Live camera (take a photo on the spot) ── */
+let camStream=null, camFacing='user';
+function openCamera(){ document.getElementById('cameraBox').style.display='block'; startCam(); }
+function startCam(){
+  stopCam();
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    toast('Camera not supported on this device'); closeCamera(); return; }
+  navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing},audio:false}).then(s=>{
+    camStream=s; const v=document.getElementById('camVideo'); v.srcObject=s; v.play().catch(()=>{});
+  }).catch(()=>{ toast('Could not open camera — allow camera access and try again'); closeCamera(); });
+}
+function flipCamera(){ camFacing=(camFacing==='user')?'environment':'user'; startCam(); }
+function snapPhoto(){
+  const v=document.getElementById('camVideo');
+  if(!v||!v.videoWidth){ toast('Camera still loading — try again in a second'); return; }
+  const max=900, sc=Math.min(1,max/v.videoWidth);
+  const c=document.createElement('canvas'); c.width=v.videoWidth*sc; c.height=v.videoHeight*sc;
+  const ctx=c.getContext('2d');
+  if(camFacing==='user'){ ctx.translate(c.width,0); ctx.scale(-1,1); } // un-mirror selfie
+  ctx.drawImage(v,0,0,c.width,c.height);
+  photoData=c.toDataURL('image/jpeg',0.8);
+  showPhotoPreview(); closeCamera(); toast('Photo captured ✦');
+}
+function closeCamera(){ stopCam(); const b=document.getElementById('cameraBox'); if(b)b.style.display='none'; }
+function stopCam(){ if(camStream){camStream.getTracks().forEach(t=>t.stop()); camStream=null;} }
+function showPhotoPreview(){
+  const p=document.getElementById('photoPreview'); if(!p)return;
+  p.innerHTML = photoData
+    ? `<img src="${photoData}" alt="your photo"><div class="rm">Photo ready ✓ · <a onclick="clearPhoto()">remove</a></div>`
+    : '';
+}
+function clearPhoto(){ photoData=null; const f=document.getElementById('tPhoto'); if(f)f.value=''; showPhotoPreview(); }
 let videoData=null;
 const tv=document.getElementById('tVideo');
 if(tv) tv.addEventListener('change',function(){
@@ -607,6 +664,7 @@ function submitTribute(){
     document.getElementById('tMsg').value='';document.getElementById('tName').value='';
     document.getElementById('tPhoto').value='';photoData=null;
     if(tv)tv.value=''; videoData=null;
+    closeCamera(); showPhotoPreview();
     toast('Added to the wall ✦ thank you!');
     burst();
   });
@@ -643,7 +701,7 @@ function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 /* ===================== DEMO + FX ===================== */
-const DEMO_ID='demo01';
+const DEMO_ID='demo02';
 function seedDemo(cb){
   const items=[
     ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
@@ -653,7 +711,7 @@ function seedDemo(cb){
     ["To my best friend of 30 years — here's to 30 more.","Linda"]];
   getEvent(DEMO_ID, e=>{
     if(e){ cb&&cb(); return; }
-    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Marcus Events',
+    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'Moraks',
       date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false}}, ()=>{
       let i=0;(function next(){ if(i>=items.length){cb&&cb();return;}
         addTrib(DEMO_ID,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
