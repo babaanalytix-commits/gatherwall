@@ -566,7 +566,7 @@ function openWall(){location.hash='wall?ev='+window._cur;}
 let guestEv=null;
 function renderGuest(id){
   getEvent(id, e=>{
-    if(!e){toast('Event not found');return go('home');}
+    if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id));} toast('Event not found');return go('home'); }
     guestEv=id; applyVibe(e.vibe,e.color);
     document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
     document.getElementById('guestName').textContent=e.name;
@@ -616,7 +616,7 @@ function submitTribute(){
 let wallEv=null,wallTimer=null,lastCount=-1;
 function renderWall(id){
   getEvent(id, e=>{
-    if(!e){toast('Event not found');return go('home');}
+    if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderWall(id));} toast('Event not found');return go('home'); }
     wallEv=id; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
     document.getElementById('wallHost').textContent=e.host?('Presented by '+e.host):VIBES[e.vibe].label;
@@ -643,23 +643,24 @@ function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 /* ===================== DEMO + FX ===================== */
-function loadDemoAndWall(){
-  const id='demo01';
+const DEMO_ID='demo01';
+function seedDemo(cb){
   const items=[
     ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
     ["From Accra to London — what a journey, what a woman.","Kwame"],
     ["Happy birthday Mum. You're our hero, every single day.","Ama, Kofi & Esi"],
     ["The best dancer at every party since 1976 💃","The Cousins"],
     ["To my best friend of 30 years — here's to 30 more.","Linda"]];
-  getEvent(id, e=>{
-    if(e){ location.hash='wall?ev='+id; return; }
-    saveEvent({id,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Marcus Events',
+  getEvent(DEMO_ID, e=>{
+    if(e){ cb&&cb(); return; }
+    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Marcus Events',
       date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false}}, ()=>{
-      let i=0;(function next(){ if(i>=items.length){location.hash='wall?ev='+id;return;}
-        addTrib(id,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
+      let i=0;(function next(){ if(i>=items.length){cb&&cb();return;}
+        addTrib(DEMO_ID,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
     });
   });
 }
+function loadDemoAndWall(){ seedDemo(()=>{ location.hash='wall?ev='+DEMO_ID; }); }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
 function burst(){
