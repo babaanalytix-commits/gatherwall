@@ -300,10 +300,11 @@ body.kioskmode header.nav{display:none;}
 <header class="nav"><div class="wrap nav-in">
   <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <nav class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#formats">Formats</a>
-    <a href="#pricing">Pricing</a>
-    <a class="btn btn-primary" onclick="go('create')">Create a wall</a>
+    <a href="#how" id="hn_how">How it works</a>
+    <a href="#formats" id="hn_formats">Formats</a>
+    <a href="#pricing" id="hn_pricing">Pricing</a>
+    <span id="homeLang" class="lang-bar" style="margin:0"></span>
+    <a class="btn btn-primary" id="hn_create" onclick="go('create')">Create a wall</a>
   </nav>
 </div></header>
 
@@ -315,21 +316,21 @@ body.kioskmode header.nav{display:none;}
     <div class="floaty"><b>"To the happy couple — here's to forever."</b><span class="who">— Tom &amp; Priya</span></div>
   </div>
   <div class="wrap">
-    <span class="pill">Live tribute walls for every celebration</span>
-    <h1 style="margin-top:18px;">A living wall of <em>love</em>, on the big screen.</h1>
-    <p class="lead">Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.</p>
+    <span class="pill" id="h_heroPill">Live tribute walls for every celebration</span>
+    <h1 style="margin-top:18px;" id="h_heroH1">A living wall of <em>love</em>, on the big screen.</h1>
+    <p class="lead" id="h_heroLead">Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.</p>
     <div class="hero-cta">
-      <button class="btn btn-primary" onclick="go('create')">Create your wall — free to try</button>
-      <button class="btn btn-ghost" onclick="loadDemoAndWall()">See a live wall ▸</button>
+      <button class="btn btn-primary" id="h_cta1" onclick="go('create')">Create your wall — free to try</button>
+      <button class="btn btn-ghost" id="h_cta2" onclick="loadDemoAndWall()">See a live wall ▸</button>
     </div>
-    <div class="hero-note">No app for guests · Works on any phone · Your event, your colours.</div>
+    <div class="hero-note" id="h_heroNote">No app for guests · Works on any phone · Your event, your colours.</div>
   </div>
 </div>
 
 <section id="how">
   <div class="wrap">
-    <div class="section-head"><span class="pill">How it works</span>
-      <h2>Three steps to a wall of love</h2>
+    <div class="section-head"><span class="pill" id="h_howPill">How it works</span>
+      <h2 id="h_howH2">Three steps to a wall of love</h2>
       <p>Set it up in minutes. Guests do the rest.</p></div>
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>Create the event</h3><p class="muted">Name the guest of honour, pick the occasion, choose your colours. Your wall is ready instantly.</p></div>
@@ -341,8 +342,8 @@ body.kioskmode header.nav{display:none;}
 
 <section id="vibes" class="band">
   <div class="wrap">
-    <div class="section-head"><span class="pill">One platform, every occasion</span>
-      <h2>Each wall, styled to the moment</h2>
+    <div class="section-head"><span class="pill" id="h_vibPill">One platform, every occasion</span>
+      <h2 id="h_vibH2">Each wall, styled to the moment</h2>
       <p>Pick a vibe and the whole experience — guest page and big screen — restyles to match. Pros can add their own brand.</p></div>
     <div class="vibes">
       <div class="vibe v-celebration"><span class="emoji">🎉</span><h3>Celebration</h3><p>Birthdays, anniversaries, graduations, retirements.</p></div>
@@ -355,8 +356,8 @@ body.kioskmode header.nav{display:none;}
 
 <section id="formats">
   <div class="wrap">
-    <div class="section-head"><span class="pill">Choose your experience</span>
-      <h2>One platform, many ways to honour a moment</h2>
+    <div class="section-head"><span class="pill" id="h_fmtPill">Choose your experience</span>
+      <h2 id="h_fmtH2">One platform, many ways to honour a moment</h2>
       <p>From a live party wall to a lasting memorial or a bespoke keepsake — pick the format that fits, at a price that fits.</p></div>
     <div class="formats-grid">
       <div class="fmt">
@@ -393,8 +394,8 @@ body.kioskmode header.nav{display:none;}
 
 <section id="pricing">
   <div class="wrap">
-    <div class="section-head"><span class="pill">Live Tribute Wall · pricing</span>
-      <h2>Pay once, or go pro</h2>
+    <div class="section-head"><span class="pill" id="h_priPill">Live Tribute Wall · pricing</span>
+      <h2 id="h_priH2">Pay once, or go pro</h2>
       <p>The live wall in detail. Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.</p></div>
     <div class="prices">
       <div class="price">
@@ -714,6 +715,49 @@ const I18N={
     gestures:{celebration:{label:"Stoß an",emoji:"🥂"},wedding:{label:"Sende deine Liebe",emoji:"💞"},memorial:{label:"Zünde eine Kerze an",emoji:"🕯️"},corporate:{label:"Applaudiere",emoji:"👏"}}},
 };
 function L(){ return I18N[guestLang]||I18N.en; }
+const HOME_I18N={
+  en:{navHow:"How it works",navFormats:"Formats",navPricing:"Pricing",navCreate:"Create a wall",
+    heroPill:"Live tribute walls for every celebration",heroH1:"A living wall of <em>love</em>, on the big screen.",
+    heroLead:"Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.",
+    cta1:"Create your wall — free to try",cta2:"See a live wall ▸",heroNote:"No app for guests · Works on any phone · Your event, your colours.",
+    howPill:"How it works",howH2:"Three steps to a wall of love",fmtPill:"Choose your experience",fmtH2:"One platform, many ways to honour a moment",
+    priPill:"Live Tribute Wall · pricing",priH2:"Pay once, or go pro",vibPill:"One platform, every occasion",vibH2:"Each wall, styled to the moment"},
+  fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créer un mur",
+    heroPill:"Murs d'hommage en direct pour chaque célébration",heroH1:"Un mur vivant d'<em>amour</em>, sur grand écran.",
+    heroLead:"Les invités scannent un code ou utilisent une tablette, laissent un message ou une photo, et tout s'affiche en direct à l'écran — un mur d'hommages qui se construit toute la soirée pour la personne qui compte. Mariages, grands anniversaires, départs en retraite, hommages et plus encore.",
+    cta1:"Créez votre mur — essai gratuit",cta2:"Voir un mur en direct ▸",heroNote:"Aucune appli pour les invités · Sur tout téléphone · Votre événement, vos couleurs.",
+    howPill:"Comment ça marche",howH2:"Trois étapes vers un mur d'amour",fmtPill:"Choisissez votre expérience",fmtH2:"Une plateforme, mille façons d'honorer un moment",
+    priPill:"Mur d'hommage en direct · tarifs",priH2:"Payez une fois, ou passez en Pro",vibPill:"Une plateforme, chaque occasion",vibH2:"Chaque mur, au style du moment"},
+  es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crear un muro",
+    heroPill:"Muros de homenaje en directo para cada celebración",heroH1:"Un muro vivo de <em>amor</em>, en la gran pantalla.",
+    heroLead:"Los invitados escanean un código o usan una tablet, dejan un mensaje o una foto, y aparece en directo en la pantalla — un muro de homenajes que crece toda la noche para la persona que importa. Bodas, grandes cumpleaños, jubilaciones, homenajes y mucho más.",
+    cta1:"Crea tu muro — prueba gratis",cta2:"Ver un muro en directo ▸",heroNote:"Sin app para invitados · En cualquier móvil · Tu evento, tus colores.",
+    howPill:"Cómo funciona",howH2:"Tres pasos hacia un muro de amor",fmtPill:"Elige tu experiencia",fmtH2:"Una plataforma, muchas formas de honrar un momento",
+    priPill:"Muro de homenaje en directo · precios",priH2:"Paga una vez, o hazte Pro",vibPill:"Una plataforma, cada ocasión",vibH2:"Cada muro, al estilo del momento"},
+  cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit zeď",
+    heroPill:"Živé zdi vzkazů pro každou oslavu",heroH1:"Živá zeď plná <em>lásky</em>, na velké obrazovce.",
+    heroLead:"Hosté naskenují kód nebo použijí tablet, zanechají vzkaz nebo fotku a vše se živě objeví na obrazovce — zeď vzkazů, která roste celý večer pro toho, na kom záleží. Svatby, velká výročí, odchody do důchodu, vzpomínky a mnoho dalšího.",
+    cta1:"Vytvořte svou zeď — zkuste zdarma",cta2:"Zobrazit živou zeď ▸",heroNote:"Žádná aplikace pro hosty · Na každém telefonu · Vaše akce, vaše barvy.",
+    howPill:"Jak to funguje",howH2:"Tři kroky ke zdi plné lásky",fmtPill:"Vyberte si zážitek",fmtH2:"Jedna platforma, mnoho způsobů, jak uctít okamžik",
+    priPill:"Živá zeď vzkazů · ceník",priH2:"Zaplaťte jednou, nebo přejděte na Pro",vibPill:"Jedna platforma, každá příležitost",vibH2:"Každá zeď ve stylu okamžiku"},
+  de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Wand erstellen",
+    heroPill:"Live-Erinnerungswände für jede Feier",heroH1:"Eine lebendige Wand voller <em>Liebe</em>, auf der großen Leinwand.",
+    heroLead:"Gäste scannen einen Code oder tippen auf ein Tablet, hinterlassen eine Nachricht oder ein Foto, und es erscheint live auf dem Bildschirm — eine Wand voller Botschaften, die den ganzen Abend für den wichtigen Menschen wächst. Hochzeiten, runde Geburtstage, Ruhestand, Gedenkfeiern und mehr.",
+    cta1:"Erstelle deine Wand — kostenlos testen",cta2:"Live-Wand ansehen ▸",heroNote:"Keine App für Gäste · Auf jedem Handy · Dein Event, deine Farben.",
+    howPill:"So funktioniert's",howH2:"In drei Schritten zur Wand voller Liebe",fmtPill:"Wähle dein Erlebnis",fmtH2:"Eine Plattform, viele Wege, einen Moment zu ehren",
+    priPill:"Live-Erinnerungswand · Preise",priH2:"Einmal zahlen oder Pro werden",vibPill:"Eine Plattform, jeder Anlass",vibH2:"Jede Wand, im Stil des Moments"},
+};
+function buildHomeLang(){ const bar=document.getElementById('homeLang'); if(!bar)return;
+  bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
+function setH(id,txt,html){ const el=document.getElementById(id); if(!el)return; if(html)el.innerHTML=txt; else el.textContent=txt; }
+function applyHomeLang(){
+  const t=HOME_I18N[guestLang]||HOME_I18N.en;
+  setH('hn_how',t.navHow);setH('hn_formats',t.navFormats);setH('hn_pricing',t.navPricing);setH('hn_create',t.navCreate);
+  setH('h_heroPill',t.heroPill);setH('h_heroH1',t.heroH1,true);setH('h_heroLead',t.heroLead);
+  setH('h_cta1',t.cta1);setH('h_cta2',t.cta2);setH('h_heroNote',t.heroNote);
+  setH('h_howPill',t.howPill);setH('h_howH2',t.howH2);setH('h_fmtPill',t.fmtPill);setH('h_fmtH2',t.fmtH2);
+  setH('h_priPill',t.priPill);setH('h_priH2',t.priH2);setH('h_vibPill',t.vibPill);setH('h_vibH2',t.vibH2);
+}
 function defaultLang(){ const s=localStorage.getItem('gw_lang'); if(s&&I18N[s])return s; const n=(navigator.language||'en').slice(0,2).toLowerCase(); return I18N[n]?n:'en'; }
 const GESTURES={
   celebration:{label:'Raise a toast',emoji:'🥂',noun:'toasts'},
@@ -1003,7 +1047,7 @@ function renderPrompts(vibe){
 }
 function buildLangBar(){ const bar=document.getElementById('langBar'); if(!bar)return;
   bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
-function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} buildLangBar(); applyGuestLang(); }
+function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} buildLangBar(); applyGuestLang(); buildHomeLang(); applyHomeLang(); }
 function setTxt(id,txt){ const el=document.getElementById(id); if(el)el.textContent=txt; }
 function applyGuestLang(){
   const t=L(), e=guestEvObj||{};
@@ -1319,6 +1363,7 @@ function burst(){
 }
 
 /* ===================== BOOT ===================== */
+guestLang=defaultLang(); buildHomeLang(); applyHomeLang();
 if(location.hash){route();} else {applyVibe('celebration');go('home');}
 </script>
 </body>
