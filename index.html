@@ -267,6 +267,22 @@ body.kioskmode header.nav{display:none;}
 .lang-bar{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
 .lang-bar button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);font-family:var(--ui);transition:all .15s;}
 .lang-bar button.on{border-color:var(--brand);color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,#fff);}
+/* format menu */
+.formats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.fmt{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;}
+.fmt-emoji{font-size:34px;margin-bottom:10px;}
+.fmt h3{font-size:21px;margin-bottom:8px;}
+.fmt p{font-size:14px;flex:1;color:var(--muted);}
+.fmt-price{font-family:var(--display);font-size:18px;color:var(--brand);margin:14px 0 16px;font-weight:600;}
+.fmt .btn{justify-content:center;}
+@media(max-width:900px){.formats-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.formats-grid{grid-template-columns:1fr;}}
+/* enquiry modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(20,12,30,.55);display:none;align-items:center;justify-content:center;z-index:400;padding:20px;}
+.modal-overlay.on{display:flex;}
+.modal{background:var(--surface);border-radius:18px;padding:30px;max-width:430px;text-align:center;box-shadow:var(--shadow);}
+.modal h3{font-size:24px;margin-bottom:10px;}
+.modal .btn{width:100%;justify-content:center;margin-top:10px;}
 
 .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
 .back:hover{color:var(--brand);}
@@ -285,7 +301,7 @@ body.kioskmode header.nav{display:none;}
   <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <nav class="nav-links">
     <a href="#how">How it works</a>
-    <a href="#vibes">Occasions</a>
+    <a href="#formats">Formats</a>
     <a href="#pricing">Pricing</a>
     <a class="btn btn-primary" onclick="go('create')">Create a wall</a>
   </nav>
@@ -337,11 +353,49 @@ body.kioskmode header.nav{display:none;}
   </div>
 </section>
 
+<section id="formats">
+  <div class="wrap">
+    <div class="section-head"><span class="pill">Choose your experience</span>
+      <h2>One platform, many ways to honour a moment</h2>
+      <p>From a live party wall to a lasting memorial or a bespoke keepsake — pick the format that fits, at a price that fits.</p></div>
+    <div class="formats-grid">
+      <div class="fmt">
+        <div class="fmt-emoji">🎉</div>
+        <h3>Live Tribute Wall</h3>
+        <p>Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.</p>
+        <div class="fmt-price">From £39 / event · Pro £29/mo</div>
+        <button class="btn btn-primary" onclick="go('create')">Create a wall ▸</button>
+      </div>
+      <div class="fmt">
+        <div class="fmt-emoji">🕊️</div>
+        <h3>Memorial &amp; Eulogy</h3>
+        <p>A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
+        <div class="fmt-price">£49 – £149</div>
+        <button class="btn btn-ghost" onclick="createMemorial()">Create a memorial ▸</button>
+      </div>
+      <div class="fmt">
+        <div class="fmt-emoji">🎬</div>
+        <h3>Animated Keepsake Story</h3>
+        <p>A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
+        <div class="fmt-price">£79 – £199</div>
+        <button class="btn btn-ghost" onclick="enquire('Animated Keepsake Story')">Enquire ▸</button>
+      </div>
+      <div class="fmt">
+        <div class="fmt-emoji">✨</div>
+        <h3>Event Bundle</h3>
+        <p>The full experience: a live wall on one screen and the bespoke keepsake story on another. Unforgettable.</p>
+        <div class="fmt-price">£199 – £499</div>
+        <button class="btn btn-ghost" onclick="enquire('Event Bundle')">Enquire ▸</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="pricing">
   <div class="wrap">
-    <div class="section-head"><span class="pill">Pricing</span>
+    <div class="section-head"><span class="pill">Live Tribute Wall · pricing</span>
       <h2>Pay once, or go pro</h2>
-      <p>Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.</p></div>
+      <p>The live wall in detail. Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.</p></div>
     <div class="prices">
       <div class="price">
         <h3>Single Event</h3>
@@ -584,6 +638,12 @@ body.kioskmode header.nav{display:none;}
 
 <div class="toast" id="toast"></div>
 <div id="kioskThanks"><div class="big">Thank you ❤</div><p>Your tribute is on the wall. Ready for the next guest…</p></div>
+<div id="enquireModal" class="modal-overlay"><div class="modal">
+  <h3 id="enqTitle">Enquire</h3>
+  <p class="muted" id="enqText"></p>
+  <a class="btn btn-primary" id="enqMail" href="#">✉ Send enquiry</a>
+  <button class="btn btn-ghost" onclick="closeEnquire()">Close</button>
+</div></div>
 
 <script>
 /* ===================== THEME DEFINITIONS ===================== */
@@ -786,6 +846,22 @@ function route(){
   if(path==='home'||path===''){applyVibe('celebration');return go('home');}
 }
 window.addEventListener('hashchange',route);
+
+/* ===================== FORMAT MENU ===================== */
+function createMemorial(){
+  pickedVibe='memorial';
+  document.querySelectorAll('#vibePick button').forEach(b=>b.classList.toggle('sel', b.dataset.vibe==='memorial'));
+  applyVibe('memorial'); const c=document.getElementById('evColor'); if(c)c.value=VIBES.memorial.brand;
+  go('create');
+}
+function enquire(type){
+  document.getElementById('enqTitle').textContent=type;
+  document.getElementById('enqText').textContent='This is a bespoke, made-for-you product. Tell us the occasion, the date and who it\'s for, and we\'ll craft it and send a quote.';
+  const mail=document.getElementById('enqMail');
+  mail.href='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nDetails:');
+  document.getElementById('enquireModal').classList.add('on');
+}
+function closeEnquire(){ document.getElementById('enquireModal').classList.remove('on'); }
 
 /* ===================== CREATE ===================== */
 function pickVibe(v,btn){
