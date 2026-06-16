@@ -195,6 +195,45 @@ footer .logo{color:#fff;}
 @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:none;}}
 .empty{text-align:center;color:var(--muted);padding:80px 20px;}
 .confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:5;pointer-events:none;border-radius:2px;}
+/* reactions + love meter */
+.trib .heart{margin-top:12px;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:13px;cursor:pointer;color:var(--brand);font-family:var(--ui);transition:transform .12s,background .2s;}
+.trib .heart:hover{background:color-mix(in srgb,var(--brand) 12%,#fff);transform:scale(1.06);}
+.heart.pulse{animation:hb .45s ease;}
+@keyframes hb{0%,100%{transform:scale(1);}40%{transform:scale(1.3);}}
+.love-meter{font-size:15px;color:var(--brand);font-weight:700;font-family:var(--ui);display:inline-flex;align-items:center;padding:0 4px;}
+.wall-modes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.wall-modes .btn{padding:8px 14px;font-size:12.5px;}
+/* spotlight (big-screen mode) */
+#spotlight{position:fixed;inset:92px 0 0 0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:5vw;z-index:8;}
+#spotlight.on{display:flex;}
+.sp-card{max-width:1000px;text-align:center;animation:pop .8s ease both;}
+.sp-photo img{max-width:360px;max-height:42vh;border-radius:18px;border:1.5px solid var(--brand);margin-bottom:26px;}
+.sp-msg{font-family:var(--display);font-size:clamp(30px,5.4vw,60px);line-height:1.22;color:var(--ink);}
+.sp-from{margin-top:24px;font-size:clamp(17px,2.4vw,26px);font-weight:700;color:var(--brand);}
+.sp-heart{margin-top:16px;}
+.sp-dots{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:8px;}
+.sp-dots i{width:7px;height:7px;border-radius:50%;background:var(--line);}
+.sp-dots i.on{background:var(--brand);transform:scale(1.3);}
+/* dark venue mode (wall only) */
+#screen-wall.dark{background:#14101c;}
+#screen-wall.dark .wall-top{background:rgba(20,16,28,.82);}
+#screen-wall.dark .wall-top h2{color:#fff;}
+#screen-wall.dark .wall-top .host{color:#b9aed0;}
+#screen-wall.dark .trib{background:#221b30;border-color:#352c48;}
+#screen-wall.dark .trib .msg{color:#f4eefc;}
+#screen-wall.dark .sp-msg{color:#fff;}
+#screen-wall.dark .empty,#screen-wall.dark .empty h2{color:#e9e1f7;}
+#screen-wall.dark .btn-ghost{color:#e8dff6;border-color:#43395a;}
+/* prompt chips */
+.prompt-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.prompt-chips .opt{cursor:pointer;}
+/* kiosk */
+body.kioskmode header.nav{display:none;}
+#kioskThanks{position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:300;text-align:center;padding:40px;}
+#kioskThanks.on{display:flex;}
+#kioskThanks .big{font-family:var(--display);font-size:clamp(40px,8vw,82px);color:var(--brand);margin-bottom:10px;}
+#kioskThanks p{color:var(--muted);font-size:18px;}
+@media (prefers-reduced-motion: reduce){.trib,.sp-card,.floaty{animation:none!important;}}
 
 .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
 .back:hover{color:var(--brand);}
@@ -386,6 +425,8 @@ footer .logo{color:#fff;}
     <div class="linkbox" style="margin-top:16px;"><span id="guestLink"></span>
       <button class="btn btn-primary" onclick="copyLink('guest')">Copy</button></div>
     <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:12px;" onclick="openGuest()">Open guest page ▸</button>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px;" onclick="printCard()">🖨 Print table card</button>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px;" onclick="openKiosk()">📲 Open tablet kiosk mode ▸</button>
   </div>
   <div class="card">
     <h3 style="font-size:20px;margin-bottom:6px;">2 · For the big screen</h3>
@@ -409,6 +450,8 @@ footer .logo{color:#fff;}
 </div></div>
 <div class="app-pad" style="padding-top:10px;"><div class="wrap" style="max-width:560px;">
   <div class="card">
+    <div class="field" id="promptBox"><label>Need a starter? Tap one ✨</label>
+      <div class="prompt-chips" id="promptChips"></div></div>
     <div class="field"><label>Your message</label>
       <textarea id="tMsg" placeholder="Share a memory, a wish, or a few kind words…"></textarea></div>
     <div class="field"><label>Your name</label><input id="tName" placeholder="e.g. Auntie Rose"></div>
@@ -438,15 +481,20 @@ footer .logo{color:#fff;}
 <div id="screen-wall" class="screen">
   <div class="wall-top">
     <div><h2 id="wallTitle">The Wall</h2><div class="host" id="wallHost"></div></div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn btn-ghost" style="padding:9px 16px;font-size:13px;" onclick="openGuestFromWall()">+ Add tribute</button>
-      <button class="btn btn-ghost" style="padding:9px 16px;font-size:13px;" onclick="go('home')">Exit</button>
+    <div class="wall-modes">
+      <span class="love-meter" id="loveMeter">❤ 0</span>
+      <button class="btn btn-ghost" id="viewBtn" onclick="toggleView()">▦ Spotlight</button>
+      <button class="btn btn-ghost" id="darkBtn" onclick="toggleDark()">◐ Dark</button>
+      <button class="btn btn-ghost" onclick="openGuestFromWall()">+ Add</button>
+      <button class="btn btn-ghost" onclick="exitWall()">Exit</button>
     </div>
   </div>
   <div class="wall-grid" id="wallGrid"></div>
+  <div id="spotlight"><div class="sp-card" id="spCard"></div><div class="sp-dots" id="spDots"></div></div>
 </div>
 
 <div class="toast" id="toast"></div>
+<div id="kioskThanks"><div class="big">Thank you ❤</div><p>Your tribute is on the wall. Ready for the next guest…</p></div>
 
 <script>
 /* ===================== THEME DEFINITIONS ===================== */
@@ -456,8 +504,16 @@ const VIBES = {
   memorial:{label:'In Memory',emoji:'🕊️',brand:'#6E8E7B',brand2:'#A9B89C',brand3:'#C9B89A',bg:'#F5F4EF',ink:'#232A26'},
   corporate:{label:'Corporate',emoji:'🏆',brand:'#2D6CDF',brand2:'#16B8A6',brand3:'#5B8DEF',bg:'#F3F7FC',ink:'#10243F'},
 };
+const PROMPTS={
+  celebration:["A favourite memory","What you love most about them","Your birthday wish","A moment you'll never forget"],
+  wedding:["Your advice for the couple","How you know them","A favourite memory together","A wish for their future"],
+  memorial:["A memory you'll treasure","What you'll always remember","How they touched your life","A few words in their honour"],
+  corporate:["A highlight of working together","Your best team memory","A message for them","One word that describes them"],
+};
+let activeVibe='celebration';
 function applyVibe(vibe, brandOverride){
   const v=VIBES[vibe]||VIBES.celebration; const r=document.documentElement.style;
+  activeVibe=vibe;
   r.setProperty('--brand', brandOverride||v.brand);
   r.setProperty('--brand2', v.brand2); r.setProperty('--brand3', v.brand3);
   r.setProperty('--bg', v.bg); r.setProperty('--ink', v.ink);
@@ -507,8 +563,18 @@ function saveEvent(e, cb){
   else { DB.addEvent(e); cb&&cb(true); }
 }
 function addTrib(id, t, cb){
-  if(USE_FB){ fbdb.ref('tributes/'+id).push(t).then(()=>cb&&cb(true)).catch(()=>cb&&cb(false)); }
+  t.rid = t.rid || (Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+  if(typeof t.hearts!=='number') t.hearts=0;
+  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+t.rid).set(t).then(()=>cb&&cb(true)).catch(()=>cb&&cb(false)); }
   else { try{DB.addTribute(id,t);cb&&cb(true);}catch(err){cb&&cb(false);} }
+}
+function heartTribute(rid){
+  if(!rid) return;
+  if(USE_FB){ fbdb.ref('tributes/'+wallEv+'/'+rid+'/hearts').transaction(h=>(h||0)+1); }
+  else { const a=DB.tributes(wallEv); const x=a.find(t=>t.rid===rid);
+    if(x){ x.hearts=(x.hearts||0)+1; localStorage.setItem('gw_trib_'+wallEv,JSON.stringify(a)); lastCount=-1; paintWall(); } }
+  const btn=document.querySelector('.heart[data-rid="'+rid+'"]');
+  if(btn){ btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse'); }
 }
 function watchTrib(id, cb){ // real-time listener (Firebase only)
   if(wallRef){ try{wallRef.off();}catch(e){} wallRef=null; }
@@ -535,11 +601,11 @@ function go(screen){
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
-  return {path, ev:params.get('ev')};
+  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1'};
 }
 function route(){
-  const {path,ev}=parseHash();
-  if(path==='guest'&&ev){return renderGuest(ev);}
+  const {path,ev,kiosk}=parseHash();
+  if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='create'){applyVibe('celebration');return go('create');}
   if(path==='home'||path===''){applyVibe('celebration');return go('home');}
@@ -580,7 +646,30 @@ function showShare(e){
   try{new QRCode(document.getElementById('qr'),{text:g,width:180,height:180,
     colorDark:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#1C1430',colorLight:'#ffffff'});}
   catch(err){document.getElementById('qr').innerHTML='<p class="muted" style="font-size:13px">QR needs internet — use the link below.</p>';}
-  go('share'); window._cur=id;
+  go('share'); window._cur=id; window._curEvent=e;
+}
+function openKiosk(){ if(!window._cur){toast('Create a wall first');return;} location.hash='guest?ev='+window._cur+'&kiosk=1'; }
+function printCard(){
+  const e=window._curEvent; if(!e){toast('Create a wall first');return;}
+  const cv=document.querySelector('#qr canvas'); const im=document.querySelector('#qr img');
+  const data = cv?cv.toDataURL('image/png'):(im?im.src:'');
+  const accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#FF4D7E';
+  const host=e.host?('Presented by '+e.host):'';
+  const w=window.open('','_blank','width=640,height=860');
+  if(!w){toast('Allow pop-ups to print the card');return;}
+  w.document.write(`<!doctype html><html><head><title>${escapeHTML(e.name)} — table card</title>
+  <style>body{font-family:Georgia,serif;text-align:center;padding:48px 32px;color:#1C1430;margin:0}
+  .pill{display:inline-block;border:1px solid ${accent};color:${accent};border-radius:999px;padding:6px 16px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Arial}
+  h1{font-size:34px;margin:18px 0 4px}.host{color:#666;font-size:14px;margin-bottom:26px}
+  img{width:260px;height:260px}.cta{font-size:22px;margin-top:18px}.sub{color:#666;margin-top:8px;font-size:14px;max-width:360px;margin-left:auto;margin-right:auto}
+  .brand{margin-top:32px;color:${accent};font-weight:bold;letter-spacing:1px}</style></head>
+  <body><div class="pill">${escapeHTML((VIBES[e.vibe]||VIBES.celebration).label)}</div>
+  <h1>${escapeHTML(e.name)}</h1><div class="host">${escapeHTML(host)}</div>
+  ${data?`<img src="${data}">`:'<p>(QR needs internet to generate)</p>'}
+  <div class="cta">📸 Scan to add your tribute</div>
+  <div class="sub">Leave a message, photo or video — it appears live on the screen.</div>
+  <div class="brand">GatherWall</div></body></html>`);
+  w.document.close(); w.focus(); setTimeout(()=>{try{w.print();}catch(err){}},400);
 }
 function copyLink(which){
   const t=document.getElementById(which+'Link').textContent;
@@ -590,11 +679,12 @@ function openGuest(){location.hash='guest?ev='+window._cur;}
 function openWall(){location.hash='wall?ev='+window._cur;}
 
 /* ===================== GUEST ===================== */
-let guestEv=null;
-function renderGuest(id){
+let guestEv=null, guestKiosk=false;
+function renderGuest(id, kiosk){
   getEvent(id, e=>{
-    if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id));} toast('Event not found');return go('home'); }
-    guestEv=id; applyVibe(e.vibe,e.color);
+    if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id,kiosk));} toast('Event not found');return go('home'); }
+    guestEv=id; guestKiosk=!!kiosk; document.body.classList.toggle('kioskmode', guestKiosk);
+    applyVibe(e.vibe,e.color);
     document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
     document.getElementById('guestName').textContent=e.name;
     let line=e.host?hostHTML(e):'';
@@ -603,8 +693,19 @@ function renderGuest(id){
     const o=e.opts||{photos:true,video:false};
     document.getElementById('photoField').style.display=(o.photos!==false)?'block':'none';
     document.getElementById('videoField').style.display=(o.video===true)?'block':'none';
+    renderPrompts(e.vibe);
     go('guest');
   });
+}
+function renderPrompts(vibe){
+  const box=document.getElementById('promptChips'); if(!box)return;
+  const list=PROMPTS[vibe]||PROMPTS.celebration;
+  box.innerHTML=list.map(p=>`<span class="opt" onclick="usePrompt(this)">${escapeHTML(p)}</span>`).join('');
+}
+function usePrompt(el){
+  document.querySelectorAll('#promptChips .opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+  const ta=document.getElementById('tMsg'); ta.setAttribute('placeholder', el.textContent+'…'); ta.focus();
 }
 let photoData=null;
 document.getElementById('tPhoto').addEventListener('change',function(){
@@ -668,9 +769,16 @@ function submitTribute(){
     document.getElementById('tPhoto').value='';photoData=null;
     if(tv)tv.value=''; videoData=null;
     closeCamera(); showPhotoPreview();
-    toast('Added to the wall ✦ thank you!');
+    document.querySelectorAll('#promptChips .opt').forEach(o=>o.classList.remove('on'));
+    document.getElementById('tMsg').setAttribute('placeholder','Share a memory, a wish, or a few kind words…');
+    if(guestKiosk){ showKioskThanks(); } else { toast('Added to the wall ✦ thank you!'); }
     burst();
   });
+}
+function showKioskThanks(){
+  const k=document.getElementById('kioskThanks'); if(!k)return;
+  k.classList.add('on');
+  setTimeout(()=>k.classList.remove('on'), 3200);
 }
 
 /* ===================== WALL ===================== */
@@ -681,25 +789,69 @@ function renderWall(id){
     wallEv=id; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
     document.getElementById('wallHost').innerHTML=hostHTML(e);
+    // reset display state
+    viewMode='grid'; spotIdx=0; clearInterval(spotTimer);
+    document.getElementById('wallGrid').style.display='';
+    document.getElementById('spotlight').classList.remove('on');
+    document.getElementById('viewBtn').textContent='▦ Spotlight';
     go('wall');
     clearInterval(wallTimer);
     if(USE_FB){ watchTrib(id, paintList); }      // real-time across devices
     else { paintWall(); wallTimer=setInterval(paintWall,1500); }  // demo polling
   });
 }
+let wallList=[], viewMode='grid', spotIdx=0, spotTimer=null, wallDark=false;
 function paintWall(){ paintList(DB.tributes(wallEv)); }
 function paintList(list){
-  list=(list||[]).slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
-  const grid=document.getElementById('wallGrid');
-  if(list.length===lastCount)return;
-  const grew=list.length>lastCount&&lastCount!==-1; lastCount=list.length;
-  if(!list.length){grid.innerHTML='<div class="empty"><h2 style="font-size:30px">No tributes yet…</h2><p>Be the first — scan the code and say something lovely.</p></div>';return;}
-  grid.innerHTML=list.slice().reverse().map(t=>`<div class="trib">
+  wallList=(list||[]).slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+  const grew=wallList.length>lastCount && lastCount!==-1;
+  lastCount=wallList.length;
+  updateLoveMeter();
+  if(viewMode==='spotlight') renderSpot(); else renderGrid();
+  if(grew) burst();
+}
+function tribCard(t){
+  return `<div class="trib">
     ${t.video?`<video src="${t.video}" controls style="width:100%;border-radius:12px;margin-bottom:12px;"></video>`:(t.photo?`<img src="${t.photo}" alt="">`:'')}
     <div class="msg">“${escapeHTML(t.msg)}”</div>
-    <div class="from">— ${escapeHTML(t.name)}</div></div>`).join('');
-  if(grew)burst();
+    <div class="from">— ${escapeHTML(t.name)}</div>
+    <button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button>
+  </div>`;
 }
+function renderGrid(){
+  const grid=document.getElementById('wallGrid');
+  if(!wallList.length){grid.innerHTML='<div class="empty"><h2 style="font-size:30px">No tributes yet…</h2><p>Be the first — scan the code and say something lovely.</p></div>';return;}
+  grid.innerHTML=wallList.slice().reverse().map(tribCard).join('');
+}
+function updateLoveMeter(){
+  const total=wallList.reduce((s,t)=>s+(t.hearts||0),0);
+  const lm=document.getElementById('loveMeter'); if(lm) lm.textContent='❤ '+total;
+}
+function renderSpot(){
+  const card=document.getElementById('spCard'), dots=document.getElementById('spDots');
+  if(!wallList.length){ card.innerHTML='<div class="sp-msg">No tributes yet…</div>'; if(dots)dots.innerHTML=''; return; }
+  if(spotIdx>=wallList.length) spotIdx=0;
+  const t=wallList[spotIdx];
+  card.innerHTML=`${t.photo?`<div class="sp-photo"><img src="${t.photo}" alt=""></div>`:''}
+    <div class="sp-msg">“${escapeHTML(t.msg)}”</div>
+    <div class="sp-from">— ${escapeHTML(t.name)}</div>
+    <div class="sp-heart"><button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button></div>`;
+  if(dots) dots.innerHTML=wallList.map((_,i)=>`<i class="${i===spotIdx?'on':''}"></i>`).join('');
+}
+function startSpot(){ clearInterval(spotTimer); spotTimer=setInterval(()=>{ if(!wallList.length)return; spotIdx=(spotIdx+1)%wallList.length; renderSpot(); },6000); }
+function toggleView(){
+  viewMode=(viewMode==='grid')?'spotlight':'grid';
+  document.getElementById('wallGrid').style.display=(viewMode==='grid')?'':'none';
+  document.getElementById('spotlight').classList.toggle('on', viewMode==='spotlight');
+  document.getElementById('viewBtn').textContent=(viewMode==='grid')?'▦ Spotlight':'▤ Grid';
+  if(viewMode==='spotlight'){ spotIdx=0; renderSpot(); startSpot(); } else { clearInterval(spotTimer); renderGrid(); }
+}
+function toggleDark(){
+  wallDark=!wallDark;
+  document.getElementById('screen-wall').classList.toggle('dark', wallDark);
+  document.getElementById('darkBtn').textContent=wallDark?'◑ Light':'◐ Dark';
+}
+function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function safeURL(u){ if(!u)return ''; u=String(u).trim(); if(!u)return ''; if(!/^https?:\/\//i.test(u))u='https://'+u;
@@ -711,7 +863,7 @@ function hostHTML(e){ // brand name, linked to their site if provided (white-lab
 }
 
 /* ===================== DEMO + FX ===================== */
-const DEMO_ID='demo03';
+const DEMO_ID='demo04';
 function seedDemo(cb){
   const items=[
     ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
@@ -733,6 +885,7 @@ function loadDemoAndWall(){ seedDemo(()=>{ location.hash='wall?ev='+DEMO_ID; });
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
 function burst(){
+  if(activeVibe==='memorial') return; // no confetti at a memorial — calm and respectful
   const cols=[getComputedStyle(document.documentElement).getPropertyValue('--brand'),
     getComputedStyle(document.documentElement).getPropertyValue('--brand2'),
     getComputedStyle(document.documentElement).getPropertyValue('--brand3')];
