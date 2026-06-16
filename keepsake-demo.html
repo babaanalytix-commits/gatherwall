@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StorySong — Story Engine (Dev Lab)</title>
+<title>GatherWall — Animated Keepsake Story</title>
 <style>
 /* ============================================================
    STORYSONG STORY ENGINE — data-driven, theme-able, any-length
@@ -235,6 +235,35 @@ const MOTIFS = {
    different occasions, tones, lengths, themes, languages.
    ============================================================ */
 const STORIES = {
+
+  /* ---- ★ FLAGSHIP: WEDDING · fully illustrated, no photos · blush & sage ---- */
+  wedding: {
+    meta:{ recipient:'Tom & Priya', occasion:'On Your Wedding Day', lang2:null },
+    theme:{ bg:'#1d1420', text:'#F4ECE4', accent:'#D98AA0', accent2:'#9DB89E', serif:"'Georgia',serif" },
+    tracks:[ {file:'', label:'Wedding Song — English', lang:'en'} ],
+    scenes:[
+      {type:'title', title:{en:'Tom & Priya'}, subtitle:{en:'On Your Wedding Day'},
+        lyric:{en:'A song from those who watched you grow…'}},
+      {type:'illustration', motif:'bridge', motifData:{A:'Yorkshire', B:'Mumbai'},
+        title:{en:'Two Families'}, subtitle:{en:'Yorkshire · Mumbai'},
+        lyric:{en:'Two worlds, two homes, two hearts — all leading here.'}},
+      {type:'illustration', motif:'path',
+        title:{en:'Before You Met'},
+        lyric:{en:'Each of you walking a road you didn\'t yet know would cross.'}},
+      {type:'quote', quote:{en:'"And then, across a crowded room, the whole world went quiet."'},
+        attrib:{en:'— the day everything changed'}},
+      {type:'illustration', motif:'rings',
+        title:{en:'The Day You Chose Each Other'}, subtitle:{en:'Today'},
+        lyric:{en:'Two rings, one promise, a lifetime to keep it.'}},
+      {type:'illustration', motif:'infinity',
+        title:{en:'For All The Years To Come'},
+        lyric:{en:'Through every season, every storm, every ordinary, golden day.'}},
+      {type:'quote', quote:{en:'"Be kind. Be patient. And always come home to each other."'},
+        attrib:{en:'— with love, from your parents'}},
+      {type:'finale', headline:{en:'Tom & Priya'}, subtitle:{en:'Forever begins today'},
+        lyric:{en:'With all our love — Mum, Dad, and everyone who has watched this story unfold.'}},
+    ]
+  },
 
   /* ---- A) MILESTONE BIRTHDAY · bilingual · 8 scenes ---- */
   grace: {
@@ -529,7 +558,7 @@ function loadTrack(idx){
   setLanguage(TRACKS[idx].lang||'en');
 }
 function togglePlay(){
-  if(!audio.src){alert('Demo: no audio file loaded. In a real build, TRACKS[].file points to the client\'s MP3.');return;}
+  if(!audio.src){ const tn=document.getElementById('track-name'); const o=tn.textContent; tn.textContent='♪ Your custom song plays here'; setTimeout(()=>tn.textContent=o,2200); return; }
   if(audio.paused){audio.play().catch(()=>{});playBtn.textContent='⏸';}
   else{audio.pause();playBtn.textContent='▶';}
 }
@@ -547,9 +576,9 @@ audio.addEventListener('ended',()=>{playBtn.textContent='▶';progFill.style.wid
 function loadStory(key){renderStory(key);}
 (function init(){
   const picker=document.getElementById('story-picker');
-  const labels={grace:'A · 50th Birthday (bilingual)',daniel:'B · Graduation (single subject)',margaret:'C · In Memory (celebration of life)'};
+  const labels={wedding:'★ Wedding — Tom & Priya (flagship)',grace:'50th Birthday (bilingual)',daniel:'Graduation',margaret:'In Memory (celebration of life)'};
   Object.keys(STORIES).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=labels[k]||k;picker.appendChild(o);});
-  renderStory('grace');
+  renderStory('wedding');
 })();
 </script>
 </body>
