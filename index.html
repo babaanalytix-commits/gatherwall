@@ -994,14 +994,14 @@ function enquire(type){
   const title=document.getElementById('enqTitle'), text=document.getElementById('enqText'), mail=document.getElementById('enqMail');
   const lang=(guestLang||'en').toUpperCase();
   if(openReqCount()>=KEEPSAKE_CAP){
-    title.textContent='We\'re at capacity 💛';
-    text.textContent='Each keepsake is crafted by hand, so we limit how many we take at once to keep the quality high. Join the waitlist and we\'ll reach out the moment a slot opens.';
+    title.textContent='Worth the wait 💛';
+    text.textContent='We make each keepsake slowly and by hand — because a moment this special should never be rushed. We only take a few at a time, so every one is our best work. Join the waitlist and we\'ll reach out the moment your slot opens.';
     mail.textContent='✉ Join the waitlist';
     mail.onclick=null;
     mail.href='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Waitlist: '+type)+'&body='+encodeURIComponent('Please add me to the waitlist for the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang);
   } else {
     title.textContent=type;
-    text.textContent='This is a bespoke, made-for-you product. Tell us the occasion, the date and who it\'s for, and we\'ll craft it and send a quote.';
+    text.textContent='A keepsake made slowly and by hand, just for you — because some moments deserve more than a template. Tell us the occasion, the date and who it\'s for, and we\'ll craft it and send a quote.';
     mail.textContent='✉ Send enquiry';
     mail.href='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang+'\nDetails:');
     mail.onclick=function(){ bumpOpenReq(); };
