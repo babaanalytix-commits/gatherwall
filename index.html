@@ -282,7 +282,7 @@ body.kioskmode header.nav{display:none;}
 <!-- ============ HOME / MARKETING ============ -->
 <div id="screen-home" class="screen active">
 <header class="nav"><div class="wrap nav-in">
-  <div class="logo"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <nav class="nav-links">
     <a href="#how">How it works</a>
     <a href="#vibes">Occasions</a>
@@ -369,7 +369,7 @@ body.kioskmode header.nav{display:none;}
 </section>
 
 <footer><div class="wrap foot-in">
-  <div class="logo"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <div>A living wall of love for any event · Demo build · gatherwall.com</div>
 </div></footer>
 </div>
@@ -377,7 +377,7 @@ body.kioskmode header.nav{display:none;}
 <!-- ============ CREATE EVENT ============ -->
 <div id="screen-create" class="screen">
 <header class="nav"><div class="wrap nav-in">
-  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <a class="btn btn-ghost" onclick="go('home')">Cancel</a>
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:640px;">
@@ -450,7 +450,7 @@ body.kioskmode header.nav{display:none;}
 <!-- ============ SHARE ============ -->
 <div id="screen-share" class="screen">
 <header class="nav"><div class="wrap nav-in">
-  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <a class="btn btn-ghost" onclick="go('home')">Done</a>
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:680px;">
@@ -489,7 +489,7 @@ body.kioskmode header.nav{display:none;}
 <!-- ============ HOST CONTROL PANEL ============ -->
 <div id="screen-manage" class="screen">
 <header class="nav"><div class="wrap nav-in">
-  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <a class="btn btn-ghost" id="mgWallBtn">Open wall ▸</a>
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:760px;">
@@ -513,7 +513,7 @@ body.kioskmode header.nav{display:none;}
 <!-- ============ GUEST SUBMIT ============ -->
 <div id="screen-guest" class="screen">
 <header class="nav"><div class="wrap nav-in">
-  <div class="logo"><span class="dot"></span>GatherWall</div>
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
 </div></header>
 <div class="guest-hero"><div class="wrap" style="max-width:620px;">
   <div id="langBar" class="lang-bar"></div>
@@ -600,7 +600,7 @@ const PROMPTS={
   corporate:["A highlight of working together","Your best team memory","A message for them","One word that describes them"],
 };
 let guestLang='en';
-const LANGS=[['en','EN'],['fr','FR'],['es','ES'],['cs','CZ'],['de','DE']];
+const LANGS=[['en','🇬🇧 EN'],['fr','🇫🇷 FR'],['es','🇪🇸 ES'],['cs','🇨🇿 CZ'],['de','🇩🇪 DE']];
 const I18N={
   en:{presentedBy:"Presented by",withSong:"with a custom song",withOrig:"with an original composition",
     leaveFor:"Leave a tribute for",starter:"Need a starter? Tap one ✨",yourMessage:"Your message",
@@ -1120,6 +1120,7 @@ function toggleDark(){
   document.getElementById('darkBtn').textContent=wallDark?'◑ Light':'◐ Dark';
 }
 function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
+function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); applyVibe('celebration'); if(location.hash){ location.hash=''; } else { go('home'); } }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 
 /* ===================== HOST CONTROL PANEL ===================== */
