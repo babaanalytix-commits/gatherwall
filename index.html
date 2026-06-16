@@ -283,6 +283,11 @@ body.kioskmode header.nav{display:none;}
 .modal{background:var(--surface);border-radius:18px;padding:30px;max-width:430px;text-align:center;box-shadow:var(--shadow);}
 .modal h3{font-size:24px;margin-bottom:10px;}
 .modal .btn{width:100%;justify-content:center;margin-top:10px;}
+/* story builder */
+.sb-sec{margin-bottom:18px;}
+.sb-sec h3{font-size:18px;margin-bottom:14px;color:var(--brand);}
+.sb-photos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.sb-photos img{width:64px;height:64px;border-radius:8px;object-fit:cover;border:1.5px solid var(--line);}
 
 .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
 .back:hover{color:var(--brand);}
@@ -379,7 +384,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtKeepT">Animated Keepsake Story</h3>
         <p data-i18n="fmtKeepB">A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
         <div class="fmt-price" data-i18n="fmtKeepP">$79 – $199</div>
-        <button class="btn btn-ghost" data-i18n="fmtKeepC" onclick="enquire('Animated Keepsake Story')">Enquire ▸</button>
+        <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="openBuilder()">Create your keepsake ▸</button>
       </div>
       <div class="fmt">
         <div class="fmt-emoji">✨</div>
@@ -565,6 +570,79 @@ body.kioskmode header.nav{display:none;}
 </div></div>
 </div>
 
+<!-- ============ KEEPSAKE STORY BUILDER ============ -->
+<div id="screen-builder" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:620px;">
+  <div class="back" onclick="goHome()">← Back</div>
+  <span class="pill">🎬 Animated Keepsake Story</span>
+  <h1 style="font-size:34px;margin:12px 0 6px;">Tell us their story</h1>
+  <p class="muted" style="margin-bottom:8px;">Answer a few gentle questions and we'll craft a bespoke song and animated story of their life. The more you share, the more magical it becomes — there are no wrong answers.</p>
+  <div class="note-firebase" style="margin-bottom:22px;">Made slowly, by hand. We only take a few at a time — so yours is always our best work.</div>
+
+  <div class="card sb-sec"><h3>1 · The basics</h3>
+    <div class="field"><label>Who is it for? <span class="muted">(their name)</span></label><input id="sbName" placeholder="e.g. Veronika"></div>
+    <div class="row2">
+      <div class="field"><label>The occasion</label><input id="sbOccasion" placeholder="e.g. 40th Birthday"></div>
+      <div class="field"><label>Date you need it by</label><input id="sbDate" type="date"></div>
+    </div>
+    <div class="field"><label>Language(s) for the song & story</label>
+      <div class="opts" id="sbLangs">
+        <span class="opt on" data-l="en" onclick="this.classList.toggle('on')">English</span>
+        <span class="opt" data-l="fr" onclick="this.classList.toggle('on')">Français</span>
+        <span class="opt" data-l="es" onclick="this.classList.toggle('on')">Español</span>
+        <span class="opt" data-l="cs" onclick="this.classList.toggle('on')">Čeština</span>
+        <span class="opt" data-l="de" onclick="this.classList.toggle('on')">Deutsch</span>
+      </div>
+    </div>
+    <div class="field"><label>Who is it from?</label><input id="sbFrom" placeholder="e.g. Yomi & the children"></div>
+  </div>
+
+  <div class="card sb-sec"><h3>2 · Where they're from</h3>
+    <div class="row2">
+      <div class="field"><label>Their roots / first home</label><input id="sbWorldA" placeholder="e.g. Czech Republic"></div>
+      <div class="field"><label>Where life took them</label><input id="sbWorldB" placeholder="e.g. London"></div>
+    </div>
+    <div class="field"><label>A line about where they come from <span class="muted">(optional)</span></label><textarea id="sbRoots" placeholder="e.g. A small town girl with the whole world in her heart."></textarea></div>
+  </div>
+
+  <div class="card sb-sec"><h3>3 · The people who matter</h3>
+    <div class="field"><label>Partner's name <span class="muted">(optional)</span></label><input id="sbPartner" placeholder="e.g. Yomi"></div>
+    <div class="field"><label>Children / closest people <span class="muted">(names, comma separated)</span></label><input id="sbChildren" placeholder="e.g. Sofia, Max"></div>
+    <div class="field"><label>Photos <span class="muted">(a few favourites — them, the couple, the family)</span></label>
+      <input id="sbPhotos" type="file" accept="image/*" multiple>
+      <div id="sbPhotoPreview" class="sb-photos"></div>
+    </div>
+  </div>
+
+  <div class="card sb-sec"><h3>4 · Their story</h3>
+    <div class="field"><label>Who were they early on?</label><textarea id="sbEarly" placeholder="What were they like growing up? A dream they had?"></textarea></div>
+    <div class="field"><label>A turning point</label><textarea id="sbTurning" placeholder="A moment that changed everything — meeting someone, a move, a decision."></textarea></div>
+    <div class="field"><label>A hard time they overcame</label><textarea id="sbStrength" placeholder="Something that shows their strength."></textarea></div>
+    <div class="field"><label>What makes them proud</label><textarea id="sbAchievement" placeholder="An achievement, the family they built, who they became."></textarea></div>
+  </div>
+
+  <div class="card sb-sec"><h3>5 · The song</h3>
+    <div class="field"><label>What should it feel like?</label>
+      <select id="sbGenre">
+        <option>Warm & uplifting</option><option>Gentle & emotional</option><option>Joyful pop</option>
+        <option>Soulful gospel</option><option>Acoustic & intimate</option><option>Cinematic & grand</option>
+      </select></div>
+    <div class="field"><label>A phrase or memory to include in the lyrics <span class="muted">(optional)</span></label><input id="sbLyricLine" placeholder="e.g. 'still the best dancer in the room'"></div>
+  </div>
+
+  <div class="card sb-sec"><h3>6 · The gift card message</h3>
+    <div class="field"><label>A short message for the gold gift card</label><textarea id="sbMessage" placeholder="e.g. For the love of my life, on your 40th. Every word is true. — Yomi"></textarea></div>
+  </div>
+
+  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;" onclick="submitBuilder()">Send my story to be crafted ✦</button>
+  <p class="center muted" style="margin-top:14px;font-size:13px;">We'll confirm the price and timing, then begin. Payment before we craft.</p>
+</div></div>
+</div>
+
 <!-- ============ GUEST SUBMIT ============ -->
 <div id="screen-guest" class="screen">
 <header class="nav"><div class="wrap nav-in">
@@ -732,7 +810,7 @@ const HOME_I18N={
     fmtSub:"From a live party wall to a lasting memorial or a bespoke keepsake — pick the format that fits, at a price that fits.",
     fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $39 / event · Pro $29/mo",fmtWallC:"Create a wall ▸",
     fmtMemT:"Memorial & Eulogy",fmtMemB:"A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.",fmtMemP:"$49 – $149",fmtMemC:"Create a memorial ▸",
-    fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$79 – $199",fmtKeepC:"Enquire ▸",
+    fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$79 – $199",fmtKeepC:"Create your keepsake ▸",
     fmtBundT:"Event Bundle",fmtBundB:"The full experience: a live wall on one screen and the bespoke keepsake story on another. Unforgettable.",fmtBundP:"$199 – $499",fmtBundC:"Enquire ▸",
     priSub:"The live wall in detail. Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.",
     priSingleT:"Single Event",priSingleUnit:" / event",priSingleDesc:"Perfect for one celebration.",priSingleL1:"Up to 150 guests",priSingleL2:"QR code + tablet kiosk mode",priSingleL3:"Live wall on your screen",priSingleL4:"Download the album after",priSingleBtn:"Start free",
@@ -755,7 +833,7 @@ const HOME_I18N={
     fmtSub:"D'un mur de fête en direct à un mémorial durable ou un souvenir sur mesure — choisissez le format qui convient, au prix qui convient.",
     fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 39 $ / événement · Pro 29 $/mois",fmtWallC:"Créer un mur ▸",
     fmtMemT:"Mémorial & Hommage",fmtMemB:"Un hommage doux et durable — bougies, frise de vie, souvenirs partagés. Accessible en ligne pour la famille, près ou loin.",fmtMemP:"49 $ – 149 $",fmtMemC:"Créer un mémorial ▸",
-    fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Demander un devis ▸",
+    fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Créer le souvenir ▸",
     fmtBundT:"Pack Événement",fmtBundB:"L'expérience complète : un mur en direct sur un écran et l'histoire souvenir sur mesure sur un autre. Inoubliable.",fmtBundP:"199 $ – 499 $",fmtBundC:"Demander un devis ▸",
     priSub:"Le mur en direct en détail. Organisez un seul événement, ou — DJ, animateur ou organisateur — utilisez-le en marque blanche à chaque prestation.",
     priSingleT:"Événement unique",priSingleUnit:" / événement",priSingleDesc:"Parfait pour une seule célébration.",priSingleL1:"Jusqu'à 150 invités",priSingleL2:"QR code + mode borne tablette",priSingleL3:"Mur en direct sur votre écran",priSingleL4:"Téléchargez l'album après",priSingleBtn:"Commencer gratuitement",
@@ -778,7 +856,7 @@ const HOME_I18N={
     fmtSub:"Desde un muro de fiesta en directo hasta un memorial duradero o un recuerdo a medida — elige el formato que encaje, al precio que encaje.",
     fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 39 $ / evento · Pro 29 $/mes",fmtWallC:"Crear un muro ▸",
     fmtMemT:"Memorial y Homenaje",fmtMemB:"Un homenaje sereno y duradero — velas, línea de vida, recuerdos compartidos. Disponible en línea para la familia, cerca o lejos.",fmtMemP:"49 $ – 149 $",fmtMemC:"Crear un memorial ▸",
-    fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Consultar ▸",
+    fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Crear el recuerdo ▸",
     fmtBundT:"Pack de Evento",fmtBundB:"La experiencia completa: un muro en directo en una pantalla y la historia de recuerdo a medida en otra. Inolvidable.",fmtBundP:"199 $ – 499 $",fmtBundC:"Consultar ▸",
     priSub:"El muro en directo en detalle. Organiza un solo evento, o — DJ, presentador u organizador — úsalo con marca blanca en cada reserva.",
     priSingleT:"Evento único",priSingleUnit:" / evento",priSingleDesc:"Perfecto para una celebración.",priSingleL1:"Hasta 150 invitados",priSingleL2:"Código QR + modo quiosco en tablet",priSingleL3:"Muro en directo en tu pantalla",priSingleL4:"Descarga el álbum después",priSingleBtn:"Empezar gratis",
@@ -801,7 +879,7 @@ const HOME_I18N={
     fmtSub:"Od živé párty zdi po trvalou vzpomínku nebo originální dárek na míru — vyberte formát, který sedí, za cenu, která sedí.",
     fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 39 $ / akce · Pro 29 $/měs",fmtWallC:"Vytvořit zeď ▸",
     fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Jemný a trvalý hold — zapalování svíček, časová osa života, sdílené vzpomínky. Dostupné online pro rodinu, blízkou i vzdálenou.",fmtMemP:"49 $ – 149 $",fmtMemC:"Vytvořit vzpomínku ▸",
-    fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Poptat ▸",
+    fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Vytvořit vzpomínku ▸",
     fmtBundT:"Balíček akce",fmtBundB:"Kompletní zážitek: živá zeď na jedné obrazovce a vzpomínkový příběh na míru na druhé. Nezapomenutelné.",fmtBundP:"199 $ – 499 $",fmtBundC:"Poptat ▸",
     priSub:"Živá zeď podrobně. Uspořádejte jednu akci, nebo — jako DJ, moderátor či organizátor — používejte ji pod vlastní značkou na každé akci.",
     priSingleT:"Jedna akce",priSingleUnit:" / akce",priSingleDesc:"Ideální pro jednu oslavu.",priSingleL1:"Až 150 hostů",priSingleL2:"QR kód + režim kiosku na tabletu",priSingleL3:"Živá zeď na vaší obrazovce",priSingleL4:"Stažení alba po akci",priSingleBtn:"Začít zdarma",
@@ -824,7 +902,7 @@ const HOME_I18N={
     fmtSub:"Von einer Live-Partywand über ein bleibendes Gedenken bis zu einem maßgefertigten Andenken — wähle das passende Format zum passenden Preis.",
     fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 39 $ / Event · Pro 29 $/Mon.",fmtWallC:"Wand erstellen ▸",
     fmtMemT:"Gedenken & Nachruf",fmtMemB:"Ein sanfter, bleibender Tribut — Kerzen, Lebenslinie, geteilte Erinnerungen. Online verfügbar für Familie, nah und fern.",fmtMemP:"49 $ – 149 $",fmtMemC:"Gedenkseite erstellen ▸",
-    fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Anfragen ▸",
+    fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Andenken erstellen ▸",
     fmtBundT:"Event-Paket",fmtBundB:"Das volle Erlebnis: eine Live-Wand auf einem Bildschirm und die maßgefertigte Andenken-Geschichte auf einem anderen. Unvergesslich.",fmtBundP:"199 $ – 499 $",fmtBundC:"Anfragen ▸",
     priSub:"Die Live-Wand im Detail. Veranstalte ein einzelnes Event oder — als DJ, Moderator oder Planer — nutze sie als White-Label bei jeder Buchung.",
     priSingleT:"Einzel-Event",priSingleUnit:" / Event",priSingleDesc:"Perfekt für eine Feier.",priSingleL1:"Bis zu 150 Gäste",priSingleL2:"QR-Code + Tablet-Kioskmodus",priSingleL3:"Live-Wand auf deinem Bildschirm",priSingleL4:"Album danach herunterladen",priSingleBtn:"Kostenlos starten",
@@ -972,6 +1050,7 @@ function route(){
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
+  if(path==='builder'){return openBuilder();}
   if(path==='create'){applyVibe('celebration');return go('create');}
   if(path==='home'||path===''){applyVibe('celebration');return go('home');}
 }
@@ -1009,6 +1088,43 @@ function enquire(type){
   document.getElementById('enquireModal').classList.add('on');
 }
 function closeEnquire(){ document.getElementById('enquireModal').classList.remove('on'); }
+
+/* ===================== KEEPSAKE STORY BUILDER ===================== */
+function openBuilder(){ applyVibe('celebration'); go('builder'); }
+let sbPhotoData=[];
+(function(){ const inp=document.getElementById('sbPhotos'); if(!inp)return;
+  inp.addEventListener('change',function(){
+    sbPhotoData=[]; const prev=document.getElementById('sbPhotoPreview'); prev.innerHTML='';
+    Array.from(this.files).slice(0,6).forEach(f=>{
+      const r=new FileReader(); r.onload=ev=>{ const img=new Image(); img.onload=()=>{
+        const max=800,sc=Math.min(1,max/img.width); const c=document.createElement('canvas');
+        c.width=img.width*sc; c.height=img.height*sc; c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        const d=c.toDataURL('image/jpeg',0.78); sbPhotoData.push(d);
+        const im=document.createElement('img'); im.src=d; prev.appendChild(im);
+      }; img.src=ev.target.result; }; r.readAsDataURL(f);
+    });
+  });
+})();
+function submitBuilder(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const name=g('sbName'), occ=g('sbOccasion');
+  if(!name||!occ){ toast('Please add at least their name and the occasion'); return; }
+  if(openReqCount()>=KEEPSAKE_CAP){ enquire('Animated Keepsake Story'); return; }
+  const langs=Array.from(document.querySelectorAll('#sbLangs .opt.on')).map(e=>e.dataset.l.toUpperCase()).join(', ')||'EN';
+  const brief='KEEPSAKE STORY BRIEF\n'+
+    'For: '+name+'\nOccasion: '+occ+'\nNeeded by: '+g('sbDate')+'\nLanguages: '+langs+'\nFrom: '+g('sbFrom')+'\n\n'+
+    'Roots: '+g('sbWorldA')+' -> '+g('sbWorldB')+' | '+g('sbRoots')+'\n'+
+    'Partner: '+g('sbPartner')+'\nChildren/people: '+g('sbChildren')+'\n\n'+
+    'Early life: '+g('sbEarly')+'\nTurning point: '+g('sbTurning')+'\nStrength: '+g('sbStrength')+'\nProud of: '+g('sbAchievement')+'\n\n'+
+    'Song feeling: '+g('sbGenre')+'\nLyric line to include: '+g('sbLyricLine')+'\nGift card message: '+g('sbMessage')+'\n\n'+
+    'Photos: '+sbPhotoData.length+' (attach in the email).';
+  try{ localStorage.setItem('gw_lastbrief', brief); bumpOpenReq(); }catch(e){}
+  const mail='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
+  document.getElementById('enqTitle').textContent='Thank you 💛 their story is ready to send';
+  document.getElementById('enqText').textContent='We\'ve captured '+name+'\'s story. Tap below to send it (attach your photos in the email), and we\'ll confirm the price and timing, then begin crafting.';
+  const ml=document.getElementById('enqMail'); ml.textContent='✉ Send their story'; ml.onclick=null; ml.href=mail;
+  document.getElementById('enquireModal').classList.add('on');
+}
 
 /* ===================== CREATE ===================== */
 function pickVibe(v,btn){
