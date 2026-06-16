@@ -234,6 +234,39 @@ body.kioskmode header.nav{display:none;}
 #kioskThanks .big{font-family:var(--display);font-size:clamp(40px,8vw,82px);color:var(--brand);margin-bottom:10px;}
 #kioskThanks p{color:var(--muted);font-size:18px;}
 @media (prefers-reduced-motion: reduce){.trib,.sp-card,.floaty{animation:none!important;}}
+/* control panel */
+.mg-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--surface);}
+.mg-toolbar .opt{cursor:pointer;}
+.mg-toolbar .btn{padding:9px 15px;font-size:13px;}
+.mg-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px;display:flex;gap:14px;align-items:flex-start;}
+.mg-card.pending{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 5%,#fff);}
+.mg-card .mg-body{flex:1;}
+.mg-card .mg-msg{font-family:var(--display);font-size:18px;line-height:1.35;}
+.mg-card .mg-from{color:var(--brand);font-weight:600;font-size:13.5px;margin-top:6px;}
+.mg-card img{width:64px;height:64px;border-radius:10px;object-fit:cover;}
+.mg-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+.mg-actions button{font-family:var(--ui);font-size:12.5px;border-radius:999px;border:1px solid var(--line);background:#fff;padding:6px 12px;cursor:pointer;}
+.mg-actions .ok{color:#1a8f4c;border-color:#bce6cd;}
+.mg-actions .hide{color:#9a6a00;border-color:#ecd9a8;}
+.mg-actions .del{color:#c0392b;border-color:#f0c4be;}
+.mg-actions .pin{color:var(--brand);border-color:color-mix(in srgb,var(--brand) 35%,#fff);}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 9px;margin-right:6px;}
+.badge.pend{background:color-mix(in srgb,var(--brand) 15%,#fff);color:var(--brand);}
+.badge.song{background:#efe9ff;color:#6b4cff;}
+/* song dedication card on wall */
+.trib.song-card{border-color:#b9a8ff;background:linear-gradient(180deg,#fbf9ff,#fff);}
+.trib .song-tag{font-size:12px;font-weight:700;color:#6b4cff;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;}
+/* voice */
+#voicePreview audio,.trib audio{width:100%;margin-top:6px;}
+.rec-live{color:#c0392b!important;}
+/* gesture */
+#gestureBtn{font-size:15px;padding:12px 22px;}
+.gesture-chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--brand);font-weight:700;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;background:var(--surface);}
+.flo{position:fixed;z-index:9;font-size:28px;pointer-events:none;}
+/* language bar */
+.lang-bar{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+.lang-bar button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);font-family:var(--ui);transition:all .15s;}
+.lang-bar button.on{border-color:var(--brand);color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,#fff);}
 
 .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
 .back:hover{color:var(--brand);}
@@ -396,6 +429,14 @@ body.kioskmode header.nav{display:none;}
         <div class="opts" id="optMedia">
           <span class="opt on" data-grp="photos" data-val="on" onclick="optToggle(this)">📷 Photos</span>
           <span class="opt" data-grp="video" data-val="on" onclick="optToggle(this)">🎬 Video</span>
+          <span class="opt" data-grp="voice" data-val="on" onclick="optToggle(this)">🎤 Voice notes</span>
+          <span class="opt on" data-grp="dedications" data-val="on" onclick="optToggle(this)">🎵 Song requests</span>
+        </div>
+      </div>
+      <div class="opt-group">
+        <div class="gl">Moderation</div>
+        <div class="opts" id="optMod">
+          <span class="opt" data-grp="moderation" data-val="on" onclick="optToggle(this)">🛡️ Approve posts before they show</span>
         </div>
       </div>
     </div>
@@ -435,6 +476,37 @@ body.kioskmode header.nav{display:none;}
       <button class="btn btn-primary" onclick="copyLink('wall')">Copy</button></div>
     <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;" onclick="openWall()">Open the live wall ▸</button>
   </div>
+  <div class="card" style="margin-top:20px;">
+    <h3 style="font-size:20px;margin-bottom:6px;">3 · For you — control panel 🔑</h3>
+    <p class="muted" style="font-size:14px;margin-bottom:16px;">Your private link to approve posts, see the DJ song queue, light/toast counts, and export the album. Keep it safe — bookmark it.</p>
+    <div class="linkbox"><span id="manageLink"></span>
+      <button class="btn btn-primary" onclick="copyLink('manage')">Copy</button></div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:12px;" onclick="openManage()">Open control panel ▸</button>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ HOST CONTROL PANEL ============ -->
+<div id="screen-manage" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="go('home')"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" id="mgWallBtn">Open wall ▸</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:760px;">
+  <div style="margin-bottom:20px;">
+    <span class="pill" id="mgVibe">Celebration</span>
+    <h1 style="font-size:34px;margin-top:12px;" id="mgTitle">Control panel</h1>
+    <p class="muted" id="mgSub"></p>
+  </div>
+  <div class="mg-toolbar">
+    <span class="opt" id="mgFilterAll" onclick="mgFilter('all')">All</span>
+    <span class="opt" id="mgFilterPending" onclick="mgFilter('pending')">Pending</span>
+    <span class="opt" id="mgFilterSongs" onclick="mgFilter('songs')">🎵 Song queue</span>
+    <span style="flex:1"></span>
+    <button class="btn btn-ghost" onclick="toggleModeration()" id="mgModBtn">Moderation: —</button>
+    <button class="btn btn-primary" onclick="exportAlbum()">⬇ Export album</button>
+  </div>
+  <div id="mgList" style="margin-top:18px;"></div>
 </div></div>
 </div>
 
@@ -444,21 +516,22 @@ body.kioskmode header.nav{display:none;}
   <div class="logo"><span class="dot"></span>GatherWall</div>
 </div></header>
 <div class="guest-hero"><div class="wrap" style="max-width:620px;">
+  <div id="langBar" class="lang-bar"></div>
   <span class="pill" id="guestVibe">Celebration</span>
-  <h1>Leave a tribute for <em id="guestName">the guest of honour</em></h1>
+  <h1><span id="t_leaveFor">Leave a tribute for</span> <em id="guestName">the guest of honour</em></h1>
   <p class="muted" id="guestHostLine"></p>
 </div></div>
 <div class="app-pad" style="padding-top:10px;"><div class="wrap" style="max-width:560px;">
   <div class="card">
-    <div class="field" id="promptBox"><label>Need a starter? Tap one ✨</label>
+    <div class="field" id="promptBox"><label id="t_starter">Need a starter? Tap one ✨</label>
       <div class="prompt-chips" id="promptChips"></div></div>
-    <div class="field"><label>Your message</label>
+    <div class="field"><label id="t_yourMessage">Your message</label>
       <textarea id="tMsg" placeholder="Share a memory, a wish, or a few kind words…"></textarea></div>
-    <div class="field"><label>Your name</label><input id="tName" placeholder="e.g. Auntie Rose"></div>
-    <div class="field" id="photoField"><label>Add a photo <span class="muted">(optional)</span></label>
+    <div class="field"><label id="t_yourName">Your name</label><input id="tName" placeholder="e.g. a guest"></div>
+    <div class="field" id="photoField"><label id="t_addPhoto">Add a photo</label>
       <div class="photo-actions">
-        <button type="button" class="btn btn-primary" onclick="openCamera()">📸 Take a photo</button>
-        <label class="btn btn-ghost">⬆ Upload<input id="tPhoto" type="file" accept="image/*" style="display:none"></label>
+        <button type="button" class="btn btn-primary" id="t_takePhoto" onclick="openCamera()">📸 Take a photo</button>
+        <label class="btn btn-ghost"><span id="t_upload">⬆ Upload</span><input id="tPhoto" type="file" accept="image/*" style="display:none"></label>
       </div>
       <div id="cameraBox" style="display:none;">
         <video id="camVideo" autoplay playsinline muted></video>
@@ -470,10 +543,25 @@ body.kioskmode header.nav{display:none;}
       </div>
       <div id="photoPreview"></div>
     </div>
-    <div class="field" id="videoField" style="display:none;"><label>Add a video <span class="muted">(optional)</span></label><input id="tVideo" type="file" accept="video/*"></div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitTribute()">Add to the wall ✦</button>
+    <div class="field" id="videoField" style="display:none;"><label id="t_addVideo">Add a video</label><input id="tVideo" type="file" accept="video/*"></div>
+    <div class="field" id="voiceField" style="display:none;"><label id="t_recordVoice">Record a voice note</label>
+      <div class="photo-actions">
+        <button type="button" class="btn btn-primary" id="recBtn" onclick="toggleRecord()">🎤 Record</button>
+        <span class="muted" id="recStatus" style="align-self:center;font-size:13px;"></span>
+      </div>
+      <div id="voicePreview" style="margin-top:10px;"></div>
+    </div>
+    <div class="field" id="songField" style="display:none;"><label id="t_dedicate">🎵 Dedicate a song to the DJ</label>
+      <input id="tSong" placeholder="Song & artist" style="margin-bottom:8px;">
+      <input id="tSongFor" placeholder="Dedicated to… (optional)">
+    </div>
+    <button class="btn btn-primary" id="t_addBtn" style="width:100%;justify-content:center;" onclick="submitTribute()">Add to the wall ✦</button>
   </div>
-  <p class="center muted" style="margin-top:18px;font-size:13.5px;">Your message will appear on the wall at the event.</p>
+  <div id="gestureBox" class="center" style="margin-top:18px;display:none;">
+    <button class="btn btn-ghost" id="gestureBtn" onclick="doGesture()">🕯️ Light a candle</button>
+    <div class="muted" id="gestureCount" style="margin-top:8px;font-size:13.5px;"></div>
+  </div>
+  <p class="center muted" id="t_footer" style="margin-top:18px;font-size:13.5px;">Your message will appear on the wall at the event.</p>
 </div></div>
 </div>
 
@@ -482,6 +570,7 @@ body.kioskmode header.nav{display:none;}
   <div class="wall-top">
     <div><h2 id="wallTitle">The Wall</h2><div class="host" id="wallHost"></div></div>
     <div class="wall-modes">
+      <span class="gesture-chip" id="wallGesture" onclick="wallGestureTap()" style="display:none"></span>
       <span class="love-meter" id="loveMeter">❤ 0</span>
       <button class="btn btn-ghost" id="viewBtn" onclick="toggleView()">▦ Spotlight</button>
       <button class="btn btn-ghost" id="darkBtn" onclick="toggleDark()">◐ Dark</button>
@@ -509,6 +598,68 @@ const PROMPTS={
   wedding:["Your advice for the couple","How you know them","A favourite memory together","A wish for their future"],
   memorial:["A memory you'll treasure","What you'll always remember","How they touched your life","A few words in their honour"],
   corporate:["A highlight of working together","Your best team memory","A message for them","One word that describes them"],
+};
+let guestLang='en';
+const LANGS=[['en','EN'],['fr','FR'],['es','ES'],['cs','CZ'],['de','DE']];
+const I18N={
+  en:{presentedBy:"Presented by",withSong:"with a custom song",withOrig:"with an original composition",
+    leaveFor:"Leave a tribute for",starter:"Need a starter? Tap one ✨",yourMessage:"Your message",
+    msgPh:"Share a memory, a wish, or a few kind words…",yourName:"Your name",namePh:"e.g. a guest",
+    addPhoto:"Add a photo",takePhoto:"📸 Take a photo",upload:"⬆ Upload",addVideo:"Add a video",
+    recordVoice:"Record a voice note",record:"🎤 Record",dedicate:"🎵 Dedicate a song to the DJ",
+    songPh:"Song & artist",songForPh:"Dedicated to… (optional)",addBtn:"Add to the wall ✦",
+    footer:"Your message will appear on the wall at the event.",thanks:"Added to the wall ✦ thank you!",
+    thanksMod:"Thank you! Your post is awaiting approval.",
+    prompts:PROMPTS,
+    gestures:{celebration:{label:"Raise a toast",emoji:"🥂"},wedding:{label:"Send your love",emoji:"💞"},memorial:{label:"Light a candle",emoji:"🕯️"},corporate:{label:"Give applause",emoji:"👏"}}},
+  fr:{presentedBy:"Présenté par",withSong:"avec une chanson personnalisée",withOrig:"avec une composition originale",
+    leaveFor:"Laissez un hommage pour",starter:"Besoin d'inspiration ? Touchez ✨",yourMessage:"Votre message",
+    msgPh:"Partagez un souvenir, un vœu ou quelques mots…",yourName:"Votre nom",namePh:"ex. un invité",
+    addPhoto:"Ajouter une photo",takePhoto:"📸 Prendre une photo",upload:"⬆ Téléverser",addVideo:"Ajouter une vidéo",
+    recordVoice:"Enregistrer un message vocal",record:"🎤 Enregistrer",dedicate:"🎵 Dédier une chanson au DJ",
+    songPh:"Chanson & artiste",songForPh:"Dédié à… (facultatif)",addBtn:"Ajouter au mur ✦",
+    footer:"Votre message apparaîtra sur le mur lors de l'événement.",thanks:"Ajouté au mur ✦ merci !",
+    thanksMod:"Merci ! Votre message est en attente d'approbation.",
+    prompts:{celebration:["Un souvenir préféré","Ce que vous aimez le plus chez elle/lui","Votre vœu d'anniversaire","Un moment inoubliable"],wedding:["Vos conseils pour le couple","Comment vous les connaissez","Un souvenir ensemble","Un vœu pour leur avenir"],memorial:["Un souvenir précieux","Ce dont vous vous souviendrez toujours","Comment ils ont marqué votre vie","Quelques mots en leur honneur"],corporate:["Un grand moment de collaboration","Votre meilleur souvenir d'équipe","Un message pour lui/elle","Un mot pour le/la décrire"]},
+    gestures:{celebration:{label:"Portez un toast",emoji:"🥂"},wedding:{label:"Envoyez votre amour",emoji:"💞"},memorial:{label:"Allumez une bougie",emoji:"🕯️"},corporate:{label:"Applaudissez",emoji:"👏"}}},
+  es:{presentedBy:"Presentado por",withSong:"con una canción personalizada",withOrig:"con una composición original",
+    leaveFor:"Deja un homenaje para",starter:"¿Necesitas inspiración? Toca ✨",yourMessage:"Tu mensaje",
+    msgPh:"Comparte un recuerdo, un deseo o unas palabras…",yourName:"Tu nombre",namePh:"p. ej. un invitado",
+    addPhoto:"Añadir una foto",takePhoto:"📸 Hacer una foto",upload:"⬆ Subir",addVideo:"Añadir un vídeo",
+    recordVoice:"Grabar una nota de voz",record:"🎤 Grabar",dedicate:"🎵 Dedicar una canción al DJ",
+    songPh:"Canción y artista",songForPh:"Dedicada a… (opcional)",addBtn:"Añadir al muro ✦",
+    footer:"Tu mensaje aparecerá en el muro durante el evento.",thanks:"¡Añadido al muro ✦ gracias!",
+    thanksMod:"¡Gracias! Tu mensaje está pendiente de aprobación.",
+    prompts:{celebration:["Un recuerdo favorito","Lo que más te gusta de él/ella","Tu deseo de cumpleaños","Un momento inolvidable"],wedding:["Tu consejo para la pareja","Cómo los conoces","Un recuerdo juntos","Un deseo para su futuro"],memorial:["Un recuerdo que atesoras","Lo que siempre recordarás","Cómo marcó tu vida","Unas palabras en su honor"],corporate:["Un momento destacado trabajando juntos","Tu mejor recuerdo del equipo","Un mensaje para él/ella","Una palabra que lo/la describa"]},
+    gestures:{celebration:{label:"Haz un brindis",emoji:"🥂"},wedding:{label:"Envía tu cariño",emoji:"💞"},memorial:{label:"Enciende una vela",emoji:"🕯️"},corporate:{label:"Aplaude",emoji:"👏"}}},
+  cs:{presentedBy:"Připravil(a)",withSong:"s vlastní písní",withOrig:"s originální skladbou",
+    leaveFor:"Zanechte vzkaz pro",starter:"Potřebujete inspiraci? Klepněte ✨",yourMessage:"Vaše zpráva",
+    msgPh:"Podělte se o vzpomínku, přání nebo pár milých slov…",yourName:"Vaše jméno",namePh:"např. host",
+    addPhoto:"Přidat fotku",takePhoto:"📸 Vyfotit",upload:"⬆ Nahrát",addVideo:"Přidat video",
+    recordVoice:"Nahrát hlasovou zprávu",record:"🎤 Nahrát",dedicate:"🎵 Věnovat písničku pro DJ",
+    songPh:"Píseň a interpret",songForPh:"Věnováno… (nepovinné)",addBtn:"Přidat na zeď ✦",
+    footer:"Vaše zpráva se objeví na zdi během akce.",thanks:"Přidáno na zeď ✦ děkujeme!",
+    thanksMod:"Děkujeme! Váš příspěvek čeká na schválení.",
+    prompts:{celebration:["Oblíbená vzpomínka","Co na něm/ní máte nejraději","Vaše narozeninové přání","Nezapomenutelný okamžik"],wedding:["Vaše rada pro novomanžele","Jak je znáte","Společná vzpomínka","Přání do budoucna"],memorial:["Vzpomínka, kterou si ceníte","Co si budete vždy pamatovat","Jak ovlivnil(a) váš život","Pár slov na jeho/její počest"],corporate:["Nejlepší okamžik spolupráce","Vaše nejlepší týmová vzpomínka","Vzkaz pro něj/ni","Jedno slovo, které ho/ji vystihuje"]},
+    gestures:{celebration:{label:"Připijte si",emoji:"🥂"},wedding:{label:"Pošlete lásku",emoji:"💞"},memorial:{label:"Zapalte svíčku",emoji:"🕯️"},corporate:{label:"Zatleskejte",emoji:"👏"}}},
+  de:{presentedBy:"Präsentiert von",withSong:"mit einem eigenen Lied",withOrig:"mit einer Originalkomposition",
+    leaveFor:"Hinterlasse eine Botschaft für",starter:"Brauchst du Inspiration? Tippe ✨",yourMessage:"Deine Nachricht",
+    msgPh:"Teile eine Erinnerung, einen Wunsch oder ein paar liebe Worte…",yourName:"Dein Name",namePh:"z. B. ein Gast",
+    addPhoto:"Foto hinzufügen",takePhoto:"📸 Foto aufnehmen",upload:"⬆ Hochladen",addVideo:"Video hinzufügen",
+    recordVoice:"Sprachnachricht aufnehmen",record:"🎤 Aufnehmen",dedicate:"🎵 Dem DJ einen Song widmen",
+    songPh:"Song & Künstler",songForPh:"Gewidmet… (optional)",addBtn:"Zur Wand hinzufügen ✦",
+    footer:"Deine Nachricht erscheint während der Veranstaltung an der Wand.",thanks:"Zur Wand hinzugefügt ✦ danke!",
+    thanksMod:"Danke! Dein Beitrag wartet auf Freigabe.",
+    prompts:{celebration:["Eine Lieblingserinnerung","Was du an ihm/ihr am meisten magst","Dein Geburtstagswunsch","Ein unvergesslicher Moment"],wedding:["Dein Rat für das Paar","Woher du sie kennst","Eine gemeinsame Erinnerung","Ein Wunsch für die Zukunft"],memorial:["Eine kostbare Erinnerung","Woran du dich immer erinnern wirst","Wie er/sie dein Leben berührt hat","Ein paar Worte zu seinen/ihren Ehren"],corporate:["Ein Highlight der Zusammenarbeit","Deine beste Team-Erinnerung","Eine Nachricht für ihn/sie","Ein Wort, das ihn/sie beschreibt"]},
+    gestures:{celebration:{label:"Stoß an",emoji:"🥂"},wedding:{label:"Sende deine Liebe",emoji:"💞"},memorial:{label:"Zünde eine Kerze an",emoji:"🕯️"},corporate:{label:"Applaudiere",emoji:"👏"}}},
+};
+function L(){ return I18N[guestLang]||I18N.en; }
+function defaultLang(){ const s=localStorage.getItem('gw_lang'); if(s&&I18N[s])return s; const n=(navigator.language||'en').slice(0,2).toLowerCase(); return I18N[n]?n:'en'; }
+const GESTURES={
+  celebration:{label:'Raise a toast',emoji:'🥂',noun:'toasts'},
+  wedding:{label:'Send your love',emoji:'💞',noun:'hearts'},
+  memorial:{label:'Light a candle',emoji:'🕯️',noun:'candles'},
+  corporate:{label:'Give applause',emoji:'👏',noun:'claps'},
 };
 let activeVibe='celebration';
 function applyVibe(vibe, brandOverride){
@@ -580,9 +731,32 @@ function watchTrib(id, cb){ // real-time listener (Firebase only)
   if(wallRef){ try{wallRef.off();}catch(e){} wallRef=null; }
   if(USE_FB){ wallRef=fbdb.ref('tributes/'+id); wallRef.on('value', s=>{ const o=s.val()||{}; cb(Object.values(o)); }); }
 }
+function readTributes(id, cb){ // one-shot read of all tributes (for the control panel)
+  if(USE_FB){ fbdb.ref('tributes/'+id).once('value').then(s=>cb(Object.values(s.val()||{}))).catch(()=>cb([])); }
+  else { cb(DB.tributes(id)); }
+}
+function updateTribute(id, rid, fields, cb){
+  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+rid).update(fields).then(()=>cb&&cb()).catch(()=>cb&&cb()); }
+  else { const a=DB.tributes(id); const x=a.find(t=>t.rid===rid); if(x){Object.assign(x,fields); localStorage.setItem('gw_trib_'+id,JSON.stringify(a));} cb&&cb(); }
+}
+function deleteTribute(id, rid, cb){
+  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+rid).remove().then(()=>cb&&cb()).catch(()=>cb&&cb()); }
+  else { let a=DB.tributes(id).filter(t=>t.rid!==rid); localStorage.setItem('gw_trib_'+id,JSON.stringify(a)); cb&&cb(); }
+}
+let gestRef=null;
+function watchGesture(id, cb){
+  if(gestRef){ try{gestRef.off();}catch(e){} gestRef=null; }
+  if(USE_FB){ gestRef=fbdb.ref('gestures/'+id); gestRef.on('value', s=>cb(s.val()||0)); }
+  else { cb(parseInt(localStorage.getItem('gw_gest_'+id)||'0')); if(window._gestTimer)clearInterval(window._gestTimer);
+    window._gestTimer=setInterval(()=>cb(parseInt(localStorage.getItem('gw_gest_'+id)||'0')),1500); }
+}
+function addGesture(id, cb){
+  if(USE_FB){ fbdb.ref('gestures/'+id).transaction(n=>(n||0)+1).then(()=>cb&&cb()).catch(()=>cb&&cb()); }
+  else { const n=parseInt(localStorage.getItem('gw_gest_'+id)||'0')+1; localStorage.setItem('gw_gest_'+id,n); cb&&cb(n); }
+}
 
 /* ===================== OPTIONS ARRAY ===================== */
-const OPTS={music:'on',compose:'ai',photos:true,video:false};
+const OPTS={music:'on',compose:'ai',photos:true,video:false,voice:false,dedications:true,moderation:false};
 function optPick(el){ // single-choice groups (music, compose)
   const grp=el.dataset.grp;
   document.querySelectorAll(`#opt${grp[0].toUpperCase()+grp.slice(1)} .opt`).forEach(o=>o.classList.remove('on'));
@@ -601,12 +775,13 @@ function go(screen){
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
-  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1'};
+  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||''};
 }
 function route(){
-  const {path,ev,kiosk}=parseHash();
+  const {path,ev,kiosk,key}=parseHash();
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
+  if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='create'){applyVibe('celebration');return go('create');}
   if(path==='home'||path===''){applyVibe('celebration');return go('home');}
 }
@@ -629,6 +804,7 @@ function createEvent(){
     hostLink:document.getElementById('evLink').value.trim(),
     date:document.getElementById('evDate').value,
     mode:document.getElementById('evMode').value,
+    manageKey:uid()+uid(),
     opts:Object.assign({},OPTS)};
   saveEvent(e, ()=>showShare(e));
 }
@@ -646,8 +822,11 @@ function showShare(e){
   try{new QRCode(document.getElementById('qr'),{text:g,width:180,height:180,
     colorDark:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#1C1430',colorLight:'#ffffff'});}
   catch(err){document.getElementById('qr').innerHTML='<p class="muted" style="font-size:13px">QR needs internet — use the link below.</p>';}
+  const m=baseURL()+'#manage?ev='+id+'&key='+(e.manageKey||'');
+  const ml=document.getElementById('manageLink'); if(ml) ml.textContent=m;
   go('share'); window._cur=id; window._curEvent=e;
 }
+function openManage(){ if(!window._curEvent){toast('Create a wall first');return;} location.hash='manage?ev='+window._cur+'&key='+(window._curEvent.manageKey||''); }
 function openKiosk(){ if(!window._cur){toast('Create a wall first');return;} location.hash='guest?ev='+window._cur+'&kiosk=1'; }
 function printCard(){
   const e=window._curEvent; if(!e){toast('Create a wall first');return;}
@@ -679,7 +858,45 @@ function openGuest(){location.hash='guest?ev='+window._cur;}
 function openWall(){location.hash='wall?ev='+window._cur;}
 
 /* ===================== GUEST ===================== */
-let guestEv=null, guestKiosk=false;
+let guestEv=null, guestKiosk=false, guestEvObj=null;
+function doGesture(){
+  if(!guestEv)return;
+  addGesture(guestEv);
+  const g=GESTURES[(guestEvObj&&guestEvObj.vibe)||'celebration']||GESTURES.celebration;
+  floatEmoji(g.emoji);
+  toast(g.emoji+' '+(g.label.replace('Light a','Candle').replace('Raise a','Toast'))+' — thank you');
+}
+function floatEmoji(em){
+  const f=document.createElement('div'); f.className='flo'; f.textContent=em;
+  f.style.left=(40+Math.random()*20)+'vw'; f.style.bottom='80px'; document.body.appendChild(f);
+  f.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(-220px)',opacity:0}],{duration:1600,easing:'ease-out'});
+  setTimeout(()=>f.remove(),1600);
+}
+/* voice recorder */
+let mediaRec=null, recChunks=[], recStream=null, audioData=null, recording=false;
+function toggleRecord(){ recording?stopRecord():startRecord(); }
+function startRecord(){
+  if(!navigator.mediaDevices||!window.MediaRecorder){ toast('Recording not supported on this device'); return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+    recStream=s; recChunks=[]; mediaRec=new MediaRecorder(s);
+    mediaRec.ondataavailable=e=>{ if(e.data.size)recChunks.push(e.data); };
+    mediaRec.onstop=()=>{
+      const blob=new Blob(recChunks,{type:'audio/webm'});
+      if(blob.size>1200000){ toast('Voice note too long — keep it under ~30s'); audioData=null; }
+      else { const r=new FileReader(); r.onload=ev=>{ audioData=ev.target.result; showVoicePreview(); }; r.readAsDataURL(blob); }
+      if(recStream){recStream.getTracks().forEach(t=>t.stop());}
+    };
+    mediaRec.start(); recording=true;
+    document.getElementById('recBtn').textContent='■ Stop'; document.getElementById('recBtn').classList.add('rec-live');
+    document.getElementById('recStatus').textContent='Recording…';
+  }).catch(()=>toast('Allow microphone access to record'));
+}
+function stopRecord(){ if(mediaRec&&recording){ mediaRec.stop(); recording=false;
+  document.getElementById('recBtn').textContent='🎤 Record'; document.getElementById('recBtn').classList.remove('rec-live');
+  document.getElementById('recStatus').textContent=''; } }
+function showVoicePreview(){ const p=document.getElementById('voicePreview');
+  p.innerHTML=audioData?`<audio controls src="${audioData}"></audio><div class="rm">Voice note ready ✓ · <a onclick="clearVoice()">remove</a></div>`:''; }
+function clearVoice(){ audioData=null; showVoicePreview(); }
 function renderGuest(id, kiosk){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id,kiosk));} toast('Event not found');return go('home'); }
@@ -691,16 +908,43 @@ function renderGuest(id, kiosk){
     if(e.opts&&e.opts.music==='on'){line+=(line?' · ':'')+'🎵 '+(e.opts.compose==='ai'?'with a custom song':'with an original composition');}
     document.getElementById('guestHostLine').innerHTML=line;
     const o=e.opts||{photos:true,video:false};
+    guestEvObj=e;
     document.getElementById('photoField').style.display=(o.photos!==false)?'block':'none';
     document.getElementById('videoField').style.display=(o.video===true)?'block':'none';
-    renderPrompts(e.vibe);
+    document.getElementById('voiceField').style.display=(o.voice===true)?'block':'none';
+    document.getElementById('songField').style.display=(o.dedications!==false)?'block':'none';
+    // gesture (candle/toast)
+    document.getElementById('gestureBox').style.display='block';
+    watchGesture(id, n=>{ const gm=((L().gestures[e.vibe])||L().gestures.celebration).emoji; document.getElementById('gestureCount').textContent = n? (gm+' '+n) : ''; });
+    buildLangBar(); guestLang=defaultLang(); applyGuestLang();
     go('guest');
   });
 }
 function renderPrompts(vibe){
   const box=document.getElementById('promptChips'); if(!box)return;
-  const list=PROMPTS[vibe]||PROMPTS.celebration;
+  const pr=L().prompts; const list=(pr&&pr[vibe])||pr.celebration||[];
   box.innerHTML=list.map(p=>`<span class="opt" onclick="usePrompt(this)">${escapeHTML(p)}</span>`).join('');
+}
+function buildLangBar(){ const bar=document.getElementById('langBar'); if(!bar)return;
+  bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
+function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} buildLangBar(); applyGuestLang(); }
+function setTxt(id,txt){ const el=document.getElementById(id); if(el)el.textContent=txt; }
+function applyGuestLang(){
+  const t=L(), e=guestEvObj||{};
+  setTxt('t_leaveFor',t.leaveFor); setTxt('t_starter',t.starter); setTxt('t_yourMessage',t.yourMessage);
+  setTxt('t_yourName',t.yourName); setTxt('t_addPhoto',t.addPhoto); setTxt('t_takePhoto',t.takePhoto);
+  setTxt('t_upload',t.upload); setTxt('t_addVideo',t.addVideo); setTxt('t_recordVoice',t.recordVoice);
+  setTxt('t_dedicate',t.dedicate); setTxt('t_addBtn',t.addBtn); setTxt('t_footer',t.footer);
+  const ta=document.getElementById('tMsg'); if(ta)ta.setAttribute('placeholder',t.msgPh);
+  const nm=document.getElementById('tName'); if(nm)nm.setAttribute('placeholder',t.namePh);
+  const sg=document.getElementById('tSong'); if(sg)sg.setAttribute('placeholder',t.songPh);
+  const sf=document.getElementById('tSongFor'); if(sf)sf.setAttribute('placeholder',t.songForPh);
+  const rb=document.getElementById('recBtn'); if(rb&&!recording)rb.textContent=t.record;
+  let line=e.host?(t.presentedBy+' '+hostNameHTML(e)):'';
+  if(e.opts&&e.opts.music==='on'){line+=(line?' · ':'')+'🎵 '+(e.opts.compose==='ai'?t.withSong:t.withOrig);}
+  const hl=document.getElementById('guestHostLine'); if(hl)hl.innerHTML=line;
+  const g=(t.gestures[e.vibe]||t.gestures.celebration); const gb=document.getElementById('gestureBtn'); if(gb)gb.textContent=g.emoji+' '+g.label;
+  renderPrompts(e.vibe);
 }
 function usePrompt(el){
   document.querySelectorAll('#promptChips .opt').forEach(o=>o.classList.remove('on'));
@@ -762,17 +1006,24 @@ if(tv) tv.addEventListener('change',function(){
 function submitTribute(){
   const msg=document.getElementById('tMsg').value.trim();
   const name=document.getElementById('tName').value.trim()||'A guest';
-  if(!msg){toast('Please write a message');return;}
-  addTrib(guestEv,{msg,name,photo:photoData,video:videoData,ts:Date.now()}, ok=>{
+  const songEl=document.getElementById('tSong'), songForEl=document.getElementById('tSongFor');
+  const song=songEl?songEl.value.trim():''; const songFor=songForEl?songForEl.value.trim():'';
+  if(!msg && !audioData && !song && !photoData){ toast('Add a message, voice note, photo or song'); return; }
+  const moder=!!(guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation);
+  const t={msg,name,photo:photoData,video:videoData,audio:audioData,ts:Date.now(),approved:!moder};
+  if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor; }
+  addTrib(guestEv,t, ok=>{
     if(!ok){ toast('Could not add — try a smaller/no photo or check connection'); return; }
     document.getElementById('tMsg').value='';document.getElementById('tName').value='';
     document.getElementById('tPhoto').value='';photoData=null;
-    if(tv)tv.value=''; videoData=null;
+    if(tv)tv.value=''; videoData=null; audioData=null; showVoicePreview();
+    if(songEl)songEl.value=''; if(songForEl)songForEl.value='';
     closeCamera(); showPhotoPreview();
     document.querySelectorAll('#promptChips .opt').forEach(o=>o.classList.remove('on'));
-    document.getElementById('tMsg').setAttribute('placeholder','Share a memory, a wish, or a few kind words…');
-    if(guestKiosk){ showKioskThanks(); } else { toast('Added to the wall ✦ thank you!'); }
-    burst();
+    document.getElementById('tMsg').setAttribute('placeholder',L().msgPh);
+    const thanks = moder ? L().thanksMod : L().thanks;
+    if(guestKiosk){ showKioskThanks(); } else { toast(thanks); }
+    if(!moder) burst();
   });
 }
 function showKioskThanks(){
@@ -786,9 +1037,12 @@ let wallEv=null,wallTimer=null,lastCount=-1;
 function renderWall(id){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderWall(id));} toast('Event not found');return go('home'); }
-    wallEv=id; lastCount=-1; applyVibe(e.vibe,e.color);
+    wallEv=id; wallEvObj=e; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
     document.getElementById('wallHost').innerHTML=hostHTML(e);
+    const gW=GESTURES[e.vibe]||GESTURES.celebration;
+    const gc=document.getElementById('wallGesture'); gc.style.display='inline-flex';
+    watchGesture(id, n=>{ gc.textContent=gW.emoji+' '+(n||0); });
     // reset display state
     viewMode='grid'; spotIdx=0; clearInterval(spotTimer);
     document.getElementById('wallGrid').style.display='';
@@ -800,10 +1054,13 @@ function renderWall(id){
     else { paintWall(); wallTimer=setInterval(paintWall,1500); }  // demo polling
   });
 }
-let wallList=[], viewMode='grid', spotIdx=0, spotTimer=null, wallDark=false;
+let wallList=[], viewMode='grid', spotIdx=0, spotTimer=null, wallDark=false, wallEvObj=null;
 function paintWall(){ paintList(DB.tributes(wallEv)); }
 function paintList(list){
-  wallList=(list||[]).slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+  let arr=(list||[]).slice();
+  if(wallEvObj && wallEvObj.opts && wallEvObj.opts.moderation){ arr=arr.filter(t=>t.approved===true); }
+  arr.sort((a,b)=> (b.pinned?1:0)-(a.pinned?1:0) || (b.ts||0)-(a.ts||0)); // pinned first, then newest
+  wallList=arr;
   const grew=wallList.length>lastCount && lastCount!==-1;
   lastCount=wallList.length;
   updateLoveMeter();
@@ -811,18 +1068,26 @@ function paintList(list){
   if(grew) burst();
 }
 function tribCard(t){
+  const heart=`<button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button>`;
+  if(t.type==='song'){
+    return `<div class="trib song-card">
+      <div class="song-tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>
+      <div class="msg">“${escapeHTML(t.songTitle||t.msg||'')}”</div>
+      ${t.msg&&t.songTitle?`<div class="from" style="color:var(--muted);font-weight:400;margin-top:6px;">${escapeHTML(t.msg)}</div>`:''}
+      <div class="from">— ${escapeHTML(t.name)}</div>${heart}</div>`;
+  }
   return `<div class="trib">
     ${t.video?`<video src="${t.video}" controls style="width:100%;border-radius:12px;margin-bottom:12px;"></video>`:(t.photo?`<img src="${t.photo}" alt="">`:'')}
-    <div class="msg">“${escapeHTML(t.msg)}”</div>
-    <div class="from">— ${escapeHTML(t.name)}</div>
-    <button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button>
-  </div>`;
+    ${t.audio?`<audio controls src="${t.audio}"></audio>`:''}
+    ${t.msg?`<div class="msg">“${escapeHTML(t.msg)}”</div>`:(t.audio?'<div class="msg" style="font-size:15px;color:var(--muted)">🎤 Voice tribute</div>':'')}
+    <div class="from">— ${escapeHTML(t.name)}</div>${heart}</div>`;
 }
 function renderGrid(){
   const grid=document.getElementById('wallGrid');
   if(!wallList.length){grid.innerHTML='<div class="empty"><h2 style="font-size:30px">No tributes yet…</h2><p>Be the first — scan the code and say something lovely.</p></div>';return;}
-  grid.innerHTML=wallList.slice().reverse().map(tribCard).join('');
+  grid.innerHTML=wallList.map(tribCard).join('');
 }
+function wallGestureTap(){ if(!wallEv)return; addGesture(wallEv); const g=GESTURES[(wallEvObj&&wallEvObj.vibe)||'celebration']||GESTURES.celebration; floatEmoji(g.emoji); }
 function updateLoveMeter(){
   const total=wallList.reduce((s,t)=>s+(t.hearts||0),0);
   const lm=document.getElementById('loveMeter'); if(lm) lm.textContent='❤ '+total;
@@ -832,8 +1097,11 @@ function renderSpot(){
   if(!wallList.length){ card.innerHTML='<div class="sp-msg">No tributes yet…</div>'; if(dots)dots.innerHTML=''; return; }
   if(spotIdx>=wallList.length) spotIdx=0;
   const t=wallList[spotIdx];
+  const tag = t.type==='song' ? `<div class="song-tag" style="font-size:18px;margin-bottom:10px;">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>` : '';
+  const body = t.type==='song' ? escapeHTML(t.songTitle||t.msg||'') : escapeHTML(t.msg||(t.audio?'🎤 Voice tribute':''));
   card.innerHTML=`${t.photo?`<div class="sp-photo"><img src="${t.photo}" alt=""></div>`:''}
-    <div class="sp-msg">“${escapeHTML(t.msg)}”</div>
+    ${tag}<div class="sp-msg">“${body}”</div>
+    ${t.audio?`<audio controls src="${t.audio}" style="margin-top:18px;width:min(420px,80vw)"></audio>`:''}
     <div class="sp-from">— ${escapeHTML(t.name)}</div>
     <div class="sp-heart"><button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button></div>`;
   if(dots) dots.innerHTML=wallList.map((_,i)=>`<i class="${i===spotIdx?'on':''}"></i>`).join('');
@@ -853,31 +1121,107 @@ function toggleDark(){
 }
 function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
+
+/* ===================== HOST CONTROL PANEL ===================== */
+let mgEv=null, mgKey='', mgEvObj=null, mgFilterMode='all';
+function renderManage(id, key){
+  getEvent(id, e=>{
+    if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderManage(id,key));} toast('Event not found');return go('home'); }
+    if(e.manageKey && key!==e.manageKey){ toast('Invalid control-panel link'); return go('home'); }
+    mgEv=id; mgKey=key; mgEvObj=e; applyVibe(e.vibe,e.color);
+    document.getElementById('mgVibe').textContent=(VIBES[e.vibe]||VIBES.celebration).label;
+    document.getElementById('mgTitle').textContent=e.name+' — control panel';
+    document.getElementById('mgSub').innerHTML=hostHTML(e);
+    document.getElementById('mgWallBtn').onclick=()=>{ location.hash='wall?ev='+id; };
+    updateModBtn(); mgFilterMode='all';
+    ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k==='All');});
+    go('manage'); mgLoad();
+  });
+}
+function updateModBtn(){ const b=document.getElementById('mgModBtn'); const on=!!(mgEvObj.opts&&mgEvObj.opts.moderation); b.textContent='Moderation: '+(on?'ON':'OFF'); b.classList.toggle('on',on); }
+function mgFilter(m){ mgFilterMode=m; ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k.toLowerCase()===m);}); mgLoad(); }
+function mgLoad(){
+  readTributes(mgEv, list=>{
+    list=list.slice().sort((a,b)=>(a.pinned?-1:0)-(b.pinned?-1:0)||(b.ts||0)-(a.ts||0));
+    if(mgFilterMode==='pending') list=list.filter(t=>t.approved!==true);
+    if(mgFilterMode==='songs') list=list.filter(t=>t.type==='song');
+    const wrap=document.getElementById('mgList');
+    wrap.innerHTML = list.length ? list.map(mgCard).join('') : '<p class="muted" style="text-align:center;padding:30px">Nothing here yet.</p>';
+  });
+}
+function mgCard(t){
+  const pend=t.approved!==true;
+  const badges=(pend?'<span class="badge pend">Pending</span>':'')+(t.type==='song'?'<span class="badge song">🎵 Song</span>':'')+(t.pinned?'<span class="badge song">📌 Pinned</span>':'');
+  const media=t.photo?`<img src="${t.photo}" alt="">`:'';
+  const main=t.type==='song'?(escapeHTML(t.songTitle||'')+(t.songFor?(' · for '+escapeHTML(t.songFor)):'')):escapeHTML(t.msg||(t.audio?'🎤 Voice note':''));
+  return `<div class="mg-card ${pend?'pending':''}">${media}<div class="mg-body">
+    <div>${badges}</div><div class="mg-msg">${main}</div>
+    ${t.audio?`<audio controls src="${t.audio}" style="margin-top:8px;width:100%"></audio>`:''}
+    <div class="mg-from">— ${escapeHTML(t.name)}</div>
+    <div class="mg-actions">
+      ${pend?`<button class="ok" onclick="mgAct('${t.rid}','approve')">✓ Approve</button>`:`<button class="hide" onclick="mgAct('${t.rid}','hide')">Hide</button>`}
+      <button class="pin" onclick="mgAct('${t.rid}','${t.pinned?'unpin':'pin'}')">${t.pinned?'Unpin':'📌 Pin'}</button>
+      <button class="del" onclick="mgAct('${t.rid}','delete')">Delete</button>
+    </div></div></div>`;
+}
+function mgAct(rid, action){
+  if(action==='approve') updateTribute(mgEv,rid,{approved:true},mgLoad);
+  else if(action==='hide') updateTribute(mgEv,rid,{approved:false},mgLoad);
+  else if(action==='pin') updateTribute(mgEv,rid,{pinned:true},mgLoad);
+  else if(action==='unpin') updateTribute(mgEv,rid,{pinned:false},mgLoad);
+  else if(action==='delete'){ if(confirm('Delete this tribute permanently?')) deleteTribute(mgEv,rid,mgLoad); }
+}
+function toggleModeration(){
+  const on=!(mgEvObj.opts&&mgEvObj.opts.moderation);
+  mgEvObj.opts=mgEvObj.opts||{}; mgEvObj.opts.moderation=on;
+  saveEvent(mgEvObj, ()=>{ updateModBtn(); toast('Moderation '+(on?'ON — new posts need approval':'OFF — posts show instantly')); });
+}
+function exportAlbum(){
+  readTributes(mgEv, list=>{
+    list=list.filter(t=>t.approved!==false).sort((a,b)=>(a.ts||0)-(b.ts||0));
+    const e=mgEvObj, accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#FF4D7E';
+    const w=window.open('','_blank'); if(!w){toast('Allow pop-ups to export the album');return;}
+    const cards=list.map(t=>`<div class="c">
+      ${t.photo?`<img src="${t.photo}">`:''}
+      ${t.type==='song'?`<div class="tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div><div class="m">${escapeHTML(t.songTitle||'')}</div>`:`<div class="m">${escapeHTML(t.msg||(t.audio?'[voice note]':''))}</div>`}
+      <div class="n">— ${escapeHTML(t.name)}</div></div>`).join('');
+    w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHTML(e.name)} — album</title>
+    <style>body{font-family:Georgia,serif;color:#1C1430;max-width:760px;margin:0 auto;padding:40px}
+    h1{text-align:center;color:${accent}}.sub{text-align:center;color:#666;margin-bottom:26px}
+    .c{border:1px solid #eee;border-radius:14px;padding:18px;margin-bottom:14px;break-inside:avoid}
+    .c img{max-width:200px;border-radius:10px;display:block;margin-bottom:10px}
+    .m{font-size:18px}.n{color:${accent};font-weight:bold;margin-top:8px}
+    .tag{color:#6b4cff;font-weight:bold;font-size:12px;text-transform:uppercase}
+    @media print{.noprint{display:none}}</style></head><body>
+    <h1>${escapeHTML(e.name)}</h1><div class="sub">${list.length} tributes · GatherWall</div>
+    <button class="noprint" onclick="window.print()" style="display:block;margin:0 auto 22px;padding:10px 20px;cursor:pointer">⬇ Save as PDF / Print</button>
+    ${cards||'<p>No tributes yet.</p>'}</body></html>`);
+    w.document.close();
+  });
+}
 function escapeHTML(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function safeURL(u){ if(!u)return ''; u=String(u).trim(); if(!u)return ''; if(!/^https?:\/\//i.test(u))u='https://'+u;
   try{const x=new URL(u); if(x.protocol==='http:'||x.protocol==='https:')return x.href;}catch(e){} return ''; }
-function hostHTML(e){ // brand name, linked to their site if provided (white-label marketing)
-  const name=e.host||VIBES[e.vibe].label; const link=safeURL(e.hostLink);
-  const inner=link?`<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--brand);text-decoration:none;border-bottom:1px solid currentColor;">${escapeHTML(name)}</a>`:escapeHTML(name);
-  return (e.host?'Presented by ':'')+inner;
-}
+function hostNameHTML(e){ const name=e.host||(VIBES[e.vibe]||VIBES.celebration).label; const link=safeURL(e.hostLink);
+  return link?`<a href="${link}" target="_blank" rel="noopener noreferrer" style="color:var(--brand);text-decoration:none;border-bottom:1px solid currentColor;">${escapeHTML(name)}</a>`:escapeHTML(name); }
+function hostHTML(e){ return (e.host?'Presented by ':'')+hostNameHTML(e); }
 
 /* ===================== DEMO + FX ===================== */
-const DEMO_ID='demo04';
+const DEMO_ID='demo05';
 function seedDemo(cb){
   const items=[
-    ["Fifty years and you still light up every room. We love you!","Auntie Rose"],
-    ["From Accra to London — what a journey, what a woman.","Kwame"],
-    ["Happy birthday Mum. You're our hero, every single day.","Ama, Kofi & Esi"],
-    ["The best dancer at every party since 1976 💃","The Cousins"],
-    ["To my best friend of 30 years — here's to 30 more.","Linda"]];
+    {msg:"Fifty years and you still light up every room. We love you!",name:"Auntie Rose"},
+    {msg:"From Accra to London — what a journey, what a woman.",name:"Kwame"},
+    {msg:"Happy birthday Mum. You're our hero, every single day.",name:"Ama, Kofi & Esi"},
+    {msg:"The best dancer at every party since 1976 💃",name:"The Cousins"},
+    {type:'song',songTitle:"Stevie Wonder — Isn't She Lovely",songFor:"Grace",msg:"Her absolute favourite!",name:"Linda"}];
   getEvent(DEMO_ID, e=>{
     if(e){ cb&&cb(); return; }
     saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Moraks - Premier AVE',
       hostLink:'https://premier-ave.co.uk/',
-      date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false}}, ()=>{
+      date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false,voice:false,dedications:true,moderation:false}}, ()=>{
       let i=0;(function next(){ if(i>=items.length){cb&&cb();return;}
-        addTrib(DEMO_ID,{msg:items[i][0],name:items[i][1],photo:null,ts:Date.now()+i},()=>{i++;next();}); })();
+        addTrib(DEMO_ID,Object.assign({photo:null,ts:Date.now()+i,approved:true},items[i]),()=>{i++;next();}); })();
     });
   });
 }
