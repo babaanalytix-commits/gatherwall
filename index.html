@@ -275,6 +275,8 @@ body.kioskmode header.nav{display:none;}
 .fmt p{font-size:14px;flex:1;color:var(--muted);}
 .fmt-price{font-family:var(--display);font-size:18px;color:var(--brand);margin:14px 0 16px;font-weight:600;}
 .fmt .btn{justify-content:center;}
+.fmt-demo{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--brand);cursor:pointer;text-align:center;width:100%;}
+.fmt-demo:hover{text-decoration:underline;}
 @media(max-width:900px){.formats-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:520px){.formats-grid{grid-template-columns:1fr;}}
 /* enquiry modal */
@@ -371,6 +373,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtWallB">Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.</p>
         <div class="fmt-price" data-i18n="fmtWallP">From $39 / event · Pro $29/mo</div>
         <button class="btn btn-primary" data-i18n="fmtWallC" onclick="go('create')">Create a wall ▸</button>
+        <a class="fmt-demo" data-i18n="seeExample" onclick="loadDemoAndWall()">▸ See a live example</a>
       </div>
       <div class="fmt">
         <div class="fmt-emoji">🕊️</div>
@@ -378,6 +381,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtMemB">A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
         <div class="fmt-price" data-i18n="fmtMemP">$49 – $149</div>
         <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="createMemorial()">Create a memorial ▸</button>
+        <a class="fmt-demo" data-i18n="seeExample" onclick="loadMemorialDemo()">▸ See a live example</a>
       </div>
       <div class="fmt">
         <div class="fmt-emoji">🎬</div>
@@ -385,6 +389,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtKeepB">A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
         <div class="fmt-price" data-i18n="fmtKeepP">$79 – $199</div>
         <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="openBuilder()">Create your keepsake ▸</button>
+        <a class="fmt-demo" data-i18n="seeExample" href="keepsake-demo.html" target="_blank">▸ See an example</a>
       </div>
       <div class="fmt">
         <div class="fmt-emoji">✨</div>
@@ -392,6 +397,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtBundB">The full experience: a live wall on one screen and the bespoke keepsake story on another. Unforgettable.</p>
         <div class="fmt-price" data-i18n="fmtBundP">$199 – $499</div>
         <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="enquire('Event Bundle')">Enquire ▸</button>
+        <a class="fmt-demo" data-i18n="seeExample" href="keepsake-demo.html" target="_blank">▸ See an example</a>
       </div>
     </div>
   </div>
@@ -816,7 +822,7 @@ const HOME_I18N={
     priSingleT:"Single Event",priSingleUnit:" / event",priSingleDesc:"Perfect for one celebration.",priSingleL1:"Up to 150 guests",priSingleL2:"QR code + tablet kiosk mode",priSingleL3:"Live wall on your screen",priSingleL4:"Download the album after",priSingleBtn:"Start free",
     priPremT:"Premium Event",priPremUnit:" / event",priPremDesc:"For the big one.",priPremL1:"Unlimited guests",priPremL2:"Photos, video & messages",priPremL3:"Custom theme & branding",priPremL4:"Moderation & priority support",priPremBtn:"Start free",
     priProT:"Pro / White-label",priProUnit:" / month",priProDesc:"For DJs, MCs & planners.",priProL1:"Unlimited events",priProL2:"Your brand & colours on every wall",priProL3:"Resell to your clients, keep 100%",priProL4:"Re-usable templates",priProBtn:"Become a partner",
-    footTag:"A living wall of love for any event · Demo build · gatherwall.com"},
+    footTag:"A living wall of love for any event · Demo build · gatherwall.com",seeExample:"▸ See an example"},
   fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créer un mur",
     heroPill:"Murs d'hommage en direct pour chaque célébration",heroH1:"Un mur vivant d'<em>amour</em>, sur grand écran.",
     heroLead:"Les invités scannent un code ou utilisent une tablette, laissent un message ou une photo, et tout s'affiche en direct à l'écran — un mur d'hommages qui se construit toute la soirée pour la personne qui compte. Mariages, grands anniversaires, départs en retraite, hommages et plus encore.",
@@ -839,7 +845,7 @@ const HOME_I18N={
     priSingleT:"Événement unique",priSingleUnit:" / événement",priSingleDesc:"Parfait pour une seule célébration.",priSingleL1:"Jusqu'à 150 invités",priSingleL2:"QR code + mode borne tablette",priSingleL3:"Mur en direct sur votre écran",priSingleL4:"Téléchargez l'album après",priSingleBtn:"Commencer gratuitement",
     priPremT:"Événement Premium",priPremUnit:" / événement",priPremDesc:"Pour les grandes occasions.",priPremL1:"Invités illimités",priPremL2:"Photos, vidéos & messages",priPremL3:"Thème & marque personnalisés",priPremL4:"Modération & support prioritaire",priPremBtn:"Commencer gratuitement",
     priProT:"Pro / Marque blanche",priProUnit:" / mois",priProDesc:"Pour DJ, animateurs & organisateurs.",priProL1:"Événements illimités",priProL2:"Votre marque & vos couleurs sur chaque mur",priProL3:"Revendez à vos clients, gardez 100 %",priProL4:"Modèles réutilisables",priProBtn:"Devenir partenaire",
-    footTag:"Un mur vivant d'amour pour chaque événement · Version démo · gatherwall.com"},
+    footTag:"Un mur vivant d'amour pour chaque événement · Version démo · gatherwall.com",seeExample:"▸ Voir un exemple"},
   es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crear un muro",
     heroPill:"Muros de homenaje en directo para cada celebración",heroH1:"Un muro vivo de <em>amor</em>, en la gran pantalla.",
     heroLead:"Los invitados escanean un código o usan una tablet, dejan un mensaje o una foto, y aparece en directo en la pantalla — un muro de homenajes que crece toda la noche para la persona que importa. Bodas, grandes cumpleaños, jubilaciones, homenajes y mucho más.",
@@ -862,7 +868,7 @@ const HOME_I18N={
     priSingleT:"Evento único",priSingleUnit:" / evento",priSingleDesc:"Perfecto para una celebración.",priSingleL1:"Hasta 150 invitados",priSingleL2:"Código QR + modo quiosco en tablet",priSingleL3:"Muro en directo en tu pantalla",priSingleL4:"Descarga el álbum después",priSingleBtn:"Empezar gratis",
     priPremT:"Evento Premium",priPremUnit:" / evento",priPremDesc:"Para la gran ocasión.",priPremL1:"Invitados ilimitados",priPremL2:"Fotos, vídeo y mensajes",priPremL3:"Tema y marca personalizados",priPremL4:"Moderación y soporte prioritario",priPremBtn:"Empezar gratis",
     priProT:"Pro / Marca blanca",priProUnit:" / mes",priProDesc:"Para DJ, presentadores y organizadores.",priProL1:"Eventos ilimitados",priProL2:"Tu marca y colores en cada muro",priProL3:"Revende a tus clientes y quédate el 100 %",priProL4:"Plantillas reutilizables",priProBtn:"Hazte socio",
-    footTag:"Un muro vivo de amor para cada evento · Versión demo · gatherwall.com"},
+    footTag:"Un muro vivo de amor para cada evento · Versión demo · gatherwall.com",seeExample:"▸ Ver un ejemplo"},
   cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit zeď",
     heroPill:"Živé zdi vzkazů pro každou oslavu",heroH1:"Živá zeď plná <em>lásky</em>, na velké obrazovce.",
     heroLead:"Hosté naskenují kód nebo použijí tablet, zanechají vzkaz nebo fotku a vše se živě objeví na obrazovce — zeď vzkazů, která roste celý večer pro toho, na kom záleží. Svatby, velká výročí, odchody do důchodu, vzpomínky a mnoho dalšího.",
@@ -885,7 +891,7 @@ const HOME_I18N={
     priSingleT:"Jedna akce",priSingleUnit:" / akce",priSingleDesc:"Ideální pro jednu oslavu.",priSingleL1:"Až 150 hostů",priSingleL2:"QR kód + režim kiosku na tabletu",priSingleL3:"Živá zeď na vaší obrazovce",priSingleL4:"Stažení alba po akci",priSingleBtn:"Začít zdarma",
     priPremT:"Prémiová akce",priPremUnit:" / akce",priPremDesc:"Pro tu velkou událost.",priPremL1:"Neomezený počet hostů",priPremL2:"Fotky, video a vzkazy",priPremL3:"Vlastní vzhled a značka",priPremL4:"Moderování a přednostní podpora",priPremBtn:"Začít zdarma",
     priProT:"Pro / Vlastní značka",priProUnit:" / měsíc",priProDesc:"Pro DJ, moderátory a organizátory.",priProL1:"Neomezené akce",priProL2:"Vaše značka a barvy na každé zdi",priProL3:"Prodávejte klientům, nechte si 100 %",priProL4:"Znovupoužitelné šablony",priProBtn:"Stát se partnerem",
-    footTag:"Živá zeď plná lásky pro každou akci · Demo verze · gatherwall.com"},
+    footTag:"Živá zeď plná lásky pro každou akci · Demo verze · gatherwall.com",seeExample:"▸ Zobrazit ukázku"},
   de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Wand erstellen",
     heroPill:"Live-Erinnerungswände für jede Feier",heroH1:"Eine lebendige Wand voller <em>Liebe</em>, auf der großen Leinwand.",
     heroLead:"Gäste scannen einen Code oder tippen auf ein Tablet, hinterlassen eine Nachricht oder ein Foto, und es erscheint live auf dem Bildschirm — eine Wand voller Botschaften, die den ganzen Abend für den wichtigen Menschen wächst. Hochzeiten, runde Geburtstage, Ruhestand, Gedenkfeiern und mehr.",
@@ -908,7 +914,7 @@ const HOME_I18N={
     priSingleT:"Einzel-Event",priSingleUnit:" / Event",priSingleDesc:"Perfekt für eine Feier.",priSingleL1:"Bis zu 150 Gäste",priSingleL2:"QR-Code + Tablet-Kioskmodus",priSingleL3:"Live-Wand auf deinem Bildschirm",priSingleL4:"Album danach herunterladen",priSingleBtn:"Kostenlos starten",
     priPremT:"Premium-Event",priPremUnit:" / Event",priPremDesc:"Für den großen Anlass.",priPremL1:"Unbegrenzte Gäste",priPremL2:"Fotos, Video & Nachrichten",priPremL3:"Eigenes Design & Branding",priPremL4:"Moderation & Priority-Support",priPremBtn:"Kostenlos starten",
     priProT:"Pro / White-Label",priProUnit:" / Monat",priProDesc:"Für DJs, Moderatoren & Planer.",priProL1:"Unbegrenzte Events",priProL2:"Deine Marke & Farben auf jeder Wand",priProL3:"An deine Kunden weiterverkaufen, 100 % behalten",priProL4:"Wiederverwendbare Vorlagen",priProBtn:"Partner werden",
-    footTag:"Eine lebendige Wand voller Liebe für jedes Event · Demo-Version · gatherwall.com"},
+    footTag:"Eine lebendige Wand voller Liebe für jedes Event · Demo-Version · gatherwall.com",seeExample:"▸ Beispiel ansehen"},
 };
 function buildHomeLang(){ const bar=document.getElementById('homeLang'); if(!bar)return;
   bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
@@ -1566,6 +1572,22 @@ function seedDemo(cb){
   });
 }
 function loadDemoAndWall(){ seedDemo(()=>{ location.hash='wall?ev='+DEMO_ID; }); }
+const MEMDEMO_ID='memdemo01';
+function loadMemorialDemo(){
+  const items=[
+    {msg:"Eighty-four years of warmth, mischief and unshakeable love.",name:"Her children"},
+    {msg:"Nan's Sunday roasts brought four generations to one table.",name:"The grandchildren"},
+    {msg:"She taught me that joy lives in the ordinary days.",name:"Margaret's niece"},
+    {msg:"Always a cup of tea ready, and always time to listen.",name:"Her neighbour Joan"}];
+  getEvent(MEMDEMO_ID, e=>{
+    if(e){ location.hash='wall?ev='+MEMDEMO_ID; return; }
+    saveEvent({id:MEMDEMO_ID,name:"In loving memory of Margaret · 1942 – 2026",vibe:'memorial',color:'#6E8E7B',
+      host:'',hostLink:'',date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false,voice:false,dedications:false,moderation:false}}, ()=>{
+      let i=0;(function next(){ if(i>=items.length){location.hash='wall?ev='+MEMDEMO_ID;return;}
+        addTrib(MEMDEMO_ID,Object.assign({photo:null,ts:Date.now()+i,approved:true},items[i]),()=>{i++;next();}); })();
+    });
+  });
+}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
 function burst(){
