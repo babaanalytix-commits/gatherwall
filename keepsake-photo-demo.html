@@ -106,18 +106,18 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 
 <div class="wrap">
   <div class="crest"><span class="dot"></span><b>GatherWall</b></div>
-  <div class="eyebrow">Animated Keepsake Story · with photos · sample</div>
+  <div class="eyebrow" id="eyebrow">Animated Keepsake Story · with photos · sample</div>
 
   <section class="hero">
-    <h1>Fifty Years of Gold</h1>
-    <p class="for">Her life in <em>photos and song</em> — every picture rising with the music.</p>
+    <h1 id="heroTitle">Fifty Years of Gold</h1>
+    <p class="for" id="heroSub">Her life in <em>photos and song</em> — every picture rising with the music.</p>
   </section>
 
   <div class="langs" id="langs"></div>
 
   <div class="stage" id="stage"></div>
   <div class="nowline" id="nowline">Press play to begin her story…</div>
-  <div class="stagehint">Example story shown · <b>in your keepsake, every frame is your own photo</b></div>
+  <div class="stagehint" id="stagehint">Example story shown · <b>in your keepsake, every frame is your own photo</b></div>
 
   <section class="player">
     <div class="track-line" id="trackline">Fifty Years of Gold · composed for the celebration</div>
@@ -133,26 +133,26 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 
   <div class="strip" id="strip"></div>
 
-  <div class="divider"><span class="l"></span><span>How it comes together</span><span class="r"></span></div>
+  <div class="divider"><span class="l"></span><span id="dividerLabel">How it comes together</span><span class="r"></span></div>
   <section class="chapters">
-    <div class="chapter"><h3>You share the photos</h3><p>Upload a handful of favourites — baby pictures, the wedding, the grandkids. Any moments that matter.</p></div>
-    <div class="chapter"><h3>We write the song</h3><p>From a few simple answers, a bespoke song is composed around their real story.</p></div>
-    <div class="chapter"><h3>They move together</h3><p>Photos rise and fade in time with the music — an animated story, not just a slideshow.</p></div>
-    <div class="chapter"><h3>Played, then kept</h3><p>Shown on the big screen at the event, then theirs to keep and replay forever.</p></div>
+    <div class="chapter"><h3 id="ch0t">You share the photos</h3><p id="ch0p">Upload a handful of favourites — baby pictures, the wedding, the grandkids. Any moments that matter.</p></div>
+    <div class="chapter"><h3 id="ch1t">We write the song</h3><p id="ch1p">From a few simple answers, a bespoke song is composed around their real story.</p></div>
+    <div class="chapter"><h3 id="ch2t">They move together</h3><p id="ch2p">Photos rise and fade in time with the music — an animated story, not just a slideshow.</p></div>
+    <div class="chapter"><h3 id="ch3t">Played, then kept</h3><p id="ch3p">Shown on the big screen at the event, then theirs to keep and replay forever.</p></div>
   </section>
 
   <section class="cta">
-    <h2>Now imagine their real photos here</h2>
-    <p>Same song, same magic — but every frame is a memory only your family has. That's the keepsake.</p>
+    <h2 id="ctaH">Now imagine their real photos here</h2>
+    <p id="ctaP">Same song, same magic — but every frame is a memory only your family has. That's the keepsake.</p>
     <div class="btns">
-      <a class="btn btn-gold" href="index.html#formats">Create a keepsake like this →</a>
-      <a class="btn btn-ghost" href="keepsake-birthday-demo.html">See the song & lyrics version</a>
+      <a class="btn btn-gold" id="ctaBtn1" href="index.html#formats">Create a keepsake like this →</a>
+      <a class="btn btn-ghost" id="ctaBtn2" href="keepsake-birthday-demo.html">See the song & lyrics version</a>
     </div>
   </section>
 
   <footer>
-    <div class="demo-tag">Sample keepsake · with photos · GatherWall</div>
-    <div>Example photos shown · your keepsake uses your own photos · gatherwall.com</div>
+    <div class="demo-tag" id="footTag">Sample keepsake · with photos · GatherWall</div>
+    <div id="footLine">Example photos shown · your keepsake uses your own photos · gatherwall.com</div>
   </footer>
 </div>
 
@@ -183,6 +183,53 @@ const LANGS={
   lines:["Padesát svíček, rozzářený pokoj","Padesát létek, co odešlo","Každá vráska ve tvé tváři","Je píseň, je další sen","Dala jsi nám každé ráno","Držela svět, když byla tma","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj hlas","Nejkrásnější srdce, co známe","Mami, ty jsi náš domov a klid","Padesát zlatých let","Byla jsi silná, když jsme byli malí","Byla jsi statečná v každé bouři","Nikdy jsi nepustila ruku","Těch, které jsi nosila v srdci","Skrze smích a skrze slzy","Všechna ta léta jsi nesla","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj hlas","Nejkrásnější srdce, co známe","Mami, ty jsi náš domov a klid","Padesát zlatých let","Kdybychom ti mohli dát celý svět","Zabalili bychom ho do zlata","Za každý sen, co jsi odložila","Za každou ruku, co jsi držela","Sfoukni svíčky, něco si přej","Zasloužíš si to, a mnohem víc","Padesát let, a teprve začínáš","Jsi ta nejkrásnější, jsi vším","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj smích","Nejkrásnější srdce, co známe","Všechno nejlepší, vítej domů","Padesát zlatých let","Všechno nejlepší tobě","Padesát let a záříš dál"]}
 };
 const ORDER=['en','fr','es','de','cs'];
+
+/* ---------- page UI text per language ---------- */
+const UI={
+ en:{name:'Fifty Years of Gold',eyebrow:'Animated Keepsake Story · with photos · sample',
+   heroSub:'Her life in <em>photos and song</em> — every picture rising with the music.',
+   hint:'Example story shown · <b>in your keepsake, every frame is your own photo</b>',
+   divider:'How it comes together',
+   ch:[{t:'You share the photos',p:'Upload a handful of favourites — baby pictures, the wedding, the grandkids. Any moments that matter.'},{t:'We write the song',p:'From a few simple answers, a bespoke song is composed around their real story.'},{t:'They move together',p:'Photos rise and fade in time with the music — an animated story, not just a slideshow.'},{t:'Played, then kept',p:'Shown on the big screen at the event, then theirs to keep and replay forever.'}],
+   ctaH:'Now imagine their real photos here',ctaP:'Same song, same magic — but every frame is a memory only your family has. That\'s the keepsake.',ctaBtn1:'Create a keepsake like this →',ctaBtn2:'See the song & lyrics version',
+   footTag:'Sample keepsake · with photos · GatherWall',footLine:'Example photos shown · your keepsake uses your own photos · gatherwall.com'},
+ fr:{name:'Cinquante ans de lumière',eyebrow:'Histoire souvenir animée · avec photos · exemple',
+   heroSub:'Sa vie en <em>photos et en chanson</em> — chaque image s\'élève avec la musique.',
+   hint:'Exemple présenté · <b>dans votre souvenir, chaque image est votre propre photo</b>',
+   divider:'Comment ça se crée',
+   ch:[{t:'Vous partagez les photos',p:'Téléchargez quelques favorites — photos de bébé, le mariage, les petits-enfants. Tous les moments qui comptent.'},{t:'Nous écrivons la chanson',p:'À partir de quelques réponses simples, une chanson sur mesure est composée autour de leur histoire.'},{t:'Tout s\'anime ensemble',p:'Les photos apparaissent et s\'effacent au rythme de la musique — une histoire animée, pas un simple diaporama.'},{t:'Diffusée, puis gardée',p:'Projetée sur grand écran le jour J, puis conservée pour toujours.'}],
+   ctaH:'Imaginez maintenant leurs vraies photos ici',ctaP:'Même chanson, même magie — mais chaque image est un souvenir que seule votre famille possède. C\'est ça, le souvenir.',ctaBtn1:'Créer un souvenir comme celui-ci →',ctaBtn2:'Voir la version paroles',
+   footTag:'Exemple de souvenir · avec photos · GatherWall',footLine:'Photos d\'exemple · votre souvenir utilise vos propres photos · gatherwall.com'},
+ es:{name:'Cincuenta primaveras',eyebrow:'Historia animada de recuerdo · con fotos · ejemplo',
+   heroSub:'Su vida en <em>fotos y canción</em> — cada imagen se eleva con la música.',
+   hint:'Ejemplo mostrado · <b>en tu recuerdo, cada imagen es tu propia foto</b>',
+   divider:'Cómo se crea',
+   ch:[{t:'Compartes las fotos',p:'Sube algunas favoritas — fotos de bebé, la boda, los nietos. Los momentos que importan.'},{t:'Escribimos la canción',p:'A partir de unas pocas respuestas, se compone una canción a medida sobre su historia.'},{t:'Todo cobra vida',p:'Las fotos aparecen y se desvanecen al ritmo de la música — una historia animada, no una simple presentación.'},{t:'Se reproduce y se guarda',p:'Se proyecta en la gran pantalla el día del evento, y luego es tuya para siempre.'}],
+   ctaH:'Ahora imagina aquí sus fotos reales',ctaP:'Misma canción, misma magia — pero cada imagen es un recuerdo que solo tu familia tiene. Eso es el recuerdo.',ctaBtn1:'Crear un recuerdo así →',ctaBtn2:'Ver la versión con letra',
+   footTag:'Ejemplo de recuerdo · con fotos · GatherWall',footLine:'Fotos de ejemplo · tu recuerdo usa tus propias fotos · gatherwall.com'},
+ de:{name:'Fünfzig goldene Jahre',eyebrow:'Animierte Andenken-Geschichte · mit Fotos · Beispiel',
+   heroSub:'Ihr Leben in <em>Fotos und Lied</em> — jedes Bild steigt mit der Musik empor.',
+   hint:'Beispiel gezeigt · <b>in deinem Andenken ist jedes Bild dein eigenes Foto</b>',
+   divider:'So entsteht es',
+   ch:[{t:'Du teilst die Fotos',p:'Lade ein paar Lieblingsfotos hoch — Babybilder, die Hochzeit, die Enkel. Alle Momente, die zählen.'},{t:'Wir schreiben das Lied',p:'Aus ein paar einfachen Antworten entsteht ein maßgefertigtes Lied über ihre Geschichte.'},{t:'Alles bewegt sich zusammen',p:'Fotos erscheinen und verblassen im Takt der Musik — eine animierte Geschichte, keine bloße Diashow.'},{t:'Gespielt und bewahrt',p:'Beim Event auf der großen Leinwand gezeigt — und danach für immer behalten.'}],
+   ctaH:'Stell dir jetzt ihre echten Fotos hier vor',ctaP:'Gleiches Lied, gleiche Magie — aber jedes Bild ist eine Erinnerung, die nur deine Familie hat. Das ist das Andenken.',ctaBtn1:'So ein Andenken erstellen →',ctaBtn2:'Zur Liedtext-Version',
+   footTag:'Beispiel-Andenken · mit Fotos · GatherWall',footLine:'Beispielfotos gezeigt · dein Andenken nutzt deine eigenen Fotos · gatherwall.com'},
+ cs:{name:'Padesát zlatých let',eyebrow:'Animovaný vzpomínkový příběh · s fotkami · ukázka',
+   heroSub:'Její život ve <em>fotkách a písni</em> — každý snímek se zvedá s hudbou.',
+   hint:'Ukázkový příběh · <b>ve vaší vzpomínce je každý snímek vaše vlastní fotka</b>',
+   divider:'Jak to vzniká',
+   ch:[{t:'Sdílíte fotky',p:'Nahrajte pár oblíbených — fotky z dětství, svatbu, vnoučata. Všechny okamžiky, na kterých záleží.'},{t:'Napíšeme píseň',p:'Z několika jednoduchých odpovědí složíme píseň na míru o jejich příběhu.'},{t:'Vše ožívá společně',p:'Fotky se objevují a mizí v rytmu hudby — animovaný příběh, ne jen prezentace.'},{t:'Přehráno a uchováno',p:'Na akci promítnuto na velké plátno — a pak navždy vaše.'}],
+   ctaH:'Teď si představte tady jejich skutečné fotky',ctaP:'Stejná píseň, stejné kouzlo — ale každý snímek je vzpomínka, kterou má jen vaše rodina. To je ta vzpomínka.',ctaBtn1:'Vytvořit takovou vzpomínku →',ctaBtn2:'Zobrazit verzi s textem',
+   footTag:'Ukázková vzpomínka · s fotkami · GatherWall',footLine:'Ukázkové fotky · vaše vzpomínka používá vaše vlastní fotky · gatherwall.com'}
+};
+function _set(id,t){const e=document.getElementById(id);if(e)e.textContent=t;}
+function _html(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h;}
+function applyUI(code){const u=UI[code]||UI.en;
+  _set('eyebrow',u.eyebrow);_set('heroTitle',u.name);_html('heroSub',u.heroSub);_html('stagehint',u.hint);_set('dividerLabel',u.divider);
+  for(let i=0;i<4;i++){_set('ch'+i+'t',u.ch[i].t);_set('ch'+i+'p',u.ch[i].p);}
+  _set('ctaH',u.ctaH);_set('ctaP',u.ctaP);_set('ctaBtn1',u.ctaBtn1);_set('ctaBtn2',u.ctaBtn2);_set('footTag',u.footTag);_html('footLine',u.footLine);
+  document.documentElement.lang=code;
+}
 
 const stage=document.getElementById('stage'), strip=document.getElementById('strip'), langsEl=document.getElementById('langs');
 const audio=document.getElementById('audio'),playBtn=document.getElementById('playBtn'),fill=document.getElementById('fill');
@@ -225,6 +272,7 @@ function setLang(code){
   for(let i=0;i<N;i++){const c=document.getElementById('cap'+i);if(c)c.textContent=L.caps[i];}
   audio.src=L.file; audio.currentTime=0; fill.style.width='0%'; curEl.textContent='0:00'; durEl.textContent='0:00';
   nowline.textContent=L.start; curLine=-1;
+  applyUI(code);
   if(was) audio.play().catch(()=>{});
 }
 audio.addEventListener('timeupdate',()=>{
