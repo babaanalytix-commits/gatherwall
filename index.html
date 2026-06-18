@@ -130,6 +130,11 @@ section{padding:74px 0;}
 .price ul{list-style:none;margin:18px 0 24px;display:flex;flex-direction:column;gap:11px;font-size:14.5px;}
 .price li{display:flex;gap:10px;}.price li::before{content:'✦';color:var(--brand);}
 .price .btn{margin-top:auto;justify-content:center;}
+.pg-label{font-family:var(--ui);font-weight:700;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:38px 0 18px;display:flex;align-items:center;gap:12px;}
+.pg-label::after{content:'';flex:1;height:1px;background:var(--line);}
+.prices + .pg-label{margin-top:46px;}
+.price .amt.amt-cust{font-size:30px;color:var(--brand);}
+.price-note{font-size:13px;color:var(--muted);text-align:center;margin-top:24px;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6;}
 @media(max-width:820px){.prices{grid-template-columns:1fr;}}
 
 /* footer */
@@ -414,31 +419,60 @@ body.kioskmode header.nav{display:none;}
 <section id="pricing">
   <div class="wrap">
     <div class="section-head"><span class="pill" id="h_priPill">Live Tribute Wall · pricing</span>
-      <h2 id="h_priH2">Pay once, or go pro</h2>
-      <p data-i18n="priSub">The live wall in detail. Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.</p></div>
+      <h2 id="h_priH2">Simple pricing — pay per event, or go monthly</h2>
+      <p data-i18n="priSub">Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.</p></div>
+
+    <div class="pg-label" data-i18n="prG1">Pay per event</div>
     <div class="prices">
       <div class="price">
-        <h3 data-i18n="priSingleT">Single Event</h3>
-        <div class="amt">$39<span data-i18n="priSingleUnit"> / event</span></div>
-        <p class="muted" data-i18n="priSingleDesc">Perfect for one celebration.</p>
-        <ul><li data-i18n="priSingleL1">Up to 150 guests</li><li data-i18n="priSingleL2">QR code + tablet kiosk mode</li><li data-i18n="priSingleL3">Live wall on your screen</li><li data-i18n="priSingleL4">Download the album after</li></ul>
-        <button class="btn btn-ghost" data-i18n="priSingleBtn" onclick="go('create')">Start free</button>
-      </div>
-      <div class="price feat">
-        <h3 data-i18n="priPremT">Premium Event</h3>
-        <div class="amt">$79<span data-i18n="priPremUnit"> / event</span></div>
-        <p class="muted" data-i18n="priPremDesc">For the big one.</p>
-        <ul><li data-i18n="priPremL1">Unlimited guests</li><li data-i18n="priPremL2">Photos, video &amp; messages</li><li data-i18n="priPremL3">Custom theme &amp; branding</li><li data-i18n="priPremL4">Moderation &amp; priority support</li></ul>
-        <button class="btn btn-primary" data-i18n="priPremBtn" onclick="go('create')">Start free</button>
+        <h3 data-i18n="prBasicT">Basic</h3>
+        <div class="amt">$10<span data-i18n="prBasicU"> / event</span></div>
+        <p class="muted" data-i18n="prBasicD">A clean wall for one celebration.</p>
+        <ul><li data-i18n="prBasicA">Up to 30 posts</li><li data-i18n="prBasicB">Photos + text tributes</li><li data-i18n="prBasicC">Live auto-scrolling big screen</li></ul>
+        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="go('create')">Create a wall ▸</button>
       </div>
       <div class="price">
-        <h3 data-i18n="priProT">Pro / White-label</h3>
-        <div class="amt">$29<span data-i18n="priProUnit"> / month</span></div>
-        <p class="muted" data-i18n="priProDesc">For DJs, MCs &amp; planners.</p>
-        <ul><li data-i18n="priProL1">Unlimited events</li><li data-i18n="priProL2">Your brand &amp; colours on every wall</li><li data-i18n="priProL3">Resell to your clients, keep 100%</li><li data-i18n="priProL4">Re-usable templates</li></ul>
-        <button class="btn btn-ghost" data-i18n="priProBtn" onclick="go('create')">Become a partner</button>
+        <h3 data-i18n="prPlusT">Plus</h3>
+        <div class="amt">$15<span data-i18n="prPlusU"> / event</span></div>
+        <p class="muted" data-i18n="prPlusD">More guests, with a slideshow.</p>
+        <ul><li data-i18n="prPlusA">Up to 100 posts</li><li data-i18n="prPlusB">Photos + text tributes</li><li data-i18n="prPlusC">Slideshow playback on screen</li></ul>
+        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="go('create')">Create a wall ▸</button>
+      </div>
+      <div class="price feat">
+        <h3 data-i18n="prUnlT">Unlimited</h3>
+        <div class="amt">$20<span data-i18n="prUnlU"> / event</span></div>
+        <p class="muted" data-i18n="prUnlD">Make it truly theirs.</p>
+        <ul><li data-i18n="prUnlA">Unlimited posts</li><li data-i18n="prUnlB">Personalise the background — their photo, logo or colours</li><li data-i18n="prUnlC">Slideshow + download a copy after</li></ul>
+        <button class="btn btn-primary" data-i18n="prCtaEvent" onclick="go('create')">Create a wall ▸</button>
       </div>
     </div>
+
+    <div class="pg-label" data-i18n="prG2">Monthly — for DJs, MCs, planners &amp; venues</div>
+    <div class="prices">
+      <div class="price">
+        <h3 data-i18n="prHostT">Host</h3>
+        <div class="amt">$25<span data-i18n="prHostU"> / month</span></div>
+        <p class="muted" data-i18n="prHostD">For regular events.</p>
+        <ul><li data-i18n="prHostA">Everything in Unlimited</li><li data-i18n="prHostB">Up to 3 events / month</li><li data-i18n="prHostC">Voice notes shown as on-screen text</li></ul>
+        <button class="btn btn-ghost" data-i18n="prCtaPlan" onclick="go('create')">Choose plan ▸</button>
+      </div>
+      <div class="price feat">
+        <h3 data-i18n="prProT2">Pro</h3>
+        <div class="amt">$40<span data-i18n="prProU2"> / month</span></div>
+        <p class="muted" data-i18n="prProD2">For busy pros.</p>
+        <ul><li data-i18n="prProA">Everything in Host</li><li data-i18n="prProB">Up to 7 events / month</li><li data-i18n="prProC">Video tributes + priority support</li></ul>
+        <button class="btn btn-primary" data-i18n="prCtaPlan" onclick="go('create')">Choose plan ▸</button>
+      </div>
+      <div class="price">
+        <h3 data-i18n="prEntT">Enterprise</h3>
+        <div class="amt amt-cust" data-i18n="prEntAmt">Custom</div>
+        <p class="muted" data-i18n="prEntD">White-label for venues &amp; agencies.</p>
+        <ul><li data-i18n="prEntA">Your brand &amp; own domain</li><li data-i18n="prEntB">Unlimited events</li><li data-i18n="prEntC">Onboarding &amp; support</li></ul>
+        <button class="btn btn-ghost" data-i18n="prCtaEnt" onclick="enquire('White-label / Enterprise')">Talk to us ▸</button>
+      </div>
+    </div>
+
+    <p class="price-note" data-i18n="prNote">Personalised backgrounds, slideshow and downloads start at the $20 tier. Voice notes appear as text on the big screen. Video tributes phase in on monthly plans.</p>
   </div>
 </section>
 
@@ -813,7 +847,7 @@ const HOME_I18N={
     heroLead:"Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.",
     cta1:"Create your wall — free to try",cta2:"See a live wall ▸",heroNote:"No app for guests · Works on any phone · Your event, your colours.",
     howPill:"How it works",howH2:"Three steps to a wall of love",fmtPill:"Choose your experience",fmtH2:"One platform, many ways to honour a moment",
-    priPill:"Live Tribute Wall · pricing",priH2:"Pay once, or go pro",vibPill:"One platform, every occasion",vibH2:"Each wall, styled to the moment",
+    priPill:"Live Tribute Wall · pricing",priH2:"Simple pricing — pay per event, or go monthly",vibPill:"One platform, every occasion",vibH2:"Each wall, styled to the moment",
     howSub:"Set it up in minutes. Guests do the rest.",
     step1T:"Create the event",step1B:"Name the guest of honour, pick the occasion, choose your colours. Your wall is ready instantly.",
     step2T:"Guests leave tributes",step2B:"Share a QR code or stand a tablet at the door. Guests add a message or photo in seconds — no app needed.",
@@ -822,21 +856,27 @@ const HOME_I18N={
     vibCelebT:"Celebration",vibCelebB:"Birthdays, anniversaries, graduations, retirements.",vibWedT:"Wedding",vibWedB:"A wall of well-wishes for the happy couple.",
     vibMemT:"In Memory",vibMemB:"A gentle space to share memories and love.",vibCorpT:"Corporate",vibCorpB:"Awards nights, farewells, company milestones.",
     fmtSub:"From a live party wall to a lasting memorial or a bespoke keepsake — pick the format that fits, at a price that fits.",
-    fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $39 / event · Pro $29/mo",fmtWallC:"Create a wall ▸",
+    fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event · From $25/mo",fmtWallC:"Create a wall ▸",
     fmtMemT:"Memorial & Eulogy",fmtMemB:"A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.",fmtMemP:"$49 – $149",fmtMemC:"Create a memorial ▸",
     fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$79 – $199",fmtKeepC:"Create your keepsake ▸",
     fmtBundT:"Event Bundle",fmtBundB:"The full experience: a live wall on one screen and the bespoke keepsake story on another. Unforgettable.",fmtBundP:"$199 – $499",fmtBundC:"Enquire ▸",
-    priSub:"The live wall in detail. Run a single event, or — if you're a DJ, MC or planner — white-label it and use it at every booking.",
-    priSingleT:"Single Event",priSingleUnit:" / event",priSingleDesc:"Perfect for one celebration.",priSingleL1:"Up to 150 guests",priSingleL2:"QR code + tablet kiosk mode",priSingleL3:"Live wall on your screen",priSingleL4:"Download the album after",priSingleBtn:"Start free",
-    priPremT:"Premium Event",priPremUnit:" / event",priPremDesc:"For the big one.",priPremL1:"Unlimited guests",priPremL2:"Photos, video & messages",priPremL3:"Custom theme & branding",priPremL4:"Moderation & priority support",priPremBtn:"Start free",
-    priProT:"Pro / White-label",priProUnit:" / month",priProDesc:"For DJs, MCs & planners.",priProL1:"Unlimited events",priProL2:"Your brand & colours on every wall",priProL3:"Resell to your clients, keep 100%",priProL4:"Re-usable templates",priProBtn:"Become a partner",
+    priSub:"Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.",
+    prG1:"Pay per event",prG2:"Monthly — for DJs, MCs, planners & venues",
+    prBasicT:"Basic",prBasicU:" / event",prBasicD:"A clean wall for one celebration.",prBasicA:"Up to 30 posts",prBasicB:"Photos + text tributes",prBasicC:"Live auto-scrolling big screen",
+    prPlusT:"Plus",prPlusU:" / event",prPlusD:"More guests, with a slideshow.",prPlusA:"Up to 100 posts",prPlusB:"Photos + text tributes",prPlusC:"Slideshow playback on screen",
+    prUnlT:"Unlimited",prUnlU:" / event",prUnlD:"Make it truly theirs.",prUnlA:"Unlimited posts",prUnlB:"Personalise the background — their photo, logo or colours",prUnlC:"Slideshow + download a copy after",
+    prHostT:"Host",prHostU:" / month",prHostD:"For regular events.",prHostA:"Everything in Unlimited",prHostB:"Up to 3 events / month",prHostC:"Voice notes shown as on-screen text",
+    prProT2:"Pro",prProU2:" / month",prProD2:"For busy pros.",prProA:"Everything in Host",prProB:"Up to 7 events / month",prProC:"Video tributes + priority support",
+    prEntT:"Enterprise",prEntAmt:"Custom",prEntD:"White-label for venues & agencies.",prEntA:"Your brand & own domain",prEntB:"Unlimited events",prEntC:"Onboarding & support",
+    prCtaEvent:"Create a wall ▸",prCtaPlan:"Choose plan ▸",prCtaEnt:"Talk to us ▸",
+    prNote:"Personalised backgrounds, slideshow and downloads start at the $20 tier. Voice notes appear as text on the big screen. Video tributes phase in on monthly plans.",
     footTag:"A living wall of love for any event · Demo build · gatherwall.com",seeExample:"▸ See an example"},
   fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créer un mur",
     heroPill:"Murs d'hommage en direct pour chaque célébration",heroH1:"Un mur vivant d'<em>amour</em>, sur grand écran.",
     heroLead:"Les invités scannent un code ou utilisent une tablette, laissent un message ou une photo, et tout s'affiche en direct à l'écran — un mur d'hommages qui se construit toute la soirée pour la personne qui compte. Mariages, grands anniversaires, départs en retraite, hommages et plus encore.",
     cta1:"Créez votre mur — essai gratuit",cta2:"Voir un mur en direct ▸",heroNote:"Aucune appli pour les invités · Sur tout téléphone · Votre événement, vos couleurs.",
     howPill:"Comment ça marche",howH2:"Trois étapes vers un mur d'amour",fmtPill:"Choisissez votre expérience",fmtH2:"Une plateforme, mille façons d'honorer un moment",
-    priPill:"Mur d'hommage en direct · tarifs",priH2:"Payez une fois, ou passez en Pro",vibPill:"Une plateforme, chaque occasion",vibH2:"Chaque mur, au style du moment",
+    priPill:"Mur d'hommage en direct · tarifs",priH2:"Tarifs simples — à l'événement ou au mois",vibPill:"Une plateforme, chaque occasion",vibH2:"Chaque mur, au style du moment",
     howSub:"Préparez-le en quelques minutes. Les invités font le reste.",
     step1T:"Créez l'événement",step1B:"Nommez la personne à l'honneur, choisissez l'occasion et vos couleurs. Votre mur est prêt instantanément.",
     step2T:"Les invités laissent des hommages",step2B:"Partagez un QR code ou posez une tablette à l'entrée. Les invités ajoutent un message ou une photo en quelques secondes — sans appli.",
@@ -845,21 +885,27 @@ const HOME_I18N={
     vibCelebT:"Célébration",vibCelebB:"Anniversaires, jubilés, remises de diplômes, départs en retraite.",vibWedT:"Mariage",vibWedB:"Un mur de vœux pour les jeunes mariés.",
     vibMemT:"En mémoire",vibMemB:"Un espace doux pour partager souvenirs et amour.",vibCorpT:"Entreprise",vibCorpB:"Soirées de remise de prix, départs, jalons d'entreprise.",
     fmtSub:"D'un mur de fête en direct à un mémorial durable ou un souvenir sur mesure — choisissez le format qui convient, au prix qui convient.",
-    fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 39 $ / événement · Pro 29 $/mois",fmtWallC:"Créer un mur ▸",
+    fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement · Dès 25 $/mois",fmtWallC:"Créer un mur ▸",
     fmtMemT:"Mémorial & Hommage",fmtMemB:"Un hommage doux et durable — bougies, frise de vie, souvenirs partagés. Accessible en ligne pour la famille, près ou loin.",fmtMemP:"49 $ – 149 $",fmtMemC:"Créer un mémorial ▸",
     fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Créer le souvenir ▸",
     fmtBundT:"Pack Événement",fmtBundB:"L'expérience complète : un mur en direct sur un écran et l'histoire souvenir sur mesure sur un autre. Inoubliable.",fmtBundP:"199 $ – 499 $",fmtBundC:"Demander un devis ▸",
-    priSub:"Le mur en direct en détail. Organisez un seul événement, ou — DJ, animateur ou organisateur — utilisez-le en marque blanche à chaque prestation.",
-    priSingleT:"Événement unique",priSingleUnit:" / événement",priSingleDesc:"Parfait pour une seule célébration.",priSingleL1:"Jusqu'à 150 invités",priSingleL2:"QR code + mode borne tablette",priSingleL3:"Mur en direct sur votre écran",priSingleL4:"Téléchargez l'album après",priSingleBtn:"Commencer gratuitement",
-    priPremT:"Événement Premium",priPremUnit:" / événement",priPremDesc:"Pour les grandes occasions.",priPremL1:"Invités illimités",priPremL2:"Photos, vidéos & messages",priPremL3:"Thème & marque personnalisés",priPremL4:"Modération & support prioritaire",priPremBtn:"Commencer gratuitement",
-    priProT:"Pro / Marque blanche",priProUnit:" / mois",priProDesc:"Pour DJ, animateurs & organisateurs.",priProL1:"Événements illimités",priProL2:"Votre marque & vos couleurs sur chaque mur",priProL3:"Revendez à vos clients, gardez 100 %",priProL4:"Modèles réutilisables",priProBtn:"Devenir partenaire",
+    priSub:"Pour une seule fête, ou — si vous êtes DJ, animateur, organisateur ou salle — passez au mois et utilisez-le à chaque prestation. Prix en USD.",
+    prG1:"À l'événement",prG2:"Au mois — pour DJ, animateurs, organisateurs & salles",
+    prBasicT:"Basique",prBasicU:" / événement",prBasicD:"Un mur épuré pour une fête.",prBasicA:"Jusqu'à 30 messages",prBasicB:"Photos + textes",prBasicC:"Grand écran à défilement automatique",
+    prPlusT:"Plus",prPlusU:" / événement",prPlusD:"Plus d'invités, avec diaporama.",prPlusA:"Jusqu'à 100 messages",prPlusB:"Photos + textes",prPlusC:"Diaporama à l'écran",
+    prUnlT:"Illimité",prUnlU:" / événement",prUnlD:"Rendez-le vraiment unique.",prUnlA:"Messages illimités",prUnlB:"Personnalisez le fond — leur photo, logo ou couleurs",prUnlC:"Diaporama + copie à télécharger",
+    prHostT:"Hôte",prHostU:" / mois",prHostD:"Pour des événements réguliers.",prHostA:"Tout de l'offre Illimité",prHostB:"Jusqu'à 3 événements / mois",prHostC:"Messages vocaux affichés en texte",
+    prProT2:"Pro",prProU2:" / mois",prProD2:"Pour les pros actifs.",prProA:"Tout de l'offre Hôte",prProB:"Jusqu'à 7 événements / mois",prProC:"Hommages vidéo + support prioritaire",
+    prEntT:"Entreprise",prEntAmt:"Sur devis",prEntD:"Marque blanche pour salles & agences.",prEntA:"Votre marque & domaine",prEntB:"Événements illimités",prEntC:"Accompagnement & support",
+    prCtaEvent:"Créer un mur ▸",prCtaPlan:"Choisir l'offre ▸",prCtaEnt:"Nous contacter ▸",
+    prNote:"Fonds personnalisés, diaporama et téléchargements à partir de l'offre à 20 $. Les messages vocaux s'affichent en texte sur grand écran. Hommages vidéo sur les forfaits mensuels.",
     footTag:"Un mur vivant d'amour pour chaque événement · Version démo · gatherwall.com",seeExample:"▸ Voir un exemple"},
   es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crear un muro",
     heroPill:"Muros de homenaje en directo para cada celebración",heroH1:"Un muro vivo de <em>amor</em>, en la gran pantalla.",
     heroLead:"Los invitados escanean un código o usan una tablet, dejan un mensaje o una foto, y aparece en directo en la pantalla — un muro de homenajes que crece toda la noche para la persona que importa. Bodas, grandes cumpleaños, jubilaciones, homenajes y mucho más.",
     cta1:"Crea tu muro — prueba gratis",cta2:"Ver un muro en directo ▸",heroNote:"Sin app para invitados · En cualquier móvil · Tu evento, tus colores.",
     howPill:"Cómo funciona",howH2:"Tres pasos hacia un muro de amor",fmtPill:"Elige tu experiencia",fmtH2:"Una plataforma, muchas formas de honrar un momento",
-    priPill:"Muro de homenaje en directo · precios",priH2:"Paga una vez, o hazte Pro",vibPill:"Una plataforma, cada ocasión",vibH2:"Cada muro, al estilo del momento",
+    priPill:"Muro de homenaje en directo · precios",priH2:"Precios simples — por evento o al mes",vibPill:"Una plataforma, cada ocasión",vibH2:"Cada muro, al estilo del momento",
     howSub:"Configúralo en minutos. Los invitados hacen el resto.",
     step1T:"Crea el evento",step1B:"Nombra a la persona homenajeada, elige la ocasión y tus colores. Tu muro está listo al instante.",
     step2T:"Los invitados dejan homenajes",step2B:"Comparte un código QR o pon una tablet en la entrada. Los invitados añaden un mensaje o foto en segundos — sin app.",
@@ -868,21 +914,27 @@ const HOME_I18N={
     vibCelebT:"Celebración",vibCelebB:"Cumpleaños, aniversarios, graduaciones, jubilaciones.",vibWedT:"Boda",vibWedB:"Un muro de buenos deseos para los novios.",
     vibMemT:"En memoria",vibMemB:"Un espacio sereno para compartir recuerdos y cariño.",vibCorpT:"Empresa",vibCorpB:"Galas de premios, despedidas, hitos de empresa.",
     fmtSub:"Desde un muro de fiesta en directo hasta un memorial duradero o un recuerdo a medida — elige el formato que encaje, al precio que encaje.",
-    fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 39 $ / evento · Pro 29 $/mes",fmtWallC:"Crear un muro ▸",
+    fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento · Desde 25 $/mes",fmtWallC:"Crear un muro ▸",
     fmtMemT:"Memorial y Homenaje",fmtMemB:"Un homenaje sereno y duradero — velas, línea de vida, recuerdos compartidos. Disponible en línea para la familia, cerca o lejos.",fmtMemP:"49 $ – 149 $",fmtMemC:"Crear un memorial ▸",
     fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Crear el recuerdo ▸",
     fmtBundT:"Pack de Evento",fmtBundB:"La experiencia completa: un muro en directo en una pantalla y la historia de recuerdo a medida en otra. Inolvidable.",fmtBundP:"199 $ – 499 $",fmtBundC:"Consultar ▸",
-    priSub:"El muro en directo en detalle. Organiza un solo evento, o — DJ, presentador u organizador — úsalo con marca blanca en cada reserva.",
-    priSingleT:"Evento único",priSingleUnit:" / evento",priSingleDesc:"Perfecto para una celebración.",priSingleL1:"Hasta 150 invitados",priSingleL2:"Código QR + modo quiosco en tablet",priSingleL3:"Muro en directo en tu pantalla",priSingleL4:"Descarga el álbum después",priSingleBtn:"Empezar gratis",
-    priPremT:"Evento Premium",priPremUnit:" / evento",priPremDesc:"Para la gran ocasión.",priPremL1:"Invitados ilimitados",priPremL2:"Fotos, vídeo y mensajes",priPremL3:"Tema y marca personalizados",priPremL4:"Moderación y soporte prioritario",priPremBtn:"Empezar gratis",
-    priProT:"Pro / Marca blanca",priProUnit:" / mes",priProDesc:"Para DJ, presentadores y organizadores.",priProL1:"Eventos ilimitados",priProL2:"Tu marca y colores en cada muro",priProL3:"Revende a tus clientes y quédate el 100 %",priProL4:"Plantillas reutilizables",priProBtn:"Hazte socio",
+    priSub:"Para una sola celebración, o — si eres DJ, presentador, organizador o local — pásate al mes y úsalo en cada evento. Precios en USD.",
+    prG1:"Por evento",prG2:"Al mes — para DJ, presentadores, organizadores y locales",
+    prBasicT:"Básico",prBasicU:" / evento",prBasicD:"Un muro limpio para una celebración.",prBasicA:"Hasta 30 publicaciones",prBasicB:"Fotos + textos",prBasicC:"Pantalla con desplazamiento automático",
+    prPlusT:"Plus",prPlusU:" / evento",prPlusD:"Más invitados, con presentación.",prPlusA:"Hasta 100 publicaciones",prPlusB:"Fotos + textos",prPlusC:"Presentación en pantalla",
+    prUnlT:"Ilimitado",prUnlU:" / evento",prUnlD:"Hazlo realmente suyo.",prUnlA:"Publicaciones ilimitadas",prUnlB:"Personaliza el fondo — su foto, logo o colores",prUnlC:"Presentación + copia descargable",
+    prHostT:"Anfitrión",prHostU:" / mes",prHostD:"Para eventos habituales.",prHostA:"Todo lo de Ilimitado",prHostB:"Hasta 3 eventos / mes",prHostC:"Notas de voz mostradas como texto",
+    prProT2:"Pro",prProU2:" / mes",prProD2:"Para profesionales activos.",prProA:"Todo lo de Anfitrión",prProB:"Hasta 7 eventos / mes",prProC:"Tributos en vídeo + soporte prioritario",
+    prEntT:"Empresa",prEntAmt:"A medida",prEntD:"Marca blanca para locales y agencias.",prEntA:"Tu marca y dominio propio",prEntB:"Eventos ilimitados",prEntC:"Incorporación y soporte",
+    prCtaEvent:"Crear un muro ▸",prCtaPlan:"Elegir plan ▸",prCtaEnt:"Habla con nosotros ▸",
+    prNote:"Fondos personalizados, presentación y descargas desde el plan de 20 $. Las notas de voz se muestran como texto en la pantalla. Tributos en vídeo en los planes mensuales.",
     footTag:"Un muro vivo de amor para cada evento · Versión demo · gatherwall.com",seeExample:"▸ Ver un ejemplo"},
   cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit zeď",
     heroPill:"Živé zdi vzkazů pro každou oslavu",heroH1:"Živá zeď plná <em>lásky</em>, na velké obrazovce.",
     heroLead:"Hosté naskenují kód nebo použijí tablet, zanechají vzkaz nebo fotku a vše se živě objeví na obrazovce — zeď vzkazů, která roste celý večer pro toho, na kom záleží. Svatby, velká výročí, odchody do důchodu, vzpomínky a mnoho dalšího.",
     cta1:"Vytvořte svou zeď — zkuste zdarma",cta2:"Zobrazit živou zeď ▸",heroNote:"Žádná aplikace pro hosty · Na každém telefonu · Vaše akce, vaše barvy.",
     howPill:"Jak to funguje",howH2:"Tři kroky ke zdi plné lásky",fmtPill:"Vyberte si zážitek",fmtH2:"Jedna platforma, mnoho způsobů, jak uctít okamžik",
-    priPill:"Živá zeď vzkazů · ceník",priH2:"Zaplaťte jednou, nebo přejděte na Pro",vibPill:"Jedna platforma, každá příležitost",vibH2:"Každá zeď ve stylu okamžiku",
+    priPill:"Živá zeď vzkazů · ceník",priH2:"Jednoduché ceny — za akci nebo měsíčně",vibPill:"Jedna platforma, každá příležitost",vibH2:"Každá zeď ve stylu okamžiku",
     howSub:"Nastavíte to za pár minut. Zbytek udělají hosté.",
     step1T:"Vytvořte akci",step1B:"Zadejte oslavence, vyberte příležitost a barvy. Vaše zeď je hned připravená.",
     step2T:"Hosté zanechávají vzkazy",step2B:"Sdílejte QR kód nebo postavte tablet u vchodu. Hosté přidají vzkaz nebo fotku během pár vteřin — bez aplikace.",
@@ -891,21 +943,27 @@ const HOME_I18N={
     vibCelebT:"Oslava",vibCelebB:"Narozeniny, výročí, promoce, odchody do důchodu.",vibWedT:"Svatba",vibWedB:"Zeď přání pro novomanžele.",
     vibMemT:"Na památku",vibMemB:"Jemný prostor pro sdílení vzpomínek a lásky.",vibCorpT:"Firemní",vibCorpB:"Předávání cen, rozloučení, firemní milníky.",
     fmtSub:"Od živé párty zdi po trvalou vzpomínku nebo originální dárek na míru — vyberte formát, který sedí, za cenu, která sedí.",
-    fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 39 $ / akce · Pro 29 $/měs",fmtWallC:"Vytvořit zeď ▸",
+    fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce · Od 25 $/měs",fmtWallC:"Vytvořit zeď ▸",
     fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Jemný a trvalý hold — zapalování svíček, časová osa života, sdílené vzpomínky. Dostupné online pro rodinu, blízkou i vzdálenou.",fmtMemP:"49 $ – 149 $",fmtMemC:"Vytvořit vzpomínku ▸",
     fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Vytvořit vzpomínku ▸",
     fmtBundT:"Balíček akce",fmtBundB:"Kompletní zážitek: živá zeď na jedné obrazovce a vzpomínkový příběh na míru na druhé. Nezapomenutelné.",fmtBundP:"199 $ – 499 $",fmtBundC:"Poptat ▸",
-    priSub:"Živá zeď podrobně. Uspořádejte jednu akci, nebo — jako DJ, moderátor či organizátor — používejte ji pod vlastní značkou na každé akci.",
-    priSingleT:"Jedna akce",priSingleUnit:" / akce",priSingleDesc:"Ideální pro jednu oslavu.",priSingleL1:"Až 150 hostů",priSingleL2:"QR kód + režim kiosku na tabletu",priSingleL3:"Živá zeď na vaší obrazovce",priSingleL4:"Stažení alba po akci",priSingleBtn:"Začít zdarma",
-    priPremT:"Prémiová akce",priPremUnit:" / akce",priPremDesc:"Pro tu velkou událost.",priPremL1:"Neomezený počet hostů",priPremL2:"Fotky, video a vzkazy",priPremL3:"Vlastní vzhled a značka",priPremL4:"Moderování a přednostní podpora",priPremBtn:"Začít zdarma",
-    priProT:"Pro / Vlastní značka",priProUnit:" / měsíc",priProDesc:"Pro DJ, moderátory a organizátory.",priProL1:"Neomezené akce",priProL2:"Vaše značka a barvy na každé zdi",priProL3:"Prodávejte klientům, nechte si 100 %",priProL4:"Znovupoužitelné šablony",priProBtn:"Stát se partnerem",
+    priSub:"Pro jednu oslavu, nebo — pokud jste DJ, moderátor, organizátor či místo konání — přejděte na měsíční plán a využijte ho u každé akce. Ceny v USD.",
+    prG1:"Za akci",prG2:"Měsíčně — pro DJ, moderátory, organizátory a místa",
+    prBasicT:"Základní",prBasicU:" / akce",prBasicD:"Čistá zeď pro jednu oslavu.",prBasicA:"Až 30 příspěvků",prBasicB:"Fotky + texty",prBasicC:"Automatické posouvání na obrazovce",
+    prPlusT:"Plus",prPlusU:" / akce",prPlusD:"Více hostů, s prezentací.",prPlusA:"Až 100 příspěvků",prPlusB:"Fotky + texty",prPlusC:"Prezentace na obrazovce",
+    prUnlT:"Neomezeně",prUnlU:" / akce",prUnlD:"Udělejte to opravdu jejich.",prUnlA:"Neomezené příspěvky",prUnlB:"Přizpůsobte pozadí — jejich foto, logo či barvy",prUnlC:"Prezentace + stažení kopie",
+    prHostT:"Hostitel",prHostU:" / měsíc",prHostD:"Pro pravidelné akce.",prHostA:"Vše z Neomezeně",prHostB:"Až 3 akce / měsíc",prHostC:"Hlasové zprávy zobrazené jako text",
+    prProT2:"Pro",prProU2:" / měsíc",prProD2:"Pro vytížené profíky.",prProA:"Vše z Hostitel",prProB:"Až 7 akcí / měsíc",prProC:"Videopříspěvky + přednostní podpora",
+    prEntT:"Enterprise",prEntAmt:"Na míru",prEntD:"White-label pro místa a agentury.",prEntA:"Vaše značka a vlastní doména",prEntB:"Neomezené akce",prEntC:"Onboarding a podpora",
+    prCtaEvent:"Vytvořit zeď ▸",prCtaPlan:"Vybrat plán ▸",prCtaEnt:"Ozvěte se nám ▸",
+    prNote:"Personalizované pozadí, prezentace a stahování od tarifu za 20 $. Hlasové zprávy se zobrazují jako text na obrazovce. Videopříspěvky v měsíčních plánech.",
     footTag:"Živá zeď plná lásky pro každou akci · Demo verze · gatherwall.com",seeExample:"▸ Zobrazit ukázku"},
   de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Wand erstellen",
     heroPill:"Live-Erinnerungswände für jede Feier",heroH1:"Eine lebendige Wand voller <em>Liebe</em>, auf der großen Leinwand.",
     heroLead:"Gäste scannen einen Code oder tippen auf ein Tablet, hinterlassen eine Nachricht oder ein Foto, und es erscheint live auf dem Bildschirm — eine Wand voller Botschaften, die den ganzen Abend für den wichtigen Menschen wächst. Hochzeiten, runde Geburtstage, Ruhestand, Gedenkfeiern und mehr.",
     cta1:"Erstelle deine Wand — kostenlos testen",cta2:"Live-Wand ansehen ▸",heroNote:"Keine App für Gäste · Auf jedem Handy · Dein Event, deine Farben.",
     howPill:"So funktioniert's",howH2:"In drei Schritten zur Wand voller Liebe",fmtPill:"Wähle dein Erlebnis",fmtH2:"Eine Plattform, viele Wege, einen Moment zu ehren",
-    priPill:"Live-Erinnerungswand · Preise",priH2:"Einmal zahlen oder Pro werden",vibPill:"Eine Plattform, jeder Anlass",vibH2:"Jede Wand, im Stil des Moments",
+    priPill:"Live-Erinnerungswand · Preise",priH2:"Einfache Preise — pro Event oder monatlich",vibPill:"Eine Plattform, jeder Anlass",vibH2:"Jede Wand, im Stil des Moments",
     howSub:"In wenigen Minuten eingerichtet. Den Rest erledigen die Gäste.",
     step1T:"Event erstellen",step1B:"Nenne die geehrte Person, wähle den Anlass und deine Farben. Deine Wand ist sofort bereit.",
     step2T:"Gäste hinterlassen Botschaften",step2B:"Teile einen QR-Code oder stelle ein Tablet an den Eingang. Gäste fügen in Sekunden eine Nachricht oder ein Foto hinzu — ganz ohne App.",
@@ -914,14 +972,20 @@ const HOME_I18N={
     vibCelebT:"Feier",vibCelebB:"Geburtstage, Jubiläen, Abschlüsse, Ruhestand.",vibWedT:"Hochzeit",vibWedB:"Eine Wand voller Glückwünsche für das Brautpaar.",
     vibMemT:"Im Gedenken",vibMemB:"Ein sanfter Raum, um Erinnerungen und Liebe zu teilen.",vibCorpT:"Firmen",vibCorpB:"Preisverleihungen, Abschiede, Firmenmeilensteine.",
     fmtSub:"Von einer Live-Partywand über ein bleibendes Gedenken bis zu einem maßgefertigten Andenken — wähle das passende Format zum passenden Preis.",
-    fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 39 $ / Event · Pro 29 $/Mon.",fmtWallC:"Wand erstellen ▸",
+    fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event · Ab 25 $/Mon.",fmtWallC:"Wand erstellen ▸",
     fmtMemT:"Gedenken & Nachruf",fmtMemB:"Ein sanfter, bleibender Tribut — Kerzen, Lebenslinie, geteilte Erinnerungen. Online verfügbar für Familie, nah und fern.",fmtMemP:"49 $ – 149 $",fmtMemC:"Gedenkseite erstellen ▸",
     fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"79 $ – 199 $",fmtKeepC:"Andenken erstellen ▸",
     fmtBundT:"Event-Paket",fmtBundB:"Das volle Erlebnis: eine Live-Wand auf einem Bildschirm und die maßgefertigte Andenken-Geschichte auf einem anderen. Unvergesslich.",fmtBundP:"199 $ – 499 $",fmtBundC:"Anfragen ▸",
-    priSub:"Die Live-Wand im Detail. Veranstalte ein einzelnes Event oder — als DJ, Moderator oder Planer — nutze sie als White-Label bei jeder Buchung.",
-    priSingleT:"Einzel-Event",priSingleUnit:" / Event",priSingleDesc:"Perfekt für eine Feier.",priSingleL1:"Bis zu 150 Gäste",priSingleL2:"QR-Code + Tablet-Kioskmodus",priSingleL3:"Live-Wand auf deinem Bildschirm",priSingleL4:"Album danach herunterladen",priSingleBtn:"Kostenlos starten",
-    priPremT:"Premium-Event",priPremUnit:" / Event",priPremDesc:"Für den großen Anlass.",priPremL1:"Unbegrenzte Gäste",priPremL2:"Fotos, Video & Nachrichten",priPremL3:"Eigenes Design & Branding",priPremL4:"Moderation & Priority-Support",priPremBtn:"Kostenlos starten",
-    priProT:"Pro / White-Label",priProUnit:" / Monat",priProDesc:"Für DJs, Moderatoren & Planer.",priProL1:"Unbegrenzte Events",priProL2:"Deine Marke & Farben auf jeder Wand",priProL3:"An deine Kunden weiterverkaufen, 100 % behalten",priProL4:"Wiederverwendbare Vorlagen",priProBtn:"Partner werden",
+    priSub:"Für eine einzelne Feier, oder — als DJ, Moderator, Planer oder Location — monatlich für jede Buchung. Preise in USD.",
+    prG1:"Pro Event",prG2:"Monatlich — für DJs, Moderatoren, Planer & Locations",
+    prBasicT:"Basis",prBasicU:" / Event",prBasicD:"Eine klare Wand für eine Feier.",prBasicA:"Bis zu 30 Beiträge",prBasicB:"Fotos + Texte",prBasicC:"Automatisch scrollende Leinwand",
+    prPlusT:"Plus",prPlusU:" / Event",prPlusD:"Mehr Gäste, mit Diashow.",prPlusA:"Bis zu 100 Beiträge",prPlusB:"Fotos + Texte",prPlusC:"Diashow auf der Leinwand",
+    prUnlT:"Unbegrenzt",prUnlU:" / Event",prUnlD:"Mach es wirklich persönlich.",prUnlA:"Unbegrenzte Beiträge",prUnlB:"Hintergrund personalisieren — Foto, Logo oder Farben",prUnlC:"Diashow + Kopie zum Download",
+    prHostT:"Host",prHostU:" / Monat",prHostD:"Für regelmäßige Events.",prHostA:"Alles aus Unbegrenzt",prHostB:"Bis zu 3 Events / Monat",prHostC:"Sprachnachrichten als Text angezeigt",
+    prProT2:"Pro",prProU2:" / Monat",prProD2:"Für vielbeschäftigte Profis.",prProA:"Alles aus Host",prProB:"Bis zu 7 Events / Monat",prProC:"Video-Beiträge + Priority-Support",
+    prEntT:"Enterprise",prEntAmt:"Individuell",prEntD:"White-Label für Locations & Agenturen.",prEntA:"Deine Marke & eigene Domain",prEntB:"Unbegrenzte Events",prEntC:"Onboarding & Support",
+    prCtaEvent:"Wand erstellen ▸",prCtaPlan:"Plan wählen ▸",prCtaEnt:"Kontakt aufnehmen ▸",
+    prNote:"Personalisierte Hintergründe, Diashow und Downloads ab dem 20-$-Tarif. Sprachnachrichten erscheinen als Text auf der Leinwand. Video-Beiträge in den Monatsplänen.",
     footTag:"Eine lebendige Wand voller Liebe für jedes Event · Demo-Version · gatherwall.com",seeExample:"▸ Beispiel ansehen"},
 };
 function buildHomeLang(){ const bar=document.getElementById('homeLang'); if(!bar)return;
