@@ -34,6 +34,11 @@ body{background:var(--bg-0);color:var(--cream);font-family:var(--serif);overflow
   background:linear-gradient(180deg,var(--gold-2),var(--gold) 55%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 60px rgba(217,182,95,.18);}
 .hero .for{font-size:clamp(16px,3.2vw,21px);color:var(--muted);margin-top:12px;}
 .hero .for em{color:var(--cream);font-style:italic;}
+.langs{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:20px 0 2px;}
+.langs button{font-family:var(--ui);font-size:13.5px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:999px;padding:8px 15px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:7px;}
+.langs button:hover{border-color:var(--gold);color:var(--cream);}
+.langs button.on{background:linear-gradient(135deg,var(--gold-2),var(--gold) 60%,var(--gold-deep));color:#1a120b;border-color:transparent;box-shadow:0 10px 26px -10px rgba(217,182,95,.5);}
+.langs .flag{font-size:16px;}
 
 /* memory stage */
 .stage{position:relative;max-width:560px;margin:26px auto 0;aspect-ratio:4/3;}
@@ -108,12 +113,14 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
     <p class="for">Her life in <em>photos and song</em> — every picture rising with the music.</p>
   </section>
 
+  <div class="langs" id="langs"></div>
+
   <div class="stage" id="stage"></div>
   <div class="nowline" id="nowline">Press play to begin her story…</div>
   <div class="stagehint">Example story shown · <b>in your keepsake, every frame is your own photo</b></div>
 
   <section class="player">
-    <div class="track-line">Fifty Years of Gold · composed for the celebration</div>
+    <div class="track-line" id="trackline">Fifty Years of Gold · composed for the celebration</div>
     <div class="controls">
       <button class="side" onclick="seekBy(-10)">⟲ 10</button>
       <button class="play" id="playBtn" onclick="toggle()">▶</button>
@@ -152,55 +159,86 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 <audio id="audio" preload="metadata" src="fifty-years-of-gold.mp3"></audio>
 
 <script>
-/* ---------- illustrated memory frames (stand-ins for real photos) ---------- */
-const SCENES=[
- {img:'mem1.jpg',yr:'1974',cap:'Where her story began'},
- {img:'mem2.jpg',yr:'1996',cap:'The day she said yes'},
- {img:'mem3.jpg',yr:'2001',cap:'The first family home'},
- {img:'mem4.jpg',yr:'2008',cap:'The children she raised'},
- {img:'mem5.jpg',yr:'2019',cap:'Through every season'},
- {img:'mem6.jpg',yr:'2026',cap:'Fifty & golden'}
-];
-const stage=document.getElementById('stage'), strip=document.getElementById('strip');
-SCENES.forEach((s,i)=>{
+/* ---------- memory photos (constant) ---------- */
+const IMGS=['mem1.jpg','mem2.jpg','mem3.jpg','mem4.jpg','mem5.jpg','mem6.jpg'];
+const YEARS=['1974','1996','2001','2008','2019','2026'];
+const N=IMGS.length;
+
+/* ---------- per-language song, captions & lyrics ---------- */
+const LANGS={
+ en:{flag:'🇬🇧',label:'EN',file:'fifty-years-of-gold.mp3',track:'Fifty Years of Gold · composed for the celebration',start:'Press play to begin her story…',
+  caps:['Where her story began','The day she said yes','The first family home','The children she raised','Through every season','Fifty & golden'],
+  lines:["Fifty candles, one bright room","Fifty summers come and gone","Every line upon your face","Is a story, is a song","You gave us mornings, gave us light","Held the whole world through the night","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","You were strong when we were small","You were brave when storms would come","Never once did you let go","Of the people you'd become","Through the laughter, through the tears","You have carried all these years","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","And if we could give the world to you","We would wrap it up in gold","For every dream you set aside","For every hand you'd hold","So blow the candles, make the wish","You have earned this, every bit","Fifty years, and just begun","You're the brightest, you're the one","Here's to fifty years of gold","To the love you gave, to the stories told","Brightest heart we've ever known","Happy birthday, welcome home","Fifty years of gold","Happy birthday to you","Fifty years, and shining through"]},
+ fr:{flag:'🇫🇷',label:'FR',file:'song-fr.mp3',track:'Cinquante ans de lumière · composée pour la fête',start:'Appuie sur lecture pour commencer son histoire…',
+  caps:["Le début de son histoire","Le jour du grand oui","Le premier foyer","Les enfants qu'elle a élevés","À travers les saisons","Cinquante ans, et radieuse"],
+  lines:["Cinquante bougies, une pièce qui s'éveille","Cinquante étés, déjà envolés","Chaque ride sur ton visage","Raconte un rêve, une année","Tu nous as donné le matin","Tenu le monde au creux des mains","Cinquante ans de lumière sur toi","Pour tout l'amour, pour ta voix","Le plus beau cœur que l'on connaît","Maman, tu as fait de nous ce qu'on est","Cinquante ans de lumière","Tu étais forte quand on était petits","Tu étais brave quand venait la nuit","Jamais tu n'as lâché la main","De ceux que tu portais sans fin","À travers les rires et les pleurs","Tu as porté toutes ces heures","Cinquante ans de lumière sur toi","Pour tout l'amour, pour ta voix","Le plus beau cœur que l'on connaît","Maman, tu as fait de nous ce qu'on est","Cinquante ans de lumière","Si l'on pouvait t'offrir le monde","On l'envelopperait dans l'or","Pour chaque rêve mis de côté","Pour chaque main que tu as gardée","Alors souffle, fais un vœu","Tu l'as mérité, et bien mieux","Cinquante ans, ce n'est qu'un début","Tu es la plus belle, tu es tout","Cinquante ans de lumière sur toi","Pour tout l'amour, pour ta joie","Le plus beau cœur que l'on connaît","Bon anniversaire, reste à jamais","Cinquante ans de lumière","Joyeux anniversaire à toi","Cinquante ans, et ta lumière en moi"]},
+ es:{flag:'🇪🇸',label:'ES',file:'song-es.mp3',track:'Cincuenta primaveras · compuesta para la celebración',start:'Pulsa play para empezar su historia…',
+  caps:["Donde empezó su historia","El día del sí","El primer hogar","Los hijos que crió","A través de las estaciones","Cincuenta y radiante"],
+  lines:["Cincuenta velas, la sala se enciende","Cincuenta veranos que ya se fueron","Cada línea de tu cara","Es un sueño, es un te quiero","Nos diste cada amanecer","Sostuviste el mundo sin caer","Cincuenta primaveras en ti","Por todo el amor que nos diste a mí","El corazón más bello que hay","Mamá, tú nos hiciste un hogar","Cincuenta primaveras","Fuiste fuerte cuando éramos pequeños","Fuiste valiente en la tempestad","Nunca soltaste la mano","De los que aprendiste a amar","Entre la risa y el llorar","Todos los años supiste cargar","Cincuenta primaveras en ti","Por todo el amor que nos diste a mí","El corazón más bello que hay","Mamá, tú nos hiciste un hogar","Cincuenta primaveras","Si pudiéramos darte el mundo","Lo envolveríamos en oro","Por cada sueño que dejaste","Por cada mano que abrazaste","Sopla las velas, pide un deseo","Te lo mereces, y mucho más, lo veo","Cincuenta años, y apenas empiezas","Eres la más bella, mi certeza","Cincuenta primaveras en ti","Por todo el amor, por reír","El corazón más bello que hay","Feliz cumpleaños, vuelve a casa","Cincuenta primaveras","Feliz cumpleaños a ti","Cincuenta años brillando aquí"]},
+ de:{flag:'🇩🇪',label:'DE',file:'song-de.mp3',track:'Fünfzig goldene Jahre · komponiert für die Feier',start:'Auf Play drücken, um zu beginnen…',
+  caps:["Wo ihre Geschichte begann","Der Tag des Jaworts","Das erste Zuhause","Die Kinder, die sie großzog","Durch alle Jahreszeiten","Fünfzig und golden"],
+  lines:["Fünfzig Kerzen, ein helles Zimmer","Fünfzig Sommer, vergangen schon","Jede Falte in deinem Gesicht","Ist ein Lied, ist ein Jahr voll Licht","Du gabst uns jeden Morgen","Hast die Welt durch die Nacht getragen","Fünfzig goldene Jahre für dich","Für all die Liebe, für dein Gesicht","Das schönste Herz, das es je gab","Mama, du machtest dies Haus zum Zuhaus","Fünfzig goldene Jahre","Du warst stark, als wir noch klein war'n","Du warst mutig in jedem Sturm","Nie hast du jemals losgelassen","Die Menschen, die du so geliebt","Durch das Lachen, durch die Tränen","Hast du all die Jahre getragen","Fünfzig goldene Jahre für dich","Für all die Liebe, für dein Gesicht","Das schönste Herz, das es je gab","Mama, du machtest dies Haus zum Zuhaus","Fünfzig goldene Jahre","Könnten wir dir die Welt nur schenken","Wir würden sie in Gold verpacken","Für jeden Traum, den du verschobst","Für jede Hand, die du gehalten","Blas die Kerzen, wünsch dir was","Du hast es verdient, und noch viel mehr","Fünfzig Jahre, und grad am Anfang","Du bist die Schönste, du bist mehr","Fünfzig goldene Jahre für dich","Für all die Liebe, für dein Licht","Das schönste Herz, das es je gab","Herzlichen Glückwunsch, komm nach Haus","Fünfzig goldene Jahre","Herzlichen Glückwunsch dir","Fünfzig Jahre, du strahlst hier"]},
+ cs:{flag:'🇨🇿',label:'CZ',file:'song-cz.mp3',track:'Padesát zlatých let · složeno pro oslavu',start:'Stiskni přehrát a začni příběh…',
+  caps:["Kde její příběh začal","Den, kdy řekla ano","První domov","Děti, které vychovala","Všemi ročními obdobími","Padesát a zářivá"],
+  lines:["Padesát svíček, rozzářený pokoj","Padesát létek, co odešlo","Každá vráska ve tvé tváři","Je píseň, je další sen","Dala jsi nám každé ráno","Držela svět, když byla tma","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj hlas","Nejkrásnější srdce, co známe","Mami, ty jsi náš domov a klid","Padesát zlatých let","Byla jsi silná, když jsme byli malí","Byla jsi statečná v každé bouři","Nikdy jsi nepustila ruku","Těch, které jsi nosila v srdci","Skrze smích a skrze slzy","Všechna ta léta jsi nesla","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj hlas","Nejkrásnější srdce, co známe","Mami, ty jsi náš domov a klid","Padesát zlatých let","Kdybychom ti mohli dát celý svět","Zabalili bychom ho do zlata","Za každý sen, co jsi odložila","Za každou ruku, co jsi držela","Sfoukni svíčky, něco si přej","Zasloužíš si to, a mnohem víc","Padesát let, a teprve začínáš","Jsi ta nejkrásnější, jsi vším","Padesát zlatých let je v tobě","Za všechnu lásku, za tvůj smích","Nejkrásnější srdce, co známe","Všechno nejlepší, vítej domů","Padesát zlatých let","Všechno nejlepší tobě","Padesát let a záříš dál"]}
+};
+const ORDER=['en','fr','es','de','cs'];
+
+const stage=document.getElementById('stage'), strip=document.getElementById('strip'), langsEl=document.getElementById('langs');
+const audio=document.getElementById('audio'),playBtn=document.getElementById('playBtn'),fill=document.getElementById('fill');
+const curEl=document.getElementById('cur'),durEl=document.getElementById('dur'),nowline=document.getElementById('nowline'),trackline=document.getElementById('trackline');
+const INTRO=9,OUTRO=7;let curFrame=-1,curLine=-1,curLang='en';
+const fmt=s=>{if(!s||isNaN(s))return'0:00';const m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;};
+
+// build photo frames + thumbnails (images are constant across languages)
+IMGS.forEach((img,i)=>{
   const f=document.createElement('div');f.className='frame';f.id='fr'+i;
-  f.innerHTML=`<div class='photo'><img src='${s.img}' alt='${s.cap}'><div class='cap'><span class='yr'>${s.yr}</span> · ${s.cap}</div></div>`;
+  f.innerHTML=`<div class='photo'><img src='${img}' alt=''><div class='cap'><span class='yr'>${YEARS[i]}</span> · <span id='cap${i}'></span></div></div>`;
   stage.appendChild(f);
   const t=document.createElement('div');t.className='thumb';t.id='th'+i;t.onclick=()=>jumpTo(i);
-  t.innerHTML=`<img src='${s.img}' alt=''>`;
+  t.innerHTML=`<img src='${img}' alt=''>`;
   strip.appendChild(t);
 });
+// build language buttons
+ORDER.forEach(code=>{const L=LANGS[code];const b=document.createElement('button');b.id='plang-'+code;
+  b.innerHTML=`<span class='flag'>${L.flag}</span>${L.label}`;b.onclick=()=>setLang(code);langsEl.appendChild(b);});
 
-/* ---------- lyrics (shown under the photo) ---------- */
-const LINES=["Fifty candles, one bright room","Fifty summers come and gone","Every line upon your face","Is a story, is a song","You gave us mornings, gave us light","Held the whole world through the night","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","You were strong when we were small","You were brave when storms would come","Never once did you let go","Of the people you'd become","Through the laughter, through the tears","You have carried all these years","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","And if we could give the world to you","We would wrap it up in gold","For every dream you set aside","For every hand you'd hold","So blow the candles, make the wish","You have earned this, every bit","Fifty years, and just begun","You're the brightest, you're the one","Here's to fifty years of gold","To the love you gave, to the stories told","Brightest heart we've ever known","Happy birthday, welcome home","Fifty years of gold","Happy birthday to you","Fifty years, and shining through"];
-
-const audio=document.getElementById('audio'),playBtn=document.getElementById('playBtn'),fill=document.getElementById('fill');
-const curEl=document.getElementById('cur'),durEl=document.getElementById('dur'),nowline=document.getElementById('nowline');
-const INTRO=9,OUTRO=7;let curFrame=-1,curLine=-1;
-const fmt=s=>{if(!s||isNaN(s))return'0:00';const m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;};
-function toggle(){audio.paused?audio.play():audio.pause();}
+function toggle(){audio.paused?audio.play().catch(()=>{}):audio.pause();}
 audio.addEventListener('play',()=>playBtn.textContent='❚❚');
 audio.addEventListener('pause',()=>playBtn.textContent='▶');
 audio.addEventListener('loadedmetadata',()=>{durEl.textContent=fmt(audio.duration);showFrame(0);});
 function seek(e){if(!audio.duration)return;const r=document.getElementById('bar').getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}
 function seekBy(n){audio.currentTime=Math.max(0,Math.min((audio.duration||0),audio.currentTime+n));}
-function jumpTo(i){if(!audio.duration){showFrame(i);return;}const span=Math.max(1,audio.duration-INTRO-OUTRO);audio.currentTime=INTRO+(i/SCENES.length)*span+0.1;if(audio.paused)audio.play();}
+function jumpTo(i){if(!audio.duration){showFrame(i);return;}const span=Math.max(1,audio.duration-INTRO-OUTRO);audio.currentTime=INTRO+(i/N)*span+0.1;if(audio.paused)audio.play().catch(()=>{});}
 function showFrame(i){
   if(i===curFrame)return;
-  if(curFrame>=0){document.getElementById('fr'+curFrame).classList.remove('show');document.getElementById('th'+curFrame).classList.remove('on');}
-  document.getElementById('fr'+i).classList.add('show');document.getElementById('th'+i).classList.add('on');curFrame=i;
+  if(curFrame>=0){const pf=document.getElementById('fr'+curFrame),pt=document.getElementById('th'+curFrame);if(pf)pf.classList.remove('show');if(pt)pt.classList.remove('on');}
+  const nf=document.getElementById('fr'+i),nt=document.getElementById('th'+i);if(nf)nf.classList.add('show');if(nt)nt.classList.add('on');curFrame=i;
+}
+function setLang(code){
+  if(!LANGS[code])code='en';
+  const was=!audio.paused; audio.pause();
+  curLang=code; const L=LANGS[code];
+  document.querySelectorAll('.langs button').forEach(b=>b.classList.remove('on'));
+  const btn=document.getElementById('plang-'+code); if(btn)btn.classList.add('on');
+  trackline.textContent=L.track;
+  for(let i=0;i<N;i++){const c=document.getElementById('cap'+i);if(c)c.textContent=L.caps[i];}
+  audio.src=L.file; audio.currentTime=0; fill.style.width='0%'; curEl.textContent='0:00'; durEl.textContent='0:00';
+  nowline.textContent=L.start; curLine=-1;
+  if(was) audio.play().catch(()=>{});
 }
 audio.addEventListener('timeupdate',()=>{
   if(!audio.duration)return;
   fill.style.width=(audio.currentTime/audio.duration*100)+'%';curEl.textContent=fmt(audio.currentTime);
-  const span=Math.max(1,audio.duration-INTRO-OUTRO),prog=(audio.currentTime-INTRO)/span;
-  let fi=Math.max(0,Math.min(SCENES.length-1,Math.floor(prog*SCENES.length)));showFrame(fi);
-  let li=Math.max(0,Math.min(LINES.length-1,Math.floor(prog*LINES.length)));
-  if(li!==curLine){nowline.style.opacity=0;setTimeout(()=>{nowline.textContent=LINES[li];nowline.style.opacity=1;},180);curLine=li;}
+  const lines=LANGS[curLang].lines,span=Math.max(1,audio.duration-INTRO-OUTRO),prog=(audio.currentTime-INTRO)/span;
+  let fi=Math.max(0,Math.min(N-1,Math.floor(prog*N)));showFrame(fi);
+  let li=Math.max(0,Math.min(lines.length-1,Math.floor(prog*lines.length)));
+  if(li!==curLine){nowline.style.opacity=0;setTimeout(()=>{nowline.textContent=lines[li];nowline.style.opacity=1;},180);curLine=li;}
 });
-// show the first photo immediately, independent of audio loading
+// init — honour ?lang= so the chosen language carries through from other pages
+const pl=new URLSearchParams(location.search).get('lang');
+setLang(pl && LANGS[pl] ? pl : 'en');
 showFrame(0);
-audio.load();
 </script>
 </body>
 </html>

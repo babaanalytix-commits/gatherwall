@@ -124,6 +124,7 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
     <h2>Make one in your language</h2>
     <p>Their story, their song — in the words your family actually speaks.</p>
     <a class="btn" href="index.html#formats">Create a keepsake →</a>
+    <div style="margin-top:18px"><a id="photoLink" href="keepsake-photo-demo.html?lang=en" style="color:var(--gold);font-family:var(--ui);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(217,182,95,.4);padding-bottom:2px;">▶ See this story with photos →</a></div>
   </section>
 
   <footer>
@@ -167,6 +168,7 @@ function setLang(code){
   titleEl.textContent=L.title; subEl.textContent=L.sub;
   audio.src=L.file; audio.currentTime=0; fill.style.width='0%'; curEl.textContent='0:00'; durEl.textContent='0:00';
   buildLyrics(code);
+  const plk=document.getElementById('photoLink'); if(plk)plk.href='keepsake-photo-demo.html?lang='+code;
   if(was) audio.play().catch(()=>{});
 }
 function toggle(){ if(audio.paused){audio.play().catch(()=>{});} else {audio.pause();} }
