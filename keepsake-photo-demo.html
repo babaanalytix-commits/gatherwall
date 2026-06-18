@@ -198,6 +198,9 @@ audio.addEventListener('timeupdate',()=>{
   let li=Math.max(0,Math.min(LINES.length-1,Math.floor(prog*LINES.length)));
   if(li!==curLine){nowline.style.opacity=0;setTimeout(()=>{nowline.textContent=LINES[li];nowline.style.opacity=1;},180);curLine=li;}
 });
+// show the first photo immediately, independent of audio loading
+showFrame(0);
+audio.load();
 </script>
 </body>
 </html>
