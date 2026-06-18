@@ -42,7 +42,7 @@ body{background:var(--bg-0);color:var(--cream);font-family:var(--serif);overflow
 .frame.show{opacity:1;transform:scale(1) rotate(0);}
 .photo{width:100%;height:100%;background:#0d0a07;border:10px solid #f4ecd8;border-bottom-width:46px;border-radius:6px;
   box-shadow:0 30px 70px -25px rgba(0,0,0,.85);position:relative;overflow:hidden;}
-.photo svg{position:absolute;inset:0;width:100%;height:calc(100% );display:block;}
+.photo svg,.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
 .photo .cap{position:absolute;left:0;right:0;bottom:-40px;height:46px;display:flex;align-items:center;justify-content:center;gap:10px;
   font-family:var(--ui);font-size:13px;letter-spacing:.04em;color:#5b4a2a;}
 .photo .cap .yr{font-weight:700;color:#9C7A2E;}
@@ -70,7 +70,7 @@ body{background:var(--bg-0);color:var(--cream);font-family:var(--serif);overflow
 /* film strip */
 .strip{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:30px auto 0;max-width:640px;}
 .thumb{width:84px;height:64px;border-radius:6px;overflow:hidden;border:2px solid transparent;opacity:.45;transition:.3s;cursor:pointer;position:relative;background:#0d0a07;}
-.thumb svg{width:100%;height:100%;}
+.thumb svg,.thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .thumb.on{opacity:1;border-color:var(--gold);transform:translateY(-3px);}
 
 .divider{display:flex;align-items:center;gap:18px;justify-content:center;margin:64px 0 36px;color:var(--gold);opacity:.7;}
@@ -110,7 +110,7 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 
   <div class="stage" id="stage"></div>
   <div class="nowline" id="nowline">Press play to begin her story…</div>
-  <div class="stagehint">Illustrated stand-ins shown here · <b>in your keepsake, every frame is your own photo</b></div>
+  <div class="stagehint">Example story shown · <b>in your keepsake, every frame is your own photo</b></div>
 
   <section class="player">
     <div class="track-line">Fifty Years of Gold · composed for the celebration</div>
@@ -145,7 +145,7 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 
   <footer>
     <div class="demo-tag">Sample keepsake · with photos · GatherWall</div>
-    <div>Illustrated placeholders shown · your keepsake uses your own photos · gatherwall.com</div>
+    <div>Example photos shown · your keepsake uses your own photos · gatherwall.com</div>
   </footer>
 </div>
 
@@ -153,23 +153,21 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 
 <script>
 /* ---------- illustrated memory frames (stand-ins for real photos) ---------- */
-const G='#D9B65F', G2='#F1D98C', GD='#9C7A2E', SK='#241a10';
-function bg(){return `<rect width='400' height='300' fill='${SK}'/>`;}
 const SCENES=[
- {yr:'1974',cap:'Where her story began',svg:`${bg()}<rect width='400' height='300' fill='url(#dawn)'/><defs><linearGradient id='dawn' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='${GD}'/><stop offset='1' stop-color='${SK}'/></linearGradient></defs><circle cx='200' cy='170' r='52' fill='${G2}' opacity='.9'/><path d='M0 230 Q100 195 200 225 T400 220 V300 H0 Z' fill='#120c08'/><path d='M0 250 Q140 220 260 248 T400 250 V300 H0 Z' fill='#0b0805'/>`},
- {yr:'1996',cap:'The day she said yes',svg:`${bg()}<circle cx='168' cy='150' r='46' fill='none' stroke='${G2}' stroke-width='7'/><circle cx='232' cy='150' r='46' fill='none' stroke='${G}' stroke-width='7'/><path d='M168 96 l9 16 -18 0 z' fill='${G2}'/>`},
- {yr:'2001',cap:'The first family home',svg:`${bg()}<rect x='130' y='150' width='140' height='100' fill='#1c130b' stroke='${G}' stroke-width='3'/><path d='M120 150 L200 96 L280 150 Z' fill='${GD}'/><rect x='185' y='195' width='30' height='55' fill='${G2}'/><rect x='150' y='175' width='26' height='26' fill='${G}' opacity='.8'/><rect x='224' y='175' width='26' height='26' fill='${G}' opacity='.8'/>`},
- {yr:'2008',cap:'The children she raised',svg:`${bg()}<g stroke='${G2}' stroke-width='2'><line x1='150' y1='120' x2='150' y2='200'/><line x1='200' y1='110' x2='200' y2='200'/><line x1='250' y1='122' x2='250' y2='200'/></g><circle cx='150' cy='150' r='34' fill='${G}'/><circle cx='200' cy='140' r='40' fill='${G2}'/><circle cx='250' cy='152' r='32' fill='${GD}'/>`},
- {yr:'2019',cap:'Through every season',svg:`${bg()}<rect x='192' y='170' width='16' height='90' fill='${GD}'/><circle cx='200' cy='140' r='66' fill='${G}' opacity='.85'/><circle cx='160' cy='160' r='40' fill='${GD}' opacity='.8'/><circle cx='244' cy='158' r='44' fill='${G2}' opacity='.8'/>`},
- {yr:'2026',cap:'Fifty & golden',svg:`${bg()}<rect x='130' y='160' width='140' height='80' rx='8' fill='${GD}'/><rect x='130' y='150' width='140' height='20' rx='8' fill='${G}'/><g stroke='${G2}' stroke-width='4'><line x1='160' y1='120' x2='160' y2='150'/><line x1='200' y1='115' x2='200' y2='150'/><line x1='240' y1='120' x2='240' y2='150'/></g><g fill='${G2}'><circle cx='160' cy='112' r='6'/><circle cx='200' cy='107' r='6'/><circle cx='240' cy='112' r='6'/></g>`}
+ {img:'mem1.jpg',yr:'1974',cap:'Where her story began'},
+ {img:'mem2.jpg',yr:'1996',cap:'The day she said yes'},
+ {img:'mem3.jpg',yr:'2001',cap:'The first family home'},
+ {img:'mem4.jpg',yr:'2008',cap:'The children she raised'},
+ {img:'mem5.jpg',yr:'2019',cap:'Through every season'},
+ {img:'mem6.jpg',yr:'2026',cap:'Fifty & golden'}
 ];
 const stage=document.getElementById('stage'), strip=document.getElementById('strip');
 SCENES.forEach((s,i)=>{
   const f=document.createElement('div');f.className='frame';f.id='fr'+i;
-  f.innerHTML=`<div class='photo'><svg viewBox='0 0 400 300' preserveAspectRatio='xMidYMid slice'>${s.svg}</svg><div class='cap'><span class='yr'>${s.yr}</span> · ${s.cap}</div></div>`;
+  f.innerHTML=`<div class='photo'><img src='${s.img}' alt='${s.cap}'><div class='cap'><span class='yr'>${s.yr}</span> · ${s.cap}</div></div>`;
   stage.appendChild(f);
   const t=document.createElement('div');t.className='thumb';t.id='th'+i;t.onclick=()=>jumpTo(i);
-  t.innerHTML=`<svg viewBox='0 0 400 300' preserveAspectRatio='xMidYMid slice'>${s.svg}</svg>`;
+  t.innerHTML=`<img src='${s.img}' alt=''>`;
   strip.appendChild(t);
 });
 
