@@ -468,7 +468,7 @@ body.kioskmode header.nav{display:none;}
       </div>
       <div class="ff-right">
         <div class="fmt-price" data-i18n="fmtWallP">From $10 / event · From $25/mo</div>
-        <button class="btn btn-primary" data-i18n="fmtWallC" onclick="go('create')">Create a wall ▸</button>
+        <button class="btn btn-primary" data-i18n="fmtWallC" onclick="startLiveWall()">Create a wall ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" onclick="loadDemoAndWall()">▸ See a live example</a>
       </div>
     </div>
@@ -584,15 +584,16 @@ body.kioskmode header.nav{display:none;}
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:640px;">
   <div class="back" onclick="go('home')">← Back</div>
-  <h1 style="font-size:36px;margin-bottom:6px;">Create your wall</h1>
-  <p class="muted" style="margin-bottom:28px;">Takes about a minute. You can change everything later.</p>
+  <h1 style="font-size:36px;margin-bottom:6px;" id="createTitle">Create your wall</h1>
+  <p class="muted" style="margin-bottom:28px;" id="createSub">Takes about a minute. You can change everything later.</p>
   <div class="card">
     <div class="field"><label>What's the occasion?</label>
       <div class="vibe-pick" id="vibePick">
         <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF4D7E,#FF9A52)"></span>Celebration</button>
         <button data-vibe="wedding" onclick="pickVibe('wedding',this)"><span class="sw" style="background:linear-gradient(120deg,#C98BB0,#D9A441)"></span>Wedding</button>
+        <button data-vibe="celebration" data-occasion="anniversary" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#E8B4B8,#D9A441)"></span>Anniversary</button>
         <button data-vibe="memorial" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
-        <button data-vibe="corporate" onclick="pickVibe('corporate',this)"><span class="sw" style="background:linear-gradient(120deg,#2D6CDF,#16B8A6)"></span>Corporate</button>
+        <button data-vibe="corporate" data-livecorp="1" onclick="pickVibe('corporate',this)"><span class="sw" style="background:linear-gradient(120deg,#2D6CDF,#16B8A6)"></span>Corporate</button>
       </div>
     </div>
     <div class="field"><label>Guest of honour / event name</label>
@@ -605,13 +606,15 @@ body.kioskmode header.nav{display:none;}
       <input id="evHost" placeholder="e.g. DJ Moraks - Premier AVE"></div>
     <div class="field"><label>Your website / booking link <span class="muted">(optional — your brand on the wall becomes a clickable link)</span></label>
       <input id="evLink" placeholder="e.g. https://premier-ave.co.uk/"></div>
-    <div class="field"><label>When do guests leave tributes?</label>
+    <div class="field" id="modeField"><label>When do guests leave tributes?</label>
       <select id="evMode">
         <option value="live">Live on the day (scrolls on screen during the event)</option>
         <option value="before">Collected beforehand (revealed/shared on the day)</option>
-      </select></div>
+      </select>
+      <div class="muted" id="modeFamilyNote" style="display:none;font-size:12.5px;margin-top:8px;">Family Memory Walls are filled over time — everyone adds photos &amp; messages whenever they like, then you reveal it on the day. (Collecting beforehand is built in.)</div>
+    </div>
 
-    <div class="field"><label>Choose your wall tier</label>
+    <div class="field" id="tierField"><label>Choose your wall tier</label>
       <div class="opts" id="optTier">
         <span class="opt on" data-grp="tier" data-val="basic" onclick="pickTier(this)">Basic · $10<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Photos + messages · up to 30 posts</b></span>
         <span class="opt" data-grp="tier" data-val="plus" onclick="pickTier(this)">Plus · $15<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Up to 100 posts · slideshow</b></span>
@@ -672,16 +675,16 @@ body.kioskmode header.nav{display:none;}
     <p class="muted" style="margin-top:12px;font-size:17px;max-width:54ch;margin-left:auto;margin-right:auto;">Two ways in. Build and preview for free — you only pay at the final step.</p>
   </div>
   <div class="lanes">
-    <div class="lane" onclick="go('create')">
+    <div class="lane" onclick="startLiveWall()">
       <div class="lane-emoji">🎉</div>
       <h3>Live Tribute Wall</h3>
       <p>A live wall for an event — guests post photos &amp; messages to the big screen in real time. Perfect for weddings &amp; parties, and built for DJs, MCs &amp; event planners who run lots of events.</p>
-      <button class="btn btn-primary" onclick="event.stopPropagation();go('create')">Build a wall ▸</button>
+      <button class="btn btn-primary" onclick="event.stopPropagation();startLiveWall()">Build a wall ▸</button>
     </div>
     <div class="lane" onclick="go('family')">
       <div class="lane-emoji">💛</div>
       <h3>For Family &amp; Loved Ones</h3>
-      <p>A lasting online memorial, a bespoke animated keepsake story, or both — created for someone you love.</p>
+      <p>A Memory Wall the whole family fills over time — add photos &amp; messages, then reveal it on the day. Or a bespoke animated keepsake story. Made for someone you love.</p>
       <button class="btn btn-primary" onclick="event.stopPropagation();go('family')">Explore family gifts ▸</button>
     </div>
   </div>
@@ -696,26 +699,35 @@ body.kioskmode header.nav{display:none;}
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:1000px;">
   <div class="back" onclick="go('start')">← Back</div>
-  <div class="center" style="margin-bottom:38px;">
+  <div class="center" style="margin-bottom:32px;">
     <span class="pill">💛 For Family &amp; Loved Ones</span>
     <h1 style="font-size:clamp(30px,5vw,44px);margin-top:14px;">A gift for someone you love</h1>
-    <p class="muted" style="margin-top:12px;font-size:17px;max-width:56ch;margin-left:auto;margin-right:auto;">Build and preview for free — payment is only the final step before we deliver.</p>
+    <p class="muted" style="margin-top:12px;font-size:17px;max-width:56ch;margin-left:auto;margin-right:auto;">No event planner needed. Build and preview for free — payment is only the final step.</p>
   </div>
-  <div class="choose-cards">
-    <div class="fmt">
-      <div class="fmt-emoji">🕊️</div>
-      <h3>Memorial &amp; Eulogy</h3>
-      <p>A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
-      <div class="fmt-price">$10 one-time</div>
-      <button class="btn btn-ghost" onclick="go('memorial')">Create a memorial ▸</button>
-      <a class="fmt-demo" href="memorial-demo.html" target="_blank">▸ See a live example</a>
+
+  <!-- PRIMARY: Memory Wall -->
+  <div class="fmt fmt-feature" style="margin-bottom:30px;">
+    <div class="ff-left">
+      <div class="fmt-emoji">💛</div>
+      <h3>Create a Memory Wall</h3>
+      <p>A shared wall for someone you love — a birthday, an anniversary, a wedding, or in memory. Share one link and let everyone add photos &amp; messages over time, then reveal it all on the day. Made for families, no event planner needed.</p>
+      <div class="ff-tags"><span>Free to build &amp; collect</span><span>Fills over time</span><span>Reveal on the day</span></div>
     </div>
+    <div class="ff-right">
+      <div class="fmt-price">Free to start · $10 to reveal</div>
+      <button class="btn btn-primary" onclick="startFamilyWall()">Create a Memory Wall ▸</button>
+      <a class="fmt-demo" onclick="loadDemoAndWall()">▸ See an example wall</a>
+    </div>
+  </div>
+
+  <div class="pg-label">Prefer a bespoke gift?</div>
+  <div class="choose-cards">
     <div class="fmt">
       <div class="fmt-emoji">🎬</div>
       <h3>Animated Keepsake Story</h3>
       <p>A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
       <div class="fmt-price">$39 one-time</div>
-      <button class="btn btn-primary" onclick="openBuilder()">Create your keepsake ▸</button>
+      <button class="btn btn-ghost" onclick="openBuilder()">Create your keepsake ▸</button>
       <a class="fmt-demo" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
     </div>
     <div class="fmt">
@@ -1393,15 +1405,46 @@ const TIERS={
   unlimited:{label:'Unlimited',price:'$20',cap:0}
 };
 let pickedTier='basic';
-/* On per-event tiers, voice/video are never included (they're monthly-plan features),
-   so we always keep them greyed/disabled in the builder. Hook kept for future
-   monthly-plan builder flows. */
+/* Which kind of wall is being built: 'live' (paid per-event Live Tribute Wall)
+   or 'family' (free-to-build Memory Wall, $10 to reveal). Set on entry. */
+let wallKind='live';
+/* None of AI-composed music, video tributes or voice notes are built yet, so we
+   never let the builder promise them — they stay greyed/disabled for BOTH kinds.
+   Voice/video are also monthly-plan-only on the Live wall. Hooks kept for the
+   future when these features (and monthly-plan builder flows) ship. */
 function tierIncludesVoice(){ return false; }   // monthly Host plan or above
 function tierIncludesVideo(){ return false; }   // monthly Pro plan
+function aiMusicAvailable(){ return false; }     // AI-composed music not built yet
 function applyTierGating(){
   const v=document.getElementById('optVideo'), vo=document.getElementById('optVoice');
   if(v){ const ok=tierIncludesVideo(); v.classList.toggle('dim',!ok); if(!ok){ v.classList.remove('on'); OPTS.video=false; } }
   if(vo){ const ok=tierIncludesVoice(); vo.classList.toggle('dim',!ok); if(!ok){ vo.classList.remove('on'); OPTS.voice=false; } }
+  applyMusicGating();
+}
+/* Grey out the music group while AI-composed music is unbuilt. The whole music
+   experience currently depends on AI compose, so we grey the entire group and
+   force music OFF, with a small "coming soon" note. */
+function applyMusicGating(){
+  const ok=aiMusicAvailable();
+  const musicG=document.getElementById('optMusic'), composeG=document.getElementById('composeGroup');
+  if(musicG){
+    musicG.querySelectorAll('.opt').forEach(o=>{ o.classList.toggle('dim',!ok); });
+    if(!ok){ musicG.querySelectorAll('.opt').forEach(o=>o.classList.remove('on')); OPTS.music='off'; }
+  }
+  if(composeG){
+    composeG.style.display=ok?'block':'none';
+    composeG.querySelectorAll('.opt').forEach(o=>{ o.classList.toggle('dim',!ok); });
+  }
+  // "coming soon" note under the music group
+  let note=document.getElementById('musicSoonNote');
+  if(!ok){
+    if(!note && musicG && musicG.parentNode){
+      note=document.createElement('div'); note.id='musicSoonNote';
+      note.className='muted'; note.style.cssText='font-size:12px;margin-top:6px;';
+      note.textContent='AI-composed music is coming soon — for now your wall focuses on photos & written messages.';
+      musicG.parentNode.appendChild(note);
+    }
+  } else if(note){ note.remove(); }
 }
 function pickTier(el){
   document.querySelectorAll('#optTier .opt').forEach(o=>o.classList.remove('on'));
@@ -1409,6 +1452,7 @@ function pickTier(el){
   applyTierGating();
 }
 function optPick(el){ // single-choice groups (music, compose)
+  if(el.classList.contains('dim')) return; // gated (e.g. AI music not built) — ignore taps
   const grp=el.dataset.grp;
   document.querySelectorAll(`#opt${grp[0].toUpperCase()+grp.slice(1)} .opt`).forEach(o=>o.classList.remove('on'));
   el.classList.add('on'); OPTS[grp]=el.dataset.val;
@@ -1435,7 +1479,7 @@ let pickedVibe='celebration';
 function go(screen){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+screen).classList.add('active');
-  if(screen==='create') applyTierGating(); // keep tier-gated options greyed correctly
+  if(screen==='create'){ adaptBuilder(); applyTierGating(); } // adapt for wallKind + keep gated options greyed
   // neutral chooser / family screens use the GatherWall brand palette
   if(screen==='start'||screen==='family'||screen==='bundle'||screen==='memorial') applyVibe('brand');
   window.scrollTo(0,0);
@@ -1443,6 +1487,49 @@ function go(screen){
 /* Premium branded checkout: go to GatherWall's own checkout page, where the
    secure Gumroad overlay (Merchant of Record — handles all tax) opens on-page. */
 function buy(slug){ location.href='checkout.html?p='+slug; }
+/* ===================== WALL-KIND ENTRY + BUILDER ADAPT =====================
+   The same wall engine powers both the paid Live Tribute Wall and the free
+   family Memory Wall. wallKind decides how the builder, share screen and
+   guest/wall gating behave. */
+function startLiveWall(){ wallKind='live'; applyVibe('celebration'); go('create'); }
+function startFamilyWall(){
+  wallKind='family';
+  pickedVibe='celebration';
+  applyVibe('celebration');
+  go('create');
+  // family walls are always collected over time, never live-on-the-day
+  const md=document.getElementById('evMode'); if(md) md.value='before';
+}
+/* Reconfigure the create screen for the active wallKind. Called by go('create'). */
+function adaptBuilder(){
+  const family=(wallKind==='family');
+  const title=document.getElementById('createTitle'), sub=document.getElementById('createSub');
+  if(title) title.textContent= family ? 'Create a Memory Wall' : 'Create your wall';
+  if(sub) sub.textContent= family
+    ? 'Share the link, let everyone add photos & messages over time, then reveal it on the day. Free to build — $10 to reveal.'
+    : 'Takes about a minute. You can change everything later.';
+  // Mode: family walls are locked to "collected beforehand" (async). Hide the chooser.
+  const modeField=document.getElementById('modeField');
+  const modeSel=document.getElementById('evMode');
+  const modeNote=document.getElementById('modeFamilyNote');
+  if(family){
+    if(modeSel) modeSel.value='before';
+    if(modeSel) modeSel.style.display='none';
+    if(modeNote) modeNote.style.display='block';
+  } else {
+    if(modeSel) modeSel.style.display='';
+    if(modeNote) modeNote.style.display='none';
+  }
+  // Tier selector is Live-Wall-only ($10/$15/$20). Hide it for family.
+  const tierField=document.getElementById('tierField');
+  if(tierField) tierField.style.display= family ? 'none' : '';
+  // "Corporate" occasion is a Live-wall framing; hide it for family.
+  const corp=document.querySelector('#vibePick button[data-livecorp]');
+  if(corp) corp.style.display= family ? 'none' : '';
+  // Build button copy
+  const buildBtn=document.querySelector('#screen-create .card > button.btn-primary');
+  if(buildBtn) buildBtn.textContent= family ? 'Build my Memory Wall — preview it free ▸' : 'Build my wall — preview it free ▸';
+}
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
@@ -1454,7 +1541,7 @@ function route(){
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='builder'){return openBuilder();}
-  if(path==='create'){applyVibe('celebration');applyTierGating();return go('create');}
+  if(path==='create'){wallKind='live';applyVibe('celebration');applyTierGating();return go('create');}
   // home + any homepage anchor (#formats, #how, #pricing): always reset to the brand palette
   applyVibe('brand'); return go('home');
 }
@@ -1462,6 +1549,7 @@ window.addEventListener('hashchange',route);
 
 /* ===================== FORMAT MENU ===================== */
 function createMemorial(){
+  wallKind='live';
   pickedVibe='memorial';
   document.querySelectorAll('#vibePick button').forEach(b=>b.classList.toggle('sel', b.dataset.vibe==='memorial'));
   applyVibe('memorial'); const c=document.getElementById('evColor'); if(c)c.value=VIBES.memorial.brand;
@@ -1592,15 +1680,18 @@ function createEvent(){
     const name=fieldVal('evName','');
     if(!name){toast('Please name the event');return;}
     // Build the DRAFT event. published:false → not public until the host publishes.
+    const family=(wallKind==='family');
     const e={
       id:uid(),
       name:name,
+      kind:family?'family':'live',
       vibe:pickedVibe||'celebration',
       color:fieldVal('evColor','#FF4D7E') || '#FF4D7E',
       host:fieldVal('evHost',''),
       hostLink:fieldVal('evLink',''),
       date:fieldVal('evDate',''),
-      mode:fieldVal('evMode','live') || 'live',
+      // family Memory Walls are always collected over time (async)
+      mode:family?'before':(fieldVal('evMode','live') || 'live'),
       tier:(TIERS[pickedTier]?pickedTier:'basic'),
       published:false,
       manageKey:uid()+uid(),
@@ -1636,21 +1727,43 @@ function showShare(e){
   const ml=document.getElementById('manageLink'); if(ml) ml.textContent=m;
   // Reflect draft vs published status on the preview screen
   const t=TIERS[e.tier]||TIERS.basic;
+  const family=(e.kind==='family');
   const titleEl=document.getElementById('shareTitle');
   const subEl=document.getElementById('shareSub');
   const card=document.getElementById('publishCard');
   const note=document.getElementById('publishNote');
   const btn=document.getElementById('publishBtn');
-  if(e.published){
-    if(titleEl) titleEl.textContent='“'+e.name+'” is live '+VIBES[e.vibe].emoji;
-    if(subEl) subEl.textContent='Your wall is published. Share the links below — guests can post and it shows on the big screen in real time.';
-    if(card) card.style.display='none';
+  const cardTitle=card?card.querySelector('h3'):null;
+  // The "for your guests" card heading (so we can reframe it as "collect" for family)
+  const guestCardH=document.querySelector('#screen-share .card:not(#publishCard) h3');
+  if(family){
+    // FAMILY MEMORY WALL — free to build & collect, $10 to reveal.
+    if(titleEl) titleEl.textContent='“'+e.name+'” — your Memory Wall is ready 💛';
+    if(subEl) subEl.textContent='Share the collect link with everyone now — family & friends can add photos and messages straight away, for free. When you\'re ready, reveal it on the day.';
+    if(card){
+      card.style.display= e.revealed ? 'none' : '';
+      if(cardTitle) cardTitle.textContent='Reveal it on the day';
+      if(note) note.textContent='Everyone can add to this wall right now — collecting is free. When you want the finished, polished wall to show on a big screen (and to share the reveal), reveal it for a one-time $10.';
+      if(btn) btn.textContent='Reveal / show on the day — $10 ▸';
+      // hide the "preview big screen" ghost button under the publish card during collection
+      const prevBtn=card.querySelector('.btn-ghost'); if(prevBtn) prevBtn.style.display='';
+    }
+    if(guestCardH) guestCardH.textContent='1 · Share to collect memories';
   } else {
-    if(titleEl) titleEl.textContent='“'+e.name+'” — preview your draft';
-    if(subEl) subEl.textContent='Preview it privately below. When it looks right, publish to go live.';
-    if(card) card.style.display='';
-    if(note) note.textContent='This wall is a private draft on the '+t.label+' tier ('+t.price+') — guests can\'t post yet. Publish to make it live for the room.';
-    if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
+    // LIVE TRIBUTE WALL — pay-to-go-live by tier.
+    if(guestCardH) guestCardH.textContent='1 · For your guests';
+    if(e.published){
+      if(titleEl) titleEl.textContent='“'+e.name+'” is live '+VIBES[e.vibe].emoji;
+      if(subEl) subEl.textContent='Your wall is published. Share the links below — guests can post and it shows on the big screen in real time.';
+      if(card) card.style.display='none';
+    } else {
+      if(titleEl) titleEl.textContent='“'+e.name+'” — preview your draft';
+      if(subEl) subEl.textContent='Preview it privately below. When it looks right, publish to go live.';
+      if(card) card.style.display='';
+      if(cardTitle) cardTitle.textContent='Publish & go live';
+      if(note) note.textContent='This wall is a private draft on the '+t.label+' tier ('+t.price+') — guests can\'t post yet. Publish to make it live for the room.';
+      if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
+    }
   }
   go('share'); window._cur=id; window._curEvent=e;
 }
@@ -1659,6 +1772,12 @@ function showShare(e){
    otherwise falls back to the existing branded checkout page, which still works. */
 function publishWall(){
   const e=window._curEvent; if(!e){toast('Build a wall first');return;}
+  // Family Memory Wall: collecting is free; the host pays a one-time $10 to REVEAL
+  // (unlock the polished big-screen display). Reuses the existing $10 Lemon Squeezy
+  // "Memorial & Eulogy Page" checkout. NOTE: that product is named for memorials —
+  // see report flag to rename it to something occasion-neutral.
+  if(e.kind==='family'){ buy('memorial-eulogy'); return; }
+  // Live Tribute Wall: pay-to-go-live by tier.
   const tier=(TIERS[e.tier]?e.tier:'basic');
   const direct=WALL_TIER_CHECKOUT[tier];
   if(direct){ location.href=direct; return; }
@@ -1761,6 +1880,15 @@ function isViewable(id, e){
   if(window._curEvent && window._curEvent.id===id) return true; // host previewing own draft
   return false;
 }
+/* GUEST POSTING gate — separate from isViewable (the polished big-screen view).
+   Family Memory Walls are FREE to collect: guests can post while it's still a
+   draft, so the wall fills over time before the host pays $10 to reveal it.
+   Live Tribute Walls stay closed to guests until the host publishes. */
+function isGuestPostable(id, e){
+  if(!e) return false;
+  if(e.kind==='family') return true;   // family collection is always open
+  return isViewable(id, e);            // live walls: same gate as the big screen
+}
 function showNotLive(){
   // Friendly holding state for guests who hit a wall that isn't published yet.
   return '<div class="empty"><h2 style="font-size:30px">This wall isn\'t live yet 🌱</h2>'+
@@ -1769,7 +1897,7 @@ function showNotLive(){
 function renderGuest(id, kiosk){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id,kiosk));} toast('Event not found');return go('home'); }
-    if(!isViewable(id,e)){
+    if(!isGuestPostable(id,e)){
       applyVibe(e.vibe,e.color);
       // Hide the submit form + gesture rather than destroying them, so a later
       // publish + in-session re-render still has all the fields intact.
