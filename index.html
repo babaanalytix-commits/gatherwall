@@ -413,7 +413,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtMemB">A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
         <div class="fmt-price" data-i18n="fmtMemP">From $19</div>
         <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="createMemorial()">Create a memorial ▸</button>
-        <a class="fmt-demo" data-i18n="seeExample" onclick="loadMemorialDemo()">▸ See a live example</a>
+        <a class="fmt-demo" data-i18n="seeExample" href="memorial-demo.html" target="_blank">▸ See a live example</a>
       </div>
       <div class="fmt">
         <div class="fmt-emoji">🎬</div>
@@ -1154,7 +1154,8 @@ function route(){
   if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='builder'){return openBuilder();}
   if(path==='create'){applyVibe('celebration');return go('create');}
-  if(path==='home'||path===''){applyVibe('celebration');return go('home');}
+  // home + any homepage anchor (#formats, #how, #pricing): always reset to the brand palette
+  applyVibe('celebration'); return go('home');
 }
 window.addEventListener('hashchange',route);
 
