@@ -596,6 +596,15 @@ body.kioskmode header.nav{display:none;}
         <option value="before">Collected beforehand (revealed/shared on the day)</option>
       </select></div>
 
+    <div class="field"><label>Choose your wall tier</label>
+      <div class="opts" id="optTier">
+        <span class="opt on" data-grp="tier" data-val="basic" onclick="pickTier(this)">Basic · $10<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Photos + messages · up to 30 posts</b></span>
+        <span class="opt" data-grp="tier" data-val="plus" onclick="pickTier(this)">Plus · $15<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Up to 100 posts · slideshow</b></span>
+        <span class="opt" data-grp="tier" data-val="unlimited" onclick="pickTier(this)">Unlimited · $20<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Unlimited posts · custom background · download</b></span>
+      </div>
+      <div class="muted" style="font-size:12.5px;margin-top:8px;">Running lots of events? Monthly plans (Host $25/mo, Pro $40/mo) add voice notes &amp; video tributes — choose those from the pricing page. The Animated Keepsake Story ($39) and Event Bundle ($49) are separate products, not wall tiers.</div>
+    </div>
+
     <div class="field"><label>Experience options</label>
       <div class="opt-group">
         <div class="gl">Music</div>
@@ -615,8 +624,8 @@ body.kioskmode header.nav{display:none;}
         <div class="gl">What guests can add</div>
         <div class="opts" id="optMedia">
           <span class="opt on" data-grp="photos" data-val="on" onclick="optToggle(this)">📷 Photos</span>
-          <span class="opt" data-grp="video" data-val="on" onclick="optToggle(this)">🎬 Video <b style="font-family:var(--ui);font-size:10px;font-weight:700;color:var(--brand);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:5px;">Pro</b></span>
-          <span class="opt" data-grp="voice" data-val="on" onclick="optToggle(this)">🎤 Voice notes <b style="font-family:var(--ui);font-size:10px;font-weight:700;color:var(--brand);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:5px;">Monthly</b></span>
+          <span class="opt" id="optVideo" data-grp="video" data-val="on" onclick="optToggle(this)">🎬 Video <b style="font-family:var(--ui);font-size:10px;font-weight:700;color:var(--brand);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:5px;">Pro plan</b></span>
+          <span class="opt" id="optVoice" data-grp="voice" data-val="on" onclick="optToggle(this)">🎤 Voice notes <b style="font-family:var(--ui);font-size:10px;font-weight:700;color:var(--brand);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:5px;">Host plan</b></span>
           <span class="opt on" data-grp="dedications" data-val="on" onclick="optToggle(this)">🎵 Song requests</span>
         </div>
       </div>
@@ -628,8 +637,8 @@ body.kioskmode header.nav{display:none;}
       </div>
     </div>
 
-    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createEvent()">Create wall ▸</button>
-    <div class="note-firebase">Your wall goes live the moment you create it — guests join from any phone and posts appear on the big screen in real time. Share the link or QR code with the room.</div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createEvent()">Build my wall — preview it free ▸</button>
+    <div class="note-firebase">You'll build a private draft and see a live preview first. Nothing is public until you review it and publish (publishing is where you choose &amp; pay for your tier). Guests can only post once your wall is live.</div>
   </div>
 </div></div>
 </div>
@@ -641,10 +650,16 @@ body.kioskmode header.nav{display:none;}
   <a class="btn btn-ghost" onclick="go('home')">Done</a>
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:680px;">
-  <div class="center" style="margin-bottom:30px;">
+  <div class="center" style="margin-bottom:24px;">
     <span class="pill" id="shareVibe">Celebration</span>
-    <h1 style="font-size:38px;margin-top:14px;" id="shareTitle">Your wall is ready 🎉</h1>
-    <p class="muted">Two links: one for guests to leave tributes, one for the big screen.</p>
+    <h1 style="font-size:38px;margin-top:14px;" id="shareTitle">Your draft is ready 🎉</h1>
+    <p class="muted" id="shareSub">Preview it privately below. When it looks right, publish to go live — that's where you pick &amp; pay for your tier.</p>
+  </div>
+  <div class="card" id="publishCard" style="margin-bottom:20px;border:2px solid var(--brand);">
+    <h3 style="font-size:20px;margin-bottom:6px;">Publish &amp; go live</h3>
+    <p class="muted" style="font-size:14px;margin-bottom:14px;" id="publishNote">This wall is a private draft — guests can't post yet. Publish your chosen tier to make it live for the room.</p>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" id="publishBtn" onclick="publishWall()">Publish &amp; go live ▸</button>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px;" onclick="openWall()">👀 Preview the big screen (private) ▸</button>
   </div>
   <div class="card" style="margin-bottom:20px;">
     <h3 style="font-size:20px;margin-bottom:6px;">1 · For your guests</h3>
@@ -1177,6 +1192,17 @@ function readTributes(id, cb){ // one-shot read of all tributes (for the control
   if(USE_FB){ fbdb.ref('tributes/'+id).once('value').then(s=>cb(Object.values(s.val()||{}))).catch(()=>cb([])); }
   else { cb(DB.tributes(id)); }
 }
+let mgRef=null, mgPollTimer=null;
+function watchManageTrib(id, cb){ // LIVE listener for the host control panel (real-time pending list)
+  if(mgRef){ try{mgRef.off();}catch(e){} mgRef=null; }
+  if(mgPollTimer){ clearInterval(mgPollTimer); mgPollTimer=null; }
+  if(USE_FB){ mgRef=fbdb.ref('tributes/'+id); mgRef.on('value', s=>cb(Object.values(s.val()||{}))); }
+  else { cb(DB.tributes(id)); mgPollTimer=setInterval(()=>cb(DB.tributes(id)),1500); } // demo polling
+}
+function stopManageWatch(){
+  if(mgRef){ try{mgRef.off();}catch(e){} mgRef=null; }
+  if(mgPollTimer){ clearInterval(mgPollTimer); mgPollTimer=null; }
+}
 function updateTribute(id, rid, fields, cb){
   if(USE_FB){ fbdb.ref('tributes/'+id+'/'+rid).update(fields).then(()=>cb&&cb()).catch(()=>cb&&cb()); }
   else { const a=DB.tributes(id); const x=a.find(t=>t.rid===rid); if(x){Object.assign(x,fields); localStorage.setItem('gw_trib_'+id,JSON.stringify(a));} cb&&cb(); }
@@ -1199,19 +1225,60 @@ function addGesture(id, cb){
 
 /* ===================== OPTIONS ARRAY ===================== */
 const OPTS={music:'on',compose:'ai',photos:true,video:false,voice:false,dedications:true,moderation:false};
+
+/* ── Wall tiers (per-event) ── These are the ONLY wall tiers. The Animated
+   Keepsake Story ($39) and Event Bundle ($49) are SEPARATE products and must
+   never appear here. Voice notes need a monthly Host plan or above; video
+   tributes need the monthly Pro plan — so they stay disabled on per-event tiers. */
+const TIERS={
+  basic:{label:'Basic',price:'$10',cap:30},
+  plus:{label:'Plus',price:'$15',cap:100},
+  unlimited:{label:'Unlimited',price:'$20',cap:0}
+};
+let pickedTier='basic';
+/* On per-event tiers, voice/video are never included (they're monthly-plan features),
+   so we always keep them greyed/disabled in the builder. Hook kept for future
+   monthly-plan builder flows. */
+function tierIncludesVoice(){ return false; }   // monthly Host plan or above
+function tierIncludesVideo(){ return false; }   // monthly Pro plan
+function applyTierGating(){
+  const v=document.getElementById('optVideo'), vo=document.getElementById('optVoice');
+  if(v){ const ok=tierIncludesVideo(); v.classList.toggle('dim',!ok); if(!ok){ v.classList.remove('on'); OPTS.video=false; } }
+  if(vo){ const ok=tierIncludesVoice(); vo.classList.toggle('dim',!ok); if(!ok){ vo.classList.remove('on'); OPTS.voice=false; } }
+}
+function pickTier(el){
+  document.querySelectorAll('#optTier .opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on'); pickedTier=el.dataset.val;
+  applyTierGating();
+}
 function optPick(el){ // single-choice groups (music, compose)
   const grp=el.dataset.grp;
   document.querySelectorAll(`#opt${grp[0].toUpperCase()+grp.slice(1)} .opt`).forEach(o=>o.classList.remove('on'));
   el.classList.add('on'); OPTS[grp]=el.dataset.val;
   if(grp==='music'){document.getElementById('composeGroup').style.display=(OPTS.music==='off')?'none':'block';}
 }
-function optToggle(el){ const grp=el.dataset.grp; el.classList.toggle('on'); OPTS[grp]=el.classList.contains('on'); }
+function optToggle(el){
+  if(el.classList.contains('dim')) return; // gated by tier — ignore taps
+  const grp=el.dataset.grp; el.classList.toggle('on'); OPTS[grp]=el.classList.contains('on');
+}
+
+/* ===================== PUBLISH / GO-LIVE CHECKOUT LINKS =====================
+   Lemon Squeezy checkout URLs for each per-event WALL tier.
+   TODO: paste Lemon Squeezy wall checkout links here (one per tier).
+   Leave a value as '' and Publish falls back to checkout.html?p=live-tribute-wall
+   (which still works). Do NOT put fake/placeholder URLs here. */
+const WALL_TIER_CHECKOUT={
+  basic:'',      // TODO: Lemon Squeezy Basic ($10) wall checkout URL
+  plus:'',       // TODO: Lemon Squeezy Plus ($15) wall checkout URL
+  unlimited:''   // TODO: Lemon Squeezy Unlimited ($20) wall checkout URL
+};
 
 /* ===================== ROUTER ===================== */
 let pickedVibe='celebration';
 function go(screen){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+screen).classList.add('active');
+  if(screen==='create') applyTierGating(); // keep tier-gated options greyed correctly
   window.scrollTo(0,0);
 }
 /* Premium branded checkout: go to GatherWall's own checkout page, where the
@@ -1228,7 +1295,7 @@ function route(){
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='builder'){return openBuilder();}
-  if(path==='create'){applyVibe('celebration');return go('create');}
+  if(path==='create'){applyVibe('celebration');applyTierGating();return go('create');}
   // home + any homepage anchor (#formats, #how, #pricing): always reset to the brand palette
   applyVibe('brand'); return go('home');
 }
@@ -1312,18 +1379,44 @@ function pickVibe(v,btn){
   applyVibe(v);
   document.getElementById('evColor').value=VIBES[v].brand;
 }
+/* Robust field reader: never throws if an element is missing/renamed, and
+   never returns undefined (which Firebase .set() rejects). */
+function fieldVal(id, fallback){
+  const el=document.getElementById(id);
+  if(!el) return fallback;
+  const v=el.value;
+  return (v===undefined||v===null) ? fallback : String(v).trim();
+}
 function createEvent(){
-  const name=document.getElementById('evName').value.trim();
-  if(!name){toast('Please name the event');return;}
-  const e={id:uid(),name,vibe:pickedVibe,
-    color:document.getElementById('evColor').value,
-    host:document.getElementById('evHost').value.trim(),
-    hostLink:document.getElementById('evLink').value.trim(),
-    date:document.getElementById('evDate').value,
-    mode:document.getElementById('evMode').value,
-    manageKey:uid()+uid(),
-    opts:Object.assign({},OPTS)};
-  saveEvent(e, ()=>showShare(e));
+  try{
+    const name=fieldVal('evName','');
+    if(!name){toast('Please name the event');return;}
+    // Build the DRAFT event. published:false → not public until the host publishes.
+    const e={
+      id:uid(),
+      name:name,
+      vibe:pickedVibe||'celebration',
+      color:fieldVal('evColor','#FF4D7E') || '#FF4D7E',
+      host:fieldVal('evHost',''),
+      hostLink:fieldVal('evLink',''),
+      date:fieldVal('evDate',''),
+      mode:fieldVal('evMode','live') || 'live',
+      tier:(TIERS[pickedTier]?pickedTier:'basic'),
+      published:false,
+      manageKey:uid()+uid(),
+      opts:Object.assign({},OPTS)
+    };
+    // Guard: strip any accidental undefined (Firebase .set rejects undefined values).
+    Object.keys(e).forEach(k=>{ if(e[k]===undefined) e[k]=''; });
+    if(e.opts) Object.keys(e.opts).forEach(k=>{ if(e.opts[k]===undefined) delete e.opts[k]; });
+    saveEvent(e, ok=>{
+      if(ok===false){ toast('Could not save your wall — check your connection and try again'); return; }
+      showShare(e); // preview / publish screen
+    });
+  }catch(err){
+    console.error('createEvent failed:', err);
+    toast('Something went wrong building the wall — please try again');
+  }
 }
 
 /* ===================== SHARE ===================== */
@@ -1341,7 +1434,35 @@ function showShare(e){
   catch(err){document.getElementById('qr').innerHTML='<p class="muted" style="font-size:13px">QR needs internet — use the link below.</p>';}
   const m=baseURL()+'#manage?ev='+id+'&key='+(e.manageKey||'');
   const ml=document.getElementById('manageLink'); if(ml) ml.textContent=m;
+  // Reflect draft vs published status on the preview screen
+  const t=TIERS[e.tier]||TIERS.basic;
+  const titleEl=document.getElementById('shareTitle');
+  const subEl=document.getElementById('shareSub');
+  const card=document.getElementById('publishCard');
+  const note=document.getElementById('publishNote');
+  const btn=document.getElementById('publishBtn');
+  if(e.published){
+    if(titleEl) titleEl.textContent='“'+e.name+'” is live '+VIBES[e.vibe].emoji;
+    if(subEl) subEl.textContent='Your wall is published. Share the links below — guests can post and it shows on the big screen in real time.';
+    if(card) card.style.display='none';
+  } else {
+    if(titleEl) titleEl.textContent='“'+e.name+'” — preview your draft';
+    if(subEl) subEl.textContent='Preview it privately below. When it looks right, publish to go live.';
+    if(card) card.style.display='';
+    if(note) note.textContent='This wall is a private draft on the '+t.label+' tier ('+t.price+') — guests can\'t post yet. Publish to make it live for the room.';
+    if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
+  }
   go('share'); window._cur=id; window._curEvent=e;
+}
+/* Publish / go live → route to payment for the chosen tier. Uses the Lemon Squeezy
+   wall checkout link for the tier if one is configured (WALL_TIER_CHECKOUT);
+   otherwise falls back to the existing branded checkout page, which still works. */
+function publishWall(){
+  const e=window._curEvent; if(!e){toast('Build a wall first');return;}
+  const tier=(TIERS[e.tier]?e.tier:'basic');
+  const direct=WALL_TIER_CHECKOUT[tier];
+  if(direct){ location.href=direct; return; }
+  location.href='checkout.html?p=live-tribute-wall&tier='+encodeURIComponent(tier)+'&ev='+encodeURIComponent(e.id);
 }
 function openManage(){ if(!window._curEvent){toast('Create a wall first');return;} location.hash='manage?ev='+window._cur+'&key='+(window._curEvent.manageKey||''); }
 function openKiosk(){ if(!window._cur){toast('Create a wall first');return;} location.hash='guest?ev='+window._cur+'&kiosk=1'; }
@@ -1414,9 +1535,39 @@ function stopRecord(){ if(mediaRec&&recording){ mediaRec.stop(); recording=false
 function showVoicePreview(){ const p=document.getElementById('voicePreview');
   p.innerHTML=audioData?`<audio controls src="${audioData}"></audio><div class="rm">Voice note ready ✓ · <a onclick="clearVoice()">remove</a></div>`:''; }
 function clearVoice(){ audioData=null; showVoicePreview(); }
+/* A wall is publicly viewable if it's published, or it's one of our demo walls,
+   or it's the host previewing their own freshly-built draft in this same session. */
+function isViewable(id, e){
+  if(!e) return false;
+  if(e.published===true) return true;
+  if(id===DEMO_ID || id===MEMDEMO_ID) return true;        // demos are always live
+  if(e.published===undefined) return true;                // legacy events (pre-draft) stay live
+  if(window._curEvent && window._curEvent.id===id) return true; // host previewing own draft
+  return false;
+}
+function showNotLive(){
+  // Friendly holding state for guests who hit a wall that isn't published yet.
+  return '<div class="empty"><h2 style="font-size:30px">This wall isn\'t live yet 🌱</h2>'+
+    '<p>The host is still putting the finishing touches on it. Check back a little later — it\'ll be ready soon.</p></div>';
+}
 function renderGuest(id, kiosk){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderGuest(id,kiosk));} toast('Event not found');return go('home'); }
+    if(!isViewable(id,e)){
+      applyVibe(e.vibe,e.color);
+      // Hide the submit form + gesture rather than destroying them, so a later
+      // publish + in-session re-render still has all the fields intact.
+      const card=document.querySelector('#screen-guest .card'); if(card) card.style.display='none';
+      const gb=document.getElementById('gestureBox'); if(gb) gb.style.display='none';
+      const gn=document.getElementById('guestName'); if(gn) gn.textContent=e.name||'';
+      let nl=document.getElementById('guestNotLive');
+      if(!nl){ nl=document.createElement('div'); nl.id='guestNotLive'; if(card&&card.parentNode) card.parentNode.insertBefore(nl, card); }
+      nl.style.display=''; nl.innerHTML=showNotLive();
+      go('guest'); return;
+    }
+    // Ensure the form is visible again (in case it was hidden by a prior not-live view)
+    const gCard=document.querySelector('#screen-guest .card'); if(gCard) gCard.style.display='';
+    const gNL=document.getElementById('guestNotLive'); if(gNL) gNL.style.display='none';
     guestEv=id; guestKiosk=!!kiosk; document.body.classList.toggle('kioskmode', guestKiosk);
     applyVibe(e.vibe,e.color);
     document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
@@ -1554,6 +1705,15 @@ let wallEv=null,wallTimer=null,lastCount=-1;
 function renderWall(id){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderWall(id));} toast('Event not found');return go('home'); }
+    if(!isViewable(id,e)){
+      applyVibe(e.vibe,e.color);
+      document.getElementById('wallTitle').textContent=e.name||'';
+      document.getElementById('wallHost').innerHTML='';
+      const gc=document.getElementById('wallGesture'); if(gc) gc.style.display='none';
+      const grid=document.getElementById('wallGrid'); if(grid){ grid.style.display=''; grid.innerHTML=showNotLive(); }
+      document.getElementById('spotlight').classList.remove('on');
+      clearInterval(wallTimer); go('wall'); return;
+    }
     wallEv=id; wallEvObj=e; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
     document.getElementById('wallHost').innerHTML=hostHTML(e);
@@ -1636,12 +1796,17 @@ function toggleDark(){
   document.getElementById('screen-wall').classList.toggle('dark', wallDark);
   document.getElementById('darkBtn').textContent=wallDark?'◑ Light':'◐ Dark';
 }
-function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
-function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('home'); } }
+function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
+function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('home'); } }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 
 /* ===================== HOST CONTROL PANEL ===================== */
 let mgEv=null, mgKey='', mgEvObj=null, mgFilterMode='all';
+/* The host reaches this control panel via their PRIVATE manage link
+   (#manage?ev=<id>&key=<manageKey>). The secret key in the URL is the only
+   credential — there is no login, account or email required. They simply
+   bookmark the link from the share screen and open it on their phone/laptop. */
+let mgCache=[]; // latest tributes from the live listener
 function renderManage(id, key){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderManage(id,key));} toast('Event not found');return go('home'); }
@@ -1653,19 +1818,26 @@ function renderManage(id, key){
     document.getElementById('mgWallBtn').onclick=()=>{ location.hash='wall?ev='+id; };
     updateModBtn(); mgFilterMode='all';
     ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k==='All');});
-    go('manage'); mgLoad();
+    go('manage');
+    // LIVE listener: new guest posts (and approvals) update the panel in real time,
+    // so the host sees pending posts arrive the moment guests submit them.
+    watchManageTrib(id, list=>{ mgCache=list||[]; mgPaint(); });
   });
 }
 function updateModBtn(){ const b=document.getElementById('mgModBtn'); const on=!!(mgEvObj.opts&&mgEvObj.opts.moderation); b.textContent='Moderation: '+(on?'ON':'OFF'); b.classList.toggle('on',on); }
-function mgFilter(m){ mgFilterMode=m; ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k.toLowerCase()===m);}); mgLoad(); }
-function mgLoad(){
-  readTributes(mgEv, list=>{
-    list=list.slice().sort((a,b)=>(a.pinned?-1:0)-(b.pinned?-1:0)||(b.ts||0)-(a.ts||0));
-    if(mgFilterMode==='pending') list=list.filter(t=>t.approved!==true);
-    if(mgFilterMode==='songs') list=list.filter(t=>t.type==='song');
-    const wrap=document.getElementById('mgList');
-    wrap.innerHTML = list.length ? list.map(mgCard).join('') : '<p class="muted" style="text-align:center;padding:30px">Nothing here yet.</p>';
-  });
+function mgFilter(m){ mgFilterMode=m; ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k.toLowerCase()===m);}); mgPaint(); }
+/* Renders from the cached live list — called on every Firebase update + on filter change. */
+function mgPaint(){
+  const all=mgCache.slice();
+  const pendingCount=all.filter(t=>t.approved!==true).length;
+  // Live pending badge/count on the Pending filter tab
+  const pf=document.getElementById('mgFilterPending');
+  if(pf) pf.innerHTML='Pending'+(pendingCount?(' <span class="badge pend" style="margin:0 0 0 4px">'+pendingCount+'</span>'):'');
+  let list=all.sort((a,b)=>(a.pinned?-1:0)-(b.pinned?-1:0)||(b.ts||0)-(a.ts||0));
+  if(mgFilterMode==='pending') list=list.filter(t=>t.approved!==true);
+  if(mgFilterMode==='songs') list=list.filter(t=>t.type==='song');
+  const wrap=document.getElementById('mgList');
+  wrap.innerHTML = list.length ? list.map(mgCard).join('') : '<p class="muted" style="text-align:center;padding:30px">Nothing here yet.</p>';
 }
 function mgCard(t){
   const pend=t.approved!==true;
@@ -1683,11 +1855,12 @@ function mgCard(t){
     </div></div></div>`;
 }
 function mgAct(rid, action){
-  if(action==='approve') updateTribute(mgEv,rid,{approved:true},mgLoad);
-  else if(action==='hide') updateTribute(mgEv,rid,{approved:false},mgLoad);
-  else if(action==='pin') updateTribute(mgEv,rid,{pinned:true},mgLoad);
-  else if(action==='unpin') updateTribute(mgEv,rid,{pinned:false},mgLoad);
-  else if(action==='delete'){ if(confirm('Delete this tribute permanently?')) deleteTribute(mgEv,rid,mgLoad); }
+  // The live listener (watchManageTrib) re-renders automatically after each change.
+  if(action==='approve') updateTribute(mgEv,rid,{approved:true});
+  else if(action==='hide') updateTribute(mgEv,rid,{approved:false});
+  else if(action==='pin') updateTribute(mgEv,rid,{pinned:true});
+  else if(action==='unpin') updateTribute(mgEv,rid,{pinned:false});
+  else if(action==='delete'){ if(confirm('Delete this tribute permanently?')) deleteTribute(mgEv,rid); }
 }
 function toggleModeration(){
   const on=!(mgEvObj.opts&&mgEvObj.opts.moderation);
