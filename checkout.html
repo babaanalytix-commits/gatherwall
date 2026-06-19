@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure checkout · GatherWall</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand3:#6FB39A;
+    --bg:#F6F4EC; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4;
+    --ui:'Inter',system-ui,sans-serif; --serif:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .nav{padding:22px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  .nav-in{display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:26px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .secure-pill{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .grid{display:grid;grid-template-columns:1.2fr .9fr;gap:40px;padding:54px 0 70px}
+  @media(max-width:780px){.grid{grid-template-columns:1fr;gap:28px;padding:34px 0 50px}}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
+  @media(max-width:780px){h1{font-size:33px}}
+  .lede{font-size:18px;color:var(--muted);max-width:46ch;margin-bottom:30px}
+  .incl-title{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 14px}
+  ul.incl{list-style:none;display:flex;flex-direction:column;gap:13px}
+  ul.incl li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+  ul.incl li .tick{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:rgba(46,125,91,.12);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+  .note{margin-top:26px;font-size:14px;color:var(--muted);padding:14px 16px;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:12px}
+  /* order card */
+  .order{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 60px -32px rgba(32,39,31,.4);position:sticky;top:96px;height:fit-content}
+  .order h2{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:4px}
+  .order .for{font-size:14px;color:var(--muted);margin-bottom:22px}
+  .price{display:flex;align-items:baseline;gap:8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .price .amt{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--ink)}
+  .price .per{font-size:15px;color:var(--muted)}
+  .price .was{font-size:16px;color:var(--muted);text-decoration:line-through;margin-left:auto}
+  .pay{display:block;width:100%;margin-top:22px;padding:17px;border:none;border-radius:14px;background:var(--brand);color:#fff;font-family:var(--ui);font-weight:600;font-size:17px;text-align:center;text-decoration:none;cursor:pointer;transition:background .15s,transform .15s;box-shadow:0 10px 24px -10px rgba(46,125,91,.7)}
+  .pay:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .trust{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+  .trust div{display:flex;gap:9px;align-items:center;font-size:13.5px;color:var(--muted)}
+  .trust .i{color:var(--brand)}
+  .powered{margin-top:18px;text-align:center;font-size:12px;color:var(--muted)}
+  footer{border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{text-decoration:none;opacity:.85}
+  /* tame Gumroad's injected button so it matches ours */
+  .gumroad-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:14px!important;
+    font-family:var(--ui)!important;font-weight:600!important;font-size:17px!important;padding:17px!important;
+    display:block!important;width:100%!important;text-align:center!important;text-decoration:none!important;
+    box-shadow:0 10px 24px -10px rgba(46,125,91,.7)!important;background-image:none!important;height:auto!important;line-height:1.2!important}
+  .gumroad-button img,.gumroad-button .logo{display:none!important}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <div class="secure-pill">🔒 Secure checkout</div>
+</div></header>
+
+<main class="wrap">
+  <div class="grid">
+    <section>
+      <div class="eyebrow" id="eyebrow">You're almost there</div>
+      <h1 id="title">Checkout</h1>
+      <p class="lede" id="lede"></p>
+      <p class="incl-title">What's included</p>
+      <ul class="incl" id="incl"></ul>
+      <div class="note" id="note" style="display:none"></div>
+    </section>
+
+    <aside>
+      <div class="order">
+        <h2 id="oName">Your order</h2>
+        <div class="for">GatherWall · secure one-step checkout</div>
+        <div class="price">
+          <span class="amt" id="oAmt">—</span>
+          <span class="per" id="oPer"></span>
+          <span class="was" id="oWas" style="display:none"></span>
+        </div>
+        <a class="pay gumroad-button" id="payBtn" href="#">Pay securely ▸</a>
+        <div class="trust">
+          <div><span class="i">🔒</span> Card, Apple Pay &amp; Google Pay</div>
+          <div><span class="i">🌍</span> Taxes handled automatically, worldwide</div>
+          <div><span class="i">✓</span> Instant confirmation by email</div>
+        </div>
+        <div class="powered">Payments processed securely by Gumroad</div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <a class="logo" href="index.html" style="font-size:16px"><span class="dot"></span>GatherWall</a>
+  <div style="display:flex;gap:16px">
+    <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@gatherwall.co.uk">Contact</a>
+  </div>
+</div></footer>
+
+<script src="https://gumroad.com/js/gumroad.js"></script>
+<script>
+  var BASE='https://analytixbaba.gumroad.com/l/';
+  var CATALOG={
+    'live-tribute-wall':{eyebrow:'Live Tribute Wall',title:'Bring the whole room onto one screen',
+      lede:'Guests scan a QR code or tap a tablet — no app — and their photos and messages float onto the big screen all night.',
+      incl:['Live wall on the venue big screen','Photos + written tributes','Moderation (approve posts before they show)','Choose Basic, Plus or Premium at checkout'],
+      amt:'$10',per:'/ event · from',note:'Pick your tier — Basic ($10), Plus ($15) or Premium ($20, unlimited + custom background + download) — on the next step.'},
+    'wall-pro-monthly':{eyebrow:'Live Tribute Wall · Pro',title:'Run the wall at every booking',
+      lede:'For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.',
+      incl:['Everything in Premium','Your logo on the wall','Priority support','Choose 3 or 7 events / month at checkout'],
+      amt:'$25',per:'/ month · from',note:'Pick 3 events/month ($25) or 7 events/month ($40) on the next step. Cancel anytime.'},
+    'memorial-eulogy':{eyebrow:'Memorial & Eulogy',title:'A lasting place to remember together',
+      lede:'A beautiful, private online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family and friends.',
+      incl:['Private memorial page, online to keep','Candle-lighting + life timeline','Family &amp; friends add memories and photos','Share with one link, near or far'],
+      amt:'$10',per:'one-time'},
+    'animated-keepsake-story':{eyebrow:'Animated Keepsake Story',title:'Their story, set to a song made for them',
+      lede:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',
+      incl:['Original song for the occasion','Hand-crafted animated story','Played at the event &amp; kept forever','Your photos, milestones &amp; message'],
+      amt:'$39',per:'one-time'},
+    'event-bundle':{eyebrow:'Event Bundle · best value',title:'The full experience, in one',
+      lede:'The Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.',
+      incl:['Animated Keepsake Story','Live Tribute Wall at the event','Their story on one screen, guests on another','Our best value for milestone celebrations'],
+      amt:'$49',per:'one-time',was:'$59'}
+  };
+  function param(n){return new URLSearchParams(location.search).get(n);}
+  var slug=param('p'); if(!CATALOG[slug]) slug='live-tribute-wall';
+  var p=CATALOG[slug];
+  document.getElementById('eyebrow').textContent=p.eyebrow;
+  document.getElementById('title').textContent=p.title;
+  document.getElementById('lede').innerHTML=p.lede;
+  document.getElementById('oName').textContent=p.eyebrow;
+  document.getElementById('oAmt').textContent=p.amt;
+  document.getElementById('oPer').textContent=p.per;
+  if(p.was){var w=document.getElementById('oWas');w.style.display='';w.textContent=p.was;}
+  var ul=document.getElementById('incl');
+  p.incl.forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
+  if(p.note){var n=document.getElementById('note');n.style.display='';n.textContent=p.note;}
+  var btn=document.getElementById('payBtn');
+  btn.href=BASE+slug+'?wanted=true';
+  document.title=p.eyebrow+' · Secure checkout · GatherWall';
+</script>
+</body>
+</html>
