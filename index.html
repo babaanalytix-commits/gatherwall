@@ -348,6 +348,21 @@ body.kioskmode header.nav{display:none;}
 .sb-photos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
 .sb-photos img{width:64px;height:64px;border-radius:8px;object-fit:cover;border:1.5px solid var(--line);}
 
+/* two-lane chooser screens */
+.lanes{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.lanes.cols-1{grid-template-columns:1fr;}
+.lane{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease, border-color .18s ease;cursor:pointer;}
+.lane:hover{transform:translateY(-4px);border-color:var(--brand);}
+.lane .lane-emoji{font-size:40px;margin-bottom:14px;}
+.lane h3{font-size:24px;margin-bottom:10px;}
+.lane p{font-size:15px;color:var(--muted);flex:1;line-height:1.55;}
+.lane .btn{margin-top:22px;justify-content:center;width:100%;}
+@media(max-width:760px){.lanes{grid-template-columns:1fr;}}
+.choose-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.choose-cards{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.choose-cards{grid-template-columns:1fr;}}
+.choose-cards .fmt{cursor:default;}
+
 .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:500;margin-bottom:22px;cursor:pointer;}
 .back:hover{color:var(--brand);}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(40px);background:var(--ink);color:#fff;
@@ -369,7 +384,7 @@ body.kioskmode header.nav{display:none;}
     <a href="#formats" id="hn_formats">Formats</a>
     <a href="#pricing" id="hn_pricing">Pricing</a>
     <span id="homeLang" class="lang-bar" style="margin:0"></span>
-    <a class="btn btn-primary" id="hn_create" onclick="go('create')">Create a wall</a>
+    <a class="btn btn-primary" id="hn_create" onclick="go('start')">Create yours</a>
   </nav>
 </div></header>
 
@@ -381,7 +396,7 @@ body.kioskmode header.nav{display:none;}
       <h1 style="margin-top:18px;" id="h_heroH1">A living wall of <em>love</em>, on the big screen.</h1>
       <p class="lead" id="h_heroLead">Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.</p>
       <div class="hero-cta">
-        <button class="btn btn-primary" id="h_cta1" onclick="go('create')">Create your wall — free to try</button>
+        <button class="btn btn-primary" id="h_cta1" onclick="go('start')">Create yours — free to try</button>
         <button class="btn btn-ghost" id="h_cta2" onclick="loadDemoAndWall()">See a live wall ▸</button>
       </div>
       <div class="hero-note" id="h_heroNote">No app for guests · Works on any phone · Your event, your colours.</div>
@@ -643,6 +658,145 @@ body.kioskmode header.nav{display:none;}
 </div></div>
 </div>
 
+<!-- ============ START — TWO-LANE CHOOSER ============ -->
+<div id="screen-start" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:880px;">
+  <div class="back" onclick="goHome()">← Back</div>
+  <div class="center" style="margin-bottom:38px;">
+    <span class="pill">✦ Let's begin</span>
+    <h1 style="font-size:clamp(30px,5vw,46px);margin-top:14px;">What would you like to create?</h1>
+    <p class="muted" style="margin-top:12px;font-size:17px;max-width:54ch;margin-left:auto;margin-right:auto;">Two ways in. Build and preview for free — you only pay at the final step.</p>
+  </div>
+  <div class="lanes">
+    <div class="lane" onclick="go('create')">
+      <div class="lane-emoji">🎉</div>
+      <h3>Live Tribute Wall</h3>
+      <p>A live wall for an event — guests post photos &amp; messages to the big screen in real time. Perfect for weddings &amp; parties, and built for DJs, MCs &amp; event planners who run lots of events.</p>
+      <button class="btn btn-primary" onclick="event.stopPropagation();go('create')">Build a wall ▸</button>
+    </div>
+    <div class="lane" onclick="go('family')">
+      <div class="lane-emoji">💛</div>
+      <h3>For Family &amp; Loved Ones</h3>
+      <p>A lasting online memorial, a bespoke animated keepsake story, or both — created for someone you love.</p>
+      <button class="btn btn-primary" onclick="event.stopPropagation();go('family')">Explore family gifts ▸</button>
+    </div>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ FAMILY — THREE-CARD CHOOSER ============ -->
+<div id="screen-family" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:1000px;">
+  <div class="back" onclick="go('start')">← Back</div>
+  <div class="center" style="margin-bottom:38px;">
+    <span class="pill">💛 For Family &amp; Loved Ones</span>
+    <h1 style="font-size:clamp(30px,5vw,44px);margin-top:14px;">A gift for someone you love</h1>
+    <p class="muted" style="margin-top:12px;font-size:17px;max-width:56ch;margin-left:auto;margin-right:auto;">Build and preview for free — payment is only the final step before we deliver.</p>
+  </div>
+  <div class="choose-cards">
+    <div class="fmt">
+      <div class="fmt-emoji">🕊️</div>
+      <h3>Memorial &amp; Eulogy</h3>
+      <p>A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
+      <div class="fmt-price">$10 one-time</div>
+      <button class="btn btn-ghost" onclick="go('memorial')">Create a memorial ▸</button>
+      <a class="fmt-demo" href="memorial-demo.html" target="_blank">▸ See a live example</a>
+    </div>
+    <div class="fmt">
+      <div class="fmt-emoji">🎬</div>
+      <h3>Animated Keepsake Story</h3>
+      <p>A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
+      <div class="fmt-price">$39 one-time</div>
+      <button class="btn btn-primary" onclick="openBuilder()">Create your keepsake ▸</button>
+      <a class="fmt-demo" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
+    </div>
+    <div class="fmt">
+      <div class="fmt-emoji">✨</div>
+      <h3>Event Bundle</h3>
+      <p>Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
+      <div class="fmt-price">$49 one-time</div>
+      <button class="btn btn-ghost" onclick="go('bundle')">See the bundle ▸</button>
+      <a class="fmt-demo" href="keepsake-photo-demo.html" target="_blank">▸ See an example</a>
+    </div>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ EVENT BUNDLE — INTRO ============ -->
+<div id="screen-bundle" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:620px;">
+  <div class="back" onclick="go('family')">← Back</div>
+  <span class="pill">✨ Event Bundle</span>
+  <h1 style="font-size:34px;margin:12px 0 6px;">Their story, and a live wall — together</h1>
+  <p class="muted" style="margin-bottom:22px;">The complete event experience for the people you love.</p>
+  <div class="card" style="margin-bottom:18px;">
+    <h3 style="font-size:20px;margin-bottom:12px;">What's included</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px;">
+      <li>🎬 <b>Animated Keepsake Story</b> — a bespoke song and animated story of their life, crafted for you and kept forever.</li>
+      <li>🎉 <b>Live Tribute Wall</b> — guests post photos &amp; messages to the big screen in real time, all evening long.</li>
+    </ul>
+    <p class="muted" style="font-size:14px;margin-top:16px;">Their story plays on one screen, guests post live on another — the full room, captured.</p>
+  </div>
+  <div class="card" style="border:2px solid var(--brand);">
+    <div class="fmt-price" style="margin:0 0 10px;">$49 one-time</div>
+    <p class="muted" style="font-size:14px;margin-bottom:14px;">After payment we'll open the keepsake story intake and set up your wall — nothing is charged until you continue below.</p>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="buy('event-bundle')">Continue to payment — $49 ▸</button>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ MEMORIAL BUILDER ============ -->
+<div id="screen-memorial" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:620px;">
+  <div class="back" onclick="go('family')">← Back</div>
+  <span class="pill">🕊️ Memorial &amp; Eulogy</span>
+  <h1 style="font-size:34px;margin:12px 0 6px;">A lasting tribute</h1>
+  <p class="muted" style="margin-bottom:8px;">A few gentle details create a calm, lasting page where family near and far can share memories. Build and preview it free — you only pay at the final step to publish.</p>
+  <div class="note-firebase" style="margin-bottom:22px;">Nothing is published or charged until you tap “Publish memorial” at the bottom.</div>
+
+  <div class="card sb-sec"><h3>1 · Who it honours</h3>
+    <div class="field"><label>Name of the person</label><input id="memName" placeholder="e.g. Margaret Wilson"></div>
+    <div class="row2">
+      <div class="field"><label>Born <span class="muted">(optional)</span></label><input id="memBorn" type="date"></div>
+      <div class="field"><label>Passed <span class="muted">(optional)</span></label><input id="memDied" type="date"></div>
+    </div>
+    <div class="field"><label>A photo <span class="muted">(optional)</span></label>
+      <input id="memPhoto" type="file" accept="image/*">
+      <div id="memPhotoPreview" class="sb-photos"></div>
+    </div>
+  </div>
+
+  <div class="card sb-sec"><h3>2 · A few words</h3>
+    <div class="field"><label>A short message or eulogy</label><textarea id="memMessage" placeholder="A line, a memory, or a few words in their honour…"></textarea></div>
+    <div class="field"><label>Hosted / shared by <span class="muted">(your name — optional)</span></label><input id="memFrom" placeholder="e.g. The Wilson family"></div>
+  </div>
+
+  <div class="card sb-sec"><h3>3 · Preview</h3>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="previewMemorial()">👀 Preview my memorial</button>
+    <div id="memPreview" style="margin-top:16px;display:none;"></div>
+  </div>
+
+  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;" onclick="publishMemorial()">Publish memorial — $10 ✦</button>
+  <p class="center muted" style="margin-top:14px;font-size:13px;">Build and preview are free. Payment is required only to publish &amp; deliver.</p>
+</div></div>
+</div>
+
 <!-- ============ SHARE ============ -->
 <div id="screen-share" class="screen">
 <header class="nav"><div class="wrap nav-in">
@@ -684,6 +838,8 @@ body.kioskmode header.nav{display:none;}
     <div class="linkbox"><span id="manageLink"></span>
       <button class="btn btn-primary" onclick="copyLink('manage')">Copy</button></div>
     <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:12px;" onclick="openManage()">Open control panel ▸</button>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:10px;" onclick="emailLinks()">📧 Email these links to myself</button>
+    <p class="muted" style="font-size:12.5px;margin-top:10px;">Opens your own email app so you have a backup if you lose your phone. GatherWall doesn't store your details — nothing is sent to us.</p>
   </div>
 </div></div>
 </div>
@@ -863,6 +1019,7 @@ body.kioskmode header.nav{display:none;}
   <h3 id="enqTitle">Enquire</h3>
   <p class="muted" id="enqText"></p>
   <a class="btn btn-primary" id="enqMail" href="#">✉ Send enquiry</a>
+  <button class="btn btn-primary" id="enqPay" style="display:none;" onclick="buy('animated-keepsake-story')">Continue to payment — $39 ▸</button>
   <button class="btn btn-ghost" onclick="closeEnquire()">Close</button>
 </div></div>
 
@@ -937,10 +1094,10 @@ const I18N={
 };
 function L(){ return I18N[guestLang]||I18N.en; }
 const HOME_I18N={
-  en:{navHow:"How it works",navFormats:"Formats",navPricing:"Pricing",navCreate:"Create a wall",
+  en:{navHow:"How it works",navFormats:"Formats",navPricing:"Pricing",navCreate:"Create yours",
     heroPill:"Live tribute walls for every celebration",heroH1:"A living wall of <em>love</em>, on the big screen.",
     heroLead:"Guests scan a code or tap a tablet, leave a message or photo, and it appears live on screen — a wall of tributes building all night for the person who matters. Weddings, big birthdays, retirements, memorials and more.",
-    cta1:"Create your wall — free to try",cta2:"See a live wall ▸",heroNote:"No app for guests · Works on any phone · Your event, your colours.",
+    cta1:"Create yours — free to try",cta2:"See a live wall ▸",heroNote:"No app for guests · Works on any phone · Your event, your colours.",
     howPill:"How it works",howH2:"Three steps to a wall of love",fmtPill:"Choose your experience",fmtH2:"One platform, many ways to honour a moment",
     priPill:"Live Tribute Wall · pricing",priH2:"Simple pricing — pay per event, or go monthly",vibPill:"One platform, every occasion",vibH2:"Each wall, styled to the moment",
     howSub:"Set it up in minutes. Guests do the rest.",
@@ -969,10 +1126,10 @@ const HOME_I18N={
     footTag:"A living wall of love for any event · gatherwall.com",seeExample:"▸ See an example",
     fdrPill:"From the founder",fdrName:"Yomi",fdrRole:"Founder of GatherWall",
     fdrQuote:"I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists."},
-  fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créer un mur",
+  fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créez le vôtre",
     heroPill:"Murs d'hommage en direct pour chaque célébration",heroH1:"Un mur vivant d'<em>amour</em>, sur grand écran.",
     heroLead:"Les invités scannent un code ou utilisent une tablette, laissent un message ou une photo, et tout s'affiche en direct à l'écran — un mur d'hommages qui se construit toute la soirée pour la personne qui compte. Mariages, grands anniversaires, départs en retraite, hommages et plus encore.",
-    cta1:"Créez votre mur — essai gratuit",cta2:"Voir un mur en direct ▸",heroNote:"Aucune appli pour les invités · Sur tout téléphone · Votre événement, vos couleurs.",
+    cta1:"Créez le vôtre — essai gratuit",cta2:"Voir un mur en direct ▸",heroNote:"Aucune appli pour les invités · Sur tout téléphone · Votre événement, vos couleurs.",
     howPill:"Comment ça marche",howH2:"Trois étapes vers un mur d'amour",fmtPill:"Choisissez votre expérience",fmtH2:"Une plateforme, mille façons d'honorer un moment",
     priPill:"Mur d'hommage en direct · tarifs",priH2:"Tarifs simples — à l'événement ou au mois",vibPill:"Une plateforme, chaque occasion",vibH2:"Chaque mur, au style du moment",
     howSub:"Préparez-le en quelques minutes. Les invités font le reste.",
@@ -1001,10 +1158,10 @@ const HOME_I18N={
     footTag:"Un mur vivant d'amour pour chaque événement · gatherwall.com",seeExample:"▸ Voir un exemple",
     fdrPill:"Le mot du fondateur",fdrName:"Yomi",fdrRole:"Fondateur de GatherWall",
     fdrQuote:"J'ai créé le tout premier pour ma femme, Veronika — l'histoire de sa vie, mise en musique sur une chanson écrite rien que pour elle. En voyant son visage pendant l'écoute, et la salle entière retenir son souffle, j'ai su que nous avions capturé quelque chose que l'argent ne peut acheter. C'est exactement ce que je veux offrir à chaque famille — et c'est la raison d'être de GatherWall."},
-  es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crear un muro",
+  es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crea el tuyo",
     heroPill:"Muros de homenaje en directo para cada celebración",heroH1:"Un muro vivo de <em>amor</em>, en la gran pantalla.",
     heroLead:"Los invitados escanean un código o usan una tablet, dejan un mensaje o una foto, y aparece en directo en la pantalla — un muro de homenajes que crece toda la noche para la persona que importa. Bodas, grandes cumpleaños, jubilaciones, homenajes y mucho más.",
-    cta1:"Crea tu muro — prueba gratis",cta2:"Ver un muro en directo ▸",heroNote:"Sin app para invitados · En cualquier móvil · Tu evento, tus colores.",
+    cta1:"Crea el tuyo — prueba gratis",cta2:"Ver un muro en directo ▸",heroNote:"Sin app para invitados · En cualquier móvil · Tu evento, tus colores.",
     howPill:"Cómo funciona",howH2:"Tres pasos hacia un muro de amor",fmtPill:"Elige tu experiencia",fmtH2:"Una plataforma, muchas formas de honrar un momento",
     priPill:"Muro de homenaje en directo · precios",priH2:"Precios simples — por evento o al mes",vibPill:"Una plataforma, cada ocasión",vibH2:"Cada muro, al estilo del momento",
     howSub:"Configúralo en minutos. Los invitados hacen el resto.",
@@ -1033,10 +1190,10 @@ const HOME_I18N={
     footTag:"Un muro vivo de amor para cada evento · gatherwall.com",seeExample:"▸ Ver un ejemplo",
     fdrPill:"Del fundador",fdrName:"Yomi",fdrRole:"Fundador de GatherWall",
     fdrQuote:"Creé el primero de todos para mi esposa, Veronika — la historia de su vida, con una canción escrita solo para ella. Al ver su rostro mientras sonaba, y sentir cómo toda la sala enmudecía, supe que habíamos capturado algo que el dinero no puede comprar. Ese sentimiento es justo lo que quiero que tenga cada familia — y por eso existe GatherWall."},
-  cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit zeď",
+  cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit",
     heroPill:"Živé zdi vzkazů pro každou oslavu",heroH1:"Živá zeď plná <em>lásky</em>, na velké obrazovce.",
     heroLead:"Hosté naskenují kód nebo použijí tablet, zanechají vzkaz nebo fotku a vše se živě objeví na obrazovce — zeď vzkazů, která roste celý večer pro toho, na kom záleží. Svatby, velká výročí, odchody do důchodu, vzpomínky a mnoho dalšího.",
-    cta1:"Vytvořte svou zeď — zkuste zdarma",cta2:"Zobrazit živou zeď ▸",heroNote:"Žádná aplikace pro hosty · Na každém telefonu · Vaše akce, vaše barvy.",
+    cta1:"Vytvořte to své — zkuste zdarma",cta2:"Zobrazit živou zeď ▸",heroNote:"Žádná aplikace pro hosty · Na každém telefonu · Vaše akce, vaše barvy.",
     howPill:"Jak to funguje",howH2:"Tři kroky ke zdi plné lásky",fmtPill:"Vyberte si zážitek",fmtH2:"Jedna platforma, mnoho způsobů, jak uctít okamžik",
     priPill:"Živá zeď vzkazů · ceník",priH2:"Jednoduché ceny — za akci nebo měsíčně",vibPill:"Jedna platforma, každá příležitost",vibH2:"Každá zeď ve stylu okamžiku",
     howSub:"Nastavíte to za pár minut. Zbytek udělají hosté.",
@@ -1065,10 +1222,10 @@ const HOME_I18N={
     footTag:"Živá zeď plná lásky pro každou akci · gatherwall.com",seeExample:"▸ Zobrazit ukázku",
     fdrPill:"Slovo zakladatele",fdrName:"Yomi",fdrRole:"Zakladatel GatherWall",
     fdrQuote:"Úplně první jsem vytvořil pro svou ženu Veroniku — příběh jejího života s písní napsanou jen pro ni. Když jsem viděl její tvář, jak se přehrává, a cítil, jak celá místnost ztichla, věděl jsem, že jsme zachytili něco, co se nedá koupit. Přesně tenhle pocit chci dát každé rodině — a právě proto GatherWall existuje."},
-  de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Wand erstellen",
+  de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Jetzt erstellen",
     heroPill:"Live-Erinnerungswände für jede Feier",heroH1:"Eine lebendige Wand voller <em>Liebe</em>, auf der großen Leinwand.",
     heroLead:"Gäste scannen einen Code oder tippen auf ein Tablet, hinterlassen eine Nachricht oder ein Foto, und es erscheint live auf dem Bildschirm — eine Wand voller Botschaften, die den ganzen Abend für den wichtigen Menschen wächst. Hochzeiten, runde Geburtstage, Ruhestand, Gedenkfeiern und mehr.",
-    cta1:"Erstelle deine Wand — kostenlos testen",cta2:"Live-Wand ansehen ▸",heroNote:"Keine App für Gäste · Auf jedem Handy · Dein Event, deine Farben.",
+    cta1:"Jetzt erstellen — kostenlos testen",cta2:"Live-Wand ansehen ▸",heroNote:"Keine App für Gäste · Auf jedem Handy · Dein Event, deine Farben.",
     howPill:"So funktioniert's",howH2:"In drei Schritten zur Wand voller Liebe",fmtPill:"Wähle dein Erlebnis",fmtH2:"Eine Plattform, viele Wege, einen Moment zu ehren",
     priPill:"Live-Erinnerungswand · Preise",priH2:"Einfache Preise — pro Event oder monatlich",vibPill:"Eine Plattform, jeder Anlass",vibH2:"Jede Wand, im Stil des Moments",
     howSub:"In wenigen Minuten eingerichtet. Den Rest erledigen die Gäste.",
@@ -1279,6 +1436,8 @@ function go(screen){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+screen).classList.add('active');
   if(screen==='create') applyTierGating(); // keep tier-gated options greyed correctly
+  // neutral chooser / family screens use the GatherWall brand palette
+  if(screen==='start'||screen==='family'||screen==='bundle'||screen==='memorial') applyVibe('brand');
   window.scrollTo(0,0);
 }
 /* Premium branded checkout: go to GatherWall's own checkout page, where the
@@ -1316,6 +1475,7 @@ function openReqCount(){ return parseInt(localStorage.getItem('gw_openreq')||'0'
 function bumpOpenReq(){ try{ localStorage.setItem('gw_openreq', openReqCount()+1); }catch(e){} }
 function enquire(type){
   const title=document.getElementById('enqTitle'), text=document.getElementById('enqText'), mail=document.getElementById('enqMail');
+  const pay=document.getElementById('enqPay'); if(pay) pay.style.display='none';
   const lang=(guestLang||'en').toUpperCase();
   if(openReqCount()>=KEEPSAKE_CAP){
     title.textContent='Worth the wait 💛';
@@ -1366,9 +1526,49 @@ function submitBuilder(){
   try{ localStorage.setItem('gw_lastbrief', brief); bumpOpenReq(); }catch(e){}
   const mail='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
   document.getElementById('enqTitle').textContent='Thank you 💛 their story is ready to send';
-  document.getElementById('enqText').textContent='We\'ve captured '+name+'\'s story. Tap below to send it (attach your photos in the email), and we\'ll confirm the price and timing, then begin crafting.';
-  const ml=document.getElementById('enqMail'); ml.textContent='✉ Send their story'; ml.onclick=null; ml.href=mail;
+  document.getElementById('enqText').textContent='We\'ve captured '+name+'\'s story. Continue to payment to begin crafting — or send us the details first and we\'ll confirm timing.';
+  const ml=document.getElementById('enqMail'); ml.textContent='✉ Send their story first'; ml.onclick=null; ml.href=mail;
+  const pay=document.getElementById('enqPay'); if(pay) pay.style.display='';
   document.getElementById('enquireModal').classList.add('on');
+}
+
+/* ===================== MEMORIAL BUILDER ===================== */
+let memPhotoData='';
+(function(){ const inp=document.getElementById('memPhoto'); if(!inp)return;
+  inp.addEventListener('change',function(){
+    memPhotoData=''; const prev=document.getElementById('memPhotoPreview'); if(prev)prev.innerHTML='';
+    const f=this.files&&this.files[0]; if(!f)return;
+    const r=new FileReader(); r.onload=ev=>{ const img=new Image(); img.onload=()=>{
+      const max=800,sc=Math.min(1,max/img.width); const c=document.createElement('canvas');
+      c.width=img.width*sc; c.height=img.height*sc; c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      memPhotoData=c.toDataURL('image/jpeg',0.78);
+      if(prev){ const im=document.createElement('img'); im.src=memPhotoData; prev.appendChild(im); }
+    }; img.src=ev.target.result; };
+    r.readAsDataURL(f);
+  });
+})();
+function memEsc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function previewMemorial(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const name=g('memName')||'In loving memory';
+  const born=g('memBorn'), died=g('memDied');
+  const dates=[born,died].filter(Boolean).join(' — ');
+  const msg=g('memMessage'), from=g('memFrom');
+  const box=document.getElementById('memPreview'); if(!box)return;
+  box.style.display='block';
+  box.innerHTML=
+    '<div style="text-align:center;border:1px solid var(--line);border-radius:16px;padding:26px;background:color-mix(in srgb,var(--brand) 5%,#fff);">'+
+    (memPhotoData?'<img src="'+memPhotoData+'" style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid var(--brand);margin-bottom:14px;">':'<div style="font-size:38px;margin-bottom:8px;">🕯️</div>')+
+    '<h2 style="font-size:26px;">'+memEsc(name)+'</h2>'+
+    (dates?'<div class="muted" style="margin-top:4px;font-size:14px;">'+memEsc(dates)+'</div>':'')+
+    (msg?'<p style="font-family:var(--display);font-size:18px;line-height:1.5;margin-top:16px;">'+memEsc(msg)+'</p>':'')+
+    (from?'<div style="margin-top:14px;color:var(--brand);font-weight:600;font-size:14px;">'+memEsc(from)+'</div>':'')+
+    '</div>';
+}
+function publishMemorial(){
+  const name=(document.getElementById('memName')||{}).value;
+  if(!name||!name.trim()){ toast('Please add the name of the person'); return; }
+  buy('memorial-eulogy');
 }
 
 /* ===================== CREATE ===================== */
@@ -1494,6 +1694,22 @@ function copyLink(which){
 }
 function openGuest(){location.hash='guest?ev='+window._cur;}
 function openWall(){location.hash='wall?ev='+window._cur;}
+/* Privacy-friendly backup: opens the host's OWN email app pre-filled with their
+   links. GatherWall stores nothing and sends nothing — the host emails it to
+   themselves so they can still reach the wall if they lose/forget their phone. */
+function emailLinks(){
+  const g=(document.getElementById('guestLink')||{}).textContent||'';
+  const w=(document.getElementById('wallLink')||{}).textContent||'';
+  const m=(document.getElementById('manageLink')||{}).textContent||'';
+  const name=(window._curEvent&&window._curEvent.name)||'your event';
+  const subj='Your GatherWall links — '+name;
+  const body='Keep these safe — they are your access to your wall.\n\n'+
+    'GUEST LINK (share with guests / behind the QR code):\n'+g+'\n\n'+
+    'BIG-SCREEN WALL:\n'+w+'\n\n'+
+    'PRIVATE CONTROL PANEL — approve posts (keep this one private):\n'+m+'\n\n'+
+    "GatherWall doesn't store your details — this email is just for your own records.";
+  location.href='mailto:?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+}
 
 /* ===================== GUEST ===================== */
 let guestEv=null, guestKiosk=false, guestEvObj=null;
