@@ -92,8 +92,11 @@
         <a class="pay gumroad-button" id="payBtn" href="#">Pay securely ▸</a>
         <div class="trust">
           <div><span class="i">🔒</span> Card, Apple Pay &amp; Google Pay</div>
-          <div><span class="i">🌍</span> Taxes handled automatically, worldwide</div>
+          <div><span class="i">🌍</span> Shown in your local currency at checkout</div>
           <div><span class="i">✓</span> Instant confirmation by email</div>
+        </div>
+        <div class="vatnote" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.55;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:10px;padding:11px 13px;">
+          Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.
         </div>
         <div class="powered">Payments processed securely by Gumroad</div>
       </div>
@@ -124,15 +127,15 @@
     'memorial-eulogy':{eyebrow:'Memorial & Eulogy',title:'A lasting place to remember together',
       lede:'A beautiful, private online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family and friends.',
       incl:['Private memorial page, online to keep','Candle-lighting + life timeline','Family &amp; friends add memories and photos','Share with one link, near or far'],
-      amt:'$10',per:'one-time',ls:'https://baba-analytics.lemonsqueezy.com/checkout/buy/cbbb8648-cc9c-4ea9-8f4f-96598e3d0c53'},
+      amt:'$10',per:'one-time'},
     'animated-keepsake-story':{eyebrow:'Animated Keepsake Story',title:'Their story, set to a song made for them',
       lede:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',
       incl:['Original song for the occasion','Hand-crafted animated story','Played at the event &amp; kept forever','Your photos, milestones &amp; message'],
-      amt:'$39',per:'one-time',ls:'https://baba-analytics.lemonsqueezy.com/checkout/buy/0b6b6617-f5d6-488c-80ce-db8ee8acc732'},
+      amt:'$39',per:'one-time'},
     'event-bundle':{eyebrow:'Event Bundle · best value',title:'The full experience, in one',
       lede:'The Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.',
       incl:['Animated Keepsake Story','Live Tribute Wall at the event','Their story on one screen, guests on another','Our best value for milestone celebrations'],
-      amt:'$49',per:'one-time',was:'$59',ls:'https://baba-analytics.lemonsqueezy.com/checkout/buy/8980c421-cf8c-49d3-ae72-d071e53a8209'}
+      amt:'$49',per:'one-time',was:'$59'}
   };
   function param(n){return new URLSearchParams(location.search).get(n);}
   var slug=param('p'); if(!CATALOG[slug]) slug='live-tribute-wall';
