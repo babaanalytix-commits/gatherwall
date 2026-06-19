@@ -469,6 +469,7 @@ body.kioskmode header.nav{display:none;}
       </div>
       <div class="ff-right">
         <div class="fmt-price" data-i18n="fmtWallP">From $10 / event · From $25/mo</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable</div>
         <button class="btn btn-primary" data-i18n="fmtWallC" onclick="startLiveWall()">Create a wall ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" onclick="loadDemoAndWall()">▸ See a live example</a>
       </div>
@@ -481,6 +482,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtMemT">Memorial &amp; Eulogy</h3>
         <p data-i18n="fmtMemB">A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
         <div class="fmt-price" data-i18n="fmtMemP">$10 one-time</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $12 with 20% VAT</div>
         <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="buy('memorial-eulogy')">Create a memorial ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="memorial-demo.html" target="_blank">▸ See a live example</a>
       </div>
@@ -489,6 +491,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtKeepT">Animated Keepsake Story</h3>
         <p data-i18n="fmtKeepB">A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
         <div class="fmt-price" data-i18n="fmtKeepP">$39 one-time</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $47 with 20% VAT</div>
         <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="buy('animated-keepsake-story')">Create your keepsake ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
       </div>
@@ -497,6 +500,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtBundT">Event Bundle</h3>
         <p data-i18n="fmtBundB">Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
         <div class="fmt-price" data-i18n="fmtBundP">$49 one-time</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $59 with 20% VAT</div>
         <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="buy('event-bundle')">Get the bundle ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-photo-demo.html" target="_blank">▸ See an example</a>
       </div>
@@ -616,7 +620,7 @@ body.kioskmode header.nav{display:none;}
       <div class="muted" id="modeFamilyNote" style="display:none;font-size:12.5px;margin-top:8px;">Family Memory Walls are filled over time — everyone adds photos &amp; messages whenever they like, then you reveal it on the day. (Collecting beforehand is built in.)</div>
     </div>
 
-    <div class="field" id="tierField"><label>Choose your wall tier</label>
+    <div class="field" id="tierField"><label>Choose your wall tier <span style="font-weight:400;color:var(--muted);">· prices + VAT where applicable</span></label>
       <div class="opts" id="optTier">
         <span class="opt on" data-grp="tier" data-val="basic" onclick="pickTier(this)">Basic · $10<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Photos + messages · up to 30 posts</b></span>
         <span class="opt" data-grp="tier" data-val="plus" onclick="pickTier(this)">Plus · $15<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Up to 100 posts · slideshow</b></span>
@@ -716,7 +720,7 @@ body.kioskmode header.nav{display:none;}
       <div class="ff-tags"><span>Free to build &amp; collect</span><span>Fills over time</span><span>Reveal on the day</span></div>
     </div>
     <div class="ff-right">
-      <div class="fmt-price">Free to start · $10 to reveal</div>
+      <div class="fmt-price">Free to start · $10 + VAT to reveal</div>
       <button class="btn btn-primary" onclick="startFamilyWall()">Create a Memory Wall ▸</button>
       <a class="fmt-demo" onclick="loadDemoAndWall()">▸ See an example wall</a>
     </div>
@@ -1768,7 +1772,7 @@ function showShare(e){
       card.style.display= e.revealed ? 'none' : '';
       if(cardTitle) cardTitle.textContent='Reveal it on the day';
       if(note) note.textContent='Everyone can add to this wall right now — collecting is free. When you want the finished, polished wall to show on a big screen (and to share the reveal), reveal it for a one-time $10.';
-      if(btn) btn.textContent='Reveal / show on the day — $10 ▸';
+      if(btn) btn.textContent='Reveal / show on the day — $10 + VAT ▸';
       // hide the "preview big screen" ghost button under the publish card during collection
       const prevBtn=card.querySelector('.btn-ghost'); if(prevBtn) prevBtn.style.display='';
     }
