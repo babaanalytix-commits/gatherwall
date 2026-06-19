@@ -109,6 +109,7 @@
 </div></footer>
 
 <script src="https://gumroad.com/js/gumroad.js"></script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script>
   var BASE='https://analytixbaba.gumroad.com/l/';
   var CATALOG={
@@ -123,7 +124,7 @@
     'memorial-eulogy':{eyebrow:'Memorial & Eulogy',title:'A lasting place to remember together',
       lede:'A beautiful, private online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family and friends.',
       incl:['Private memorial page, online to keep','Candle-lighting + life timeline','Family &amp; friends add memories and photos','Share with one link, near or far'],
-      amt:'$10',per:'one-time'},
+      amt:'$10',per:'one-time',ls:'https://baba-analytics.lemonsqueezy.com/checkout/buy/cbbb8648-cc9c-4ea9-8f4f-96598e3d0c53'},
     'animated-keepsake-story':{eyebrow:'Animated Keepsake Story',title:'Their story, set to a song made for them',
       lede:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',
       incl:['Original song for the occasion','Hand-crafted animated story','Played at the event &amp; kept forever','Your photos, milestones &amp; message'],
@@ -147,7 +148,17 @@
   p.incl.forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
   if(p.note){var n=document.getElementById('note');n.style.display='';n.textContent=p.note;}
   var btn=document.getElementById('payBtn');
-  btn.href=BASE+slug+'?wanted=true';
+  var powered=document.querySelector('.powered');
+  if(p.ls){
+    btn.href=p.ls+(p.ls.indexOf('?')<0?'?':'&')+'embed=1';
+    btn.classList.remove('gumroad-button');
+    btn.classList.add('lemonsqueezy-button');
+    if(powered) powered.textContent='Payments processed securely by Lemon Squeezy';
+    window.addEventListener('load',function(){ if(window.createLemonSqueezy) window.createLemonSqueezy(); });
+  } else {
+    btn.href=BASE+slug+'?wanted=true';
+    if(powered) powered.textContent='Payments processed securely by Gumroad';
+  }
   document.title=p.eyebrow+' · Secure checkout · GatherWall';
 </script>
 </body>
