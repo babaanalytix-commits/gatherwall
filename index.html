@@ -1546,7 +1546,7 @@ function adaptBuilder(){
   if(songOpt){
     songOpt.style.display= family ? 'none' : '';
     if(family){ songOpt.classList.remove('on'); OPTS.dedications=false; }
-    else { OPTS.dedications=songOpt.classList.contains('on'); }
+    else { songOpt.classList.add('on'); OPTS.dedications=true; }
   }
   // Build button copy
   const buildBtn=document.querySelector('#screen-create .card > button.btn-primary');
