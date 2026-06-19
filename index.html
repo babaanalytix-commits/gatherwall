@@ -476,14 +476,31 @@ body.kioskmode header.nav{display:none;}
     </div>
 
     <div class="pg-label" data-i18n="fmtG2">For families &amp; loved ones</div>
+
+    <!-- PRIMARY family product: Memory Wall -->
+    <div class="fmt fmt-feature" style="margin-bottom:30px;">
+      <div class="ff-left">
+        <div class="fmt-emoji">💛</div>
+        <h3>Create a Memory Wall</h3>
+        <p>A shared wall for someone you love — a birthday, anniversary, wedding or retirement. Share one link and let everyone add photos &amp; messages over time, then reveal it all on the day. Made for families, no event planner needed.</p>
+        <div class="ff-tags"><span>Free to build &amp; collect</span><span>Fills over time</span><span>Reveal on the day</span></div>
+      </div>
+      <div class="ff-right">
+        <div class="fmt-price">Free to start · $10 + VAT to reveal</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:1px;">about $12 with 20% VAT</div>
+        <button class="btn btn-primary" onclick="startFamilyWall()">Create a Memory Wall ▸</button>
+        <a class="fmt-demo" onclick="loadDemoAndWall()">▸ See an example wall</a>
+      </div>
+    </div>
+
     <div class="formats-grid cols-3">
       <div class="fmt">
         <div class="fmt-emoji">🕊️</div>
         <h3 data-i18n="fmtMemT">Memorial &amp; Eulogy</h3>
-        <p data-i18n="fmtMemB">A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
+        <p data-i18n="fmtMemB">For a funeral or memorial service — a life story and eulogy, candle-lighting, a life timeline, and shared memories. A lasting place to remember, online to keep.</p>
         <div class="fmt-price" data-i18n="fmtMemP">$10 one-time</div>
         <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $12 with 20% VAT</div>
-        <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="buy('memorial-eulogy')">Create a memorial ▸</button>
+        <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="go('memorial')">Create a memorial ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="memorial-demo.html" target="_blank">▸ See a live example</a>
       </div>
       <div class="fmt">
@@ -492,7 +509,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtKeepB">A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
         <div class="fmt-price" data-i18n="fmtKeepP">$39 one-time</div>
         <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $47 with 20% VAT</div>
-        <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="buy('animated-keepsake-story')">Create your keepsake ▸</button>
+        <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="openBuilder()">Create your keepsake ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
       </div>
       <div class="fmt">
@@ -501,7 +518,7 @@ body.kioskmode header.nav{display:none;}
         <p data-i18n="fmtBundB">Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
         <div class="fmt-price" data-i18n="fmtBundP">$49 one-time</div>
         <div style="font-size:12px;color:var(--muted);margin-top:1px;">+ VAT where applicable · about $59 with 20% VAT</div>
-        <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="buy('event-bundle')">Get the bundle ▸</button>
+        <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="go('bundle')">Get the bundle ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-photo-demo.html" target="_blank">▸ See an example</a>
       </div>
     </div>
@@ -522,21 +539,21 @@ body.kioskmode header.nav{display:none;}
         <div class="amt">$10<span data-i18n="prBasicU"> / event</span></div>
         <p class="muted" data-i18n="prBasicD">A clean wall for one celebration.</p>
         <ul><li data-i18n="prBasicA">Up to 30 posts</li><li data-i18n="prBasicB">Photos + text tributes</li><li data-i18n="prBasicC">Live auto-scrolling big screen</li></ul>
-        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="buy('live-tribute-wall')">Create a wall ▸</button>
+        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="startLiveWall()">Create a wall ▸</button>
       </div>
       <div class="price">
         <h3 data-i18n="prPlusT">Plus</h3>
         <div class="amt">$15<span data-i18n="prPlusU"> / event</span></div>
         <p class="muted" data-i18n="prPlusD">More guests, with a slideshow.</p>
         <ul><li data-i18n="prPlusA">Up to 100 posts</li><li data-i18n="prPlusB">Photos + text tributes</li><li data-i18n="prPlusC">Slideshow playback on screen</li></ul>
-        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="buy('live-tribute-wall')">Create a wall ▸</button>
+        <button class="btn btn-ghost" data-i18n="prCtaEvent" onclick="startLiveWall()">Create a wall ▸</button>
       </div>
       <div class="price feat">
         <h3 data-i18n="prUnlT">Unlimited</h3>
         <div class="amt">$20<span data-i18n="prUnlU"> / event</span></div>
         <p class="muted" data-i18n="prUnlD">Make it truly theirs.</p>
         <ul><li data-i18n="prUnlA">Unlimited posts</li><li data-i18n="prUnlB">Personalise the background — their photo, logo or colours</li><li data-i18n="prUnlC">Slideshow + download a copy after</li></ul>
-        <button class="btn btn-primary" data-i18n="prCtaEvent" onclick="buy('live-tribute-wall')">Create a wall ▸</button>
+        <button class="btn btn-primary" data-i18n="prCtaEvent" onclick="startLiveWall()">Create a wall ▸</button>
       </div>
     </div>
 
@@ -1143,7 +1160,7 @@ const HOME_I18N={
     fmtSub:"Two ways in — a live wall that event pros run and resell, and bespoke keepsakes families create for the people they love.",
     fmtG1:"For DJs, MCs & event planners",fmtG2:"For families & loved ones",ffTagWhite:"White-label",ffTagResell:"Resell to your clients",ffTagUnlimited:"Unlimited events",
     fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event · From $25/mo",fmtWallC:"Create a wall ▸",
-    fmtMemT:"Memorial & Eulogy",fmtMemB:"A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.",fmtMemP:"$10 one-time",fmtMemC:"Create a memorial ▸",
+    fmtMemT:"Memorial & Eulogy",fmtMemB:"For a funeral or memorial service — a life story and eulogy, candle-lighting, a life timeline, and shared memories. A lasting place to remember, online to keep.",fmtMemP:"$10 one-time",fmtMemC:"Create a memorial ▸",
     fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$39 one-time",fmtKeepC:"Create your keepsake ▸",
     fmtBundT:"Event Bundle",fmtBundB:"Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.",fmtBundP:"$49 one-time",fmtBundC:"Get the bundle ▸",
     priSub:"Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.",
