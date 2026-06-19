@@ -423,6 +423,20 @@ body.kioskmode header.nav{display:none;}
   </div>
 </section>
 
+<section id="founder">
+  <div class="wrap" style="max-width:840px;text-align:center;">
+    <div class="section-head"><span class="pill" data-i18n="fdrPill">From the founder</span></div>
+    <figure style="margin:0;background:var(--card,#fff);border:1px solid var(--line,#E6E2D4);border-radius:24px;padding:44px 40px;box-shadow:0 28px 64px -38px rgba(32,39,31,.4);position:relative;">
+      <div aria-hidden="true" style="font-family:var(--serif,Georgia,serif);font-size:68px;line-height:.5;color:var(--brand2,#C2A058);margin-bottom:10px;">&#10077;</div>
+      <blockquote data-i18n="fdrQuote" style="font-family:var(--serif,Georgia,serif);font-weight:500;font-size:23px;line-height:1.5;color:var(--ink,#20271F);margin:0 auto 24px;max-width:58ch;">I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists.</blockquote>
+      <figcaption style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <span data-i18n="fdrName" style="font-weight:600;font-size:16px;">Yomi</span>
+        <span data-i18n="fdrRole" style="font-size:14px;color:var(--muted,#5C6B5E);">Founder of GatherWall</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
 <section id="formats">
   <div class="wrap">
     <div class="section-head"><span class="pill" id="h_fmtPill">Choose your experience</span>
@@ -450,7 +464,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtMemT">Memorial &amp; Eulogy</h3>
         <p data-i18n="fmtMemB">A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.</p>
         <div class="fmt-price" data-i18n="fmtMemP">$10 one-time</div>
-        <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="createMemorial()">Create a memorial ▸</button>
+        <button class="btn btn-ghost" data-i18n="fmtMemC" onclick="buy('memorial-eulogy')">Create a memorial ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="memorial-demo.html" target="_blank">▸ See a live example</a>
       </div>
       <div class="fmt">
@@ -458,7 +472,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtKeepT">Animated Keepsake Story</h3>
         <p data-i18n="fmtKeepB">A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
         <div class="fmt-price" data-i18n="fmtKeepP">$39 one-time</div>
-        <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="openBuilder()">Create your keepsake ▸</button>
+        <button class="btn btn-primary" data-i18n="fmtKeepC" onclick="buy('animated-keepsake-story')">Create your keepsake ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
       </div>
       <div class="fmt">
@@ -466,7 +480,7 @@ body.kioskmode header.nav{display:none;}
         <h3 data-i18n="fmtBundT">Event Bundle</h3>
         <p data-i18n="fmtBundB">Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
         <div class="fmt-price" data-i18n="fmtBundP">$49 one-time</div>
-        <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="enquire('Event Bundle')">Enquire ▸</button>
+        <button class="btn btn-ghost" data-i18n="fmtBundC" onclick="buy('event-bundle')">Get the bundle ▸</button>
         <a class="fmt-demo" data-i18n="seeExample" href="keepsake-photo-demo.html" target="_blank">▸ See an example</a>
       </div>
     </div>
@@ -539,7 +553,7 @@ body.kioskmode header.nav{display:none;}
     <div style="font-family:var(--ui);font-size:13px;display:flex;gap:14px;flex-wrap:wrap;">
       <a href="privacy.html" style="color:inherit;opacity:.85;text-decoration:none;">Privacy</a>
       <a href="terms.html" style="color:inherit;opacity:.85;text-decoration:none;">Terms</a>
-      <a href="mailto:hello@gatherwall.co.uk" style="color:inherit;opacity:.85;text-decoration:none;">Contact</a>
+      <a href="mailto:baba.analytix@gmail.com" style="color:inherit;opacity:.85;text-decoration:none;">Contact</a>
     </div>
     <div data-i18n="footTag">A living wall of love for any event · gatherwall.com</div>
   </div>
@@ -614,7 +628,7 @@ body.kioskmode header.nav{display:none;}
     </div>
 
     <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createEvent()">Create wall ▸</button>
-    <div class="note-firebase">You're in a live demo — your wall is saved on this device so you can try the whole journey end to end. At a real event it runs live across every guest's phone in real time.</div>
+    <div class="note-firebase">Your wall goes live the moment you create it — guests join from any phone and posts appear on the big screen in real time. Share the link or QR code with the room.</div>
   </div>
 </div></div>
 </div>
@@ -925,7 +939,7 @@ const HOME_I18N={
     fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event · From $25/mo",fmtWallC:"Create a wall ▸",
     fmtMemT:"Memorial & Eulogy",fmtMemB:"A gentle, lasting tribute — candle-lighting, a life timeline, shared memories. Lives online for family near and far.",fmtMemP:"$10 one-time",fmtMemC:"Create a memorial ▸",
     fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$39 one-time",fmtKeepC:"Create your keepsake ▸",
-    fmtBundT:"Event Bundle",fmtBundB:"Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.",fmtBundP:"$49 one-time",fmtBundC:"Enquire ▸",
+    fmtBundT:"Event Bundle",fmtBundB:"Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.",fmtBundP:"$49 one-time",fmtBundC:"Get the bundle ▸",
     priSub:"Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.",
     prG1:"Pay per event",prG2:"Monthly — for DJs, MCs, planners & venues",
     prBasicT:"Basic",prBasicU:" / event",prBasicD:"A clean wall for one celebration.",prBasicA:"Up to 30 posts",prBasicB:"Photos + text tributes",prBasicC:"Live auto-scrolling big screen",
@@ -936,7 +950,9 @@ const HOME_I18N={
     prEntT:"Enterprise",prEntAmt:"Custom",prEntD:"White-label for venues & agencies.",prEntA:"Your brand & own domain",prEntB:"Unlimited events",prEntC:"Onboarding & support",
     prCtaEvent:"Create a wall ▸",prCtaPlan:"Choose plan ▸",prCtaEnt:"Talk to us ▸",
     prNote:"Personalised backgrounds, slideshow and downloads start at the $20 tier. Voice notes appear as text on the big screen. Video tributes phase in on monthly plans.",
-    footTag:"A living wall of love for any event · gatherwall.com",seeExample:"▸ See an example"},
+    footTag:"A living wall of love for any event · gatherwall.com",seeExample:"▸ See an example",
+    fdrPill:"From the founder",fdrName:"Yomi",fdrRole:"Founder of GatherWall",
+    fdrQuote:"I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists."},
   fr:{navHow:"Comment ça marche",navFormats:"Formats",navPricing:"Tarifs",navCreate:"Créer un mur",
     heroPill:"Murs d'hommage en direct pour chaque célébration",heroH1:"Un mur vivant d'<em>amour</em>, sur grand écran.",
     heroLead:"Les invités scannent un code ou utilisent une tablette, laissent un message ou une photo, et tout s'affiche en direct à l'écran — un mur d'hommages qui se construit toute la soirée pour la personne qui compte. Mariages, grands anniversaires, départs en retraite, hommages et plus encore.",
@@ -955,7 +971,7 @@ const HOME_I18N={
     fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement · Dès 25 $/mois",fmtWallC:"Créer un mur ▸",
     fmtMemT:"Mémorial & Hommage",fmtMemB:"Un hommage doux et durable — bougies, frise de vie, souvenirs partagés. Accessible en ligne pour la famille, près ou loin.",fmtMemP:"10 $ · paiement unique",fmtMemC:"Créer un mémorial ▸",
     fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"39 $ · paiement unique",fmtKeepC:"Créer le souvenir ▸",
-    fmtBundT:"Pack Événement",fmtBundB:"Deux en un : l'Histoire souvenir animée plus un Mur d'hommage en direct lors de l'événement — leur histoire sur un écran, les invités en direct sur l'autre.",fmtBundP:"49 $ · paiement unique",fmtBundC:"Demander un devis ▸",
+    fmtBundT:"Pack Événement",fmtBundB:"Deux en un : l'Histoire souvenir animée plus un Mur d'hommage en direct lors de l'événement — leur histoire sur un écran, les invités en direct sur l'autre.",fmtBundP:"49 $ · paiement unique",fmtBundC:"Choisir le pack ▸",
     priSub:"Pour une seule fête, ou — si vous êtes DJ, animateur, organisateur ou salle — passez au mois et utilisez-le à chaque prestation. Prix en USD.",
     prG1:"À l'événement",prG2:"Au mois — pour DJ, animateurs, organisateurs & salles",
     prBasicT:"Basique",prBasicU:" / événement",prBasicD:"Un mur épuré pour une fête.",prBasicA:"Jusqu'à 30 messages",prBasicB:"Photos + textes",prBasicC:"Grand écran à défilement automatique",
@@ -966,7 +982,9 @@ const HOME_I18N={
     prEntT:"Entreprise",prEntAmt:"Sur devis",prEntD:"Marque blanche pour salles & agences.",prEntA:"Votre marque & domaine",prEntB:"Événements illimités",prEntC:"Accompagnement & support",
     prCtaEvent:"Créer un mur ▸",prCtaPlan:"Choisir l'offre ▸",prCtaEnt:"Nous contacter ▸",
     prNote:"Fonds personnalisés, diaporama et téléchargements à partir de l'offre à 20 $. Les messages vocaux s'affichent en texte sur grand écran. Hommages vidéo sur les forfaits mensuels.",
-    footTag:"Un mur vivant d'amour pour chaque événement · gatherwall.com",seeExample:"▸ Voir un exemple"},
+    footTag:"Un mur vivant d'amour pour chaque événement · gatherwall.com",seeExample:"▸ Voir un exemple",
+    fdrPill:"Le mot du fondateur",fdrName:"Yomi",fdrRole:"Fondateur de GatherWall",
+    fdrQuote:"J'ai créé le tout premier pour ma femme, Veronika — l'histoire de sa vie, mise en musique sur une chanson écrite rien que pour elle. En voyant son visage pendant l'écoute, et la salle entière retenir son souffle, j'ai su que nous avions capturé quelque chose que l'argent ne peut acheter. C'est exactement ce que je veux offrir à chaque famille — et c'est la raison d'être de GatherWall."},
   es:{navHow:"Cómo funciona",navFormats:"Formatos",navPricing:"Precios",navCreate:"Crear un muro",
     heroPill:"Muros de homenaje en directo para cada celebración",heroH1:"Un muro vivo de <em>amor</em>, en la gran pantalla.",
     heroLead:"Los invitados escanean un código o usan una tablet, dejan un mensaje o una foto, y aparece en directo en la pantalla — un muro de homenajes que crece toda la noche para la persona que importa. Bodas, grandes cumpleaños, jubilaciones, homenajes y mucho más.",
@@ -985,7 +1003,7 @@ const HOME_I18N={
     fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento · Desde 25 $/mes",fmtWallC:"Crear un muro ▸",
     fmtMemT:"Memorial y Homenaje",fmtMemB:"Un homenaje sereno y duradero — velas, línea de vida, recuerdos compartidos. Disponible en línea para la familia, cerca o lejos.",fmtMemP:"10 $ · pago único",fmtMemC:"Crear un memorial ▸",
     fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"39 $ · pago único",fmtKeepC:"Crear el recuerdo ▸",
-    fmtBundT:"Pack de Evento",fmtBundB:"Dos en uno: la Historia animada de recuerdo más un Muro de homenaje en directo en el evento — su historia en una pantalla, los invitados en directo en otra.",fmtBundP:"49 $ · pago único",fmtBundC:"Consultar ▸",
+    fmtBundT:"Pack de Evento",fmtBundB:"Dos en uno: la Historia animada de recuerdo más un Muro de homenaje en directo en el evento — su historia en una pantalla, los invitados en directo en otra.",fmtBundP:"49 $ · pago único",fmtBundC:"Elegir el pack ▸",
     priSub:"Para una sola celebración, o — si eres DJ, presentador, organizador o local — pásate al mes y úsalo en cada evento. Precios en USD.",
     prG1:"Por evento",prG2:"Al mes — para DJ, presentadores, organizadores y locales",
     prBasicT:"Básico",prBasicU:" / evento",prBasicD:"Un muro limpio para una celebración.",prBasicA:"Hasta 30 publicaciones",prBasicB:"Fotos + textos",prBasicC:"Pantalla con desplazamiento automático",
@@ -996,7 +1014,9 @@ const HOME_I18N={
     prEntT:"Empresa",prEntAmt:"A medida",prEntD:"Marca blanca para locales y agencias.",prEntA:"Tu marca y dominio propio",prEntB:"Eventos ilimitados",prEntC:"Incorporación y soporte",
     prCtaEvent:"Crear un muro ▸",prCtaPlan:"Elegir plan ▸",prCtaEnt:"Habla con nosotros ▸",
     prNote:"Fondos personalizados, presentación y descargas desde el plan de 20 $. Las notas de voz se muestran como texto en la pantalla. Tributos en vídeo en los planes mensuales.",
-    footTag:"Un muro vivo de amor para cada evento · gatherwall.com",seeExample:"▸ Ver un ejemplo"},
+    footTag:"Un muro vivo de amor para cada evento · gatherwall.com",seeExample:"▸ Ver un ejemplo",
+    fdrPill:"Del fundador",fdrName:"Yomi",fdrRole:"Fundador de GatherWall",
+    fdrQuote:"Creé el primero de todos para mi esposa, Veronika — la historia de su vida, con una canción escrita solo para ella. Al ver su rostro mientras sonaba, y sentir cómo toda la sala enmudecía, supe que habíamos capturado algo que el dinero no puede comprar. Ese sentimiento es justo lo que quiero que tenga cada familia — y por eso existe GatherWall."},
   cs:{navHow:"Jak to funguje",navFormats:"Formáty",navPricing:"Ceník",navCreate:"Vytvořit zeď",
     heroPill:"Živé zdi vzkazů pro každou oslavu",heroH1:"Živá zeď plná <em>lásky</em>, na velké obrazovce.",
     heroLead:"Hosté naskenují kód nebo použijí tablet, zanechají vzkaz nebo fotku a vše se živě objeví na obrazovce — zeď vzkazů, která roste celý večer pro toho, na kom záleží. Svatby, velká výročí, odchody do důchodu, vzpomínky a mnoho dalšího.",
@@ -1015,7 +1035,7 @@ const HOME_I18N={
     fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce · Od 25 $/měs",fmtWallC:"Vytvořit zeď ▸",
     fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Jemný a trvalý hold — zapalování svíček, časová osa života, sdílené vzpomínky. Dostupné online pro rodinu, blízkou i vzdálenou.",fmtMemP:"10 $ · jednorázově",fmtMemC:"Vytvořit vzpomínku ▸",
     fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"39 $ · jednorázově",fmtKeepC:"Vytvořit vzpomínku ▸",
-    fmtBundT:"Balíček akce",fmtBundB:"Dva v jednom: Animovaný vzpomínkový příběh a k tomu Živá zeď vzkazů na akci — jejich příběh na jedné obrazovce, hosté živě na druhé.",fmtBundP:"49 $ · jednorázově",fmtBundC:"Poptat ▸",
+    fmtBundT:"Balíček akce",fmtBundB:"Dva v jednom: Animovaný vzpomínkový příběh a k tomu Živá zeď vzkazů na akci — jejich příběh na jedné obrazovce, hosté živě na druhé.",fmtBundP:"49 $ · jednorázově",fmtBundC:"Vybrat balíček ▸",
     priSub:"Pro jednu oslavu, nebo — pokud jste DJ, moderátor, organizátor či místo konání — přejděte na měsíční plán a využijte ho u každé akce. Ceny v USD.",
     prG1:"Za akci",prG2:"Měsíčně — pro DJ, moderátory, organizátory a místa",
     prBasicT:"Základní",prBasicU:" / akce",prBasicD:"Čistá zeď pro jednu oslavu.",prBasicA:"Až 30 příspěvků",prBasicB:"Fotky + texty",prBasicC:"Automatické posouvání na obrazovce",
@@ -1026,7 +1046,9 @@ const HOME_I18N={
     prEntT:"Enterprise",prEntAmt:"Na míru",prEntD:"White-label pro místa a agentury.",prEntA:"Vaše značka a vlastní doména",prEntB:"Neomezené akce",prEntC:"Onboarding a podpora",
     prCtaEvent:"Vytvořit zeď ▸",prCtaPlan:"Vybrat plán ▸",prCtaEnt:"Ozvěte se nám ▸",
     prNote:"Personalizované pozadí, prezentace a stahování od tarifu za 20 $. Hlasové zprávy se zobrazují jako text na obrazovce. Videopříspěvky v měsíčních plánech.",
-    footTag:"Živá zeď plná lásky pro každou akci · gatherwall.com",seeExample:"▸ Zobrazit ukázku"},
+    footTag:"Živá zeď plná lásky pro každou akci · gatherwall.com",seeExample:"▸ Zobrazit ukázku",
+    fdrPill:"Slovo zakladatele",fdrName:"Yomi",fdrRole:"Zakladatel GatherWall",
+    fdrQuote:"Úplně první jsem vytvořil pro svou ženu Veroniku — příběh jejího života s písní napsanou jen pro ni. Když jsem viděl její tvář, jak se přehrává, a cítil, jak celá místnost ztichla, věděl jsem, že jsme zachytili něco, co se nedá koupit. Přesně tenhle pocit chci dát každé rodině — a právě proto GatherWall existuje."},
   de:{navHow:"So funktioniert's",navFormats:"Formate",navPricing:"Preise",navCreate:"Wand erstellen",
     heroPill:"Live-Erinnerungswände für jede Feier",heroH1:"Eine lebendige Wand voller <em>Liebe</em>, auf der großen Leinwand.",
     heroLead:"Gäste scannen einen Code oder tippen auf ein Tablet, hinterlassen eine Nachricht oder ein Foto, und es erscheint live auf dem Bildschirm — eine Wand voller Botschaften, die den ganzen Abend für den wichtigen Menschen wächst. Hochzeiten, runde Geburtstage, Ruhestand, Gedenkfeiern und mehr.",
@@ -1045,7 +1067,7 @@ const HOME_I18N={
     fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event · Ab 25 $/Mon.",fmtWallC:"Wand erstellen ▸",
     fmtMemT:"Gedenken & Nachruf",fmtMemB:"Ein sanfter, bleibender Tribut — Kerzen, Lebenslinie, geteilte Erinnerungen. Online verfügbar für Familie, nah und fern.",fmtMemP:"10 $ · einmalig",fmtMemC:"Gedenkseite erstellen ▸",
     fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"39 $ · einmalig",fmtKeepC:"Andenken erstellen ▸",
-    fmtBundT:"Event-Paket",fmtBundB:"Zwei in einem: die Animierte Andenken-Geschichte plus eine Live-Erinnerungswand beim Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.",fmtBundP:"49 $ · einmalig",fmtBundC:"Anfragen ▸",
+    fmtBundT:"Event-Paket",fmtBundB:"Zwei in einem: die Animierte Andenken-Geschichte plus eine Live-Erinnerungswand beim Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.",fmtBundP:"49 $ · einmalig",fmtBundC:"Paket holen ▸",
     priSub:"Für eine einzelne Feier, oder — als DJ, Moderator, Planer oder Location — monatlich für jede Buchung. Preise in USD.",
     prG1:"Pro Event",prG2:"Monatlich — für DJs, Moderatoren, Planer & Locations",
     prBasicT:"Basis",prBasicU:" / Event",prBasicD:"Eine klare Wand für eine Feier.",prBasicA:"Bis zu 30 Beiträge",prBasicB:"Fotos + Texte",prBasicC:"Automatisch scrollende Leinwand",
@@ -1056,7 +1078,9 @@ const HOME_I18N={
     prEntT:"Enterprise",prEntAmt:"Individuell",prEntD:"White-Label für Locations & Agenturen.",prEntA:"Deine Marke & eigene Domain",prEntB:"Unbegrenzte Events",prEntC:"Onboarding & Support",
     prCtaEvent:"Wand erstellen ▸",prCtaPlan:"Plan wählen ▸",prCtaEnt:"Kontakt aufnehmen ▸",
     prNote:"Personalisierte Hintergründe, Diashow und Downloads ab dem 20-$-Tarif. Sprachnachrichten erscheinen als Text auf der Leinwand. Video-Beiträge in den Monatsplänen.",
-    footTag:"Eine lebendige Wand voller Liebe für jedes Event · gatherwall.com",seeExample:"▸ Beispiel ansehen"},
+    footTag:"Eine lebendige Wand voller Liebe für jedes Event · gatherwall.com",seeExample:"▸ Beispiel ansehen",
+    fdrPill:"Vom Gründer",fdrName:"Yomi",fdrRole:"Gründer von GatherWall",
+    fdrQuote:"Das allererste habe ich für meine Frau Veronika gemacht — ihre Lebensgeschichte, vertont mit einem Lied, das nur für sie geschrieben wurde. Als ich ihr Gesicht sah, während es lief, und spürte, wie der ganze Raum still wurde, wusste ich, dass wir etwas eingefangen hatten, das man nicht kaufen kann. Genau dieses Gefühl möchte ich jeder Familie schenken — und deshalb gibt es GatherWall."},
 };
 function buildHomeLang(){ const bar=document.getElementById('homeLang'); if(!bar)return;
   bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
@@ -1070,7 +1094,7 @@ function applyHomeLang(){
   setH('h_priPill',t.priPill);setH('h_priH2',t.priH2);setH('h_vibPill',t.vibPill);setH('h_vibH2',t.vibH2);
   document.querySelectorAll('[data-i18n]').forEach(el=>{ const v=t[el.dataset.i18n]; if(v!=null) el.textContent=v; });
 }
-function defaultLang(){ const s=localStorage.getItem('gw_lang'); if(s&&I18N[s])return s; const n=(navigator.language||'en').slice(0,2).toLowerCase(); return I18N[n]?n:'en'; }
+function defaultLang(){ const AL={cz:'cs'}; const norm=x=>{x=(x||'').slice(0,2).toLowerCase(); return AL[x]||x;}; try{const u=norm(new URLSearchParams(location.search).get('lang')); if(u&&I18N[u])return u;}catch(e){} const s=localStorage.getItem('gw_lang'); if(s&&I18N[s])return s; const n=norm(navigator.language); return I18N[n]?n:'en'; }
 const GESTURES={
   celebration:{label:'Raise a toast',emoji:'🥂',noun:'toasts'},
   wedding:{label:'Send your love',emoji:'💞',noun:'hearts'},
@@ -1104,13 +1128,14 @@ function uid(){return Math.random().toString(36).slice(2,8);}
    "Your apps" → Web app → SDK setup and configuration → "Config".
    Until you fill in databaseURL, the site runs in DEMO mode automatically. */
 const FIREBASE_CONFIG = {
-  // apiKey: "AIza...........",
-  // authDomain: "tributewall-27c75.firebaseapp.com",
-  // databaseURL: "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app",
-  // projectId: "tributewall-27c75",
-  // storageBucket: "tributewall-27c75.appspot.com",
-  // messagingSenderId: "..........",
-  // appId: "1:....:web:......."
+  apiKey: "AIzaSyBqK8_1BLYd5cVnvsEFij9RTvxEnUL067g",
+  authDomain: "tributewall-27c75.firebaseapp.com",
+  databaseURL: "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "tributewall-27c75",
+  storageBucket: "tributewall-27c75.firebasestorage.app",
+  messagingSenderId: "566467344351",
+  appId: "1:566467344351:web:b728f3819d87221e04366a",
+  measurementId: "G-2B1YMWTE0Y"
 };
 let fbdb=null, USE_FB=false, wallRef=null;
 try{
@@ -1229,12 +1254,12 @@ function enquire(type){
     text.textContent='We make each keepsake slowly and by hand — because a moment this special should never be rushed. We only take a few at a time, so every one is our best work. Join the waitlist and we\'ll reach out the moment your slot opens.';
     mail.textContent='✉ Join the waitlist';
     mail.onclick=null;
-    mail.href='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Waitlist: '+type)+'&body='+encodeURIComponent('Please add me to the waitlist for the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang);
+    mail.href='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Waitlist: '+type)+'&body='+encodeURIComponent('Please add me to the waitlist for the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang);
   } else {
     title.textContent=type;
     text.textContent='A keepsake made slowly and by hand, just for you — because some moments deserve more than a template. Tell us the occasion, the date and who it\'s for, and we\'ll craft it and send a quote.';
     mail.textContent='✉ Send enquiry';
-    mail.href='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang+'\nDetails:');
+    mail.href='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang+'\nDetails:');
     mail.onclick=function(){ bumpOpenReq(); };
   }
   document.getElementById('enquireModal').classList.add('on');
@@ -1271,7 +1296,7 @@ function submitBuilder(){
     'Song feeling: '+g('sbGenre')+'\nLyric line to include: '+g('sbLyricLine')+'\nGift card message: '+g('sbMessage')+'\n\n'+
     'Photos: '+sbPhotoData.length+' (attach in the email).';
   try{ localStorage.setItem('gw_lastbrief', brief); bumpOpenReq(); }catch(e){}
-  const mail='mailto:hello@gatherwall.co.uk?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
+  const mail='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
   document.getElementById('enqTitle').textContent='Thank you 💛 their story is ready to send';
   document.getElementById('enqText').textContent='We\'ve captured '+name+'\'s story. Tap below to send it (attach your photos in the email), and we\'ll confirm the price and timing, then begin crafting.';
   const ml=document.getElementById('enqMail'); ml.textContent='✉ Send their story'; ml.onclick=null; ml.href=mail;
@@ -1418,7 +1443,7 @@ function renderPrompts(vibe){
 }
 function buildLangBar(){ const bar=document.getElementById('langBar'); if(!bar)return;
   bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
-function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} buildLangBar(); applyGuestLang(); buildHomeLang(); applyHomeLang(); }
+function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} try{const url=new URL(location.href); url.searchParams.set('lang',code); history.replaceState(null,'',url);}catch(e){} buildLangBar(); applyGuestLang(); buildHomeLang(); applyHomeLang(); }
 function setTxt(id,txt){ const el=document.getElementById(id); if(el)el.textContent=txt; }
 function applyGuestLang(){
   const t=L(), e=guestEvObj||{};
