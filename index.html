@@ -1541,6 +1541,13 @@ function adaptBuilder(){
   // "Corporate" occasion is a Live-wall framing; hide it for family.
   const corp=document.querySelector('#vibePick button[data-livecorp]');
   if(corp) corp.style.display= family ? 'none' : '';
+  // Song requests = DJ / event-planner feature only. Hide & disable for family.
+  const songOpt=document.querySelector('#screen-create .opt[data-grp="dedications"]');
+  if(songOpt){
+    songOpt.style.display= family ? 'none' : '';
+    if(family){ songOpt.classList.remove('on'); OPTS.dedications=false; }
+    else { OPTS.dedications=songOpt.classList.contains('on'); }
+  }
   // Build button copy
   const buildBtn=document.querySelector('#screen-create .card > button.btn-primary');
   if(buildBtn) buildBtn.textContent= family ? 'Build my Memory Wall — preview it free ▸' : 'Build my wall — preview it free ▸';
