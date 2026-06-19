@@ -564,14 +564,14 @@ body.kioskmode header.nav{display:none;}
         <div class="amt">$25<span data-i18n="prHostU"> / month</span></div>
         <p class="muted" data-i18n="prHostD">For regular events.</p>
         <ul><li data-i18n="prHostA">Everything in Unlimited</li><li data-i18n="prHostB">Up to 3 events / month</li><li data-i18n="prHostC">Voice notes shown as on-screen text</li></ul>
-        <button class="btn btn-ghost" data-i18n="prCtaPlan" onclick="buy('wall-pro-monthly')">Choose plan ▸</button>
+        <button class="btn btn-ghost" data-i18n="prCtaPlan" onclick="go('promonthly')">Choose plan ▸</button>
       </div>
       <div class="price feat">
         <h3 data-i18n="prProT2">Pro</h3>
         <div class="amt">$40<span data-i18n="prProU2"> / month</span></div>
         <p class="muted" data-i18n="prProD2">For busy pros.</p>
         <ul><li data-i18n="prProA">Everything in Host</li><li data-i18n="prProB">Up to 7 events / month</li><li data-i18n="prProC">Video tributes + priority support</li></ul>
-        <button class="btn btn-primary" data-i18n="prCtaPlan" onclick="buy('wall-pro-monthly')">Choose plan ▸</button>
+        <button class="btn btn-primary" data-i18n="prCtaPlan" onclick="go('promonthly')">Choose plan ▸</button>
       </div>
       <div class="price">
         <h3 data-i18n="prEntT">Enterprise</h3>
@@ -803,6 +803,32 @@ body.kioskmode header.nav{display:none;}
     <div class="fmt-price" style="margin:0 0 10px;">$49 one-time</div>
     <p class="muted" style="font-size:14px;margin-bottom:14px;">After payment we'll open the keepsake story intake and set up your wall — nothing is charged until you continue below.</p>
     <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="buy('event-bundle')">Continue to payment — $49 ▸</button>
+  </div>
+</div></div>
+</div>
+
+<!-- ============ PRO MONTHLY SUBSCRIPTION ============ -->
+<div id="screen-promonthly" class="screen">
+<header class="nav"><div class="wrap nav-in">
+  <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
+  <a class="btn btn-ghost" onclick="goHome()">Cancel</a>
+</div></header>
+<div class="app-pad"><div class="wrap" style="max-width:620px;">
+  <div class="back" onclick="go('home')">← Back</div>
+  <span class="pill">Live Tribute Wall — Pro</span>
+  <h1 style="font-size:34px;margin:12px 0 6px;">Run the wall at every booking</h1>
+  <p class="muted" style="margin-bottom:22px;">For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.</p>
+  <div class="card" style="margin-bottom:18px;">
+    <h3 style="font-size:20px;margin-bottom:12px;">Choose your plan at checkout</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px;">
+      <li>🎚️ <b>Host — $25/mo</b> — up to 3 events / month · everything in Unlimited · voice notes shown as on-screen text.</li>
+      <li>⭐ <b>Pro — $40/mo</b> — up to 7 events / month · everything in Host · video tributes · priority support.</li>
+    </ul>
+    <p class="muted" style="font-size:14px;margin-top:16px;">Cancel anytime. Prices + VAT where applicable — you'll pick Host or Pro and see the exact total at checkout.</p>
+  </div>
+  <div class="card" style="border:2px solid var(--brand);">
+    <p class="muted" style="font-size:14px;margin-bottom:14px;">Continue to subscribe — you'll choose Host or Pro on the secure checkout, and nothing is charged until you confirm there.</p>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="buy('wall-pro-monthly')">Continue to subscribe ▸</button>
   </div>
 </div></div>
 </div>
@@ -1192,7 +1218,7 @@ const HOME_I18N={
     fmtSub:"Deux approches — un mur en direct que les pros animent et revendent, et des souvenirs sur mesure que les familles créent pour ceux qu'elles aiment.",
     fmtG1:"Pour DJ, animateurs & organisateurs",fmtG2:"Pour les familles & les proches",ffTagWhite:"Marque blanche",ffTagResell:"Revendez à vos clients",ffTagUnlimited:"Événements illimités",
     fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement · Dès 25 $/mois",fmtWallC:"Créer un mur ▸",
-    fmtMemT:"Mémorial & Hommage",fmtMemB:"Un hommage doux et durable — bougies, frise de vie, souvenirs partagés. Accessible en ligne pour la famille, près ou loin.",fmtMemP:"10 $ · paiement unique",fmtMemC:"Créer un mémorial ▸",
+    fmtMemT:"Mémorial & Hommage",fmtMemB:"Pour des obsèques ou une cérémonie d'hommage — récit de vie et éloge funèbre, allumage de bougies, frise chronologique et souvenirs partagés. Un lieu durable pour se souvenir, conservé en ligne.",fmtMemP:"10 $ · paiement unique",fmtMemC:"Créer un mémorial ▸",
     fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"39 $ · paiement unique",fmtKeepC:"Créer le souvenir ▸",
     fmtBundT:"Pack Événement",fmtBundB:"Deux en un : l'Histoire souvenir animée plus un Mur d'hommage en direct lors de l'événement — leur histoire sur un écran, les invités en direct sur l'autre.",fmtBundP:"49 $ · paiement unique",fmtBundC:"Choisir le pack ▸",
     priSub:"Pour une seule fête, ou — si vous êtes DJ, animateur, organisateur ou salle — passez au mois et utilisez-le à chaque prestation. Prix en USD.",
@@ -1224,7 +1250,7 @@ const HOME_I18N={
     fmtSub:"Dos caminos — un muro en directo que los profesionales gestionan y revenden, y recuerdos a medida que las familias crean para quienes aman.",
     fmtG1:"Para DJ, presentadores y organizadores",fmtG2:"Para familias y seres queridos",ffTagWhite:"Marca blanca",ffTagResell:"Revende a tus clientes",ffTagUnlimited:"Eventos ilimitados",
     fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento · Desde 25 $/mes",fmtWallC:"Crear un muro ▸",
-    fmtMemT:"Memorial y Homenaje",fmtMemB:"Un homenaje sereno y duradero — velas, línea de vida, recuerdos compartidos. Disponible en línea para la familia, cerca o lejos.",fmtMemP:"10 $ · pago único",fmtMemC:"Crear un memorial ▸",
+    fmtMemT:"Memorial y Homenaje",fmtMemB:"Para un funeral o una ceremonia de homenaje — una historia de vida y un elogio, encendido de velas, una línea de tiempo y recuerdos compartidos. Un lugar duradero para recordar, conservado en línea.",fmtMemP:"10 $ · pago único",fmtMemC:"Crear un memorial ▸",
     fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"39 $ · pago único",fmtKeepC:"Crear el recuerdo ▸",
     fmtBundT:"Pack de Evento",fmtBundB:"Dos en uno: la Historia animada de recuerdo más un Muro de homenaje en directo en el evento — su historia en una pantalla, los invitados en directo en otra.",fmtBundP:"49 $ · pago único",fmtBundC:"Elegir el pack ▸",
     priSub:"Para una sola celebración, o — si eres DJ, presentador, organizador o local — pásate al mes y úsalo en cada evento. Precios en USD.",
@@ -1256,7 +1282,7 @@ const HOME_I18N={
     fmtSub:"Dvě cesty — živá zeď, kterou profesionálové provozují a prodávají dál, a originální vzpomínky, které rodiny tvoří pro své blízké.",
     fmtG1:"Pro DJ, moderátory a organizátory",fmtG2:"Pro rodiny a blízké",ffTagWhite:"Vlastní značka",ffTagResell:"Prodávejte klientům",ffTagUnlimited:"Neomezené akce",
     fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce · Od 25 $/měs",fmtWallC:"Vytvořit zeď ▸",
-    fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Jemný a trvalý hold — zapalování svíček, časová osa života, sdílené vzpomínky. Dostupné online pro rodinu, blízkou i vzdálenou.",fmtMemP:"10 $ · jednorázově",fmtMemC:"Vytvořit vzpomínku ▸",
+    fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Pro pohřeb nebo smuteční obřad — životní příběh a smuteční řeč, zapalování svíček, časová osa života a sdílené vzpomínky. Trvalé místo pro vzpomínání, uchované online.",fmtMemP:"10 $ · jednorázově",fmtMemC:"Vytvořit vzpomínku ▸",
     fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"39 $ · jednorázově",fmtKeepC:"Vytvořit vzpomínku ▸",
     fmtBundT:"Balíček akce",fmtBundB:"Dva v jednom: Animovaný vzpomínkový příběh a k tomu Živá zeď vzkazů na akci — jejich příběh na jedné obrazovce, hosté živě na druhé.",fmtBundP:"49 $ · jednorázově",fmtBundC:"Vybrat balíček ▸",
     priSub:"Pro jednu oslavu, nebo — pokud jste DJ, moderátor, organizátor či místo konání — přejděte na měsíční plán a využijte ho u každé akce. Ceny v USD.",
@@ -1288,7 +1314,7 @@ const HOME_I18N={
     fmtSub:"Zwei Wege — eine Live-Wand, die Profis betreiben und weiterverkaufen, und maßgefertigte Andenken, die Familien für ihre Liebsten erstellen.",
     fmtG1:"Für DJs, Moderatoren & Planer",fmtG2:"Für Familien & Angehörige",ffTagWhite:"White-Label",ffTagResell:"An Kunden weiterverkaufen",ffTagUnlimited:"Unbegrenzte Events",
     fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event · Ab 25 $/Mon.",fmtWallC:"Wand erstellen ▸",
-    fmtMemT:"Gedenken & Nachruf",fmtMemB:"Ein sanfter, bleibender Tribut — Kerzen, Lebenslinie, geteilte Erinnerungen. Online verfügbar für Familie, nah und fern.",fmtMemP:"10 $ · einmalig",fmtMemC:"Gedenkseite erstellen ▸",
+    fmtMemT:"Gedenken & Nachruf",fmtMemB:"Für eine Trauerfeier oder Gedenkfeier — eine Lebensgeschichte und ein Nachruf, Kerzen anzünden, eine Lebenslinie und geteilte Erinnerungen. Ein bleibender Ort zum Erinnern, online aufbewahrt.",fmtMemP:"10 $ · einmalig",fmtMemC:"Gedenkseite erstellen ▸",
     fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"39 $ · einmalig",fmtKeepC:"Andenken erstellen ▸",
     fmtBundT:"Event-Paket",fmtBundB:"Zwei in einem: die Animierte Andenken-Geschichte plus eine Live-Erinnerungswand beim Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.",fmtBundP:"49 $ · einmalig",fmtBundC:"Paket holen ▸",
     priSub:"Für eine einzelne Feier, oder — als DJ, Moderator, Planer oder Location — monatlich für jede Buchung. Preise in USD.",
@@ -1519,7 +1545,7 @@ function go(screen){
   document.getElementById('screen-'+screen).classList.add('active');
   if(screen==='create'){ adaptBuilder(); applyTierGating(); } // adapt for wallKind + keep gated options greyed
   // neutral chooser / family screens use the GatherWall brand palette
-  if(screen==='start'||screen==='family'||screen==='bundle'||screen==='memorial') applyVibe('brand');
+  if(screen==='start'||screen==='family'||screen==='bundle'||screen==='memorial'||screen==='promonthly') applyVibe('brand');
   window.scrollTo(0,0);
 }
 /* Premium branded checkout: go to GatherWall's own checkout page, where the
