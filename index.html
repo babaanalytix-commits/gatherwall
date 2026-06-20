@@ -1421,6 +1421,16 @@ function watchTrib(id, cb){ // real-time listener (Firebase only)
   if(wallRef){ try{wallRef.off();}catch(e){} wallRef=null; }
   if(USE_FB){ wallRef=fbdb.ref('tributes/'+id); wallRef.on('value', s=>{ const o=s.val()||{}; cb(Object.values(o)); }); }
 }
+/* Real-time "go live" listener (Firebase only). The Gumroad webhook → Cloudflare
+   Worker flips events/<id>/published to true after payment; this fires the moment
+   that happens so the wall/guest view leaves the "not live yet" state without a
+   manual reload. Demo mode has no server push, so this is a no-op there. */
+let pubRef=null;
+function watchPublished(id, cb){
+  stopWatchPublished();
+  if(USE_FB){ pubRef=fbdb.ref('events/'+id+'/published'); pubRef.on('value', s=>{ if(s.val()===true) cb(); }); }
+}
+function stopWatchPublished(){ if(pubRef){ try{pubRef.off();}catch(e){} pubRef=null; } }
 function readTributes(id, cb){ // one-shot read of all tributes (for the control panel)
   if(USE_FB){ fbdb.ref('tributes/'+id).once('value').then(s=>cb(Object.values(s.val()||{}))).catch(()=>cb([])); }
   else { cb(DB.tributes(id)); }
@@ -1853,7 +1863,8 @@ function publishWall(){
   // (unlock the polished big-screen display). Reuses the existing $10 Lemon Squeezy
   // "Memorial & Eulogy Page" checkout. NOTE: that product is named for memorials —
   // see report flag to rename it to something occasion-neutral.
-  if(e.kind==='family'){ buy('memorial-eulogy'); return; }
+  // Pass the event id (&ev) so the Gumroad webhook can publish THIS wall.
+  if(e.kind==='family'){ location.href='checkout.html?p=memorial-eulogy&ev='+encodeURIComponent(e.id); return; }
   // Live Tribute Wall: pay-to-go-live by tier.
   const tier=(TIERS[e.tier]?e.tier:'basic');
   const direct=WALL_TIER_CHECKOUT[tier];
@@ -1984,6 +1995,8 @@ function renderGuest(id, kiosk){
       let nl=document.getElementById('guestNotLive');
       if(!nl){ nl=document.createElement('div'); nl.id='guestNotLive'; if(card&&card.parentNode) card.parentNode.insertBefore(nl, card); }
       nl.style.display=''; nl.innerHTML=showNotLive();
+      // Live walls gate guests on published; re-render the moment the Worker flips it.
+      watchPublished(id, ()=>{ stopWatchPublished(); renderGuest(id,kiosk); });
       go('guest'); return;
     }
     // Ensure the form is visible again (in case it was hidden by a prior not-live view)
@@ -2133,7 +2146,10 @@ function renderWall(id){
       const gc=document.getElementById('wallGesture'); if(gc) gc.style.display='none';
       const grid=document.getElementById('wallGrid'); if(grid){ grid.style.display=''; grid.innerHTML=showNotLive(); }
       document.getElementById('spotlight').classList.remove('on');
-      clearInterval(wallTimer); go('wall'); return;
+      clearInterval(wallTimer);
+      // Flip to live the instant the Worker sets published:true — no reload needed.
+      watchPublished(id, ()=>{ stopWatchPublished(); renderWall(id); });
+      go('wall'); return;
     }
     wallEv=id; wallEvObj=e; lastCount=-1; applyVibe(e.vibe,e.color);
     document.getElementById('wallTitle').textContent=e.name;
@@ -2217,8 +2233,8 @@ function toggleDark(){
   document.getElementById('screen-wall').classList.toggle('dark', wallDark);
   document.getElementById('darkBtn').textContent=wallDark?'◑ Light':'◐ Dark';
 }
-function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
-function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('home'); } }
+function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); stopWatchPublished(); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
+function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); stopWatchPublished(); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('home'); } }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 
 /* ===================== HOST CONTROL PANEL ===================== */

@@ -159,7 +159,13 @@
     if(powered) powered.textContent='Payments processed securely by Lemon Squeezy';
     window.addEventListener('load',function(){ if(window.createLemonSqueezy) window.createLemonSqueezy(); });
   } else {
-    btn.href=BASE+slug+'?wanted=true';
+    // Forward custom params (ev = wall/event id, tier) to Gumroad so they come
+    // back in the Ping webhook's url_params[<key>] — that's how the Worker knows
+    // which wall to publish after a successful payment.
+    var pay=BASE+slug+'?wanted=true';
+    var ev=param('ev'); if(ev) pay+='&ev='+encodeURIComponent(ev);
+    var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
+    btn.href=pay;
     if(powered) powered.textContent='Payments processed securely by Gumroad';
   }
   document.title=p.eyebrow+' · Secure checkout · GatherWall';
