@@ -678,7 +678,7 @@ body.kioskmode header.nav{display:none;}
       </div>
     </div>
 
-    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createEvent()">Build my wall — preview it free ▸</button>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createWall()">Build my wall — preview it free ▸</button>
     <div class="note-firebase">You'll build a private draft and see a live preview first. Nothing is public until you review it and publish (publishing is where you choose &amp; pay for your tier). Guests can only post once your wall is live.</div>
   </div>
 </div></div>
@@ -1762,7 +1762,7 @@ function fieldVal(id, fallback){
   const v=el.value;
   return (v===undefined||v===null) ? fallback : String(v).trim();
 }
-function createEvent(){
+function createWall(){
   try{
     const name=fieldVal('evName','');
     if(!name){toast('Please name the event');return;}
@@ -1792,7 +1792,7 @@ function createEvent(){
       showShare(e); // preview / publish screen
     });
   }catch(err){
-    console.error('createEvent failed:', err);
+    console.error('createWall failed:', err);
     toast('Something went wrong building the wall — please try again');
   }
 }
