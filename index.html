@@ -615,7 +615,7 @@ body.kioskmode header.nav{display:none;}
         <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF4D7E,#FF9A52)"></span>Celebration</button>
         <button data-vibe="wedding" onclick="pickVibe('wedding',this)"><span class="sw" style="background:linear-gradient(120deg,#C98BB0,#D9A441)"></span>Wedding</button>
         <button data-vibe="celebration" data-occasion="anniversary" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#E8B4B8,#D9A441)"></span>Anniversary</button>
-        <button data-vibe="memorial" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
+        <button data-vibe="memorial" data-livememorial="1" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
         <button data-vibe="corporate" data-livecorp="1" onclick="pickVibe('corporate',this)"><span class="sw" style="background:linear-gradient(120deg,#2D6CDF,#16B8A6)"></span>Corporate</button>
       </div>
     </div>
@@ -627,7 +627,7 @@ body.kioskmode header.nav{display:none;}
     </div>
     <div class="field"><label>Hosted / presented by <span class="muted">(your name or brand — shows on the wall)</span></label>
       <input id="evHost" placeholder="e.g. DJ Moraks - Premier AVE"></div>
-    <div class="field"><label>Your website / booking link <span class="muted">(optional — your brand on the wall becomes a clickable link)</span></label>
+    <div class="field" id="linkField"><label>Your website / booking link <span class="muted">(optional — your brand on the wall becomes a clickable link)</span></label>
       <input id="evLink" placeholder="e.g. https://premier-ave.co.uk/"></div>
     <div class="field" id="modeField"><label>When do guests leave tributes?</label>
       <select id="evMode">
@@ -1590,6 +1590,12 @@ function adaptBuilder(){
   // "Corporate" occasion is a Live-wall framing; hide it for family.
   const corp=document.querySelector('#vibePick button[data-livecorp]');
   if(corp) corp.style.display= family ? 'none' : '';
+  // "In Memory" goes to the dedicated Memorial & Eulogy template — hide it on the family Memory Wall.
+  const inmem=document.querySelector('#vibePick button[data-livememorial]');
+  if(inmem){ inmem.style.display= family ? 'none' : ''; if(family && inmem.classList.contains('on')){ pickVibe('celebration', document.querySelector('#vibePick button[data-vibe="celebration"]')); } }
+  // Website / booking link is a DJ/event-planner field — hide it for family.
+  const linkField=document.getElementById('linkField');
+  if(linkField) linkField.style.display= family ? 'none' : '';
   // Song requests = DJ / event-planner feature only. Hide & disable for family.
   const songOpt=document.querySelector('#screen-create .opt[data-grp="dedications"]');
   if(songOpt){
