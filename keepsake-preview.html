@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Keepsake Song — free lyric preview · GatherWall</title>
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{--bg:#1a1018;--card:#2b1a26;--card2:#34202e;--gold:#e8b769;--gold2:#f2cf90;--rose:#d98a8a;--text:#f5ece6;--muted:#b79fac;--line:#43293a;--good:#7fd1a8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;color:var(--text);
+    background:radial-gradient(1200px 600px at 50% -10%,#3a2030 0%,var(--bg) 60%);-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:680px;margin:0 auto;padding:26px 16px 90px}
+  header{text-align:center;margin-bottom:18px}
+  h1{font-size:30px;margin:6px 0 4px;background:linear-gradient(90deg,var(--gold),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:15px;margin:0}
+  .badge{display:inline-block;margin-top:10px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#1a1018;background:linear-gradient(135deg,var(--gold),var(--gold2));padding:5px 12px;border-radius:999px;font-weight:700}
+  .card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px}
+  label{display:block;font-size:13px;color:var(--gold2);margin:12px 0 5px;font-weight:600}
+  input,textarea,select{width:100%;background:#1c121a;border:1px solid var(--line);border-radius:10px;color:var(--text);
+    padding:11px 12px;font-size:15px;font-family:inherit}
+  textarea{min-height:84px;resize:vertical}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:140px}
+  .hint{font-size:12px;color:var(--muted);margin-top:3px}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:999px}
+  .btn-primary{width:100%;margin-top:18px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;
+    background:linear-gradient(90deg,var(--gold),var(--rose))}
+  .btn-primary:disabled{opacity:.6;cursor:wait}
+  .out{display:none;margin-top:18px}
+  .lyrics{white-space:pre-wrap;background:#160d14;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;line-height:1.7;max-height:50vh;overflow:auto}
+  .cta{display:block;text-align:center;margin-top:16px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;border-radius:999px;
+    background:linear-gradient(90deg,var(--gold),var(--gold2));text-decoration:none}
+  .again{background:none;border:1px solid var(--line);color:var(--muted);padding:11px 16px;font-size:14px;margin-top:10px;width:100%}
+  .err{color:var(--rose);font-size:14px;margin-top:12px;display:none}
+  .spin{display:inline-block;width:16px;height:16px;border:2px solid #1a1018;border-top-color:transparent;border-radius:50%;animation:s 0.8s linear infinite;vertical-align:-3px;margin-right:8px}
+  @keyframes s{to{transform:rotate(360deg)}}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+  .note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Hear your story, in a song</h1>
+    <p class="sub">Tell us about them — see your personalised lyrics <b>free</b>, before you pay.</p>
+    <span class="badge">Free lyric preview</span>
+  </header>
+
+  <div class="card" id="form">
+    <label>Who is the song for? *</label>
+    <input id="f_for" placeholder="e.g. Jao (ManLikeJaf)">
+    <div class="row">
+      <div><label>Occasion</label><input id="f_occasion" placeholder="60th birthday"></div>
+      <div><label>Feeling / genre</label><input id="f_feeling" placeholder="Joyful pop"></div>
+    </div>
+    <div class="row">
+      <div><label>Language</label><input id="f_language" value="English"></div>
+      <div><label>From</label><input id="f_from" placeholder="Yomi & Veronika"></div>
+    </div>
+    <label>Their story — roots, life, turning points</label>
+    <textarea id="f_story" placeholder="Born in Saki, Nigeria… found his way to London… a bubbly, big-hearted man…"></textarea>
+    <div class="row">
+      <div><label>People to mention</label><input id="f_people" placeholder="Deji, Kunle, Topsy"></div>
+      <div><label>Proud of / strengths</label><input id="f_proud" placeholder="His boys; running the school"></div>
+    </div>
+    <label>A line you'd love included</label>
+    <input id="f_line" placeholder="It is well">
+
+    <button class="btn-primary" id="go">✨ Preview my lyrics — free</button>
+    <p class="note">No payment, no sign-up. Takes a few seconds.</p>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="out" id="out">
+    <div class="card">
+      <div style="font-size:13px;color:var(--gold2);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Your draft lyrics</div>
+      <div class="lyrics" id="lyrics"></div>
+      <a class="cta" id="buy" href="checkout.html?p=animated-keepsake-story">Love it? Create your keepsake song — $39 ▸</a>
+      <p class="note">+ VAT where applicable. You'll get the finished song + an animated story page with your photos.</p>
+      <button class="again" id="again">↻ Tweak the details &amp; try again</button>
+    </div>
+  </div>
+
+  <footer>GatherWall · a living wall of love for any event<br>Lyrics are a free preview — the full song &amp; animated keepsake come with your order.</footer>
+</div>
+
+<script>
+// ⚠️ After deploying lyric-preview-worker.js, paste its URL here:
+const WORKER_URL = "https://gatherwall-lyrics.baba-analytix.workers.dev";
+
+const $ = id => document.getElementById(id);
+function brief(){return{
+  for:$('f_for').value, occasion:$('f_occasion').value, feeling:$('f_feeling').value,
+  language:$('f_language').value, from:$('f_from').value, story:$('f_story').value,
+  people:$('f_people').value, proud:$('f_proud').value, includeLine:$('f_line').value
+};}
+
+async function preview(){
+  const b=brief();
+  if(!b.for.trim()){ showErr("Please tell us who the song is for."); return; }
+  $('err').style.display='none';
+  $('go').disabled=true; $('go').innerHTML='<span class="spin"></span>Writing your lyrics…';
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+    const d=await r.json();
+    if(d.error||!d.lyrics){ showErr(d.error||"Something went wrong. Please try again."); return; }
+    $('lyrics').textContent=d.lyrics;
+    // pass the brief through to checkout so the order has the details
+    try{ $('buy').href='checkout.html?p=animated-keepsake-story&for='+encodeURIComponent(b.for); }catch(e){}
+    $('form').style.display='none'; $('out').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){ showErr("Couldn't reach the lyric engine. Please try again in a moment."); }
+  finally{ $('go').disabled=false; $('go').innerHTML='✨ Preview my lyrics — free'; }
+}
+function showErr(m){ $('err').textContent=m; $('err').style.display='block'; }
+$('go').onclick=preview;
+$('again').onclick=()=>{ $('out').style.display='none'; $('form').style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); };
+</script>
+</body>
+</html>
