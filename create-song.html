@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create your song · GatherWall</title>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{--bg:#1a1018;--card:#2b1a26;--card2:#34202e;--gold:#e8b769;--gold2:#f2cf90;--rose:#d98a8a;--text:#f5ece6;--muted:#b79fac;--line:#43293a;--good:#7fd1a8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;color:var(--text);
+    background:radial-gradient(1200px 600px at 50% -10%,#3a2030 0%,var(--bg) 60%)}
+  .wrap{max-width:680px;margin:0 auto;padding:26px 16px 90px}
+  header{text-align:center;margin-bottom:14px}
+  h1{font-size:28px;margin:6px 0 4px;background:linear-gradient(90deg,var(--gold),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:15px;margin:0}
+  .card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px}
+  .lyrics{white-space:pre-wrap;background:#160d14;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:14.5px;line-height:1.7;max-height:34vh;overflow:auto;color:var(--muted)}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:999px}
+  .btn{width:100%;margin-top:16px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;background:linear-gradient(90deg,var(--gold),var(--rose))}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .ghost{background:none;border:1px solid var(--line);color:var(--muted);padding:12px;font-size:14px;width:100%;margin-top:10px}
+  .take{background:#160d14;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px}
+  .take h3{margin:0 0 8px;font-size:16px;color:var(--gold2)}
+  audio{width:100%;margin:4px 0 10px}
+  .pick{padding:11px 14px;font-size:15px;font-weight:700;color:#1a1018;background:linear-gradient(135deg,var(--gold),var(--gold2));width:100%}
+  .dl{display:inline-block;margin-top:10px;color:var(--gold);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px}
+  .note{font-size:12.5px;color:var(--muted);margin-top:10px;text-align:center}
+  .err{color:var(--rose);font-size:14px;margin-top:12px}
+  .spin{display:inline-block;width:16px;height:16px;border:2px solid #1a1018;border-top-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-3px;margin-right:8px}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .center{text-align:center}
+  .big{font-size:40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Create your song 🎶</h1>
+    <p class="sub" id="sub">Loading your order…</p>
+  </header>
+  <div id="app"></div>
+</div>
+
+<script>
+// VERIFY this matches the deployed worker URL (same account subdomain as the others).
+const MUREKA_WORKER = "https://gatherwall-mureka.baba-analytix.workers.dev";
+const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
+const MAX_TRIES = 2;
+
+const app=document.getElementById('app'), sub=document.getElementById('sub');
+const q=new URLSearchParams(location.search);
+let ORDER=(q.get('order')||'').trim();
+if(!ORDER){ try{ ORDER=(localStorage.getItem('gw_order')||'').trim(); }catch(e){} } // fallback after Gumroad redirect
+let rec=null;
+
+async function fbGet(p){ const r=await fetch(`${FIREBASE_DB}/${p}.json`); return r.ok?r.json():null; }
+async function call(action, extra){ const r=await fetch(MUREKA_WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order:ORDER,action,...(extra||{})})}); return r.json(); }
+const esc=s=>(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+async function load(){
+  if(!ORDER){ sub.textContent='No order reference.'; app.innerHTML='<div class="card">This link is missing its order reference. Please use the link from your confirmation.</div>'; return; }
+  rec=await fbGet('orders/'+ORDER);
+  if(!rec){ sub.textContent='Order not found.'; app.innerHTML='<div class="card">We couldn\'t find this order yet. If you just paid, give it a minute and refresh.</div>'; return; }
+  if(rec.paid!==true){ sub.textContent='Awaiting payment'; app.innerHTML='<div class="card">This order isn\'t marked paid yet. If you\'ve just completed checkout, refresh in a moment.</div>'; return; }
+  sub.textContent = rec.for ? ('For '+rec.for) : 'Your keepsake song';
+  if(rec.chosen) return renderChosen(rec.chosen);
+  if(rec.takes && rec.takes.length) return renderTakes(rec.takes);
+  renderStart();
+}
+
+function renderStart(){
+  app.innerHTML=`<div class="card">
+    <div style="font-size:13px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Your lyrics</div>
+    <div class="lyrics">${esc(rec.lyrics)||'(no lyrics saved)'}</div>
+    <button class="btn" id="gen">🎵 Generate my song</button>
+    <p class="note">We'll create <b>two versions</b> for you to choose from. Takes about a minute.</p>
+    <div class="err" id="err"></div>
+  </div>`;
+  document.getElementById('gen').onclick=generate;
+}
+
+async function generate(){
+  const btn=document.getElementById('gen'); if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span>Composing your two versions…';}
+  const err=document.getElementById('err'); if(err)err.textContent='';
+  const d=await call('generate');
+  if(d.error){ if(err)err.textContent=d.error; if(btn){btn.disabled=false;btn.innerHTML='🎵 Generate my song';} return; }
+  if(d.status==='ready' && d.takes){ return renderTakes(d.takes); }
+  poll();
+}
+
+async function poll(){
+  app.innerHTML=`<div class="card center"><div class="big">🎶</div><p><span class="spin"></span> Composing your two versions… this takes about a minute.</p><p class="note">Keep this page open.</p></div>`;
+  for(let i=0;i<40;i++){
+    await new Promise(x=>setTimeout(x,4000));
+    const d=await call('status');
+    if(d.status==='ready' && d.takes){ return renderTakes(d.takes); }
+    if(d.status==='failed'){ app.innerHTML=`<div class="card">The song engine had a hiccup. <button class="btn" onclick="location.reload()">Try again</button></div>`; return; }
+  }
+  app.innerHTML=`<div class="card">Still working — please refresh in a minute. <button class="ghost" onclick="location.reload()">Refresh</button></div>`;
+}
+
+function renderTakes(takes){
+  const triesUsed=Number(rec&&rec.generations||1);
+  const canRetry=triesUsed<MAX_TRIES;
+  app.innerHTML=`<div class="card">
+    <div style="font-size:13px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:1px">Listen & pick your favourite</div>
+    ${takes.map((u,i)=>`<div class="take"><h3>Version ${i+1}</h3><audio controls preload="none" src="${u}"></audio>
+       <button class="pick" data-url="${u}">💛 Pick Version ${i+1}</button></div>`).join('')}
+    ${canRetry?`<button class="ghost" id="retry">↻ Not quite — try again (1 more set)</button>`
+      :`<p class="note">That's both tries used — please pick the one you prefer.</p>`}
+    <div class="err" id="err"></div>
+  </div>`;
+  document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>pick(b.dataset.url));
+  const r=document.getElementById('retry'); if(r) r.onclick=async()=>{ r.disabled=true; await generate(); };
+}
+
+async function pick(url){
+  document.querySelectorAll('.pick').forEach(b=>b.disabled=true);
+  const d=await call('pick',{url});
+  if(d.error){ const e=document.getElementById('err'); if(e)e.textContent=d.error; return; }
+  renderChosen(url);
+}
+
+function renderChosen(url){
+  app.innerHTML=`<div class="card center">
+    <div class="big">🎉</div>
+    <h2 style="margin:6px 0">Your song is chosen!</h2>
+    <audio controls src="${url}" style="margin-top:8px"></audio><br>
+    <a class="dl" href="${url}" download>⬇ Download MP3</a>
+    <p class="note">A shareable <b>video (MP4)</b> version comes with your finished keepsake.</p>
+    <p class="note" style="margin-top:14px">We're now crafting your <b>animated keepsake</b> with your photos, then we'll send you the final link. 💛</p>
+  </div>`;
+  sub.textContent='Song chosen — keepsake on the way';
+}
+
+load();
+</script>
+</body>
+</html>
