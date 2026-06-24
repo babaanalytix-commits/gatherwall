@@ -89,6 +89,7 @@
 <script>
 // ⚠️ After deploying lyric-preview-worker.js, paste its URL here:
 const WORKER_URL = "https://gatherwall-lyrics.baba-analytix.workers.dev";
+const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
 
 const $ = id => document.getElementById(id);
 function brief(){return{
@@ -107,8 +108,17 @@ async function preview(){
     const d=await r.json();
     if(d.error||!d.lyrics){ showErr(d.error||"Something went wrong. Please try again."); return; }
     $('lyrics').textContent=d.lyrics;
-    // pass the brief through to checkout so the order has the details
-    try{ $('buy').href='checkout.html?p=animated-keepsake-story&for='+encodeURIComponent(b.for); }catch(e){}
+    // create a draft ORDER (brief + lyrics) so the post-payment song step has everything,
+    // and pass its id to checkout → Gumroad webhook marks it paid → create-song.html uses it.
+    try{
+      const orderId='ks_'+Math.random().toString(36).slice(2,10);
+      const style=((b.feeling||'warm soulful pop').trim())+', heartfelt vocal, clear lead';
+      await fetch(FIREBASE_DB+'/orders/'+orderId+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({status:'draft', for:b.for, occasion:b.occasion, language:b.language, from:b.from,
+          style:style, lyrics:d.lyrics, brief:b, createdAt:Date.now()})});
+      try{ localStorage.setItem('gw_order', orderId); }catch(e){}
+      $('buy').href='checkout.html?p=animated-keepsake-story&order='+encodeURIComponent(orderId)+'&for='+encodeURIComponent(b.for);
+    }catch(e){ $('buy').href='checkout.html?p=animated-keepsake-story&for='+encodeURIComponent(b.for); }
     $('form').style.display='none'; $('out').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }catch(e){ showErr("Couldn't reach the lyric engine. Please try again in a moment."); }
