@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root{
     --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f; --brand3:#6FB39A;
@@ -67,6 +68,15 @@
   .big{font-size:46px;line-height:1}
   .pulse{display:inline-block;animation:p 1.6s ease-in-out infinite}
   @keyframes p{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.08);opacity:1}}
+  .wallcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:16px;box-shadow:var(--shadow);text-align:center}
+  .wallcard h2{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:6px}
+  .wallcard p{font-size:14px;color:var(--muted);max-width:42ch;margin:0 auto}
+  .qrbox{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:16px 0 6px}
+  .qrbox img,.qrbox canvas{display:block}
+  .qrcap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  .linkrow{font-size:12.5px;color:var(--ink);word-break:break-all;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;text-align:left}
+  .linkrow b{color:var(--brand2-d);font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.05em;display:block;margin-bottom:3px}
+  .wallbtn{display:inline-block;margin-top:14px;background:var(--brand);color:#fff;text-decoration:none;border-radius:999px;padding:12px 24px;font-weight:600;font-size:15px}
 </style>
 </head>
 <body>
@@ -163,6 +173,13 @@ const T = {
     hiccup:"Der Generator hatte einen kleinen Fehler.",tryAgainBtn:"Erneut versuchen",still:"Arbeitet noch — bitte in einer Minute aktualisieren.",refresh:"Aktualisieren",composingState:"Ihre zwei Versionen werden komponiert"}
 };
 
+const WALL = {
+  en:{title:"Your Live Tribute Wall is included 🎉",body:"On the day, guests scan this code (or open the guest link) and their photos & messages appear live on the big screen.",scan:"Guests scan to post",big:"Open the big-screen wall ▸",guest:"Guest link (behind the QR)",note:"Your wall activates moments after payment — bookmark these links."},
+  fr:{title:"Votre Mur d'hommages en direct est inclus 🎉",body:"Le jour J, les invités scannent ce code (ou ouvrent le lien invité) et leurs photos & messages s'affichent en direct sur grand écran.",scan:"Les invités scannent pour publier",big:"Ouvrir le mur grand écran ▸",guest:"Lien invité (derrière le QR)",note:"Votre mur s'active juste après le paiement — gardez ces liens."},
+  es:{title:"Tu Muro de homenajes en vivo está incluido 🎉",body:"El día del evento, los invitados escanean este código (o abren el enlace) y sus fotos y mensajes aparecen en vivo en la pantalla grande.",scan:"Los invitados escanean para publicar",big:"Abrir el muro de pantalla grande ▸",guest:"Enlace de invitado (tras el QR)",note:"Tu muro se activa justo tras el pago — guarda estos enlaces."},
+  cs:{title:"Živá Zeď vzpomínek je součástí 🎉",body:"V den akce hosté naskenují tento kód (nebo otevřou odkaz) a jejich fotky a vzkazy se živě objeví na velké obrazovce.",scan:"Hosté skenují a přispívají",big:"Otevřít zeď na velké obrazovce ▸",guest:"Odkaz pro hosty (za QR)",note:"Vaše zeď se aktivuje hned po platbě — uložte si tyto odkazy."},
+  de:{title:"Ihre Live-Erinnerungswand ist enthalten 🎉",body:"Am Tag scannen Gäste diesen Code (oder öffnen den Gäste-Link) und ihre Fotos & Nachrichten erscheinen live auf der großen Leinwand.",scan:"Gäste scannen zum Posten",big:"Großbild-Wand öffnen ▸",guest:"Gäste-Link (hinter dem QR)",note:"Ihre Wand wird kurz nach der Zahlung aktiv — speichern Sie diese Links."}
+};
 const app=document.getElementById("app"), sub=document.getElementById("sub");
 const q=new URLSearchParams(location.search);
 let ORDER=(q.get("order")||"").trim();
@@ -231,13 +248,33 @@ async function pick(url){
   renderChosen(url);
 }
 function renderChosen(url){
-  app.innerHTML='<div class="card center"><div class="big">🎉</div>'+
+  let html='<div class="card center"><div class="big">🎉</div>'+
     '<h2 style="font-family:var(--serif);font-weight:600;margin:8px 0 4px">'+t.chosenTitle+'</h2>'+
     '<audio controls src="'+url+'" style="margin-top:10px"></audio><br>'+
     '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
     '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p></div>';
+  const bundle = rec && rec.bundle && rec.ev;
+  if(bundle){
+    const w=WALL[L]||WALL.en;
+    const origin=location.origin;
+    const guestUrl=origin+"/#guest?ev="+encodeURIComponent(rec.ev);
+    const wallUrl=origin+"/#wall?ev="+encodeURIComponent(rec.ev);
+    html+='<div class="wallcard"><h2>'+w.title+'</h2><p>'+w.body+'</p>'+
+      '<div class="qrbox"><div id="qr"></div></div>'+
+      '<div class="qrcap">'+w.scan+'</div>'+
+      '<div class="linkrow"><b>'+w.guest+'</b>'+esc(guestUrl)+'</div>'+
+      '<a class="wallbtn" href="'+wallUrl+'" target="_blank" rel="noopener">'+w.big+'</a>'+
+      '<p class="note" style="margin-top:12px">'+w.note+'</p></div>';
+  }
+  app.innerHTML=html;
   sub.textContent=t.chosenSub;
+  if(bundle){
+    try{
+      const guestUrl=location.origin+"/#guest?ev="+encodeURIComponent(rec.ev);
+      new QRCode(document.getElementById("qr"),{text:guestUrl,width:168,height:168,colorDark:"#20271F",colorLight:"#ffffff"});
+    }catch(e){ const q=document.getElementById("qr"); if(q) q.textContent="QR needs internet — use the link below."; }
+  }
 }
 load();
 </script>
