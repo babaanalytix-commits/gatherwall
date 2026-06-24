@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatherWall — A living wall of love for any event</title>
+<meta name="description" content="GatherWall turns any event into a living wall of love: guests post photos and messages from their phones — no app — that appear live on the big screen. Plus keepsake songs and lasting online memorials. Free to build, from $10 to publish.">
+<link rel="canonical" href="https://gatherwall.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
@@ -20,6 +22,13 @@
 <meta name="twitter:title" content="GatherWall — A living wall of love for any event">
 <meta name="twitter:description" content="A living wall of love for any event — live tribute walls, keepsake stories and memorials.">
 <meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://gatherwall.com/#org","name":"GatherWall","url":"https://gatherwall.com/","logo":"https://gatherwall.com/icon-512.png","description":"Living walls of love for any event — live tribute walls, keepsake songs and lasting online memorials.","founder":{"@type":"Person","name":"Yomi Oguntona"}},
+{"@type":"WebSite","@id":"https://gatherwall.com/#site","url":"https://gatherwall.com/","name":"GatherWall","publisher":{"@id":"https://gatherwall.com/#org"}},
+{"@type":"Product","name":"GatherWall live tribute wall & keepsakes","brand":{"@id":"https://gatherwall.com/#org"},"description":"Guests post photos and messages from any phone — no app — that appear live on the big screen. Plus personalised keepsake songs and lasting online memorials.","offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"10","highPrice":"49","offerCount":"6"}}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1019,6 +1028,7 @@ body.kioskmode header.nav{display:none;}
     <div class="muted" id="gestureCount" style="margin-top:8px;font-size:13.5px;"></div>
   </div>
   <p class="center muted" id="t_footer" style="margin-top:18px;font-size:13.5px;">Your message will appear on the wall at the event.</p>
+  <a class="gw-refer" href="" id="guestRefer" style="display:flex;align-items:center;justify-content:center;gap:6px;margin:22px auto 0;max-width:340px;padding:12px 16px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--brand-d,#256048);font-size:13.5px;font-weight:600;background:#fff;">✨ Made with GatherWall — create your own, free to try →</a>
 </div></div>
 </div>
 
@@ -2141,6 +2151,8 @@ function renderGuest(id, kiosk){
     const gCard=document.querySelector('#screen-guest .card'); if(gCard) gCard.style.display='';
     const gNL=document.getElementById('guestNotLive'); if(gNL) gNL.style.display='none';
     guestEv=id; guestKiosk=!!kiosk; document.body.classList.toggle('kioskmode', guestKiosk);
+    // Referral loop: every guest just experienced the product → point them to make their own.
+    const gr=document.getElementById('guestRefer'); if(gr){ gr.href=baseURL(); gr.style.display=guestKiosk?'none':'flex'; }
     applyVibe(e.vibe,e.color);
     document.getElementById('guestVibe').textContent=VIBES[e.vibe].label;
     document.getElementById('guestName').textContent=e.name;
