@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hear real keepsakes · GatherWall</title>
+<title>Hear real keepsakes · Ode by GatherWall</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#2E7D5B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   :root{
     --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f; --brand3:#6FB39A;
     --bg:#F6F4EC; --bg2:#F1EEE2; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4; --soft:#FBFAF4;
+    --mem:#6E8E7B; --mem-soft:#F2F4EF;
     --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
     --shadow:0 24px 60px -34px rgba(32,39,31,.42);
   }
@@ -25,28 +26,38 @@
       var(--bg);min-height:100vh}
   a{color:inherit}
   .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
-  .nav-in{max-width:880px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .nav-in{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
   .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .logo small{font-family:var(--ui);font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.04em}
   .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none}
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px 80px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
   header.hero{text-align:center;padding:46px 0 8px}
-  .eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
-  h1{font-family:var(--serif);font-weight:600;font-size:42px;line-height:1.06;letter-spacing:-.01em;margin:0 auto 14px;max-width:16ch}
-  @media(max-width:600px){h1{font-size:32px}}
-  .sub{color:var(--muted);font-size:17px;max-width:52ch;margin:0 auto}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
-  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:42px;line-height:1.06;letter-spacing:-.01em;margin:0 auto 14px;max-width:18ch}
+  @media(max-width:600px){h1{font-size:31px}}
+  .sub{color:var(--muted);font-size:17px;max-width:54ch;margin:0 auto}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
   .scard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-  .chip{align-self:flex-start;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--brand2-d);background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.3);border-radius:999px;padding:4px 11px;margin-bottom:12px}
-  .scard h3{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.15;margin-bottom:4px}
+  .scard.feature{grid-column:1 / -1}
+  .chip{align-self:flex-start;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--brand2-d);background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.3);border-radius:999px;padding:4px 11px;margin-bottom:12px}
+  .scard.mem{background:var(--mem-soft);border-color:#dfe6df}
+  .scard.mem .chip{color:#4f6a59;background:rgba(110,142,123,.14);border-color:rgba(110,142,123,.3)}
+  .scard h3{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.15;margin-bottom:4px}
   .who{font-size:13.5px;color:var(--muted);margin-bottom:14px}
-  audio{width:100%;height:42px;margin-bottom:14px}
-  .excerpt{white-space:pre-wrap;font-family:var(--serif);font-size:14.5px;line-height:1.7;color:#3a443a;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;min-height:96px}
+  audio{width:100%;height:42px;margin-bottom:8px}
+  .excerpt{white-space:pre-wrap;font-family:var(--serif);font-size:14.5px;line-height:1.7;color:#3a443a;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:8px}
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .lk{font-size:13.5px;font-weight:600;color:var(--brand);text-decoration:none;border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:9px 15px;transition:background .15s}
+  .lk:hover{background:#eef3ee}
+  .lk.solid{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .lk.solid:hover{background:var(--brand-d)}
+  .lk.mem{color:#4f6a59}
   .loading{color:var(--muted);font-size:14px;text-align:center;padding:24px}
-  .cta-band{margin-top:34px;text-align:center;background:linear-gradient(120deg,#23402f,#2E7D5B);border-radius:22px;padding:34px 24px;color:#fff;box-shadow:var(--shadow)}
-  .cta-band h2{font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:8px}
-  .cta-band p{color:#dbeae1;font-size:15px;max-width:46ch;margin:0 auto 20px}
+  .cta-band{margin-top:34px;text-align:center;background:linear-gradient(120deg,#23402f,#2E7D5B);border-radius:22px;padding:36px 24px;color:#fff;box-shadow:var(--shadow)}
+  .cta-band h2{font-family:var(--serif);font-weight:600;font-size:27px;margin-bottom:8px}
+  .cta-band p{color:#dbeae1;font-size:15px;max-width:48ch;margin:0 auto 20px}
   .cta-band a{display:inline-block;background:var(--brand2);color:#1f2a1f;font-weight:700;font-size:16px;border-radius:999px;padding:14px 28px;text-decoration:none;box-shadow:0 12px 26px -12px rgba(0,0,0,.5)}
   footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:34px}
   footer a{color:var(--brand)}
@@ -54,24 +65,47 @@
 </head>
 <body>
 <nav class="nav"><div class="nav-in">
-  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall <small>· Ode</small></a>
   <a class="navcta" href="keepsake-preview.html">Make your own ▸</a>
 </div></nav>
 
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Hear real keepsakes</div>
-    <h1>Real songs, written for someone they love</h1>
-    <p class="sub">Every keepsake is composed from one family's story. Press play — then tell us yours and hear your own, free, before you pay.</p>
+    <div class="eyebrow">Ode · by GatherWall</div>
+    <h1>Real keepsakes, made for someone they love</h1>
+    <p class="sub">Each one is composed from a single family's story — a birthday, an anniversary, a life remembered. Press play, then tell us yours and hear your own, free, before you pay.</p>
   </header>
 
   <div class="grid" id="grid">
-    <div class="loading">Loading samples…</div>
+
+    <div class="scard feature">
+      <span class="chip">Golden wedding anniversary</span>
+      <h3>Fifty Years of Gold</h3>
+      <div class="who">A song for fifty years of marriage · with an animated photo keepsake, in five languages</div>
+      <audio controls preload="none" src="fifty-years-of-gold.mp3"></audio>
+      <div class="links">
+        <a class="lk solid" href="keepsake-photo-demo.html">▶ See the animated keepsake</a>
+        <a class="lk" href="keepsake-languages.html">🌍 Hear it in 5 languages</a>
+      </div>
+    </div>
+
+    <div id="graceCard"></div>
+
+    <div class="scard mem">
+      <span class="chip">In loving memory</span>
+      <h3>Margaret Bennett</h3>
+      <div class="who">A life remembered — a private memorial page for family &amp; friends</div>
+      <p style="font-size:14.5px;color:#46544a;margin:2px 0 4px">A candle to light, a life's timeline, and space for everyone who loved her to leave a memory.</p>
+      <div class="links">
+        <a class="lk mem" href="memorial-demo.html">View the memorial →</a>
+      </div>
+    </div>
+
   </div>
 
   <div class="cta-band">
     <h2>Now hear theirs</h2>
-    <p>Tell us about the person you're celebrating and see your personalised lyrics — free, in under a minute.</p>
+    <p>Tell us about the person you're honouring — to celebrate them, or to keep their memory close — and see your personalised lyrics, free, in under a minute.</p>
     <a href="keepsake-preview.html">✨ Create your keepsake — free preview</a>
   </div>
 
@@ -80,35 +114,29 @@
 
 <script>
 const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
-const SAMPLES = [
-  { order:"ks_r7wt2wxa", chip:"70th birthday", title:"For Mum, on her 70th", who:"From all her children · Soul ballad" }
-];
-
+const GRACE_ORDER = "ks_r7wt2wxa";
 const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function excerpt(lyrics){
   if(!lyrics) return "";
   const lines=lyrics.split("\n").filter(l=>l.trim() && !/^\[.*\]$/.test(l.trim()));
   return lines.slice(0,4).join("\n");
 }
-async function load(){
-  const grid=document.getElementById("grid");
-  const cards=[];
-  for(const s of SAMPLES){
-    try{
-      const r=await fetch(FIREBASE_DB+"/orders/"+s.order+".json");
-      const d=await r.json();
-      const url=d&&(d.chosen||(d.takes&&d.takes[0]));
-      if(!url) continue;
-      cards.push('<div class="scard"><span class="chip">'+esc(s.chip)+'</span>'+
-        '<h3>'+esc(s.title)+'</h3><div class="who">'+esc(s.who)+'</div>'+
-        '<audio controls preload="none" src="'+url+'"></audio>'+
-        '<div class="excerpt">'+esc(excerpt(d.lyrics))+'</div></div>');
-    }catch(e){}
-  }
-  grid.innerHTML = cards.length ? cards.join("") : '<div class="loading">Samples are warming up — please check back shortly.</div>';
-  if(cards.length===1) grid.style.gridTemplateColumns="1fr";
+async function loadGrace(){
+  const box=document.getElementById("graceCard");
+  try{
+    const r=await fetch(FIREBASE_DB+"/orders/"+GRACE_ORDER+".json");
+    const d=await r.json();
+    const url=d&&(d.chosen||(d.takes&&d.takes[0]));
+    if(!url){ box.remove(); return; }
+    box.className="scard";
+    box.innerHTML='<span class="chip">70th birthday</span>'+
+      '<h3>For Mum, on her 70th</h3>'+
+      '<div class="who">From all her children · Soul ballad</div>'+
+      '<audio controls preload="none" src="'+url+'"></audio>'+
+      '<div class="excerpt">'+esc(excerpt(d.lyrics))+'</div>';
+  }catch(e){ box.remove(); }
 }
-load();
+loadGrace();
 </script>
 </body>
 </html>
