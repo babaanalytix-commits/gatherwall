@@ -1718,16 +1718,19 @@ function saveMemorialRecord(cb){
   const rec={
     id: memSavedId || uid(),
     name: name,
+    kind: 'memorial',
+    vibe: 'memorial',
     born: g('memBorn'),
     died: g('memDied'),
     eulogy: g('memMessage'),
     from: g('memFrom'),
     photo: memPhotoData || '',
+    published: false,
     ts: Date.now()
   };
   memSavedId = rec.id;
   if(USE_FB){
-    fbdb.ref('memorials/'+rec.id).set(rec)
+    fbdb.ref('events/'+rec.id).set(rec)
       .then(()=>cb&&cb(rec))
       .catch(()=>{ toast('Could not save — check your connection'); });
   } else {

@@ -112,7 +112,7 @@ function lifespan(b,d){ const yb=b?b.slice(0,4):'', yd=d?d.slice(0,4):''; if(yb&
 
 async function load(){
   if(!id){ $('state').textContent='This memorial link is missing its reference.'; return; }
-  const m=await fb('memorials/'+id);
+  const m=await fb('events/'+id);
   if(!m||!m.name){ $('state').textContent='We could not find this memorial.'; return; }
   document.title='In Loving Memory of '+m.name+' · GatherWall';
   $('mName').textContent=m.name;
@@ -128,7 +128,7 @@ async function load(){
   loadCandles(); loadMemories();
 }
 async function loadCandles(){
-  const c=await fb('memorials/'+id+'/candles')||{};
+  const c=await fb('gestures/'+id)||{};
   const n=Object.keys(c).length;
   $('candleCt').textContent = n? (n+' '+(n===1?'candle has been lit':'candles have been lit')) : 'Be the first to light a candle';
 }
@@ -137,10 +137,10 @@ $('candleBtn').onclick=()=>{
   if(!canCandle())return;
   const el=$('candleCt'); const cur=(el.textContent.match(/^\d+/)||[0])[0];
   el.textContent=((+cur)+1)+' candles have been lit';
-  fetch(DB+'/memorials/'+id+'/candles.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now()})}).catch(()=>{});
+  fetch(DB+'/gestures/'+id+'.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ts:Date.now(),k:'candle'})}).catch(()=>{});
 };
 async function loadMemories(){
-  const data=await fb('memorials/'+id+'/memories')||{};
+  const data=await fb('tributes/'+id)||{};
   const items=Object.values(data).filter(x=>x&&x.msg).sort((a,b)=>(b.ts||0)-(a.ts||0));
   const box=$('memList');
   box.innerHTML = items.length? items.map(x=>'<div class="mem"><div class="m">'+esc(x.msg)+'</div><div class="b">— '+(esc(x.from)||'A loved one')+'</div></div>').join('')
@@ -152,7 +152,7 @@ $('memSend').onclick=async()=>{
   try{ const last=+(localStorage.getItem('gw_mem_'+id)||0); if(Date.now()-last<8000)return; }catch(e){}
   $('memSend').disabled=true; $('memSend').textContent='Adding…';
   try{
-    await fetch(DB+'/memorials/'+id+'/memories.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg:msg.slice(0,400),from:from.slice(0,40),ts:Date.now()})});
+    await fetch(DB+'/tributes/'+id+'.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({msg:msg.slice(0,400),from:from.slice(0,40),ts:Date.now()})});
     try{ localStorage.setItem('gw_mem_'+id,Date.now()); }catch(e){}
     $('memMsgIn').value=''; $('memFromIn').value='';
     $('memOk').textContent='Thank you 💛 your memory has been added.'; $('memOk').style.display='block';
