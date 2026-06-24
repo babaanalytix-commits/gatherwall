@@ -1730,8 +1730,10 @@ function saveMemorialRecord(cb){
   };
   memSavedId = rec.id;
   if(USE_FB){
-    fbdb.ref('events/'+rec.id).set(rec)
-      .then(()=>cb&&cb(rec))
+    // REST PUT is more reliable than the SDK socket for this one-shot write
+    fetch('https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app/events/'+rec.id+'.json',
+      {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)})
+      .then(r=>{ if(r.ok){ cb&&cb(rec); } else { toast('Could not save — please try again'); } })
       .catch(()=>{ toast('Could not save — check your connection'); });
   } else {
     try{ localStorage.setItem('gw_mem_'+rec.id, JSON.stringify(rec)); }catch(e){}
