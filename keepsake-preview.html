@@ -3,130 +3,475 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Keepsake Song — free lyric preview · GatherWall</title>
+<title>Your Keepsake Song · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#2E7D5B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 <style>
-  :root{--bg:#1a1018;--card:#2b1a26;--card2:#34202e;--gold:#e8b769;--gold2:#f2cf90;--rose:#d98a8a;--text:#f5ece6;--muted:#b79fac;--line:#43293a;--good:#7fd1a8}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;color:var(--text);
-    background:radial-gradient(1200px 600px at 50% -10%,#3a2030 0%,var(--bg) 60%);-webkit-tap-highlight-color:transparent}
-  .wrap{max-width:680px;margin:0 auto;padding:26px 16px 90px}
-  header{text-align:center;margin-bottom:18px}
-  h1{font-size:30px;margin:6px 0 4px;background:linear-gradient(90deg,var(--gold),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--muted);font-size:15px;margin:0}
-  .badge{display:inline-block;margin-top:10px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#1a1018;background:linear-gradient(135deg,var(--gold),var(--gold2));padding:5px 12px;border-radius:999px;font-weight:700}
-  .card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px}
-  label{display:block;font-size:13px;color:var(--gold2);margin:12px 0 5px;font-weight:600}
-  input,textarea,select{width:100%;background:#1c121a;border:1px solid var(--line);border-radius:10px;color:var(--text);
-    padding:11px 12px;font-size:15px;font-family:inherit}
-  textarea{min-height:84px;resize:vertical}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .row>div{flex:1;min-width:140px}
-  .hint{font-size:12px;color:var(--muted);margin-top:3px}
-  button{font-family:inherit;cursor:pointer;border:none;border-radius:999px}
-  .btn-primary{width:100%;margin-top:18px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;
-    background:linear-gradient(90deg,var(--gold),var(--rose))}
-  .btn-primary:disabled{opacity:.6;cursor:wait}
-  .out{display:none;margin-top:18px}
-  .lyrics{white-space:pre-wrap;background:#160d14;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;line-height:1.7;max-height:50vh;overflow:auto}
-  .cta{display:block;text-align:center;margin-top:16px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;border-radius:999px;
-    background:linear-gradient(90deg,var(--gold),var(--gold2));text-decoration:none}
-  .again{background:none;border:1px solid var(--line);color:var(--muted);padding:11px 16px;font-size:14px;margin-top:10px;width:100%}
-  .err{color:var(--rose);font-size:14px;margin-top:12px;display:none}
-  .spin{display:inline-block;width:16px;height:16px;border:2px solid #1a1018;border-top-color:transparent;border-radius:50%;animation:s 0.8s linear infinite;vertical-align:-3px;margin-right:8px}
+  :root{
+    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f; --brand3:#6FB39A;
+    --bg:#F6F4EC; --bg2:#F1EEE2; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4; --soft:#FBFAF4;
+    --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
+    --shadow:0 24px 60px -34px rgba(32,39,31,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 460px at 88% -8%, rgba(194,160,88,.14), transparent 60%),
+      radial-gradient(820px 460px at 6% 4%, rgba(46,125,91,.10), transparent 55%),
+      var(--bg);
+    min-height:100vh;-webkit-tap-highlight-color:transparent}
+  a{color:inherit}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  .nav{padding:18px 0;position:sticky;top:0;z-index:20;background:rgba(246,244,236,.82);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .lang{position:relative}
+  .lang select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:14px;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 32px 8px 14px;cursor:pointer;font-weight:500}
+  .lang::after{content:"";position:absolute;right:13px;top:50%;width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  header.hero{text-align:center;padding:40px 0 6px}
+  .eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.08;letter-spacing:-.01em;margin:0 auto 14px;max-width:14ch}
+  @media(max-width:600px){h1{font-size:31px}}
+  .sub{color:var(--muted);font-size:17px;max-width:48ch;margin:0 auto}
+  .steps{display:flex;align-items:center;justify-content:center;gap:8px;margin:26px auto 4px;flex-wrap:wrap}
+  .steps .s{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500}
+  .steps .n{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--bg2);color:var(--muted);border:1px solid var(--line)}
+  .steps .s.on .n{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .steps .s.on{color:var(--ink)}
+  .steps .bar{width:26px;height:1.5px;background:var(--line)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px;margin-top:22px;box-shadow:var(--shadow)}
+  @media(max-width:600px){.card{padding:22px 18px}}
+  .lead{font-size:14.5px;color:var(--muted);margin-bottom:6px}
+  label{display:block;font-size:13px;color:var(--ink);margin:18px 0 7px;font-weight:600}
+  label .opt{color:var(--muted);font-weight:400}
+  input,textarea,select{width:100%;background:var(--soft);border:1px solid var(--line);border-radius:12px;color:var(--ink);
+    padding:13px 14px;font-size:15px;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+  input::placeholder,textarea::placeholder{color:#a6b0a6}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--brand3);box-shadow:0 0 0 3px rgba(111,179,154,.22)}
+  textarea{min-height:104px;resize:vertical;line-height:1.6}
+  select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C6B5E' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:150px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .drop{margin-top:8px;border:1.5px dashed #cfd6c8;border-radius:14px;background:var(--soft);padding:22px 16px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+  .drop:hover,.drop.drag{border-color:var(--brand3);background:#f3f8f4}
+  .drop .ic{font-size:24px}
+  .drop .t{font-weight:600;font-size:14.5px;margin-top:6px;color:var(--ink)}
+  .drop .h{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:10px;margin-top:14px}
+  .thumb{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#eee}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb button{position:absolute;top:4px;right:4px;width:22px;height:22px;border:none;border-radius:50%;background:rgba(32,39,31,.72);color:#fff;font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .pcount{font-size:12.5px;color:var(--muted);margin-top:10px}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .btn{width:100%;margin-top:24px;padding:16px;font-size:16.5px;font-weight:600;color:#fff;border-radius:14px;
+    background:var(--brand);box-shadow:0 12px 26px -12px rgba(46,125,91,.7);transition:background .15s,transform .15s}
+  .btn:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .btn:disabled{opacity:.6;cursor:wait;transform:none}
+  .note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:11px}
+  .err{color:#b4452f;font-size:14px;margin-top:13px;display:none;text-align:center}
+  .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-3px;margin-right:9px}
   @keyframes s{to{transform:rotate(360deg)}}
-  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
-  .note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+  .out{display:none}
+  .out-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand2-d);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .out-eyebrow::before{content:"";flex:0 0 auto;width:18px;height:18px;background:var(--brand2);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 6.9H22l-5.8 4.3 2.2 7L12 16.9 5.6 20.2l2.2-7L2 8.9h7.6z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 6.9H22l-5.8 4.3 2.2 7L12 16.9 5.6 20.2l2.2-7L2 8.9h7.6z'/%3E%3C/svg%3E") center/contain no-repeat}
+  .lyrics{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px;font-size:15.5px;line-height:1.85;max-height:46vh;overflow:auto;font-family:var(--serif);color:#2b332a}
+  .cta{display:block;text-align:center;margin-top:18px;padding:16px;font-size:16.5px;font-weight:600;color:#fff;border-radius:14px;text-decoration:none;
+    background:linear-gradient(100deg,var(--brand),var(--brand-d));box-shadow:0 12px 26px -12px rgba(46,125,91,.7);transition:transform .15s}
+  .cta:hover{transform:translateY(-1px)}
+  .again{display:block;width:100%;background:transparent;border:1px solid var(--line);color:var(--muted);padding:13px;font-size:14px;border-radius:12px;margin-top:11px}
+  .again:hover{background:var(--soft)}
+  .trust{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px}
+  .trust span{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin:30px 0 40px;line-height:1.7}
+  footer a{color:var(--brand)}
 </style>
 </head>
 <body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <div class="lang">
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="cs">Čeština</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+</div></nav>
+
 <div class="wrap">
-  <header>
-    <h1>Hear your story, in a song</h1>
-    <p class="sub">Tell us about them — see your personalised lyrics <b>free</b>, before you pay.</p>
-    <span class="badge">Free lyric preview</span>
+  <header class="hero">
+    <div class="eyebrow" data-i="eyebrow">Animated Keepsake Story</div>
+    <h1 data-i="title">Their story, set to a song made for them</h1>
+    <p class="sub" data-i="sub">Tell us about them and see your personalised lyrics — free, before you pay.</p>
+    <div class="steps">
+      <div class="s on"><span class="n">1</span><span data-i="step1">Tell their story</span></div>
+      <span class="bar"></span>
+      <div class="s"><span class="n">2</span><span data-i="step2">See your lyrics</span></div>
+      <span class="bar"></span>
+      <div class="s"><span class="n">3</span><span data-i="step3">Create the song</span></div>
+    </div>
   </header>
 
   <div class="card" id="form">
-    <label>Who is the song for? *</label>
-    <input id="f_for" placeholder="e.g. Jao (ManLikeJaf)">
-    <div class="row">
-      <div><label>Occasion</label><input id="f_occasion" placeholder="60th birthday"></div>
-      <div><label>Feeling / genre</label><input id="f_feeling" placeholder="Joyful pop"></div>
-    </div>
-    <div class="row">
-      <div><label>Language</label><input id="f_language" value="English"></div>
-      <div><label>From</label><input id="f_from" placeholder="Yomi & Veronika"></div>
-    </div>
-    <label>Their story — roots, life, turning points</label>
-    <textarea id="f_story" placeholder="Born in Saki, Nigeria… found his way to London… a bubbly, big-hearted man…"></textarea>
-    <div class="row">
-      <div><label>People to mention</label><input id="f_people" placeholder="Deji, Kunle, Topsy"></div>
-      <div><label>Proud of / strengths</label><input id="f_proud" placeholder="His boys; running the school"></div>
-    </div>
-    <label>A line you'd love included</label>
-    <input id="f_line" placeholder="It is well">
+    <p class="lead" data-i="lead">The more you share, the more personal the song. Nothing here is shown publicly.</p>
 
-    <button class="btn-primary" id="go">✨ Preview my lyrics — free</button>
-    <p class="note">No payment, no sign-up. Takes a few seconds.</p>
+    <label data-i="l_for">Who is the song for? <span class="opt">*</span></label>
+    <input id="f_for" data-ph="ph_for">
+
+    <div class="row">
+      <div><label data-i="l_occasion">Occasion</label><input id="f_occasion" data-ph="ph_occasion"></div>
+      <div><label data-i="l_from">From</label><input id="f_from" data-ph="ph_from"></div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label data-i="l_style">Style &amp; mood</label>
+        <select id="f_style"></select>
+      </div>
+      <div>
+        <label data-i="l_songlang">Song language</label>
+        <select id="f_songlang">
+          <option value="English">English</option>
+          <option value="Français">Français</option>
+          <option value="Español">Español</option>
+          <option value="Čeština">Čeština</option>
+          <option value="Deutsch">Deutsch</option>
+        </select>
+      </div>
+    </div>
+
+    <label data-i="l_story">Their story — roots, life, the moments that matter</label>
+    <textarea id="f_story" data-ph="ph_story"></textarea>
+
+    <div class="row">
+      <div><label data-i="l_people">People to mention</label><input id="f_people" data-ph="ph_people"></div>
+      <div><label data-i="l_proud">What you love most about them</label><input id="f_proud" data-ph="ph_proud"></div>
+    </div>
+
+    <label data-i="l_line">A line you'd love included</label>
+    <input id="f_line" data-ph="ph_line">
+
+    <label data-i="l_photos">Photos for the keepsake <span class="opt" data-i="l_photos_opt">(optional, up to 8)</span></label>
+    <div class="drop" id="drop">
+      <div class="ic">🖼️</div>
+      <div class="t" data-i="drop_t">Add your photos</div>
+      <div class="h" data-i="drop_h">Tap to choose, or drag them here</div>
+    </div>
+    <input type="file" id="file" accept="image/*" multiple hidden>
+    <div class="thumbs" id="thumbs"></div>
+    <div class="pcount" id="pcount" style="display:none"></div>
+
+    <button class="btn" id="go" data-i="btn">✨ Preview my lyrics — free</button>
+    <p class="note" data-i="note">No payment, no sign-up. Takes a few seconds.</p>
     <div class="err" id="err"></div>
   </div>
 
   <div class="out" id="out">
     <div class="card">
-      <div style="font-size:13px;color:var(--gold2);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Your draft lyrics</div>
+      <div class="out-eyebrow" data-i="out_title">Your draft lyrics</div>
       <div class="lyrics" id="lyrics"></div>
-      <a class="cta" id="buy" href="checkout.html?p=animated-keepsake-story">Love it? Create your keepsake song — $39 ▸</a>
-      <p class="note">+ VAT where applicable. You'll get the finished song + an animated story page with your photos.</p>
-      <button class="again" id="again">↻ Tweak the details &amp; try again</button>
+      <a class="cta" id="buy" href="checkout.html?p=animated-keepsake-story" data-i="cta">Love it? Create your keepsake song — $39 ▸</a>
+      <div class="trust">
+        <span data-i="t1">🔒 Private &amp; secure</span>
+        <span data-i="t2">🎧 Hear 2 versions</span>
+        <span data-i="t3">💛 Kept forever</span>
+      </div>
+      <button class="again" id="again" data-i="again">↻ Tweak the details &amp; try again</button>
+      <p class="note" data-i="cta_note">+ VAT where applicable. You'll get the finished song plus an animated story page with your photos.</p>
     </div>
   </div>
 
-  <footer>GatherWall · a living wall of love for any event<br>Lyrics are a free preview — the full song &amp; animated keepsake come with your order.</footer>
+  <footer>
+    <span data-i="foot">GatherWall · a living wall of love for any moment. Lyrics are a free preview — the full song &amp; animated keepsake come with your order.</span>
+  </footer>
 </div>
 
 <script>
-// ⚠️ After deploying lyric-preview-worker.js, paste its URL here:
-const WORKER_URL = "https://gatherwall-lyrics.baba-analytix.workers.dev";
+const WORKER_URL  = "https://gatherwall-lyrics.baba-analytix.workers.dev";
 const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
 
+const I18N = {
+  en:{
+    eyebrow:"Animated Keepsake Story", title:"Their story, set to a song made for them",
+    sub:"Tell us about them and see your personalised lyrics — free, before you pay.",
+    step1:"Tell their story", step2:"See your lyrics", step3:"Create the song",
+    lead:"The more you share, the more personal the song. Nothing here is shown publicly.",
+    l_for:"Who is the song for? ", ph_for:"e.g. Our mum, Grace",
+    l_occasion:"Occasion", ph_occasion:"e.g. Her 70th birthday",
+    l_from:"From", ph_from:"e.g. All your children",
+    l_style:"Style & mood", l_songlang:"Song language",
+    l_story:"Their story — roots, life, the moments that matter",
+    ph_story:"e.g. She raised the five of us on her own after Dad passed. Two jobs, yet never missed a school play. Her Sunday rice could fill the whole street. She taught us that family is everything…",
+    l_people:"People to mention", ph_people:"e.g. Her grandchildren — Ada, Tomi and Joy",
+    l_proud:"What you love most about them", ph_proud:"e.g. Her quiet strength; she gave us everything",
+    l_line:"A line you'd love included", ph_line:"e.g. Thank you, Mum",
+    l_photos:"Photos for the keepsake ", l_photos_opt:"(optional, up to 8)",
+    drop_t:"Add your photos", drop_h:"Tap to choose, or drag them here",
+    btn:"✨ Preview my lyrics — free", note:"No payment, no sign-up. Takes a few seconds.",
+    out_title:"Your draft lyrics", cta:"Love it? Create your keepsake song — $39 ▸",
+    again:"↻ Tweak the details & try again",
+    cta_note:"+ VAT where applicable. You'll get the finished song plus an animated story page with your photos.",
+    t1:"🔒 Private & secure", t2:"🎧 Hear 2 versions", t3:"💛 Kept forever",
+    foot:"GatherWall · a living wall of love for any moment. Lyrics are a free preview — the full song & animated keepsake come with your order.",
+    err_for:"Please tell us who the song is for.",
+    err_engine:"Couldn't reach the lyric engine. Please try again in a moment.",
+    err_generic:"Something went wrong. Please try again.",
+    loading:"Writing your lyrics…", pcount:"{n} of 8 photos added"
+  },
+  fr:{
+    eyebrow:"Histoire-souvenir animée", title:"Leur histoire, dans une chanson rien que pour eux",
+    sub:"Parlez-nous d'eux et découvrez vos paroles personnalisées — gratuitement, avant de payer.",
+    step1:"Racontez leur histoire", step2:"Voyez vos paroles", step3:"Créez la chanson",
+    lead:"Plus vous partagez, plus la chanson est personnelle. Rien ici n'est rendu public.",
+    l_for:"Pour qui est la chanson ? ", ph_for:"ex. Notre maman, Grace",
+    l_occasion:"Occasion", ph_occasion:"ex. Ses 70 ans",
+    l_from:"De la part de", ph_from:"ex. Tous tes enfants",
+    l_style:"Style & ambiance", l_songlang:"Langue de la chanson",
+    l_story:"Leur histoire — origines, vie, moments qui comptent",
+    ph_story:"ex. Elle nous a élevés tous les cinq seule après le décès de papa. Deux emplois, mais jamais un spectacle d'école manqué. Son riz du dimanche nourrissait toute la rue. Elle nous a appris que la famille est tout…",
+    l_people:"Personnes à mentionner", ph_people:"ex. Ses petits-enfants — Ada, Tomi et Joy",
+    l_proud:"Ce que vous aimez le plus chez eux", ph_proud:"ex. Sa force tranquille ; elle nous a tout donné",
+    l_line:"Une phrase à inclure absolument", ph_line:"ex. Merci, Maman",
+    l_photos:"Photos pour le souvenir ", l_photos_opt:"(facultatif, jusqu'à 8)",
+    drop_t:"Ajoutez vos photos", drop_h:"Touchez pour choisir, ou glissez-les ici",
+    btn:"✨ Voir mes paroles — gratuit", note:"Sans paiement, sans inscription. Quelques secondes.",
+    out_title:"Vos paroles (brouillon)", cta:"On adore ? Créez votre chanson — 39 $ ▸",
+    again:"↻ Modifier les détails et réessayer",
+    cta_note:"+ TVA le cas échéant. Vous recevrez la chanson finale et une page-souvenir animée avec vos photos.",
+    t1:"🔒 Privé & sécurisé", t2:"🎧 2 versions à écouter", t3:"💛 Pour toujours",
+    foot:"GatherWall · un mur d'amour vivant pour chaque moment. Les paroles sont un aperçu gratuit — la chanson complète et le souvenir animé sont inclus dans votre commande.",
+    err_for:"Dites-nous pour qui est la chanson.",
+    err_engine:"Impossible de joindre le générateur. Réessayez dans un instant.",
+    err_generic:"Une erreur est survenue. Réessayez.",
+    loading:"Écriture de vos paroles…", pcount:"{n} photos sur 8 ajoutées"
+  },
+  es:{
+    eyebrow:"Recuerdo animado", title:"Su historia, en una canción hecha para ellos",
+    sub:"Cuéntanos sobre ellos y mira tu letra personalizada — gratis, antes de pagar.",
+    step1:"Cuenta su historia", step2:"Mira tu letra", step3:"Crea la canción",
+    lead:"Cuanto más compartas, más personal será la canción. Nada de esto se muestra públicamente.",
+    l_for:"¿Para quién es la canción? ", ph_for:"p. ej. Nuestra mamá, Grace",
+    l_occasion:"Ocasión", ph_occasion:"p. ej. Sus 70 años",
+    l_from:"De parte de", ph_from:"p. ej. Todos tus hijos",
+    l_style:"Estilo y ambiente", l_songlang:"Idioma de la canción",
+    l_story:"Su historia — orígenes, vida, los momentos que importan",
+    ph_story:"p. ej. Nos crió a los cinco sola tras la muerte de papá. Dos trabajos, pero nunca faltó a una función del colegio. Su arroz de los domingos llenaba toda la calle. Nos enseñó que la familia lo es todo…",
+    l_people:"Personas a mencionar", ph_people:"p. ej. Sus nietos — Ada, Tomi y Joy",
+    l_proud:"Lo que más amas de ellos", ph_proud:"p. ej. Su fuerza serena; nos lo dio todo",
+    l_line:"Una frase que te encantaría incluir", ph_line:"p. ej. Gracias, mamá",
+    l_photos:"Fotos para el recuerdo ", l_photos_opt:"(opcional, hasta 8)",
+    drop_t:"Añade tus fotos", drop_h:"Toca para elegir, o arrástralas aquí",
+    btn:"✨ Ver mi letra — gratis", note:"Sin pago, sin registro. Tarda unos segundos.",
+    out_title:"Tu letra (borrador)", cta:"¿Te encanta? Crea tu canción — 39 $ ▸",
+    again:"↻ Ajustar los detalles e intentar de nuevo",
+    cta_note:"+ IVA cuando corresponda. Recibirás la canción final y una página-recuerdo animada con tus fotos.",
+    t1:"🔒 Privado y seguro", t2:"🎧 Escucha 2 versiones", t3:"💛 Para siempre",
+    foot:"GatherWall · un muro de amor vivo para cada momento. La letra es una vista previa gratuita — la canción completa y el recuerdo animado vienen con tu pedido.",
+    err_for:"Dinos para quién es la canción.",
+    err_engine:"No se pudo conectar con el generador. Inténtalo de nuevo en un momento.",
+    err_generic:"Algo salió mal. Inténtalo de nuevo.",
+    loading:"Escribiendo tu letra…", pcount:"{n} de 8 fotos añadidas"
+  },
+  cs:{
+    eyebrow:"Animovaná vzpomínka", title:"Jejich příběh v písni stvořené jen pro ně",
+    sub:"Řekněte nám o nich a uvidíte svůj osobní text — zdarma, ještě před platbou.",
+    step1:"Vyprávějte jejich příběh", step2:"Uvidíte text", step3:"Vytvořte píseň",
+    lead:"Čím více sdílíte, tím osobnější píseň bude. Nic z toho se veřejně nezobrazuje.",
+    l_for:"Pro koho je píseň? ", ph_for:"např. Naše máma, Grace",
+    l_occasion:"Příležitost", ph_occasion:"např. Její 70. narozeniny",
+    l_from:"Od", ph_from:"např. Všechny tvé děti",
+    l_style:"Styl a nálada", l_songlang:"Jazyk písně",
+    l_story:"Jejich příběh — kořeny, život, okamžiky, na kterých záleží",
+    ph_story:"např. Po tátově smrti nás všech pět vychovala sama. Dvě práce, a přesto nikdy nezmeškala školní besídku. Její nedělní rýže nasytila celou ulici. Naučila nás, že rodina je všechno…",
+    l_people:"Koho zmínit", ph_people:"např. Její vnoučata — Ada, Tomi a Joy",
+    l_proud:"Co na nich máte nejraději", ph_proud:"např. Její tichá síla; dala nám všechno",
+    l_line:"Věta, kterou byste rádi zahrnuli", ph_line:"např. Děkujeme, mami",
+    l_photos:"Fotky do vzpomínky ", l_photos_opt:"(nepovinné, až 8)",
+    drop_t:"Přidejte fotky", drop_h:"Klepnutím vyberte nebo je sem přetáhněte",
+    btn:"✨ Zobrazit text — zdarma", note:"Bez platby, bez registrace. Trvá to pár sekund.",
+    out_title:"Váš návrh textu", cta:"Líbí se? Vytvořte svou píseň — 39 $ ▸",
+    again:"↻ Upravit údaje a zkusit znovu",
+    cta_note:"+ DPH, kde platí. Dostanete hotovou píseň a animovanou vzpomínkovou stránku s vašimi fotkami.",
+    t1:"🔒 Soukromé a bezpečné", t2:"🎧 Dvě verze k poslechu", t3:"💛 Navždy",
+    foot:"GatherWall · živá zeď lásky pro každý okamžik. Text je ukázka zdarma — celá píseň a animovaná vzpomínka jsou součástí objednávky.",
+    err_for:"Napište nám, pro koho píseň je.",
+    err_engine:"Nepodařilo se spojit s generátorem. Zkuste to za chvíli.",
+    err_generic:"Něco se pokazilo. Zkuste to znovu.",
+    loading:"Píšeme váš text…", pcount:"Přidáno {n} z 8 fotek"
+  },
+  de:{
+    eyebrow:"Animierte Erinnerung", title:"Ihre Geschichte, als Lied nur für sie",
+    sub:"Erzählen Sie uns von ihnen und sehen Sie Ihren persönlichen Liedtext — kostenlos, vor dem Kauf.",
+    step1:"Erzählen Sie ihre Geschichte", step2:"Liedtext ansehen", step3:"Lied erstellen",
+    lead:"Je mehr Sie teilen, desto persönlicher wird das Lied. Nichts davon wird öffentlich gezeigt.",
+    l_for:"Für wen ist das Lied? ", ph_for:"z. B. Unsere Mama, Grace",
+    l_occasion:"Anlass", ph_occasion:"z. B. Ihr 70. Geburtstag",
+    l_from:"Von", ph_from:"z. B. All deinen Kindern",
+    l_style:"Stil & Stimmung", l_songlang:"Sprache des Liedes",
+    l_story:"Ihre Geschichte — Wurzeln, Leben, Momente, die zählen",
+    ph_story:"z. B. Nach Papas Tod hat sie uns fünf allein großgezogen. Zwei Jobs, und doch nie eine Schulaufführung verpasst. Ihr Sonntagsreis sättigte die ganze Straße. Sie lehrte uns, dass Familie alles ist…",
+    l_people:"Zu erwähnende Personen", ph_people:"z. B. Ihre Enkel — Ada, Tomi und Joy",
+    l_proud:"Was Sie an ihnen am meisten lieben", ph_proud:"z. B. Ihre stille Stärke; sie gab uns alles",
+    l_line:"Eine Zeile, die unbedingt vorkommen soll", ph_line:"z. B. Danke, Mama",
+    l_photos:"Fotos für die Erinnerung ", l_photos_opt:"(optional, bis zu 8)",
+    drop_t:"Fotos hinzufügen", drop_h:"Zum Auswählen tippen oder hierher ziehen",
+    btn:"✨ Meinen Liedtext ansehen — kostenlos", note:"Keine Zahlung, keine Anmeldung. Dauert ein paar Sekunden.",
+    out_title:"Ihr Liedtext-Entwurf", cta:"Gefällt's? Erstellen Sie Ihr Lied — 39 $ ▸",
+    again:"↻ Angaben anpassen und erneut versuchen",
+    cta_note:"+ ggf. MwSt. Sie erhalten das fertige Lied plus eine animierte Erinnerungsseite mit Ihren Fotos.",
+    t1:"🔒 Privat & sicher", t2:"🎧 2 Versionen hören", t3:"💛 Für immer",
+    foot:"GatherWall · eine lebendige Wand der Liebe für jeden Moment. Der Text ist eine kostenlose Vorschau — das vollständige Lied und die animierte Erinnerung kommen mit Ihrer Bestellung.",
+    err_for:"Sagen Sie uns, für wen das Lied ist.",
+    err_engine:"Der Generator ist nicht erreichbar. Bitte gleich noch einmal versuchen.",
+    err_generic:"Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+    loading:"Ihr Liedtext wird geschrieben…", pcount:"{n} von 8 Fotos hinzugefügt"
+  }
+};
+
+const STYLES = [
+  {label:{en:"Warm soul ballad",fr:"Ballade soul chaleureuse",es:"Balada soul cálida",cs:"Vřelá soulová balada",de:"Warme Soul-Ballade"},
+   style:"warm soul ballad, heartfelt vocal, gentle piano and strings, ~70 BPM"},
+  {label:{en:"Gentle acoustic",fr:"Acoustique tout en douceur",es:"Acústica suave",cs:"Jemné akustické",de:"Sanft akustisch"},
+   style:"intimate acoustic, soft fingerpicked guitar, tender vocal, warm and close"},
+  {label:{en:"Joyful pop",fr:"Pop joyeuse",es:"Pop alegre",cs:"Radostný pop",de:"Fröhlicher Pop"},
+   style:"joyful uplifting pop, bright and celebratory, hand-claps, feel-good"},
+  {label:{en:"Uplifting gospel",fr:"Gospel entraînant",es:"Góspel inspirador",cs:"Povznášející gospel",de:"Mitreißender Gospel"},
+   style:"uplifting gospel-pop, jubilant backing choir, hopeful, hand percussion"},
+  {label:{en:"Cinematic & emotional",fr:"Cinématique & émouvant",es:"Cinematográfico y emotivo",cs:"Filmové a dojemné",de:"Filmisch & gefühlvoll"},
+   style:"cinematic orchestral ballad, sweeping strings, emotional build, grand"},
+  {label:{en:"Afrobeat celebration",fr:"Célébration afrobeat",es:"Celebración afrobeat",cs:"Afrobeatová oslava",de:"Afrobeat-Feier"},
+   style:"celebratory Afro-pop / Afrobeat, warm percussion, danceable, joyful"},
+  {label:{en:"Country & folk",fr:"Country & folk",es:"Country y folk",cs:"Country a folk",de:"Country & Folk"},
+   style:"warm country folk, storytelling, acoustic guitar, sincere"},
+  {label:{en:"Smooth R&B",fr:"R&B tout en douceur",es:"R&B suave",cs:"Plynulé R&B",de:"Sanftes R&B"},
+   style:"smooth modern R&B, soulful vocal, lush and tender"}
+];
+
+let LANG = "en";
 const $ = id => document.getElementById(id);
-function brief(){return{
-  for:$('f_for').value, occasion:$('f_occasion').value, feeling:$('f_feeling').value,
-  language:$('f_language').value, from:$('f_from').value, story:$('f_story').value,
-  people:$('f_people').value, proud:$('f_proud').value, includeLine:$('f_line').value
-};}
+
+function applyLang(l){
+  LANG = I18N[l] ? l : "en";
+  document.documentElement.lang = LANG;
+  const t = I18N[LANG];
+  document.querySelectorAll("[data-i]").forEach(el=>{ const k=el.getAttribute("data-i"); if(t[k]!=null) el.innerHTML=t[k]; });
+  document.querySelectorAll("[data-ph]").forEach(el=>{ const k=el.getAttribute("data-ph"); if(t[k]!=null) el.setAttribute("placeholder",t[k]); });
+  const sel=$("f_style"); const cur=sel.selectedIndex<0?0:sel.selectedIndex;
+  sel.innerHTML="";
+  STYLES.forEach((s,i)=>{ const o=document.createElement("option"); o.value=String(i); o.textContent=s.label[LANG]||s.label.en; sel.appendChild(o); });
+  sel.selectedIndex=cur;
+  $("go").innerHTML = t.btn;
+  refreshCount();
+  try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
+}
+
+const PHOTOS = [];
+const MAXP = 8;
+function refreshCount(){
+  const pc=$("pcount");
+  if(PHOTOS.length){ pc.style.display="block"; pc.textContent=(I18N[LANG].pcount||"{n} of 8 photos added").replace("{n}",PHOTOS.length); }
+  else pc.style.display="none";
+}
+function renderThumbs(){
+  const box=$("thumbs"); box.innerHTML="";
+  PHOTOS.forEach((src,i)=>{
+    const d=document.createElement("div"); d.className="thumb";
+    d.innerHTML='<img src="'+src+'" alt=""><button aria-label="remove" data-i="'+i+'">×</button>';
+    box.appendChild(d);
+  });
+  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{ PHOTOS.splice(+b.dataset.i,1); renderThumbs(); });
+  refreshCount();
+}
+function compress(file){
+  return new Promise(res=>{
+    const img=new Image(); const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const max=1100; let w=img.width,h=img.height;
+      if(w>h && w>max){ h=Math.round(h*max/w); w=max; } else if(h>=w && h>max){ w=Math.round(w*max/h); h=max; }
+      const c=document.createElement("canvas"); c.width=w; c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      res(c.toDataURL("image/jpeg",0.72));
+    };
+    img.onerror=()=>res(null);
+    img.src=url;
+  });
+}
+async function addFiles(list){
+  for(const f of list){
+    if(PHOTOS.length>=MAXP) break;
+    if(!/^image\//.test(f.type)) continue;
+    const d=await compress(f); if(d) PHOTOS.push(d);
+  }
+  renderThumbs();
+}
+$("drop").onclick=()=>$("file").click();
+$("file").onchange=e=>{ addFiles(e.target.files); e.target.value=""; };
+["dragenter","dragover"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.add("drag");}));
+["dragleave","drop"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.remove("drag");}));
+$("drop").addEventListener("drop",e=>{ if(e.dataTransfer&&e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+
+function brief(){
+  const si=Math.max(0,$("f_style").selectedIndex);
+  return {
+    for:$("f_for").value, occasion:$("f_occasion").value,
+    feeling:(STYLES[si].label.en||"Warm soul ballad"),
+    styleDesc:STYLES[si].style,
+    language:$("f_songlang").value, from:$("f_from").value, story:$("f_story").value,
+    people:$("f_people").value, proud:$("f_proud").value, includeLine:$("f_line").value
+  };
+}
+function showErr(m){ const e=$("err"); e.textContent=m; e.style.display="block"; }
 
 async function preview(){
-  const b=brief();
-  if(!b.for.trim()){ showErr("Please tell us who the song is for."); return; }
-  $('err').style.display='none';
-  $('go').disabled=true; $('go').innerHTML='<span class="spin"></span>Writing your lyrics…';
+  const t=I18N[LANG], b=brief();
+  if(!b.for.trim()){ showErr(t.err_for); return; }
+  $("err").style.display="none";
+  $("go").disabled=true; $("go").innerHTML='<span class="spin"></span>'+t.loading;
   try{
-    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+    const r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});
     const d=await r.json();
-    if(d.error||!d.lyrics){ showErr(d.error||"Something went wrong. Please try again."); return; }
-    $('lyrics').textContent=d.lyrics;
-    // create a draft ORDER (brief + lyrics) so the post-payment song step has everything,
-    // and pass its id to checkout → Gumroad webhook marks it paid → create-song.html uses it.
+    if(d.error||!d.lyrics){ showErr(d.error||t.err_generic); return; }
+    $("lyrics").textContent=d.lyrics;
     try{
-      const orderId='ks_'+Math.random().toString(36).slice(2,10);
-      const style=((b.feeling||'warm soulful pop').trim())+', heartfelt vocal, clear lead';
-      await fetch(FIREBASE_DB+'/orders/'+orderId+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({status:'draft', for:b.for, occasion:b.occasion, language:b.language, from:b.from,
-          style:style, lyrics:d.lyrics, brief:b, createdAt:Date.now()})});
-      try{ localStorage.setItem('gw_order', orderId); }catch(e){}
-      $('buy').href='checkout.html?p=animated-keepsake-story&order='+encodeURIComponent(orderId)+'&for='+encodeURIComponent(b.for);
-    }catch(e){ $('buy').href='checkout.html?p=animated-keepsake-story&for='+encodeURIComponent(b.for); }
-    $('form').style.display='none'; $('out').style.display='block';
-    window.scrollTo({top:0,behavior:'smooth'});
-  }catch(e){ showErr("Couldn't reach the lyric engine. Please try again in a moment."); }
-  finally{ $('go').disabled=false; $('go').innerHTML='✨ Preview my lyrics — free'; }
+      const orderId="ks_"+Math.random().toString(36).slice(2,10);
+      const style=(b.styleDesc||"warm soulful pop, heartfelt vocal");
+      await fetch(FIREBASE_DB+"/orders/"+orderId+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({status:"draft", for:b.for, occasion:b.occasion, language:b.language, from:b.from,
+          style:style, lyrics:d.lyrics, brief:b, uiLang:LANG, photoCount:PHOTOS.length, createdAt:Date.now()})});
+      if(PHOTOS.length){
+        try{ await fetch(FIREBASE_DB+"/photos/"+orderId+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(PHOTOS)}); }catch(e){}
+      }
+      try{ localStorage.setItem("gw_order",orderId); }catch(e){}
+      $("buy").href="checkout.html?p=animated-keepsake-story&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for);
+    }catch(e){ $("buy").href="checkout.html?p=animated-keepsake-story&for="+encodeURIComponent(b.for); }
+    $("form").style.display="none"; $("out").style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }catch(e){ showErr(t.err_engine); }
+  finally{ $("go").disabled=false; $("go").innerHTML=t.btn; }
 }
-function showErr(m){ $('err').textContent=m; $('err').style.display='block'; }
-$('go').onclick=preview;
-$('again').onclick=()=>{ $('out').style.display='none'; $('form').style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); };
+$("go").onclick=preview;
+$("again").onclick=()=>{ $("out").style.display="none"; $("form").style.display="block"; window.scrollTo({top:0,behavior:"smooth"}); };
+$("lang").onchange=e=>applyLang(e.target.value);
+
+(function(){
+  let l=new URLSearchParams(location.search).get("lang");
+  if(!l){ try{ l=localStorage.getItem("gw_lang"); }catch(e){} }
+  if(!l){ const n=(navigator.language||"en").slice(0,2); if(I18N[n]) l=n; }
+  if(!I18N[l]) l="en";
+  $("lang").value=l; applyLang(l);
+})();
 </script>
 </body>
 </html>
