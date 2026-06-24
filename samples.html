@@ -26,11 +26,15 @@
       var(--bg);min-height:100vh}
   a{color:inherit}
   .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
-  .nav-in{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .nav-in{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
   .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
   .logo small{font-family:var(--ui);font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.04em}
-  .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none}
+  .right{display:flex;align-items:center;gap:12px}
+  .lang select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 28px 7px 13px;cursor:pointer}
+  .lang{position:relative}
+  .lang::after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none;white-space:nowrap}
   .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
   header.hero{text-align:center;padding:46px 0 8px}
   .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
@@ -66,77 +70,112 @@
 <body>
 <nav class="nav"><div class="nav-in">
   <a class="logo" href="index.html"><span class="dot"></span>GatherWall <small>· Ode</small></a>
-  <a class="navcta" href="keepsake-preview.html">Make your own ▸</a>
+  <div class="right">
+    <div class="lang"><select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="cs">Čeština</option><option value="de">Deutsch</option>
+    </select></div>
+    <a class="navcta" href="keepsake-preview.html" data-i="cta_nav">Make your own ▸</a>
+  </div>
 </div></nav>
 
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Ode · by GatherWall</div>
-    <h1>Real keepsakes, made for someone they love</h1>
-    <p class="sub">Each one is composed from a single family's story — a birthday, an anniversary, a life remembered. Press play, then tell us yours and hear your own, free, before you pay.</p>
+    <h1 data-i="h1">Real keepsakes, made for someone they love</h1>
+    <p class="sub" data-i="sub">Each one is composed from a single family's story — a birthday, an anniversary, a life remembered. Press play, then tell us yours and hear your own, free, before you pay.</p>
   </header>
 
   <div class="grid" id="grid">
 
     <div class="scard feature">
-      <span class="chip">Golden wedding anniversary</span>
+      <span class="chip" data-i="f_chip">Golden wedding anniversary</span>
       <h3>Fifty Years of Gold</h3>
-      <div class="who">A song for fifty years of marriage · with an animated photo keepsake, in five languages</div>
+      <div class="who" data-i="f_who">A song for fifty years of marriage · with an animated photo keepsake, in five languages</div>
       <audio controls preload="none" src="fifty-years-of-gold.mp3"></audio>
       <div class="links">
-        <a class="lk solid" href="keepsake-photo-demo.html">▶ See the animated keepsake</a>
-        <a class="lk" href="keepsake-languages.html">🌍 Hear it in 5 languages</a>
+        <a class="lk solid" href="keepsake-photo-demo.html" data-i="f_l1">▶ See the animated keepsake</a>
+        <a class="lk" href="keepsake-languages.html" data-i="f_l2">🌍 Hear it in 5 languages</a>
       </div>
     </div>
 
     <div id="graceCard"></div>
 
     <div class="scard mem">
-      <span class="chip">In loving memory</span>
+      <span class="chip" data-i="m_chip">In loving memory</span>
       <h3>Margaret Bennett</h3>
-      <div class="who">A life remembered — a private memorial page for family &amp; friends</div>
-      <p style="font-size:14.5px;color:#46544a;margin:2px 0 4px">A candle to light, a life's timeline, and space for everyone who loved her to leave a memory.</p>
+      <div class="who" data-i="m_who">A life remembered — a private memorial page for family &amp; friends</div>
+      <p style="font-size:14.5px;color:#46544a;margin:2px 0 4px" data-i="m_body">A candle to light, a life's timeline, and space for everyone who loved her to leave a memory.</p>
       <div class="links">
-        <a class="lk mem" href="memorial-demo.html">View the memorial →</a>
+        <a class="lk mem" href="memorial-demo.html" data-i="m_link">View the memorial →</a>
       </div>
     </div>
 
   </div>
 
   <div class="cta-band">
-    <h2>Now hear theirs</h2>
-    <p>Tell us about the person you're honouring — to celebrate them, or to keep their memory close — and see your personalised lyrics, free, in under a minute.</p>
-    <a href="keepsake-preview.html">✨ Create your keepsake — free preview</a>
+    <h2 data-i="cta_h">Now hear theirs</h2>
+    <p data-i="cta_p">Tell us about the person you're honouring — to celebrate them, or to keep their memory close — and see your personalised lyrics, free, in under a minute.</p>
+    <a href="keepsake-preview.html" data-i="cta_btn">✨ Create your keepsake — free preview</a>
   </div>
 
-  <footer><a href="index.html">← Back to GatherWall</a></footer>
+  <footer><a href="index.html" data-i="foot">← Back to GatherWall</a></footer>
 </div>
 
 <script>
 const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
 const GRACE_ORDER = "ks_r7wt2wxa";
+const I18N={
+  en:{cta_nav:"Make your own ▸",h1:"Real keepsakes, made for someone they love",sub:"Each one is composed from a single family's story — a birthday, an anniversary, a life remembered. Press play, then tell us yours and hear your own, free, before you pay.",f_chip:"Golden wedding anniversary",f_who:"A song for fifty years of marriage · with an animated photo keepsake, in five languages",f_l1:"▶ See the animated keepsake",f_l2:"🌍 Hear it in 5 languages",g_chip:"70th birthday",g_h:"For Mum, on her 70th",g_who:"From all her children · Soul ballad",m_chip:"In loving memory",m_who:"A life remembered — a private memorial page for family & friends",m_body:"A candle to light, a life's timeline, and space for everyone who loved her to leave a memory.",m_link:"View the memorial →",cta_h:"Now hear theirs",cta_p:"Tell us about the person you're honouring — to celebrate them, or to keep their memory close — and see your personalised lyrics, free, in under a minute.",cta_btn:"✨ Create your keepsake — free preview",foot:"← Back to GatherWall"},
+  fr:{cta_nav:"Créez la vôtre ▸",h1:"De vrais souvenirs, pour un être cher",sub:"Chacun est composé à partir de l'histoire d'une seule famille — un anniversaire, des noces, une vie dont on se souvient. Écoutez, puis racontez-nous la vôtre et entendez la vôtre, gratuitement, avant de payer.",f_chip:"Noces d'or",f_who:"Une chanson pour cinquante ans de mariage · avec un souvenir photo animé, en cinq langues",f_l1:"▶ Voir le souvenir animé",f_l2:"🌍 L'écouter en 5 langues",g_chip:"70 ans",g_h:"Pour Maman, ses 70 ans",g_who:"De la part de ses enfants · Ballade soul",m_chip:"En mémoire affectueuse",m_who:"Une vie dont on se souvient — une page commémorative privée pour la famille et les amis",m_body:"Une bougie à allumer, une chronologie de sa vie, et un espace pour que tous ceux qui l'aimaient laissent un souvenir.",m_link:"Voir l'hommage →",cta_h:"Maintenant, écoutez la leur",cta_p:"Parlez-nous de la personne que vous honorez — pour la célébrer ou garder sa mémoire proche — et voyez vos paroles personnalisées, gratuitement, en moins d'une minute.",cta_btn:"✨ Créez votre souvenir — aperçu gratuit",foot:"← Retour à GatherWall"},
+  es:{cta_nav:"Crea el tuyo ▸",h1:"Recuerdos reales, para alguien a quien aman",sub:"Cada uno se compone a partir de la historia de una sola familia — un cumpleaños, un aniversario, una vida recordada. Dale al play, luego cuéntanos la tuya y escucha la tuya, gratis, antes de pagar.",f_chip:"Bodas de oro",f_who:"Una canción por cincuenta años de matrimonio · con un recuerdo animado con fotos, en cinco idiomas",f_l1:"▶ Ver el recuerdo animado",f_l2:"🌍 Escúchalo en 5 idiomas",g_chip:"70 cumpleaños",g_h:"Para Mamá, en sus 70",g_who:"De parte de todos sus hijos · Balada soul",m_chip:"En memoria",m_who:"Una vida recordada — una página conmemorativa privada para familia y amigos",m_body:"Una vela para encender, la cronología de su vida y un espacio para que todos los que la quisieron dejen un recuerdo.",m_link:"Ver el homenaje →",cta_h:"Ahora escucha el suyo",cta_p:"Cuéntanos sobre la persona a la que honras — para celebrarla o mantener su memoria cerca — y ve tu letra personalizada, gratis, en menos de un minuto.",cta_btn:"✨ Crea tu recuerdo — vista previa gratis",foot:"← Volver a GatherWall"},
+  cs:{cta_nav:"Vytvořte si vlastní ▸",h1:"Skutečné vzpomínky pro někoho, koho milují",sub:"Každá vzniká z příběhu jedné rodiny — narozeniny, výročí, život, na který vzpomínáme. Pusťte si ji, pak nám povězte tu svou a poslechněte si ji, zdarma, ještě před platbou.",f_chip:"Zlatá svatba",f_who:"Píseň k padesáti letům manželství · s animovanou fotovzpomínkou, v pěti jazycích",f_l1:"▶ Zobrazit animovanou vzpomínku",f_l2:"🌍 Poslechněte si ji v 5 jazycích",g_chip:"70. narozeniny",g_h:"Pro maminku k 70. narozeninám",g_who:"Od všech jejích dětí · Soulová balada",m_chip:"S láskou vzpomínáme",m_who:"Život, na který vzpomínáme — soukromá vzpomínková stránka pro rodinu a přátele",m_body:"Svíčka k zapálení, časová osa života a prostor, kde všichni, kdo ji milovali, zanechají vzpomínku.",m_link:"Zobrazit vzpomínku →",cta_h:"Teď si poslechněte tu jejich",cta_p:"Řekněte nám o člověku, kterého ctíte — abyste ho oslavili nebo si uchovali jeho památku — a uvidíte svůj personalizovaný text, zdarma, do jedné minuty.",cta_btn:"✨ Vytvořte svou vzpomínku — ukázka zdarma",foot:"← Zpět na GatherWall"},
+  de:{cta_nav:"Erstellen Sie Ihr eigenes ▸",h1:"Echte Erinnerungen, für einen geliebten Menschen",sub:"Jede entsteht aus der Geschichte einer einzigen Familie — ein Geburtstag, ein Jubiläum, ein Leben, an das man sich erinnert. Hören Sie rein, erzählen Sie uns dann Ihre und hören Sie Ihre eigene, kostenlos, bevor Sie zahlen.",f_chip:"Goldene Hochzeit",f_who:"Ein Lied zu fünfzig Jahren Ehe · mit einer animierten Foto-Erinnerung, in fünf Sprachen",f_l1:"▶ Die animierte Erinnerung ansehen",f_l2:"🌍 In 5 Sprachen anhören",g_chip:"70. Geburtstag",g_h:"Für Mama, zum 70.",g_who:"Von all ihren Kindern · Soul-Ballade",m_chip:"In liebevollem Gedenken",m_who:"Ein Leben, an das man sich erinnert — eine private Gedenkseite für Familie und Freunde",m_body:"Eine Kerze zum Anzünden, eine Lebens-Zeitleiste und Raum für alle, die sie liebten, eine Erinnerung zu hinterlassen.",m_link:"Das Gedenken ansehen →",cta_h:"Jetzt hören Sie ihres",cta_p:"Erzählen Sie uns von dem Menschen, den Sie ehren — um ihn zu feiern oder seine Erinnerung zu bewahren — und sehen Sie Ihren persönlichen Liedtext, kostenlos, in unter einer Minute.",cta_btn:"✨ Erstellen Sie Ihre Erinnerung — kostenlose Vorschau",foot:"← Zurück zu GatherWall"}
+};
+let LANG="en";
+function t(){ return I18N[LANG]||I18N.en; }
+function applyLang(l){
+  LANG=I18N[l]?l:"en";
+  document.documentElement.lang=LANG;
+  document.querySelectorAll("[data-i]").forEach(el=>{ const k=el.getAttribute("data-i"); if(t()[k]!=null) el.textContent=t()[k]; });
+  renderGrace();
+  try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
+  const sel=document.getElementById("lang"); if(sel) sel.value=LANG;
+}
+document.getElementById("lang").onchange=e=>applyLang(e.target.value);
 const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function excerpt(lyrics){
   if(!lyrics) return "";
   const lines=lyrics.split("\n").filter(l=>l.trim() && !/^\[.*\]$/.test(l.trim()));
   return lines.slice(0,4).join("\n");
 }
-async function loadGrace(){
+let GRACE_DATA=null;
+function renderGrace(){
   const box=document.getElementById("graceCard");
+  if(!box) return;
+  if(!GRACE_DATA){ return; }
+  const url=GRACE_DATA.chosen||(GRACE_DATA.takes&&GRACE_DATA.takes[0]);
+  if(!url){ box.remove(); return; }
+  box.className="scard";
+  box.innerHTML='<span class="chip">'+esc(t().g_chip)+'</span>'+
+    '<h3>'+esc(t().g_h)+'</h3>'+
+    '<div class="who">'+esc(t().g_who)+'</div>'+
+    '<audio controls preload="none" src="'+url+'"></audio>'+
+    '<div class="excerpt">'+esc(excerpt(GRACE_DATA.lyrics))+'</div>';
+}
+async function loadGrace(){
   try{
     const r=await fetch(FIREBASE_DB+"/orders/"+GRACE_ORDER+".json");
-    const d=await r.json();
-    const url=d&&(d.chosen||(d.takes&&d.takes[0]));
-    if(!url){ box.remove(); return; }
-    box.className="scard";
-    box.innerHTML='<span class="chip">70th birthday</span>'+
-      '<h3>For Mum, on her 70th</h3>'+
-      '<div class="who">From all her children · Soul ballad</div>'+
-      '<audio controls preload="none" src="'+url+'"></audio>'+
-      '<div class="excerpt">'+esc(excerpt(d.lyrics))+'</div>';
-  }catch(e){ box.remove(); }
+    GRACE_DATA=await r.json();
+    renderGrace();
+  }catch(e){ const b=document.getElementById("graceCard"); if(b) b.remove(); }
 }
-loadGrace();
+(function init(){
+  let l="en";
+  try{ const s=localStorage.getItem("gw_lang"); if(s&&I18N[s]) l=s; }catch(e){}
+  if(l==="en"){ const n=(navigator.language||"en").slice(0,2); if(I18N[n]) l=n; }
+  applyLang(l);
+  loadGrace();
+})();
 </script>
 </body>
 </html>

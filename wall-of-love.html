@@ -28,10 +28,14 @@
       var(--bg);min-height:100vh}
   a{color:inherit}
   .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
-  .nav-in{max-width:920px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .nav-in{max-width:920px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
   .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
-  .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none}
+  .right{display:flex;align-items:center;gap:12px}
+  .lang select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 28px 7px 13px;cursor:pointer}
+  .lang{position:relative}
+  .lang::after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none;white-space:nowrap}
   .wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
   header.hero{text-align:center;padding:48px 0 6px}
   .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
@@ -79,14 +83,19 @@
 <body>
 <nav class="nav"><div class="nav-in">
   <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
-  <a class="navcta" href="index.html">Make your own ▸</a>
+  <div class="right">
+    <div class="lang"><select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="cs">Čeština</option><option value="de">Deutsch</option>
+    </select></div>
+    <a class="navcta" href="keepsake-preview.html" data-i="nav">Make your own ▸</a>
+  </div>
 </div></nav>
 
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">The Wall of Love</div>
-    <h1>Kind words from people who gathered with us</h1>
-    <p class="sub">Real notes from families and hosts who've used GatherWall & Ode. Send a little love of your own — every message is read before it appears.</p>
+    <div class="eyebrow" data-i="eyebrow">The Wall of Love</div>
+    <h1 data-i="h1">Kind words from people who gathered with us</h1>
+    <p class="sub" data-i="sub">Real notes from families and hosts who've used GatherWall & Ode. Send a little love of your own — every message is read before it appears.</p>
     <div class="react-bar" id="reactBar">
       <button class="react" data-type="heart"><span class="em">💛</span><span class="ct" id="ct_heart">0</span></button>
       <button class="react" data-type="redheart"><span class="em">❤️</span><span class="ct" id="ct_redheart">0</span></button>
@@ -95,35 +104,49 @@
   </header>
 
   <div class="card" id="formCard">
-    <h2>Leave a little love 💛</h2>
-    <div class="hint">A sentence or two is perfect. Your note appears once we've had a quick look.</div>
+    <h2 data-i="formH">Leave a little love 💛</h2>
+    <div class="hint" data-i="formHint">A sentence or two is perfect. Your note appears once we've had a quick look.</div>
     <div class="frow">
-      <input id="who" maxlength="40" placeholder="Your name (or how to sign it) — optional">
-      <textarea id="msg" maxlength="160" placeholder="What did GatherWall or Ode mean to you?"></textarea>
+      <input id="who" maxlength="40" data-ph="phName" placeholder="Your name (or how to sign it) — optional">
+      <textarea id="msg" maxlength="160" data-ph="phMsg" placeholder="What did GatherWall or Ode mean to you?"></textarea>
       <div class="counter"><span id="cc">0</span>/160</div>
-      <button class="btn" id="send">Send my message</button>
+      <button class="btn" id="send" data-i="send">Send my message</button>
     </div>
     <div class="ok" id="ok" style="display:none"></div>
     <div class="err" id="err" style="display:none"></div>
   </div>
 
   <div id="modbar"></div>
-  <div class="grid" id="grid"><div class="empty">Loading the love…</div></div>
+  <div class="grid" id="grid"><div class="empty" data-i="loading">Loading the love…</div></div>
 
-  <footer><a href="index.html">← Back to GatherWall</a></footer>
+  <footer><a href="index.html" data-i="foot">← Back to GatherWall</a></footer>
 </div>
 
 <script>
 const FIREBASE_DB="https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
 const MOD_KEY="love-9f3k7q2x";
+const I18N={
+  en:{nav:"Make your own ▸",eyebrow:"The Wall of Love",h1:"Kind words from people who gathered with us",sub:"Real notes from families and hosts who've used GatherWall & Ode. Send a little love of your own — every message is read before it appears.",formH:"Leave a little love 💛",formHint:"A sentence or two is perfect. Your note appears once we've had a quick look.",phName:"Your name (or how to sign it) — optional",phMsg:"What did GatherWall or Ode mean to you?",send:"Send my message",sending:"Sending…",loading:"Loading the love…",empty:"Be the first to leave a little love 💛",thanks:"Thank you 💛 Your note will appear once we've had a quick look.",errShort:"Please write a few words first.",errRate:"Thanks! Just a moment between messages, please.",errFail:"Something went wrong — please try again in a moment.",friend:"A GatherWall friend",foot:"← Back to GatherWall"},
+  fr:{nav:"Créez la vôtre ▸",eyebrow:"Le Mur d'amour",h1:"De gentils mots de ceux qui se sont rassemblés avec nous",sub:"De vrais témoignages de familles et d'hôtes qui ont utilisé GatherWall & Ode. Laissez un peu d'amour à votre tour — chaque message est lu avant d'apparaître.",formH:"Laissez un peu d'amour 💛",formHint:"Une phrase ou deux suffisent. Votre mot apparaît après une petite vérification.",phName:"Votre nom (ou votre signature) — facultatif",phMsg:"Qu'est-ce que GatherWall ou Ode a représenté pour vous ?",send:"Envoyer mon message",sending:"Envoi…",loading:"Chargement de l'amour…",empty:"Soyez le premier à laisser un peu d'amour 💛",thanks:"Merci 💛 Votre mot apparaîtra après une petite vérification.",errShort:"Écrivez quelques mots d'abord.",errRate:"Merci ! Patientez un instant entre les messages.",errFail:"Une erreur s'est produite — réessayez dans un instant.",friend:"Un ami de GatherWall",foot:"← Retour à GatherWall"},
+  es:{nav:"Crea el tuyo ▸",eyebrow:"El Muro de amor",h1:"Palabras amables de quienes se reunieron con nosotros",sub:"Testimonios reales de familias y anfitriones que han usado GatherWall & Ode. Deja un poco de amor tú también — cada mensaje se lee antes de aparecer.",formH:"Deja un poco de amor 💛",formHint:"Una o dos frases es perfecto. Tu nota aparece tras una revisión rápida.",phName:"Tu nombre (o cómo firmarlo) — opcional",phMsg:"¿Qué significó GatherWall u Ode para ti?",send:"Enviar mi mensaje",sending:"Enviando…",loading:"Cargando el amor…",empty:"Sé el primero en dejar un poco de amor 💛",thanks:"Gracias 💛 Tu nota aparecerá tras una revisión rápida.",errShort:"Escribe unas palabras primero.",errRate:"¡Gracias! Espera un momento entre mensajes.",errFail:"Algo salió mal — inténtalo de nuevo en un momento.",friend:"Un amigo de GatherWall",foot:"← Volver a GatherWall"},
+  cs:{nav:"Vytvořte si vlastní ▸",eyebrow:"Zeď lásky",h1:"Milá slova od těch, kdo se s námi sešli",sub:"Skutečné vzkazy od rodin a hostitelů, kteří použili GatherWall & Ode. Zanechte i vy trochu lásky — každý vzkaz čteme, než se objeví.",formH:"Zanechte trochu lásky 💛",formHint:"Stačí věta nebo dvě. Váš vzkaz se objeví po rychlé kontrole.",phName:"Vaše jméno (nebo podpis) — nepovinné",phMsg:"Co pro vás GatherWall nebo Ode znamenalo?",send:"Odeslat vzkaz",sending:"Odesílám…",loading:"Načítání lásky…",empty:"Buďte první, kdo zanechá trochu lásky 💛",thanks:"Děkujeme 💛 Váš vzkaz se objeví po rychlé kontrole.",errShort:"Napište nejprve pár slov.",errRate:"Díky! Chvilku mezi vzkazy, prosím.",errFail:"Něco se pokazilo — zkuste to za chvíli znovu.",friend:"Přítel GatherWall",foot:"← Zpět na GatherWall"},
+  de:{nav:"Erstellen Sie Ihr eigenes ▸",eyebrow:"Die Wand der Liebe",h1:"Liebe Worte von Menschen, die mit uns zusammenkamen",sub:"Echte Nachrichten von Familien und Gastgebern, die GatherWall & Ode genutzt haben. Hinterlassen auch Sie ein wenig Liebe — jede Nachricht wird vor dem Erscheinen gelesen.",formH:"Hinterlassen Sie ein wenig Liebe 💛",formHint:"Ein, zwei Sätze sind perfekt. Ihre Nachricht erscheint nach einer kurzen Prüfung.",phName:"Ihr Name (oder Ihre Signatur) — optional",phMsg:"Was hat GatherWall oder Ode für Sie bedeutet?",send:"Nachricht senden",sending:"Senden…",loading:"Liebe wird geladen…",empty:"Seien Sie der Erste, der ein wenig Liebe hinterlässt 💛",thanks:"Danke 💛 Ihre Nachricht erscheint nach einer kurzen Prüfung.",errShort:"Bitte schreiben Sie zuerst ein paar Worte.",errRate:"Danke! Bitte einen Moment zwischen den Nachrichten.",errFail:"Etwas ist schiefgelaufen — bitte gleich erneut versuchen.",friend:"Ein GatherWall-Freund",foot:"← Zurück zu GatherWall"}
+};
+let LANG="en";
+function t(){ return I18N[LANG]||I18N.en; }
+function applyLang(l){
+  LANG=I18N[l]?l:"en"; document.documentElement.lang=LANG;
+  document.querySelectorAll("[data-i]").forEach(el=>{ const k=el.getAttribute("data-i"); if(t()[k]!=null) el.textContent=t()[k]; });
+  document.querySelectorAll("[data-ph]").forEach(el=>{ const k=el.getAttribute("data-ph"); if(t()[k]!=null) el.placeholder=t()[k]; });
+  try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
+  const sel=document.getElementById("lang"); if(sel) sel.value=LANG;
+  loadMessages();
+}
 const q=new URLSearchParams(location.search);
 const MOD = (q.get("moderate")||"")===MOD_KEY;
 const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const $=id=>document.getElementById(id);
-
 async function fbGet(p){ const r=await fetch(FIREBASE_DB+"/"+p+".json"); return r.ok?r.json():null; }
-
-/* ---------- reactions (instant, append-only) ---------- */
 async function loadReactions(){
   const data=await fbGet("love/reactions")||{};
   const c={heart:0,redheart:0,party:0};
@@ -141,8 +164,6 @@ document.getElementById("reactBar").addEventListener("click",e=>{
   b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
   fetch(FIREBASE_DB+"/love/reactions.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,ts:Date.now()})}).catch(()=>{});
 });
-
-/* ---------- messages ---------- */
 async function loadMessages(){
   const data=await fbGet("love/messages")||{};
   let items=Object.entries(data).map(([id,m])=>({id,...m})).filter(m=>m&&m.msg);
@@ -151,16 +172,16 @@ async function loadMessages(){
   if(MOD){
     const pending=items.filter(m=>!m.approved), live=items.filter(m=>m.approved);
     const ordered=[...pending,...live];
-    grid.innerHTML = ordered.length? ordered.map(m=>card(m,true)).join("") : '<div class="empty">No messages yet.</div>';
+    grid.innerHTML = ordered.length? ordered.map(m=>card(m,true)).join("") : '<div class="empty">'+esc(t().empty)+'</div>';
     grid.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>setApproved(b.dataset.approve,true));
     grid.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>hideMsg(b.dataset.hide));
   } else {
     const live=items.filter(m=>m.approved);
-    grid.innerHTML = live.length? live.map(m=>card(m,false)).join("") : '<div class="empty">Be the first to leave a little love 💛</div>';
+    grid.innerHTML = live.length? live.map(m=>card(m,false)).join("") : '<div class="empty">'+esc(t().empty)+'</div>';
   }
 }
 function card(m,mod){
-  const name=esc(m.from)||"A GatherWall friend";
+  const name=esc(m.from)||esc(t().friend);
   const pend = mod && !m.approved;
   return '<div class="note'+(pend?' pending':'')+'">'+
     (pend?'<span class="badge">Pending</span>':'')+
@@ -177,28 +198,31 @@ async function hideMsg(id){
   await fetch(FIREBASE_DB+"/love/messages/"+id+".json",{method:"DELETE"});
   loadMessages();
 }
-
-/* ---------- submit ---------- */
 $("msg").addEventListener("input",()=>{ $("cc").textContent=$("msg").value.length; });
 $("send").addEventListener("click",async()=>{
   const err=$("err"), ok=$("ok"); err.style.display="none"; ok.style.display="none";
   const msg=$("msg").value.trim(), from=$("who").value.trim();
-  if(msg.length<3){ err.textContent="Please write a few words first."; err.style.display="block"; return; }
-  try{ const last=+(localStorage.getItem("gw_love_msg")||0); if(Date.now()-last<25000){ err.textContent="Thanks! Just a moment between messages, please."; err.style.display="block"; return; } }catch(e){}
-  const btn=$("send"); btn.disabled=true; btn.textContent="Sending…";
+  if(msg.length<3){ err.textContent=t().errShort; err.style.display="block"; return; }
+  try{ const last=+(localStorage.getItem("gw_love_msg")||0); if(Date.now()-last<25000){ err.textContent=t().errRate; err.style.display="block"; return; } }catch(e){}
+  const btn=$("send"); btn.disabled=true; btn.textContent=t().sending;
   try{
     const r=await fetch(FIREBASE_DB+"/love/messages.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({msg:msg.slice(0,160),from:from.slice(0,40),approved:false,ts:Date.now()})});
     if(!r.ok) throw new Error("save failed");
     try{ localStorage.setItem("gw_love_msg",Date.now()); }catch(e){}
     $("msg").value=""; $("who").value=""; $("cc").textContent="0";
-    ok.textContent="Thank you 💛 Your note will appear once we've had a quick look.";
-    ok.style.display="block";
-  }catch(e){ err.textContent="Something went wrong — please try again in a moment."; err.style.display="block"; }
-  btn.disabled=false; btn.textContent="Send my message";
+    ok.textContent=t().thanks; ok.style.display="block";
+  }catch(e){ err.textContent=t().errFail; err.style.display="block"; }
+  btn.disabled=false; btn.textContent=t().send;
 });
-
 if(MOD){ $("modbar").innerHTML='<div class="modbar">🔒 Moderation view — pending messages shown first. Approvals appear publicly straight away.</div>'; }
-loadReactions(); loadMessages();
+(function init(){
+  let l="en";
+  try{ const s=localStorage.getItem("gw_lang"); if(s&&I18N[s]) l=s; }catch(e){}
+  if(l==="en"){ const n=(navigator.language||"en").slice(0,2); if(I18N[n]) l=n; }
+  document.getElementById("lang").onchange=e=>applyLang(e.target.value);
+  applyLang(l);
+  loadReactions();
+})();
 </script>
 </body>
 </html>
