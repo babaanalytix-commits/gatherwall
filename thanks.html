@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank you · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{--brand:#2E7D5B;--brand-d:#256048;--gold:#C2A058;--bg:#F5F4EF;--card:#fff;--ink:#232A26;--muted:#5C6B5E;--line:#E2E6DE;--soft:#FAFAF6;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;background:radial-gradient(800px 400px at 50% -10%,rgba(46,125,91,.12),transparent 60%),var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+  .nav{padding:16px 0;border-bottom:1px solid var(--line)}
+  .nav-in,.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:600;font-size:19px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .wrap{padding-top:48px;padding-bottom:80px;text-align:center}
+  .tick{width:64px;height:64px;border-radius:50%;background:rgba(46,125,91,.12);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,36px);line-height:1.12;margin-bottom:10px}
+  .sub{color:var(--muted);font-size:16px;max-width:42ch;margin:0 auto 28px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 24px 60px -34px rgba(32,39,31,.4);text-align:left;margin:0 auto}
+  .lbl{font-size:13px;font-weight:600;margin-bottom:6px;display:block}
+  .linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  input{flex:1;min-width:180px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--soft);font-size:13px;color:var(--ink)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{flex:1;min-width:130px;text-align:center;justify-content:center;padding:13px 16px;border-radius:12px;font-family:var(--ui);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:#fff;color:var(--brand-d);display:inline-flex;align-items:center;gap:6px;justify-content:center}
+  .btn.primary{background:var(--brand);color:#fff;border:none}
+  .btn.primary:hover{background:var(--brand-d)}
+  .ghost{white-space:nowrap}
+  .keepsafe{margin-top:18px;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.32);border-radius:12px;padding:13px 15px;font-size:13.5px;color:#6f5713;line-height:1.55}
+  .muted{color:var(--muted)}
+  footer{margin-top:36px;font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--brand);text-decoration:none}
+  .spin{color:var(--muted);font-size:15px;padding:20px 0}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in"><a class="logo" href="index.html"><span class="dot"></span>GatherWall</a></div></nav>
+
+<div class="wrap">
+  <div class="tick">✓</div>
+  <h1 id="h1">Thank you 💛</h1>
+  <p class="sub" id="sub">Your payment is confirmed. Here is your private link — please keep it safe.</p>
+
+  <div class="card" id="card">
+    <div class="spin" id="loading">Loading your link…</div>
+    <div id="content" style="display:none">
+      <span class="lbl">Your private link</span>
+      <div class="linkrow">
+        <input id="lnk" readonly value="">
+        <button class="btn ghost" onclick="cp()">Copy</button>
+        <button class="btn ghost" onclick="em()">✉️ Email it to me</button>
+      </div>
+      <div class="btns">
+        <a class="btn primary" id="viewBtn" href="#" target="_blank">👀 Open it now</a>
+      </div>
+      <div class="keepsafe">
+        🔒 <b>We keep no accounts and store no records tied to you</b> — this link is your only key. It's also in the email receipt from your purchase, so you can always find it again. We recommend emailing it to yourself now.
+      </div>
+    </div>
+    <div id="fallback" style="display:none">
+      <p class="muted" style="font-size:14.5px;">Your payment went through 💛. Your private link is in the <b>email receipt</b> you just received — search your inbox for “GatherWall”. If you built it on this device, you can also <a href="recover.html" style="color:var(--brand);font-weight:600;">recover it here</a>.</p>
+    </div>
+  </div>
+
+  <footer><a href="index.html">← Back to GatherWall</a></footer>
+</div>
+
+<script>
+const DB="https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
+const P=new URLSearchParams(location.search);
+// Gumroad may pass the id under various names; also fall back to this browser's last draft.
+function pickId(){
+  const keys=['order','ev','id','memorial','url_params[order]','url_params[ev]'];
+  for(const k of keys){ const v=P.get(k); if(v) return v.trim(); }
+  try{ const l=localStorage.getItem('gw_mem_lastdraft'); if(l) return l; }catch(e){}
+  return '';
+}
+const id=pickId();
+function liveURL(memId){ return location.href.split(/[?#]/)[0].replace(/[^/]*$/,'') + 'memorial.html?id=' + memId; }
+function cp(){ const i=document.getElementById('lnk'); i.select(); try{document.execCommand('copy'); flash('Link copied');}catch(e){} }
+let nm='your memorial';
+function em(){
+  const url=document.getElementById('lnk').value;
+  location.href='mailto:?subject='+encodeURIComponent('Your GatherWall link — '+nm)+
+    '&body='+encodeURIComponent("We keep no records tied to you, so this private link is the only way back to "+nm+".\n\nView or share it here:\n"+url+"\n\nKeep this email safe. 💛\nGatherWall");
+}
+function flash(m){ const v=document.getElementById('viewBtn'); }
+async function init(){
+  if(!id){ done(false); return; }
+  try{
+    const r=await fetch(DB+'/events/'+id+'.json');
+    const ev=await r.json();
+    if(ev&&ev.name){ nm=ev.name; }
+    const url=liveURL(id);
+    document.getElementById('lnk').value=url;
+    document.getElementById('viewBtn').href=url;
+    if(ev&&ev.name){ document.getElementById('sub').textContent='Your memorial for '+ev.name+' is live and saved. Here is your private link — please keep it safe.'; }
+    done(true);
+  }catch(e){ done(false); }
+}
+function done(ok){
+  document.getElementById('loading').style.display='none';
+  document.getElementById(ok?'content':'fallback').style.display='block';
+}
+init();
+</script>
+</body>
+</html>

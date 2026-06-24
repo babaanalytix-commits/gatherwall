@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find your link · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{--brand:#2E7D5B;--brand-d:#256048;--gold:#C2A058;--bg:#F5F4EF;--card:#fff;--ink:#232A26;--muted:#5C6B5E;--line:#E2E6DE;--soft:#FAFAF6;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;background:radial-gradient(800px 400px at 50% -10%,rgba(46,125,91,.12),transparent 60%),var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+  .nav{padding:16px 0;border-bottom:1px solid var(--line)}
+  .nav-in,.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+  .logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:600;font-size:19px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .wrap{padding-top:44px;padding-bottom:80px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,5vw,34px);margin-bottom:8px}
+  .sub{color:var(--muted);font-size:15.5px;margin-bottom:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 24px 60px -34px rgba(32,39,31,.4);margin-bottom:18px}
+  .card h2{font-family:var(--serif);font-weight:600;font-size:18px;margin-bottom:4px}
+  .card p{font-size:14px;color:var(--muted);margin-bottom:14px}
+  .found a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;background:var(--soft)}
+  .found a:hover{border-color:var(--brand)}
+  .found .arr{color:var(--brand)}
+  .none{font-size:14px;color:var(--muted)}
+  input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--soft);font-size:14px;color:var(--ink);margin-bottom:10px}
+  .btn{display:block;width:100%;text-align:center;padding:13px;border-radius:12px;font-family:var(--ui);font-weight:600;font-size:15px;cursor:pointer;border:none;background:var(--brand);color:#fff}
+  .btn:hover{background:var(--brand-d)}
+  .tip{background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.32);border-radius:12px;padding:13px 15px;font-size:13.5px;color:#6f5713;line-height:1.55}
+  footer{margin-top:30px;font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--brand);text-decoration:none}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in"><a class="logo" href="index.html"><span class="dot"></span>GatherWall</a></div></nav>
+
+<div class="wrap">
+  <h1>Find your link</h1>
+  <p class="sub">Everything you make on GatherWall lives behind a private link — that's how we keep no accounts and store nothing tied to you. Here's how to get back to it.</p>
+
+  <div class="card">
+    <h2>📥 It's in your email</h2>
+    <p>If you paid, your private link is in the <b>receipt email</b> from your purchase. Search your inbox for <b>“GatherWall”</b> — it's permanent and works on any device.</p>
+    <div class="tip">Tip: if you ever tapped “Email me my link” while building, check that email too.</div>
+  </div>
+
+  <div class="card" id="localCard" style="display:none">
+    <h2>💻 Saved on this device</h2>
+    <p>We found work you started in this browser:</p>
+    <div class="found" id="foundList"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Have the link? Jump straight back</h2>
+    <p>Paste your GatherWall link below and we'll take you to it.</p>
+    <input id="pasteLink" placeholder="https://gatherwall.com/memorial.html?id=…">
+    <button class="btn" onclick="goLink()">Open it →</button>
+  </div>
+
+  <footer><a href="index.html">← Back to GatherWall</a></footer>
+</div>
+
+<script>
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function base(){ return location.href.split(/[?#]/)[0].replace(/[^/]*$/,''); }
+function goLink(){
+  let v=(document.getElementById('pasteLink').value||'').trim();
+  if(!v) return;
+  if(!/^https?:/i.test(v)){ // maybe they pasted just an id
+    if(/^[a-z0-9]{4,12}$/i.test(v)) v=base()+'memorial.html?id='+v;
+    else return;
+  }
+  // only allow navigating to our own pages
+  try{ const u=new URL(v, base()); if(u.hostname.endsWith('gatherwall.com')||u.hostname===location.hostname){ location.href=u.href; } }catch(e){}
+}
+// Surface anything cached in this browser
+(function(){
+  const items=[];
+  try{
+    const memId=localStorage.getItem('gw_mem_lastdraft');
+    if(memId){
+      let label='Your memorial';
+      try{ const c=JSON.parse(localStorage.getItem('gw_mem_cache_'+memId)||'{}'); if(c.name) label='Memorial — '+c.name; }catch(e){}
+      items.push({label:label, url:base()+'memorial.html?id='+memId, edit:base()+'index.html#memorial?draft='+memId});
+    }
+    const saved=JSON.parse(localStorage.getItem('gw_my_links')||'[]');
+    if(Array.isArray(saved)) saved.forEach(x=>{ if(x&&x.url) items.push(x); });
+  }catch(e){}
+  if(items.length){
+    const box=document.getElementById('foundList');
+    box.innerHTML=items.map(x=>'<a href="'+esc(x.url)+'">'+esc(x.label)+'<span class="arr">→</span></a>'+
+      (x.edit?'<a href="'+esc(x.edit)+'" style="font-size:13px;color:var(--muted);background:#fff;">✎ Continue editing this draft<span class="arr">→</span></a>':'')).join('');
+    document.getElementById('localCard').style.display='block';
+  }
+})();
+</script>
+</body>
+</html>

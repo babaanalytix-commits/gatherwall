@@ -1830,6 +1830,7 @@ function saveMemorialRecord(cb){
 function publishMemorial(){
   saveMemorialRecord(rec=>{
     const url=memLiveURL(rec.id);
+    try{ memRemember('Memorial — '+(rec.name||'your memorial'), url); }catch(_){}
     const box=document.getElementById('memPreview');
     if(box){
       box.style.display='block';
@@ -1910,6 +1911,31 @@ function createWall(){
 
 /* ===================== SHARE ===================== */
 function baseURL(){return location.href.split('#')[0];}
+/* Remember a creation's links in THIS browser so recover.html can surface them.
+   Trustless: no server record, no account — just the keys, on the user's device. */
+function memRemember(label, url, manage){
+  try{
+    let a=JSON.parse(localStorage.getItem('gw_my_links')||'[]'); if(!Array.isArray(a)) a=[];
+    [{label:label,url:url}, manage?{label:label+' (manage / control)',url:manage}:null]
+      .filter(Boolean).forEach(it=>{ if(!a.some(x=>x.url===it.url)) a.unshift(it); });
+    localStorage.setItem('gw_my_links', JSON.stringify(a.slice(0,12)));
+  }catch(e){}
+}
+function emailLinks(subject, body){ location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); }
+/* The "save your links" safety panel on the wall share screen. */
+function renderShareSafety(e, wallUrl, manageUrl, guestUrl){
+  const wrap=document.querySelector('#screen-share .wrap'); if(!wrap) return;
+  let box=document.getElementById('shareSafety');
+  if(!box){ box=document.createElement('div'); box.id='shareSafety'; box.className='card'; box.style.marginTop='18px'; wrap.appendChild(box); }
+  const subject='Your GatherWall links — '+e.name;
+  const body="We keep no accounts and store nothing tied to you — these private links are your only keys. Keep this email safe.\n\n"+
+    "Share with guests:\n"+guestUrl+"\n\nBig-screen wall:\n"+wallUrl+"\n\nManage / control (keep private):\n"+manageUrl+"\n\nWith love,\nGatherWall";
+  box.innerHTML=
+    '<div style="font-weight:700;font-size:14px;margin-bottom:4px;">🔒 Save your links — they\'re your only key</div>'+
+    '<p class="muted" style="font-size:13px;margin-bottom:12px;">We keep no accounts and store nothing tied to you. Email these links to yourself so you can always get back in — on any device.</p>'+
+    '<button class="btn btn-primary" style="width:100%;justify-content:center;" onclick=\'emailLinks('+JSON.stringify(subject)+','+JSON.stringify(body)+')\'>✉️ Email me my links</button>'+
+    '<p class="muted" style="font-size:12px;margin-top:10px;text-align:center;">Lost a link later? <a href="recover.html" style="color:var(--brand);font-weight:600;">Recover it here</a></p>';
+}
 function showShare(e){
   const id=e.id; applyVibe(e.vibe,e.color);
   document.getElementById('shareVibe').textContent=VIBES[e.vibe].label;
@@ -1963,6 +1989,7 @@ function showShare(e){
       if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
     }
   }
+  try{ memRemember((family?'Memory Wall — ':'Wall — ')+e.name, w, m); renderShareSafety(e, w, m, g); }catch(_){}
   go('share'); window._cur=id; window._curEvent=e;
 }
 /* Publish / go live → route to payment for the chosen tier. Uses the Lemon Squeezy
