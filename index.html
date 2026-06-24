@@ -1695,7 +1695,8 @@ function memEsc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;'
 function previewMemorial(){
   const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
   const name=g('memName')||'In loving memory';
-  const born=g('memBorn'), died=g('memDied');
+  const fmtMemDate=s=>{ if(!s)return ''; const p=s.split('-'); if(p.length!==3)return s; const m=['January','February','March','April','May','June','July','August','September','October','November','December'][(+p[1])-1]; return m?((+p[2])+' '+m+' '+p[0]):s; };
+  const born=fmtMemDate(g('memBorn')), died=fmtMemDate(g('memDied'));
   const dates=[born,died].filter(Boolean).join(' — ');
   const msg=g('memMessage'), from=g('memFrom');
   const box=document.getElementById('memPreview'); if(!box)return;
