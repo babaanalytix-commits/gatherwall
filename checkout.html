@@ -22,10 +22,14 @@
   a{color:inherit}
   .nav{padding:22px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
   .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
-  .nav-in{display:flex;align-items:center;justify-content:space-between}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
   .logo .dot{width:26px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
-  .secure-pill{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .right{display:flex;align-items:center;gap:14px}
+  .lang select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 28px 7px 13px;cursor:pointer}
+  .lang{position:relative}
+  .lang::after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .secure-pill{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px;white-space:nowrap}
   .grid{display:grid;grid-template-columns:1.2fr .9fr;gap:40px;padding:54px 0 70px}
   @media(max-width:780px){.grid{grid-template-columns:1fr;gap:28px;padding:34px 0 50px}}
   .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
@@ -37,7 +41,6 @@
   ul.incl li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
   ul.incl li .tick{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:rgba(46,125,91,.12);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
   .note{margin-top:26px;font-size:14px;color:var(--muted);padding:14px 16px;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:12px}
-  /* order card */
   .order{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 60px -32px rgba(32,39,31,.4);position:sticky;top:96px;height:fit-content}
   .order h2{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:4px}
   .order .for{font-size:14px;color:var(--muted);margin-bottom:22px}
@@ -54,7 +57,6 @@
   footer{border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   footer a{text-decoration:none;opacity:.85}
-  /* tame Gumroad's injected button so it matches ours */
   .gumroad-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:14px!important;
     font-family:var(--ui)!important;font-weight:600!important;font-size:17px!important;padding:17px!important;
     display:block!important;width:100%!important;text-align:center!important;text-decoration:none!important;
@@ -66,7 +68,12 @@
 <body>
 <header class="nav"><div class="wrap nav-in">
   <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
-  <div class="secure-pill">🔒 Secure checkout</div>
+  <div class="right">
+    <div class="lang"><select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="cs">Čeština</option><option value="de">Deutsch</option>
+    </select></div>
+    <div class="secure-pill">🔒 <span id="t_secure">Secure checkout</span></div>
+  </div>
 </div></header>
 
 <main class="wrap">
@@ -75,7 +82,7 @@
       <div class="eyebrow" id="eyebrow">You're almost there</div>
       <h1 id="title">Checkout</h1>
       <p class="lede" id="lede"></p>
-      <p class="incl-title">What's included</p>
+      <p class="incl-title" id="t_incl">What's included</p>
       <ul class="incl" id="incl"></ul>
       <div class="note" id="note" style="display:none"></div>
     </section>
@@ -83,7 +90,7 @@
     <aside>
       <div class="order">
         <h2 id="oName">Your order</h2>
-        <div class="for">GatherWall · secure one-step checkout</div>
+        <div class="for" id="t_for">GatherWall · secure one-step checkout</div>
         <div class="price">
           <span class="amt" id="oAmt">—</span>
           <span class="per" id="oPer"></span>
@@ -91,14 +98,12 @@
         </div>
         <a class="pay gumroad-button" id="payBtn" href="#">Pay securely ▸</a>
         <div class="trust">
-          <div><span class="i">🔒</span> Card, Apple Pay &amp; Google Pay</div>
-          <div><span class="i">🌍</span> Shown in your local currency at checkout</div>
-          <div><span class="i">✓</span> Instant confirmation by email</div>
+          <div><span class="i">🔒</span> <span id="t_tr1">Card, Apple Pay &amp; Google Pay</span></div>
+          <div><span class="i">🌍</span> <span id="t_tr2">Shown in your local currency at checkout</span></div>
+          <div><span class="i">✓</span> <span id="t_tr3">Instant confirmation by email</span></div>
         </div>
-        <div class="vatnote" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.55;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:10px;padding:11px 13px;">
-          Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.
-        </div>
-        <div class="powered">Payments processed securely by Gumroad</div>
+        <div class="vatnote" id="t_vat" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.55;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:10px;padding:11px 13px;"></div>
+        <div class="powered" id="t_powered">Payments processed securely by Gumroad</div>
       </div>
     </aside>
   </div>
@@ -107,69 +112,99 @@
 <footer><div class="wrap">
   <a class="logo" href="index.html" style="font-size:16px"><span class="dot"></span>GatherWall</a>
   <div style="display:flex;gap:16px">
-    <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:baba.analytix@gmail.com">Contact</a>
+    <a href="privacy.html" id="t_priv">Privacy</a><a href="terms.html" id="t_terms">Terms</a><a href="mailto:baba.analytix@gmail.com" id="t_contact">Contact</a>
   </div>
 </div></footer>
 
 <script src="https://gumroad.com/js/gumroad.js"></script>
-<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script>
   var BASE='https://analytixbaba.gumroad.com/l/';
+  var UI={
+    en:{secure:"Secure checkout",almost:"You're almost there",incl:"What's included",forLine:"GatherWall · secure one-step checkout",pay:"Pay securely ▸",tr1:"Card, Apple Pay & Google Pay",tr2:"Shown in your local currency at checkout",tr3:"Instant confirmation by email",vat:"Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.",powered:"Payments processed securely by Gumroad",priv:"Privacy",terms:"Terms",contact:"Contact"},
+    fr:{secure:"Paiement sécurisé",almost:"Vous y êtes presque",incl:"Ce qui est inclus",forLine:"GatherWall · paiement sécurisé en une étape",pay:"Payer en toute sécurité ▸",tr1:"Carte, Apple Pay & Google Pay",tr2:"Affiché dans votre devise locale au paiement",tr3:"Confirmation immédiate par e-mail",vat:"Les prix sont en USD et <strong>hors TVA</strong>. La TVA locale est ajoutée au paiement le cas échéant — par exemple, un article à 10 $ revient à environ <strong>12 $</strong> avec 20 % de TVA. Vous verrez toujours le total exact avant de payer.",powered:"Paiements traités en toute sécurité par Gumroad",priv:"Confidentialité",terms:"Conditions",contact:"Contact"},
+    es:{secure:"Pago seguro",almost:"Ya casi estás",incl:"Qué incluye",forLine:"GatherWall · pago seguro en un paso",pay:"Pagar de forma segura ▸",tr1:"Tarjeta, Apple Pay y Google Pay",tr2:"Se muestra en tu moneda local al pagar",tr3:"Confirmación inmediata por correo",vat:"Los precios están en USD y <strong>no incluyen IVA</strong>. El IVA local se añade al pagar cuando corresponde — por ejemplo, un artículo de 10 $ cuesta unos <strong>12 $</strong> con un 21 % de IVA. Siempre verás el total exacto antes de pagar.",powered:"Pagos procesados de forma segura por Gumroad",priv:"Privacidad",terms:"Términos",contact:"Contacto"},
+    cs:{secure:"Bezpečná platba",almost:"Už to skoro je",incl:"Co je v ceně",forLine:"GatherWall · bezpečná platba na jeden krok",pay:"Zaplatit bezpečně ▸",tr1:"Karta, Apple Pay a Google Pay",tr2:"Při platbě zobrazeno v místní měně",tr3:"Okamžité potvrzení e-mailem",vat:"Ceny jsou v USD a <strong>nezahrnují DPH</strong>. Místní DPH se přidává při platbě, kde se uplatňuje — například položka za 10 $ vyjde asi na <strong>12 $</strong> s 21% DPH. Před platbou vždy uvidíte přesnou částku.",powered:"Platby bezpečně zpracovává Gumroad",priv:"Soukromí",terms:"Podmínky",contact:"Kontakt"},
+    de:{secure:"Sicherer Checkout",almost:"Fast geschafft",incl:"Inbegriffen",forLine:"GatherWall · sicherer Checkout in einem Schritt",pay:"Sicher bezahlen ▸",tr1:"Karte, Apple Pay & Google Pay",tr2:"Beim Bezahlen in Ihrer lokalen Währung",tr3:"Sofortige Bestätigung per E-Mail",vat:"Preise sind in USD und <strong>ohne MwSt.</strong>. Lokale MwSt. wird beim Bezahlen hinzugefügt, wo sie anfällt — ein Artikel für 10 $ kostet z. B. etwa <strong>12 $</strong> mit 20 % MwSt. Sie sehen den genauen Betrag immer vor dem Bezahlen.",powered:"Zahlungen sicher abgewickelt von Gumroad",priv:"Datenschutz",terms:"AGB",contact:"Kontakt"}
+  };
   var CATALOG={
-    'live-tribute-wall':{eyebrow:'Live Tribute Wall',title:'Bring the whole room onto one screen',
-      lede:'Guests scan a QR code or tap a tablet — no app — and their photos and messages float onto the big screen all night.',
-      incl:['Live wall on the venue big screen','Photos + written tributes','Moderation (approve posts before they show)','Choose Basic, Plus or Premium at checkout'],
-      amt:'$10',per:'/ event · from',note:'Pick your tier — Basic ($10), Plus ($15) or Premium ($20, unlimited + custom background + download) — on the next step.'},
-    'wall-pro':{eyebrow:'Live Tribute Wall · Pro',title:'Run the wall at every booking',
-      lede:'For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.',
-      incl:['Everything in Premium','Your logo on the wall','Priority support','Choose 3 or 7 events / month at checkout'],
-      amt:'$25',per:'/ month · from',note:'Pick 3 events/month ($25) or 7 events/month ($40) on the next step. Cancel anytime.'},
-    'memorial-eulogy':{eyebrow:'Memorial & Eulogy',title:'A lasting place to remember together',
-      lede:'A beautiful, private online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family and friends.',
-      incl:['Private memorial page, online to keep','Candle-lighting + life timeline','Family &amp; friends add memories and photos','Share with one link, near or far'],
-      amt:'$10',per:'one-time'},
-    'animated-keepsake-story':{eyebrow:'Animated Keepsake Story',title:'Their story, set to a song made for them',
-      lede:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',
-      incl:['Original song for the occasion','Hand-crafted animated story','Played at the event &amp; kept forever','Your photos, milestones &amp; message'],
-      amt:'$39',per:'one-time'},
-    'event-bundle':{eyebrow:'Event Bundle · best value',title:'The full experience, in one',
-      lede:'The Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.',
-      incl:['Animated Keepsake Story','Live Tribute Wall at the event','Their story on one screen, guests on another','Our best value for milestone celebrations'],
-      amt:'$49',per:'one-time',was:'$59'}
+    'live-tribute-wall':{
+      eyebrow:{en:'Live Tribute Wall',fr:'Mur d\'hommages en direct',es:'Muro de homenajes en vivo',cs:'Živá zeď vzpomínek',de:'Live-Erinnerungswand'},
+      title:{en:'Bring the whole room onto one screen',fr:'Réunissez toute la salle sur un seul écran',es:'Reúne a toda la sala en una pantalla',cs:'Spojte celý sál na jedné obrazovce',de:'Bringen Sie den ganzen Saal auf eine Leinwand'},
+      lede:{en:'Guests scan a QR code or tap a tablet — no app — and their photos and messages float onto the big screen all night.',fr:'Les invités scannent un QR code ou touchent une tablette — sans appli — et leurs photos et messages s\'affichent sur grand écran toute la soirée.',es:'Los invitados escanean un código QR o tocan una tablet — sin app — y sus fotos y mensajes aparecen en la pantalla grande toda la noche.',cs:'Hosté naskenují QR kód nebo ťuknou na tablet — bez aplikace — a jejich fotky a vzkazy se celý večer objevují na velké obrazovce.',de:'Gäste scannen einen QR-Code oder tippen auf ein Tablet — ohne App — und ihre Fotos und Nachrichten erscheinen den ganzen Abend auf der großen Leinwand.'},
+      incl:{en:['Live wall on the venue big screen','Photos + written tributes','Moderation (approve posts before they show)','Choose Basic, Plus or Premium at checkout'],fr:['Mur en direct sur le grand écran du lieu','Photos + messages écrits','Modération (validez avant publication)','Choisissez Basic, Plus ou Premium au paiement'],es:['Muro en vivo en la pantalla grande del lugar','Fotos + mensajes escritos','Moderación (aprueba antes de mostrar)','Elige Basic, Plus o Premium al pagar'],cs:['Živá zeď na velké obrazovce v sále','Fotky + psané vzkazy','Moderování (schválení před zobrazením)','Zvolte Basic, Plus nebo Premium při platbě'],de:['Live-Wand auf der großen Leinwand','Fotos + geschriebene Botschaften','Moderation (vor dem Anzeigen freigeben)','Wählen Sie Basic, Plus oder Premium an der Kasse']},
+      amt:'$10',per:{en:'/ event · from',fr:'/ événement · à partir de',es:'/ evento · desde',cs:'/ akce · od',de:'/ Event · ab'},
+      note:{en:'Pick your tier — Basic ($10), Plus ($15) or Premium ($20, unlimited + custom background + download) — on the next step.',fr:'Choisissez votre formule — Basic (10 $), Plus (15 $) ou Premium (20 $, illimité + fond personnalisé + téléchargement) — à l\'étape suivante.',es:'Elige tu nivel — Basic (10 $), Plus (15 $) o Premium (20 $, ilimitado + fondo personalizado + descarga) — en el siguiente paso.',cs:'Vyberte úroveň — Basic (10 $), Plus (15 $) nebo Premium (20 $, neomezeně + vlastní pozadí + stažení) — v dalším kroku.',de:'Wählen Sie Ihre Stufe — Basic (10 $), Plus (15 $) oder Premium (20 $, unbegrenzt + eigener Hintergrund + Download) — im nächsten Schritt.'}},
+    'wall-pro':{
+      eyebrow:{en:'Live Tribute Wall · Pro',fr:'Mur d\'hommages en direct · Pro',es:'Muro de homenajes en vivo · Pro',cs:'Živá zeď vzpomínek · Pro',de:'Live-Erinnerungswand · Pro'},
+      title:{en:'Run the wall at every booking',fr:'Utilisez le mur à chaque prestation',es:'Usa el muro en cada evento',cs:'Používejte zeď u každé zakázky',de:'Nutzen Sie die Wand bei jeder Buchung'},
+      lede:{en:'For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.',fr:'Pour DJ, animateurs, organisateurs et lieux — utilisez le mur sur tous vos événements, avec votre logo à l\'écran.',es:'Para DJ, presentadores, organizadores y locales — usa el muro en todos tus eventos, con tu logo en pantalla.',cs:'Pro DJ, moderátory, organizátory a místa — používejte zeď na všech akcích, s vaším logem na obrazovce.',de:'Für DJs, Moderatoren, Planer und Locations — nutzen Sie die Wand bei allen Events, mit Ihrem Logo auf dem Bildschirm.'},
+      incl:{en:['Everything in Premium','Your logo on the wall','Priority support','Choose 3 or 7 events / month at checkout'],fr:['Tout le contenu Premium','Votre logo sur le mur','Support prioritaire','Choisissez 3 ou 7 événements / mois au paiement'],es:['Todo lo de Premium','Tu logo en el muro','Soporte prioritario','Elige 3 o 7 eventos / mes al pagar'],cs:['Vše z Premium','Vaše logo na zdi','Přednostní podpora','Zvolte 3 nebo 7 akcí / měsíc při platbě'],de:['Alles aus Premium','Ihr Logo auf der Wand','Priorisierter Support','Wählen Sie 3 oder 7 Events / Monat']},
+      amt:'$25',per:{en:'/ month · from',fr:'/ mois · à partir de',es:'/ mes · desde',cs:'/ měsíc · od',de:'/ Monat · ab'},
+      note:{en:'Pick 3 events/month ($25) or 7 events/month ($40) on the next step. Cancel anytime.',fr:'Choisissez 3 événements/mois (25 $) ou 7 événements/mois (40 $) à l\'étape suivante. Annulable à tout moment.',es:'Elige 3 eventos/mes (25 $) o 7 eventos/mes (40 $) en el siguiente paso. Cancela cuando quieras.',cs:'Vyberte 3 akce/měsíc (25 $) nebo 7 akcí/měsíc (40 $) v dalším kroku. Zrušit lze kdykoli.',de:'Wählen Sie 3 Events/Monat (25 $) oder 7 Events/Monat (40 $) im nächsten Schritt. Jederzeit kündbar.'}},
+    'memorial-eulogy':{
+      eyebrow:{en:'Memorial & Eulogy',fr:'Hommage & Éloge funèbre',es:'Memorial y Elogio',cs:'Vzpomínka & Smuteční řeč',de:'Gedenkseite & Nachruf'},
+      title:{en:'A lasting place to remember together',fr:'Un lieu durable pour se souvenir ensemble',es:'Un lugar duradero para recordar juntos',cs:'Trvalé místo pro společné vzpomínání',de:'Ein bleibender Ort des gemeinsamen Gedenkens'},
+      lede:{en:'A beautiful, private online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family and friends.',fr:'Un bel hommage en ligne, privé — un récit de vie et un éloge, l\'allumage de bougies, une chronologie et les souvenirs partagés de la famille et des amis.',es:'Un hermoso memorial privado en línea — una historia de vida y elogio, encender velas, una cronología y recuerdos compartidos de familia y amigos.',cs:'Krásná soukromá online vzpomínka — životní příběh a smuteční řeč, zapalování svíček, časová osa a sdílené vzpomínky rodiny a přátel.',de:'Eine schöne, private Online-Gedenkseite — eine Lebensgeschichte und ein Nachruf, Kerzen anzünden, eine Zeitleiste und geteilte Erinnerungen von Familie und Freunden.'},
+      incl:{en:['Private memorial page, online to keep','Candle-lighting + life timeline','Family & friends add memories and photos','Share with one link, near or far'],fr:['Page commémorative privée, à conserver en ligne','Allumage de bougies + chronologie de vie','La famille et les amis ajoutent souvenirs et photos','Partagez avec un seul lien, de près ou de loin'],es:['Página conmemorativa privada, para conservar en línea','Encender velas + cronología de vida','Familia y amigos añaden recuerdos y fotos','Comparte con un enlace, cerca o lejos'],cs:['Soukromá vzpomínková stránka, k uchování online','Zapalování svíček + časová osa života','Rodina a přátelé přidávají vzpomínky a fotky','Sdílejte jedním odkazem, zblízka i zdaleka'],de:['Private Gedenkseite, online zum Behalten','Kerzen anzünden + Lebens-Zeitleiste','Familie & Freunde fügen Erinnerungen und Fotos hinzu','Mit einem Link teilen, nah und fern']},
+      amt:'$10',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'}},
+    'animated-keepsake-story':{
+      eyebrow:{en:'Animated Keepsake Story',fr:'Souvenir animé',es:'Recuerdo animado',cs:'Animovaný vzpomínkový příběh',de:'Animierte Erinnerungsgeschichte'},
+      title:{en:'Their story, set to a song made for them',fr:'Leur histoire, mise en musique rien que pour eux',es:'Su historia, con una canción hecha para ellos',cs:'Jejich příběh s písní stvořenou jen pro ně',de:'Ihre Geschichte, vertont mit einem Lied nur für sie'},
+      lede:{en:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',fr:'Un souvenir animé et cinématographique de leur vie — scène par scène, sur une chanson originale écrite pour l\'occasion. Notre cadeau signature.',es:'Un recuerdo animado y cinematográfico de su vida — escena a escena, con una canción original escrita para la ocasión. Nuestro regalo estrella.',cs:'Filmová animovaná vzpomínka na jejich život — scéna po scéně, s původní písní napsanou pro tuto příležitost. Náš výjimečný dárek.',de:'Eine filmische, animierte Erinnerung an ihr Leben — Szene für Szene, mit einem eigens komponierten Lied. Unser Signature-Geschenk.'},
+      incl:{en:['Original song for the occasion','Hand-crafted animated story','Played at the event & kept forever','Your photos, milestones & message'],fr:['Chanson originale pour l\'occasion','Histoire animée faite main','Diffusée à l\'événement & gardée pour toujours','Vos photos, moments clés & message'],es:['Canción original para la ocasión','Historia animada hecha a mano','Se reproduce en el evento y se guarda para siempre','Tus fotos, hitos y mensaje'],cs:['Původní píseň pro tuto příležitost','Ručně vytvořený animovaný příběh','Přehráno na akci & uchováno navždy','Vaše fotky, milníky & vzkaz'],de:['Eigenes Lied für den Anlass','Handgefertigte animierte Geschichte','Beim Event gezeigt & für immer behalten','Ihre Fotos, Meilensteine & Botschaft']},
+      amt:'$39',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'}},
+    'event-bundle':{
+      eyebrow:{en:'Event Bundle · best value',fr:'Pack Événement · meilleure offre',es:'Pack Evento · mejor valor',cs:'Balíček Akce · nejlepší cena',de:'Event-Paket · bestes Angebot'},
+      title:{en:'The full experience, in one',fr:'L\'expérience complète, en un seul pack',es:'La experiencia completa, en uno',cs:'Kompletní zážitek v jednom',de:'Das volle Erlebnis in einem'},
+      lede:{en:'The Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.',fr:'Le Souvenir animé plus un Mur d\'hommages en direct à votre événement — leur histoire sur un écran, les invités en direct sur l\'autre.',es:'El Recuerdo animado más un Muro de homenajes en vivo en tu evento — su historia en una pantalla, los invitados en directo en otra.',cs:'Animovaný vzpomínkový příběh plus Živá zeď vzpomínek na vaší akci — jejich příběh na jedné obrazovce, hosté živě na druhé.',de:'Die animierte Erinnerungsgeschichte plus eine Live-Erinnerungswand bei Ihrem Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.'},
+      incl:{en:['Animated Keepsake Story','Live Tribute Wall at the event','Their story on one screen, guests on another','Our best value for milestone celebrations'],fr:['Souvenir animé','Mur d\'hommages en direct à l\'événement','Leur histoire sur un écran, les invités sur l\'autre','Notre meilleure offre pour les grandes occasions'],es:['Recuerdo animado','Muro de homenajes en vivo en el evento','Su historia en una pantalla, los invitados en otra','Nuestra mejor oferta para grandes celebraciones'],cs:['Animovaný vzpomínkový příběh','Živá zeď vzpomínek na akci','Jejich příběh na jedné obrazovce, hosté na druhé','Naše nejlepší cena pro velké oslavy'],de:['Animierte Erinnerungsgeschichte','Live-Erinnerungswand beim Event','Ihre Geschichte auf einem Bildschirm, Gäste auf dem anderen','Unser bestes Angebot für große Feiern']},
+      amt:'$49',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'},was:'$59'}
   };
   function param(n){return new URLSearchParams(location.search).get(n);}
   var slug=param('p'); if(!CATALOG[slug]) slug='live-tribute-wall';
-  var p=CATALOG[slug];
-  document.getElementById('eyebrow').textContent=p.eyebrow;
-  document.getElementById('title').textContent=p.title;
-  document.getElementById('lede').innerHTML=p.lede;
-  document.getElementById('oName').textContent=p.eyebrow;
-  document.getElementById('oAmt').textContent=p.amt;
-  document.getElementById('oPer').textContent=p.per;
-  if(p.was){var w=document.getElementById('oWas');w.style.display='';w.textContent=p.was;}
-  var ul=document.getElementById('incl');
-  p.incl.forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
-  if(p.note){var n=document.getElementById('note');n.style.display='';n.textContent=p.note;}
-  var btn=document.getElementById('payBtn');
-  var powered=document.querySelector('.powered');
-  if(p.ls){
-    btn.href=p.ls+(p.ls.indexOf('?')<0?'?':'&')+'embed=1';
-    btn.classList.remove('gumroad-button');
-    btn.classList.add('lemonsqueezy-button');
-    if(powered) powered.textContent='Payments processed securely by Lemon Squeezy';
-    window.addEventListener('load',function(){ if(window.createLemonSqueezy) window.createLemonSqueezy(); });
-  } else {
-    // Forward custom params (ev = wall/event id, tier) to Gumroad so they come
-    // back in the Ping webhook's url_params[<key>] — that's how the Worker knows
-    // which wall to publish after a successful payment.
-    var pay=BASE+slug+'?wanted=true';
-    var ev=param('ev'); if(ev) pay+='&ev='+encodeURIComponent(ev);
-    var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
-    var order=param('order'); if(order) pay+='&order='+encodeURIComponent(order);
-    btn.href=pay;
-    if(powered) powered.textContent='Payments processed securely by Gumroad';
+  var LANG='en';
+  function pickLang(){
+    try{ var u=param('lang'); if(u&&UI[u]) return u; }catch(e){}
+    try{ var s=localStorage.getItem('gw_lang'); if(s&&UI[s]) return s; }catch(e){}
+    var n=(navigator.language||'en').slice(0,2); return UI[n]?n:'en';
   }
-  document.title=p.eyebrow+' · Secure checkout · GatherWall';
+  function render(){
+    var u=UI[LANG]||UI.en, p=CATALOG[slug];
+    var L=function(o){ return (o && (o[LANG]||o.en)) || o; };
+    document.getElementById('t_secure').textContent=u.secure;
+    document.getElementById('eyebrow').textContent=L(p.eyebrow);
+    document.getElementById('title').textContent=L(p.title);
+    document.getElementById('lede').innerHTML=L(p.lede);
+    document.getElementById('t_incl').textContent=u.incl;
+    document.getElementById('oName').textContent=L(p.eyebrow);
+    document.getElementById('t_for').textContent=u.forLine;
+    document.getElementById('oAmt').textContent=p.amt;
+    document.getElementById('oPer').textContent=L(p.per);
+    var w=document.getElementById('oWas'); if(p.was){w.style.display='';w.textContent=p.was;} else {w.style.display='none';}
+    var ul=document.getElementById('incl'); ul.innerHTML='';
+    L(p.incl).forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
+    var n=document.getElementById('note'); if(p.note){n.style.display='';n.textContent=L(p.note);} else {n.style.display='none';}
+    document.getElementById('t_tr1').textContent=u.tr1;
+    document.getElementById('t_tr2').textContent=u.tr2;
+    document.getElementById('t_tr3').textContent=u.tr3;
+    document.getElementById('t_vat').innerHTML=u.vat;
+    document.getElementById('t_powered').textContent=u.powered;
+    document.getElementById('t_priv').textContent=u.priv;
+    document.getElementById('t_terms').textContent=u.terms;
+    document.getElementById('t_contact').textContent=u.contact;
+    document.getElementById('payBtn').textContent=u.pay;
+    document.documentElement.lang=LANG;
+    document.title=L(p.eyebrow)+' · '+u.secure+' · GatherWall';
+  }
+  function applyLang(l){ LANG=UI[l]?l:'en'; try{localStorage.setItem('gw_lang',LANG);}catch(e){} var sel=document.getElementById('lang'); if(sel) sel.value=LANG; render(); }
+  // Build the Gumroad pay link (forward ev/tier/order to the webhook)
+  var pay=BASE+slug+'?wanted=true';
+  var ev=param('ev'); if(ev) pay+='&ev='+encodeURIComponent(ev);
+  var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
+  var order=param('order'); if(order) pay+='&order='+encodeURIComponent(order);
+  document.getElementById('payBtn').href=pay;
+  document.getElementById('lang').onchange=function(e){ applyLang(e.target.value); };
+  applyLang(pickLang());
 </script>
 </body>
 </html>
