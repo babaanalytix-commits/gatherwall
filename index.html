@@ -816,8 +816,8 @@ body.kioskmode header.nav{display:none;}
     <div id="memPreview" style="margin-top:16px;display:none;"></div>
   </div>
 
-  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;" onclick="publishMemorial()">Publish memorial — $10 ✦</button>
-  <p class="center muted" style="margin-top:14px;font-size:13px;">Build and preview are free. Payment is required only to publish &amp; deliver.</p>
+  <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;" onclick="publishMemorial()">Create my memorial page ✦</button>
+  <p class="center muted" style="margin-top:14px;font-size:13px;">Creating and sharing are free. Publishing &amp; keeping it online for good is $10.</p>
 </div></div>
 </div>
 
@@ -1710,10 +1710,59 @@ function previewMemorial(){
     (from?'<div style="margin-top:14px;color:var(--brand);font-weight:600;font-size:14px;">'+memEsc(from)+'</div>':'')+
     '</div>';
 }
+let memSavedId='';
+function saveMemorialRecord(cb){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const name=g('memName');
+  if(!name){ toast('Please add the name of the person'); return; }
+  const rec={
+    id: memSavedId || uid(),
+    name: name,
+    born: g('memBorn'),
+    died: g('memDied'),
+    eulogy: g('memMessage'),
+    from: g('memFrom'),
+    photo: memPhotoData || '',
+    ts: Date.now()
+  };
+  memSavedId = rec.id;
+  if(USE_FB){
+    fbdb.ref('memorials/'+rec.id).set(rec)
+      .then(()=>cb&&cb(rec))
+      .catch(()=>{ toast('Could not save — check your connection'); });
+  } else {
+    try{ localStorage.setItem('gw_mem_'+rec.id, JSON.stringify(rec)); }catch(e){}
+    cb&&cb(rec);
+  }
+}
+function memLiveURL(id){ return baseURL().replace(/[^/]*$/,'') + 'memorial.html?id=' + id; }
 function publishMemorial(){
-  const name=(document.getElementById('memName')||{}).value;
-  if(!name||!name.trim()){ toast('Please add the name of the person'); return; }
-  buy('memorial-eulogy');
+  saveMemorialRecord(rec=>{
+    const url=memLiveURL(rec.id);
+    const box=document.getElementById('memPreview');
+    if(box){
+      box.style.display='block';
+      box.innerHTML=
+        '<div style="border:2px solid var(--brand);border-radius:16px;padding:22px;background:color-mix(in srgb,var(--brand) 5%,#fff);text-align:left;">'+
+        '<h3 style="font-size:19px;margin-bottom:6px;">Your memorial page is ready 🕯️</h3>'+
+        '<p class="muted" style="font-size:14px;margin-bottom:14px;">It is live and shareable now. Publishing ($10) removes the draft notice and keeps it online for good.</p>'+
+        '<label style="font-size:13px;font-weight:600;">Shareable link</label>'+
+        '<div style="display:flex;gap:8px;margin:6px 0 16px;">'+
+          '<input id="memLink" readonly value="'+url+'" style="flex:1;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:13px;">'+
+          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="(function(){var i=document.getElementById(\'memLink\');i.select();try{document.execCommand(\'copy\');toast(\'Link copied\');}catch(e){}})()">Copy</button>'+
+        '</div>'+
+        '<div style="display:flex;gap:10px;flex-wrap:wrap;">'+
+          '<a class="btn btn-ghost" href="'+url+'" target="_blank" style="flex:1;justify-content:center;text-align:center;">👀 View memorial</a>'+
+          '<button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="buyMemorial()">Publish &amp; keep forever — $10 ✦</button>'+
+        '</div>'+
+        '</div>';
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  });
+}
+function buyMemorial(){
+  if(!memSavedId){ publishMemorial(); return; }
+  location.href='checkout.html?p=memorial-eulogy&order='+encodeURIComponent(memSavedId);
 }
 
 /* ===================== CREATE ===================== */
