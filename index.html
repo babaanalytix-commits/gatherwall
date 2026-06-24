@@ -376,7 +376,38 @@ body.kioskmode header.nav{display:none;}
 <body>
 
 <!-- ============ HOME / MARKETING ============ -->
-<div id="screen-home" class="screen active">
+<div id="screen-door" class="screen active">
+<style>@media(max-width:640px){#screen-door .door-grid{grid-template-columns:1fr!important}#screen-door .door-cta{align-self:stretch!important;justify-content:center!important}}</style>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;background:radial-gradient(900px 460px at 88% -8%,rgba(194,160,88,.14),transparent 60%),radial-gradient(820px 460px at 6% 4%,rgba(46,125,91,.10),transparent 55%),#F6F4EC;">
+  <div style="text-align:center;max-width:760px;width:100%;">
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="width:30px;height:28px;display:inline-block;background:url('favicon.svg') center/contain no-repeat;"></span>
+      <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:26px;color:#20271F;">GatherWall</span>
+    </div>
+    <p style="font-family:'Inter',system-ui,sans-serif;color:#5C6B5E;font-size:16px;margin:0 0 36px;">Ways to gather the people who matter</p>
+
+    <div class="door-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left;">
+      <a href="keepsake-preview.html" style="display:flex;flex-direction:column;text-decoration:none;background:#fff;border:2px solid #2E7D5B;border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px -34px rgba(32,39,31,.42);">
+        <span style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#a9883f;background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.32);border-radius:999px;padding:5px 12px;margin-bottom:14px;">For one person you love</span>
+        <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#20271F;margin-bottom:6px;">Ode</span>
+        <span style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A keepsake song &amp; animated story — for a birthday, an anniversary, or someone remembered.</span>
+        <span class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#2E7D5B;border-radius:999px;padding:12px 22px;align-self:flex-start;">Enter Ode →</span>
+      </a>
+      <a href="#live" onclick="location.hash='live';return false;" style="display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E6E2D4;border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px -34px rgba(32,39,31,.42);">
+        <span style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#5C6B5E;background:#F1EEE2;border:1px solid #E6E2D4;border-radius:999px;padding:5px 12px;margin-bottom:14px;">For your whole event</span>
+        <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#20271F;margin-bottom:6px;">GatherWall Live</span>
+        <span style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A live wall where guests post photos &amp; messages to the big screen, all evening long.</span>
+        <span class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#20271F;background:#fff;border:1.5px solid #E6E2D4;border-radius:999px;padding:12px 22px;align-self:flex-start;">Explore Live →</span>
+      </a>
+    </div>
+
+    <p style="font-family:'Fraunces',Georgia,serif;font-size:16px;color:#5C6B5E;margin:30px 0 6px;">Live for the many. Ode for the one.</p>
+    <p style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#8a9488;margin:0;">Not sure? Honouring one person → Ode&nbsp;&nbsp;·&nbsp;&nbsp;Hosting a gathering → Live</p>
+  </div>
+</div>
+</div>
+
+<div id="screen-home" class="screen">
 <header class="nav"><div class="wrap nav-in">
   <div class="logo" style="cursor:pointer" onclick="goHome()"><span class="dot"></span>GatherWall</div>
   <nav class="nav-links">
@@ -1629,8 +1660,12 @@ function route(){
   if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='builder'){return openBuilder();}
   if(path==='create'){wallKind='live';applyVibe('celebration');applyTierGating();return go('create');}
-  // home + any homepage anchor (#formats, #how, #pricing): always reset to the brand palette
-  applyVibe('brand'); return go('home');
+  if(path==='live'||path==='home'){applyVibe('brand');return go('home');}
+  // GatherWall Live in-page anchors (#how, #formats, #pricing, etc.): show Live home + scroll
+  const liveAnchors=['how','formats','pricing','vibes','founder'];
+  if(liveAnchors.includes(path)){applyVibe('brand');go('home');const el=document.getElementById(path);if(el)el.scrollIntoView({behavior:'smooth'});return;}
+  // default: the GatherWall doorway (choose Ode or Live)
+  applyVibe('brand'); return go('door');
 }
 window.addEventListener('hashchange',route);
 
@@ -2234,7 +2269,7 @@ function toggleDark(){
   document.getElementById('darkBtn').textContent=wallDark?'◑ Light':'◐ Dark';
 }
 function exitWall(){ clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); stopWatchPublished(); viewMode='grid'; document.body.classList.remove('kioskmode'); go('home'); }
-function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); stopWatchPublished(); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('home'); } }
+function goHome(){ document.body.classList.remove('kioskmode'); clearInterval(spotTimer); clearInterval(wallTimer); stopManageWatch(); stopWatchPublished(); applyVibe('brand'); if(location.hash){ location.hash=''; } else { go('door'); } }
 function openGuestFromWall(){location.hash='guest?ev='+wallEv;}
 
 /* ===================== HOST CONTROL PANEL ===================== */
@@ -2387,7 +2422,7 @@ function burst(){
 
 /* ===================== BOOT ===================== */
 guestLang=defaultLang(); buildHomeLang(); applyHomeLang();
-if(location.hash){route();} else {applyVibe('brand');go('home');}
+if(location.hash){route();} else {applyVibe('brand');go('door');}
 
 /* ===================== HERO BIG-SCREEN (live tributes) ===================== */
 (function(){
