@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ode · by GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:title" content="Ode · by GatherWall">
+<meta property="og:description" content="An ode to someone you love — a keepsake song, an animated story, a memory wall, a memorial. Made for one person.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{
+    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f;
+    --bg:#F6F4EC; --bg2:#F1EEE2; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4; --soft:#FBFAF4;
+    --mem:#6E8E7B; --mem-soft:#F2F4EF;
+    --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
+    --shadow:0 24px 60px -34px rgba(32,39,31,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 460px at 88% -8%, rgba(194,160,88,.14), transparent 60%),
+      radial-gradient(820px 460px at 6% 4%, rgba(46,125,91,.10), transparent 55%),
+      var(--bg);min-height:100vh}
+  a{color:inherit}
+  .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .nav-in{max-width:980px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .logo small{font-family:var(--ui);font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .right{display:flex;align-items:center;gap:12px}
+  .lang select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 28px 7px 13px;cursor:pointer}
+  .lang{position:relative}
+  .lang::after{content:"";position:absolute;right:12px;top:50%;width:6px;height:6px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+  header.hero{text-align:center;padding:50px 0 8px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5.5vw,48px);line-height:1.05;letter-spacing:-.01em;margin:0 auto 14px;max-width:16ch}
+  .sub{color:var(--muted);font-size:17px;max-width:52ch;margin:0 auto}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:34px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .pcard.sig{border:2px solid var(--brand)}
+  .pcard.mem{background:var(--mem-soft);border-color:#dfe6df}
+  .chip{align-self:flex-start;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--brand2-d);background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.3);border-radius:999px;padding:4px 11px;margin-bottom:13px}
+  .pcard.mem .chip{color:#4f6a59;background:rgba(110,142,123,.14);border-color:rgba(110,142,123,.3)}
+  .pcard.sig .chip{color:var(--brand-d);background:rgba(46,125,91,.10);border-color:rgba(46,125,91,.25)}
+  .pcard h3{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.12;margin-bottom:7px}
+  .pcard p{font-size:14.5px;color:var(--muted);line-height:1.6;flex:1}
+  .price{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);margin:16px 0 4px}
+  .price small{font-family:var(--ui);font-size:13px;color:var(--muted);font-weight:400}
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px 18px;border-radius:13px;background:var(--brand);color:#fff;font-weight:600;font-size:15px;text-decoration:none;transition:background .15s,transform .15s}
+  .cta:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .cta.ghost{background:transparent;color:var(--brand-d);border:1.5px solid var(--line)}
+  .cta.ghost:hover{background:var(--soft)}
+  .ex{display:inline-block;margin-top:11px;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;text-align:center}
+  .ex:hover{text-decoration:underline}
+  .ctas{display:flex;flex-direction:column}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:38px}
+  footer a{color:var(--brand);text-decoration:none}
+  .footlinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall <small>· Ode</small></a>
+  <div class="right">
+    <div class="lang"><select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="cs">Čeština</option><option value="de">Deutsch</option>
+    </select></div>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Ode · by GatherWall</div>
+    <h1 data-i="h1">An ode to someone you love</h1>
+    <p class="sub" data-i="sub">Honour one person — a birthday, an anniversary, or a life remembered — with a keepsake made just for them.</p>
+  </header>
+
+  <div class="grid">
+    <!-- Memory Wall -->
+    <div class="pcard">
+      <span class="chip" data-i="mw_chip">For a celebration</span>
+      <h3 data-i="mw_h">Memory Wall</h3>
+      <p data-i="mw_p">A shared wall the whole family fills over time — photos &amp; messages for a birthday, anniversary, wedding or retirement. Reveal it all on the day.</p>
+      <div class="price" data-i="mw_price">$10 <small>+ VAT · free to build</small></div>
+      <div class="ctas"><a class="cta" href="index.html#memorywall" data-i="mw_cta">Create a Memory Wall ▸</a></div>
+    </div>
+
+    <!-- Memorial & Eulogy -->
+    <div class="pcard mem">
+      <span class="chip" data-i="me_chip">In loving memory</span>
+      <h3 data-i="me_h">Memorial &amp; Eulogy</h3>
+      <p data-i="me_p">A dignified online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family &amp; friends. A lasting place to remember.</p>
+      <div class="price" data-i="me_price">$10 <small>+ VAT · free to build</small></div>
+      <div class="ctas"><a class="cta" href="index.html#memorial" data-i="me_cta">Create a memorial ▸</a>
+        <a class="ex" href="memorial-demo.html" target="_blank" data-i="me_ex">View an example →</a></div>
+    </div>
+
+    <!-- Animated Keepsake Story (signature) -->
+    <div class="pcard sig">
+      <span class="chip" data-i="ks_chip">Signature gift</span>
+      <h3 data-i="ks_h">Animated Keepsake Story</h3>
+      <p data-i="ks_p">A bespoke song and animated story of their life — written and made just for them, played at the event and kept forever.</p>
+      <div class="price" data-i="ks_price">$39 <small>one-time</small></div>
+      <div class="ctas"><a class="cta" href="keepsake-preview.html" data-i="ks_cta">✨ See your lyrics — free ▸</a>
+        <a class="ex" href="keepsake-birthday-demo.html" target="_blank" data-i="ks_ex">Hear an example →</a></div>
+    </div>
+
+    <!-- Event Bundle -->
+    <div class="pcard">
+      <span class="chip" data-i="eb_chip">Best value</span>
+      <h3 data-i="eb_h">Event Bundle</h3>
+      <p data-i="eb_p">Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
+      <div class="price" data-i="eb_price">$49 <small>one-time</small></div>
+      <div class="ctas"><a class="cta ghost" href="index.html#bundle" data-i="eb_cta">Get the bundle ▸</a>
+        <a class="ex" href="keepsake-photo-demo.html" target="_blank" data-i="eb_ex">See an example →</a></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footlinks">
+      <a href="samples.html" data-i="f_hear">🎧 Hear real keepsakes</a>
+      <a href="wall-of-love.html" data-i="f_wol">💛 Wall of Love</a>
+    </div>
+    <a href="index.html" data-i="foot">← All of GatherWall</a>
+  </footer>
+</div>
+
+<script>
+const I18N={
+  en:{h1:"An ode to someone you love",sub:"Honour one person — a birthday, an anniversary, or a life remembered — with a keepsake made just for them.",
+    mw_chip:"For a celebration",mw_h:"Memory Wall",mw_p:"A shared wall the whole family fills over time — photos & messages for a birthday, anniversary, wedding or retirement. Reveal it all on the day.",mw_price:"$10 + VAT · free to build",mw_cta:"Create a Memory Wall ▸",
+    me_chip:"In loving memory",me_h:"Memorial & Eulogy",me_p:"A dignified online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family & friends. A lasting place to remember.",me_price:"$10 + VAT · free to build",me_cta:"Create a memorial ▸",me_ex:"View an example →",
+    ks_chip:"Signature gift",ks_h:"Animated Keepsake Story",ks_p:"A bespoke song and animated story of their life — written and made just for them, played at the event and kept forever.",ks_price:"$39 one-time",ks_cta:"✨ See your lyrics — free ▸",ks_ex:"Hear an example →",
+    eb_chip:"Best value",eb_h:"Event Bundle",eb_p:"Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.",eb_price:"$49 one-time",eb_cta:"Get the bundle ▸",eb_ex:"See an example →",
+    f_hear:"🎧 Hear real keepsakes",f_wol:"💛 Wall of Love",foot:"← All of GatherWall"},
+  fr:{h1:"Une ode à ceux qu'on aime",sub:"Honorez une personne — un anniversaire, des noces, ou une vie dont on se souvient — avec un souvenir créé rien que pour elle.",
+    mw_chip:"Pour une célébration",mw_h:"Mur de souvenirs",mw_p:"Un mur partagé que toute la famille remplit au fil du temps — photos et messages pour un anniversaire, des noces, un mariage ou un départ en retraite. Tout se révèle le jour J.",mw_price:"10 $ + TVA · gratuit à créer",mw_cta:"Créer un Mur de souvenirs ▸",
+    me_chip:"En mémoire affectueuse",me_h:"Hommage & Éloge funèbre",me_p:"Un hommage en ligne digne — un récit de vie et un éloge, l'allumage de bougies, une chronologie et les souvenirs partagés de la famille et des amis. Un lieu durable du souvenir.",me_price:"10 $ + TVA · gratuit à créer",me_cta:"Créer un hommage ▸",me_ex:"Voir un exemple →",
+    ks_chip:"Cadeau signature",ks_h:"Souvenir animé",ks_p:"Une chanson sur mesure et une histoire animée de leur vie — écrites et créées rien que pour eux, diffusées à l'événement et gardées pour toujours.",ks_price:"39 $ paiement unique",ks_cta:"✨ Voir vos paroles — gratuit ▸",ks_ex:"Écouter un exemple →",
+    eb_chip:"Meilleure offre",eb_h:"Pack Événement",eb_p:"Les deux en un : le Souvenir animé plus un Mur d'hommages en direct à votre événement — leur histoire sur un écran, les invités en direct sur l'autre.",eb_price:"49 $ paiement unique",eb_cta:"Obtenir le pack ▸",eb_ex:"Voir un exemple →",
+    f_hear:"🎧 Écouter de vrais souvenirs",f_wol:"💛 Mur d'amour",foot:"← Tout GatherWall"},
+  es:{h1:"Una oda a quien amas",sub:"Honra a una persona — un cumpleaños, un aniversario o una vida recordada — con un recuerdo hecho solo para ella.",
+    mw_chip:"Para una celebración",mw_h:"Muro de recuerdos",mw_p:"Un muro compartido que toda la familia llena con el tiempo — fotos y mensajes para un cumpleaños, aniversario, boda o jubilación. Se revela todo el día del evento.",mw_price:"10 $ + IVA · gratis crearlo",mw_cta:"Crear un Muro de recuerdos ▸",
+    me_chip:"En memoria",me_h:"Memorial y Elogio",me_p:"Un memorial en línea con dignidad — una historia de vida y elogio, encender velas, una cronología y recuerdos compartidos de familia y amigos. Un lugar duradero para recordar.",me_price:"10 $ + IVA · gratis crearlo",me_cta:"Crear un memorial ▸",me_ex:"Ver un ejemplo →",
+    ks_chip:"Regalo estrella",ks_h:"Recuerdo animado",ks_p:"Una canción a medida y una historia animada de su vida — escritas y hechas solo para ellos, reproducidas en el evento y guardadas para siempre.",ks_price:"39 $ pago único",ks_cta:"✨ Ver tu letra — gratis ▸",ks_ex:"Escuchar un ejemplo →",
+    eb_chip:"Mejor valor",eb_h:"Pack Evento",eb_p:"Ambos en uno: el Recuerdo animado más un Muro de homenajes en vivo en tu evento — su historia en una pantalla, los invitados en directo en otra.",eb_price:"49 $ pago único",eb_cta:"Obtener el pack ▸",eb_ex:"Ver un ejemplo →",
+    f_hear:"🎧 Escuchar recuerdos reales",f_wol:"💛 Muro de amor",foot:"← Todo GatherWall"},
+  cs:{h1:"Óda pro někoho, koho milujete",sub:"Vzdejte poctu jednomu člověku — k narozeninám, výročí nebo na památku — vzpomínkou vytvořenou jen pro něj.",
+    mw_chip:"K oslavě",mw_h:"Zeď vzpomínek",mw_p:"Sdílená zeď, kterou celá rodina postupně zaplňuje — fotky a vzkazy k narozeninám, výročí, svatbě nebo do důchodu. Vše se odhalí v den oslavy.",mw_price:"10 $ + DPH · vytvoření zdarma",mw_cta:"Vytvořit Zeď vzpomínek ▸",
+    me_chip:"S láskou vzpomínáme",me_h:"Vzpomínka & Smuteční řeč",me_p:"Důstojná online vzpomínka — životní příběh a smuteční řeč, zapalování svíček, časová osa a sdílené vzpomínky rodiny a přátel. Trvalé místo pro vzpomínání.",me_price:"10 $ + DPH · vytvoření zdarma",me_cta:"Vytvořit vzpomínku ▸",me_ex:"Zobrazit ukázku →",
+    ks_chip:"Výjimečný dárek",ks_h:"Animovaný vzpomínkový příběh",ks_p:"Píseň na míru a animovaný příběh jejich života — napsané a vytvořené jen pro ně, přehrané na akci a uchované navždy.",ks_price:"39 $ jednorázově",ks_cta:"✨ Zobrazit text — zdarma ▸",ks_ex:"Poslechnout ukázku →",
+    eb_chip:"Nejlepší cena",eb_h:"Balíček Akce",eb_p:"Obojí v jednom: Animovaný vzpomínkový příběh plus Živá zeď vzpomínek na vaší akci — jejich příběh na jedné obrazovce, hosté živě na druhé.",eb_price:"49 $ jednorázově",eb_cta:"Získat balíček ▸",eb_ex:"Zobrazit ukázku →",
+    f_hear:"🎧 Poslechnout skutečné vzpomínky",f_wol:"💛 Zeď lásky",foot:"← Celý GatherWall"},
+  de:{h1:"Eine Ode an einen geliebten Menschen",sub:"Ehren Sie einen Menschen — zum Geburtstag, Jubiläum oder im Gedenken — mit einer Erinnerung, die nur für ihn gemacht ist.",
+    mw_chip:"Zum Feiern",mw_h:"Erinnerungswand",mw_p:"Eine geteilte Wand, die die ganze Familie nach und nach füllt — Fotos und Nachrichten zum Geburtstag, Jubiläum, zur Hochzeit oder zum Ruhestand. Am Tag wird alles enthüllt.",mw_price:"10 $ + MwSt. · kostenlos erstellen",mw_cta:"Erinnerungswand erstellen ▸",
+    me_chip:"In liebevollem Gedenken",me_h:"Gedenkseite & Nachruf",me_p:"Eine würdevolle Online-Gedenkseite — eine Lebensgeschichte und ein Nachruf, Kerzen anzünden, eine Zeitleiste und geteilte Erinnerungen von Familie und Freunden. Ein bleibender Ort des Gedenkens.",me_price:"10 $ + MwSt. · kostenlos erstellen",me_cta:"Gedenkseite erstellen ▸",me_ex:"Beispiel ansehen →",
+    ks_chip:"Signature-Geschenk",ks_h:"Animierte Erinnerungsgeschichte",ks_p:"Ein maßgeschneidertes Lied und eine animierte Geschichte ihres Lebens — nur für sie geschrieben und gemacht, beim Event gezeigt und für immer behalten.",ks_price:"39 $ einmalig",ks_cta:"✨ Ihren Liedtext sehen — kostenlos ▸",ks_ex:"Beispiel anhören →",
+    eb_chip:"Bestes Angebot",eb_h:"Event-Paket",eb_p:"Beides in einem: die animierte Erinnerungsgeschichte plus eine Live-Erinnerungswand bei Ihrem Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.",eb_price:"49 $ einmalig",eb_cta:"Paket holen ▸",eb_ex:"Beispiel ansehen →",
+    f_hear:"🎧 Echte Erinnerungen anhören",f_wol:"💛 Wand der Liebe",foot:"← Ganz GatherWall"}
+};
+let LANG="en";
+function t(){ return I18N[LANG]||I18N.en; }
+function applyLang(l){
+  LANG=I18N[l]?l:"en"; document.documentElement.lang=LANG;
+  document.querySelectorAll("[data-i]").forEach(el=>{ const k=el.getAttribute("data-i"); if(t()[k]!=null) el.textContent=t()[k]; });
+  try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
+  const sel=document.getElementById("lang"); if(sel) sel.value=LANG;
+}
+(function init(){
+  let l="en";
+  try{ const s=localStorage.getItem("gw_lang"); if(s&&I18N[s]) l=s; }catch(e){}
+  if(l==="en"){ const n=(navigator.language||"en").slice(0,2); if(I18N[n]) l=n; }
+  document.getElementById("lang").onchange=e=>applyLang(e.target.value);
+  applyLang(l);
+})();
+</script>
+</body>
+</html>
