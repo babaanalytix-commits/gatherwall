@@ -794,6 +794,8 @@ body.kioskmode header.nav{display:none;}
   <p class="muted" style="margin-bottom:8px;">A few gentle details create a calm, lasting page where family near and far can share memories. Build and preview it free — you only pay at the final step to publish.</p>
   <div class="note-firebase" style="margin-bottom:22px;">Nothing is published or charged until you tap “Publish memorial” at the bottom.</div>
 
+  <div id="memResume" style="display:none;margin-bottom:22px;"></div>
+
   <div class="card sb-sec"><h3>1 · Who it honours</h3>
     <div class="field"><label>Name of the person</label><input id="memName" placeholder="e.g. Margaret Wilson"></div>
     <div class="row2">
@@ -1569,7 +1571,7 @@ function adaptBuilder(){
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
-  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||''};
+  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||'', draft:params.get('draft')||''};
 }
 /* ===================== DOORWAY i18n ===================== */
 const DOOR={
@@ -1583,7 +1585,7 @@ function buildDoorLang(){ var bar=document.getElementById('doorLang'); if(!bar)r
 function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_hear',t.hear);S('d_ode_k',t.ok);S('d_ode_d',t.od);S('d_ode_c',t.oc);S('d_live_k',t.lk);S('d_live_d',t.ld);S('d_live_c',t.lc);S('d_motto',t.motto);S('d_help',t.help);S('d_wol',t.wol); }
 
 function route(){
-  const {path,ev,kiosk,key}=parseHash();
+  const {path,ev,kiosk,key,draft}=parseHash();
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
@@ -1592,7 +1594,7 @@ function route(){
   if(path==='live'||path==='home'){applyVibe('brand');return go('home');}
   // Ode hub deep-links into the family/individual build flows
   if(path==='memorywall'){startFamilyWall();return;}
-  if(path==='memorial'){applyVibe('memorial');return go('memorial');}
+  if(path==='memorial'){applyVibe('memorial');go('memorial');initMemorialBuilder(draft);return;}
   if(path==='bundle'){applyVibe('brand');return go('bundle');}
   if(path==='family'){applyVibe('brand');return go('family');}
   // GatherWall Live in-page anchors (#how, #formats, #pricing, etc.): show Live home + scroll
@@ -1711,28 +1713,113 @@ function previewMemorial(){
     '</div>';
 }
 let memSavedId='';
+const MEM_DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+/* ---- trustless draft: link = key. We keep no accounts, no emails. ---- */
+function memDraftId(){
+  if(!memSavedId){ memSavedId=uid(); try{ localStorage.setItem('gw_mem_lastdraft', memSavedId); }catch(e){} }
+  return memSavedId;
+}
+function memCollect(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  return { id:memDraftId(), name:g('memName'), kind:'memorial', vibe:'memorial',
+    born:g('memBorn'), died:g('memDied'), eulogy:g('memMessage'), from:g('memFrom'),
+    photo:memPhotoData||'', published:false, ts:Date.now() };
+}
+function memHasContent(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  return !!(g('memName')||g('memMessage')||g('memBorn')||g('memDied')||g('memFrom')||memPhotoData);
+}
+function memSaveRemote(rec){
+  return fetch(MEM_DB+'/events/'+rec.id+'.json',
+    {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)});
+}
+/* Autosave as they type — local instantly, cloud debounced. */
+let memAutoT=null;
+function memAutosave(){
+  if(!memHasContent()) return;
+  const rec=memCollect();
+  try{ localStorage.setItem('gw_mem_cache_'+rec.id, JSON.stringify(rec)); localStorage.setItem('gw_mem_lastdraft', rec.id); }catch(e){}
+  renderMemResume(rec.id);
+  if(USE_FB){ clearTimeout(memAutoT); memAutoT=setTimeout(()=>{ memSaveRemote(rec).catch(()=>{}); }, 1200); }
+}
+function memResumeURL(id){ return baseURL()+'#memorial?draft='+id; }
+function memLiveURL(id){ return baseURL().replace(/[^/]*$/,'') + 'memorial.html?id=' + id; }
+function memMailto(url, subject, body){
+  location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+}
+function memEmailResume(){
+  const id=memDraftId(); const url=memResumeURL(id);
+  const nm=(document.getElementById('memName')||{}).value||'your memorial';
+  memMailto(url, 'Your private GatherWall link — '+nm,
+    "We don't keep your records, so here's your private link — it's the only way back.\n\nPick up right where you left off, on any device:\n"+url+"\n\nKeep this email safe. 💛\nGatherWall");
+}
+function memEmailLive(){
+  const id=memDraftId(); const url=memLiveURL(id);
+  const nm=(document.getElementById('memName')||{}).value||'your memorial';
+  memMailto(url, 'Your GatherWall memorial — '+nm,
+    "We don't store your details, so this private link is the only way back to "+nm+".\n\nView, share or finish publishing here:\n"+url+"\n\nKeep this email safe. 💛\nGatherWall");
+}
+function memCopy(inputId){ var i=document.getElementById(inputId); if(!i)return; i.select(); try{document.execCommand('copy');toast('Link copied');}catch(e){} }
+/* The "save your link" panel shown while building — privacy as the pitch. */
+function renderMemResume(id){
+  const box=document.getElementById('memResume'); if(!box) return;
+  const url=memResumeURL(id);
+  box.style.display='block';
+  box.innerHTML=
+    '<div style="border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:color-mix(in srgb,var(--brand) 4%,#fff);">'+
+    '<div style="font-weight:700;font-size:14px;margin-bottom:4px;">🔒 We keep no accounts — your link is your key</div>'+
+    '<p class="muted" style="font-size:13px;margin-bottom:12px;">Your work saves automatically, but we store no records tied to you. <b>Email yourself this private link</b> to pick up exactly where you left off — on any device.</p>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
+      '<input id="memResumeLink" readonly value="'+url+'" style="flex:1;min-width:180px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:12px;">'+
+      '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memCopy(\'memResumeLink\')">Copy</button>'+
+      '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memEmailResume()">✉️ Email me my link</button>'+
+    '</div>'+
+    '</div>';
+}
+/* Restore a draft on entry: from the URL link (any device) or this browser. */
+function memPrefill(rec){
+  const set=(id,v)=>{const e=document.getElementById(id); if(e&&v!=null) e.value=v;};
+  set('memName',rec.name); set('memBorn',rec.born); set('memDied',rec.died);
+  set('memMessage',rec.eulogy); set('memFrom',rec.from);
+  if(rec.photo){ memPhotoData=rec.photo; const p=document.getElementById('memPhotoPreview'); if(p){ p.innerHTML=''; const im=document.createElement('img'); im.src=rec.photo; p.appendChild(im); } }
+  memSavedId=rec.id||memSavedId;
+}
+let memAutoWired=false;
+function initMemorialBuilder(draftId){
+  // wire autosave listeners once
+  if(!memAutoWired){
+    ['memName','memBorn','memDied','memMessage','memFrom'].forEach(function(id){
+      const e=document.getElementById(id); if(e) e.addEventListener('input', memAutosave);
+    });
+    memAutoWired=true;
+  }
+  if(draftId){
+    // resume from a shared/emailed link — works on any device
+    memSavedId=draftId;
+    fetch(MEM_DB+'/events/'+draftId+'.json').then(r=>r.json()).then(rec=>{
+      if(rec&&rec.kind==='memorial'){ memPrefill(rec); renderMemResume(draftId); toast('Welcome back — your memorial is restored'); }
+      else { renderMemResume(draftId); }
+    }).catch(()=>{ renderMemResume(draftId); });
+    return;
+  }
+  // otherwise restore this browser's last draft, if any
+  try{
+    const last=localStorage.getItem('gw_mem_lastdraft');
+    if(last && !memHasContent()){
+      const cached=localStorage.getItem('gw_mem_cache_'+last);
+      if(cached){ memPrefill(JSON.parse(cached)); renderMemResume(last); }
+    }
+  }catch(e){}
+}
 function saveMemorialRecord(cb){
   const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
   const name=g('memName');
   if(!name){ toast('Please add the name of the person'); return; }
-  const rec={
-    id: memSavedId || uid(),
-    name: name,
-    kind: 'memorial',
-    vibe: 'memorial',
-    born: g('memBorn'),
-    died: g('memDied'),
-    eulogy: g('memMessage'),
-    from: g('memFrom'),
-    photo: memPhotoData || '',
-    published: false,
-    ts: Date.now()
-  };
+  const rec=memCollect(); rec.name=name; rec.ts=Date.now();
   memSavedId = rec.id;
   if(USE_FB){
     // REST PUT is more reliable than the SDK socket for this one-shot write
-    fetch('https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app/events/'+rec.id+'.json',
-      {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)})
+    memSaveRemote(rec)
       .then(r=>{ if(r.ok){ cb&&cb(rec); } else { toast('Could not save — please try again'); } })
       .catch(()=>{ toast('Could not save — check your connection'); });
   } else {
@@ -1740,7 +1827,6 @@ function saveMemorialRecord(cb){
     cb&&cb(rec);
   }
 }
-function memLiveURL(id){ return baseURL().replace(/[^/]*$/,'') + 'memorial.html?id=' + id; }
 function publishMemorial(){
   saveMemorialRecord(rec=>{
     const url=memLiveURL(rec.id);
@@ -1750,11 +1836,12 @@ function publishMemorial(){
       box.innerHTML=
         '<div style="border:2px solid var(--brand);border-radius:16px;padding:22px;background:color-mix(in srgb,var(--brand) 5%,#fff);text-align:left;">'+
         '<h3 style="font-size:19px;margin-bottom:6px;">Your memorial page is ready 🕯️</h3>'+
-        '<p class="muted" style="font-size:14px;margin-bottom:14px;">It is live and shareable now. Publishing ($10) removes the draft notice and keeps it online for good.</p>'+
-        '<label style="font-size:13px;font-weight:600;">Shareable link</label>'+
-        '<div style="display:flex;gap:8px;margin:6px 0 16px;">'+
-          '<input id="memLink" readonly value="'+url+'" style="flex:1;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:13px;">'+
-          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="(function(){var i=document.getElementById(\'memLink\');i.select();try{document.execCommand(\'copy\');toast(\'Link copied\');}catch(e){}})()">Copy</button>'+
+        '<p class="muted" style="font-size:14px;margin-bottom:14px;">It\'s live and shareable now. <b>We keep no records tied to you</b> — so this private link is the only way back. Email it to yourself to keep it safe. Publishing ($10) removes the draft notice and keeps it online for good.</p>'+
+        '<label style="font-size:13px;font-weight:600;">Your private link</label>'+
+        '<div style="display:flex;gap:8px;margin:6px 0 12px;flex-wrap:wrap;">'+
+          '<input id="memLink" readonly value="'+url+'" style="flex:1;min-width:180px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:13px;">'+
+          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memCopy(\'memLink\')">Copy</button>'+
+          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memEmailLive()">✉️ Email me my link</button>'+
         '</div>'+
         '<div style="display:flex;gap:10px;flex-wrap:wrap;">'+
           '<a class="btn btn-ghost" href="'+url+'" target="_blank" style="flex:1;justify-content:center;text-align:center;">👀 View memorial</a>'+
