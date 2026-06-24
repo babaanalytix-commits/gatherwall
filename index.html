@@ -1069,6 +1069,7 @@ const VIBES = {
   memorial:{label:'In Memory',emoji:'🕊️',brand:'#6E8E7B',brand2:'#A9B89C',brand3:'#C9B89A',bg:'#F5F4EF',ink:'#232A26'},
   corporate:{label:'Corporate',emoji:'🏆',brand:'#2D6CDF',brand2:'#16B8A6',brand3:'#5B8DEF',bg:'#F3F7FC',ink:'#10243F'},
   brand:{label:'GatherWall',emoji:'✦',brand:'#2E7D5B',brand2:'#C2A058',brand3:'#6FB39A',bg:'#F6F4EC',ink:'#20271F'},
+  ode:{label:'Ode',emoji:'🤍',brand:'#2E7D5B',brand2:'#3E8E6B',brand3:'#6FB39A',bg:'#F6F4EC',ink:'#20271F'},
 };
 const PROMPTS={
   celebration:["A favourite memory","What you love most about them","Your birthday wish","A moment you'll never forget"],
@@ -1527,11 +1528,11 @@ function buy(slug){ location.href='checkout.html?p='+slug; }
    The same wall engine powers both the paid Live Tribute Wall and the free
    family Memory Wall. wallKind decides how the builder, share screen and
    guest/wall gating behave. */
-function startLiveWall(){ wallKind='live'; applyVibe('celebration'); go('create'); }
+function startLiveWall(){ wallKind='live'; applyVibe('brand'); go('create'); }
 function startFamilyWall(){
   wallKind='family';
-  pickedVibe='celebration';
-  applyVibe('celebration');
+  pickedVibe='ode';
+  applyVibe('ode');
   go('create');
   // family walls are always collected over time, never live-on-the-day
   const md=document.getElementById('evMode'); if(md) md.value='before';
@@ -1601,7 +1602,7 @@ function route(){
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
   if(path==='builder'){return openBuilder();}
-  if(path==='create'){wallKind='live';applyVibe('celebration');applyTierGating();return go('create');}
+  if(path==='create'){wallKind='live';applyVibe('brand');applyTierGating();return go('create');}
   if(path==='live'||path==='home'){applyVibe('brand');return go('home');}
   // Ode hub deep-links into the family/individual build flows
   if(path==='memorywall'){startFamilyWall();return;}
