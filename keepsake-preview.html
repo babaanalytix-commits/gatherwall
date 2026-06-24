@@ -93,6 +93,13 @@
   .trust span{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
   footer{text-align:center;color:var(--muted);font-size:12.5px;margin:30px 0 40px;line-height:1.7}
   footer a{color:var(--brand)}
+  .bundle{margin-top:16px;border:1px dashed var(--brand3);background:#f3f8f4;border-radius:16px;padding:16px 16px 18px}
+  .bundle-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .bundle-t{font-weight:700;font-size:15px;color:var(--ink)}
+  .bundle-d{font-size:13px;color:var(--muted);margin-top:4px}
+  .bundle-price{font-family:var(--serif);font-weight:600;font-size:24px;color:var(--brand);white-space:nowrap}
+  .bundle-btn{width:100%;margin-top:14px;padding:14px;font-size:15.5px;font-weight:600;color:var(--brand);background:#fff;border:1.5px solid var(--brand);border-radius:12px;cursor:pointer;transition:background .15s,color .15s}
+  .bundle-btn:hover{background:var(--brand);color:#fff}
 </style>
 </head>
 <body>
@@ -186,6 +193,16 @@
         <span data-i="t1">🔒 Private &amp; secure</span>
         <span data-i="t2">🎧 Hear 2 versions</span>
         <span data-i="t3">💛 Kept forever</span>
+      </div>
+      <div class="bundle">
+        <div class="bundle-head">
+          <div>
+            <div class="bundle-t" id="b_title">Add a Live Tribute Wall</div>
+            <div class="bundle-d" id="b_desc">Guests scan a QR and their photos &amp; messages appear live on the big screen — make it an Event Bundle.</div>
+          </div>
+          <div class="bundle-price">$49</div>
+        </div>
+        <button class="bundle-btn" id="b_cta" onclick="goBundle()">Add the Live Wall — Event Bundle $49 ▸</button>
       </div>
       <button class="again" id="again" data-i="again">↻ Tweak the details &amp; try again</button>
       <p class="note" data-i="cta_note">+ VAT where applicable. You'll get the finished song plus an animated story page with your photos.</p>
@@ -358,6 +375,38 @@ const STYLES = [
    style:"smooth modern R&B, soulful vocal, lush and tender"}
 ];
 
+const BUNDLE = {
+  en:{title:"Add a Live Tribute Wall",desc:"Guests scan a QR and their photos & messages appear live on the big screen — make it an Event Bundle.",cta:"Add the Live Wall — Event Bundle $49 ▸"},
+  fr:{title:"Ajoutez un Mur d'hommages en direct",desc:"Les invités scannent un QR et leurs photos & messages s'affichent en direct sur grand écran — passez au Pack Événement.",cta:"Ajouter le Mur en direct — Pack Événement 49 $ ▸"},
+  es:{title:"Añade un Muro de homenajes en vivo",desc:"Los invitados escanean un QR y sus fotos y mensajes aparecen en directo en la pantalla grande — conviértelo en un Pack Evento.",cta:"Añadir el Muro en vivo — Pack Evento 49 $ ▸"},
+  cs:{title:"Přidejte živou Zeď vzpomínek",desc:"Hosté naskenují QR a jejich fotky a vzkazy se živě objeví na velké obrazovce — udělejte z toho Balíček události.",cta:"Přidat živou Zeď — Balíček události 49 $ ▸"},
+  de:{title:"Live-Erinnerungswand hinzufügen",desc:"Gäste scannen einen QR-Code und ihre Fotos & Nachrichten erscheinen live auf der großen Leinwand — machen Sie ein Event-Bundle daraus.",cta:"Live-Wand hinzufügen — Event-Bundle 49 $ ▸"}
+};
+const VIBE_COLOR={celebration:"#FF4D7E",wedding:"#C98BB0",memorial:"#6E8E7B"};
+const WALL_OPTS={music:"on",compose:"ai",photos:true,video:false,voice:false,dedications:true,moderation:false};
+function wuid(){return Math.random().toString(36).slice(2,8);}
+function pickVibeFor(occasion){ const o=(occasion||"").toLowerCase();
+  if(/wedding|married|marriage|engag|anniversa/.test(o)) return "wedding";
+  if(/memor|memory|loving|passed|tribute|funeral|rip|rest in/.test(o)) return "memorial";
+  return "celebration"; }
+let CUR_ORDER="", CUR_BRIEF=null;
+async function goBundle(){
+  const btn=document.getElementById("b_cta");
+  if(!CUR_ORDER){ if(btn)btn.textContent=(BUNDLE[LANG]||BUNDLE.en).cta; return; }
+  if(btn){ btn.disabled=true; btn.textContent="…"; }
+  try{
+    const b=CUR_BRIEF||{};
+    const vibe=pickVibeFor(b.occasion);
+    const ev=wuid();
+    const name=(b.for||"Our celebration")+(b.occasion?(" — "+b.occasion):"");
+    const event={id:ev,name:name,kind:"live",vibe:vibe,color:VIBE_COLOR[vibe]||"#FF4D7E",
+      host:b.from||"",hostLink:"",date:"",mode:"live",tier:"basic",published:false,
+      manageKey:wuid()+wuid(),opts:WALL_OPTS,bundleOf:CUR_ORDER,createdAt:Date.now()};
+    await fetch(FIREBASE_DB+"/events/"+ev+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(event)});
+    await fetch(FIREBASE_DB+"/orders/"+CUR_ORDER+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({bundle:true,ev:ev,product:"event-bundle"})});
+    location.href="checkout.html?p=event-bundle&order="+encodeURIComponent(CUR_ORDER)+"&ev="+encodeURIComponent(ev)+"&for="+encodeURIComponent(b.for||"");
+  }catch(e){ if(btn){ btn.disabled=false; btn.textContent=(BUNDLE[LANG]||BUNDLE.en).cta; } }
+}
 let LANG = "en";
 const $ = id => document.getElementById(id);
 
@@ -372,6 +421,10 @@ function applyLang(l){
   STYLES.forEach((s,i)=>{ const o=document.createElement("option"); o.value=String(i); o.textContent=s.label[LANG]||s.label.en; sel.appendChild(o); });
   sel.selectedIndex=cur;
   $("go").innerHTML = t.btn;
+  const bt=BUNDLE[LANG]||BUNDLE.en;
+  if($("b_title")) $("b_title").textContent=bt.title;
+  if($("b_desc")) $("b_desc").textContent=bt.desc;
+  if($("b_cta")) $("b_cta").textContent=bt.cta;
   refreshCount();
   try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
 }
@@ -454,6 +507,7 @@ async function preview(){
         try{ await fetch(FIREBASE_DB+"/photos/"+orderId+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(PHOTOS)}); }catch(e){}
       }
       try{ localStorage.setItem("gw_order",orderId); }catch(e){}
+      CUR_ORDER=orderId; CUR_BRIEF=b;
       $("buy").href="checkout.html?p=animated-keepsake-story&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for);
     }catch(e){ $("buy").href="checkout.html?p=animated-keepsake-story&for="+encodeURIComponent(b.for); }
     $("form").style.display="none"; $("out").style.display="block";
