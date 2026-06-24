@@ -380,30 +380,31 @@ body.kioskmode header.nav{display:none;}
 <style>@media(max-width:640px){#screen-door .door-grid{grid-template-columns:1fr!important}#screen-door .door-cta{align-self:stretch!important;justify-content:center!important}}</style>
 <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;background:radial-gradient(900px 460px at 88% -8%,rgba(194,160,88,.14),transparent 60%),radial-gradient(820px 460px at 6% 4%,rgba(46,125,91,.10),transparent 55%),#F6F4EC;">
   <div style="text-align:center;max-width:760px;width:100%;">
+    <div id="doorLang" style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;"></div>
     <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;">
       <span style="width:30px;height:28px;display:inline-block;background:url('favicon.svg') center/contain no-repeat;"></span>
       <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:26px;color:#20271F;">GatherWall</span>
     </div>
-    <p style="font-family:'Inter',system-ui,sans-serif;color:#5C6B5E;font-size:16px;margin:0 0 36px;">Ways to gather the people who matter</p>
+    <p id="d_tag" style="font-family:'Inter',system-ui,sans-serif;color:#5C6B5E;font-size:16px;margin:0 0 36px;">Ways to gather the people who matter</p>
 
     <div class="door-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left;">
       <a href="keepsake-preview.html" style="display:flex;flex-direction:column;text-decoration:none;background:#fff;border:2px solid #2E7D5B;border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px -34px rgba(32,39,31,.42);">
-        <span style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#a9883f;background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.32);border-radius:999px;padding:5px 12px;margin-bottom:14px;">For one person you love</span>
+        <span id="d_ode_k" style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#a9883f;background:rgba(194,160,88,.14);border:1px solid rgba(194,160,88,.32);border-radius:999px;padding:5px 12px;margin-bottom:14px;">For one person you love</span>
         <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#20271F;margin-bottom:6px;">Ode</span>
-        <span style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A keepsake song &amp; animated story — for a birthday, an anniversary, or someone remembered.</span>
-        <span class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#2E7D5B;border-radius:999px;padding:12px 22px;align-self:flex-start;">Enter Ode →</span>
+        <span id="d_ode_d" style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A keepsake song &amp; animated story — for a birthday, an anniversary, or someone remembered.</span>
+        <span id="d_ode_c" class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#2E7D5B;border-radius:999px;padding:12px 22px;align-self:flex-start;">Enter Ode →</span>
       </a>
       <a href="#live" onclick="location.hash='live';return false;" style="display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E6E2D4;border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px -34px rgba(32,39,31,.42);">
-        <span style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#5C6B5E;background:#F1EEE2;border:1px solid #E6E2D4;border-radius:999px;padding:5px 12px;margin-bottom:14px;">For your whole event</span>
+        <span id="d_live_k" style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#5C6B5E;background:#F1EEE2;border:1px solid #E6E2D4;border-radius:999px;padding:5px 12px;margin-bottom:14px;">For your whole event</span>
         <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#20271F;margin-bottom:6px;">GatherWall Live</span>
-        <span style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A live wall where guests post photos &amp; messages to the big screen, all evening long.</span>
-        <span class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#20271F;background:#fff;border:1.5px solid #E6E2D4;border-radius:999px;padding:12px 22px;align-self:flex-start;">Explore Live →</span>
+        <span id="d_live_d" style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A live wall where guests post photos &amp; messages to the big screen, all evening long.</span>
+        <span id="d_live_c" class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#20271F;background:#fff;border:1.5px solid #E6E2D4;border-radius:999px;padding:12px 22px;align-self:flex-start;">Explore Live →</span>
       </a>
     </div>
 
-    <p style="font-family:'Fraunces',Georgia,serif;font-size:16px;color:#5C6B5E;margin:30px 0 6px;">Live for the many. Ode for the one.</p>
-    <p style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#8a9488;margin:0;">Not sure? Honouring one person → Ode&nbsp;&nbsp;·&nbsp;&nbsp;Hosting a gathering → Live</p>
-    <p style="margin:24px 0 0;"><a href="wall-of-love.html" style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#a9883f;text-decoration:none;border-bottom:1px solid rgba(169,136,63,.35);padding-bottom:1px;">💛 Read the Wall of Love</a></p>
+    <p id="d_motto" style="font-family:'Fraunces',Georgia,serif;font-size:16px;color:#5C6B5E;margin:30px 0 6px;">Live for the many. Ode for the one.</p>
+    <p id="d_help" style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#8a9488;margin:0;">Not sure? Honouring one person → Ode&nbsp;&nbsp;·&nbsp;&nbsp;Hosting a gathering → Live</p>
+    <p style="margin:24px 0 0;"><a id="d_wol" href="wall-of-love.html" style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#a9883f;text-decoration:none;border-bottom:1px solid rgba(169,136,63,.35);padding-bottom:1px;">💛 Read the Wall of Love</a></p>
   </div>
 </div>
 </div>
@@ -1655,6 +1656,17 @@ function parseHash(){
   const params=new URLSearchParams(q||'');
   return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||''};
 }
+/* ===================== DOORWAY i18n ===================== */
+const DOOR={
+  en:{tag:"Ways to gather the people who matter",ok:"For one person you love",od:"A keepsake song & animated story — for a birthday, an anniversary, or someone remembered.",oc:"Enter Ode →",lk:"For your whole event",ld:"A live wall where guests post photos & messages to the big screen, all evening long.",lc:"Explore Live →",motto:"Live for the many. Ode for the one.",help:"Not sure? Honouring one person → Ode  ·  Hosting a gathering → Live",wol:"💛 Read the Wall of Love"},
+  fr:{tag:"Réunir ceux qui comptent pour vous",ok:"Pour une personne que vous aimez",od:"Une chanson-souvenir et une histoire animée — pour un anniversaire, des noces ou un être cher disparu.",oc:"Entrer dans Ode →",lk:"Pour tout votre événement",ld:"Un mur en direct où les invités publient photos et messages sur grand écran, toute la soirée.",lc:"Découvrir Live →",motto:"Live pour le grand nombre. Ode pour un seul.",help:"Vous hésitez ? Honorer une personne → Ode  ·  Organiser un événement → Live",wol:"💛 Lire le Mur d'amour"},
+  es:{tag:"Reunir a quienes importan",ok:"Para alguien a quien amas",od:"Una canción-recuerdo e historia animada — para un cumpleaños, un aniversario o alguien a quien recordar.",oc:"Entrar en Ode →",lk:"Para todo tu evento",ld:"Un muro en vivo donde los invitados publican fotos y mensajes en la pantalla grande, toda la velada.",lc:"Explorar Live →",motto:"Live para muchos. Ode para uno.",help:"¿No estás seguro? Honrar a una persona → Ode  ·  Organizar un evento → Live",wol:"💛 Leer el Muro de amor"},
+  cs:{tag:"Spojte lidi, na kterých záleží",ok:"Pro někoho, koho milujete",od:"Vzpomínková píseň a animovaný příběh — k narozeninám, výročí nebo na památku blízkého člověka.",oc:"Vstoupit do Ode →",lk:"Pro celou vaši akci",ld:"Živá zeď, kam hosté po celý večer přidávají fotky a vzkazy na velkou obrazovku.",lc:"Prozkoumat Live →",motto:"Live pro mnohé. Ode pro jednoho.",help:"Nejste si jistí? Pocta jednomu člověku → Ode  ·  Pořádáte akci → Live",wol:"💛 Přečíst Zeď lásky"},
+  de:{tag:"Menschen zusammenbringen, die zählen",ok:"Für einen Menschen, den Sie lieben",od:"Ein Erinnerungslied und eine animierte Geschichte — zum Geburtstag, Jubiläum oder im Gedenken an einen geliebten Menschen.",oc:"Ode entdecken →",lk:"Für Ihr ganzes Event",ld:"Eine Live-Wand, auf der Gäste den ganzen Abend Fotos und Nachrichten auf die große Leinwand posten.",lc:"Live entdecken →",motto:"Live für die vielen. Ode für den einen.",help:"Nicht sicher? Einen Menschen ehren → Ode  ·  Ein Event veranstalten → Live",wol:"💛 Die Wand der Liebe lesen"}
+};
+function buildDoorLang(){ var bar=document.getElementById('doorLang'); if(!bar)return; bar.innerHTML=''; LANGS.forEach(function(p){ var c=p[0]; var on=c===guestLang; var b=document.createElement('button'); b.textContent=p[1]; b.onclick=function(){ setLang(c); }; b.style.cssText='border:1px solid '+(on?'#2E7D5B':'#E6E2D4')+';background:'+(on?'rgba(46,125,91,.08)':'#fff')+';color:'+(on?'#256048':'#5C6B5E')+';border-radius:999px;padding:5px 12px;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:600;cursor:pointer;'; bar.appendChild(b); }); }
+function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_tag',t.tag);S('d_ode_k',t.ok);S('d_ode_d',t.od);S('d_ode_c',t.oc);S('d_live_k',t.lk);S('d_live_d',t.ld);S('d_live_c',t.lc);S('d_motto',t.motto);S('d_help',t.help);S('d_wol',t.wol); }
+
 function route(){
   const {path,ev,kiosk,key}=parseHash();
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
@@ -1667,7 +1679,7 @@ function route(){
   const liveAnchors=['how','formats','pricing','vibes','founder'];
   if(liveAnchors.includes(path)){applyVibe('brand');go('home');const el=document.getElementById(path);if(el)el.scrollIntoView({behavior:'smooth'});return;}
   // default: the GatherWall doorway (choose Ode or Live)
-  applyVibe('brand'); return go('door');
+  applyVibe('brand'); go('door'); buildDoorLang(); applyDoorLang(); return;
 }
 window.addEventListener('hashchange',route);
 
@@ -2066,7 +2078,7 @@ function renderPrompts(vibe){
 }
 function buildLangBar(){ const bar=document.getElementById('langBar'); if(!bar)return;
   bar.innerHTML=LANGS.map(([c,lbl])=>`<button class="${c===guestLang?'on':''}" onclick="setLang('${c}')">${lbl}</button>`).join(''); }
-function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} try{const url=new URL(location.href); url.searchParams.set('lang',code); history.replaceState(null,'',url);}catch(e){} buildLangBar(); applyGuestLang(); buildHomeLang(); applyHomeLang(); }
+function setLang(code){ if(!I18N[code])return; guestLang=code; try{localStorage.setItem('gw_lang',code);}catch(e){} try{const url=new URL(location.href); url.searchParams.set('lang',code); history.replaceState(null,'',url);}catch(e){} buildLangBar(); applyGuestLang(); buildHomeLang(); applyHomeLang(); buildDoorLang(); applyDoorLang(); }
 function setTxt(id,txt){ const el=document.getElementById(id); if(el)el.textContent=txt; }
 function applyGuestLang(){
   const t=L(), e=guestEvObj||{};
@@ -2423,7 +2435,7 @@ function burst(){
 }
 
 /* ===================== BOOT ===================== */
-guestLang=defaultLang(); buildHomeLang(); applyHomeLang();
+guestLang=defaultLang(); buildHomeLang(); applyHomeLang(); buildDoorLang(); applyDoorLang();
 if(location.hash){route();} else {applyVibe('brand');go('door');}
 
 /* ===================== HERO BIG-SCREEN (live tributes) ===================== */
