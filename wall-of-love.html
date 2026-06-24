@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wall of Love · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:title" content="The Wall of Love · GatherWall">
+<meta property="og:description" content="Real words from the people who've used GatherWall & Ode. Leave a little love of your own.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{
+    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f;
+    --bg:#F6F4EC; --bg2:#F1EEE2; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4; --soft:#FBFAF4;
+    --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
+    --shadow:0 24px 60px -34px rgba(32,39,31,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 460px at 88% -8%, rgba(194,160,88,.14), transparent 60%),
+      radial-gradient(820px 460px at 6% 4%, rgba(46,125,91,.10), transparent 55%),
+      var(--bg);min-height:100vh}
+  a{color:inherit}
+  .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .nav-in{max-width:920px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .navcta{font-size:14px;font-weight:600;color:#fff;background:var(--brand);border-radius:999px;padding:9px 16px;text-decoration:none}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+  header.hero{text-align:center;padding:48px 0 6px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,5vw,44px);line-height:1.06;letter-spacing:-.01em;margin:0 auto 12px;max-width:20ch}
+  .sub{color:var(--muted);font-size:17px;max-width:56ch;margin:0 auto}
+  .react-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px auto 0}
+  .react{display:inline-flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:11px 20px;font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink);cursor:pointer;box-shadow:0 10px 26px -20px rgba(32,39,31,.5);transition:transform .12s,background .2s,border-color .2s}
+  .react:hover{transform:translateY(-2px);border-color:var(--brand2)}
+  .react .em{font-size:21px;line-height:1}
+  .react .ct{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:700;min-width:1ch}
+  .react.pop{animation:pp .42s ease}
+  @keyframes pp{0%,100%{transform:scale(1)}40%{transform:scale(1.16)}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:30px;box-shadow:var(--shadow)}
+  .card h2{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:4px}
+  .card .hint{font-size:13.5px;color:var(--muted);margin-bottom:16px}
+  .frow{display:grid;grid-template-columns:1fr;gap:12px}
+  input,textarea{width:100%;font-family:var(--ui);font-size:15px;padding:13px 15px;border:1.5px solid var(--line);border-radius:13px;background:var(--soft);color:var(--ink);outline:none;transition:border .15s}
+  input:focus,textarea:focus{border-color:var(--brand)}
+  textarea{min-height:92px;resize:vertical}
+  .counter{font-size:12px;color:var(--muted);text-align:right;margin-top:-6px}
+  .btn{width:100%;margin-top:4px;padding:15px;font-size:16px;font-weight:600;color:#fff;border:none;border-radius:13px;background:var(--brand);cursor:pointer;box-shadow:0 12px 26px -12px rgba(46,125,91,.7);transition:background .15s,transform .15s}
+  .btn:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .btn:disabled{opacity:.6;cursor:wait;transform:none}
+  .ok{color:var(--brand-d);font-size:14px;text-align:center;margin-top:12px;font-weight:600}
+  .err{color:#b4452f;font-size:14px;text-align:center;margin-top:12px}
+  .grid{columns:3 240px;column-gap:18px;margin-top:30px}
+  @media(max-width:760px){.grid{columns:2 200px}}
+  @media(max-width:520px){.grid{columns:1}}
+  .note{break-inside:avoid;margin-bottom:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow)}
+  .note .msg{font-family:var(--serif);font-size:17px;line-height:1.5;color:#2b332a}
+  .note .from{margin-top:12px;font-size:13.5px;font-weight:700;color:var(--brand2-d)}
+  .note.pending{border:1.5px dashed var(--brand2);background:#fffdf6}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand2-d);background:rgba(194,160,88,.16);border-radius:999px;padding:3px 9px;margin-bottom:8px}
+  .modact{display:flex;gap:8px;margin-top:12px}
+  .modact button{flex:1;font-family:var(--ui);font-size:13px;font-weight:600;border-radius:10px;padding:9px;cursor:pointer;border:1px solid var(--line);background:#fff}
+  .modact .approve{color:#1a8f4c;border-color:#bce6cd}
+  .modact .hide{color:#c0392b;border-color:#f0c4be}
+  .empty{text-align:center;color:var(--muted);font-size:15px;padding:36px 0}
+  .modbar{background:#20271F;color:#fff;text-align:center;font-size:13px;padding:10px;border-radius:12px;margin-top:24px}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:40px}
+  footer a{color:var(--brand);text-decoration:none}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <a class="navcta" href="index.html">Make your own ▸</a>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">The Wall of Love</div>
+    <h1>Kind words from people who gathered with us</h1>
+    <p class="sub">Real notes from families and hosts who've used GatherWall & Ode. Send a little love of your own — every message is read before it appears.</p>
+    <div class="react-bar" id="reactBar">
+      <button class="react" data-type="heart"><span class="em">💛</span><span class="ct" id="ct_heart">0</span></button>
+      <button class="react" data-type="redheart"><span class="em">❤️</span><span class="ct" id="ct_redheart">0</span></button>
+      <button class="react" data-type="party"><span class="em">🎉</span><span class="ct" id="ct_party">0</span></button>
+    </div>
+  </header>
+
+  <div class="card" id="formCard">
+    <h2>Leave a little love 💛</h2>
+    <div class="hint">A sentence or two is perfect. Your note appears once we've had a quick look.</div>
+    <div class="frow">
+      <input id="who" maxlength="40" placeholder="Your name (or how to sign it) — optional">
+      <textarea id="msg" maxlength="160" placeholder="What did GatherWall or Ode mean to you?"></textarea>
+      <div class="counter"><span id="cc">0</span>/160</div>
+      <button class="btn" id="send">Send my message</button>
+    </div>
+    <div class="ok" id="ok" style="display:none"></div>
+    <div class="err" id="err" style="display:none"></div>
+  </div>
+
+  <div id="modbar"></div>
+  <div class="grid" id="grid"><div class="empty">Loading the love…</div></div>
+
+  <footer><a href="index.html">← Back to GatherWall</a></footer>
+</div>
+
+<script>
+const FIREBASE_DB="https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
+const MOD_KEY="love-9f3k7q2x";
+const q=new URLSearchParams(location.search);
+const MOD = (q.get("moderate")||"")===MOD_KEY;
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=id=>document.getElementById(id);
+
+async function fbGet(p){ const r=await fetch(FIREBASE_DB+"/"+p+".json"); return r.ok?r.json():null; }
+
+/* ---------- reactions (instant, append-only) ---------- */
+async function loadReactions(){
+  const data=await fbGet("love/reactions")||{};
+  const c={heart:0,redheart:0,party:0};
+  Object.values(data).forEach(r=>{ if(r&&c[r.type]!=null) c[r.type]++; });
+  $("ct_heart").textContent=c.heart; $("ct_redheart").textContent=c.redheart; $("ct_party").textContent=c.party;
+}
+function canReact(type){
+  try{ const k="gw_love_r_"+type, last=+(localStorage.getItem(k)||0); if(Date.now()-last<2500) return false; localStorage.setItem(k,Date.now()); }catch(e){}
+  return true;
+}
+document.getElementById("reactBar").addEventListener("click",e=>{
+  const b=e.target.closest(".react"); if(!b) return;
+  const type=b.dataset.type; if(!canReact(type)) return;
+  const ct=$("ct_"+type); ct.textContent=(+ct.textContent)+1;
+  b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+  fetch(FIREBASE_DB+"/love/reactions.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,ts:Date.now()})}).catch(()=>{});
+});
+
+/* ---------- messages ---------- */
+async function loadMessages(){
+  const data=await fbGet("love/messages")||{};
+  let items=Object.entries(data).map(([id,m])=>({id,...m})).filter(m=>m&&m.msg);
+  items.sort((a,b)=>(b.ts||0)-(a.ts||0));
+  const grid=$("grid");
+  if(MOD){
+    const pending=items.filter(m=>!m.approved), live=items.filter(m=>m.approved);
+    const ordered=[...pending,...live];
+    grid.innerHTML = ordered.length? ordered.map(m=>card(m,true)).join("") : '<div class="empty">No messages yet.</div>';
+    grid.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>setApproved(b.dataset.approve,true));
+    grid.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>hideMsg(b.dataset.hide));
+  } else {
+    const live=items.filter(m=>m.approved);
+    grid.innerHTML = live.length? live.map(m=>card(m,false)).join("") : '<div class="empty">Be the first to leave a little love 💛</div>';
+  }
+}
+function card(m,mod){
+  const name=esc(m.from)||"A GatherWall friend";
+  const pend = mod && !m.approved;
+  return '<div class="note'+(pend?' pending':'')+'">'+
+    (pend?'<span class="badge">Pending</span>':'')+
+    '<div class="msg">'+esc(m.msg)+'</div>'+
+    '<div class="from">— '+name+'</div>'+
+    (mod?('<div class="modact">'+(m.approved?'':'<button class="approve" data-approve="'+m.id+'">✓ Approve</button>')+'<button class="hide" data-hide="'+m.id+'">✕ Remove</button></div>'):'')+
+    '</div>';
+}
+async function setApproved(id,val){
+  await fetch(FIREBASE_DB+"/love/messages/"+id+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({approved:val})});
+  loadMessages();
+}
+async function hideMsg(id){
+  await fetch(FIREBASE_DB+"/love/messages/"+id+".json",{method:"DELETE"});
+  loadMessages();
+}
+
+/* ---------- submit ---------- */
+$("msg").addEventListener("input",()=>{ $("cc").textContent=$("msg").value.length; });
+$("send").addEventListener("click",async()=>{
+  const err=$("err"), ok=$("ok"); err.style.display="none"; ok.style.display="none";
+  const msg=$("msg").value.trim(), from=$("who").value.trim();
+  if(msg.length<3){ err.textContent="Please write a few words first."; err.style.display="block"; return; }
+  try{ const last=+(localStorage.getItem("gw_love_msg")||0); if(Date.now()-last<25000){ err.textContent="Thanks! Just a moment between messages, please."; err.style.display="block"; return; } }catch(e){}
+  const btn=$("send"); btn.disabled=true; btn.textContent="Sending…";
+  try{
+    const r=await fetch(FIREBASE_DB+"/love/messages.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({msg:msg.slice(0,160),from:from.slice(0,40),approved:false,ts:Date.now()})});
+    if(!r.ok) throw new Error("save failed");
+    try{ localStorage.setItem("gw_love_msg",Date.now()); }catch(e){}
+    $("msg").value=""; $("who").value=""; $("cc").textContent="0";
+    ok.textContent="Thank you 💛 Your note will appear once we've had a quick look.";
+    ok.style.display="block";
+  }catch(e){ err.textContent="Something went wrong — please try again in a moment."; err.style.display="block"; }
+  btn.disabled=false; btn.textContent="Send my message";
+});
+
+if(MOD){ $("modbar").innerHTML='<div class="modbar">🔒 Moderation view — pending messages shown first. Approvals appear publicly straight away.</div>'; }
+loadReactions(); loadMessages();
+</script>
+</body>
+</html>
