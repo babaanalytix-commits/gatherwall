@@ -165,6 +165,7 @@
     var pay=BASE+slug+'?wanted=true';
     var ev=param('ev'); if(ev) pay+='&ev='+encodeURIComponent(ev);
     var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
+    var order=param('order'); if(order) pay+='&order='+encodeURIComponent(order);
     btn.href=pay;
     if(powered) powered.textContent='Payments processed securely by Gumroad';
   }
