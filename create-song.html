@@ -4,136 +4,241 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create your song · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 <style>
-  :root{--bg:#1a1018;--card:#2b1a26;--card2:#34202e;--gold:#e8b769;--gold2:#f2cf90;--rose:#d98a8a;--text:#f5ece6;--muted:#b79fac;--line:#43293a;--good:#7fd1a8}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;color:var(--text);
-    background:radial-gradient(1200px 600px at 50% -10%,#3a2030 0%,var(--bg) 60%)}
-  .wrap{max-width:680px;margin:0 auto;padding:26px 16px 90px}
-  header{text-align:center;margin-bottom:14px}
-  h1{font-size:28px;margin:6px 0 4px;background:linear-gradient(90deg,var(--gold),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--muted);font-size:15px;margin:0}
-  .card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:16px}
-  .lyrics{white-space:pre-wrap;background:#160d14;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:14.5px;line-height:1.7;max-height:34vh;overflow:auto;color:var(--muted)}
-  button{font-family:inherit;cursor:pointer;border:none;border-radius:999px}
-  .btn{width:100%;margin-top:16px;padding:15px;font-size:17px;font-weight:700;color:#1a1018;background:linear-gradient(90deg,var(--gold),var(--rose))}
-  .btn:disabled{opacity:.6;cursor:wait}
-  .ghost{background:none;border:1px solid var(--line);color:var(--muted);padding:12px;font-size:14px;width:100%;margin-top:10px}
-  .take{background:#160d14;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px}
-  .take h3{margin:0 0 8px;font-size:16px;color:var(--gold2)}
-  audio{width:100%;margin:4px 0 10px}
-  .pick{padding:11px 14px;font-size:15px;font-weight:700;color:#1a1018;background:linear-gradient(135deg,var(--gold),var(--gold2));width:100%}
-  .dl{display:inline-block;margin-top:10px;color:var(--gold);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px}
-  .note{font-size:12.5px;color:var(--muted);margin-top:10px;text-align:center}
-  .err{color:var(--rose);font-size:14px;margin-top:12px}
-  .spin{display:inline-block;width:16px;height:16px;border:2px solid #1a1018;border-top-color:transparent;border-radius:50%;animation:s .8s linear infinite;vertical-align:-3px;margin-right:8px}
+  :root{
+    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand2-d:#a9883f; --brand3:#6FB39A;
+    --bg:#F6F4EC; --bg2:#F1EEE2; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4; --soft:#FBFAF4;
+    --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
+    --shadow:0 24px 60px -34px rgba(32,39,31,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 460px at 88% -8%, rgba(194,160,88,.14), transparent 60%),
+      radial-gradient(820px 460px at 6% 4%, rgba(46,125,91,.10), transparent 55%),
+      var(--bg);
+    min-height:100vh;-webkit-tap-highlight-color:transparent}
+  a{color:inherit}
+  .nav{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.82);backdrop-filter:blur(10px)}
+  .nav-in{max-width:680px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:27px;height:25px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 90px}
+  header.hero{text-align:center;padding:38px 0 4px}
+  .eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:12px}
+  h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px}
+  .sub{color:var(--muted);font-size:16px}
+  .steps{display:flex;align-items:center;justify-content:center;gap:8px;margin:22px auto 0;flex-wrap:wrap}
+  .steps .s{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500}
+  .steps .n{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--bg2);color:var(--muted);border:1px solid var(--line)}
+  .steps .s.done .n{background:var(--brand3);color:#fff;border-color:var(--brand3)}
+  .steps .s.on .n{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .steps .s.on{color:var(--ink)}
+  .steps .bar{width:26px;height:1.5px;background:var(--line)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px;margin-top:22px;box-shadow:var(--shadow)}
+  @media(max-width:600px){.card{padding:22px 18px}}
+  .klabel{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand2-d);font-weight:700;margin-bottom:10px}
+  .lyrics{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:15px;line-height:1.8;max-height:34vh;overflow:auto;font-family:var(--serif);color:#2b332a}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .btn{width:100%;margin-top:18px;padding:16px;font-size:16.5px;font-weight:600;color:#fff;border-radius:14px;background:var(--brand);box-shadow:0 12px 26px -12px rgba(46,125,91,.7);transition:background .15s,transform .15s}
+  .btn:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .btn:disabled{opacity:.6;cursor:wait;transform:none}
+  .ghost{background:transparent;border:1px solid var(--line);color:var(--muted);padding:13px;font-size:14px;border-radius:12px;width:100%;margin-top:11px}
+  .ghost:hover{background:var(--soft)}
+  .take{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+  .take h3{margin:0 0 10px;font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink)}
+  audio{width:100%;margin:2px 0 12px;height:40px}
+  .pick{width:100%;padding:13px 16px;font-size:15px;font-weight:600;color:#fff;border-radius:12px;background:linear-gradient(100deg,var(--brand),var(--brand-d));box-shadow:0 10px 22px -12px rgba(46,125,91,.7)}
+  .pick:hover{transform:translateY(-1px)}
+  .pick:disabled{opacity:.5;cursor:default;transform:none}
+  .dl{display:inline-flex;align-items:center;gap:8px;margin-top:14px;color:#fff;background:var(--brand2);text-decoration:none;border-radius:999px;padding:12px 22px;font-size:15px;font-weight:600;box-shadow:0 10px 22px -12px rgba(194,160,88,.8)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:11px;text-align:center;line-height:1.6}
+  .err{color:#b4452f;font-size:14px;margin-top:12px;text-align:center}
+  .spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-3px;margin-right:9px}
+  .spin.dark{border-color:rgba(46,125,91,.25);border-top-color:var(--brand)}
   @keyframes s{to{transform:rotate(360deg)}}
   .center{text-align:center}
-  .big{font-size:40px}
+  .big{font-size:46px;line-height:1}
+  .pulse{display:inline-block;animation:p 1.6s ease-in-out infinite}
+  @keyframes p{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.08);opacity:1}}
 </style>
 </head>
 <body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+</div></nav>
+
 <div class="wrap">
-  <header>
-    <h1>Create your song 🎶</h1>
+  <header class="hero">
+    <div class="eyebrow">Animated Keepsake Story</div>
+    <h1 id="h1">Create your song</h1>
     <p class="sub" id="sub">Loading your order…</p>
+    <div class="steps">
+      <div class="s done"><span class="n">1</span><span id="st1">Story</span></div>
+      <span class="bar"></span>
+      <div class="s done"><span class="n">2</span><span id="st2">Lyrics</span></div>
+      <span class="bar"></span>
+      <div class="s on"><span class="n">3</span><span id="st3">Your song</span></div>
+    </div>
   </header>
   <div id="app"></div>
 </div>
 
 <script>
-// VERIFY this matches the deployed worker URL (same account subdomain as the others).
 const MUREKA_WORKER = "https://gatherwall-mureka.baba-analytix.workers.dev";
-const FIREBASE_DB = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
+const FIREBASE_DB   = "https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
 const MAX_TRIES = 2;
 
-const app=document.getElementById('app'), sub=document.getElementById('sub');
-const q=new URLSearchParams(location.search);
-let ORDER=(q.get('order')||'').trim();
-if(!ORDER){ try{ ORDER=(localStorage.getItem('gw_order')||'').trim(); }catch(e){} } // fallback after Gumroad redirect
-let rec=null;
+const T = {
+  en:{h1:"Create your song",forName:"For {x}",yourSong:"Your keepsake song",
+    awaitPay:"Awaiting payment",awaitBody:"This order isn't marked paid yet. If you've just completed checkout, refresh in a moment.",
+    notFound:"Order not found",notFoundBody:"We couldn't find this order yet. If you just paid, give it a minute and refresh.",
+    noRef:"No order reference",noRefBody:"This link is missing its order reference. Please use the link from your confirmation.",
+    lyricsLabel:"Your lyrics",gen:"🎵 Generate my song",genNote:"We'll create <b>two versions</b> for you to choose from. Takes about a minute.",
+    composing:"Composing your two versions…",composingNote:"This takes about a minute — keep this page open.",
+    pickTitle:"Listen & pick your favourite",version:"Version",pick:"Pick Version",
+    retry:"↻ Not quite — try again (1 more set)",bothUsed:"That's both tries used — please choose the one you love.",
+    chosenTitle:"Your song is chosen!",download:"Download MP3",
+    chosenNote1:"A shareable <b>video (MP4)</b> version comes with your finished keepsake.",
+    chosenNote2:"We're now crafting your <b>animated keepsake</b> with your photos, then we'll send you the final link. 💛",
+    chosenSub:"Song chosen — your keepsake is on the way",
+    hiccup:"The song engine had a hiccup.",tryAgainBtn:"Try again",still:"Still working — please refresh in a minute.",refresh:"Refresh",composingState:"Composing your two versions"},
+  fr:{h1:"Créez votre chanson",forName:"Pour {x}",yourSong:"Votre chanson-souvenir",
+    awaitPay:"En attente de paiement",awaitBody:"Cette commande n'est pas encore payée. Si vous venez de payer, actualisez dans un instant.",
+    notFound:"Commande introuvable",notFoundBody:"Nous ne trouvons pas encore cette commande. Si vous venez de payer, patientez une minute et actualisez.",
+    noRef:"Référence manquante",noRefBody:"Ce lien n'a pas de référence de commande. Utilisez le lien de votre confirmation.",
+    lyricsLabel:"Vos paroles",gen:"🎵 Générer ma chanson",genNote:"Nous créerons <b>deux versions</b> au choix. Environ une minute.",
+    composing:"Composition de vos deux versions…",composingNote:"Environ une minute — gardez cette page ouverte.",
+    pickTitle:"Écoutez et choisissez votre préférée",version:"Version",pick:"Choisir la version",
+    retry:"↻ Pas tout à fait — réessayer (1 série de plus)",bothUsed:"Les deux essais sont utilisés — choisissez celle que vous aimez.",
+    chosenTitle:"Votre chanson est choisie !",download:"Télécharger le MP3",
+    chosenNote1:"Une version <b>vidéo (MP4)</b> partageable accompagne votre souvenir final.",
+    chosenNote2:"Nous créons maintenant votre <b>souvenir animé</b> avec vos photos, puis nous vous enverrons le lien final. 💛",
+    chosenSub:"Chanson choisie — votre souvenir arrive",
+    hiccup:"Le générateur a rencontré un souci.",tryAgainBtn:"Réessayer",still:"Toujours en cours — actualisez dans une minute.",refresh:"Actualiser",composingState:"Composition de vos deux versions"},
+  es:{h1:"Crea tu canción",forName:"Para {x}",yourSong:"Tu canción-recuerdo",
+    awaitPay:"Esperando el pago",awaitBody:"Este pedido aún no figura como pagado. Si acabas de pagar, actualiza en un momento.",
+    notFound:"Pedido no encontrado",notFoundBody:"Aún no encontramos este pedido. Si acabas de pagar, espera un minuto y actualiza.",
+    noRef:"Falta la referencia",noRefBody:"A este enlace le falta la referencia del pedido. Usa el enlace de tu confirmación.",
+    lyricsLabel:"Tu letra",gen:"🎵 Generar mi canción",genNote:"Crearemos <b>dos versiones</b> para que elijas. Tarda alrededor de un minuto.",
+    composing:"Componiendo tus dos versiones…",composingNote:"Tarda alrededor de un minuto — mantén esta página abierta.",
+    pickTitle:"Escucha y elige tu favorita",version:"Versión",pick:"Elegir versión",
+    retry:"↻ No del todo — intentar de nuevo (1 set más)",bothUsed:"Se usaron los dos intentos — elige la que más te guste.",
+    chosenTitle:"¡Tu canción está elegida!",download:"Descargar MP3",
+    chosenNote1:"Una versión en <b>vídeo (MP4)</b> para compartir viene con tu recuerdo final.",
+    chosenNote2:"Ahora estamos creando tu <b>recuerdo animado</b> con tus fotos y luego te enviaremos el enlace final. 💛",
+    chosenSub:"Canción elegida — tu recuerdo está en camino",
+    hiccup:"El generador tuvo un problema.",tryAgainBtn:"Intentar de nuevo",still:"Aún trabajando — actualiza en un minuto.",refresh:"Actualizar",composingState:"Componiendo tus dos versiones"},
+  cs:{h1:"Vytvořte svou píseň",forName:"Pro {x}",yourSong:"Vaše vzpomínková píseň",
+    awaitPay:"Čeká se na platbu",awaitBody:"Objednávka zatím není označena jako zaplacená. Pokud jste právě dokončili platbu, za chvíli obnovte stránku.",
+    notFound:"Objednávka nenalezena",notFoundBody:"Tuto objednávku jsme zatím nenašli. Pokud jste právě zaplatili, počkejte minutu a obnovte.",
+    noRef:"Chybí reference",noRefBody:"Tomuto odkazu chybí reference objednávky. Použijte odkaz z potvrzení.",
+    lyricsLabel:"Váš text",gen:"🎵 Vytvořit píseň",genNote:"Vytvoříme <b>dvě verze</b> na výběr. Trvá to asi minutu.",
+    composing:"Skládáme vaše dvě verze…",composingNote:"Trvá to asi minutu — nechte tuto stránku otevřenou.",
+    pickTitle:"Poslechněte si a vyberte oblíbenou",version:"Verze",pick:"Vybrat verzi",
+    retry:"↻ Není to ono — zkusit znovu (ještě 1 sada)",bothUsed:"Oba pokusy jsou vyčerpané — vyberte tu, kterou máte rádi.",
+    chosenTitle:"Vaše píseň je vybraná!",download:"Stáhnout MP3",
+    chosenNote1:"Sdílitelná <b>video (MP4)</b> verze je součástí hotové vzpomínky.",
+    chosenNote2:"Nyní tvoříme vaši <b>animovanou vzpomínku</b> s vašimi fotkami a poté vám pošleme finální odkaz. 💛",
+    chosenSub:"Píseň vybrána — vaše vzpomínka je na cestě",
+    hiccup:"Generátor měl drobný problém.",tryAgainBtn:"Zkusit znovu",still:"Stále pracujeme — obnovte za minutu.",refresh:"Obnovit",composingState:"Skládáme vaše dvě verze"},
+  de:{h1:"Erstellen Sie Ihr Lied",forName:"Für {x}",yourSong:"Ihr Erinnerungslied",
+    awaitPay:"Zahlung ausstehend",awaitBody:"Diese Bestellung ist noch nicht als bezahlt markiert. Wenn Sie gerade bezahlt haben, aktualisieren Sie gleich.",
+    notFound:"Bestellung nicht gefunden",notFoundBody:"Wir konnten diese Bestellung noch nicht finden. Wenn Sie gerade bezahlt haben, warten Sie eine Minute und aktualisieren Sie.",
+    noRef:"Referenz fehlt",noRefBody:"Diesem Link fehlt die Bestellreferenz. Bitte den Link aus Ihrer Bestätigung verwenden.",
+    lyricsLabel:"Ihr Liedtext",gen:"🎵 Mein Lied erstellen",genNote:"Wir erstellen <b>zwei Versionen</b> zur Auswahl. Dauert etwa eine Minute.",
+    composing:"Ihre zwei Versionen werden komponiert…",composingNote:"Dauert etwa eine Minute — diese Seite offen lassen.",
+    pickTitle:"Anhören & Ihren Favoriten wählen",version:"Version",pick:"Version wählen",
+    retry:"↻ Nicht ganz — noch einmal (1 weiterer Satz)",bothUsed:"Beide Versuche genutzt — bitte wählen Sie Ihren Favoriten.",
+    chosenTitle:"Ihr Lied ist gewählt!",download:"MP3 herunterladen",
+    chosenNote1:"Eine teilbare <b>Video-Version (MP4)</b> kommt mit Ihrer fertigen Erinnerung.",
+    chosenNote2:"Wir gestalten jetzt Ihre <b>animierte Erinnerung</b> mit Ihren Fotos und senden Ihnen dann den finalen Link. 💛",
+    chosenSub:"Lied gewählt — Ihre Erinnerung ist unterwegs",
+    hiccup:"Der Generator hatte einen kleinen Fehler.",tryAgainBtn:"Erneut versuchen",still:"Arbeitet noch — bitte in einer Minute aktualisieren.",refresh:"Aktualisieren",composingState:"Ihre zwei Versionen werden komponiert"}
+};
 
-async function fbGet(p){ const r=await fetch(`${FIREBASE_DB}/${p}.json`); return r.ok?r.json():null; }
-async function call(action, extra){ const r=await fetch(MUREKA_WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order:ORDER,action,...(extra||{})})}); return r.json(); }
-const esc=s=>(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const app=document.getElementById("app"), sub=document.getElementById("sub");
+const q=new URLSearchParams(location.search);
+let ORDER=(q.get("order")||"").trim();
+if(!ORDER){ try{ ORDER=(localStorage.getItem("gw_order")||"").trim(); }catch(e){} }
+let rec=null, L="en", t=T.en;
+function setLang(l){ L=T[l]?l:"en"; t=T[L]; document.documentElement.lang=L; document.getElementById("h1").textContent=t.h1; }
+const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+async function fbGet(p){ const r=await fetch(FIREBASE_DB+"/"+p+".json"); return r.ok?r.json():null; }
+async function call(action,extra){ const r=await fetch(MUREKA_WORKER,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({order:ORDER,action,...(extra||{})})}); return r.json(); }
 
 async function load(){
-  if(!ORDER){ sub.textContent='No order reference.'; app.innerHTML='<div class="card">This link is missing its order reference. Please use the link from your confirmation.</div>'; return; }
-  rec=await fbGet('orders/'+ORDER);
-  if(!rec){ sub.textContent='Order not found.'; app.innerHTML='<div class="card">We couldn\'t find this order yet. If you just paid, give it a minute and refresh.</div>'; return; }
-  if(rec.paid!==true){ sub.textContent='Awaiting payment'; app.innerHTML='<div class="card">This order isn\'t marked paid yet. If you\'ve just completed checkout, refresh in a moment.</div>'; return; }
-  sub.textContent = rec.for ? ('For '+rec.for) : 'Your keepsake song';
+  if(!ORDER){ sub.textContent=t.noRef; app.innerHTML='<div class="card">'+t.noRefBody+'</div>'; return; }
+  rec=await fbGet("orders/"+ORDER);
+  if(rec&&rec.uiLang) setLang(rec.uiLang);
+  if(!rec){ sub.textContent=t.notFound; app.innerHTML='<div class="card">'+t.notFoundBody+'</div>'; return; }
+  if(rec.paid!==true){ sub.textContent=t.awaitPay; app.innerHTML='<div class="card">'+t.awaitBody+'</div>'; return; }
+  sub.textContent = rec.for ? t.forName.replace("{x}",rec.for) : t.yourSong;
   if(rec.chosen) return renderChosen(rec.chosen);
   if(rec.takes && rec.takes.length) return renderTakes(rec.takes);
   renderStart();
 }
-
 function renderStart(){
-  app.innerHTML=`<div class="card">
-    <div style="font-size:13px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Your lyrics</div>
-    <div class="lyrics">${esc(rec.lyrics)||'(no lyrics saved)'}</div>
-    <button class="btn" id="gen">🎵 Generate my song</button>
-    <p class="note">We'll create <b>two versions</b> for you to choose from. Takes about a minute.</p>
-    <div class="err" id="err"></div>
-  </div>`;
-  document.getElementById('gen').onclick=generate;
+  app.innerHTML='<div class="card">'+
+    '<div class="klabel">'+t.lyricsLabel+'</div>'+
+    '<div class="lyrics">'+(esc(rec.lyrics)||"(no lyrics saved)")+'</div>'+
+    '<button class="btn" id="gen">'+t.gen+'</button>'+
+    '<p class="note">'+t.genNote+'</p>'+
+    '<div class="err" id="err"></div></div>';
+  document.getElementById("gen").onclick=generate;
 }
-
 async function generate(){
-  const btn=document.getElementById('gen'); if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span>Composing your two versions…';}
-  const err=document.getElementById('err'); if(err)err.textContent='';
-  const d=await call('generate');
-  if(d.error){ if(err)err.textContent=d.error; if(btn){btn.disabled=false;btn.innerHTML='🎵 Generate my song';} return; }
-  if(d.status==='ready' && d.takes){ return renderTakes(d.takes); }
+  const btn=document.getElementById("gen"); if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span>'+t.composingState+"…";}
+  const err=document.getElementById("err"); if(err)err.textContent="";
+  const d=await call("generate");
+  if(d.error){ if(err)err.textContent=d.error; if(btn){btn.disabled=false;btn.innerHTML=t.gen;} return; }
+  if(d.status==="ready"&&d.takes){ return renderTakes(d.takes); }
   poll();
 }
-
 async function poll(){
-  app.innerHTML=`<div class="card center"><div class="big">🎶</div><p><span class="spin"></span> Composing your two versions… this takes about a minute.</p><p class="note">Keep this page open.</p></div>`;
+  app.innerHTML='<div class="card center"><div class="big pulse">🎶</div>'+
+    '<p style="margin-top:14px"><span class="spin dark"></span>'+t.composing+'</p>'+
+    '<p class="note">'+t.composingNote+'</p></div>';
   for(let i=0;i<40;i++){
     await new Promise(x=>setTimeout(x,4000));
-    const d=await call('status');
-    if(d.status==='ready' && d.takes){ return renderTakes(d.takes); }
-    if(d.status==='failed'){ app.innerHTML=`<div class="card">The song engine had a hiccup. <button class="btn" onclick="location.reload()">Try again</button></div>`; return; }
+    const d=await call("status");
+    if(d.status==="ready"&&d.takes){ return renderTakes(d.takes); }
+    if(d.status==="failed"){ app.innerHTML='<div class="card center"><p>'+t.hiccup+'</p><button class="btn" onclick="location.reload()">'+t.tryAgainBtn+'</button></div>'; return; }
   }
-  app.innerHTML=`<div class="card">Still working — please refresh in a minute. <button class="ghost" onclick="location.reload()">Refresh</button></div>`;
+  app.innerHTML='<div class="card center"><p>'+t.still+'</p><button class="ghost" onclick="location.reload()">'+t.refresh+'</button></div>';
 }
-
 function renderTakes(takes){
   const triesUsed=Number(rec&&rec.generations||1);
   const canRetry=triesUsed<MAX_TRIES;
-  app.innerHTML=`<div class="card">
-    <div style="font-size:13px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:1px">Listen & pick your favourite</div>
-    ${takes.map((u,i)=>`<div class="take"><h3>Version ${i+1}</h3><audio controls preload="none" src="${u}"></audio>
-       <button class="pick" data-url="${u}">💛 Pick Version ${i+1}</button></div>`).join('')}
-    ${canRetry?`<button class="ghost" id="retry">↻ Not quite — try again (1 more set)</button>`
-      :`<p class="note">That's both tries used — please pick the one you prefer.</p>`}
-    <div class="err" id="err"></div>
-  </div>`;
-  document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>pick(b.dataset.url));
-  const r=document.getElementById('retry'); if(r) r.onclick=async()=>{ r.disabled=true; await generate(); };
+  app.innerHTML='<div class="card"><div class="klabel">'+t.pickTitle+'</div>'+
+    takes.map((u,i)=>'<div class="take"><h3>'+t.version+' '+(i+1)+'</h3><audio controls preload="none" src="'+u+'"></audio>'+
+      '<button class="pick" data-url="'+u+'">💛 '+t.pick+' '+(i+1)+'</button></div>').join("")+
+    (canRetry?'<button class="ghost" id="retry">'+t.retry+'</button>':'<p class="note">'+t.bothUsed+'</p>')+
+    '<div class="err" id="err"></div></div>';
+  document.querySelectorAll(".pick").forEach(b=>b.onclick=()=>pick(b.dataset.url));
+  const r=document.getElementById("retry"); if(r) r.onclick=async()=>{ r.disabled=true; await generate(); };
 }
-
 async function pick(url){
-  document.querySelectorAll('.pick').forEach(b=>b.disabled=true);
-  const d=await call('pick',{url});
-  if(d.error){ const e=document.getElementById('err'); if(e)e.textContent=d.error; return; }
+  document.querySelectorAll(".pick").forEach(b=>b.disabled=true);
+  const d=await call("pick",{url});
+  if(d.error){ const e=document.getElementById("err"); if(e)e.textContent=d.error; document.querySelectorAll(".pick").forEach(b=>b.disabled=false); return; }
   renderChosen(url);
 }
-
 function renderChosen(url){
-  app.innerHTML=`<div class="card center">
-    <div class="big">🎉</div>
-    <h2 style="margin:6px 0">Your song is chosen!</h2>
-    <audio controls src="${url}" style="margin-top:8px"></audio><br>
-    <a class="dl" href="${url}" download>⬇ Download MP3</a>
-    <p class="note">A shareable <b>video (MP4)</b> version comes with your finished keepsake.</p>
-    <p class="note" style="margin-top:14px">We're now crafting your <b>animated keepsake</b> with your photos, then we'll send you the final link. 💛</p>
-  </div>`;
-  sub.textContent='Song chosen — keepsake on the way';
+  app.innerHTML='<div class="card center"><div class="big">🎉</div>'+
+    '<h2 style="font-family:var(--serif);font-weight:600;margin:8px 0 4px">'+t.chosenTitle+'</h2>'+
+    '<audio controls src="'+url+'" style="margin-top:10px"></audio><br>'+
+    '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
+    '<p class="note">'+t.chosenNote1+'</p>'+
+    '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p></div>';
+  sub.textContent=t.chosenSub;
 }
-
 load();
 </script>
 </body>
