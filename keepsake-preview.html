@@ -540,6 +540,10 @@ $("lang").onchange=e=>applyLang(e.target.value);
     if(s.occasion && $("f_occasion")) $("f_occasion").value=s.occasion;
     if(s.from && $("f_from")) $("f_from").value=s.from;
     if(s.story && $("f_story")) $("f_story").value=s.story;
+    if(s.source==="wall"){
+      var buy=$("buy");
+      if(buy){ buy.setAttribute("href","checkout.html?p=song-of-your-night"); buy.removeAttribute("data-i"); buy.textContent="Love it? Create your Song of Your Night — $49 ▸"; }
+    }
     var form=$("form");
     if(form && form.parentNode){
       var b=document.createElement("div");
