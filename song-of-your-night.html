@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Song of Your Night · GatherWall</title>
+<meta name="description" content="At the end of your event, GatherWall reads every message your guests left — and turns their words into an original song, written just for you. Hear a real example.">
+<link rel="canonical" href="https://gatherwall.com/song-of-your-night.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GatherWall">
+<meta property="og:title" content="The Song of Your Night · GatherWall">
+<meta property="og:description" content="Your guests wrote it without knowing. We turned their messages into a song.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Song of Your Night · GatherWall">
+<meta name="twitter:description" content="Your guests wrote it without knowing. We turned their messages into a song.">
+<meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+  :root{--brand:#2E7D5B;--brand-d:#256048;--gold:#C2A058;--gold-d:#9a7d33;--bg:#F5F4EF;--card:#fff;--ink:#232A26;--muted:#5C6B5E;--line:#E2E6DE;--soft:#FAFAF6;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;background:radial-gradient(1000px 520px at 50% -8%,rgba(46,125,91,.16),transparent 60%),var(--bg);min-height:100vh}
+  a{color:inherit}
+  .nav{padding:16px 0;border-bottom:1px solid var(--line);background:rgba(245,244,239,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}
+  .nav-in{max-width:1000px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:600;font-size:19px;text-decoration:none;color:var(--ink)}
+  .logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+  .nav a.back{font-size:14px;color:var(--muted);text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px 90px}
+  header.hero{text-align:center;padding:52px 0 6px}
+  .eyebrow{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  .eyebrow b{color:var(--gold-d)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,7vw,60px);line-height:1.05;margin-bottom:14px}
+  .tag{font-size:18px;color:var(--muted);max-width:40ch;margin:0 auto}
+  /* player */
+  .player{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 26px 64px -34px rgba(32,39,31,.45);margin:30px auto 0;max-width:540px}
+  .player .cov{display:flex;align-items:center;gap:15px;margin-bottom:16px}
+  .player .art{width:64px;height:64px;border-radius:13px;flex:0 0 auto;background:linear-gradient(135deg,#2E7D5B,#C2A058);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff}
+  .player .meta .t{font-family:var(--serif);font-weight:600;font-size:19px}
+  .player .meta .s{font-size:13px;color:var(--muted)}
+  audio{width:100%}
+  .note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:11px}
+  /* transform */
+  .transform{margin-top:54px}
+  .th{text-align:center;font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:6px}
+  .ts{text-align:center;color:var(--muted);font-size:15px;margin-bottom:30px}
+  .grid{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:start}
+  @media(max-width:760px){.grid{grid-template-columns:1fr;gap:24px}.arrow{transform:rotate(90deg);margin:0 auto}}
+  .col-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+  .col-msgs .col-label{color:var(--gold-d)}
+  .col-lyrics .col-label{color:var(--brand)}
+  .msg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:11px;box-shadow:0 12px 30px -26px rgba(32,39,31,.5)}
+  .msg .m{font-size:14.5px;color:#2b332a}
+  .msg .b{margin-top:6px;font-size:12.5px;font-weight:600;color:var(--gold-d)}
+  .arrow{display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:26px;padding-top:60px}
+  .lyrics{background:color-mix(in srgb,var(--brand) 4%,#fff);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 16px 40px -30px rgba(32,39,31,.5)}
+  .sec{margin-bottom:18px}
+  .sec .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:5px}
+  .sec p{font-family:var(--serif);font-size:17px;line-height:1.65;color:#2b332a}
+  .src{display:block;font-family:var(--ui);font-style:normal;font-size:11.5px;color:var(--gold-d);margin-top:1px}
+  /* how */
+  .how{margin-top:56px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 24px 60px -36px rgba(32,39,31,.4);text-align:center}
+  .how h2{font-family:var(--serif);font-weight:600;font-size:24px;margin-bottom:10px}
+  .how p{color:var(--muted);font-size:15.5px;max-width:60ch;margin:0 auto 20px}
+  .steps{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .step{flex:1;min-width:200px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .step .n{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin:0 auto 10px}
+  .step b{display:block;font-size:14.5px;margin-bottom:3px}
+  .step span{font-size:13px;color:var(--muted)}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:40px}
+  .btn{padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:#fff;color:var(--brand-d)}
+  .btn.primary{background:var(--brand);color:#fff;border:none}
+  .btn.primary:hover{background:var(--brand-d)}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:50px}
+  footer a{color:var(--brand);text-decoration:none}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <a class="back" href="index.html">← Home</a>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">GatherWall Live <b>×</b> Ode</div>
+    <h1>The Song of Your Night</h1>
+    <p class="tag">Your guests wrote it without knowing. We turned their messages into a song.</p>
+  </header>
+
+  <div class="player">
+    <div class="cov">
+      <div class="art">🎵</div>
+      <div class="meta">
+        <div class="t">The Night We Became Us</div>
+        <div class="s">Tom &amp; Priya's wedding · made from their guests' words</div>
+      </div>
+    </div>
+    <audio controls preload="none" src="the-night-we-became-us.mp3"></audio>
+    <div class="note">A real example — every line below came from a real guest message. 🎧</div>
+  </div>
+
+  <section class="transform">
+    <div class="th">From their guests' words…</div>
+    <div class="ts">These messages were left on the live wall during the evening.</div>
+    <div class="grid">
+      <div class="col-msgs">
+        <div class="col-label">What the guests wrote</div>
+        <div class="msg"><div class="m">"You two were always meant to be."</div><div class="b">— Aunt Mary</div></div>
+        <div class="msg"><div class="m">"Priya, you walked in and the whole room went quiet."</div><div class="b">— Mum</div></div>
+        <div class="msg"><div class="m">"Remember the rain on your first date? Look at you now."</div><div class="b">— Sarah</div></div>
+        <div class="msg"><div class="m">"Best friends first, forever after."</div><div class="b">— Lucy</div></div>
+        <div class="msg"><div class="m">"From two families to one. We love you both."</div><div class="b">— The Patels</div></div>
+        <div class="msg"><div class="m">"To dancing in the kitchen for the next fifty years."</div><div class="b">— Grandad</div></div>
+        <div class="msg"><div class="m">"You make ordinary days feel like a celebration."</div><div class="b">— James</div></div>
+        <div class="msg"><div class="m">"Here's to the adventure — we're all behind you."</div><div class="b">— The whole gang</div></div>
+      </div>
+
+      <div class="arrow">♪</div>
+
+      <div class="col-lyrics">
+        <div class="col-label">…into their song</div>
+        <div class="lyrics">
+          <div class="sec"><div class="lbl">Verse 1</div><p>You walked in and the whole room went still,<span class="src">↳ from Mum</span>rain on our first date — and it's raining still.<span class="src">↳ from Sarah</span>Best friends first, and forever after,<span class="src">↳ from Lucy</span>a home we'll fill with all this laughter.</p></div>
+          <div class="sec"><div class="lbl">Chorus</div><p>This is the night we became us —<br>two families now one home, one love.<span class="src">↳ from the Patels</span>Still dancing in the kitchen, fifty years from now,<span class="src">↳ from Grandad</span>they were always meant to be, somehow.<span class="src">↳ from Aunt Mary</span></p></div>
+          <div class="sec"><div class="lbl">Verse 2</div><p>You make the ordinary days feel like a celebration,<span class="src">↳ from James</span>the whole gang's right behind us for the long road of elation.<span class="src">↳ from the whole gang</span></p></div>
+          <div class="sec"><div class="lbl">Bridge</div><p>From everyone who loves us — every word, every line —<br>became this song tonight: your voices, yours and mine.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>How it works</h2>
+    <p>No other guestbook does this. At the end of your event, GatherWall reads every message your guests left on the wall — and weaves their words into an original song, written just for you and yours to keep forever.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><b>Guests post all night</b><span>Photos and messages from any phone — no app.</span></div>
+      <div class="step"><div class="n">2</div><b>We listen to every word</b><span>Their messages become your lyrics — in their voices.</span></div>
+      <div class="step"><div class="n">3</div><b>Your song, forever</b><span>An original keepsake song, made from the love in the room.</span></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="btn primary" href="index.html#live">Start a live wall →</a>
+    <a class="btn" href="ode.html">Explore keepsakes</a>
+  </div>
+
+  <footer><a href="index.html">← GatherWall · a living wall of love for any event</a></footer>
+</div>
+</body>
+</html>
