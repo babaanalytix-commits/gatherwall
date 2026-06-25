@@ -491,33 +491,71 @@ function brief(){
 }
 function showErr(m){ const e=$("err"); e.textContent=m; e.style.display="block"; }
 
+var LYRIC_OPTS=[];
+function escLy(s){ return (s||"").replace(/[&<>]/g,function(c){return ({"&":"&amp;","<":"&lt;",">":"&gt;"})[c];}); }
+async function genLyrics(b){
+  var r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});
+  var d=await r.json();
+  if(d.error||!d.lyrics) throw new Error(d.error||"gen");
+  return d.lyrics;
+}
 async function preview(){
   const t=I18N[LANG], b=brief();
   if(!b.for.trim()){ showErr(t.err_for); return; }
   $("err").style.display="none";
   $("go").disabled=true; $("go").innerHTML='<span class="spin"></span>'+t.loading;
   try{
-    const r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});
-    const d=await r.json();
-    if(d.error||!d.lyrics){ showErr(d.error||t.err_generic); return; }
-    $("lyrics").textContent=d.lyrics;
-    try{
-      const orderId="ks_"+Math.random().toString(36).slice(2,10);
-      const style=(b.styleDesc||"warm soulful pop, heartfelt vocal");
-      await fetch(FIREBASE_DB+"/orders/"+orderId+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({status:"draft", for:b.for, occasion:b.occasion, language:b.language, from:b.from,
-          style:style, lyrics:d.lyrics, brief:b, uiLang:LANG, photoCount:PHOTOS.length, createdAt:Date.now()})});
-      if(PHOTOS.length){
-        try{ await fetch(FIREBASE_DB+"/photos/"+orderId+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(PHOTOS)}); }catch(e){}
-      }
-      try{ localStorage.setItem("gw_order",orderId); }catch(e){}
-      CUR_ORDER=orderId; CUR_BRIEF=b;
-      $("buy").href="checkout.html?p=animated-keepsake-story&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for);
-    }catch(e){ $("buy").href="checkout.html?p=animated-keepsake-story&for="+encodeURIComponent(b.for); }
+    // Generate TWO versions so the host can pick the one that feels like their night.
+    const pair=await Promise.all([
+      genLyrics(Object.assign({},b,{variant:"A"})),
+      genLyrics(Object.assign({},b,{variant:"B"}))
+    ]);
+    LYRIC_OPTS=pair; CUR_BRIEF=b;
+    renderChoices(b);
     $("form").style.display="none"; $("out").style.display="block";
     window.scrollTo({top:0,behavior:"smooth"});
   }catch(e){ showErr(t.err_engine); }
   finally{ $("go").disabled=false; $("go").innerHTML=t.btn; }
+}
+function renderChoices(b){
+  var eb=document.querySelector('#out [data-i="out_title"]'); if(eb){ eb.removeAttribute("data-i"); eb.textContent="Two versions — pick the one that feels like your night"; }
+  var buy=$("buy"); if(buy) buy.style.display="none";
+  var labels=["Version A","Version B"];
+  var html="";
+  for(var i=0;i<LYRIC_OPTS.length;i++){
+    html+='<div class="ly-opt" id="lyopt'+i+'" style="border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#fff;transition:opacity .2s;">'+
+      '<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand2,#2E7D5B);font-weight:700;margin-bottom:8px;">'+labels[i]+'</div>'+
+      '<div class="lyrics" style="white-space:pre-wrap;">'+escLy(LYRIC_OPTS[i])+'</div>'+
+      '<button class="btn" style="margin-top:13px;width:100%;justify-content:center;" onclick="chooseLyric('+i+')">Choose '+labels[i]+' ▸</button>'+
+    '</div>';
+  }
+  $("lyrics").innerHTML=html;
+}
+async function chooseLyric(i){
+  var b=CUR_BRIEF||brief();
+  var chosen=LYRIC_OPTS[i]; if(chosen==null) return;
+  for(var k=0;k<LYRIC_OPTS.length;k++){ var el=document.getElementById("lyopt"+k); if(el){ el.style.borderColor=(k===i)?"var(--brand2,#2E7D5B)":"var(--line)"; el.style.opacity=(k===i)?"1":".45"; var bn=el.querySelector("button"); if(bn) bn.style.display=(k===i)?"none":""; } }
+  var eb=document.querySelector('#out .out-eyebrow'); if(eb){ eb.textContent="Your lyrics — ready when you are"; }
+  var orderId="ks_"+Math.random().toString(36).slice(2,10);
+  try{
+    var style=(b.styleDesc||"warm soulful pop, heartfelt vocal");
+    var prod=window.GW_WALL_SONG?"song-of-your-night":"animated-keepsake-story";
+    await fetch(FIREBASE_DB+"/orders/"+orderId+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({status:"draft", product:prod, for:b.for, occasion:b.occasion, language:b.language, from:b.from,
+        style:style, lyrics:chosen, brief:b, uiLang:LANG, photoCount:PHOTOS.length, createdAt:Date.now()})});
+    if(PHOTOS.length){ try{ await fetch(FIREBASE_DB+"/photos/"+orderId+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(PHOTOS)}); }catch(e){} }
+    try{ localStorage.setItem("gw_order",orderId); }catch(e){}
+    CUR_ORDER=orderId;
+  }catch(e){}
+  var buy=$("buy");
+  if(buy){
+    var p=window.GW_WALL_SONG?"song-of-your-night":"animated-keepsake-story";
+    buy.setAttribute("href","checkout.html?p="+p+"&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for));
+    buy.removeAttribute("data-i");
+    buy.textContent=window.GW_WALL_SONG?"Love it? Create your Song of Your Night — $49 ▸":"Love it? Create your keepsake song — $39 ▸";
+    buy.style.display="";
+    try{ buy.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){}
+  }
 }
 $("go").onclick=preview;
 $("again").onclick=()=>{ $("out").style.display="none"; $("form").style.display="block"; window.scrollTo({top:0,behavior:"smooth"}); };
@@ -540,10 +578,7 @@ $("lang").onchange=e=>applyLang(e.target.value);
     if(s.occasion && $("f_occasion")) $("f_occasion").value=s.occasion;
     if(s.from && $("f_from")) $("f_from").value=s.from;
     if(s.story && $("f_story")) $("f_story").value=s.story;
-    if(s.source==="wall"){
-      var buy=$("buy");
-      if(buy){ buy.setAttribute("href","checkout.html?p=song-of-your-night"); buy.removeAttribute("data-i"); buy.textContent="Love it? Create your Song of Your Night — $49 ▸"; }
-    }
+    if(s.source==="wall"){ window.GW_WALL_SONG=true; }
     var form=$("form");
     if(form && form.parentNode){
       var b=document.createElement("div");
