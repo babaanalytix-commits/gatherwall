@@ -530,6 +530,26 @@ $("lang").onchange=e=>applyLang(e.target.value);
   if(!I18N[l]) l="en";
   $("lang").value=l; applyLang(l);
 })();
+
+/* The Song of Your Night: pre-fill from a live wall's guest messages. */
+(function(){
+  try{
+    var raw=localStorage.getItem("gw_song_seed"); if(!raw) return;
+    var s=JSON.parse(raw); localStorage.removeItem("gw_song_seed");
+    if(s.for && $("f_for")) $("f_for").value=s.for;
+    if(s.occasion && $("f_occasion")) $("f_occasion").value=s.occasion;
+    if(s.from && $("f_from")) $("f_from").value=s.from;
+    if(s.story && $("f_story")) $("f_story").value=s.story;
+    var form=$("form");
+    if(form && form.parentNode){
+      var b=document.createElement("div");
+      b.style.cssText="background:#EFF5F0;border:1px solid #D7E4DA;border-radius:14px;padding:13px 16px;margin-bottom:16px;font-size:14px;color:#232A26;line-height:1.5;";
+      b.innerHTML="🎵 <b>The Song of Your Night.</b> We’ve filled in the messages your guests left on your wall — preview the song they become, free.";
+      form.parentNode.insertBefore(b, form);
+      try{ b.scrollIntoView({behavior:"smooth",block:"start"}); }catch(e){}
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

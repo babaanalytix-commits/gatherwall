@@ -2001,8 +2001,41 @@ function showShare(e){
       if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
     }
   }
-  try{ memRemember((family?'Memory Wall — ':'Wall — ')+e.name, w, m); renderShareSafety(e, w, m, g); }catch(_){}
+  try{ memRemember((family?'Memory Wall — ':'Wall — ')+e.name, w, m); renderShareSafety(e, w, m, g); renderSongCard(e); }catch(_){}
   go('share'); window._cur=id; window._curEvent=e;
+}
+/* ===== The Song of Your Night — turn guest messages into a keepsake song ===== */
+function songOccasion(vibe){
+  return ({wedding:'Their wedding day',celebration:'Their celebration',corporate:'Their event',brand:'Their event'})[vibe] || 'Their special night';
+}
+function songOfYourNight(e){
+  if(!e){ e=window._curEvent; } if(!e){ toast('Open your wall first'); return; }
+  toast('Gathering your guests’ words…');
+  const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+  fetch(DB+'/tributes/'+e.id+'.json').then(r=>r.json()).then(data=>{
+    const items=Object.values(data||{}).filter(t=>t&&t.msg&&t.msg.trim());
+    if(!items.length){
+      toast('Once your guests have left a few messages, come back and we’ll turn them into a song 🎵');
+      return;
+    }
+    items.sort((a,b)=>(a.ts||0)-(b.ts||0));
+    const story = items.slice(0,40).map(t=>'“'+t.msg.trim()+'” — '+((t.name||'A guest').trim())).join('\n');
+    const seed = { for:e.name, occasion:songOccasion(e.vibe), from:e.host||'', story:story, source:'wall' };
+    try{ localStorage.setItem('gw_song_seed', JSON.stringify(seed)); }catch(err){}
+    location.href='keepsake-preview.html';
+  }).catch(()=>{ toast('Could not reach your wall — check your connection'); });
+}
+/* The "Song of Your Night" card — reused on the host's share + manage screens. */
+function renderSongCard(e, screenSel, cardId){
+  screenSel=screenSel||'#screen-share'; cardId=cardId||'songCard';
+  if(!e || e.kind==='memorial') return;
+  const wrap=document.querySelector(screenSel+' .wrap'); if(!wrap) return;
+  let box=document.getElementById(cardId);
+  if(!box){ box=document.createElement('div'); box.id=cardId; box.className='card'; box.style.cssText='margin-top:18px;border:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 5%,#fff),#fff);'; wrap.appendChild(box); }
+  box.innerHTML=
+    '<div style="font-weight:700;font-size:15px;margin-bottom:5px;">✨ The Song of Your Night</div>'+
+    '<p class="muted" style="font-size:13.5px;margin-bottom:13px;">After your event, turn the messages your guests left into an original keepsake song — written from their words, yours to keep forever. <a href="song-of-your-night.html" target="_blank" style="color:var(--brand);font-weight:600;">Hear an example →</a></p>'+
+    '<button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="songOfYourNight(window._curEvent)">✨ Create the Song of Your Night</button>';
 }
 /* Publish / go live → route to payment for the chosen tier. Uses the Lemon Squeezy
    wall checkout link for the tier if one is configured (WALL_TIER_CHECKOUT);
@@ -2408,6 +2441,7 @@ function renderManage(id, key){
     updateModBtn(); mgFilterMode='all';
     ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k==='All');});
     go('manage');
+    try{ renderSongCard(e,'#screen-manage','songCardMg'); }catch(_){}
     // LIVE listener: new guest posts (and approvals) update the panel in real time,
     // so the host sees pending posts arrive the moment guests submit them.
     watchManageTrib(id, list=>{ mgCache=list||[]; mgPaint(); });
