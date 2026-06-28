@@ -61,11 +61,17 @@ img{max-width:100%;display:block;}
 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:50;background:rgba(247,245,238,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-.nav-in{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:64px;}
-.logo{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;display:flex;align-items:center;gap:9px;color:var(--ink);}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;display:flex;align-items:center;gap:9px;color:var(--ink);flex-shrink:0;}
 .logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;}
-.back{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s;}
+.back{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s;flex-shrink:0;}
 .back:hover{color:var(--brand);}
+
+/* ── LANG SWITCHER ── */
+.lang-switcher{display:flex;align-items:center;background:rgba(31,38,34,.06);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
+.lang-btn{background:transparent;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:12px;color:var(--muted);padding:5px 10px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap;line-height:1;}
+.lang-btn:hover{color:var(--ink);}
+.lang-btn.active{background:var(--brand);color:#fff;}
 
 /* ── WRAP ── */
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
@@ -178,6 +184,8 @@ details[open] summary::after{content:'−';}
   .photo-story-band{padding:52px 0;}
   .photo-story-scenes{grid-template-columns:1fr 1fr;}
   .photo-demo-row{grid-template-columns:1fr;}
+  .lang-switcher{gap:1px;}
+  .lang-btn{padding:5px 7px;font-size:11px;}
 }
 </style>
 </head>
@@ -185,18 +193,25 @@ details[open] summary::after{content:'−';}
 
 <nav class="nav"><div class="nav-in">
   <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
-  <a class="back" href="ode.html">← Ode</a>
+  <div class="lang-switcher" role="group" aria-label="Language">
+    <button class="lang-btn active" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" onclick="setLang('fr')" aria-pressed="false">FR</button>
+    <button class="lang-btn" onclick="setLang('es')" aria-pressed="false">ES</button>
+    <button class="lang-btn" onclick="setLang('cs')" aria-pressed="false">CS</button>
+    <button class="lang-btn" onclick="setLang('de')" aria-pressed="false">DE</button>
+  </div>
+  <a class="back" href="ode.html" data-i18n="nav_back">← Ode</a>
 </div></nav>
 
 <!-- HERO -->
 <div class="wrap">
 <div class="hero">
-  <span class="hero-eyebrow">Keepsake Song</span>
-  <h1>A personalised song, written just for them</h1>
-  <p>We turn their story — the names, the places, the moments that made them — into an original song, written and produced just for one person. There is no other gift like it.</p>
+  <span class="hero-eyebrow" data-i18n="hero_eyebrow">Keepsake Song</span>
+  <h1 data-i18n="hero_h1">A personalised song, written just for them</h1>
+  <p data-i18n="hero_lead">We turn their story — the names, the places, the moments that made them — into an original song, written and produced just for one person. There is no other gift like it.</p>
   <div class="cta-row">
-    <a class="btn-primary" href="keepsake-preview.html">✨ Preview your lyrics — free</a>
-    <a class="btn-ghost" href="samples.html">Hear real examples →</a>
+    <a class="btn-primary" href="keepsake-preview.html" data-i18n="cta_preview">✨ Preview your lyrics — free</a>
+    <a class="btn-ghost" href="samples.html" data-i18n="cta_samples">Hear real examples →</a>
   </div>
 </div>
 </div>
@@ -204,50 +219,50 @@ details[open] summary::after{content:'−';}
 <!-- PHOTO STORY BAND -->
 <div class="photo-story-band">
 <div class="wrap">
-  <p class="section-label">Their photos, their story — set to music</p>
-  <h2 class="section-title" style="font-family:'Fraunces',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:14px;">Their photos tell the story.<br>We set it to an original song.</h2>
-  <p class="section-sub">The Animated Keepsake Story is not just a song — it is a scene-by-scene animated film built from the buyer's own photographs. Each photo becomes a moment. Each moment becomes a verse. The result plays on the big screen at the event and lives on their phone forever.</p>
+  <p class="section-label" data-i18n="photo_label">Their photos, their story — set to music</p>
+  <h2 class="section-title" style="font-family:'Fraunces',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:14px;" data-i18n="photo_h2">Their photos tell the story.<br>We set it to an original song.</h2>
+  <p class="section-sub" data-i18n="photo_sub">The Animated Keepsake Story is not just a song — it is a scene-by-scene animated film built from the buyer's own photographs. Each photo becomes a moment. Each moment becomes a verse. The result plays on the big screen at the event and lives on their phone forever.</p>
   <div class="photo-story-scenes">
     <div class="scene">
       <div class="scene-icon">📸</div>
-      <h4>You send the photos</h4>
-      <p>Upload the pictures that tell their story — childhood, family, milestones, places they love.</p>
+      <h4 data-i18n="scene1_h4">You send the photos</h4>
+      <p data-i18n="scene1_p">Upload the pictures that tell their story — childhood, family, milestones, places they love.</p>
     </div>
     <div class="scene">
       <div class="scene-icon">✍️</div>
-      <h4>We write the song</h4>
-      <p>Original lyrics built around their real name, memories, and the people who matter most to them.</p>
+      <h4 data-i18n="scene2_h4">We write the song</h4>
+      <p data-i18n="scene2_p">Original lyrics built around their real name, memories, and the people who matter most to them.</p>
     </div>
     <div class="scene">
       <div class="scene-icon">🎞️</div>
-      <h4>Photos become scenes</h4>
-      <p>Each photograph is woven into an animated story — frame by frame, verse by verse.</p>
+      <h4 data-i18n="scene3_h4">Photos become scenes</h4>
+      <p data-i18n="scene3_p">Each photograph is woven into an animated story — frame by frame, verse by verse.</p>
     </div>
     <div class="scene">
       <div class="scene-icon">🎬</div>
-      <h4>Play it on the day</h4>
-      <p>The full animated story plays at the party, and stays on their phone to watch again, any time.</p>
+      <h4 data-i18n="scene4_h4">Play it on the day</h4>
+      <p data-i18n="scene4_p">The full animated story plays at the party, and stays on their phone to watch again, any time.</p>
     </div>
   </div>
-  <h3 style="font-family:'Fraunces',Georgia,serif;color:#fff;font-size:1.15rem;margin-top:44px;margin-bottom:16px;">See it with photos — real examples</h3>
+  <h3 style="font-family:'Fraunces',Georgia,serif;color:#fff;font-size:1.15rem;margin-top:44px;margin-bottom:16px;" data-i18n="photo_demo_heading">See it with photos — real examples</h3>
   <div class="photo-demo-row">
     <a class="demo-card" href="keepsake-photo-demo.html" target="_blank">
-      <span class="demo-card-label">Photo Demo</span>
-      <span class="demo-card-title">Animated Photo Keepsake</span>
-      <span class="demo-card-desc">Photos + original song — the full animated story experience.</span>
-      <span class="demo-card-arrow">Watch the demo →</span>
+      <span class="demo-card-label" data-i18n="demo1_label">Photo Demo</span>
+      <span class="demo-card-title" data-i18n="demo1_title">Animated Photo Keepsake</span>
+      <span class="demo-card-desc" data-i18n="demo1_desc">Photos + original song — the full animated story experience.</span>
+      <span class="demo-card-arrow" data-i18n="demo_arrow">Watch the demo →</span>
     </a>
     <a class="demo-card" href="keepsake-birthday-demo.html" target="_blank">
-      <span class="demo-card-label">Birthday Demo</span>
-      <span class="demo-card-title">Birthday Keepsake Story</span>
-      <span class="demo-card-desc">A milestone birthday — photos, lyrics, and the song played in the room.</span>
-      <span class="demo-card-arrow">Watch the demo →</span>
+      <span class="demo-card-label" data-i18n="demo2_label">Birthday Demo</span>
+      <span class="demo-card-title" data-i18n="demo2_title">Birthday Keepsake Story</span>
+      <span class="demo-card-desc" data-i18n="demo2_desc">A milestone birthday — photos, lyrics, and the song played in the room.</span>
+      <span class="demo-card-arrow" data-i18n="demo_arrow2">Watch the demo →</span>
     </a>
     <a class="demo-card" href="keepsake-demo.html" target="_blank">
-      <span class="demo-card-label">Full Demo</span>
-      <span class="demo-card-title">Complete Keepsake Demo</span>
-      <span class="demo-card-desc">The end-to-end experience — see exactly what arrives after payment.</span>
-      <span class="demo-card-arrow">Watch the demo →</span>
+      <span class="demo-card-label" data-i18n="demo3_label">Full Demo</span>
+      <span class="demo-card-title" data-i18n="demo3_title">Complete Keepsake Demo</span>
+      <span class="demo-card-desc" data-i18n="demo3_desc">The end-to-end experience — see exactly what arrives after payment.</span>
+      <span class="demo-card-arrow" data-i18n="demo_arrow3">Watch the demo →</span>
     </a>
   </div>
 </div>
@@ -256,24 +271,24 @@ details[open] summary::after{content:'−';}
 <!-- HOW IT WORKS -->
 <section>
 <div class="wrap">
-  <p class="section-label">How it works</p>
-  <h2 class="section-title">Three simple steps to the perfect gift</h2>
-  <p class="section-sub">No musical knowledge needed. No complicated forms. Just tell us about them — and we'll take it from there.</p>
+  <p class="section-label" data-i18n="how_label">How it works</p>
+  <h2 class="section-title" data-i18n="how_h2">Three simple steps to the perfect gift</h2>
+  <p class="section-sub" data-i18n="how_sub">No musical knowledge needed. No complicated forms. Just tell us about them — and we'll take it from there.</p>
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
-      <h3>Tell us their story</h3>
-      <p>Fill in a short, guided form with the memories, names, and moments that matter most to you. The more you share, the more personal the song will feel.</p>
+      <h3 data-i18n="step1_h3">Tell us their story</h3>
+      <p data-i18n="step1_p">Fill in a short, guided form with the memories, names, and moments that matter most to you. The more you share, the more personal the song will feel.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <h3>Preview their lyrics — free</h3>
-      <p>Within seconds, you'll see a full draft of the lyrics written about them. No card required. Read every line before you decide whether to go further.</p>
+      <h3 data-i18n="step2_h3">Preview their lyrics — free</h3>
+      <p data-i18n="step2_p">Within seconds, you'll see a full draft of the lyrics written about them. No card required. Read every line before you decide whether to go further.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <h3>Love it? Pay just $39</h3>
-      <p>If the lyrics move you, confirm and pay. We produce the full, professionally arranged song and deliver a high-quality audio file within 48 hours.</p>
+      <h3 data-i18n="step3_h3">Love it? Pay just $39</h3>
+      <p data-i18n="step3_p">If the lyrics move you, confirm and pay. We produce the full, professionally arranged song and deliver a high-quality audio file within 48 hours.</p>
     </div>
   </div>
 </div>
@@ -282,18 +297,18 @@ details[open] summary::after{content:'−';}
 <!-- HEAR A REAL EXAMPLE -->
 <section id="example">
 <div class="wrap">
-  <p class="section-label">Hear a real example</p>
-  <h2 class="section-title">Listen before you decide</h2>
-  <p class="section-sub">This is a real keepsake song — produced with the same care and craft that goes into every GatherWall song. <a href="examples.html" style="color:var(--brand);font-weight:600;">Browse more examples →</a></p>
+  <p class="section-label" data-i18n="audio_label">Hear a real example</p>
+  <h2 class="section-title" data-i18n="audio_h2">Listen before you decide</h2>
+  <p class="section-sub" data-i18n="audio_sub">This is a real keepsake song — produced with the same care and craft that goes into every GatherWall song. <a href="examples.html" style="color:var(--brand);font-weight:600;" data-i18n="audio_link_inline">Browse more examples →</a></p>
   <div class="audio-section">
-    <p class="audio-label">Real keepsake song</p>
+    <p class="audio-label" data-i18n="audio_card_label">Real keepsake song</p>
     <h3 class="audio-title">Fifty Years of Gold</h3>
-    <p class="audio-sub">A keepsake for a golden anniversary</p>
+    <p class="audio-sub" data-i18n="audio_card_sub">A keepsake for a golden anniversary</p>
     <audio controls preload="metadata" aria-label="Listen to Fifty Years of Gold — a keepsake song for a golden anniversary">
       <source src="fifty-years-of-gold.mp3" type="audio/mpeg">
-      Your browser doesn't support the audio element. <a href="fifty-years-of-gold.mp3">Download the song</a>.
+      <span data-i18n="audio_fallback">Your browser doesn't support the audio element.</span> <a href="fifty-years-of-gold.mp3" data-i18n="audio_fallback_link">Download the song</a>.
     </audio>
-    <a class="audio-link" href="examples.html">Hear more examples like this →</a>
+    <a class="audio-link" href="examples.html" data-i18n="audio_more_link">Hear more examples like this →</a>
   </div>
 </div>
 </section>
@@ -301,18 +316,18 @@ details[open] summary::after{content:'−';}
 <!-- PERFECT FOR EVERY MILESTONE -->
 <section>
 <div class="wrap">
-  <p class="section-label">Occasions</p>
-  <h2 class="section-title">Perfect for every milestone</h2>
-  <p class="section-sub">A keepsake song is the kind of gift you give when nothing else feels quite right — when the occasion deserves something that will last longer than flowers.</p>
+  <p class="section-label" data-i18n="occasions_label">Occasions</p>
+  <h2 class="section-title" data-i18n="occasions_h2">Perfect for every milestone</h2>
+  <p class="section-sub" data-i18n="occasions_sub">A keepsake song is the kind of gift you give when nothing else feels quite right — when the occasion deserves something that will last longer than flowers.</p>
   <div class="chips">
-    <span class="chip">🎂 70th Birthday</span>
-    <span class="chip">🎂 80th Birthday</span>
-    <span class="chip">🥂 Golden Anniversary</span>
-    <span class="chip">🎓 Retirement</span>
-    <span class="chip">💛 Thank-you Gift</span>
-    <span class="chip"><a href="memorial-page.html">🕊 In Loving Memory</a></span>
-    <span class="chip">🎂 90th Birthday</span>
-    <span class="chip">💍 Wedding Anniversary</span>
+    <span class="chip" data-i18n="chip_70">🎂 70th Birthday</span>
+    <span class="chip" data-i18n="chip_80">🎂 80th Birthday</span>
+    <span class="chip" data-i18n="chip_golden">🥂 Golden Anniversary</span>
+    <span class="chip" data-i18n="chip_retirement">🎓 Retirement</span>
+    <span class="chip" data-i18n="chip_thankyou">💛 Thank-you Gift</span>
+    <span class="chip"><a href="memorial-page.html" data-i18n="chip_memorial">🕊 In Loving Memory</a></span>
+    <span class="chip" data-i18n="chip_90">🎂 90th Birthday</span>
+    <span class="chip" data-i18n="chip_wedding">💍 Wedding Anniversary</span>
   </div>
 </div>
 </section>
@@ -320,32 +335,32 @@ details[open] summary::after{content:'−';}
 <!-- WHAT YOU GET -->
 <section>
 <div class="wrap">
-  <p class="section-label">What you get</p>
-  <h2 class="section-title">Everything in one gift</h2>
-  <p class="section-sub">Your $39 includes everything needed to give this song confidently — from the first preview to the finished file, forever yours.</p>
+  <p class="section-label" data-i18n="wyg_label">What you get</p>
+  <h2 class="section-title" data-i18n="wyg_h2">Everything in one gift</h2>
+  <p class="section-sub" data-i18n="wyg_sub">Your $39 includes everything needed to give this song confidently — from the first preview to the finished file, forever yours.</p>
   <div class="feature-card">
     <ul class="feature-list">
       <li>
         <span class="feature-check">✓</span>
-        <div><strong>Original lyrics written about them</strong><span>Every line is written specifically for the person you're celebrating — no templates, no stock phrases.</span></div>
+        <div><strong data-i18n="feat1_strong">Original lyrics written about them</strong><span data-i18n="feat1_span">Every line is written specifically for the person you're celebrating — no templates, no stock phrases.</span></div>
       </li>
       <li>
         <span class="feature-check">✓</span>
-        <div><strong>Professional production in your chosen style</strong><span>Choose from pop, folk, classical, R&amp;B, or country. Our producers create a full arrangement to match.</span></div>
+        <div><strong data-i18n="feat2_strong">Professional production in your chosen style</strong><span data-i18n="feat2_span">Choose from pop, folk, classical, R&amp;B, or country. Our producers create a full arrangement to match.</span></div>
       </li>
       <li>
         <span class="feature-check">✓</span>
-        <div><strong>High-quality audio file — yours forever</strong><span>You receive a studio-quality MP3 to keep, share, and play at any occasion — no subscription, no expiry.</span></div>
+        <div><strong data-i18n="feat3_strong">High-quality audio file — yours forever</strong><span data-i18n="feat3_span">You receive a studio-quality MP3 to keep, share, and play at any occasion — no subscription, no expiry.</span></div>
       </li>
       <li>
         <span class="feature-check">✓</span>
-        <div><strong>Animated story video <em>(optional add-on)</em></strong><span>Pair the song with a beautifully animated video that shows their story — perfect for playing at a party or sharing online.</span></div>
+        <div><strong data-i18n="feat4_strong">Animated story video <em>(optional add-on)</em></strong><span data-i18n="feat4_span">Pair the song with a beautifully animated video that shows their story — perfect for playing at a party or sharing online.</span></div>
       </li>
     </ul>
   </div>
   <blockquote class="testimonial">
-    [Add a real customer quote here]
-    <footer>— Customer name, occasion</footer>
+    <span data-i18n="testimonial_text">[Add a real customer quote here]</span>
+    <footer>— <span data-i18n="testimonial_footer">Customer name, occasion</span></footer>
   </blockquote>
 </div>
 </section>
@@ -353,14 +368,14 @@ details[open] summary::after{content:'−';}
 <!-- PRICING -->
 <section>
 <div class="wrap" style="text-align:center;">
-  <p class="section-label">Pricing</p>
-  <h2 class="section-title" style="margin-bottom:40px;">Simple, honest pricing</h2>
+  <p class="section-label" data-i18n="pricing_label">Pricing</p>
+  <h2 class="section-title" style="margin-bottom:40px;" data-i18n="pricing_h2">Simple, honest pricing</h2>
   <div class="price-card">
     <div class="price-amount"><sup>$</sup>39</div>
-    <p class="price-once">One-time payment</p>
-    <p class="price-free">Preview your lyrics completely free</p>
-    <a class="btn-primary" href="keepsake-preview.html" style="width:100%;justify-content:center;">✨ Preview your lyrics — free</a>
-    <p class="price-note">No card required to preview. Pay only if you love it.</p>
+    <p class="price-once" data-i18n="price_once">One-time payment</p>
+    <p class="price-free" data-i18n="price_free">Preview your lyrics completely free</p>
+    <a class="btn-primary" href="keepsake-preview.html" style="width:100%;justify-content:center;" data-i18n="cta_preview2">✨ Preview your lyrics — free</a>
+    <p class="price-note" data-i18n="price_note">No card required to preview. Pay only if you love it.</p>
   </div>
 </div>
 </section>
@@ -368,48 +383,616 @@ details[open] summary::after{content:'−';}
 <!-- FAQ -->
 <section>
 <div class="wrap">
-  <p class="section-label">Questions</p>
-  <h2 class="section-title">Frequently asked questions</h2>
+  <p class="section-label" data-i18n="faq_label">Questions</p>
+  <h2 class="section-title" data-i18n="faq_h2">Frequently asked questions</h2>
   <div class="faq-list">
     <details>
-      <summary>How long does it take?</summary>
-      <div class="faq-body">Your lyrics are ready instantly to preview — and the full produced song is delivered within 48 hours of payment.</div>
+      <summary data-i18n="faq1_q">How long does it take?</summary>
+      <div class="faq-body" data-i18n="faq1_a">Your lyrics are ready instantly to preview — and the full produced song is delivered within 48 hours of payment.</div>
     </details>
     <details>
-      <summary>Can I choose the musical style?</summary>
-      <div class="faq-body">Yes — pop, folk, classical, R&amp;B, country. You choose when you fill in the story form.</div>
+      <summary data-i18n="faq2_q">Can I choose the musical style?</summary>
+      <div class="faq-body" data-i18n="faq2_a">Yes — pop, folk, classical, R&amp;B, country. You choose when you fill in the story form.</div>
     </details>
     <details>
-      <summary>Can I hear it before I pay?</summary>
-      <div class="faq-body">Yes. Preview your lyrics completely free, with no card required, before you decide.</div>
+      <summary data-i18n="faq3_q">Can I hear it before I pay?</summary>
+      <div class="faq-body" data-i18n="faq3_a">Yes. Preview your lyrics completely free, with no card required, before you decide.</div>
     </details>
     <details>
-      <summary>What occasions is it for?</summary>
-      <div class="faq-body">Birthdays (especially 70th, 80th, 90th milestones), anniversaries, memorials, thank-yous, and retirements.</div>
+      <summary data-i18n="faq4_q">What occasions is it for?</summary>
+      <div class="faq-body" data-i18n="faq4_a">Birthdays (especially 70th, 80th, 90th milestones), anniversaries, memorials, thank-yous, and retirements.</div>
     </details>
     <details>
-      <summary>Do I get to keep it forever?</summary>
-      <div class="faq-body">Yes — you receive a high-quality audio file that's yours to keep, share, and play whenever you like.</div>
+      <summary data-i18n="faq5_q">Do I get to keep it forever?</summary>
+      <div class="faq-body" data-i18n="faq5_a">Yes — you receive a high-quality audio file that's yours to keep, share, and play whenever you like.</div>
     </details>
   </div>
   <div style="text-align:center;margin-top:52px;">
-    <a class="btn-primary" href="keepsake-preview.html">✨ Preview your lyrics — free</a>
+    <a class="btn-primary" href="keepsake-preview.html" data-i18n="cta_preview3">✨ Preview your lyrics — free</a>
   </div>
 </div>
 </section>
 
 <footer class="site-footer">
   <div class="footlinks">
-    <a href="ode.html">Ode hub</a>
-    <a href="keepsake-song.html">Keepsake Song</a>
-    <a href="memorial-page.html">Memorial Page</a>
-    <a href="wedding-wall.html">Wedding Wall</a>
-    <a href="birthday-song.html">Birthday Song</a>
-    <a href="examples.html">Examples</a>
-    <a href="digital-guestbook.html">Digital Guestbook</a>
+    <a href="ode.html" data-i18n="foot_ode">Ode hub</a>
+    <a href="keepsake-song.html" data-i18n="foot_keepsake">Keepsake Song</a>
+    <a href="memorial-page.html" data-i18n="foot_memorial">Memorial Page</a>
+    <a href="wedding-wall.html" data-i18n="foot_wedding">Wedding Wall</a>
+    <a href="birthday-song.html" data-i18n="foot_birthday">Birthday Song</a>
+    <a href="examples.html" data-i18n="foot_examples">Examples</a>
+    <a href="digital-guestbook.html" data-i18n="foot_guestbook">Digital Guestbook</a>
   </div>
-  <a href="index.html">← GatherWall home</a>
+  <a href="index.html" data-i18n="foot_home">← GatherWall home</a>
 </footer>
+
+<script>
+const I18N = {
+  en: {
+    page_title: "Personalised Keepsake Song — A Gift Made From Their Story",
+    page_desc: "Turn someone's life story into an original song and animated photo story — their photos, their moments, set to music. Preview the lyrics free. From $39.",
+    nav_back: "← Ode",
+    hero_eyebrow: "Keepsake Song",
+    hero_h1: "A personalised song, written just for them",
+    hero_lead: "We turn their story — the names, the places, the moments that made them — into an original song, written and produced just for one person. There is no other gift like it.",
+    cta_preview: "✨ Preview your lyrics — free",
+    cta_samples: "Hear real examples →",
+    photo_label: "Their photos, their story — set to music",
+    photo_h2: "Their photos tell the story.<br>We set it to an original song.",
+    photo_sub: "The Animated Keepsake Story is not just a song — it is a scene-by-scene animated film built from the buyer's own photographs. Each photo becomes a moment. Each moment becomes a verse. The result plays on the big screen at the event and lives on their phone forever.",
+    scene1_h4: "You send the photos",
+    scene1_p: "Upload the pictures that tell their story — childhood, family, milestones, places they love.",
+    scene2_h4: "We write the song",
+    scene2_p: "Original lyrics built around their real name, memories, and the people who matter most to them.",
+    scene3_h4: "Photos become scenes",
+    scene3_p: "Each photograph is woven into an animated story — frame by frame, verse by verse.",
+    scene4_h4: "Play it on the day",
+    scene4_p: "The full animated story plays at the party, and stays on their phone to watch again, any time.",
+    photo_demo_heading: "See it with photos — real examples",
+    demo1_label: "Photo Demo",
+    demo1_title: "Animated Photo Keepsake",
+    demo1_desc: "Photos + original song — the full animated story experience.",
+    demo_arrow: "Watch the demo →",
+    demo2_label: "Birthday Demo",
+    demo2_title: "Birthday Keepsake Story",
+    demo2_desc: "A milestone birthday — photos, lyrics, and the song played in the room.",
+    demo_arrow2: "Watch the demo →",
+    demo3_label: "Full Demo",
+    demo3_title: "Complete Keepsake Demo",
+    demo3_desc: "The end-to-end experience — see exactly what arrives after payment.",
+    demo_arrow3: "Watch the demo →",
+    how_label: "How it works",
+    how_h2: "Three simple steps to the perfect gift",
+    how_sub: "No musical knowledge needed. No complicated forms. Just tell us about them — and we'll take it from there.",
+    step1_h3: "Tell us their story",
+    step1_p: "Fill in a short, guided form with the memories, names, and moments that matter most to you. The more you share, the more personal the song will feel.",
+    step2_h3: "Preview their lyrics — free",
+    step2_p: "Within seconds, you'll see a full draft of the lyrics written about them. No card required. Read every line before you decide whether to go further.",
+    step3_h3: "Love it? Pay just $39",
+    step3_p: "If the lyrics move you, confirm and pay. We produce the full, professionally arranged song and deliver a high-quality audio file within 48 hours.",
+    audio_label: "Hear a real example",
+    audio_h2: "Listen before you decide",
+    audio_sub: "This is a real keepsake song — produced with the same care and craft that goes into every GatherWall song.",
+    audio_link_inline: "Browse more examples →",
+    audio_card_label: "Real keepsake song",
+    audio_card_sub: "A keepsake for a golden anniversary",
+    audio_fallback: "Your browser doesn't support the audio element.",
+    audio_fallback_link: "Download the song",
+    audio_more_link: "Hear more examples like this →",
+    occasions_label: "Occasions",
+    occasions_h2: "Perfect for every milestone",
+    occasions_sub: "A keepsake song is the kind of gift you give when nothing else feels quite right — when the occasion deserves something that will last longer than flowers.",
+    chip_70: "🎂 70th Birthday",
+    chip_80: "🎂 80th Birthday",
+    chip_golden: "🥂 Golden Anniversary",
+    chip_retirement: "🎓 Retirement",
+    chip_thankyou: "💛 Thank-you Gift",
+    chip_memorial: "🕊 In Loving Memory",
+    chip_90: "🎂 90th Birthday",
+    chip_wedding: "💍 Wedding Anniversary",
+    wyg_label: "What you get",
+    wyg_h2: "Everything in one gift",
+    wyg_sub: "Your $39 includes everything needed to give this song confidently — from the first preview to the finished file, forever yours.",
+    feat1_strong: "Original lyrics written about them",
+    feat1_span: "Every line is written specifically for the person you're celebrating — no templates, no stock phrases.",
+    feat2_strong: "Professional production in your chosen style",
+    feat2_span: "Choose from pop, folk, classical, R&B, or country. Our producers create a full arrangement to match.",
+    feat3_strong: "High-quality audio file — yours forever",
+    feat3_span: "You receive a studio-quality MP3 to keep, share, and play at any occasion — no subscription, no expiry.",
+    feat4_strong: "Animated story video <em>(optional add-on)</em>",
+    feat4_span: "Pair the song with a beautifully animated video that shows their story — perfect for playing at a party or sharing online.",
+    testimonial_text: "[Add a real customer quote here]",
+    testimonial_footer: "Customer name, occasion",
+    pricing_label: "Pricing",
+    pricing_h2: "Simple, honest pricing",
+    price_once: "One-time payment",
+    price_free: "Preview your lyrics completely free",
+    cta_preview2: "✨ Preview your lyrics — free",
+    price_note: "No card required to preview. Pay only if you love it.",
+    faq_label: "Questions",
+    faq_h2: "Frequently asked questions",
+    faq1_q: "How long does it take?",
+    faq1_a: "Your lyrics are ready instantly to preview — and the full produced song is delivered within 48 hours of payment.",
+    faq2_q: "Can I choose the musical style?",
+    faq2_a: "Yes — pop, folk, classical, R&B, country. You choose when you fill in the story form.",
+    faq3_q: "Can I hear it before I pay?",
+    faq3_a: "Yes. Preview your lyrics completely free, with no card required, before you decide.",
+    faq4_q: "What occasions is it for?",
+    faq4_a: "Birthdays (especially 70th, 80th, 90th milestones), anniversaries, memorials, thank-yous, and retirements.",
+    faq5_q: "Do I get to keep it forever?",
+    faq5_a: "Yes — you receive a high-quality audio file that's yours to keep, share, and play whenever you like.",
+    cta_preview3: "✨ Preview your lyrics — free",
+    foot_ode: "Ode hub",
+    foot_keepsake: "Keepsake Song",
+    foot_memorial: "Memorial Page",
+    foot_wedding: "Wedding Wall",
+    foot_birthday: "Birthday Song",
+    foot_examples: "Examples",
+    foot_guestbook: "Digital Guestbook",
+    foot_home: "← GatherWall home"
+  },
+  fr: {
+    page_title: "Chanson Souvenir Personnalisée — Un Cadeau Né de Leur Histoire",
+    page_desc: "Transformez l'histoire de vie de quelqu'un en une chanson originale et un récit photo animé — leurs photos, leurs instants, mis en musique. Prévisualisez les paroles gratuitement. À partir de 39 $.",
+    nav_back: "← Ode",
+    hero_eyebrow: "Chanson Souvenir",
+    hero_h1: "Une chanson personnalisée, écrite rien que pour eux",
+    hero_lead: "Nous transformons leur histoire — les noms, les lieux, les moments qui les ont façonnés — en une chanson originale, écrite et produite pour une seule personne. Il n'existe aucun autre cadeau comme celui-là.",
+    cta_preview: "✨ Prévisualisez les paroles — gratuitement",
+    cta_samples: "Écouter de vrais exemples →",
+    photo_label: "Leurs photos, leur histoire — mis en musique",
+    photo_h2: "Leurs photos racontent l'histoire.<br>Nous la mettons en chanson originale.",
+    photo_sub: "L'Histoire Souvenir Animée n'est pas qu'une chanson — c'est un film animé, scène par scène, construit à partir des propres photographies de l'acheteur. Chaque photo devient un instant. Chaque instant devient un couplet. Le résultat se joue sur grand écran lors de l'événement et reste dans leur téléphone pour toujours.",
+    scene1_h4: "Vous envoyez les photos",
+    scene1_p: "Chargez les images qui racontent leur histoire — enfance, famille, étapes importantes, lieux qu'ils aiment.",
+    scene2_h4: "Nous écrivons la chanson",
+    scene2_p: "Des paroles originales construites autour de leur vrai nom, de leurs souvenirs et des personnes qui comptent le plus pour eux.",
+    scene3_h4: "Les photos deviennent des scènes",
+    scene3_p: "Chaque photographie est tissée dans un récit animé — image par image, couplet par couplet.",
+    scene4_h4: "Jouez-la le grand jour",
+    scene4_p: "L'histoire animée complète se joue lors de la fête et reste dans leur téléphone pour la revoir à tout moment.",
+    photo_demo_heading: "Voyez-le avec des photos — vrais exemples",
+    demo1_label: "Démo Photo",
+    demo1_title: "Souvenir Photo Animé",
+    demo1_desc: "Photos + chanson originale — l'expérience complète du récit animé.",
+    demo_arrow: "Voir la démo →",
+    demo2_label: "Démo Anniversaire",
+    demo2_title: "Histoire Souvenir d'Anniversaire",
+    demo2_desc: "Un anniversaire marquant — photos, paroles et chanson jouée dans la salle.",
+    demo_arrow2: "Voir la démo →",
+    demo3_label: "Démo Complète",
+    demo3_title: "Démo Souvenir Intégrale",
+    demo3_desc: "L'expérience de bout en bout — voyez exactement ce qui arrive après le paiement.",
+    demo_arrow3: "Voir la démo →",
+    how_label: "Comment ça marche",
+    how_h2: "Trois étapes simples vers le cadeau parfait",
+    how_sub: "Aucune connaissance musicale requise. Pas de formulaires compliqués. Parlez-nous d'eux — et nous prenons la suite.",
+    step1_h3: "Racontez-nous leur histoire",
+    step1_p: "Remplissez un court formulaire guidé avec les souvenirs, les noms et les moments qui vous tiennent le plus à cœur. Plus vous partagez, plus la chanson sera personnelle.",
+    step2_h3: "Prévisualisez les paroles — gratuitement",
+    step2_p: "En quelques secondes, vous verrez un brouillon complet des paroles écrites sur eux. Aucune carte requise. Lisez chaque ligne avant de décider d'aller plus loin.",
+    step3_h3: "Vous aimez ? Payez seulement 39 $",
+    step3_p: "Si les paroles vous touchent, confirmez et payez. Nous produisons la chanson complète, arrangée professionnellement, et livrons un fichier audio haute qualité en 48 heures.",
+    audio_label: "Écoutez un vrai exemple",
+    audio_h2: "Écoutez avant de décider",
+    audio_sub: "C'est une vraie chanson souvenir — produite avec le même soin et le même savoir-faire que toutes les chansons GatherWall.",
+    audio_link_inline: "Parcourir d'autres exemples →",
+    audio_card_label: "Vraie chanson souvenir",
+    audio_card_sub: "Un souvenir pour un anniversaire d'or",
+    audio_fallback: "Votre navigateur ne prend pas en charge l'élément audio.",
+    audio_fallback_link: "Télécharger la chanson",
+    audio_more_link: "Écouter d'autres exemples comme celui-ci →",
+    occasions_label: "Occasions",
+    occasions_h2: "Parfait pour chaque moment important",
+    occasions_sub: "Une chanson souvenir est le genre de cadeau que l'on offre quand rien d'autre ne semble tout à fait juste — quand l'occasion mérite quelque chose qui durera plus longtemps que les fleurs.",
+    chip_70: "🎂 70 ans",
+    chip_80: "🎂 80 ans",
+    chip_golden: "🥂 Noces d'Or",
+    chip_retirement: "🎓 Départ à la retraite",
+    chip_thankyou: "💛 Cadeau de remerciement",
+    chip_memorial: "🕊 En mémoire",
+    chip_90: "🎂 90 ans",
+    chip_wedding: "💍 Anniversaire de mariage",
+    wyg_label: "Ce que vous recevez",
+    wyg_h2: "Tout en un seul cadeau",
+    wyg_sub: "Vos 39 $ comprennent tout ce qu'il faut pour offrir cette chanson en toute confiance — de la première prévisualisation au fichier final, pour toujours.",
+    feat1_strong: "Des paroles originales écrites sur eux",
+    feat1_span: "Chaque ligne est écrite spécifiquement pour la personne que vous célébrez — pas de modèles, pas de phrases toutes faites.",
+    feat2_strong: "Production professionnelle dans le style de votre choix",
+    feat2_span: "Choisissez parmi pop, folk, classique, R&B ou country. Nos producteurs créent un arrangement complet pour correspondre.",
+    feat3_strong: "Fichier audio haute qualité — le vôtre pour toujours",
+    feat3_span: "Vous recevez un MP3 de qualité studio à garder, partager et écouter à toute occasion — sans abonnement, sans expiration.",
+    feat4_strong: "Vidéo d'histoire animée <em>(option supplémentaire)</em>",
+    feat4_span: "Associez la chanson à une belle vidéo animée qui raconte leur histoire — parfaite à diffuser lors d'une fête ou à partager en ligne.",
+    testimonial_text: "[Ajoutez ici un vrai témoignage client]",
+    testimonial_footer: "Nom du client, occasion",
+    pricing_label: "Tarifs",
+    pricing_h2: "Un tarif simple et transparent",
+    price_once: "Paiement unique",
+    price_free: "Prévisualisez les paroles entièrement gratuitement",
+    cta_preview2: "✨ Prévisualisez les paroles — gratuitement",
+    price_note: "Aucune carte requise pour prévisualiser. Payez seulement si vous aimez.",
+    faq_label: "Questions",
+    faq_h2: "Questions fréquemment posées",
+    faq1_q: "Combien de temps cela prend-il ?",
+    faq1_a: "Vos paroles sont prêtes instantanément pour la prévisualisation — et la chanson complète produite est livrée dans les 48 heures suivant le paiement.",
+    faq2_q: "Puis-je choisir le style musical ?",
+    faq2_a: "Oui — pop, folk, classique, R&B, country. Vous choisissez en remplissant le formulaire.",
+    faq3_q: "Puis-je l'écouter avant de payer ?",
+    faq3_a: "Oui. Prévisualisez vos paroles entièrement gratuitement, sans carte requise, avant de décider.",
+    faq4_q: "Pour quelles occasions est-ce fait ?",
+    faq4_a: "Anniversaires (notamment les 70e, 80e, 90e), mariages, commémorations, remerciements et départs à la retraite.",
+    faq5_q: "Est-ce que je la garde pour toujours ?",
+    faq5_a: "Oui — vous recevez un fichier audio haute qualité qui vous appartient pour le garder, le partager et l'écouter quand vous le souhaitez.",
+    cta_preview3: "✨ Prévisualisez les paroles — gratuitement",
+    foot_ode: "Hub Ode",
+    foot_keepsake: "Chanson Souvenir",
+    foot_memorial: "Page Mémorial",
+    foot_wedding: "Mur de Mariage",
+    foot_birthday: "Chanson d'Anniversaire",
+    foot_examples: "Exemples",
+    foot_guestbook: "Livre d'Or Numérique",
+    foot_home: "← Accueil GatherWall"
+  },
+  es: {
+    page_title: "Canción Recuerdo Personalizada — Un Regalo Nacido de Su Historia",
+    page_desc: "Convierte la historia de vida de alguien en una canción original y un álbum de fotos animado — sus fotos, sus momentos, puestos en música. Previsualiza la letra gratis. Desde 39 $.",
+    nav_back: "← Ode",
+    hero_eyebrow: "Canción Recuerdo",
+    hero_h1: "Una canción personalizada, escrita solo para ellos",
+    hero_lead: "Transformamos su historia — los nombres, los lugares, los momentos que los forjaron — en una canción original, escrita y producida para una sola persona. No existe otro regalo igual.",
+    cta_preview: "✨ Previsualiza la letra — gratis",
+    cta_samples: "Escuchar ejemplos reales →",
+    photo_label: "Sus fotos, su historia — puestas en música",
+    photo_h2: "Sus fotos cuentan la historia.<br>Nosotros la convertimos en canción.",
+    photo_sub: "La Historia Recuerdo Animada no es solo una canción — es un film animado, escena a escena, construido a partir de las propias fotografías del comprador. Cada foto se convierte en un instante. Cada instante se convierte en una estrofa. El resultado se reproduce en la pantalla grande durante el evento y permanece en su teléfono para siempre.",
+    scene1_h4: "Tú envías las fotos",
+    scene1_p: "Sube las imágenes que cuentan su historia — infancia, familia, hitos, lugares que aman.",
+    scene2_h4: "Nosotros escribimos la canción",
+    scene2_p: "Letra original construida alrededor de su nombre real, sus recuerdos y las personas que más les importan.",
+    scene3_h4: "Las fotos se convierten en escenas",
+    scene3_p: "Cada fotografía se entreteje en un relato animado — fotograma a fotograma, estrofa a estrofa.",
+    scene4_h4: "Reprodúcela el gran día",
+    scene4_p: "La historia animada completa se reproduce en la fiesta y permanece en su teléfono para verla cuando quieran.",
+    photo_demo_heading: "Míralo con fotos — ejemplos reales",
+    demo1_label: "Demo de Fotos",
+    demo1_title: "Recuerdo Fotográfico Animado",
+    demo1_desc: "Fotos + canción original — la experiencia completa del relato animado.",
+    demo_arrow: "Ver la demo →",
+    demo2_label: "Demo de Cumpleaños",
+    demo2_title: "Historia Recuerdo de Cumpleaños",
+    demo2_desc: "Un cumpleaños especial — fotos, letra y la canción sonando en la sala.",
+    demo_arrow2: "Ver la demo →",
+    demo3_label: "Demo Completa",
+    demo3_title: "Demo Recuerdo Completa",
+    demo3_desc: "La experiencia de principio a fin — ve exactamente lo que recibes tras el pago.",
+    demo_arrow3: "Ver la demo →",
+    how_label: "Cómo funciona",
+    how_h2: "Tres sencillos pasos hacia el regalo perfecto",
+    how_sub: "No se necesitan conocimientos musicales. Sin formularios complicados. Cuéntanos sobre ellos — y nosotros nos encargamos del resto.",
+    step1_h3: "Cuéntanos su historia",
+    step1_p: "Rellena un breve formulario guiado con los recuerdos, nombres y momentos que más te importan. Cuanto más compartas, más personal será la canción.",
+    step2_h3: "Previsualiza la letra — gratis",
+    step2_p: "En segundos verás un borrador completo de la letra escrita sobre ellos. Sin tarjeta necesaria. Lee cada línea antes de decidir si continuar.",
+    step3_h3: "¿Te encanta? Paga solo 39 $",
+    step3_p: "Si la letra te emociona, confirma y paga. Producimos la canción completa, arreglada profesionalmente, y entregamos un archivo de audio de alta calidad en 48 horas.",
+    audio_label: "Escucha un ejemplo real",
+    audio_h2: "Escucha antes de decidir",
+    audio_sub: "Esta es una canción recuerdo real — producida con el mismo cuidado y dedicación que ponemos en cada canción de GatherWall.",
+    audio_link_inline: "Ver más ejemplos →",
+    audio_card_label: "Canción recuerdo real",
+    audio_card_sub: "Un recuerdo para un aniversario de oro",
+    audio_fallback: "Tu navegador no es compatible con el elemento de audio.",
+    audio_fallback_link: "Descargar la canción",
+    audio_more_link: "Escuchar más ejemplos como este →",
+    occasions_label: "Ocasiones",
+    occasions_h2: "Perfecto para cada momento especial",
+    occasions_sub: "Una canción recuerdo es el tipo de regalo que das cuando nada más parece suficiente — cuando la ocasión merece algo que durará más que las flores.",
+    chip_70: "🎂 70 Cumpleaños",
+    chip_80: "🎂 80 Cumpleaños",
+    chip_golden: "🥂 Bodas de Oro",
+    chip_retirement: "🎓 Jubilación",
+    chip_thankyou: "💛 Regalo de Agradecimiento",
+    chip_memorial: "🕊 En Memoria",
+    chip_90: "🎂 90 Cumpleaños",
+    chip_wedding: "💍 Aniversario de Boda",
+    wyg_label: "Qué recibes",
+    wyg_h2: "Todo en un solo regalo",
+    wyg_sub: "Tus 39 $ incluyen todo lo necesario para regalar esta canción con confianza — desde la primera previsualización hasta el archivo final, para siempre tuyo.",
+    feat1_strong: "Letra original escrita sobre ellos",
+    feat1_span: "Cada línea está escrita específicamente para la persona que celebras — sin plantillas, sin frases hechas.",
+    feat2_strong: "Producción profesional en el estilo elegido",
+    feat2_span: "Elige entre pop, folk, clásico, R&B o country. Nuestros productores crean un arreglo completo a medida.",
+    feat3_strong: "Archivo de audio de alta calidad — tuyo para siempre",
+    feat3_span: "Recibes un MP3 de calidad de estudio para guardar, compartir y reproducir en cualquier ocasión — sin suscripción, sin caducidad.",
+    feat4_strong: "Vídeo de historia animado <em>(complemento opcional)</em>",
+    feat4_span: "Combina la canción con un hermoso vídeo animado que cuenta su historia — perfecto para proyectar en una fiesta o compartir en redes sociales.",
+    testimonial_text: "[Añade aquí un testimonio real de un cliente]",
+    testimonial_footer: "Nombre del cliente, ocasión",
+    pricing_label: "Precios",
+    pricing_h2: "Precios simples y transparentes",
+    price_once: "Pago único",
+    price_free: "Previsualiza la letra completamente gratis",
+    cta_preview2: "✨ Previsualiza la letra — gratis",
+    price_note: "No se necesita tarjeta para previsualizar. Paga solo si te encanta.",
+    faq_label: "Preguntas",
+    faq_h2: "Preguntas frecuentes",
+    faq1_q: "¿Cuánto tiempo tarda?",
+    faq1_a: "La letra está lista al instante para previsualizar — y la canción producida completa se entrega en 48 horas tras el pago.",
+    faq2_q: "¿Puedo elegir el estilo musical?",
+    faq2_a: "Sí — pop, folk, clásico, R&B, country. Lo eliges al rellenar el formulario.",
+    faq3_q: "¿Puedo escucharla antes de pagar?",
+    faq3_a: "Sí. Previsualiza la letra completamente gratis, sin tarjeta necesaria, antes de decidir.",
+    faq4_q: "¿Para qué ocasiones es?",
+    faq4_a: "Cumpleaños (especialmente los 70, 80 y 90), aniversarios, homenajes, agradecimientos y jubilaciones.",
+    faq5_q: "¿Me quedo con ella para siempre?",
+    faq5_a: "Sí — recibes un archivo de audio de alta calidad que es tuyo para guardar, compartir y reproducir cuando quieras.",
+    cta_preview3: "✨ Previsualiza la letra — gratis",
+    foot_ode: "Hub Ode",
+    foot_keepsake: "Canción Recuerdo",
+    foot_memorial: "Página Memorial",
+    foot_wedding: "Muro de Boda",
+    foot_birthday: "Canción de Cumpleaños",
+    foot_examples: "Ejemplos",
+    foot_guestbook: "Libro de Visitas Digital",
+    foot_home: "← Inicio GatherWall"
+  },
+  cs: {
+    page_title: "Personalizovaná Vzpomínková Píseň — Dar Vzniklý z Jejich Příběhu",
+    page_desc: "Proměňte životní příběh svého blízkého v originální píseň a animovaný fotoalbum — jejich fotky, jejich okamžiky, zhudebněné. Prohlédněte si text zdarma. Od 39 $.",
+    nav_back: "← Ode",
+    hero_eyebrow: "Vzpomínková Píseň",
+    hero_h1: "Personalizovaná píseň, napsaná jen pro ně",
+    hero_lead: "Proměníme jejich příběh — jména, místa, okamžiky, které je formovaly — v originální píseň, napsanou a nahranou výhradně pro jednoho člověka. Takový dar neexistuje nikde jinde.",
+    cta_preview: "✨ Náhled textu — zdarma",
+    cta_samples: "Poslechnout si reálné ukázky →",
+    photo_label: "Jejich fotky, jejich příběh — zhudebněný",
+    photo_h2: "Jejich fotky vyprávějí příběh.<br>My ho zhudebníme do originální písně.",
+    photo_sub: "Animovaný vzpomínkový příběh není jen píseň — je to scéna po scéně animovaný film sestavený z vlastních fotografií zákazníka. Každá fotka se stane okamžikem. Každý okamžik se stane slokou. Výsledek hraje na velkém plátně na akci a zůstává v jejich telefonu navždy.",
+    scene1_h4: "Vy pošlete fotky",
+    scene1_p: "Nahrajte snímky, které vypráví jejich příběh — dětství, rodina, důležité momenty, místa, která milují.",
+    scene2_h4: "My napíšeme píseň",
+    scene2_p: "Originální text postavený na jejich skutečném jménu, vzpomínkách a lidech, kteří jsou pro ně nejdůležitější.",
+    scene3_h4: "Fotky se stanou scénami",
+    scene3_p: "Každá fotografie je vetkána do animovaného příběhu — snímek za snímkem, sloka za slokou.",
+    scene4_h4: "Přehrajte to ve velký den",
+    scene4_p: "Celý animovaný příběh hraje na oslavě a zůstává v jejich telefonu, aby si ho kdykoli znovu pustili.",
+    photo_demo_heading: "Podívejte se s fotkami — reálné ukázky",
+    demo1_label: "Fotodemo",
+    demo1_title: "Animovaná Fotografická Vzpomínka",
+    demo1_desc: "Fotky + originální píseň — plný zážitek animovaného příběhu.",
+    demo_arrow: "Sledovat demo →",
+    demo2_label: "Narozeninové demo",
+    demo2_title: "Narozeninový Vzpomínkový Příběh",
+    demo2_desc: "Výjimečné narozeniny — fotky, text a píseň hraná v sále.",
+    demo_arrow2: "Sledovat demo →",
+    demo3_label: "Kompletní demo",
+    demo3_title: "Kompletní Vzpomínkové Demo",
+    demo3_desc: "Zkušenost od začátku do konce — přesně uvidíte, co obdržíte po zaplacení.",
+    demo_arrow3: "Sledovat demo →",
+    how_label: "Jak to funguje",
+    how_h2: "Tři jednoduché kroky k dokonalému daru",
+    how_sub: "Žádné hudební znalosti nejsou nutné. Žádné složité formuláře. Jen nám o nich řekněte — a zbytek obstáráme my.",
+    step1_h3: "Povězte nám jejich příběh",
+    step1_p: "Vyplňte krátký, přehledný formulář se vzpomínkami, jmény a okamžiky, které jsou pro vás nejdůležitější. Čím více sdílíte, tím osobnější píseň vznikne.",
+    step2_h3: "Náhled textu — zdarma",
+    step2_p: "Během pár vteřin uvidíte kompletní návrh textu napsaného o nich. Karta není potřeba. Přečtěte si každý řádek, než se rozhodnete pokračovat.",
+    step3_h3: "Líbí se vám? Zaplaťte jen 39 $",
+    step3_p: "Pokud vás text dojme, potvrďte a zaplaťte. Nahrajeme kompletní, profesionálně aranžovanou píseň a doručíme vysoce kvalitní audio soubor do 48 hodin.",
+    audio_label: "Poslechněte si reálnou ukázku",
+    audio_h2: "Poslouchejte ještě před rozhodnutím",
+    audio_sub: "Toto je skutečná vzpomínková píseň — vytvořená se stejnou péčí a řemeslem, která jde do každé písně GatherWall.",
+    audio_link_inline: "Procházet další ukázky →",
+    audio_card_label: "Skutečná vzpomínková píseň",
+    audio_card_sub: "Vzpomínka na zlatou svatbu",
+    audio_fallback: "Váš prohlížeč nepodporuje přehrávač zvuku.",
+    audio_fallback_link: "Stáhnout píseň",
+    audio_more_link: "Poslechnout si více podobných ukázek →",
+    occasions_label: "Příležitosti",
+    occasions_h2: "Ideální pro každý důležitý okamžik",
+    occasions_sub: "Vzpomínková píseň je ten druh daru, který dáváte, když nic jiného nepůsobí úplně správně — když si příležitost zaslouží něco, co vydrží déle než květiny.",
+    chip_70: "🎂 70. narozeniny",
+    chip_80: "🎂 80. narozeniny",
+    chip_golden: "🥂 Zlatá Svatba",
+    chip_retirement: "🎓 Odchod do důchodu",
+    chip_thankyou: "💛 Dárek na poděkování",
+    chip_memorial: "🕊 Na věčnou paměť",
+    chip_90: "🎂 90. narozeniny",
+    chip_wedding: "💍 Výročí svatby",
+    wyg_label: "Co dostanete",
+    wyg_h2: "Vše v jednom daru",
+    wyg_sub: "Vašich 39 $ zahrnuje vše potřebné k darování této písně s jistotou — od prvního náhledu až po hotový soubor, navždy váš.",
+    feat1_strong: "Originální text napsaný přímo o nich",
+    feat1_span: "Každý řádek je napsán speciálně pro osobu, kterou slavíte — žádné šablony, žádné klišé.",
+    feat2_strong: "Profesionální produkce ve zvoleném stylu",
+    feat2_span: "Vybírejte z popu, folku, klasiky, R&B nebo country. Naši producenti vytvoří kompletní aranžmá na míru.",
+    feat3_strong: "Vysoce kvalitní audio soubor — navždy váš",
+    feat3_span: "Obdržíte studiově kvalitní MP3, který si můžete ponechat, sdílet a přehrávat při jakékoli příležitosti — bez předplatného, bez platnosti.",
+    feat4_strong: "Animované video s příběhem <em>(volitelný doplněk)</em>",
+    feat4_span: "Doplňte píseň krásným animovaným videem, které vypráví jejich příběh — ideální k promítání na oslavě nebo sdílení online.",
+    testimonial_text: "[Zde doplňte skutečný zákaznický komentář]",
+    testimonial_footer: "Jméno zákazníka, příležitost",
+    pricing_label: "Ceník",
+    pricing_h2: "Jednoduchá a transparentní cena",
+    price_once: "Jednorázová platba",
+    price_free: "Náhled textu zcela zdarma",
+    cta_preview2: "✨ Náhled textu — zdarma",
+    price_note: "K náhledu karta nepotřeba. Platíte jen pokud se vám to líbí.",
+    faq_label: "Otázky",
+    faq_h2: "Nejčastěji kladené otázky",
+    faq1_q: "Jak dlouho to trvá?",
+    faq1_a: "Text je okamžitě připraven k náhledu — a kompletní nahraná píseň je doručena do 48 hodin od platby.",
+    faq2_q: "Mohu si zvolit hudební styl?",
+    faq2_a: "Ano — pop, folk, klasika, R&B, country. Zvolíte jej při vyplňování formuláře.",
+    faq3_q: "Mohu si to poslechnout před zaplacením?",
+    faq3_a: "Ano. Zobrazte si text zcela zdarma, bez nutnosti karty, než se rozhodnete.",
+    faq4_q: "Pro jaké příležitosti je to vhodné?",
+    faq4_a: "Narozeniny (zejména 70., 80., 90.), výročí, vzpomínkové akce, poděkování a odchody do důchodu.",
+    faq5_q: "Zůstane mi píseň navždy?",
+    faq5_a: "Ano — obdržíte vysoce kvalitní audio soubor, který je váš, abyste ho mohli uchovávat, sdílet a přehrávat kdykoli budete chtít.",
+    cta_preview3: "✨ Náhled textu — zdarma",
+    foot_ode: "Hub Ode",
+    foot_keepsake: "Vzpomínková Píseň",
+    foot_memorial: "Vzpomínková Stránka",
+    foot_wedding: "Svatební Zeď",
+    foot_birthday: "Narozeninová Píseň",
+    foot_examples: "Ukázky",
+    foot_guestbook: "Digitální Kniha Hostů",
+    foot_home: "← Domů GatherWall"
+  },
+  de: {
+    page_title: "Personalisiertes Erinnerungslied — Ein Geschenk aus ihrer Geschichte",
+    page_desc: "Verwandeln Sie die Lebensgeschichte eines Menschen in ein originelles Lied und eine animierte Foto-Story — ihre Fotos, ihre Momente, vertont. Vorschau der Texte kostenlos. Ab 39 $.",
+    nav_back: "← Ode",
+    hero_eyebrow: "Erinnerungslied",
+    hero_h1: "Ein personalisiertes Lied, geschrieben nur für sie",
+    hero_lead: "Wir verwandeln ihre Geschichte — die Namen, die Orte, die Momente, die sie geprägt haben — in ein originelles Lied, geschrieben und produziert für genau eine Person. Kein anderes Geschenk ist wie dieses.",
+    cta_preview: "✨ Textvorschau — kostenlos",
+    cta_samples: "Echte Beispiele anhören →",
+    photo_label: "Ihre Fotos, ihre Geschichte — vertont",
+    photo_h2: "Ihre Fotos erzählen die Geschichte.<br>Wir vertonen sie in einem originellen Lied.",
+    photo_sub: "Die Animierte Erinnerungs-Story ist nicht nur ein Lied — es ist ein Szene-für-Szene-Animationsfilm, der aus den eigenen Fotos des Käufers entsteht. Jedes Foto wird ein Moment. Jeder Moment wird eine Strophe. Das Ergebnis wird auf der großen Leinwand beim Event abgespielt und bleibt für immer auf ihrem Telefon.",
+    scene1_h4: "Sie senden die Fotos",
+    scene1_p: "Laden Sie die Bilder hoch, die ihre Geschichte erzählen — Kindheit, Familie, Meilensteine, Orte, die sie lieben.",
+    scene2_h4: "Wir schreiben das Lied",
+    scene2_p: "Originale Texte, aufgebaut um ihren echten Namen, ihre Erinnerungen und die Menschen, die ihnen am meisten bedeuten.",
+    scene3_h4: "Fotos werden zu Szenen",
+    scene3_p: "Jedes Foto wird in eine animierte Geschichte eingewoben — Bild für Bild, Strophe für Strophe.",
+    scene4_h4: "Spielen Sie es am großen Tag ab",
+    scene4_p: "Die vollständige animierte Geschichte wird auf der Party abgespielt und bleibt auf ihrem Telefon, um sie jederzeit wieder anzusehen.",
+    photo_demo_heading: "Mit Fotos erleben — echte Beispiele",
+    demo1_label: "Foto-Demo",
+    demo1_title: "Animiertes Foto-Erinnerungsstück",
+    demo1_desc: "Fotos + originelles Lied — das komplette animierte Story-Erlebnis.",
+    demo_arrow: "Demo ansehen →",
+    demo2_label: "Geburtstags-Demo",
+    demo2_title: "Geburtstags-Erinnerungs-Story",
+    demo2_desc: "Ein besonderer Geburtstag — Fotos, Texte und das Lied im Raum.",
+    demo_arrow2: "Demo ansehen →",
+    demo3_label: "Vollständige Demo",
+    demo3_title: "Komplette Erinnerungs-Demo",
+    demo3_desc: "Das Erlebnis von Anfang bis Ende — sehen Sie genau, was nach der Zahlung ankommt.",
+    demo_arrow3: "Demo ansehen →",
+    how_label: "So funktioniert es",
+    how_h2: "Drei einfache Schritte zum perfekten Geschenk",
+    how_sub: "Kein musikalisches Vorwissen nötig. Keine komplizierten Formulare. Erzählen Sie uns einfach von ihnen — den Rest übernehmen wir.",
+    step1_h3: "Erzählen Sie uns ihre Geschichte",
+    step1_p: "Füllen Sie ein kurzes, geführtes Formular mit den Erinnerungen, Namen und Momenten aus, die Ihnen am meisten bedeuten. Je mehr Sie teilen, desto persönlicher wird das Lied.",
+    step2_h3: "Textvorschau — kostenlos",
+    step2_p: "Innerhalb von Sekunden sehen Sie einen vollständigen Textentwurf über sie. Keine Karte erforderlich. Lesen Sie jede Zeile, bevor Sie entscheiden, ob Sie weitermachen.",
+    step3_h3: "Begeistert? Zahlen Sie nur 39 $",
+    step3_p: "Wenn Sie der Text bewegt, bestätigen und zahlen Sie. Wir produzieren das vollständige, professionell arrangierte Lied und liefern eine hochwertige Audiodatei innerhalb von 48 Stunden.",
+    audio_label: "Ein echtes Beispiel anhören",
+    audio_h2: "Hören Sie zuerst, dann entscheiden",
+    audio_sub: "Dies ist ein echtes Erinnerungslied — produziert mit derselben Sorgfalt und Handwerkskunst, die in jedes GatherWall-Lied fließt.",
+    audio_link_inline: "Weitere Beispiele durchsuchen →",
+    audio_card_label: "Echtes Erinnerungslied",
+    audio_card_sub: "Ein Erinnerungsstück für eine Goldene Hochzeit",
+    audio_fallback: "Ihr Browser unterstützt das Audio-Element nicht.",
+    audio_fallback_link: "Lied herunterladen",
+    audio_more_link: "Weitere solche Beispiele anhören →",
+    occasions_label: "Anlässe",
+    occasions_h2: "Perfekt für jeden besonderen Moment",
+    occasions_sub: "Ein Erinnerungslied ist das Geschenk, das Sie geben, wenn nichts anderes ganz richtig erscheint — wenn der Anlass etwas verdient, das länger hält als Blumen.",
+    chip_70: "🎂 70. Geburtstag",
+    chip_80: "🎂 80. Geburtstag",
+    chip_golden: "🥂 Goldene Hochzeit",
+    chip_retirement: "🎓 Ruhestand",
+    chip_thankyou: "💛 Dankeschön-Geschenk",
+    chip_memorial: "🕊 In liebevoller Erinnerung",
+    chip_90: "🎂 90. Geburtstag",
+    chip_wedding: "💍 Hochzeitstag",
+    wyg_label: "Was Sie erhalten",
+    wyg_h2: "Alles in einem Geschenk",
+    wyg_sub: "Ihre 39 $ beinhalten alles, was Sie brauchen, um dieses Lied mit Zuversicht zu verschenken — von der ersten Vorschau bis zur fertigen Datei, für immer Ihres.",
+    feat1_strong: "Originaler Text, geschrieben über sie",
+    feat1_span: "Jede Zeile ist speziell für die Person geschrieben, die Sie feiern — keine Vorlagen, keine Floskeln.",
+    feat2_strong: "Professionelle Produktion im gewählten Stil",
+    feat2_span: "Wählen Sie aus Pop, Folk, Klassik, R&B oder Country. Unsere Produzenten erstellen ein vollständiges Arrangement dazu.",
+    feat3_strong: "Hochwertige Audiodatei — für immer Ihres",
+    feat3_span: "Sie erhalten eine studioqualitative MP3-Datei zum Behalten, Teilen und Abspielen bei jedem Anlass — kein Abo, kein Ablaufdatum.",
+    feat4_strong: "Animiertes Story-Video <em>(optionales Zusatzpaket)</em>",
+    feat4_span: "Kombinieren Sie das Lied mit einem wunderschönen animierten Video, das ihre Geschichte zeigt — perfekt zum Abspielen auf einer Party oder zum Teilen online.",
+    testimonial_text: "[Fügen Sie hier ein echtes Kundenzitat ein]",
+    testimonial_footer: "Name des Kunden, Anlass",
+    pricing_label: "Preise",
+    pricing_h2: "Einfache, faire Preise",
+    price_once: "Einmalige Zahlung",
+    price_free: "Textvorschau völlig kostenlos",
+    cta_preview2: "✨ Textvorschau — kostenlos",
+    price_note: "Keine Karte für die Vorschau erforderlich. Zahlen Sie nur, wenn es Ihnen gefällt.",
+    faq_label: "Fragen",
+    faq_h2: "Häufig gestellte Fragen",
+    faq1_q: "Wie lange dauert es?",
+    faq1_a: "Ihre Texte sind sofort zur Vorschau bereit — und das vollständig produzierte Lied wird innerhalb von 48 Stunden nach der Zahlung geliefert.",
+    faq2_q: "Kann ich den Musikstil wählen?",
+    faq2_a: "Ja — Pop, Folk, Klassik, R&B, Country. Sie wählen beim Ausfüllen des Formulars.",
+    faq3_q: "Kann ich es vor der Zahlung anhören?",
+    faq3_a: "Ja. Sehen Sie sich Ihren Text völlig kostenlos an — keine Karte erforderlich — bevor Sie sich entscheiden.",
+    faq4_q: "Für welche Anlässe ist es geeignet?",
+    faq4_a: "Geburtstage (besonders 70., 80., 90. Jubiläum), Jubiläen, Gedenkfeiern, Danksagungen und Ruhestände.",
+    faq5_q: "Bleibt es für immer meins?",
+    faq5_a: "Ja — Sie erhalten eine hochwertige Audiodatei, die Ihnen gehört, um sie zu behalten, zu teilen und jederzeit abzuspielen.",
+    cta_preview3: "✨ Textvorschau — kostenlos",
+    foot_ode: "Ode-Hub",
+    foot_keepsake: "Erinnerungslied",
+    foot_memorial: "Gedenkseite",
+    foot_wedding: "Hochzeitswand",
+    foot_birthday: "Geburtstagslied",
+    foot_examples: "Beispiele",
+    foot_guestbook: "Digitales Gästebuch",
+    foot_home: "← GatherWall Startseite"
+  }
+};
+
+// Keys that contain HTML markup and need innerHTML
+const HTML_KEYS = new Set([
+  'photo_h2','feat4_strong'
+]);
+
+function setLang(code) {
+  const dict = I18N[code];
+  if (!dict) return;
+
+  // Update html lang
+  document.documentElement.lang = code;
+
+  // Update title and meta description
+  document.title = dict.page_title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', dict.page_desc);
+
+  // Update all tagged elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      if (HTML_KEYS.has(key)) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+
+  // Update lang button states
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.textContent.trim().toLowerCase() === code;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  // Persist choice
+  try { localStorage.setItem('gw_lang', code); } catch(e) {}
+}
+
+// On page load, apply saved or default language
+(function() {
+  let saved = 'en';
+  try { saved = localStorage.getItem('gw_lang') || 'en'; } catch(e) {}
+  if (!I18N[saved]) saved = 'en';
+  if (saved !== 'en') setLang(saved);
+})();
+</script>
 
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 </body>

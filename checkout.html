@@ -10,17 +10,17 @@
 <meta name="theme-color" content="#2E7D5B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --brand:#2E7D5B; --brand-d:#256048; --brand2:#C2A058; --brand3:#6FB39A;
-    --bg:#F6F4EC; --card:#FFFFFF; --ink:#20271F; --muted:#5C6B5E; --line:#E6E2D4;
+    --brand:#2E7D5B; --brand-d:#1C4D3A; --brand2:#C2A058; --brand3:#2E7D5B;
+    --bg:#F7F5EE; --card:#FFFFFF; --ink:#1F2622; --muted:#5C6B5E; --line:#E5E1D5;
     --ui:'Inter',system-ui,sans-serif; --serif:'Fraunces',Georgia,serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--ui);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
   a{color:inherit}
-  .nav{padding:22px 0;border-bottom:1px solid var(--line);background:rgba(246,244,236,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
+  .nav{padding:22px 0;border-bottom:1px solid var(--line);background:rgba(247,245,238,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
   .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
   .nav-in{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:20px;text-decoration:none;color:var(--ink)}
@@ -32,7 +32,7 @@
   .secure-pill{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px;white-space:nowrap}
   .grid{display:grid;grid-template-columns:1.2fr .9fr;gap:40px;padding:54px 0 70px}
   @media(max-width:780px){.grid{grid-template-columns:1fr;gap:28px;padding:34px 0 50px}}
-  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9A7D33;font-weight:600;margin-bottom:14px}
   h1{font-family:var(--serif);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
   @media(max-width:780px){h1{font-size:33px}}
   .lede{font-size:18px;color:var(--muted);max-width:46ch;margin-bottom:30px}
@@ -41,14 +41,14 @@
   ul.incl li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
   ul.incl li .tick{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:rgba(46,125,91,.12);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
   .note{margin-top:26px;font-size:14px;color:var(--muted);padding:14px 16px;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:12px}
-  .order{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 60px -32px rgba(32,39,31,.4);position:sticky;top:96px;height:fit-content}
+  .order{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 26px 60px -38px rgba(28,40,32,.5);position:sticky;top:96px;height:fit-content}
   .order h2{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:4px}
   .order .for{font-size:14px;color:var(--muted);margin-bottom:22px}
   .price{display:flex;align-items:baseline;gap:8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .price .amt{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--ink)}
   .price .per{font-size:15px;color:var(--muted)}
   .price .was{font-size:16px;color:var(--muted);text-decoration:line-through;margin-left:auto}
-  .pay{display:block;width:100%;margin-top:22px;padding:17px;border:none;border-radius:14px;background:var(--brand);color:#fff;font-family:var(--ui);font-weight:600;font-size:17px;text-align:center;text-decoration:none;cursor:pointer;transition:background .15s,transform .15s;box-shadow:0 10px 24px -10px rgba(46,125,91,.7)}
+  .pay{display:block;width:100%;margin-top:22px;padding:17px;border:none;border-radius:999px;background:var(--brand);color:#fff;font-family:var(--ui);font-weight:600;font-size:17px;text-align:center;text-decoration:none;cursor:pointer;transition:background .15s,transform .15s;box-shadow:0 10px 24px -10px rgba(46,125,91,.7)}
   .pay:hover{background:var(--brand-d);transform:translateY(-1px)}
   .trust{margin-top:18px;display:flex;flex-direction:column;gap:10px}
   .trust div{display:flex;gap:9px;align-items:center;font-size:13.5px;color:var(--muted)}
@@ -57,7 +57,7 @@
   footer{border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   footer a{text-decoration:none;opacity:.85}
-  .gumroad-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:14px!important;
+  .gumroad-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:999px!important;
     font-family:var(--ui)!important;font-weight:600!important;font-size:17px!important;padding:17px!important;
     display:block!important;width:100%!important;text-align:center!important;text-decoration:none!important;
     box-shadow:0 10px 24px -10px rgba(46,125,91,.7)!important;background-image:none!important;height:auto!important;line-height:1.2!important}
@@ -153,12 +153,6 @@
       lede:{en:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',fr:'Un souvenir animé et cinématographique de leur vie — scène par scène, sur une chanson originale écrite pour l\'occasion. Notre cadeau signature.',es:'Un recuerdo animado y cinematográfico de su vida — escena a escena, con una canción original escrita para la ocasión. Nuestro regalo estrella.',cs:'Filmová animovaná vzpomínka na jejich život — scéna po scéně, s původní písní napsanou pro tuto příležitost. Náš výjimečný dárek.',de:'Eine filmische, animierte Erinnerung an ihr Leben — Szene für Szene, mit einem eigens komponierten Lied. Unser Signature-Geschenk.'},
       incl:{en:['Original song for the occasion','Hand-crafted animated story','Played at the event & kept forever','Your photos, milestones & message'],fr:['Chanson originale pour l\'occasion','Histoire animée faite main','Diffusée à l\'événement & gardée pour toujours','Vos photos, moments clés & message'],es:['Canción original para la ocasión','Historia animada hecha a mano','Se reproduce en el evento y se guarda para siempre','Tus fotos, hitos y mensaje'],cs:['Původní píseň pro tuto příležitost','Ručně vytvořený animovaný příběh','Přehráno na akci & uchováno navždy','Vaše fotky, milníky & vzkaz'],de:['Eigenes Lied für den Anlass','Handgefertigte animierte Geschichte','Beim Event gezeigt & für immer behalten','Ihre Fotos, Meilensteine & Botschaft']},
       amt:'$39',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'}},
-    'event-bundle':{
-      eyebrow:{en:'Event Bundle · best value',fr:'Pack Événement · meilleure offre',es:'Pack Evento · mejor valor',cs:'Balíček Akce · nejlepší cena',de:'Event-Paket · bestes Angebot'},
-      title:{en:'The full experience, in one',fr:'L\'expérience complète, en un seul pack',es:'La experiencia completa, en uno',cs:'Kompletní zážitek v jednom',de:'Das volle Erlebnis in einem'},
-      lede:{en:'The Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.',fr:'Le Souvenir animé plus un Mur d\'hommages en direct à votre événement — leur histoire sur un écran, les invités en direct sur l\'autre.',es:'El Recuerdo animado más un Muro de homenajes en vivo en tu evento — su historia en una pantalla, los invitados en directo en otra.',cs:'Animovaný vzpomínkový příběh plus Živá zeď vzpomínek na vaší akci — jejich příběh na jedné obrazovce, hosté živě na druhé.',de:'Die animierte Erinnerungsgeschichte plus eine Live-Erinnerungswand bei Ihrem Event — ihre Geschichte auf einem Bildschirm, Gäste live auf dem anderen.'},
-      incl:{en:['Animated Keepsake Story','Live Tribute Wall at the event','Their story on one screen, guests on another','Our best value for milestone celebrations'],fr:['Souvenir animé','Mur d\'hommages en direct à l\'événement','Leur histoire sur un écran, les invités sur l\'autre','Notre meilleure offre pour les grandes occasions'],es:['Recuerdo animado','Muro de homenajes en vivo en el evento','Su historia en una pantalla, los invitados en otra','Nuestra mejor oferta para grandes celebraciones'],cs:['Animovaný vzpomínkový příběh','Živá zeď vzpomínek na akci','Jejich příběh na jedné obrazovce, hosté na druhé','Naše nejlepší cena pro velké oslavy'],de:['Animierte Erinnerungsgeschichte','Live-Erinnerungswand beim Event','Ihre Geschichte auf einem Bildschirm, Gäste auf dem anderen','Unser bestes Angebot für große Feiern']},
-      amt:'$49',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'},was:'$59'},
     'song-of-your-night':{
       eyebrow:{en:'The Song of Your Night'},
       title:{en:'Your guests\' words, set to a song'},

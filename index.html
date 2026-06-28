@@ -41,9 +41,9 @@
    Each "vibe" repaints the whole experience. Subscribers can
    also inject their own brand colour, making every wall unique. */
 :root{
-  --brand:#FF4D7E; --brand2:#FF9A52; --brand3:#7A5CFF;
-  --bg:#FFF7F2; --surface:#FFFFFF; --ink:#1C1430; --muted:#6C6480;
-  --line:#EFE6EE; --radius:20px; --shadow:0 18px 50px -22px rgba(60,20,80,.35);
+  --brand:#2E7D5B; --brand2:#C2A058; --brand3:#1C4D3A;
+  --bg:#F7F5EE; --surface:#FFFFFF; --ink:#1F2622; --muted:#5C6B5E;
+  --line:#E5E1D5; --radius:20px; --shadow:0 18px 50px -22px rgba(28,40,32,.35);
   --display:'Fraunces',Georgia,serif; --ui:'Inter',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -152,7 +152,7 @@ section{padding:74px 0;}
 .vibe:hover{transform:translateY(-5px);}
 .vibe h3{font-size:22px;}.vibe p{font-size:13.5px;opacity:.92;margin-top:4px;}
 .vibe .emoji{position:absolute;top:18px;left:20px;font-size:30px;}
-.v-celebration{background:linear-gradient(150deg,#FF4D7E,#FF9A52);}
+.v-celebration{background:linear-gradient(150deg,#C2A058,#9A7D33);}
 .v-wedding{background:linear-gradient(150deg,#C98BB0,#E8B4B8 70%,#D9A441);}
 .v-memorial{background:linear-gradient(150deg,#6E8E7B,#A9B89C);}
 .v-corporate{background:linear-gradient(150deg,#2D6CDF,#16B8A6);}
@@ -379,6 +379,121 @@ body.kioskmode header.nav{display:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .note-firebase{font-size:12.5px;color:var(--muted);background:color-mix(in srgb,var(--brand) 6%,#fff);
   border:1px dashed var(--line);border-radius:12px;padding:12px 14px;margin-top:18px;}
+
+/* ===================== LIVE LANE — EVENT-NIGHT DARK SKIN =====================
+   Scoped to screens that are exclusively the Live lane.
+   Ode screens (#screen-door, #screen-family, #screen-memorial, #screen-builder)
+   and shared builders (#screen-create, #screen-share, #screen-guest) are untouched.
+   :root tokens stay as Ode/light. All overrides here are additive. */
+
+/* ── Live home / marketing ── */
+#screen-home{background:#14201A;color:#F2F0E8;}
+#screen-home header.nav{background:rgba(20,32,26,.88);border-bottom-color:rgba(255,255,255,.12);}
+#screen-home header.nav .logo,
+#screen-home header.nav .nav-links a{color:#F2F0E8;}
+#screen-home header.nav .nav-links a:hover{color:#34A877;}
+#screen-home header.nav .btn-primary{background:linear-gradient(120deg,#34A877,#E4C77A);box-shadow:0 10px 26px -10px rgba(52,168,119,.5);}
+#screen-home .pill{background:rgba(52,168,119,.15);color:#34A877;}
+#screen-home .hero h1 em{color:#34A877;}
+#screen-home .hero p.lead{color:rgba(242,240,232,.82);}
+#screen-home .hero-note{color:#A9B8AE;}
+#screen-home .hero-cta .btn-ghost{border-color:rgba(255,255,255,.28);color:#F2F0E8;}
+#screen-home .hero-cta .btn-ghost:hover{border-color:#34A877;}
+#screen-home .section-head h2{color:#F2F0E8;}
+#screen-home .section-head p{color:#A9B8AE;}
+#screen-home .muted{color:#A9B8AE;}
+#screen-home .step{background:#1E2A24;border-color:rgba(255,255,255,.10);}
+#screen-home .step h3{color:#F2F0E8;}
+#screen-home .step .n{background:linear-gradient(120deg,#34A877,#E4C77A);}
+#screen-home .band{background:#0D1610;}
+#screen-home .band .section-head p,.band .muted{color:#A9B8AE;}
+#screen-home .price{background:#1E2A24;border-color:rgba(255,255,255,.10);}
+#screen-home .price h3{color:#F2F0E8;}
+#screen-home .price .amt{color:#F2F0E8;}
+#screen-home .price .muted{color:#A9B8AE;}
+#screen-home .price li{color:#F2F0E8;}
+#screen-home .price li::before{color:#34A877;}
+#screen-home .price.feat{border-color:#34A877;box-shadow:0 18px 50px -22px rgba(52,168,119,.35);}
+#screen-home .price.feat::before{background:linear-gradient(120deg,#34A877,#E4C77A);}
+#screen-home .btn-primary{background:linear-gradient(120deg,#34A877,#E4C77A);box-shadow:0 12px 30px -10px rgba(52,168,119,.5);}
+#screen-home .btn-ghost{border-color:rgba(255,255,255,.25);color:#F2F0E8;}
+#screen-home .pg-label{color:#A9B8AE;}
+#screen-home .pg-label::after{background:rgba(255,255,255,.12);}
+#screen-home .price-note{color:#A9B8AE;}
+#screen-home #songnight .price{background:#1E2A24;border-color:rgba(255,255,255,.10);}
+#screen-home #songnight .price.feat{border-color:#E4C77A;box-shadow:0 18px 50px -22px rgba(228,199,122,.22);}
+#screen-home #songnight h2{color:#F2F0E8;}
+#screen-home #songnight p{color:#A9B8AE;}
+#screen-home footer{background:#0D1610;color:#A9B8AE;}
+#screen-home footer .logo{color:#F2F0E8;}
+#screen-home footer a{color:#A9B8AE;}
+
+/* ── Pro Monthly screen (Live-only) ── */
+#screen-promonthly{background:#14201A;color:#F2F0E8;}
+#screen-promonthly header.nav{background:rgba(20,32,26,.88);border-bottom-color:rgba(255,255,255,.12);}
+#screen-promonthly header.nav .logo,
+#screen-promonthly header.nav .btn-ghost{color:#F2F0E8;}
+#screen-promonthly header.nav .btn-ghost{border-color:rgba(255,255,255,.25);}
+#screen-promonthly .pill{background:rgba(52,168,119,.15);color:#34A877;}
+#screen-promonthly h1{color:#F2F0E8;}
+#screen-promonthly .muted{color:#A9B8AE;}
+#screen-promonthly .back{color:#A9B8AE;}
+#screen-promonthly .back:hover{color:#34A877;}
+#screen-promonthly .card{background:#1E2A24;border-color:rgba(255,255,255,.12);}
+#screen-promonthly .card h3{color:#F2F0E8;}
+#screen-promonthly .card p{color:#A9B8AE;}
+#screen-promonthly .card li{color:#F2F0E8;}
+#screen-promonthly .card b{color:#E4C77A;}
+#screen-promonthly .btn-primary{background:linear-gradient(120deg,#34A877,#E4C77A);box-shadow:0 12px 30px -10px rgba(52,168,119,.5);}
+
+/* ── Live wall display — dark by default ── */
+#screen-wall{background:#14201A;}
+#screen-wall .wall-top{background:rgba(20,32,26,.9);border-bottom:1px solid rgba(255,255,255,.10);}
+#screen-wall .wall-top h2{color:#F2F0E8;}
+#screen-wall .wall-top .host{color:#A9B8AE;}
+#screen-wall .trib{background:#1E2A24;border-color:rgba(255,255,255,.10);}
+#screen-wall .trib .msg{color:#F2F0E8;}
+#screen-wall .trib .from{color:#34A877;}
+#screen-wall .trib .heart{border-color:rgba(255,255,255,.14);color:#34A877;}
+#screen-wall .trib .heart:hover{background:rgba(52,168,119,.12);}
+#screen-wall .love-meter{color:#E4C77A;}
+#screen-wall .btn-ghost{border-color:rgba(255,255,255,.20);color:#F2F0E8;}
+#screen-wall .btn-ghost:hover{border-color:#34A877;}
+#screen-wall .gesture-chip{background:#1E2A24;border-color:rgba(255,255,255,.14);color:#34A877;}
+#screen-wall .empty{color:#A9B8AE;}
+#screen-wall .sp-msg{color:#F2F0E8;}
+#screen-wall .sp-from{color:#34A877;}
+#screen-wall .sp-dots i{background:rgba(255,255,255,.18);}
+#screen-wall .sp-dots i.on{background:#34A877;}
+#screen-wall .trib.song-card{border-color:#E4C77A;background:linear-gradient(180deg,rgba(228,199,122,.07),rgba(30,42,36,.9));}
+#screen-wall .trib .song-tag{color:#E4C77A;}
+
+/* ── Control panel (manage) — dark for the Live host ── */
+#screen-manage{background:#14201A;color:#F2F0E8;}
+#screen-manage header.nav{background:rgba(20,32,26,.88);border-bottom-color:rgba(255,255,255,.12);}
+#screen-manage header.nav .logo{color:#F2F0E8;}
+#screen-manage header.nav .btn-ghost{color:#F2F0E8;border-color:rgba(255,255,255,.25);}
+#screen-manage .pill{background:rgba(52,168,119,.15);color:#34A877;}
+#screen-manage h1{color:#F2F0E8;}
+#screen-manage .muted{color:#A9B8AE;}
+#screen-manage .mg-toolbar{background:#1E2A24;border-color:rgba(255,255,255,.10);}
+#screen-manage .mg-toolbar .opt{border-color:rgba(255,255,255,.13);background:transparent;color:#A9B8AE;}
+#screen-manage .mg-toolbar .opt.on{border-color:#34A877;color:#34A877;background:rgba(52,168,119,.1);}
+#screen-manage .mg-toolbar .btn-ghost{border-color:rgba(255,255,255,.20);color:#F2F0E8;}
+#screen-manage .mg-toolbar .btn-primary{background:linear-gradient(120deg,#34A877,#E4C77A);}
+#screen-manage .mg-card{background:#1E2A24;border-color:rgba(255,255,255,.08);}
+#screen-manage .mg-card.pending{border-color:#34A877;background:rgba(52,168,119,.07);}
+#screen-manage .mg-card .mg-msg{color:#F2F0E8;}
+#screen-manage .mg-card .mg-from{color:#34A877;}
+#screen-manage .badge.pend{background:rgba(52,168,119,.15);color:#34A877;}
+
+/* ── Doorway — Live card dark/gold preview treatment ── */
+/* The .door-live-card class is applied in HTML to the Live anchor card only */
+.door-live-card{
+  background:#14201A !important;
+  border-color:rgba(228,199,122,.40) !important;
+  box-shadow:0 24px 60px -34px rgba(0,0,0,.65) !important;
+}
 </style>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -404,11 +519,11 @@ body.kioskmode header.nav{display:none;}
         <span id="d_ode_d" style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A keepsake song &amp; animated story — for a birthday, an anniversary, or someone remembered.</span>
         <span id="d_ode_c" class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#2E7D5B;border-radius:999px;padding:12px 22px;align-self:flex-start;">Enter Ode →</span>
       </a>
-      <a href="#live" onclick="location.hash='live';return false;" style="display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid #E6E2D4;border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px -34px rgba(32,39,31,.42);">
-        <span id="d_live_k" style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#256048;background:rgba(46,125,91,.10);border:1px solid rgba(46,125,91,.25);border-radius:999px;padding:5px 12px;margin-bottom:14px;">For your whole event</span>
-        <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#20271F;margin-bottom:6px;">GatherWall Live</span>
-        <span id="d_live_d" style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#5C6B5E;line-height:1.6;margin-bottom:18px;">A live wall where guests post photos &amp; messages to the big screen, all evening long.</span>
-        <span id="d_live_c" class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#2E7D5B;border-radius:999px;padding:12px 22px;align-self:flex-start;">Explore Live →</span>
+      <a href="#live" onclick="location.hash='live';return false;" class="door-live-card" style="display:flex;flex-direction:column;text-decoration:none;border-radius:22px;padding:28px 24px;">
+        <span id="d_live_k" style="align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#E4C77A;background:rgba(228,199,122,.12);border:1px solid rgba(228,199,122,.38);border-radius:999px;padding:5px 12px;margin-bottom:14px;">For your whole event</span>
+        <span style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#F2F0E8;margin-bottom:6px;">GatherWall Live</span>
+        <span id="d_live_d" style="font-family:'Inter',system-ui,sans-serif;font-size:15px;color:#A9B8AE;line-height:1.6;margin-bottom:18px;">A live wall where guests post photos &amp; messages to the big screen, all evening long.</span>
+        <span id="d_live_c" class="door-cta" style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#fff;background:#34A877;border-radius:999px;padding:12px 22px;align-self:flex-start;">Explore Live →</span>
       </a>
     </div>
 
@@ -612,8 +727,8 @@ body.kioskmode header.nav{display:none;}
   <div class="card">
     <div class="field"><label>What's the occasion?</label>
       <div class="vibe-pick" id="vibePick">
-        <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF4D7E,#FF9A52)"></span>Celebration</button>
-        <button data-vibe="celebration" data-occasion="birthday" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF8A52,#FFC24B)"></span>Birthday</button>
+        <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#C2A058,#9A7D33)"></span>Celebration</button>
+        <button data-vibe="celebration" data-occasion="birthday" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#C2A058,#9A7D33)"></span>Birthday</button>
         <button data-vibe="wedding" onclick="pickVibe('wedding',this)"><span class="sw" style="background:linear-gradient(120deg,#C98BB0,#D9A441)"></span>Wedding</button>
         <button data-vibe="celebration" data-occasion="anniversary" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#E8B4B8,#D9A441)"></span>Anniversary</button>
         <button data-vibe="memorial" data-livememorial="1" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
@@ -624,7 +739,7 @@ body.kioskmode header.nav{display:none;}
       <input id="evName" placeholder="e.g. Grace's 50th · Tom & Priya's Wedding"></div>
     <div class="row2">
       <div class="field"><label>Event date</label><input id="evDate" type="date"></div>
-      <div class="field"><label>Brand colour <span class="muted">(optional)</span></label><input id="evColor" type="color" value="#FF4D7E"></div>
+      <div class="field"><label>Brand colour <span class="muted">(optional)</span></label><input id="evColor" type="color" value="#2E7D5B"></div>
     </div>
     <div class="field"><label>Hosted / presented by <span class="muted">(your name or brand — shows on the wall)</span></label>
       <input id="evHost" placeholder="e.g. DJ Moraks - Premier AVE"></div>
@@ -758,14 +873,6 @@ body.kioskmode header.nav{display:none;}
       <div class="fmt-price">$39 one-time</div>
       <button class="btn btn-ghost" onclick="location.href='keepsake-preview.html'">✨ See your lyrics — free ▸</button>
       <a class="fmt-demo" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
-    </div>
-    <div class="fmt">
-      <div class="fmt-emoji">✨</div>
-      <h3>Event Bundle</h3>
-      <p>Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.</p>
-      <div class="fmt-price">$49 one-time</div>
-      <button class="btn btn-ghost" onclick="go('bundle')">See the bundle ▸</button>
-      <a class="fmt-demo" href="keepsake-photo-demo.html" target="_blank">▸ See an example</a>
     </div>
   </div>
 </div></div>
@@ -1096,7 +1203,7 @@ body.kioskmode header.nav{display:none;}
 <script>
 /* ===================== THEME DEFINITIONS ===================== */
 const VIBES = {
-  celebration:{label:'Celebration',emoji:'🎉',brand:'#FF4D7E',brand2:'#FF9A52',brand3:'#7A5CFF',bg:'#FFF7F2',ink:'#1C1430'},
+  celebration:{label:'Celebration',emoji:'🎉',brand:'#C2A058',brand2:'#9A7D33',brand3:'#2E7D5B',bg:'#F7F5EE',ink:'#1F2622'},
   wedding:{label:'Wedding',emoji:'💍',brand:'#C98BB0',brand2:'#D9A441',brand3:'#E8B4B8',bg:'#FBF6F2',ink:'#2A1E26'},
   memorial:{label:'In Memory',emoji:'🕊️',brand:'#6E8E7B',brand2:'#A9B89C',brand3:'#C9B89A',bg:'#F5F4EF',ink:'#232A26'},
   corporate:{label:'Corporate',emoji:'🏆',brand:'#2D6CDF',brand2:'#16B8A6',brand3:'#5B8DEF',bg:'#F3F7FC',ink:'#10243F'},
@@ -1935,7 +2042,7 @@ function createWall(){
       name:name,
       kind:family?'family':'live',
       vibe:pickedVibe||'celebration',
-      color:fieldVal('evColor','#FF4D7E') || '#FF4D7E',
+      color:fieldVal('evColor','#2E7D5B') || '#2E7D5B',
       host:fieldVal('evHost',''),
       hostLink:fieldVal('evLink',''),
       date:fieldVal('evDate',''),
@@ -1995,7 +2102,7 @@ function showShare(e){
   document.getElementById('wallLink').textContent=w;
   document.getElementById('qr').innerHTML='';
   try{new QRCode(document.getElementById('qr'),{text:g,width:180,height:180,
-    colorDark:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#1C1430',colorLight:'#ffffff'});}
+    colorDark:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#1F2622',colorLight:'#ffffff'});}
   catch(err){document.getElementById('qr').innerHTML='<p class="muted" style="font-size:13px">QR needs internet — use the link below.</p>';}
   const m=baseURL()+'#manage?ev='+id+'&key='+(e.manageKey||'');
   const ml=document.getElementById('manageLink'); if(ml) ml.textContent=m;
@@ -2098,12 +2205,12 @@ function printCard(){
   const e=window._curEvent; if(!e){toast('Create a wall first');return;}
   const cv=document.querySelector('#qr canvas'); const im=document.querySelector('#qr img');
   const data = cv?cv.toDataURL('image/png'):(im?im.src:'');
-  const accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#FF4D7E';
+  const accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#2E7D5B';
   const host=e.host?('Presented by '+e.host):'';
   const w=window.open('','_blank','width=640,height=860');
   if(!w){toast('Allow pop-ups to print the card');return;}
   w.document.write(`<!doctype html><html><head><title>${escapeHTML(e.name)} — table card</title>
-  <style>body{font-family:Georgia,serif;text-align:center;padding:48px 32px;color:#1C1430;margin:0}
+  <style>body{font-family:Georgia,serif;text-align:center;padding:48px 32px;color:#1F2622;margin:0}
   .pill{display:inline-block;border:1px solid ${accent};color:${accent};border-radius:999px;padding:6px 16px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Arial}
   h1{font-size:34px;margin:18px 0 4px}.host{color:#666;font-size:14px;margin-bottom:26px}
   img{width:260px;height:260px}.cta{font-size:22px;margin-top:18px}.sub{color:#666;margin-top:8px;font-size:14px;max-width:360px;margin-left:auto;margin-right:auto}
@@ -2531,14 +2638,14 @@ function toggleModeration(){
 function exportAlbum(){
   readTributes(mgEv, list=>{
     list=list.filter(t=>t.approved!==false).sort((a,b)=>(a.ts||0)-(b.ts||0));
-    const e=mgEvObj, accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#FF4D7E';
+    const e=mgEvObj, accent=getComputedStyle(document.documentElement).getPropertyValue('--brand').trim()||'#2E7D5B';
     const w=window.open('','_blank'); if(!w){toast('Allow pop-ups to export the album');return;}
     const cards=list.map(t=>`<div class="c">
       ${t.photo?`<img src="${t.photo}">`:''}
       ${t.type==='song'?`<div class="tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div><div class="m">${escapeHTML(t.songTitle||'')}</div>`:`<div class="m">${escapeHTML(t.msg||(t.audio?'[voice note]':''))}</div>`}
       <div class="n">— ${escapeHTML(t.name)}</div></div>`).join('');
     w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHTML(e.name)} — album</title>
-    <style>body{font-family:Georgia,serif;color:#1C1430;max-width:760px;margin:0 auto;padding:40px}
+    <style>body{font-family:Georgia,serif;color:#1F2622;max-width:760px;margin:0 auto;padding:40px}
     h1{text-align:center;color:${accent}}.sub{text-align:center;color:#666;margin-bottom:26px}
     .c{border:1px solid #eee;border-radius:14px;padding:18px;margin-bottom:14px;break-inside:avoid}
     .c img{max-width:200px;border-radius:10px;display:block;margin-bottom:10px}
@@ -2569,7 +2676,7 @@ function seedDemo(cb){
     {type:'song',songTitle:"Stevie Wonder — Isn't She Lovely",songFor:"Grace",msg:"Her absolute favourite!",name:"Linda"}];
   getEvent(DEMO_ID, e=>{
     if(e){ cb&&cb(); return; }
-    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#FF4D7E',host:'DJ Moraks - Premier AVE',
+    saveEvent({id:DEMO_ID,name:"Grace's 50th",vibe:'celebration',color:'#C2A058',host:'DJ Moraks - Premier AVE',
       hostLink:'https://premier-ave.co.uk/',
       date:'',mode:'live',opts:{music:'on',compose:'ai',photos:true,video:false,voice:false,dedications:true,moderation:false}}, ()=>{
       let i=0;(function next(){ if(i>=items.length){cb&&cb();return;}
