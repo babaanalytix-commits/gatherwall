@@ -542,7 +542,7 @@ async function chooseLyric(i){
     var p=window.GW_WALL_SONG?"song-of-your-night":"animated-keepsake-story";
     buy.setAttribute("href","checkout.html?p="+p+"&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for));
     buy.removeAttribute("data-i");
-    buy.textContent=window.GW_WALL_SONG?"Love it? Create your Song of Your Night — $49 ▸":"Love it? Create your keepsake song — $39 ▸";
+    buy.textContent=window.GW_WALL_SONG?"Love it? Create your Song of Your Night — $39 ▸":"Love it? Create your keepsake song — $39 ▸";
     buy.style.display="";
     try{ buy.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){}
   }
