@@ -369,13 +369,6 @@ const STYLES = [
    style:"smooth modern R&B, soulful vocal, lush and tender"}
 ];
 
-const BUNDLE = {
-  en:{title:"Add a Live Tribute Wall",desc:"Guests scan a QR and their photos & messages appear live on the big screen — make it an Event Bundle.",cta:"Add the Live Wall — Event Bundle $39 ▸"},
-  fr:{title:"Ajoutez un Mur d'hommages en direct",desc:"Les invités scannent un QR et leurs photos & messages s'affichent en direct sur grand écran — passez au Pack Événement.",cta:"Ajouter le Mur en direct — Pack Événement 39 $ ▸"},
-  es:{title:"Añade un Muro de homenajes en vivo",desc:"Los invitados escanean un QR y sus fotos y mensajes aparecen en directo en la pantalla grande — conviértelo en un Pack Evento.",cta:"Añadir el Muro en vivo — Pack Evento 39 $ ▸"},
-  cs:{title:"Přidejte živou Zeď vzpomínek",desc:"Hosté naskenují QR a jejich fotky a vzkazy se živě objeví na velké obrazovce — udělejte z toho Balíček události.",cta:"Přidat živou Zeď — Balíček události 39 $ ▸"},
-  de:{title:"Live-Erinnerungswand hinzufügen",desc:"Gäste scannen einen QR-Code und ihre Fotos & Nachrichten erscheinen live auf der großen Leinwand — machen Sie ein Event-Bundle daraus.",cta:"Live-Wand hinzufügen — Event-Bundle 39 $ ▸"}
-};
 const VIBE_COLOR={celebration:"#FF4D7E",wedding:"#C98BB0",memorial:"#6E8E7B"};
 const WALL_OPTS={music:"on",compose:"ai",photos:true,video:false,voice:false,dedications:true,moderation:false};
 function wuid(){return Math.random().toString(36).slice(2,8);}
@@ -384,23 +377,6 @@ function pickVibeFor(occasion){ const o=(occasion||"").toLowerCase();
   if(/memor|memory|loving|passed|tribute|funeral|rip|rest in/.test(o)) return "memorial";
   return "celebration"; }
 let CUR_ORDER="", CUR_BRIEF=null;
-async function goBundle(){
-  const btn=document.getElementById("b_cta");
-  if(!CUR_ORDER){ if(btn)btn.textContent=(BUNDLE[LANG]||BUNDLE.en).cta; return; }
-  if(btn){ btn.disabled=true; btn.textContent="…"; }
-  try{
-    const b=CUR_BRIEF||{};
-    const vibe=pickVibeFor(b.occasion);
-    const ev=wuid();
-    const name=(b.for||"Our celebration")+(b.occasion?(" — "+b.occasion):"");
-    const event={id:ev,name:name,kind:"live",vibe:vibe,color:VIBE_COLOR[vibe]||"#FF4D7E",
-      host:b.from||"",hostLink:"",date:"",mode:"live",tier:"basic",published:false,
-      manageKey:wuid()+wuid(),opts:WALL_OPTS,bundleOf:CUR_ORDER,createdAt:Date.now()};
-    await fetch(FIREBASE_DB+"/events/"+ev+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(event)});
-    await fetch(FIREBASE_DB+"/orders/"+CUR_ORDER+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({bundle:true,ev:ev,product:"event-bundle"})});
-    location.href="checkout.html?p=event-bundle&order="+encodeURIComponent(CUR_ORDER)+"&ev="+encodeURIComponent(ev)+"&for="+encodeURIComponent(b.for||"");
-  }catch(e){ if(btn){ btn.disabled=false; btn.textContent=(BUNDLE[LANG]||BUNDLE.en).cta; } }
-}
 let LANG = "en";
 const $ = id => document.getElementById(id);
 
@@ -415,10 +391,6 @@ function applyLang(l){
   STYLES.forEach((s,i)=>{ const o=document.createElement("option"); o.value=String(i); o.textContent=s.label[LANG]||s.label.en; sel.appendChild(o); });
   sel.selectedIndex=cur;
   $("go").innerHTML = t.btn;
-  const bt=BUNDLE[LANG]||BUNDLE.en;
-  if($("b_title")) $("b_title").textContent=bt.title;
-  if($("b_desc")) $("b_desc").textContent=bt.desc;
-  if($("b_cta")) $("b_cta").textContent=bt.cta;
   refreshCount();
   try{ localStorage.setItem("gw_lang",LANG); }catch(e){}
 }
