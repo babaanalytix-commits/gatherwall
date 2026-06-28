@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personalised Keepsake Song — A Gift Made From Their Story</title>
-<meta name="description" content="Turn someone's life story into an original song, written and produced just for them. Preview the lyrics free. The gift money can't buy — from $39.">
+<meta name="description" content="Turn someone's life story into an original song and animated photo story — their photos, their moments, set to music. Preview the lyrics free. From $39.">
 <link rel="canonical" href="https://gatherwall.com/keepsake-song.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -146,6 +146,24 @@ details[open] summary::after{content:'−';}
 .site-footer>a:last-child{font-size:.85rem;color:var(--muted);}
 .site-footer>a:last-child:hover{color:var(--brand);}
 
+/* ── PHOTO STORY SECTION ── */
+.photo-story-band{background:linear-gradient(135deg,#1a3d2b 0%,#256048 55%,#1e4a35 100%);color:#fff;padding:72px 0;}
+.photo-story-band .section-label{color:rgba(255,255,255,.65)}
+.photo-story-band .section-title{color:#fff}
+.photo-story-band .section-sub{color:rgba(255,255,255,.75);max-width:560px}
+.photo-story-scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:40px}
+.scene{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:24px 20px;text-align:center}
+.scene-icon{font-size:2rem;margin-bottom:12px}
+.scene h4{font-family:'Fraunces',Georgia,serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:6px}
+.scene p{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.5}
+.photo-demo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:36px}
+.demo-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:18px 20px;text-decoration:none;transition:background .15s,transform .15s;display:flex;flex-direction:column;gap:5px}
+.demo-card:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.demo-card-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gold)}
+.demo-card-title{font-family:'Fraunces',Georgia,serif;font-size:16px;font-weight:600;color:#fff}
+.demo-card-desc{font-size:12.5px;color:rgba(255,255,255,.65)}
+.demo-card-arrow{font-size:13px;color:var(--gold);margin-top:6px;font-weight:600}
+
 /* ── RESPONSIVE ── */
 @media(max-width:640px){
   .hero{padding:56px 0 52px;}
@@ -153,6 +171,9 @@ details[open] summary::after{content:'−';}
   .price-card{padding:36px 24px;}
   .audio-section{padding:28px 22px;}
   .feature-card{padding:28px 22px;}
+  .photo-story-band{padding:52px 0;}
+  .photo-story-scenes{grid-template-columns:1fr 1fr;}
+  .photo-demo-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -172,6 +193,58 @@ details[open] summary::after{content:'−';}
   <div class="cta-row">
     <a class="btn-primary" href="keepsake-preview.html">✨ Preview your lyrics — free</a>
     <a class="btn-ghost" href="samples.html">Hear real examples →</a>
+  </div>
+</div>
+</div>
+
+<!-- PHOTO STORY BAND -->
+<div class="photo-story-band">
+<div class="wrap">
+  <p class="section-label">Their photos, their story — set to music</p>
+  <h2 class="section-title" style="font-family:'Fraunces',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:14px;">Their photos tell the story.<br>We set it to an original song.</h2>
+  <p class="section-sub">The Animated Keepsake Story is not just a song — it is a scene-by-scene animated film built from the buyer's own photographs. Each photo becomes a moment. Each moment becomes a verse. The result plays on the big screen at the event and lives on their phone forever.</p>
+  <div class="photo-story-scenes">
+    <div class="scene">
+      <div class="scene-icon">📸</div>
+      <h4>You send the photos</h4>
+      <p>Upload the pictures that tell their story — childhood, family, milestones, places they love.</p>
+    </div>
+    <div class="scene">
+      <div class="scene-icon">✍️</div>
+      <h4>We write the song</h4>
+      <p>Original lyrics built around their real name, memories, and the people who matter most to them.</p>
+    </div>
+    <div class="scene">
+      <div class="scene-icon">🎞️</div>
+      <h4>Photos become scenes</h4>
+      <p>Each photograph is woven into an animated story — frame by frame, verse by verse.</p>
+    </div>
+    <div class="scene">
+      <div class="scene-icon">🎬</div>
+      <h4>Play it on the day</h4>
+      <p>The full animated story plays at the party, and stays on their phone to watch again, any time.</p>
+    </div>
+  </div>
+  <h3 style="font-family:'Fraunces',Georgia,serif;color:#fff;font-size:1.15rem;margin-top:44px;margin-bottom:16px;">See it with photos — real examples</h3>
+  <div class="photo-demo-row">
+    <a class="demo-card" href="keepsake-photo-demo.html" target="_blank">
+      <span class="demo-card-label">Photo Demo</span>
+      <span class="demo-card-title">Animated Photo Keepsake</span>
+      <span class="demo-card-desc">Photos + original song — the full animated story experience.</span>
+      <span class="demo-card-arrow">Watch the demo →</span>
+    </a>
+    <a class="demo-card" href="keepsake-birthday-demo.html" target="_blank">
+      <span class="demo-card-label">Birthday Demo</span>
+      <span class="demo-card-title">Birthday Keepsake Story</span>
+      <span class="demo-card-desc">A milestone birthday — photos, lyrics, and the song played in the room.</span>
+      <span class="demo-card-arrow">Watch the demo →</span>
+    </a>
+    <a class="demo-card" href="keepsake-demo.html" target="_blank">
+      <span class="demo-card-label">Full Demo</span>
+      <span class="demo-card-title">Complete Keepsake Demo</span>
+      <span class="demo-card-desc">The end-to-end experience — see exactly what arrives after payment.</span>
+      <span class="demo-card-arrow">Watch the demo →</span>
+    </a>
   </div>
 </div>
 </div>
@@ -323,6 +396,7 @@ details[open] summary::after{content:'−';}
 
 <footer class="site-footer">
   <div class="footlinks">
+    <a href="ode.html">Ode hub</a>
     <a href="keepsake-song.html">Keepsake Song</a>
     <a href="memorial-page.html">Memorial Page</a>
     <a href="wedding-wall.html">Wedding Wall</a>

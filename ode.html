@@ -69,6 +69,22 @@
   .ex{display:inline-block;margin-top:11px;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;text-align:center}
   .ex:hover{text-decoration:underline}
   .ctas{display:flex;flex-direction:column}
+  /* ── EXPLORE SECTION ── */
+  .explore{margin-top:48px;border-top:1px solid var(--line);padding-top:38px}
+  .explore-heading{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--ink);margin-bottom:6px}
+  .explore-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+  .explore-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.explore-grid{grid-template-columns:1fr}}
+  .ecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:5px;text-decoration:none;transition:box-shadow .15s,transform .15s}
+  .ecard:hover{box-shadow:0 10px 30px -14px rgba(32,39,31,.3);transform:translateY(-2px)}
+  .ecard-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--brand)}
+  .ecard-title{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink)}
+  .ecard-desc{font-size:13px;color:var(--muted);line-height:1.5}
+  .explore-events{margin-top:20px;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .explore-events-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:12px}
+  .event-links{display:flex;flex-wrap:wrap;gap:10px}
+  .event-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--brand);text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;transition:border-color .15s}
+  .event-link:hover{border-color:var(--brand)}
   footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:38px}
   footer a{color:var(--brand);text-decoration:none}
   .footlinks{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
@@ -115,10 +131,10 @@
     <div class="pcard sig">
       <span class="chip" data-i="ks_chip">Signature gift</span>
       <h3 data-i="ks_h">Animated Keepsake Story</h3>
-      <p data-i="ks_p">A bespoke song and animated story of their life — written and made just for them, played at the event and kept forever.</p>
+      <p data-i="ks_p">An original song written about them — plus an animated story built scene by scene from their own photos. Their faces, their moments, their music. Played at the event and kept forever.</p>
       <div class="price" data-i="ks_price">$39 <small>one-time</small></div>
       <div class="ctas"><a class="cta" href="keepsake-preview.html" data-i="ks_cta">✨ See your lyrics — free ▸</a>
-        <a class="ex" href="keepsake-birthday-demo.html" target="_blank" data-i="ks_ex">Hear an example →</a></div>
+        <a class="ex" href="keepsake-photo-demo.html" target="_blank" data-i="ks_ex">See photos + story example →</a></div>
     </div>
 
     <!-- Event Bundle -->
@@ -132,11 +148,49 @@
     </div>
   </div>
 
+  <!-- EXPLORE SECTION -->
+  <div class="explore">
+    <div class="eyebrow" style="margin-bottom:8px">Explore</div>
+    <h2 class="explore-heading">Everything Ode has to offer</h2>
+    <p class="explore-sub">Go deeper into any of these — each is a full page with examples, details, and a free start.</p>
+    <div class="explore-grid">
+      <a class="ecard" href="keepsake-song.html">
+        <span class="ecard-label">Keepsake Song</span>
+        <span class="ecard-title">Personalised Keepsake Song</span>
+        <span class="ecard-desc">An original song written from their story — previewed free, delivered in 48 hours.</span>
+      </a>
+      <a class="ecard" href="birthday-song.html">
+        <span class="ecard-label">Birthday Song</span>
+        <span class="ecard-title">Birthday Song — for a milestone</span>
+        <span class="ecard-desc">For a 70th, 80th, or 90th — a song about them that stops the room.</span>
+      </a>
+      <a class="ecard" href="memorial-page.html">
+        <span class="ecard-label">Memorial</span>
+        <span class="ecard-title">Online Memorial Page</span>
+        <span class="ecard-desc">A lasting, gentle place for family to gather, share, and remember — from $10.</span>
+      </a>
+      <a class="ecard" href="examples.html">
+        <span class="ecard-label">Examples</span>
+        <span class="ecard-title">See &amp; hear real examples</span>
+        <span class="ecard-desc">Real keepsake songs, photo-story demos, memorials, and more — before you buy anything.</span>
+      </a>
+    </div>
+    <div class="explore-events">
+      <div class="explore-events-label">For events</div>
+      <div class="event-links">
+        <a class="event-link" href="wedding-wall.html">💑 Wedding Wall</a>
+        <a class="event-link" href="digital-guestbook.html">📋 Digital Guestbook</a>
+        <a class="event-link" href="song-of-your-night.html">🎵 Song of Your Night</a>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="footlinks">
       <a href="samples.html" data-i="f_hear">🎧 Hear real keepsakes</a>
       <a href="wall-of-love.html" data-i="f_wol">💛 Wall of Love</a>
       <a href="anthem.html">🎵 Our anthem</a>
+      <a href="examples.html">See all examples</a>
     </div>
     <a href="index.html" data-i="foot">← All of GatherWall</a>
   </footer>
@@ -147,7 +201,7 @@ const I18N={
   en:{h1:"An ode to someone you love",sub:"Honour one person — a birthday, an anniversary, or a life remembered — with a keepsake made just for them.",
     mw_chip:"For a celebration",mw_h:"Memory Wall",mw_p:"A shared wall the whole family fills over time — photos & messages for a birthday, anniversary, wedding or retirement. Reveal it all on the day.",mw_price:"$10 + VAT · free to build",mw_cta:"Create a Memory Wall ▸",
     me_chip:"In loving memory",me_h:"Memorial & Eulogy",me_p:"A dignified online memorial — a life story and eulogy, candle-lighting, a timeline, and shared memories from family & friends. A lasting place to remember.",me_price:"$10 + VAT · free to build",me_cta:"Create a memorial ▸",me_ex:"View an example →",
-    ks_chip:"Signature gift",ks_h:"Animated Keepsake Story",ks_p:"A bespoke song and animated story of their life — written and made just for them, played at the event and kept forever.",ks_price:"$39 one-time",ks_cta:"✨ See your lyrics — free ▸",ks_ex:"Hear an example →",
+    ks_chip:"Signature gift",ks_h:"Animated Keepsake Story",ks_p:"An original song written about them — plus an animated story built scene by scene from their own photos. Their faces, their moments, their music. Played at the event and kept forever.",ks_price:"$39 one-time",ks_cta:"✨ See your lyrics — free ▸",ks_ex:"See photos + story example →",
     eb_chip:"Best value",eb_h:"Event Bundle",eb_p:"Both in one: the Animated Keepsake Story plus a Live Tribute Wall at your event — their story on one screen, guests posting live on another.",eb_price:"$49 one-time",eb_cta:"Get the bundle ▸",eb_ex:"See an example →",
     f_hear:"🎧 Hear real keepsakes",f_wol:"💛 Wall of Love",foot:"← All of GatherWall"},
   fr:{h1:"Une ode à ceux qu'on aime",sub:"Honorez une personne — un anniversaire, des noces, ou une vie dont on se souvient — avec un souvenir créé rien que pour elle.",
