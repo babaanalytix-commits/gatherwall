@@ -18,34 +18,34 @@
 <meta name="twitter:image" content="https://gatherwall.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 <style>
   :root{
-    --brand:#2E7D5B; --brand-d:#256048; --mem:#6E8E7B; --gold:#C2A058;
-    --bg:#F5F4EF; --card:#FFFFFF; --ink:#232A26; --muted:#5C6B5E; --line:#E2E6DE; --soft:#FAFAF6;
+    --brand:#2E7D5B; --brand-d:#1C4D3A; --mem:#5C6B5E; --gold:#C2A058;
+    --bg:#F7F5EE; --card:#FFFFFF; --ink:#1F2622; --muted:#5C6B5E; --line:#E5E1D5; --soft:#FBFAF4;
     --ui:'Inter',system-ui,-apple-system,sans-serif; --serif:'Fraunces',Georgia,serif;
-    --shadow:0 24px 60px -34px rgba(32,39,31,.4);
+    --shadow:0 26px 60px -38px rgba(28,40,32,.5);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--ui);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
-    background:radial-gradient(900px 500px at 50% -10%, rgba(110,142,123,.16), transparent 60%), var(--bg);min-height:100vh}
+    background:radial-gradient(900px 500px at 50% -10%, rgba(46,125,91,.10), transparent 60%), var(--bg);min-height:100vh}
   a{color:inherit}
-  .nav{padding:16px 0;border-bottom:1px solid var(--line);background:rgba(245,244,239,.82);backdrop-filter:blur(10px)}
+  .nav{padding:16px 0;border-bottom:1px solid var(--line);background:rgba(247,245,238,.82);backdrop-filter:blur(10px)}
   .nav-in{max-width:680px;margin:0 auto;padding:0 20px}
   .logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:600;font-size:19px;text-decoration:none;color:var(--ink)}
   .logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
   .wrap{max-width:680px;margin:0 auto;padding:0 20px 90px}
-  .draft{background:#fff7e6;border:1px solid #f0dca8;color:#7a5d12;font-size:13px;border-radius:12px;padding:10px 14px;margin:16px 0 0;text-align:center}
+  .draft{background:#F4EEDF;border:1px solid rgba(194,160,88,.4);color:#9A7D33;font-size:13px;border-radius:12px;padding:10px 14px;margin:16px 0 0;text-align:center}
   header.hero{text-align:center;padding:44px 0 8px}
   .photo{width:128px;height:128px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:var(--shadow);margin:0 auto 18px;display:block}
   .photo.ph{display:flex;align-items:center;justify-content:center;font-size:46px;background:var(--soft)}
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,6vw,44px);line-height:1.08;margin-bottom:8px}
   .dates{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--mem);font-weight:600}
-  .eulogy{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;color:#3a443a;max-width:52ch;margin:22px auto 0}
+  .eulogy{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.6;color:var(--ink);max-width:52ch;margin:22px auto 0}
   .from{margin-top:16px;font-size:14px;color:var(--muted)}
   .candle{margin:30px auto 0;text-align:center}
-  .candle button{font-family:var(--ui);font-size:15px;font-weight:600;color:var(--brand-d);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 22px;cursor:pointer;box-shadow:0 10px 26px -20px rgba(32,39,31,.5);transition:transform .12s}
+  .candle button{font-family:var(--ui);font-size:15px;font-weight:600;color:var(--brand-d);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 22px;cursor:pointer;box-shadow:0 10px 26px -20px rgba(28,40,32,.5);transition:transform .12s}
   .candle button:hover{transform:translateY(-2px)}
   .candle .ct{color:var(--muted);font-weight:500;font-size:13.5px;margin-top:10px}
   .candle .fl{animation:fl 1.6s ease-in-out infinite}
@@ -53,14 +53,14 @@
   .sec{margin-top:40px}
   .sec h2{font-family:var(--serif);font-weight:600;font-size:22px;text-align:center;margin-bottom:4px}
   .sec .hint{text-align:center;color:var(--muted);font-size:14px;margin-bottom:18px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
   input,textarea{width:100%;font-family:var(--ui);font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--soft);color:var(--ink);outline:none;margin-bottom:10px}
   input:focus,textarea:focus{border-color:var(--brand)}
   textarea{min-height:84px;resize:vertical}
-  .btn{width:100%;padding:14px;font-size:15.5px;font-weight:600;color:#fff;border:none;border-radius:12px;background:var(--brand);cursor:pointer;transition:background .15s}
+  .btn{width:100%;padding:14px;font-size:15.5px;font-weight:600;color:#fff;border:none;border-radius:999px;background:var(--brand);cursor:pointer;transition:background .15s}
   .btn:hover{background:var(--brand-d)}
   .mem{break-inside:avoid;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px;box-shadow:var(--shadow)}
-  .mem .m{font-family:var(--serif);font-size:16.5px;line-height:1.5;color:#2b332a}
+  .mem .m{font-family:var(--serif);font-size:16.5px;line-height:1.5;color:var(--ink)}
   .mem .b{margin-top:10px;font-size:13px;font-weight:600;color:var(--mem)}
   .ok{color:var(--brand-d);font-size:14px;text-align:center;margin-top:10px;font-weight:600}
   .empty{text-align:center;color:var(--muted);font-size:14.5px;padding:24px 0}

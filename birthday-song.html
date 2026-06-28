@@ -34,12 +34,12 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 <style>
 :root{
-  --brand:#2E7D5B;--brand-d:#256048;--gold:#C2A058;--bg:#F5F4EF;--card:#fff;
-  --ink:#232A26;--muted:#5C6B5E;--line:#E2E6DE;--soft:#FAFAF6;
+  --brand:#2E7D5B;--brand-d:#1C4D3A;--brand-deep:#1C4D3A;--gold:#C2A058;--gold-deep:#9A7D33;--gold-soft:#F4EEDF;--bg:#F7F5EE;--bg-2:#F1EEE3;--card:#fff;
+  --ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--soft:#FBFAF4;
   --serif:'Fraunces',Georgia,serif;--ui:'Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -58,7 +58,7 @@ a{color:inherit;text-decoration:none}
 /* NAV */
 .nav{
   padding:14px 0;border-bottom:1px solid var(--line);
-  background:rgba(245,244,239,.88);backdrop-filter:blur(12px);
+  background:rgba(247,245,238,.88);backdrop-filter:blur(12px);
   position:sticky;top:0;z-index:10;
 }
 .nav-in{
@@ -108,7 +108,7 @@ h1 em{font-style:italic;color:var(--brand)}
 }
 .btn:hover{transform:translateY(-2px)}
 .btn-primary{background:var(--gold);color:#fff;box-shadow:0 10px 28px -12px rgba(194,160,88,.55)}
-.btn-primary:hover{background:#a8893e;box-shadow:0 14px 32px -12px rgba(194,160,88,.65)}
+.btn-primary:hover{background:var(--gold-deep);box-shadow:0 14px 32px -12px rgba(194,160,88,.65)}
 .btn-outline{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
 .btn-outline:hover{background:color-mix(in srgb,var(--brand) 6%,transparent)}
 .btn-green{background:var(--brand);color:#fff;box-shadow:0 10px 28px -12px rgba(46,125,91,.5)}

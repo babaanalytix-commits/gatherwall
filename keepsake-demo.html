@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatherWall — Animated Keepsake Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    STORYSONG STORY ENGINE — data-driven, theme-able, any-length
@@ -12,8 +13,8 @@
    three completely different stories. Double-click to open.
    ============================================================ */
 :root{
-  --bg:#0d0804; --text:#f0e6c8; --accent:#C9A84C; --accent2:#E8C97A;
-  --serif:'Georgia', serif; --sans:'Helvetica Neue', sans-serif;
+  --bg:#0d0804; --text:#f0e6c8; --accent:#C2A058; --accent2:#E4C77A;
+  --serif:'Fraunces', Georgia, serif; --sans:'Inter', system-ui, sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--serif);
@@ -25,7 +26,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);
 .scene.active{opacity:1;}.scene.exit{opacity:0;}
 #particles{position:absolute;inset:0;pointer-events:none;z-index:0;}
 .scene-art{position:relative;z-index:2;margin-bottom:32px;}
-.scene-art svg{filter:drop-shadow(0 0 20px rgba(201,168,76,0.3));}
+.scene-art svg{filter:drop-shadow(0 0 20px rgba(194,160,88,0.3));}
 .scene-title{font-size:clamp(28px,5vw,52px);font-style:italic;color:var(--accent);
   letter-spacing:2px;text-align:center;z-index:2;position:relative;
   opacity:0;transform:translateY(20px);
@@ -37,7 +38,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);
   z-index:2;position:relative;opacity:0;transform:translateY(16px);
   transition:opacity 1.2s ease 1s,transform 1.2s ease 1s;}
 .scene.active .scene-subtitle{opacity:1;transform:translateY(0);}
-.scene-lyric{font-size:clamp(13px,1.8vw,18px);color:rgba(201,168,76,.85);
+.scene-lyric{font-size:clamp(13px,1.8vw,18px);color:rgba(194,160,88,.85);
   font-style:italic;text-align:center;margin-top:20px;max-width:640px;
   line-height:1.8;z-index:2;position:relative;opacity:0;
   transition:opacity 1.4s ease 1.4s;}
@@ -53,7 +54,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);
 .scene.active .quote-attrib{opacity:1;}
 .photo-row{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;
   z-index:2;position:relative;margin-bottom:8px;max-width:90vw;}
-.photo-label{font-size:11px;letter-spacing:2px;color:rgba(201,168,76,.7);
+.photo-label{font-size:11px;letter-spacing:2px;color:rgba(194,160,88,.7);
   text-align:center;margin-top:8px;font-family:var(--sans);text-transform:uppercase;
   z-index:2;position:relative;}
 .gold-line{width:120px;height:1px;
@@ -68,70 +69,70 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);
 .fade-in-art{opacity:0;transition:opacity 1.5s ease 1s;}
 .scene.active .fade-in-art{opacity:1;}
 .big-title{font-size:clamp(48px,9vw,96px);font-style:italic;color:var(--accent);
-  letter-spacing:4px;text-shadow:0 0 60px rgba(201,168,76,.4);text-align:center;
+  letter-spacing:4px;text-shadow:0 0 60px rgba(194,160,88,.4);text-align:center;
   z-index:2;position:relative;opacity:0;transform:scale(.9);
   transition:opacity 2s ease .5s,transform 2s ease .5s;}
 .scene.active .big-title{opacity:1;transform:scale(1);}
-.big-sub{font-size:clamp(16px,3vw,28px);color:rgba(201,168,76,.6);
+.big-sub{font-size:clamp(16px,3vw,28px);color:rgba(194,160,88,.6);
   letter-spacing:10px;text-transform:uppercase;font-family:var(--sans);
   font-weight:200;margin-top:8px;text-align:center;z-index:2;position:relative;
   opacity:0;transition:opacity 2s ease 1.5s;}
 .scene.active .big-sub{opacity:1;}
 .lang-text{transition:opacity .3s;}
-.img-frame{object-fit:cover;border:1.5px solid rgba(201,168,76,.5);display:block;margin:0 auto;}
+.img-frame{object-fit:cover;border:1.5px solid rgba(194,160,88,.5);display:block;margin:0 auto;}
 
 /* Music player */
 #music-player{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);
-  z-index:200;background:rgba(13,8,4,.93);border:1px solid rgba(201,168,76,.35);
+  z-index:200;background:rgba(13,8,4,.93);border:1px solid rgba(194,160,88,.35);
   padding:13px 18px 18px;display:flex;align-items:center;gap:14px;
   backdrop-filter:blur(10px);min-width:320px;max-width:92vw;}
 #music-player .track-name{font-family:var(--sans);font-size:10px;letter-spacing:2px;
-  color:rgba(201,168,76,.8);text-transform:uppercase;flex:1;white-space:nowrap;
+  color:rgba(194,160,88,.8);text-transform:uppercase;flex:1;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis;}
 #music-player .play-btn{width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(201,168,76,.55);background:rgba(201,168,76,.12);color:var(--accent);
+  border:1px solid rgba(194,160,88,.55);background:rgba(194,160,88,.12);color:var(--accent);
   font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;
   flex-shrink:0;transition:background .2s;}
-#music-player .play-btn:hover{background:rgba(201,168,76,.28);}
-.track-select{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);
-  color:rgba(201,168,76,.7);font-size:10px;font-family:var(--sans);letter-spacing:1px;
+#music-player .play-btn:hover{background:rgba(194,160,88,.28);}
+.track-select{background:rgba(194,160,88,.06);border:1px solid rgba(194,160,88,.25);
+  color:rgba(194,160,88,.7);font-size:10px;font-family:var(--sans);letter-spacing:1px;
   cursor:pointer;outline:none;flex-shrink:0;padding:4px 6px;}
 .track-select option{background:#1a0d04;color:var(--accent);}
 .progress-bar-wrap{position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:rgba(201,168,76,.1);cursor:pointer;}
+  background:rgba(194,160,88,.1);cursor:pointer;}
 .progress-bar-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--accent2));
   width:0%;pointer-events:none;transition:width .8s linear;}
-.vol-icon{font-size:14px;color:rgba(201,168,76,.45);cursor:pointer;flex-shrink:0;
+.vol-icon{font-size:14px;color:rgba(194,160,88,.45);cursor:pointer;flex-shrink:0;
   transition:color .2s;background:none;border:none;}
 .vol-icon:hover{color:var(--accent);}
 
 #progress{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
   display:flex;gap:10px;z-index:100;}
-.dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.25);
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(194,160,88,.25);
   transition:background .4s,transform .4s;cursor:pointer;}
 .dot.active{background:var(--accent);transform:scale(1.4);}
 #nav{position:fixed;bottom:28px;right:40px;display:flex;gap:12px;z-index:100;}
-#nav button{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);
+#nav button{background:rgba(194,160,88,.12);border:1px solid rgba(194,160,88,.35);
   color:var(--accent);padding:8px 20px;font-size:12px;letter-spacing:2px;
   font-family:var(--sans);cursor:pointer;text-transform:uppercase;transition:background .3s;}
-#nav button:hover{background:rgba(201,168,76,.25);}
+#nav button:hover{background:rgba(194,160,88,.25);}
 #scene-counter{position:fixed;top:28px;right:40px;font-size:11px;letter-spacing:3px;
-  color:rgba(201,168,76,.4);font-family:var(--sans);z-index:100;text-transform:uppercase;}
+  color:rgba(194,160,88,.4);font-family:var(--sans);z-index:100;text-transform:uppercase;}
 .ctrl-chip{position:fixed;top:28px;font-size:11px;letter-spacing:2px;
-  color:rgba(201,168,76,.4);font-family:var(--sans);z-index:100;cursor:pointer;
-  text-transform:uppercase;border:1px solid rgba(201,168,76,.2);padding:6px 14px;
+  color:rgba(194,160,88,.4);font-family:var(--sans);z-index:100;cursor:pointer;
+  text-transform:uppercase;border:1px solid rgba(194,160,88,.2);padding:6px 14px;
   transition:color .3s,border-color .3s;}
-.ctrl-chip:hover,.ctrl-chip.on{color:var(--accent);border-color:rgba(201,168,76,.5);}
+.ctrl-chip:hover,.ctrl-chip.on{color:var(--accent);border-color:rgba(194,160,88,.5);}
 #auto-toggle{left:40px;} #sync-btn{left:130px;}
 
 /* DEV-ONLY story picker (remove for client builds) */
 #dev-bar{position:fixed;top:0;left:0;right:0;z-index:500;
   background:rgba(0,0,0,.82);backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(201,168,76,.25);
+  border-bottom:1px solid rgba(194,160,88,.25);
   display:flex;align-items:center;gap:14px;padding:8px 16px;
   font-family:var(--sans);font-size:12px;color:rgba(240,230,200,.75);}
 #dev-bar b{color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-size:11px;}
-#dev-bar select{background:#1a0d04;color:var(--accent);border:1px solid rgba(201,168,76,.4);
+#dev-bar select{background:#1a0d04;color:var(--accent);border:1px solid rgba(194,160,88,.4);
   padding:6px 10px;font-family:var(--sans);font-size:12px;cursor:pointer;}
 #dev-bar .tag{color:rgba(240,230,200,.45);}
 .dev-shift #scene-counter,.dev-shift #auto-toggle,.dev-shift #sync-btn{top:60px;}
@@ -180,7 +181,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--serif);
    (or base64 data URIs baked in by the embed step).
    ============================================================ */
 function ph(initial, tone){
-  tone = tone || '#C9A84C';
+  tone = tone || '#C2A058';
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'>
     <defs><radialGradient id='g' cx='50%' cy='38%' r='70%'>
       <stop offset='0%' stop-color='${tone}' stop-opacity='0.30'/>
@@ -197,33 +198,33 @@ function ph(initial, tone){
    ============================================================ */
 const MOTIFS = {
   bridge: `<svg width="340" height="180" viewBox="0 0 340 180">
-    <rect x="20" y="60" width="130" height="80" rx="4" fill="none" stroke="rgba(201,168,76,0.2)" class="fade-in-art"/>
+    <rect x="20" y="60" width="130" height="80" rx="4" fill="none" stroke="rgba(194,160,88,0.2)" class="fade-in-art"/>
     <text x="85" y="108" text-anchor="middle" fill="var(--accent)" font-size="11" font-family="Georgia" font-style="italic" class="fade-in-art">{{A}}</text>
-    <rect x="190" y="60" width="130" height="80" rx="4" fill="none" stroke="rgba(201,168,76,0.2)" class="fade-in-art"/>
+    <rect x="190" y="60" width="130" height="80" rx="4" fill="none" stroke="rgba(194,160,88,0.2)" class="fade-in-art"/>
     <text x="255" y="108" text-anchor="middle" fill="var(--accent)" font-size="11" font-family="Georgia" font-style="italic" class="fade-in-art">{{B}}</text>
     <path d="M150 100 Q170 40 190 100" fill="none" stroke="var(--accent)" stroke-width="1.2" class="draw-line" stroke-dasharray="120" stroke-dashoffset="120"/></svg>`,
   strength: `<svg width="260" height="200" viewBox="0 0 260 200">
     <line x1="130" y1="20" x2="130" y2="180" stroke="var(--accent)" stroke-width="1.2" class="draw-line"/>
     <line x1="80" y1="50" x2="180" y2="50" stroke="var(--accent)" stroke-width="1.2" class="draw-line-fast"/>
     <path d="M80 130 Q130 190 180 130" fill="none" stroke="var(--accent)" stroke-width="1.2" class="draw-line" stroke-dasharray="150" stroke-dashoffset="150"/>
-    <circle cx="130" cy="100" r="70" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="40" class="fade-in-art"/></svg>`,
+    <circle cx="130" cy="100" r="70" fill="none" stroke="rgba(194,160,88,0.08)" stroke-width="40" class="fade-in-art"/></svg>`,
   crown: `<svg width="300" height="160" viewBox="0 0 300 160">
     <path d="M60 130 L60 80 L100 110 L150 50 L200 110 L240 80 L240 130 Z" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round" class="draw-line"/>
     <circle cx="150" cy="50" r="7" fill="var(--accent)" class="fade-in-art" style="transition-delay:1.5s;"/>
-    <line x1="50" y1="135" x2="250" y2="135" stroke="rgba(201,168,76,0.4)" class="draw-line-fast"/></svg>`,
+    <line x1="50" y1="135" x2="250" y2="135" stroke="rgba(194,160,88,0.4)" class="draw-line-fast"/></svg>`,
   mountain: `<svg width="320" height="190" viewBox="0 0 320 190">
     <path d="M30 170 L120 50 L175 110 L215 70 L290 170 Z" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round" class="draw-line"/>
     <path d="M120 50 L100 80 L140 80 Z" fill="var(--accent)" fill-opacity="0.5" class="fade-in-art"/>
     <circle cx="215" cy="70" r="4" fill="var(--accent)" class="fade-in-art" style="transition-delay:1.6s;"/>
-    <line x1="20" y1="170" x2="300" y2="170" stroke="rgba(201,168,76,0.4)" class="draw-line-fast"/></svg>`,
+    <line x1="20" y1="170" x2="300" y2="170" stroke="rgba(194,160,88,0.4)" class="draw-line-fast"/></svg>`,
   infinity: `<svg width="300" height="160" viewBox="0 0 300 160">
     <path d="M150 80 C150 40 90 40 90 80 C90 120 150 120 150 80 C150 40 210 40 210 80 C210 120 150 120 150 80 Z"
       fill="none" stroke="var(--accent)" stroke-width="1.3" class="draw-line" stroke-dasharray="520" stroke-dashoffset="520"/>
-    <text x="150" y="140" text-anchor="middle" fill="rgba(201,168,76,0.5)" font-size="16" class="fade-in-art">✦</text></svg>`,
+    <text x="150" y="140" text-anchor="middle" fill="rgba(194,160,88,0.5)" font-size="16" class="fade-in-art">✦</text></svg>`,
   rings: `<svg width="300" height="170" viewBox="0 0 300 170">
     <circle cx="120" cy="90" r="55" fill="none" stroke="var(--accent)" stroke-width="1.4" class="draw-line" stroke-dasharray="360" stroke-dashoffset="360"/>
     <circle cx="180" cy="90" r="55" fill="none" stroke="var(--accent)" stroke-width="1.4" class="draw-line" stroke-dasharray="360" stroke-dashoffset="360" style="transition-delay:0.9s;"/>
-    <text x="150" y="40" text-anchor="middle" fill="rgba(201,168,76,0.6)" font-size="16" class="fade-in-art">✦</text></svg>`,
+    <text x="150" y="40" text-anchor="middle" fill="rgba(194,160,88,0.6)" font-size="16" class="fade-in-art">✦</text></svg>`,
   path: `<svg width="320" height="180" viewBox="0 0 320 180">
     <path d="M40 160 C120 160 110 60 200 60 C260 60 270 30 290 30" fill="none" stroke="var(--accent)" stroke-width="1.4" class="draw-line"/>
     <circle cx="40" cy="160" r="5" fill="var(--accent)" class="fade-in-art"/>
@@ -269,7 +270,7 @@ const STORIES = {
   /* ---- A) MILESTONE BIRTHDAY · bilingual · 8 scenes ---- */
   grace: {
     meta:{ recipient:'Grace', occasion:'Fifty & Fabulous', lang2:{code:'fr',label:'Français'} },
-    theme:{ bg:'#0d0804', text:'#f0e6c8', accent:'#C9A84C', accent2:'#E8C97A', serif:"'Georgia',serif" },
+    theme:{ bg:'#0d0804', text:'#f0e6c8', accent:'#C2A058', accent2:'#E4C77A', serif:"'Fraunces',Georgia,serif" },
     tracks:[
       {file:'', label:'Version 1 — English', lang:'en'},
       {file:'', label:'Version 2 — Français', lang:'fr'},
@@ -461,8 +462,8 @@ function applyTheme(theme){
   const r=document.documentElement.style;
   r.setProperty('--bg',theme.bg||'#0d0804');
   r.setProperty('--text',theme.text||'#f0e6c8');
-  r.setProperty('--accent',theme.accent||'#C9A84C');
-  r.setProperty('--accent2',theme.accent2||'#E8C97A');
+  r.setProperty('--accent',theme.accent||'#C2A058');
+  r.setProperty('--accent2',theme.accent2||'#E4C77A');
   r.setProperty('--serif',theme.serif||"'Georgia',serif");
 }
 
@@ -500,7 +501,7 @@ for(let i=0;i<60;i++)particles.push({x:Math.random()*innerWidth,y:Math.random()*
   r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,a:Math.random()*0.5+0.1});
 function animParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  const accent=getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#C9A84C';
+  const accent=getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#C2A058';
   const rgb=hexToRgb(accent);
   particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;
     if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
