@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Wedding Guestbook — A Live Wall of Love</title>
+<meta name="description" content="Guests scan a QR code and their photos &amp; messages appear live on the big screen — no app. A modern wedding guestbook you keep forever. From $10.">
+<link rel="canonical" href="https://gatherwall.com/wedding-wall.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GatherWall">
+<meta property="og:url" content="https://gatherwall.com/wedding-wall.html">
+<meta property="og:title" content="Digital Wedding Guestbook — A Live Wall of Love">
+<meta property="og:description" content="Guests scan a QR code and their photos &amp; messages appear live on the big screen — no app. A modern wedding guestbook you keep forever. From $10.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Wedding Guestbook — A Live Wall of Love">
+<meta name="twitter:description" content="Guests scan a QR code and their photos &amp; messages appear live on the big screen — no app. From $10.">
+<meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Organization","name":"GatherWall","url":"https://gatherwall.com","logo":"https://gatherwall.com/og-image.png"},
+  {"@type":"Service","name":"Digital Wedding Guestbook — GatherWall","description":"Guests scan a QR code and their photos & messages appear live on the big screen — no app. A modern wedding guestbook you keep forever. From $10.","offers":{"@type":"Offer","price":"10","priceCurrency":"USD"},"url":"https://gatherwall.com/wedding-wall.html"},
+  {"@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Do guests need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No app needed. Guests scan a QR code with any smartphone camera and post instantly — nothing to install."}},
+    {"@type":"Question","name":"Does it work on any phone?","acceptedAnswer":{"@type":"Answer","text":"Yes — GatherWall works on any modern smartphone, iOS or Android, with no account or app required."}},
+    {"@type":"Question","name":"Can we keep all the photos afterwards?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Every photo and message your guests post is saved, and you get a download of everything after the event."}},
+    {"@type":"Question","name":"Can we brand the wall with our names and colours?","acceptedAnswer":{"@type":"Answer","text":"Yes — you can personalise the wall with your names, wedding date, and a colour scheme that matches your day."}},
+    {"@type":"Question","name":"What is The Song of Your Night?","acceptedAnswer":{"@type":"Answer","text":"At the end of your event, GatherWall reads every message your guests left and turns their words into an original song — a unique keepsake made from your evening together."}}
+  ]}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<style>
+:root{
+  --brand:#2E7D5B;--brand-d:#256048;--gold:#C2A058;--bg:#F5F4EF;--card:#fff;
+  --ink:#232A26;--muted:#5C6B5E;--line:#E2E6DE;--soft:#FAFAF6;
+  --serif:'Fraunces',Georgia,serif;--ui:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--ui);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background:radial-gradient(900px 480px at 50% -6%, rgba(46,125,91,.13), transparent 60%), var(--bg);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* NAV */
+.nav{
+  padding:14px 0;border-bottom:1px solid var(--line);
+  background:rgba(245,244,239,.88);backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:10;
+}
+.nav-in{
+  max-width:1040px;margin:0 auto;padding:0 22px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink);
+}
+.logo .dot{
+  width:25px;height:23px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.nav a.back{font-size:14px;color:var(--muted)}
+.nav a.back:hover{color:var(--brand)}
+
+/* LAYOUT */
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.section{padding:64px 0}
+.section+.section{border-top:1px solid var(--line)}
+
+/* HERO */
+.hero{padding:72px 0 64px;text-align:center}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--brand);margin-bottom:18px;
+  background:color-mix(in srgb,var(--brand) 10%, transparent);
+  padding:6px 14px;border-radius:999px;
+}
+h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(36px,6.5vw,62px);line-height:1.07;
+  letter-spacing:-.02em;margin-bottom:20px;
+}
+h1 em{font-style:italic;color:var(--brand)}
+.lead{
+  font-size:clamp(16px,2.1vw,19px);color:var(--muted);
+  max-width:52ch;margin:0 auto 34px;
+}
+.cta-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:14px 26px;border-radius:999px;font-family:var(--ui);
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:transform .15s, box-shadow .15s;border:none;cursor:pointer;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 10px 28px -12px rgba(46,125,91,.55)}
+.btn-primary:hover{background:var(--brand-d);box-shadow:0 14px 32px -12px rgba(46,125,91,.65)}
+.btn-outline{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn-outline:hover{background:color-mix(in srgb,var(--brand) 6%,transparent)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 10px 28px -12px rgba(194,160,88,.55)}
+.btn-gold:hover{background:#a8893e}
+
+/* SECTION HEADINGS */
+h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(26px,4vw,38px);line-height:1.1;
+  letter-spacing:-.015em;margin-bottom:12px;
+}
+.section-sub{color:var(--muted);font-size:16px;max-width:58ch;margin-bottom:36px}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:680px){.steps-grid{grid-template-columns:1fr}}
+.step-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:28px 24px;box-shadow:0 18px 50px -30px rgba(35,42,38,.18);
+}
+.step-num{
+  width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:15px;margin-bottom:16px;
+}
+.step-card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:8px}
+.step-card p{color:var(--muted);font-size:15px;line-height:1.55}
+
+/* AUDIO CARD */
+.audio-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:28px 28px 24px;box-shadow:0 22px 56px -32px rgba(35,42,38,.22);
+  max-width:600px;
+}
+.audio-card-inner{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.audio-art{
+  width:68px;height:68px;border-radius:14px;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--brand),var(--gold));
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+}
+.audio-meta .t{font-family:var(--serif);font-weight:600;font-size:19px;line-height:1.2}
+.audio-meta .s{font-size:13px;color:var(--muted);margin-top:4px}
+audio{width:100%;margin-top:4px}
+.audio-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* DEMO LINK */
+.demo-link-card{
+  background:var(--soft);border:1px solid var(--line);border-radius:14px;
+  padding:16px 20px;display:inline-flex;align-items:center;gap:12px;
+  margin-top:18px;font-size:14.5px;color:var(--brand);font-weight:500;
+}
+.demo-link-card:hover{background:color-mix(in srgb,var(--brand) 5%,#fff)}
+
+/* FEATURE CARD */
+.feature-card{
+  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 6%,#fff), var(--soft));
+  border:1px solid var(--line);border-radius:20px;padding:36px 32px;
+  box-shadow:0 20px 50px -32px rgba(35,42,38,.15);
+}
+.feature-card h3{font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:12px}
+.feature-card p{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:22px}
+.feature-badge{
+  display:inline-block;background:var(--gold);color:#fff;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:600;padding:5px 12px;border-radius:999px;margin-bottom:14px;
+}
+
+/* SONG FEATURE */
+.song-feature{
+  background:var(--ink);color:#fff;border-radius:24px;padding:44px 40px;
+  position:relative;overflow:hidden;
+}
+.song-feature::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(600px 400px at 80% 50%, rgba(194,160,88,.18), transparent 70%);
+  pointer-events:none;
+}
+.song-feature .feature-badge{background:var(--gold);margin-bottom:14px}
+.song-feature h2{color:#fff;margin-bottom:14px}
+.song-feature p{color:rgba(255,255,255,.72);font-size:16.5px;max-width:56ch;line-height:1.65;margin-bottom:28px}
+.song-feature .price-note{color:rgba(255,255,255,.5);font-size:14px;margin-top:10px}
+
+/* NO APP SECTION */
+.no-app-list{list-style:none;padding:0;margin-top:20px}
+.no-app-list li{
+  display:flex;align-items:flex-start;gap:13px;padding:13px 0;
+  border-bottom:1px solid var(--line);font-size:15.5px;
+}
+.no-app-list li:last-child{border-bottom:none}
+.no-app-list .check{
+  width:22px;height:22px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,transparent);
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  color:var(--brand);font-size:13px;font-weight:700;margin-top:1px;
+}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px}
+@media(max-width:600px){.pricing-grid{grid-template-columns:1fr}}
+.price-card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:28px 24px;text-align:center;
+}
+.price-card.featured{
+  border-color:var(--brand);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--brand) 20%,transparent);
+}
+.price-card .price{
+  font-family:var(--serif);font-weight:600;font-size:38px;color:var(--brand);
+  line-height:1;margin:10px 0 6px;
+}
+.price-card .price sup{font-size:20px;vertical-align:top;margin-top:6px}
+.price-card .price-name{font-weight:600;font-size:15px;margin-bottom:6px}
+.price-card .price-desc{color:var(--muted);font-size:14px;line-height:1.5}
+
+/* FAQ */
+.faq{margin-top:8px}
+details{
+  border-bottom:1px solid var(--line);
+}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{
+  list-style:none;padding:18px 4px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:500;font-size:15.5px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:'+';font-size:20px;color:var(--brand);font-weight:400;
+  transition:transform .2s;flex:0 0 auto;margin-left:16px;
+}
+details[open] summary::after{transform:rotate(45deg)}
+details .ans{padding:0 4px 18px;color:var(--muted);font-size:15px;line-height:1.65}
+
+/* FOOTER */
+.site-footer{
+  text-align:center;padding:44px 22px 32px;
+  border-top:1px solid var(--line);margin-top:70px;
+}
+.footlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-bottom:20px}
+.footlinks a{font-size:13.5px;color:var(--muted);text-decoration:none}
+.footlinks a:hover{color:var(--brand)}
+.site-footer>a{font-size:13.5px;color:var(--brand)}
+
+/* RESPONSIVE */
+@media(max-width:760px){
+  .section{padding:48px 0}
+  .song-feature{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <a class="back" href="index.html">← Home</a>
+</div></nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Digital Wedding Guestbook</div>
+    <h1>The wedding guestbook<br>your guests will actually use</h1>
+    <p class="lead">Guests scan a QR code — their photos and messages appear live on the big screen, no app needed. You keep everything forever.</p>
+    <div class="cta-group">
+      <a href="index.html#create" class="btn btn-primary">Build your wedding wall — free</a>
+      <a href="song-of-your-night.html" class="btn btn-outline">Add The Song of Your Night →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <h2>How it works — scan, post, big screen</h2>
+    <p class="section-sub">Three effortless steps, from your invitations to your wedding night to a keepsake you'll hold forever.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>You share a QR code</h3>
+        <p>Print it on table cards, slip it into invitations, or display it on a sign at the venue entrance. Your guests see it the moment they arrive.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Guests scan and post</h3>
+        <p>One tap opens the page — no app to install, no account to create. They post photos, heartfelt messages, and all the love they brought with them, instantly, from any phone.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>It all appears live</h3>
+        <p>Every post flows onto the big screen at your venue in real time. And every single photo and message is saved in your wall — yours to download and keep forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEE AN EXAMPLE -->
+<section class="section">
+  <div class="wrap">
+    <h2>See a wedding example</h2>
+    <p class="section-sub">Hear what a GatherWall wedding feels like — the messages, the warmth, the wall of love your guests build together.</p>
+
+    <div class="audio-card" style="margin-bottom:28px">
+      <div class="audio-card-inner">
+        <div class="audio-art" aria-hidden="true">🎵</div>
+        <div class="audio-meta">
+          <div class="t">A Wall of Love</div>
+          <div class="s">The GatherWall wedding anthem — made from real guest messages</div>
+        </div>
+      </div>
+      <audio controls preload="metadata" aria-label="Audio player for A Wall of Love, the GatherWall wedding anthem">
+        <source src="a-wall-of-love.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <p class="audio-note">This is what happens when your guests write the words and we turn them into a song.</p>
+    </div>
+
+    <a href="wall-of-love.html" class="demo-link-card" aria-label="See the live Wall of Love demo wall">
+      <span style="font-size:20px">💑</span>
+      <span>See the live "Wall of Love" demo →</span>
+    </a>
+  </div>
+</section>
+
+<!-- NO APP -->
+<section class="section">
+  <div class="wrap" style="max-width:680px">
+    <h2>No app. Works on any phone.</h2>
+    <p class="section-sub">At a wedding you cannot rely on guests downloading an app. Some will be on older phones. Some won't have storage. Some just won't bother. GatherWall removes every barrier.</p>
+    <ul class="no-app-list">
+      <li><span class="check">✓</span><span><strong>Any smartphone</strong> — iOS or Android, any model, any age. If the camera works, it works.</span></li>
+      <li><span class="check">✓</span><span><strong>Any carrier</strong> — wifi or mobile data. Guests in a barn or a ballroom can post just as easily.</span></li>
+      <li><span class="check">✓</span><span><strong>Any age group</strong> — your 80-year-old aunt and your 14-year-old nephew both know how to scan a QR code.</span></li>
+      <li><span class="check">✓</span><span><strong>Nothing to install</strong> — no app store, no login, no friction. They scan, they post, they smile.</span></li>
+      <li><span class="check">✓</span><span><strong>Instant on the big screen</strong> — posts appear live, so the whole room can cheer when someone shares a picture.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SONG OF YOUR NIGHT -->
+<section class="section">
+  <div class="wrap">
+    <div class="song-feature">
+      <div class="feature-badge">Add-on</div>
+      <h2>Add The Song of Your Night</h2>
+      <p>At the end of your wedding, GatherWall weaves every message your guests left into an original song, written just for you two. Every name they mentioned, every memory they shared, every wish they wrote — woven into lyrics no guestbook has ever offered before. A keepsake as unique as your evening together.</p>
+      <div class="cta-group" style="justify-content:flex-start">
+        <a href="song-of-your-night.html" class="btn btn-gold">Add The Song of Your Night →</a>
+        <a href="index.html#create" class="btn" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)">Build your wall first</a>
+      </div>
+      <p class="price-note">Add-on from $49 · Added after your event · Delivered within 48 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section">
+  <div class="wrap">
+    <h2>Simple, transparent pricing</h2>
+    <p class="section-sub">Start free. Publish when you're ready. No hidden fees.</p>
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <div class="price-name">Wedding Wall</div>
+        <div class="price"><sup>$</sup>10</div>
+        <div class="price-desc">Live photo &amp; message wall · QR code for guests · Big-screen display · Full download after the event · Personalised with your names &amp; date</div>
+      </div>
+      <div class="price-card">
+        <div class="price-name">+ Song of Your Night</div>
+        <div class="price"><sup>$</sup>49</div>
+        <div class="price-desc">Original song written from your guests' messages · Professional production · High-quality audio file · Delivered within 48 hours</div>
+      </div>
+    </div>
+    <p style="margin-top:22px;font-size:14px;color:var(--muted)">Free to build and preview. Pay only when you publish.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap" style="max-width:720px">
+    <h2>Questions about your wedding wall</h2>
+    <div class="faq" style="margin-top:28px">
+      <details>
+        <summary>Do guests need to download an app?</summary>
+        <div class="ans">No app needed. Guests scan a QR code with any smartphone camera and post instantly — nothing to install.</div>
+      </details>
+      <details>
+        <summary>Does it work on any phone?</summary>
+        <div class="ans">Yes — GatherWall works on any modern smartphone, iOS or Android, with no account or app required.</div>
+      </details>
+      <details>
+        <summary>Can we keep all the photos afterwards?</summary>
+        <div class="ans">Absolutely. Every photo and message your guests post is saved, and you get a download of everything after the event.</div>
+      </details>
+      <details>
+        <summary>Can we brand the wall with our names and colours?</summary>
+        <div class="ans">Yes — you can personalise the wall with your names, wedding date, and a colour scheme that matches your day.</div>
+      </details>
+      <details>
+        <summary>What is The Song of Your Night?</summary>
+        <div class="ans">At the end of your event, GatherWall reads every message your guests left and turns their words into an original song — a unique keepsake made from your evening together.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding:56px 0 72px;text-align:center;background:color-mix(in srgb,var(--brand) 5%,var(--bg))">
+  <div class="wrap">
+    <h2 style="margin-bottom:14px">Ready to build your wedding wall?</h2>
+    <p style="color:var(--muted);font-size:16px;max-width:46ch;margin:0 auto 30px">Free to build, free to share with a few guests. Publish when you're ready — from $10.</p>
+    <div class="cta-group">
+      <a href="index.html#create" class="btn btn-primary">Build your wedding wall — free</a>
+      <a href="song-of-your-night.html" class="btn btn-outline">Add The Song of Your Night →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footlinks">
+    <a href="keepsake-song.html">Keepsake Song</a>
+    <a href="memorial-page.html">Memorial Page</a>
+    <a href="wedding-wall.html">Wedding Wall</a>
+    <a href="birthday-song.html">Birthday Song</a>
+    <a href="examples.html">Examples</a>
+    <a href="digital-guestbook.html">Digital Guestbook</a>
+  </div>
+  <a href="index.html">← GatherWall home</a>
+</footer>
+
+</body>
+</html>
