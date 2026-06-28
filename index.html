@@ -613,6 +613,7 @@ body.kioskmode header.nav{display:none;}
     <div class="field"><label>What's the occasion?</label>
       <div class="vibe-pick" id="vibePick">
         <button data-vibe="celebration" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF4D7E,#FF9A52)"></span>Celebration</button>
+        <button data-vibe="celebration" data-occasion="birthday" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#FF8A52,#FFC24B)"></span>Birthday</button>
         <button data-vibe="wedding" onclick="pickVibe('wedding',this)"><span class="sw" style="background:linear-gradient(120deg,#C98BB0,#D9A441)"></span>Wedding</button>
         <button data-vibe="celebration" data-occasion="anniversary" onclick="pickVibe('celebration',this)"><span class="sw" style="background:linear-gradient(120deg,#E8B4B8,#D9A441)"></span>Anniversary</button>
         <button data-vibe="memorial" data-livememorial="1" onclick="pickVibe('memorial',this)"><span class="sw" style="background:linear-gradient(120deg,#6E8E7B,#A9B89C)"></span>In Memory</button>
@@ -665,6 +666,10 @@ body.kioskmode header.nav{display:none;}
     </div>
 
     <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="createWall()">Build my wall — preview it free ▸</button>
+    <div id="familySongBridge" style="display:none;margin-top:16px;padding:14px 16px;background:#F2F4EF;border:1px solid #dfe6df;border-radius:14px;">
+      <div style="font-weight:700;color:#2E7D5B;font-size:14px;margin-bottom:3px;">✨ Turn the messages into a song</div>
+      <div class="muted" style="font-size:13px;line-height:1.5;">Once your wall fills up with photos &amp; messages, you can weave them into <a href="song-of-your-night.html" style="color:#2E7D5B;font-weight:600;">The Song of Your Night</a> — an original keepsake song, or an animated story built from your photos.</div>
+    </div>
     <div class="note-firebase">You'll build a private draft and see a live preview first. Nothing is public until you review it and publish (publishing is where you choose &amp; pay for your tier). Guests can only post once your wall is live.</div>
   </div>
 </div></div>
@@ -1606,6 +1611,12 @@ function adaptBuilder(){
   // Build button copy
   const buildBtn=document.querySelector('#screen-create .card > button.btn-primary');
   if(buildBtn) buildBtn.textContent= family ? 'Build my Memory Wall — preview it free ▸' : 'Build my wall — preview it free ▸';
+  // Host field: a family Memory Wall isn't "presented by a DJ" — use family-friendly framing.
+  const hostInput=document.getElementById('evHost');
+  if(hostInput) hostInput.placeholder= family ? 'e.g. The Bennett Family' : 'e.g. DJ Moraks - Premier AVE';
+  // Song / keepsake bridge — surface the upsell only on the family Memory Wall.
+  const songBridge=document.getElementById('familySongBridge');
+  if(songBridge) songBridge.style.display= family ? 'block' : 'none';
 }
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
