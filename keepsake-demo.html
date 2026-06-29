@@ -311,34 +311,6 @@ const STORIES = {
     ]
   },
 
-  /* ---- B) GRADUATION · single subject, no partner/children · 7 scenes · blue theme ---- */
-  daniel: {
-    meta:{ recipient:'Daniel', occasion:'Doctor Daniel', lang2:null },
-    theme:{ bg:'#04080d', text:'#dfe8f0', accent:'#7Cb0d6', accent2:'#A9D2EE', serif:"'Georgia',serif" },
-    tracks:[ {file:'a-wall-of-love.mp3', label:'Graduation Anthem', lang:'en'} ],
-    scenes:[
-      {type:'title', title:{en:'Daniel'}, subtitle:{en:'The Day He Became Doctor'},
-        lyric:{en:'Every late night led to this morning.'}},
-      {type:'illustration', motif:'path',
-        title:{en:'The Long Road'}, subtitle:{en:'Eight Years'},
-        lyric:{en:'No one saw the hours. Everyone will see the result.'}},
-      {type:'photo', photo:ph('D','#7Cb0d6'), photoLabel:'First day of school', photoShape:'rect',
-        title:{en:'Where It Started'},
-        lyric:{en:'A boy who asked "why?" about absolutely everything.'}},
-      {type:'illustration', motif:'strength',
-        title:{en:'The Years That Tested Him'},
-        lyric:{en:'Exams failed, retaken, conquered. He never quit.'}},
-      {type:'quote', quote:{en:'"The expert in anything was once a beginner who refused to give up."'},
-        attrib:{en:'— Daniel\'s words, framed above his desk'}},
-      {type:'illustration', motif:'mountain',
-        title:{en:'The Summit'}, subtitle:{en:'PhD · 2026'},
-        lyric:{en:'He didn\'t just reach the top — he earned the view.'}},
-      {type:'finale', headline:{en:'Dr. Daniel'},
-        subtitle:{en:'We could not be prouder'},
-        lyric:{en:'This is only the first chapter.'}},
-    ]
-  },
-
   /* ---- C) IN MEMORY · gentle celebration of life · 8 scenes · warm theme ---- */
   margaret: {
     meta:{ recipient:'Margaret', occasion:'1942 — 2026', lang2:null },
@@ -578,7 +550,7 @@ audio.addEventListener('ended',()=>{playBtn.textContent='▶';progFill.style.wid
 function loadStory(key){renderStory(key);}
 (function init(){
   const picker=document.getElementById('story-picker');
-  const labels={wedding:'★ Wedding — Tom & Priya (flagship)',grace:'50th Birthday (bilingual)',daniel:'Graduation',margaret:'In Memory (celebration of life)'};
+  const labels={wedding:'★ Wedding — Tom & Priya (flagship)',grace:'50th Birthday (bilingual)',margaret:'In Memory (celebration of life)'};
   Object.keys(STORIES).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=labels[k]||k;picker.appendChild(o);});
   renderStory('wedding');
 })();
