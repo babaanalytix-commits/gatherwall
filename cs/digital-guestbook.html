@@ -604,6 +604,7 @@ details.faq-item[open] summary::after{
         <span class="amount" data-i18n="price_r3_amount">$39</span>
       </div>
       <p class="pricing-note" data-i18n="price_note">Platíte pouze tehdy, když jste připraveni. Žádné předplatné. Žádné skryté poplatky.</p>
+    <p class="price-note" style="font-size:12.5px;opacity:.8;margin-top:10px;" data-i18n="price_vat">Ceny jsou v USD a bez DPH. Místní DPH se přidává při platbě, kde se uplatňuje.</p>
     </div>
     <div style="margin-top:28px;">
       <a class="btn btn-primary" href="/index.html#create" data-i18n="hero_cta_try">Vyzkoušejte GatherWall zdarma →</a>
@@ -742,6 +743,7 @@ const I18N = {
     price_r3_label: "The Song of Your Night add-on",
     price_r3_amount: "$39",
     price_note: "You only pay when you're ready. No subscriptions. No hidden fees.",
+    price_vat: "Prices are in USD and exclude VAT. Local VAT is added at checkout where it applies.",
     faq_h2: "Questions",
     faq_q1: "Is a digital guestbook better than a paper one?",
     faq_a1: "It depends what you want to keep. Paper is tactile but messages get lost, photos can't be added, and the book sits in a drawer. A digital guestbook keeps everything — photos, messages, audio — in one place you can revisit any time.",
@@ -824,6 +826,7 @@ const I18N = {
     price_r3_label: "Supplément La chanson de votre soirée",
     price_r3_amount: "$39",
     price_note: "Vous ne payez que lorsque vous êtes prêt. Pas d'abonnement. Pas de frais cachés.",
+    price_vat: "Les prix sont en USD et hors TVA. La TVA locale est ajoutée au paiement, le cas échéant.",
     faq_h2: "Questions",
     faq_q1: "Un livre d'or numérique est-il meilleur qu'un livre papier ?",
     faq_a1: "Cela dépend de ce que vous voulez conserver. Le papier est tactile, mais les messages se perdent, les photos ne peuvent pas être ajoutées, et le livre reste dans un tiroir. Un livre d'or numérique conserve tout — photos, messages, audio — dans un seul endroit que vous pouvez revisiter à tout moment.",
@@ -906,6 +909,7 @@ const I18N = {
     price_r3_label: "Complemento La canción de tu noche",
     price_r3_amount: "$39",
     price_note: "Solo pagas cuando estés listo. Sin suscripciones. Sin tarifas ocultas.",
+    price_vat: "Los precios están en USD y no incluyen IVA. El IVA local se añade al pagar cuando corresponde.",
     faq_h2: "Preguntas",
     faq_q1: "¿Es un libro de visitas digital mejor que uno en papel?",
     faq_a1: "Depende de lo que quieras conservar. El papel es táctil, pero los mensajes se pierden, no se pueden añadir fotos y el libro acaba en un cajón. Un libro de visitas digital guarda todo — fotos, mensajes, audio — en un solo lugar al que puedes volver cuando quieras.",
@@ -988,6 +992,7 @@ const I18N = {
     price_r3_label: "Doplněk Píseň vaší noci",
     price_r3_amount: "$39",
     price_note: "Platíte pouze tehdy, když jste připraveni. Žádné předplatné. Žádné skryté poplatky.",
+    price_vat: "Ceny jsou v USD a bez DPH. Místní DPH se přidává při platbě, kde se uplatňuje.",
     faq_h2: "Otázky",
     faq_q1: "Je digitální kniha hostů lepší než papírová?",
     faq_a1: "Záleží na tom, co chcete uchovat. Papír je hmatatelný, ale zprávy se ztrácejí, fotografie nelze přidat a kniha leží v zásuvce. Digitální kniha hostů uchovává vše — fotografie, zprávy, audio — na jednom místě, ke kterému se můžete kdykoli vrátit.",
@@ -1070,6 +1075,7 @@ const I18N = {
     price_r3_label: "Das Lied Ihrer Nacht als Zusatz",
     price_r3_amount: "$39",
     price_note: "Sie zahlen nur, wenn Sie bereit sind. Keine Abonnements. Keine versteckten Gebühren.",
+    price_vat: "Preise sind in USD und ohne MwSt. Die lokale MwSt. wird beim Bezahlen hinzugefügt, sofern sie anfällt.",
     faq_h2: "Häufige Fragen",
     faq_q1: "Ist ein digitales Gästebuch besser als ein Papierbuch?",
     faq_a1: "Das hängt davon ab, was Sie behalten möchten. Papier ist haptisch, aber Nachrichten gehen verloren, Fotos können nicht hinzugefügt werden, und das Buch verstaubt in einer Schublade. Ein digitales Gästebuch bewahrt alles — Fotos, Nachrichten, Audio — an einem Ort, den Sie jederzeit wieder aufrufen können.",
@@ -1134,6 +1140,7 @@ function setLang(code) {
   if (saved !== 'en') setLang(saved);
 })();
 </script>
+
 
 
 </body></html>
