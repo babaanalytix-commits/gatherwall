@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GatherWall — Pro lidi, na kterých záleží</title>
+<meta name="description" content="Proměňte své blízké v památku, kterou si uchováte — osobní píseň, živou zeď lásky pro vaši akci (bez aplikace) nebo trvalou online vzpomínku. Vytvoření zdarma.">
+<link rel="canonical" href="https://gatherwall.com/cs/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="GatherWall">
+<meta property="og:url" content="https://gatherwall.com/cs/"><meta property="og:title" content="GatherWall — Pro lidi, na kterých záleží">
+<meta property="og:description" content="Proměňte své blízké v památku, kterou si uchováte — osobní píseň, živou zeď lásky pro vaši akci (bez aplikace) nebo trvalou online vzpomínku. Vytvoření zdarma."><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GatherWall — Pro lidi, na kterých záleží"><meta name="twitter:description" content="Proměňte své blízké v památku, kterou si uchováte — osobní píseň, živou zeď lásky pro vaši akci (bez aplikace) nebo trvalou online vzpomínku. Vytvoření zdarma."><meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#2E7D5B">
+<link rel="alternate" hreflang="en" href="https://gatherwall.com/">
+<link rel="alternate" hreflang="fr" href="https://gatherwall.com/fr/">
+<link rel="alternate" hreflang="es" href="https://gatherwall.com/es/">
+<link rel="alternate" hreflang="de" href="https://gatherwall.com/de/">
+<link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/">
+<link rel="alternate" hreflang="x-default" href="https://gatherwall.com/">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+ :root{--brand:#2E7D5B;--brand-d:#1C4D3A;--gold:#C2A058;--gold-d:#9A7D33;--bg:#F7F5EE;--bg2:#F1EEE3;--card:#fff;--ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif}
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:var(--ui);color:var(--ink);background:radial-gradient(900px 420px at 50% -8%,rgba(46,125,91,.12),transparent 60%),var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+ .nav{padding:20px 0;display:flex;align-items:center;gap:9px}
+ .logo{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);text-decoration:none}
+ .logo .dot{width:22px;height:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat}
+ .hero{text-align:center;padding:44px 0 34px}
+ .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,54px);line-height:1.08;letter-spacing:-.5px}
+ .hero p{color:var(--muted);font-size:clamp(16px,2.4vw,20px);max-width:34ch;margin:16px auto 26px}
+ .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;font-size:17px;padding:15px 30px;border-radius:999px;box-shadow:0 16px 34px -16px rgba(46,125,91,.8)}
+ .btn:hover{background:var(--brand-d)}
+ .two{text-align:center;font-family:var(--serif);font-weight:600;font-size:24px;margin:26px 0 16px}
+ .lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .lane{border-radius:20px;padding:26px;border:1px solid var(--line)}
+ .lane.ode{background:var(--card)}
+ .lane.live{background:#14201A;border-color:rgba(255,255,255,.12);color:#F2F0E8}
+ .lane h3{font-family:var(--serif);font-weight:600;font-size:20px;margin-bottom:8px}
+ .lane.live h3{color:#E4C77A}
+ .lane p{font-size:15px;color:var(--muted)}
+ .lane.live p{color:#A9B8AE}
+ .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 6px}
+ .prod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:6px}
+ .prod .emoji{font-size:26px}
+ .prod .name{font-family:var(--serif);font-weight:600;font-size:17px}
+ .prod .price{color:var(--gold-d);font-weight:600;font-size:14px}
+ .prod .see{color:var(--brand);font-weight:600;font-size:13.5px;margin-top:4px}
+ .vat{text-align:center;color:var(--muted);font-size:12.5px;opacity:.85;margin:16px 0 0}
+ footer{text-align:center;padding:30px 0 44px;color:var(--muted);font-size:13.5px}
+ footer a{color:var(--brand);text-decoration:none}
+ .langsw{margin-bottom:8px}
+ @media(max-width:620px){.lanes,.prods{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="wrap">
+ <nav class="nav"><a class="logo" href="/?lang=cs"><span class="dot"></span>GatherWall</a></nav>
+ <section class="hero">
+  <h1>Pro lidi, na kterých záleží.</h1>
+  <p>Proměňte jejich příběh v píseň, živou zeď lásky nebo trvalou vzpomínku — vytvoření zdarma, navždy vaše.</p>
+  <a class="btn" href="/?lang=cs">Vytvořte si vlastní — zdarma ▸</a>
+ </section>
+ <h2 class="two">Dva způsoby, jak se sejít</h2>
+ <div class="lanes">
+  <a class="lane ode" href="/cs/keepsake-song.html" style="text-decoration:none;color:inherit"><h3>Ode — dárky, památky a vzpomínky</h3><p>Osobní píseň nebo citlivá online vzpomínka pro někoho, koho máte rádi.</p></a>
+  <a class="lane live" href="/cs/wedding-wall.html" style="text-decoration:none;color:inherit"><h3>GatherWall Live — zdi pro akce</h3><p>Hosté naskenují QR kód a živě přidávají fotky a vzkazy na velkou obrazovku. Bez aplikace.</p></a>
+ </div>
+ <div class="prods">
+  <a class="prod" href="/cs/keepsake-song.html"><span class="emoji">🎵</span><span class="name">Píseň na památku</span><span class="price">od $39</span><span class="see">Podívejte se, jak to funguje →</span></a>
+  <a class="prod" href="/cs/memorial-page.html"><span class="emoji">🕯️</span><span class="name">Online vzpomínka</span><span class="price">od $10</span><span class="see">Podívejte se, jak to funguje →</span></a>
+  <a class="prod" href="/cs/wedding-wall.html"><span class="emoji">🎉</span><span class="name">Živá zeď vzpomínek</span><span class="price">od $10</span><span class="see">Podívejte se, jak to funguje →</span></a>
+ </div>
+ <p class="vat">Ceny jsou v USD a bez DPH. Místní DPH se přidává při platbě, kde se uplatňuje.</p>
+ <footer>
+  <div class="langsw">Jazyk: <a href="https://gatherwall.com/">English</a> · <a href="https://gatherwall.com/fr/">Français</a> · <a href="https://gatherwall.com/es/">Español</a> · <a href="https://gatherwall.com/de/">Deutsch</a> · <strong>Čeština</strong></div>
+  <a href="/?lang=cs">GatherWall →</a>
+ </footer>
+</div>
+</body></html>
