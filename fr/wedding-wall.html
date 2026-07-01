@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livre d'or numérique — Un mur d'amour en direct</title>
+<meta name="description" content="Les invités scannent un QR code et leurs photos et messages apparaissent en direct sur le grand écran — sans application. Un livre d'or de mariage moderne que vous gardez à vie. À partir de 10 $.">
+<link rel="canonical" href="https://gatherwall.com/fr/wedding-wall.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GatherWall">
+<meta property="og:url" content="https://gatherwall.com/fr/wedding-wall.html">
+<meta property="og:title" content="Livre d'or numérique — Un mur d'amour en direct">
+<meta property="og:description" content="Les invités scannent un QR code et leurs photos et messages apparaissent en direct sur le grand écran — sans application. Un livre d'or de mariage moderne que vous gardez à vie. À partir de 10 $.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Livre d'or numérique — Un mur d'amour en direct">
+<meta name="twitter:description" content="Les invités scannent un QR code et leurs photos et messages apparaissent en direct sur le grand écran — sans application. Un livre d'or de mariage moderne que vous gardez à vie. À partir de 10 $.">
+<meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Organization","name":"GatherWall","url":"https://gatherwall.com","logo":"https://gatherwall.com/og-image.png"},
+  {"@type":"Service","name":"Digital Wedding Guestbook — GatherWall","description":"Guests scan a QR code and their photos & messages appear live on the big screen — no app. A modern wedding guestbook you keep forever. From $10.","offers":{"@type":"Offer","price":"10","priceCurrency":"USD"},"url":"https://gatherwall.com/wedding-wall.html"},
+  {"@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Do guests need to download an app?","acceptedAnswer":{"@type":"Answer","text":"No app needed. Guests scan a QR code with any smartphone camera and post instantly — nothing to install."}},
+    {"@type":"Question","name":"Does it work on any phone?","acceptedAnswer":{"@type":"Answer","text":"Yes — GatherWall works on any modern smartphone, iOS or Android, with no account or app required."}},
+    {"@type":"Question","name":"Can we keep all the photos afterwards?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Every photo and message your guests post is saved, and you get a download of everything after the event."}},
+    {"@type":"Question","name":"Can we brand the wall with our names and colours?","acceptedAnswer":{"@type":"Answer","text":"Yes — you can personalise the wall with your names, wedding date, and a colour scheme that matches your day."}},
+    {"@type":"Question","name":"What is The Song of Your Night?","acceptedAnswer":{"@type":"Answer","text":"At the end of your event, GatherWall reads every message your guests left and turns their words into an original song — a unique keepsake made from your evening together."}}
+  ]}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;5e4fea1704504af5a13c3c3319d523ea&quot;}"></script>
+<style>
+:root{
+  --brand:#2E7D5B;--brand-d:#1C4D3A;--brand-deep:#1C4D3A;--gold:#C2A058;--gold-deep:#9A7D33;--gold-soft:#F4EEDF;--bg:#F7F5EE;--bg-2:#F1EEE3;--card:#fff;
+  --ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--soft:#FBFAF4;
+  --serif:'Fraunces',Georgia,serif;--ui:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--ui);color:var(--ink);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background:radial-gradient(900px 480px at 50% -6%, rgba(46,125,91,.13), transparent 60%), var(--bg);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* NAV */
+.nav{
+  padding:14px 0;border-bottom:1px solid var(--line);
+  background:rgba(247,245,238,.88);backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:10;
+}
+.nav-in{
+  max-width:1040px;margin:0 auto;padding:0 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.logo{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink);flex-shrink:0;
+}
+.logo .dot{
+  width:25px;height:23px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.nav a.back{font-size:14px;color:var(--muted);flex-shrink:0;}
+.nav a.back:hover{color:var(--brand)}
+
+/* LANG SWITCHER */
+.lang-switcher{display:flex;align-items:center;gap:2px;background:rgba(31,38,34,.06);border-radius:999px;padding:3px;}
+.lang-btn{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;line-height:1;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;}
+.lang-btn[aria-pressed="true"]{background:var(--brand);color:#fff;}
+.lang-btn:hover:not([aria-pressed="true"]){background:rgba(46,125,91,.12);color:var(--brand);}
+
+/* LAYOUT */
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.section{padding:64px 0}
+.section+.section{border-top:1px solid var(--line)}
+
+/* HERO */
+.hero{padding:72px 0 64px;text-align:center}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;color:var(--brand);margin-bottom:18px;
+  background:color-mix(in srgb,var(--brand) 10%, transparent);
+  padding:6px 14px;border-radius:999px;
+}
+h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(36px,6.5vw,62px);line-height:1.07;
+  letter-spacing:-.02em;margin-bottom:20px;
+}
+h1 em{font-style:italic;color:var(--brand)}
+.lead{
+  font-size:clamp(16px,2.1vw,19px);color:var(--muted);
+  max-width:52ch;margin:0 auto 34px;
+}
+.cta-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:14px 26px;border-radius:999px;font-family:var(--ui);
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:transform .15s, box-shadow .15s;border:none;cursor:pointer;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 10px 28px -12px rgba(46,125,91,.55)}
+.btn-primary:hover{background:var(--brand-d);box-shadow:0 14px 32px -12px rgba(46,125,91,.65)}
+.btn-outline{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn-outline:hover{background:color-mix(in srgb,var(--brand) 6%,transparent)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 10px 28px -12px rgba(194,160,88,.55)}
+.btn-gold:hover{background:var(--gold-deep);color:#fff}
+
+/* SECTION HEADINGS */
+h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(26px,4vw,38px);line-height:1.1;
+  letter-spacing:-.015em;margin-bottom:12px;
+}
+.section-sub{color:var(--muted);font-size:16px;max-width:58ch;margin-bottom:36px}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:680px){.steps-grid{grid-template-columns:1fr}}
+.step-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:28px 24px;box-shadow:0 18px 50px -30px rgba(35,42,38,.18);
+}
+.step-num{
+  width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:15px;margin-bottom:16px;
+}
+.step-card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:8px}
+.step-card p{color:var(--muted);font-size:15px;line-height:1.55}
+
+/* AUDIO CARD */
+.audio-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:28px 28px 24px;box-shadow:0 22px 56px -32px rgba(35,42,38,.22);
+  max-width:600px;
+}
+.audio-card-inner{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.audio-art{
+  width:68px;height:68px;border-radius:14px;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--brand),var(--gold));
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+}
+.audio-meta .t{font-family:var(--serif);font-weight:600;font-size:19px;line-height:1.2}
+.audio-meta .s{font-size:13px;color:var(--muted);margin-top:4px}
+audio{width:100%;margin-top:4px}
+.audio-note{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* DEMO LINK */
+.demo-link-card{
+  background:var(--soft);border:1px solid var(--line);border-radius:14px;
+  padding:16px 20px;display:inline-flex;align-items:center;gap:12px;
+  margin-top:18px;font-size:14.5px;color:var(--brand);font-weight:500;
+}
+.demo-link-card:hover{background:color-mix(in srgb,var(--brand) 5%,#fff)}
+
+/* FEATURE CARD */
+.feature-card{
+  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 6%,#fff), var(--soft));
+  border:1px solid var(--line);border-radius:20px;padding:36px 32px;
+  box-shadow:0 20px 50px -32px rgba(35,42,38,.15);
+}
+.feature-card h3{font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:12px}
+.feature-card p{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:22px}
+.feature-badge{
+  display:inline-block;background:var(--gold);color:#fff;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:600;padding:5px 12px;border-radius:999px;margin-bottom:14px;
+}
+
+/* SONG FEATURE */
+.song-feature{
+  background:var(--ink);color:#fff;border-radius:24px;padding:44px 40px;
+  position:relative;overflow:hidden;
+}
+.song-feature::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(600px 400px at 80% 50%, rgba(194,160,88,.18), transparent 70%);
+  pointer-events:none;
+}
+.song-feature .feature-badge{background:var(--gold);margin-bottom:14px}
+.song-feature h2{color:#fff;margin-bottom:14px}
+.song-feature p{color:rgba(255,255,255,.72);font-size:16.5px;max-width:56ch;line-height:1.65;margin-bottom:28px}
+.song-feature .price-note{color:rgba(255,255,255,.5);font-size:14px;margin-top:10px}
+
+/* NO APP SECTION */
+.no-app-list{list-style:none;padding:0;margin-top:20px}
+.no-app-list li{
+  display:flex;align-items:flex-start;gap:13px;padding:13px 0;
+  border-bottom:1px solid var(--line);font-size:15.5px;
+}
+.no-app-list li:last-child{border-bottom:none}
+.no-app-list .check{
+  width:22px;height:22px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,transparent);
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  color:var(--brand);font-size:13px;font-weight:700;margin-top:1px;
+}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:640px}
+@media(max-width:600px){.pricing-grid{grid-template-columns:1fr}}
+.price-card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:28px 24px;text-align:center;
+}
+.price-card.featured{
+  border-color:var(--brand);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--brand) 20%,transparent);
+}
+.price-card .price{
+  font-family:var(--serif);font-weight:600;font-size:38px;color:var(--brand);
+  line-height:1;margin:10px 0 6px;
+}
+.price-card .price sup{font-size:20px;vertical-align:top;margin-top:6px}
+.price-card .price-name{font-weight:600;font-size:15px;margin-bottom:6px}
+.price-card .price-desc{color:var(--muted);font-size:14px;line-height:1.5}
+
+/* FAQ */
+.faq{margin-top:8px}
+details{
+  border-bottom:1px solid var(--line);
+}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{
+  list-style:none;padding:18px 4px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:500;font-size:15.5px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:'+';font-size:20px;color:var(--brand);font-weight:400;
+  transition:transform .2s;flex:0 0 auto;margin-left:16px;
+}
+details[open] summary::after{transform:rotate(45deg)}
+details .ans{padding:0 4px 18px;color:var(--muted);font-size:15px;line-height:1.65}
+
+/* FOOTER */
+.site-footer{
+  text-align:center;padding:44px 22px 32px;
+  border-top:1px solid var(--line);margin-top:70px;
+}
+.footlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-bottom:20px}
+.footlinks a{font-size:13.5px;color:var(--muted);text-decoration:none}
+.footlinks a:hover{color:var(--brand)}
+.site-footer>a{font-size:13.5px;color:var(--brand)}
+
+/* RESPONSIVE */
+@media(max-width:760px){
+  .section{padding:48px 0}
+  .song-feature{padding:32px 24px}
+  .lang-switcher{gap:1px;}
+  .lang-btn{padding:5px 7px;font-size:11px;}
+}
+</style>
+<link rel="alternate" hreflang="en" href="https://gatherwall.com/wedding-wall.html"><link rel="alternate" hreflang="fr" href="https://gatherwall.com/fr/wedding-wall.html"><link rel="alternate" hreflang="es" href="https://gatherwall.com/es/wedding-wall.html"><link rel="alternate" hreflang="de" href="https://gatherwall.com/de/wedding-wall.html"><link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/wedding-wall.html"><link rel="alternate" hreflang="x-default" href="https://gatherwall.com/wedding-wall.html"></head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="/index.html"><span class="dot"></span>GatherWall</a>
+  <div class="lang-switcher" role="group" aria-label="Language">
+    <button class="lang-btn" data-lang="en" aria-pressed="false" onclick="setLang('en')">EN</button>
+    <button class="lang-btn active" data-lang="fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" data-lang="es" aria-pressed="false" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="cs" aria-pressed="false" onclick="setLang('cs')">CS</button>
+    <button class="lang-btn" data-lang="de" aria-pressed="false" onclick="setLang('de')">DE</button>
+  </div>
+  <a class="back" href="/index.html">← Home</a>
+</div></nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="hero_eyebrow">Livre d'or numérique de mariage</div>
+    <h1 data-i18n="hero_h1">Le livre d'or de mariage&lt;br&gt;que vos invités utiliseront vraiment</h1>
+    <p class="lead" data-i18n="hero_lede">Les invités scannent un QR code — leurs photos et messages apparaissent en direct sur le grand écran, sans application. Vous gardez tout à jamais.</p>
+    <div class="cta-group">
+      <a href="/index.html#create" class="btn btn-primary" data-i18n="hero_cta_primary">Créer votre mur de mariage — gratuit</a>
+      <a href="/song-of-your-night.html" class="btn btn-outline" data-i18n="hero_cta_song">Ajouter La Chanson de Votre Nuit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <h2 data-i18n="how_h2">Comment ça marche — scanner, publier, grand écran</h2>
+    <p class="section-sub" data-i18n="how_sub">Trois étapes simples, de vos invitations à votre nuit de noces jusqu'à un souvenir que vous garderez à jamais.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3 data-i18n="step1_h3">Vous partagez un QR code</h3>
+        <p data-i18n="step1_p">Imprimez-le sur des cartes de table, glissez-le dans les invitations ou affichez-le sur un panneau à l'entrée du lieu. Vos invités le voient dès leur arrivée.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3 data-i18n="step2_h3">Les invités scannent et publient</h3>
+        <p data-i18n="step2_p">Une pression ouvre la page — pas d'application à installer, pas de compte à créer. Ils publient des photos, des messages sincères et tout l'amour qu'ils ont apporté, instantanément, depuis n'importe quel téléphone.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3 data-i18n="step3_h3">Tout apparaît en direct</h3>
+        <p data-i18n="step3_p">Chaque publication s'affiche en temps réel sur le grand écran de votre lieu. Et chaque photo et message est sauvegardé dans votre mur — à vous de télécharger et de conserver à jamais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEE AN EXAMPLE -->
+<section class="section">
+  <div class="wrap">
+    <h2 data-i18n="example_h2">Voir un exemple de mariage</h2>
+    <p class="section-sub" data-i18n="example_sub">Ressentez ce que représente un mariage GatherWall — les messages, la chaleur, le mur d'amour que vos invités construisent ensemble.</p>
+
+    <div class="audio-card" style="margin-bottom:28px">
+      <div class="audio-card-inner">
+        <div class="audio-art" aria-hidden="true">🎵</div>
+        <div class="audio-meta">
+          <div class="t">The Night We Became Us</div>
+          <div class="s" data-i18n="audio_subtitle">Mariage de Tom &amp; Priya — tissé à partir des messages de leurs invités</div>
+        </div>
+      </div>
+      <audio controls="" preload="metadata" aria-label="Audio player for The Night We Became Us, Tom and Priya's wedding song">
+        <source src="/the-night-we-became-us.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <p class="audio-note" data-i18n="audio_note">Voici ce qui se passe quand vos invités écrivent les mots et que nous les transformons en chanson.</p>
+    </div>
+
+    <a href="/wall-of-love.html" class="demo-link-card" aria-label="See the live Wall of Love demo wall">
+      <span style="font-size:20px">💑</span>
+      <span data-i18n="demo_link">Voir la démo live du « Mur d'amour » →</span>
+    </a>
+  </div>
+</section>
+
+<!-- NO APP -->
+<section class="section">
+  <div class="wrap" style="max-width:680px">
+    <h2 data-i18n="noapp_h2">Sans application. Fonctionne sur tous les téléphones.</h2>
+    <p class="section-sub" data-i18n="noapp_sub">Lors d'un mariage, vous ne pouvez pas compter sur le fait que les invités téléchargent une application. Certains auront de vieux téléphones. D'autres n'auront plus de stockage. D'autres encore ne s'en donneront pas la peine. GatherWall supprime chaque obstacle.</p>
+    <ul class="no-app-list">
+      <li><span class="check">✓</span><span data-i18n="noapp_li1">&lt;strong&gt;N'importe quel smartphone&lt;/strong&gt; — iOS ou Android, tout modèle, tout âge. Si l'appareil photo fonctionne, ça marche.</span></li>
+      <li><span class="check">✓</span><span data-i18n="noapp_li2">&lt;strong&gt;N'importe quel opérateur&lt;/strong&gt; — wifi ou données mobiles. Les invités dans une grange ou une salle de bal peuvent publier aussi facilement.</span></li>
+      <li><span class="check">✓</span><span data-i18n="noapp_li3">&lt;strong&gt;Tous les âges&lt;/strong&gt; — votre tante de 80 ans et votre neveu de 14 ans savent tous les deux comment scanner un QR code.</span></li>
+      <li><span class="check">✓</span><span data-i18n="noapp_li4">&lt;strong&gt;Rien à installer&lt;/strong&gt; — pas de boutique d'applications, pas de connexion, pas de friction. Ils scannent, ils publient, ils sourient.</span></li>
+      <li><span class="check">✓</span><span data-i18n="noapp_li5">&lt;strong&gt;Instantané sur le grand écran&lt;/strong&gt; — les publications apparaissent en direct, toute la salle peut applaudir quand quelqu'un partage une photo.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SONG OF YOUR NIGHT -->
+<section class="section">
+  <div class="wrap">
+    <div class="song-feature">
+      <div class="feature-badge" data-i18n="song_badge">Option</div>
+      <h2 data-i18n="song_h2">Ajouter La Chanson de Votre Nuit</h2>
+      <p data-i18n="song_p">À la fin de votre mariage, GatherWall tisse chaque message que vos invités ont laissé en une chanson originale, écrite rien que pour vous deux. Chaque nom qu'ils ont mentionné, chaque souvenir qu'ils ont partagé, chaque vœu qu'ils ont écrit — tissé en paroles qu'aucun livre d'or n'a jamais pu offrir. Un souvenir aussi unique que votre soirée ensemble.</p>
+      <div class="cta-group" style="justify-content:flex-start">
+        <a href="/song-of-your-night.html" class="btn btn-gold" data-i18n="song_cta_gold">Ajouter La Chanson de Votre Nuit →</a>
+        <a href="/index.html#create" class="btn" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)" data-i18n="song_cta_wall">Créer votre mur d'abord</a>
+      </div>
+      <p class="price-note" data-i18n="song_price_note">Souvenir à part à partir de 39 $ · Ajoutée après votre événement · Livrée sous 48 heures</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section">
+  <div class="wrap">
+    <h2 data-i18n="pricing_h2">Tarifs simples et transparents</h2>
+    <p class="section-sub" data-i18n="pricing_sub">Commencez gratuitement. Publiez quand vous êtes prêt. Aucun frais caché.</p>
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <div class="price-name" data-i18n="price1_name">Mur de mariage</div>
+        <div class="price"><sup>$</sup>10</div>
+        <div class="price-desc" data-i18n="price1_desc">Mur de photos et messages en direct · QR code pour les invités · Affichage grand écran · Téléchargement complet après l'événement · Personnalisé avec vos noms et date</div>
+      </div>
+      <div class="price-card">
+        <div class="price-name" data-i18n="price2_name">+ La Chanson de Votre Nuit</div>
+        <div class="price"><sup>$</sup>39</div>
+        <div class="price-desc" data-i18n="price2_desc">Chanson originale écrite à partir des messages de vos invités · Production professionnelle · Fichier audio haute qualité · Livraison sous 48 heures</div>
+      </div>
+    </div>
+    <p style="margin-top:22px;font-size:14px;color:var(--muted)" data-i18n="pricing_note">Gratuit à créer et à prévisualiser. Payez uniquement quand vous publiez.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap" style="max-width:720px">
+    <h2 data-i18n="faq_h2">Questions sur votre mur de mariage</h2>
+    <div class="faq" style="margin-top:28px">
+      <details>
+        <summary data-i18n="faq1_q">Les invités doivent-ils télécharger une application ?</summary>
+        <div class="ans" data-i18n="faq1_a">Aucune application nécessaire. Les invités scannent un QR code avec la caméra de leur smartphone et publient instantanément — rien à installer.</div>
+      </details>
+      <details>
+        <summary data-i18n="faq2_q">Ça fonctionne sur tous les téléphones ?</summary>
+        <div class="ans" data-i18n="faq2_a">Oui — GatherWall fonctionne sur tous les smartphones modernes, iOS ou Android, sans compte ni application requis.</div>
+      </details>
+      <details>
+        <summary data-i18n="faq3_q">Peut-on garder toutes les photos ensuite ?</summary>
+        <div class="ans" data-i18n="faq3_a">Absolument. Chaque photo et message publié par vos invités est sauvegardé, et vous recevez un téléchargement de tout après l'événement.</div>
+      </details>
+      <details>
+        <summary data-i18n="faq4_q">Peut-on personnaliser le mur avec nos noms et couleurs ?</summary>
+        <div class="ans" data-i18n="faq4_a">Oui — vous pouvez personnaliser le mur avec vos noms, la date du mariage et un schéma de couleurs qui correspond à votre journée.</div>
+      </details>
+      <details>
+        <summary data-i18n="faq5_q">Qu'est-ce que La Chanson de Votre Nuit ?</summary>
+        <div class="ans" data-i18n="faq5_a">À la fin de votre événement, GatherWall lit chaque message que vos invités ont laissé et les transforme en une chanson originale — un souvenir unique fait de votre soirée ensemble.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding:56px 0 72px;text-align:center;background:color-mix(in srgb,var(--brand) 5%,var(--bg))">
+  <div class="wrap">
+    <h2 style="margin-bottom:14px" data-i18n="final_cta_h2">Prêt à créer votre mur de mariage ?</h2>
+    <p style="color:var(--muted);font-size:16px;max-width:46ch;margin:0 auto 30px" data-i18n="final_cta_p">Gratuit à créer, gratuit à partager avec quelques invités. Publiez quand vous êtes prêt — à partir de 10 $.</p>
+    <div class="cta-group">
+      <a href="/index.html#create" class="btn btn-primary" data-i18n="final_cta_primary">Créer votre mur de mariage — gratuit</a>
+      <a href="/song-of-your-night.html" class="btn btn-outline" data-i18n="final_cta_song">Ajouter La Chanson de Votre Nuit →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footlinks">
+    <a href="/ode.html">Ode hub</a>
+    <a href="/keepsake-song.html">Keepsake Song</a>
+    <a href="/memorial-page.html">Memorial Page</a>
+    <a href="/wedding-wall.html">Wedding Wall</a>
+    <a href="/birthday-song.html">Birthday Song</a>
+    <a href="/examples.html">Examples</a>
+    <a href="/digital-guestbook.html">Digital Guestbook</a>
+  </div>
+  <a href="/index.html" data-i18n="footer_home">← Accueil GatherWall</a>
+</footer>
+
+<script>
+const I18N = {
+  en: {
+    doc_title: "Digital Wedding Guestbook — A Live Wall of Love",
+    doc_desc: "Guests scan a QR code and their photos & messages appear live on the big screen — no app. A modern wedding guestbook you keep forever. From $10.",
+    hero_eyebrow: "Digital Wedding Guestbook",
+    hero_h1: "The wedding guestbook<br>your guests will actually use",
+    hero_lede: "Guests scan a QR code — their photos and messages appear live on the big screen, no app needed. You keep everything forever.",
+    hero_cta_primary: "Build your wedding wall — free",
+    hero_cta_song: "Add The Song of Your Night →",
+    how_h2: "How it works — scan, post, big screen",
+    how_sub: "Three effortless steps, from your invitations to your wedding night to a keepsake you'll hold forever.",
+    step1_h3: "You share a QR code",
+    step1_p: "Print it on table cards, slip it into invitations, or display it on a sign at the venue entrance. Your guests see it the moment they arrive.",
+    step2_h3: "Guests scan and post",
+    step2_p: "One tap opens the page — no app to install, no account to create. They post photos, heartfelt messages, and all the love they brought with them, instantly, from any phone.",
+    step3_h3: "It all appears live",
+    step3_p: "Every post flows onto the big screen at your venue in real time. And every single photo and message is saved in your wall — yours to download and keep forever.",
+    example_h2: "See a wedding example",
+    example_sub: "Hear what a GatherWall wedding feels like — the messages, the warmth, the wall of love your guests build together.",
+    audio_subtitle: "Tom & Priya's wedding — woven from their guests' messages",
+    audio_note: "This is what happens when your guests write the words and we turn them into a song.",
+    demo_link: "See the live \"Wall of Love\" demo →",
+    noapp_h2: "No app. Works on any phone.",
+    noapp_sub: "At a wedding you cannot rely on guests downloading an app. Some will be on older phones. Some won't have storage. Some just won't bother. GatherWall removes every barrier.",
+    noapp_li1: "<strong>Any smartphone</strong> — iOS or Android, any model, any age. If the camera works, it works.",
+    noapp_li2: "<strong>Any carrier</strong> — wifi or mobile data. Guests in a barn or a ballroom can post just as easily.",
+    noapp_li3: "<strong>Any age group</strong> — your 80-year-old aunt and your 14-year-old nephew both know how to scan a QR code.",
+    noapp_li4: "<strong>Nothing to install</strong> — no app store, no login, no friction. They scan, they post, they smile.",
+    noapp_li5: "<strong>Instant on the big screen</strong> — posts appear live, so the whole room can cheer when someone shares a picture.",
+    song_badge: "Add-on",
+    song_h2: "Add The Song of Your Night",
+    song_p: "At the end of your wedding, GatherWall weaves every message your guests left into an original song, written just for you two. Every name they mentioned, every memory they shared, every wish they wrote — woven into lyrics no guestbook has ever offered before. A keepsake as unique as your evening together.",
+    song_cta_gold: "Add The Song of Your Night →",
+    song_cta_wall: "Build your wall first",
+    song_price_note: "Its own keepsake from $39 · Added after your event · Delivered within 48 hours",
+    pricing_h2: "Simple, transparent pricing",
+    pricing_sub: "Start free. Publish when you're ready. No hidden fees.",
+    price1_name: "Wedding Wall",
+    price1_desc: "Live photo & message wall · QR code for guests · Big-screen display · Full download after the event · Personalised with your names & date",
+    price2_name: "+ Song of Your Night",
+    price2_desc: "Original song written from your guests' messages · Professional production · High-quality audio file · Delivered within 48 hours",
+    pricing_note: "Free to build and preview. Pay only when you publish.",
+    faq_h2: "Questions about your wedding wall",
+    faq1_q: "Do guests need to download an app?",
+    faq1_a: "No app needed. Guests scan a QR code with any smartphone camera and post instantly — nothing to install.",
+    faq2_q: "Does it work on any phone?",
+    faq2_a: "Yes — GatherWall works on any modern smartphone, iOS or Android, with no account or app required.",
+    faq3_q: "Can we keep all the photos afterwards?",
+    faq3_a: "Absolutely. Every photo and message your guests post is saved, and you get a download of everything after the event.",
+    faq4_q: "Can we brand the wall with our names and colours?",
+    faq4_a: "Yes — you can personalise the wall with your names, wedding date, and a colour scheme that matches your day.",
+    faq5_q: "What is The Song of Your Night?",
+    faq5_a: "At the end of your event, GatherWall reads every message your guests left and turns their words into an original song — a unique keepsake made from your evening together.",
+    final_cta_h2: "Ready to build your wedding wall?",
+    final_cta_p: "Free to build, free to share with a few guests. Publish when you're ready — from $10.",
+    final_cta_primary: "Build your wedding wall — free",
+    final_cta_song: "Add The Song of Your Night →",
+    footer_home: "← GatherWall home"
+  },
+  fr: {
+    doc_title: "Livre d'or numérique — Un mur d'amour en direct",
+    doc_desc: "Les invités scannent un QR code et leurs photos et messages apparaissent en direct sur le grand écran — sans application. Un livre d'or de mariage moderne que vous gardez à vie. À partir de 10 $.",
+    hero_eyebrow: "Livre d'or numérique de mariage",
+    hero_h1: "Le livre d'or de mariage<br>que vos invités utiliseront vraiment",
+    hero_lede: "Les invités scannent un QR code — leurs photos et messages apparaissent en direct sur le grand écran, sans application. Vous gardez tout à jamais.",
+    hero_cta_primary: "Créer votre mur de mariage — gratuit",
+    hero_cta_song: "Ajouter La Chanson de Votre Nuit →",
+    how_h2: "Comment ça marche — scanner, publier, grand écran",
+    how_sub: "Trois étapes simples, de vos invitations à votre nuit de noces jusqu'à un souvenir que vous garderez à jamais.",
+    step1_h3: "Vous partagez un QR code",
+    step1_p: "Imprimez-le sur des cartes de table, glissez-le dans les invitations ou affichez-le sur un panneau à l'entrée du lieu. Vos invités le voient dès leur arrivée.",
+    step2_h3: "Les invités scannent et publient",
+    step2_p: "Une pression ouvre la page — pas d'application à installer, pas de compte à créer. Ils publient des photos, des messages sincères et tout l'amour qu'ils ont apporté, instantanément, depuis n'importe quel téléphone.",
+    step3_h3: "Tout apparaît en direct",
+    step3_p: "Chaque publication s'affiche en temps réel sur le grand écran de votre lieu. Et chaque photo et message est sauvegardé dans votre mur — à vous de télécharger et de conserver à jamais.",
+    example_h2: "Voir un exemple de mariage",
+    example_sub: "Ressentez ce que représente un mariage GatherWall — les messages, la chaleur, le mur d'amour que vos invités construisent ensemble.",
+    audio_subtitle: "Mariage de Tom & Priya — tissé à partir des messages de leurs invités",
+    audio_note: "Voici ce qui se passe quand vos invités écrivent les mots et que nous les transformons en chanson.",
+    demo_link: "Voir la démo live du « Mur d'amour » →",
+    noapp_h2: "Sans application. Fonctionne sur tous les téléphones.",
+    noapp_sub: "Lors d'un mariage, vous ne pouvez pas compter sur le fait que les invités téléchargent une application. Certains auront de vieux téléphones. D'autres n'auront plus de stockage. D'autres encore ne s'en donneront pas la peine. GatherWall supprime chaque obstacle.",
+    noapp_li1: "<strong>N'importe quel smartphone</strong> — iOS ou Android, tout modèle, tout âge. Si l'appareil photo fonctionne, ça marche.",
+    noapp_li2: "<strong>N'importe quel opérateur</strong> — wifi ou données mobiles. Les invités dans une grange ou une salle de bal peuvent publier aussi facilement.",
+    noapp_li3: "<strong>Tous les âges</strong> — votre tante de 80 ans et votre neveu de 14 ans savent tous les deux comment scanner un QR code.",
+    noapp_li4: "<strong>Rien à installer</strong> — pas de boutique d'applications, pas de connexion, pas de friction. Ils scannent, ils publient, ils sourient.",
+    noapp_li5: "<strong>Instantané sur le grand écran</strong> — les publications apparaissent en direct, toute la salle peut applaudir quand quelqu'un partage une photo.",
+    song_badge: "Option",
+    song_h2: "Ajouter La Chanson de Votre Nuit",
+    song_p: "À la fin de votre mariage, GatherWall tisse chaque message que vos invités ont laissé en une chanson originale, écrite rien que pour vous deux. Chaque nom qu'ils ont mentionné, chaque souvenir qu'ils ont partagé, chaque vœu qu'ils ont écrit — tissé en paroles qu'aucun livre d'or n'a jamais pu offrir. Un souvenir aussi unique que votre soirée ensemble.",
+    song_cta_gold: "Ajouter La Chanson de Votre Nuit →",
+    song_cta_wall: "Créer votre mur d'abord",
+    song_price_note: "Souvenir à part à partir de 39 $ · Ajoutée après votre événement · Livrée sous 48 heures",
+    pricing_h2: "Tarifs simples et transparents",
+    pricing_sub: "Commencez gratuitement. Publiez quand vous êtes prêt. Aucun frais caché.",
+    price1_name: "Mur de mariage",
+    price1_desc: "Mur de photos et messages en direct · QR code pour les invités · Affichage grand écran · Téléchargement complet après l'événement · Personnalisé avec vos noms et date",
+    price2_name: "+ La Chanson de Votre Nuit",
+    price2_desc: "Chanson originale écrite à partir des messages de vos invités · Production professionnelle · Fichier audio haute qualité · Livraison sous 48 heures",
+    pricing_note: "Gratuit à créer et à prévisualiser. Payez uniquement quand vous publiez.",
+    faq_h2: "Questions sur votre mur de mariage",
+    faq1_q: "Les invités doivent-ils télécharger une application ?",
+    faq1_a: "Aucune application nécessaire. Les invités scannent un QR code avec la caméra de leur smartphone et publient instantanément — rien à installer.",
+    faq2_q: "Ça fonctionne sur tous les téléphones ?",
+    faq2_a: "Oui — GatherWall fonctionne sur tous les smartphones modernes, iOS ou Android, sans compte ni application requis.",
+    faq3_q: "Peut-on garder toutes les photos ensuite ?",
+    faq3_a: "Absolument. Chaque photo et message publié par vos invités est sauvegardé, et vous recevez un téléchargement de tout après l'événement.",
+    faq4_q: "Peut-on personnaliser le mur avec nos noms et couleurs ?",
+    faq4_a: "Oui — vous pouvez personnaliser le mur avec vos noms, la date du mariage et un schéma de couleurs qui correspond à votre journée.",
+    faq5_q: "Qu'est-ce que La Chanson de Votre Nuit ?",
+    faq5_a: "À la fin de votre événement, GatherWall lit chaque message que vos invités ont laissé et les transforme en une chanson originale — un souvenir unique fait de votre soirée ensemble.",
+    final_cta_h2: "Prêt à créer votre mur de mariage ?",
+    final_cta_p: "Gratuit à créer, gratuit à partager avec quelques invités. Publiez quand vous êtes prêt — à partir de 10 $.",
+    final_cta_primary: "Créer votre mur de mariage — gratuit",
+    final_cta_song: "Ajouter La Chanson de Votre Nuit →",
+    footer_home: "← Accueil GatherWall"
+  },
+  es: {
+    doc_title: "Libro de visitas digital de boda — Un muro de amor en vivo",
+    doc_desc: "Los invitados escanean un código QR y sus fotos y mensajes aparecen en vivo en la pantalla grande — sin aplicación. Un libro de visitas de boda moderno que guardas para siempre. Desde 10 $.",
+    hero_eyebrow: "Libro de visitas digital de boda",
+    hero_h1: "El libro de visitas de boda<br>que tus invitados realmente usarán",
+    hero_lede: "Los invitados escanean un código QR — sus fotos y mensajes aparecen en vivo en la pantalla grande, sin necesidad de aplicación. Guardas todo para siempre.",
+    hero_cta_primary: "Crear tu muro de boda — gratis",
+    hero_cta_song: "Añadir La Canción de Tu Noche →",
+    how_h2: "Cómo funciona — escanear, publicar, pantalla grande",
+    how_sub: "Tres pasos sencillos, desde tus invitaciones hasta la noche de boda y un recuerdo que guardarás para siempre.",
+    step1_h3: "Compartes un código QR",
+    step1_p: "Imprímelo en tarjetas de mesa, inclúyelo en las invitaciones o muéstralo en un cartel en la entrada del local. Tus invitados lo ven en el momento en que llegan.",
+    step2_h3: "Los invitados escanean y publican",
+    step2_p: "Un toque abre la página — sin aplicación que instalar, sin cuenta que crear. Publican fotos, mensajes sinceros y todo el amor que trajeron consigo, al instante, desde cualquier teléfono.",
+    step3_h3: "Todo aparece en vivo",
+    step3_p: "Cada publicación fluye hacia la pantalla grande de tu local en tiempo real. Y cada foto y mensaje se guarda en tu muro — tuyo para descargar y conservar para siempre.",
+    example_h2: "Ver un ejemplo de boda",
+    example_sub: "Escucha cómo se siente una boda de GatherWall — los mensajes, la calidez, el muro de amor que tus invitados construyen juntos.",
+    audio_subtitle: "Boda de Tom y Priya — tejido a partir de los mensajes de sus invitados",
+    audio_note: "Esto es lo que ocurre cuando tus invitados escriben las palabras y nosotros las convertimos en una canción.",
+    demo_link: "Ver la demo en vivo del «Muro de amor» →",
+    noapp_h2: "Sin aplicación. Funciona en cualquier teléfono.",
+    noapp_sub: "En una boda no puedes depender de que los invitados descarguen una aplicación. Algunos tendrán teléfonos antiguos. Otros no tendrán espacio de almacenamiento. Otros simplemente no se molestarán. GatherWall elimina cada barrera.",
+    noapp_li1: "<strong>Cualquier smartphone</strong> — iOS o Android, cualquier modelo, cualquier edad. Si la cámara funciona, funciona.",
+    noapp_li2: "<strong>Cualquier operador</strong> — wifi o datos móviles. Los invitados en un granero o un salón de baile pueden publicar igual de fácilmente.",
+    noapp_li3: "<strong>Cualquier grupo de edad</strong> — tu tía de 80 años y tu sobrino de 14 saben cómo escanear un código QR.",
+    noapp_li4: "<strong>Nada que instalar</strong> — sin tienda de aplicaciones, sin inicio de sesión, sin fricción. Escanean, publican, sonríen.",
+    noapp_li5: "<strong>Instantáneo en la pantalla grande</strong> — las publicaciones aparecen en vivo, para que toda la sala pueda celebrarlo cuando alguien comparte una foto.",
+    song_badge: "Complemento",
+    song_h2: "Añadir La Canción de Tu Noche",
+    song_p: "Al final de tu boda, GatherWall teje cada mensaje que dejaron tus invitados en una canción original, escrita solo para vosotros dos. Cada nombre que mencionaron, cada recuerdo que compartieron, cada deseo que escribieron — tejido en letras que ningún libro de visitas ha ofrecido jamás. Un recuerdo tan único como vuestra velada juntos.",
+    song_cta_gold: "Añadir La Canción de Tu Noche →",
+    song_cta_wall: "Primero crea tu muro",
+    song_price_note: "Recuerdo aparte desde 39 $ · Añadido después de tu evento · Entregado en 48 horas",
+    pricing_h2: "Precios simples y transparentes",
+    pricing_sub: "Empieza gratis. Publica cuando estés listo. Sin tarifas ocultas.",
+    price1_name: "Muro de boda",
+    price1_desc: "Muro de fotos y mensajes en vivo · Código QR para invitados · Pantalla grande · Descarga completa después del evento · Personalizado con vuestros nombres y fecha",
+    price2_name: "+ La Canción de Tu Noche",
+    price2_desc: "Canción original escrita a partir de los mensajes de tus invitados · Producción profesional · Archivo de audio de alta calidad · Entregado en 48 horas",
+    pricing_note: "Gratis para crear y previsualizar. Paga solo cuando publiques.",
+    faq_h2: "Preguntas sobre tu muro de boda",
+    faq1_q: "¿Los invitados necesitan descargar una aplicación?",
+    faq1_a: "No se necesita ninguna aplicación. Los invitados escanean un código QR con la cámara de su smartphone y publican al instante — nada que instalar.",
+    faq2_q: "¿Funciona en cualquier teléfono?",
+    faq2_a: "Sí — GatherWall funciona en cualquier smartphone moderno, iOS o Android, sin cuenta ni aplicación necesaria.",
+    faq3_q: "¿Podemos quedarnos con todas las fotos después?",
+    faq3_a: "Por supuesto. Cada foto y mensaje que publican tus invitados se guarda, y recibes una descarga de todo después del evento.",
+    faq4_q: "¿Podemos personalizar el muro con nuestros nombres y colores?",
+    faq4_a: "Sí — puedes personalizar el muro con vuestros nombres, la fecha de la boda y un esquema de colores que combine con vuestro día.",
+    faq5_q: "¿Qué es La Canción de Tu Noche?",
+    faq5_a: "Al final de tu evento, GatherWall lee cada mensaje que dejaron tus invitados y los convierte en una canción original — un recuerdo único hecho de vuestra velada juntos.",
+    final_cta_h2: "¿Listo para crear tu muro de boda?",
+    final_cta_p: "Gratis para crear, gratis para compartir con algunos invitados. Publica cuando estés listo — desde 10 $.",
+    final_cta_primary: "Crear tu muro de boda — gratis",
+    final_cta_song: "Añadir La Canción de Tu Noche →",
+    footer_home: "← Inicio de GatherWall"
+  },
+  cs: {
+    doc_title: "Digitální svatební kniha hostů — Živá zeď lásky",
+    doc_desc: "Hosté naskenují QR kód a jejich fotografie a zprávy se okamžitě zobrazí na velké obrazovce — bez aplikace. Moderní svatební kniha hostů, kterou si uchováte navždy. Od 10 $.",
+    hero_eyebrow: "Digitální svatební kniha hostů",
+    hero_h1: "Svatební kniha hostů,<br>kterou vaši hosté skutečně použijí",
+    hero_lede: "Hosté naskenují QR kód — jejich fotografie a zprávy se okamžitě zobrazí na velké obrazovce, bez aplikace. Vše si uchováte navždy.",
+    hero_cta_primary: "Vytvořit svatební zeď — zdarma",
+    hero_cta_song: "Přidat Píseň Vaší Noci →",
+    how_h2: "Jak to funguje — skenovat, sdílet, velká obrazovka",
+    how_sub: "Tři snadné kroky — od pozvánek přes svatební noc až po vzpomínku, kterou budete mít navždy.",
+    step1_h3: "Sdílíte QR kód",
+    step1_p: "Vytiskněte ho na stolní kartičky, vložte do pozvánek nebo ho zobrazte na poutači u vchodu do prostoru. Vaši hosté ho uvidí hned po příchodu.",
+    step2_h3: "Hosté naskenují a sdílejí",
+    step2_p: "Jedno klepnutí otevře stránku — žádná aplikace k instalaci, žádný účet k vytvoření. Sdílejí fotografie, upřímné zprávy a veškerou lásku, kterou přinesli, okamžitě, z jakéhokoli telefonu.",
+    step3_h3: "Vše se zobrazuje živě",
+    step3_p: "Každý příspěvek se v reálném čase zobrazuje na velké obrazovce ve vašem prostoru. A každá fotografie a zpráva je uložena ve vaší zdi — stahujte ji a uchovávejte navždy.",
+    example_h2: "Podívejte se na svatební ukázku",
+    example_sub: "Poslechněte si, jak zní svatba s GatherWall — zprávy, vřelost, zeď lásky, kterou vaši hosté společně vytvoří.",
+    audio_subtitle: "Svatba Toma a Priyi — utkána ze zpráv jejich hostů",
+    audio_note: "Takto to dopadne, když vaši hosté napíší slova a my z nich vytvoříme píseň.",
+    demo_link: "Zobrazit živou ukázku „Zdi lásky“ →",
+    noapp_h2: "Bez aplikace. Funguje na každém telefonu.",
+    noapp_sub: "Na svatbě nemůžete počítat s tím, že hosté stáhnou aplikaci. Někteří budou mít starší telefony. Někteří nebudou mít dostatek úložiště. Jiní si prostě nedají tu práci. GatherWall odstraňuje každou překážku.",
+    noapp_li1: "<strong>Jakýkoli smartphone</strong> — iOS nebo Android, jakýkoli model, jakýkoli věk. Pokud funguje fotoaparát, funguje to.",
+    noapp_li2: "<strong>Jakýkoli operátor</strong> — wifi nebo mobilní data. Hosté ve stodole i v tanečním sále mohou sdílet stejně snadno.",
+    noapp_li3: "<strong>Jakákoliv věková skupina</strong> — vaše osmdesátiletá teta i váš čtrnáctiletý synovec vědí, jak naskenovat QR kód.",
+    noapp_li4: "<strong>Nic k instalaci</strong> — žádný obchod s aplikacemi, žádné přihlášení, žádné překážky. Naskenují, sdílejí, usmívají se.",
+    noapp_li5: "<strong>Okamžitě na velké obrazovce</strong> — příspěvky se zobrazují živě, takže celý sál může slavit, když někdo sdílí fotografii.",
+    song_badge: "Doplněk",
+    song_h2: "Přidat Píseň Vaší Noci",
+    song_p: "Na konci vaší svatby GatherWall proplete každou zprávu, kterou vaši hosté zanechali, do originální písně napsané jen pro vás dva. Každé jméno, které zmínili, každá vzpomínka, kterou sdíleli, každé přání, které napsali — propleteno do slov, jaká žádná kniha hostů dosud nenabídla. Vzpomínka tak jedinečná jako váš společný večer.",
+    song_cta_gold: "Přidat Píseň Vaší Noci →",
+    song_cta_wall: "Nejprve vytvořte svou zeď",
+    song_price_note: "Samostatný památeční dárek od 39 $ · Přidán po vašem večírku · Doručen do 48 hodin",
+    pricing_h2: "Jednoduchý a transparentní ceník",
+    pricing_sub: "Začněte zdarma. Zveřejněte, až budete připraveni. Žádné skryté poplatky.",
+    price1_name: "Svatební zeď",
+    price1_desc: "Živá zeď fotografií a zpráv · QR kód pro hosty · Zobrazení na velké obrazovce · Plné stažení po události · Personalizováno vašimi jmény a datem",
+    price2_name: "+ Píseň Vaší Noci",
+    price2_desc: "Originální píseň napsaná ze zpráv vašich hostů · Profesionální produkce · Vysoce kvalitní zvukový soubor · Doručena do 48 hodin",
+    pricing_note: "Vytvoření a náhled zdarma. Plaťte pouze při zveřejnění.",
+    faq_h2: "Otázky o vaší svatební zdi",
+    faq1_q: "Musí hosté stahovat aplikaci?",
+    faq1_a: "Žádná aplikace není potřeba. Hosté naskenují QR kód fotoaparátem svého smartphonu a okamžitě sdílejí — nic k instalaci.",
+    faq2_q: "Funguje to na jakémkoli telefonu?",
+    faq2_a: "Ano — GatherWall funguje na jakémkoli moderním smartphonu, iOS nebo Android, bez nutnosti účtu nebo aplikace.",
+    faq3_q: "Můžeme si všechny fotografie ponechat?",
+    faq3_a: "Samozřejmě. Každá fotografie a zpráva, kterou vaši hosté sdíleli, je uložena a po události dostanete vše ke stažení.",
+    faq4_q: "Můžeme přizpůsobit zeď našimi jmény a barvami?",
+    faq4_a: "Ano — zeď si můžete přizpůsobit svými jmény, datem svatby a barevným schématem, které odpovídá vašemu dni.",
+    faq5_q: "Co je Píseň Vaší Noci?",
+    faq5_a: "Na konci vaší události GatherWall přečte každou zprávu, kterou vaši hosté zanechali, a promění jejich slova v originální píseň — jedinečnou vzpomínku na váš společný večer.",
+    final_cta_h2: "Připraveni vytvořit svou svatební zeď?",
+    final_cta_p: "Vytvoření zdarma, sdílení s několika hosty zdarma. Zveřejněte, až budete připraveni — od 10 $.",
+    final_cta_primary: "Vytvořit svatební zeď — zdarma",
+    final_cta_song: "Přidat Píseň Vaší Noci →",
+    footer_home: "← Domovská stránka GatherWall"
+  },
+  de: {
+    doc_title: "Digitales Hochzeitsgästebuch — Eine Live-Wand der Liebe",
+    doc_desc: "Gäste scannen einen QR-Code und ihre Fotos und Nachrichten erscheinen live auf der großen Leinwand — ohne App. Ein modernes Hochzeitsgästebuch, das Sie für immer behalten. Ab 10 $.",
+    hero_eyebrow: "Digitales Hochzeitsgästebuch",
+    hero_h1: "Das Hochzeitsgästebuch,<br>das Ihre Gäste wirklich nutzen werden",
+    hero_lede: "Gäste scannen einen QR-Code — ihre Fotos und Nachrichten erscheinen live auf der großen Leinwand, keine App erforderlich. Sie behalten alles für immer.",
+    hero_cta_primary: "Ihre Hochzeitswand erstellen — kostenlos",
+    hero_cta_song: "Die Lied Ihrer Nacht hinzufügen →",
+    how_h2: "So funktioniert es — scannen, posten, große Leinwand",
+    how_sub: "Drei mühelose Schritte, von Ihren Einladungen über Ihre Hochzeitsnacht bis hin zu einem Andenken, das Sie für immer behalten.",
+    step1_h3: "Sie teilen einen QR-Code",
+    step1_p: "Drucken Sie ihn auf Tischkarten, legen Sie ihn in Einladungen oder zeigen Sie ihn auf einem Schild am Eingang der Location. Ihre Gäste sehen ihn, sobald sie ankommen.",
+    step2_h3: "Gäste scannen und posten",
+    step2_p: "Ein Tippen öffnet die Seite — keine App zu installieren, kein Konto zu erstellen. Sie posten Fotos, herzliche Nachrichten und all die Liebe, die sie mitgebracht haben, sofort, von jedem Telefon aus.",
+    step3_h3: "Alles erscheint live",
+    step3_p: "Jeder Beitrag erscheint in Echtzeit auf der großen Leinwand in Ihrer Location. Und jedes einzelne Foto und jede Nachricht wird in Ihrer Wand gespeichert — zum Herunterladen und für immer behalten.",
+    example_h2: "Ein Hochzeitsbeispiel ansehen",
+    example_sub: "Hören Sie, wie sich eine GatherWall-Hochzeit anfühlt — die Nachrichten, die Wärme, die Liebeswand, die Ihre Gäste gemeinsam aufbauen.",
+    audio_subtitle: "Hochzeit von Tom & Priya — gewebt aus den Nachrichten ihrer Gäste",
+    audio_note: "Das passiert, wenn Ihre Gäste die Worte schreiben und wir sie in ein Lied verwandeln.",
+    demo_link: "Die Live-Demo der „Wand der Liebe“ ansehen →",
+    noapp_h2: "Keine App. Funktioniert auf jedem Telefon.",
+    noapp_sub: "Bei einer Hochzeit können Sie nicht darauf vertrauen, dass Gäste eine App herunterladen. Manche haben ältere Telefone. Manche haben keinen Speicherplatz. Manche werden sich einfach nicht die Mühe machen. GatherWall beseitigt jede Hürde.",
+    noapp_li1: "<strong>Jedes Smartphone</strong> — iOS oder Android, jedes Modell, jedes Alter. Wenn die Kamera funktioniert, funktioniert es.",
+    noapp_li2: "<strong>Jeder Anbieter</strong> — WLAN oder mobile Daten. Gäste in einer Scheune oder einem Ballsaal können genauso einfach posten.",
+    noapp_li3: "<strong>Jede Altersgruppe</strong> — Ihre 80-jährige Tante und Ihr 14-jähriger Neffe wissen beide, wie man einen QR-Code scannt.",
+    noapp_li4: "<strong>Nichts zu installieren</strong> — kein App-Store, kein Login, keine Hürden. Sie scannen, sie posten, sie lächeln.",
+    noapp_li5: "<strong>Sofort auf der großen Leinwand</strong> — Beiträge erscheinen live, sodass der ganze Raum jubeln kann, wenn jemand ein Bild teilt.",
+    song_badge: "Zusatzoption",
+    song_h2: "Das Lied Ihrer Nacht hinzufügen",
+    song_p: "Am Ende Ihrer Hochzeit webt GatherWall jede Nachricht, die Ihre Gäste hinterlassen haben, zu einem Originallied zusammen, das nur für Sie beide geschrieben wurde. Jeder Name, den sie erwähnten, jede Erinnerung, die sie teilten, jeder Wunsch, den sie schrieben — zu Liedtexten verwoben, die kein Gästebuch je angeboten hat. Ein Andenken so einzigartig wie Ihr gemeinsamer Abend.",
+    song_cta_gold: "Das Lied Ihrer Nacht hinzufügen →",
+    song_cta_wall: "Zuerst Ihre Wand erstellen",
+    song_price_note: "Eigenes Andenken ab 39 $ · Nach Ihrer Veranstaltung hinzugefügt · Innerhalb von 48 Stunden geliefert",
+    pricing_h2: "Einfache, transparente Preise",
+    pricing_sub: "Kostenlos starten. Veröffentlichen wenn Sie bereit sind. Keine versteckten Gebühren.",
+    price1_name: "Hochzeitswand",
+    price1_desc: "Live-Foto- und Nachrichtenwand · QR-Code für Gäste · Großleinwand-Anzeige · Vollständiger Download nach der Veranstaltung · Personalisiert mit Ihren Namen und Datum",
+    price2_name: "+ Das Lied Ihrer Nacht",
+    price2_desc: "Originallied aus den Nachrichten Ihrer Gäste · Professionelle Produktion · Hochwertige Audiodatei · Innerhalb von 48 Stunden geliefert",
+    pricing_note: "Kostenlos erstellen und in der Vorschau ansehen. Zahlen Sie nur, wenn Sie veröffentlichen.",
+    faq_h2: "Fragen zu Ihrer Hochzeitswand",
+    faq1_q: "Müssen Gäste eine App herunterladen?",
+    faq1_a: "Keine App nötig. Gäste scannen einen QR-Code mit der Kamera ihres Smartphones und posten sofort — nichts zu installieren.",
+    faq2_q: "Funktioniert es auf jedem Telefon?",
+    faq2_a: "Ja — GatherWall funktioniert auf jedem modernen Smartphone, iOS oder Android, ohne Konto oder App.",
+    faq3_q: "Können wir alle Fotos danach behalten?",
+    faq3_a: "Absolut. Jedes Foto und jede Nachricht, die Ihre Gäste posten, wird gespeichert, und Sie erhalten nach der Veranstaltung einen Download von allem.",
+    faq4_q: "Können wir die Wand mit unseren Namen und Farben gestalten?",
+    faq4_a: "Ja — Sie können die Wand mit Ihren Namen, dem Hochzeitsdatum und einem Farbschema personalisieren, das zu Ihrem Tag passt.",
+    faq5_q: "Was ist Das Lied Ihrer Nacht?",
+    faq5_a: "Am Ende Ihrer Veranstaltung liest GatherWall jede Nachricht, die Ihre Gäste hinterlassen haben, und verwandelt ihre Worte in ein Originallied — ein einzigartiges Andenken aus Ihrem gemeinsamen Abend.",
+    final_cta_h2: "Bereit, Ihre Hochzeitswand zu erstellen?",
+    final_cta_p: "Kostenlos erstellen, kostenlos mit einigen Gästen teilen. Veröffentlichen Sie, wenn Sie bereit sind — ab 10 $.",
+    final_cta_primary: "Ihre Hochzeitswand erstellen — kostenlos",
+    final_cta_song: "Das Lied Ihrer Nacht hinzufügen →",
+    footer_home: "← GatherWall Startseite"
+  }
+};
+
+function setLang(code) {
+  const dict = I18N[code];
+  if (!dict) return;
+
+  // Update html lang attribute
+  document.documentElement.lang = code;
+
+  // Update document title and meta description
+  document.title = dict.doc_title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', dict.doc_desc);
+
+  // Keys that contain HTML markup
+  const htmlKeys = ['noapp_li1','noapp_li2','noapp_li3','noapp_li4','noapp_li5','hero_h1'];
+
+  // Update all tagged elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      if (htmlKeys.indexOf(key) !== -1) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+
+  // Update active pill
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    const active = btn.getAttribute('data-lang') === code;
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  // Persist choice
+  try { localStorage.setItem('gw_lang', code); } catch(e) {}
+}
+
+// On load, apply saved or default language
+(function() {
+  var saved = 'en';
+  try { saved = localStorage.getItem('gw_lang') || 'en'; } catch(e) {}
+  if (!I18N[saved]) saved = 'en';
+  setLang(saved);
+})();
+</script>
+
+
+</body></html>
