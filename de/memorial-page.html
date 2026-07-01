@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online-Gedenkseite — Ein bleibender Ort zum Erinnern</title>
+<meta name="description" content="Ein sanftes Online-Gedenken: Lebensgeschichte, eine Kerze zum Anzünden und gemeinsame Erinnerungen von Familie und Freunden. Privat, dauerhaft und einfach zu erstellen — ab 10 $.">
+<link rel="canonical" href="https://gatherwall.com/de/memorial-page.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#2E7D5B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GatherWall">
+<meta property="og:url" content="https://gatherwall.com/de/memorial-page.html">
+<meta property="og:title" content="Online-Gedenkseite — Ein bleibender Ort zum Erinnern">
+<meta property="og:description" content="Ein sanftes Online-Gedenken: Lebensgeschichte, eine Kerze zum Anzünden und gemeinsame Erinnerungen von Familie und Freunden. Privat, dauerhaft und einfach zu erstellen — ab 10 $.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Online-Gedenkseite — Ein bleibender Ort zum Erinnern">
+<meta name="twitter:description" content="Ein sanftes Online-Gedenken: Lebensgeschichte, eine Kerze zum Anzünden und gemeinsame Erinnerungen von Familie und Freunden. Privat, dauerhaft und einfach zu erstellen — ab 10 $.">
+<meta name="twitter:image" content="https://gatherwall.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://gatherwall.com/#org","name":"GatherWall","url":"https://gatherwall.com","logo":"https://gatherwall.com/og-image.png"},
+{"@type":"Service","name":"Online Memorial Page","description":"A gentle online memorial: life story, a candle to light, and shared memories from family and friends. Private, lasting, and easy to make — from $10.","url":"https://gatherwall.com/memorial-page.html","provider":{"@id":"https://gatherwall.com/#org"},"offers":{"@type":"Offer","price":"10","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://gatherwall.com/memorial-page.html"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is the memorial page private?","acceptedAnswer":{"@type":"Answer","text":"You control who can see it — share just a link with family, or make it open to all who knew them."}},
+{"@type":"Question","name":"How do family members add their memories?","acceptedAnswer":{"@type":"Answer","text":"Anyone with the link can add a memory, a photo, or a message — no account needed."}},
+{"@type":"Question","name":"How long does the page stay online?","acceptedAnswer":{"@type":"Answer","text":"Your memorial stays online for as long as you need. There are no annual renewal fees in the base plan."}},
+{"@type":"Question","name":"Can people light a candle?","acceptedAnswer":{"@type":"Answer","text":"Yes — every memorial includes a candle-lighting feature, so visitors can mark their remembrance."}},
+{"@type":"Question","name":"Do you store our personal data?","acceptedAnswer":{"@type":"Answer","text":"GatherWall requires no account to build or view a memorial. We store only what you give us to create the page."}}
+]}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#2E7D5B;
+  --brand-d:#1C4D3A;
+  --brand-deep:#1C4D3A;
+  --gold:#C2A058;
+  --gold-deep:#9A7D33;
+  --gold-soft:#F4EEDF;
+  --bg:#F7F5EE;
+  --bg-2:#F1EEE3;
+  --card:#fff;
+  --ink:#1F2622;
+  --muted:#5C6B5E;
+  --line:#E5E1D5;
+  --soft:#FBFAF4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;line-height:1.15;letter-spacing:-.02em;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,245,238,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;display:flex;align-items:center;gap:9px;color:var(--ink);flex-shrink:0;}
+.logo .dot{width:25px;height:23px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;}
+.back{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s;flex-shrink:0;}
+.back:hover{color:var(--brand);}
+
+/* ── LANG SWITCHER ── */
+.lang-switcher{display:flex;align-items:center;gap:2px;background:rgba(31,38,34,.06);border-radius:999px;padding:3px;}
+.lang-btn{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;line-height:1;padding:5px 10px;border-radius:999px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;}
+.lang-btn[aria-pressed="true"]{background:var(--brand);color:#fff;}
+.lang-btn:hover:not([aria-pressed="true"]){background:rgba(46,125,91,.12);color:var(--brand);}
+
+/* ── WRAP ── */
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
+
+/* ── HERO ── */
+.hero{padding:80px 22px 72px;text-align:center;max-width:720px;margin:0 auto;}
+.hero-eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:rgba(46,125,91,.1);padding:6px 14px;border-radius:999px;margin-bottom:24px;}
+.hero h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:600;color:var(--ink);margin-bottom:20px;}
+.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.75;}
+.candle-icon{font-size:2rem;margin-bottom:16px;opacity:.8;}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:15px 28px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 8px 24px -6px rgba(46,125,91,.35);}
+.btn-primary:hover{background:var(--brand-d);transform:translateY(-2px);box-shadow:0 14px 30px -8px rgba(46,125,91,.4);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--brand);font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;border:1.5px solid var(--brand);text-decoration:none;transition:background .2s,color .2s;}
+.btn-ghost:hover{background:var(--brand);color:#fff;}
+
+/* ── SECTIONS ── */
+section{padding:72px 0;}
+section+section{border-top:1px solid var(--line);}
+.section-label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin-bottom:12px;}
+.section-title{font-size:clamp(1.65rem,3.2vw,2.3rem);font-weight:600;color:var(--ink);margin-bottom:16px;}
+.section-sub{font-size:1rem;color:var(--muted);max-width:560px;margin-bottom:48px;line-height:1.75;}
+
+/* ── WHAT'S INCLUDED GRID ── */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px;}
+.feature-tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 26px;transition:box-shadow .2s;}
+.feature-tile:hover{box-shadow:0 8px 28px -8px rgba(35,42,38,.1);}
+.feature-icon{font-size:1.6rem;margin-bottom:16px;}
+.feature-tile h3{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:8px;}
+.feature-tile p{font-size:.9rem;color:var(--muted);line-height:1.65;}
+
+/* ── EXAMPLE CARD ── */
+.example-card{background:var(--soft);border:1px solid var(--line);border-radius:20px;padding:40px;max-width:600px;margin:40px auto 0;display:flex;flex-direction:column;align-items:flex-start;gap:16px;}
+.example-card h3{font-family:'Fraunces',Georgia,serif;font-size:1.45rem;font-weight:600;color:var(--ink);}
+.example-card p{font-size:.95rem;color:var(--muted);line-height:1.7;}
+.example-link{display:inline-flex;align-items:center;gap:8px;color:var(--brand);font-weight:600;font-size:.95rem;}
+.example-link:hover{text-decoration:underline;}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:44px;}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 26px;}
+.step-num{width:36px;height:36px;border-radius:50%;background:rgba(46,125,91,.1);color:var(--brand);font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.step h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.step p{font-size:.9rem;color:var(--muted);line-height:1.65;}
+
+/* ── PROSE SECTIONS ── */
+.prose-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px 32px;margin-top:0;}
+.prose-card h3{font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.prose-card p{font-size:.95rem;color:var(--muted);line-height:1.75;}
+.prose-card a{color:var(--brand);font-weight:600;}
+.prose-card a:hover{text-decoration:underline;}
+
+/* ── PRIVACY SECTION ── */
+.privacy-row{display:flex;align-items:flex-start;gap:16px;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:32px;}
+.privacy-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;}
+.privacy-row h3{font-family:'Fraunces',Georgia,serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:8px;}
+.privacy-row p{font-size:.9rem;color:var(--muted);line-height:1.7;}
+
+/* ── PRICING ── */
+.price-card{background:var(--card);border:2px solid var(--brand);border-radius:20px;padding:44px 36px;text-align:center;max-width:360px;margin:0 auto;}
+.price-from{font-size:.85rem;color:var(--muted);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em;}
+.price-amount{font-family:'Fraunces',Georgia,serif;font-size:3.2rem;font-weight:600;color:var(--ink);}
+.price-amount sup{font-size:1.5rem;vertical-align:super;}
+.price-free{font-size:.95rem;color:var(--brand);font-weight:600;margin:8px 0 28px;}
+.price-note{font-size:.85rem;color:var(--muted);margin-top:16px;}
+
+/* ── TESTIMONIAL ── */
+.testimonial{background:var(--soft);border-left:4px solid var(--gold);border-radius:4px 16px 16px 4px;padding:26px 30px;margin:40px 0 0;font-style:italic;color:var(--muted);font-size:1rem;line-height:1.75;}
+.testimonial footer{margin-top:10px;font-style:normal;font-weight:600;font-size:.85rem;color:var(--ink);}
+
+/* ── FAQ ── */
+.faq-list{margin-top:36px;display:flex;flex-direction:column;gap:8px;}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:box-shadow .2s;}
+details[open]{box-shadow:0 4px 20px -4px rgba(35,42,38,.08);}
+summary{cursor:pointer;list-style:none;padding:20px 24px;font-weight:600;font-size:.95rem;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px;}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:'+';font-size:1.4rem;font-weight:400;color:var(--brand);flex-shrink:0;transition:transform .2s;}
+details[open] summary::after{content:'−';}
+.faq-body{padding:0 24px 20px;font-size:.9rem;color:var(--muted);line-height:1.75;}
+
+/* ── FOOTER ── */
+.site-footer{border-top:1px solid var(--line);padding:40px 22px 48px;text-align:center;background:var(--soft);}
+.footlinks{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;margin-bottom:24px;}
+.footlinks a{font-size:.9rem;color:var(--muted);font-weight:500;transition:color .15s;}
+.footlinks a:hover{color:var(--brand);}
+.site-footer>a:last-child{font-size:.85rem;color:var(--muted);}
+.site-footer>a:last-child:hover{color:var(--brand);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .hero{padding:56px 0 48px;}
+  section{padding:52px 0;}
+  .feature-grid{grid-template-columns:1fr 1fr;}
+  .price-card{padding:32px 20px;}
+  .prose-card{padding:26px 20px;}
+  .privacy-row{flex-direction:column;gap:12px;padding:24px 20px;}
+  .lang-switcher{gap:1px;}
+  .lang-btn{padding:5px 7px;font-size:11px;}
+}
+@media(max-width:440px){
+  .feature-grid{grid-template-columns:1fr;}
+}
+</style>
+<link rel="alternate" hreflang="en" href="https://gatherwall.com/memorial-page.html"><link rel="alternate" hreflang="fr" href="https://gatherwall.com/fr/memorial-page.html"><link rel="alternate" hreflang="es" href="https://gatherwall.com/es/memorial-page.html"><link rel="alternate" hreflang="de" href="https://gatherwall.com/de/memorial-page.html"><link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/memorial-page.html"><link rel="alternate" hreflang="x-default" href="https://gatherwall.com/memorial-page.html"></head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="/index.html"><span class="dot"></span>GatherWall</a>
+  <div class="lang-switcher" role="group" aria-label="Language">
+    <button class="lang-btn" data-lang="en" aria-pressed="false" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="fr" aria-pressed="false" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" data-lang="es" aria-pressed="false" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="cs" aria-pressed="false" onclick="setLang('cs')">CS</button>
+    <button class="lang-btn active" data-lang="de" aria-pressed="true" onclick="setLang('de')">DE</button>
+  </div>
+  <a class="back" href="/ode.html">← Ode</a>
+</div></nav>
+
+<!-- HERO -->
+<div class="wrap">
+<div class="hero">
+  <div class="candle-icon" aria-hidden="true">🕯</div>
+  <span class="hero-eyebrow" data-i18n="hero_eyebrow">Online-Gedenkseite</span>
+  <h1 data-i18n="hero_h1">Ein bleibender Ort, um gemeinsam zu erinnern</h1>
+  <p data-i18n="hero_lede">Eine sanfte, schöne Gedenkseite für jemanden, dem man wichtig war. Ihre Lebensgeschichte, eine Kerze zum Anzünden und ein gemeinsamer Raum, in dem Familie und Freunde zusammenkommen können — in ihrem eigenen Tempo, von überall auf der Welt.</p>
+  <div class="cta-row">
+    <a class="btn-primary" href="/index.html#memorial" data-i18n="hero_cta_primary">Gedenkseite erstellen — kostenlos</a>
+    <a class="btn-ghost" href="/memorial-demo.html" data-i18n="hero_cta_ghost">Beispiel ansehen →</a>
+  </div>
+</div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="included_label">Was enthalten ist</p>
+  <h2 class="section-title" data-i18n="included_h2">Alles, was eine Gedenkseite haben sollte</h2>
+  <p class="section-sub" data-i18n="included_sub">Wir haben sorgfältig darüber nachgedacht, was Familien in diesen Momenten brauchen — und alles einfach, sanft und würdevoll gehalten.</p>
+  <div class="feature-grid">
+    <div class="feature-tile">
+      <div class="feature-icon" aria-hidden="true">📖</div>
+      <h3 data-i18n="feat1_h3">Eine Lebensgeschichte</h3>
+      <p data-i18n="feat1_p">Schreiben Sie ihre Geschichte vollständig — ihren Namen, Daten, die Kapitel ihres Lebens und die Momente, die sie zu dem gemacht haben, wer sie waren. Es gibt kein Wortlimit.</p>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon" aria-hidden="true">🕯</div>
+      <h3 data-i18n="feat2_h3">Eine Kerze anzünden</h3>
+      <p data-i18n="feat2_p">Jeder Besucher kann eine digitale Kerze anzünden, um seiner Erinnerung Ausdruck zu verleihen. Eine kleine, bedeutungsvolle Geste, die über jede Entfernung hinweg Trost spendet.</p>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon" aria-hidden="true">💬</div>
+      <h3 data-i18n="feat3_h3">Eine gemeinsame Erinnerungswand</h3>
+      <p data-i18n="feat3_p">Familie und Freunde fügen eigene Fotos, Erinnerungen und Nachrichten in ihrem eigenen Tempo hinzu — kein Konto, keine Hürden. Einfach ein Raum zum Teilen.</p>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon" aria-hidden="true">🗓</div>
+      <h3 data-i18n="feat4_h3">Eine Zeitleiste</h3>
+      <p data-i18n="feat4_p">Wichtige Momente aus ihrem Leben, mit stiller Sorgfalt dargestellt — von den frühesten Jahren bis zum Ende. Ein Zeugnis, das bleibt.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SEE AN EXAMPLE -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="example_label">Überzeugen Sie sich selbst</p>
+  <h2 class="section-title" data-i18n="example_h2">Wie eine Gedenkseite aussieht</h2>
+  <p class="section-sub" data-i18n="example_sub">Worte können nur so weit reichen. Das folgende Beispiel zeigt, wie sich eine fertige Gedenkseite anfühlt — die Wärme, der Raum, die Sanftheit.</p>
+  <div class="example-card">
+    <div style="font-family:'Fraunces',Georgia,serif;font-size:.85rem;font-weight:500;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;" data-i18n="example_card_eyebrow">Beispielgedenken</div>
+    <h3>Margaret Bennett</h3>
+    <p data-i18n="example_card_p">Erleben Sie, wie eine echte Gedenkseite aussieht und sich anfühlt — die Lebensgeschichte, die Zeitleiste, die gemeinsame Erinnerungswand und die Kerzenfunktion. Alles in einem sanften, privaten Raum.</p>
+    <a class="example-link" href="/memorial-demo.html" data-i18n="example_card_link">Margarets Gedenkseite ansehen →</a>
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="how_label">So funktioniert es</p>
+  <h2 class="section-title" data-i18n="how_h2">Einfach zu erstellen, auch jetzt</h2>
+  <p class="section-sub" data-i18n="how_sub">Wir haben alles so sanft wie möglich gestaltet. Sie müssen sich nicht vorbereiten — fangen Sie einfach an und gehen Sie in dem Tempo vor, das sich richtig anfühlt.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3 data-i18n="step1_h3">Erzählen Sie uns von ihnen</h3>
+      <p data-i18n="step1_p">Teilen Sie ihren Namen, Daten, ihre Geschichte und ein Foto, falls Sie möchten. Es gibt keine Eile und keinen richtigen oder falschen Weg.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3 data-i18n="step2_h3">Den Link teilen</h3>
+      <p data-i18n="step2_p">Ihre Gedenkseite hat einen privaten Link, den Sie mit der Familie in Ihrem eigenen Tempo teilen — per Nachricht, per E-Mail oder gedruckt in einem Gedenkprogramm.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3 data-i18n="step3_h3">Gemeinsam Erinnerungen sammeln</h3>
+      <p data-i18n="step3_p">Nahestehende fügen ihre Erinnerungen hinzu, zünden Kerzen an und teilen Fotos, wann immer sie sich bereit fühlen — kein Konto, keine Hürde.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOR FUNERAL DIRECTORS -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="prof_label">Für Fachleute</p>
+  <h2 class="section-title" data-i18n="prof_h2">Für Familien und Bestatter</h2>
+  <p class="section-sub" data-i18n="prof_sub">GatherWall wird von Familien und von Bestattern genutzt, die etwas mehr anbieten möchten.</p>
+  <div class="prose-card">
+    <h3 data-i18n="prof_card_h3">Eine würdevolle Ergänzung für Beerdigungsservices</h3>
+    <p data-i18n="prof_card_p1">Eine GatherWall-Gedenkseite kann neben einem Trauerprogramm als dauerhafter digitaler Begleiter für Familien angeboten werden — etwas, zu dem sie noch lange nach dem Tag zurückkehren können. Bestatter, die GatherWall als Teil ihres Angebots einsetzen, stellen fest, dass Familien es schätzen, einen privaten, dauerhaften Ort zu haben, an dem sie sich versammeln und erinnern können.</p>
+    <p style="margin-top:16px;" data-i18n="prof_card_p2">Für Bestatter und Trauerredner, die GatherWall-Gedenkseiten für mehrere Familien anbieten möchten, sind Mengenrabatte verfügbar. &lt;a href="mailto:hello@gatherwall.com"&gt;Kontaktieren Sie uns unter hello@gatherwall.com&lt;/a&gt;, um Partnerschaftsmöglichkeiten zu besprechen.</p>
+  </div>
+  <blockquote class="testimonial">
+    <span data-i18n="testimonial_quote">[Hier ein echtes Familienzitat einfügen]</span>
+    <footer>— <span data-i18n="testimonial_attr">Familienname, Ort</span></footer>
+  </blockquote>
+</div>
+</section>
+
+<!-- PRIVACY -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="privacy_label">Ihre Privatsphäre</p>
+  <h2 class="section-title" style="margin-bottom:28px;" data-i18n="privacy_h2">Ihre Privatsphäre ist uns wichtig</h2>
+  <div class="privacy-row">
+    <div class="privacy-icon" aria-hidden="true">🔒</div>
+    <div>
+      <h3 data-i18n="privacy_h3">Kein Konto. Keine Daten, die über das Geteilte hinausgehen.</h3>
+      <p data-i18n="privacy_p">GatherWall erfordert kein Konto, um eine Gedenkseite zu erstellen oder anzusehen. Wir speichern nichts über das hinaus, was Sie uns mitteilen, um die Seite zu erstellen. Der Seitenlink gehört allein Ihnen — teilen Sie ihn mit wem auch immer Sie möchten oder halten Sie ihn vollständig privat. Keine Tracker, keine Marketing-E-Mails, keine Überraschungen.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section>
+<div class="wrap" style="text-align:center;">
+  <p class="section-label" data-i18n="pricing_label">Preise</p>
+  <h2 class="section-title" style="margin-bottom:36px;" data-i18n="pricing_h2">Sanfte, ehrliche Preise</h2>
+  <div class="price-card">
+    <p class="price-from" data-i18n="pricing_from">Ab</p>
+    <div class="price-amount"><sup>$</sup>10</div>
+    <p class="price-free" data-i18n="pricing_free">Kostenlos erstellen und in der Vorschau ansehen</p>
+    <a class="btn-primary" href="/index.html#memorial" style="width:100%;justify-content:center;" data-i18n="pricing_cta">Gedenkseite erstellen — kostenlos</a>
+    <p class="price-note" data-i18n="pricing_note">Zum Starten wird keine Karte benötigt. Zahlen Sie nur, wenn Sie bereit sind zu veröffentlichen.</p>
+  </div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section>
+<div class="wrap">
+  <p class="section-label" data-i18n="faq_label">Fragen</p>
+  <h2 class="section-title" data-i18n="faq_h2">Häufig gestellte Fragen</h2>
+  <div class="faq-list">
+    <details>
+      <summary data-i18n="faq1_q">Ist die Gedenkseite privat?</summary>
+      <div class="faq-body" data-i18n="faq1_a">Sie entscheiden, wer sie sehen kann — teilen Sie einfach einen Link mit der Familie oder machen Sie sie für alle zugänglich, die sie kannten.</div>
+    </details>
+    <details>
+      <summary data-i18n="faq2_q">Wie können Familienmitglieder ihre Erinnerungen hinzufügen?</summary>
+      <div class="faq-body" data-i18n="faq2_a">Jeder mit dem Link kann eine Erinnerung, ein Foto oder eine Nachricht hinzufügen — kein Konto erforderlich.</div>
+    </details>
+    <details>
+      <summary data-i18n="faq3_q">Wie lange bleibt die Seite online?</summary>
+      <div class="faq-body" data-i18n="faq3_a">Ihre Gedenkseite bleibt so lange online, wie Sie es benötigen. Im Basisplan fallen keine jährlichen Verlängerungsgebühren an.</div>
+    </details>
+    <details>
+      <summary data-i18n="faq4_q">Können Menschen eine Kerze anzünden?</summary>
+      <div class="faq-body" data-i18n="faq4_a">Ja — jede Gedenkseite enthält eine Funktion zum Anzünden einer Kerze, damit Besucher ihrer Erinnerung Ausdruck verleihen können.</div>
+    </details>
+    <details>
+      <summary data-i18n="faq5_q">Speichern Sie unsere persönlichen Daten?</summary>
+      <div class="faq-body" data-i18n="faq5_a">GatherWall erfordert kein Konto, um eine Gedenkseite zu erstellen oder anzusehen. Wir speichern nur das, was Sie uns zur Erstellung der Seite geben.</div>
+    </details>
+  </div>
+  <div style="text-align:center;margin-top:52px;">
+    <a class="btn-primary" href="/index.html#memorial" data-i18n="faq_bottom_cta">Gedenkseite erstellen — kostenlos</a>
+  </div>
+</div>
+</section>
+
+<footer class="site-footer">
+  <div class="footlinks">
+    <a href="/ode.html">Ode hub</a>
+    <a href="/keepsake-song.html">Keepsake Song</a>
+    <a href="/memorial-page.html">Memorial Page</a>
+    <a href="/wedding-wall.html">Wedding Wall</a>
+    <a href="/birthday-song.html">Birthday Song</a>
+    <a href="/examples.html">Examples</a>
+    <a href="/digital-guestbook.html">Digital Guestbook</a>
+  </div>
+  <a href="/index.html" data-i18n="footer_home">← GatherWall Startseite</a>
+</footer>
+
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;5e4fea1704504af5a13c3c3319d523ea&quot;}"></script>
+
+<script>
+const I18N = {
+  en: {
+    doc_title: "Online Memorial Page — A Lasting Place to Remember",
+    doc_desc: "A gentle online memorial: life story, a candle to light, and shared memories from family and friends. Private, lasting, and easy to make — from $10.",
+    hero_eyebrow: "Online Memorial",
+    hero_h1: "A lasting place to remember them, together",
+    hero_lede: "A gentle, beautiful memorial page for someone who mattered. Their life story, a candle to light, and a shared space where family and friends can gather — in their own time, from wherever they are.",
+    hero_cta_primary: "Create a memorial — free to build",
+    hero_cta_ghost: "See an example →",
+    included_label: "What's included",
+    included_h2: "Everything a memorial page should have",
+    included_sub: "We've thought carefully about what families need in these moments — and kept it simple, gentle, and dignified.",
+    feat1_h3: "A Life Story",
+    feat1_p: "Write their story in full — their name, dates, the chapters of their life, and the moments that made them who they were. There is no word limit.",
+    feat2_h3: "Light a Candle",
+    feat2_p: "Every visitor can light a digital candle to mark their remembrance. A small, meaningful act that brings comfort across any distance.",
+    feat3_h3: "A Shared Memory Wall",
+    feat3_p: "Family and friends add their own photos, memories, and messages at their own pace — no account, no friction. Just a space to share.",
+    feat4_h3: "A Timeline",
+    feat4_p: "Key moments from their life, displayed with quiet care — from their earliest years to the very end. A record that endures.",
+    example_label: "See it for yourself",
+    example_h2: "What a memorial page looks like",
+    example_sub: "Words can only go so far. The example below shows how a finished memorial page feels — the warmth, the space, the gentleness of it.",
+    example_card_eyebrow: "Example memorial",
+    example_card_p: "See how a real memorial page looks and feels — the life story, the timeline, the shared memory wall, and the candle feature. All in one gentle, private space.",
+    example_card_link: "View Margaret's memorial →",
+    how_label: "How it works",
+    how_h2: "Simple to build, even now",
+    how_sub: "We've made this as gentle as possible. You don't need to prepare — just start, and go at whatever pace feels right.",
+    step1_h3: "Tell us about them",
+    step1_p: "Share their name, dates, their story, and a photo if you'd like. There is no rush and no right way to do this.",
+    step2_h3: "Share the link",
+    step2_p: "Your memorial page has a private link that you share with family in your own time — by message, by email, or printed in an order of service.",
+    step3_h3: "Gather memories, together",
+    step3_p: "Loved ones add their memories, light candles, and share photographs whenever they feel ready — no account, no barrier.",
+    prof_label: "For professionals",
+    prof_h2: "For families and funeral directors",
+    prof_sub: "GatherWall is used by families and by funeral directors who want to offer something more.",
+    prof_card_h3: "A dignified add-on for funeral services",
+    prof_card_p1: "A memorial page from GatherWall can be offered alongside an order of service as a lasting digital companion for families — something they can return to, long after the day is over. Funeral directors who offer GatherWall as part of their service find that families value having a private, permanent place to gather and remember.",
+    prof_card_p2: 'Bulk pricing is available for funeral homes and celebrants who wish to offer GatherWall memorials to multiple families. <a href="mailto:hello@gatherwall.com">Contact us at hello@gatherwall.com</a> to discuss partnership options.',
+    testimonial_quote: "[Add a real family quote here]",
+    testimonial_attr: "Family name, location",
+    privacy_label: "Your privacy",
+    privacy_h2: "Your privacy matters",
+    privacy_h3: "No account. No data collected beyond what you share.",
+    privacy_p: "GatherWall requires no account to build or view a memorial. We store nothing beyond what you share with us to create the page. The page link is yours alone — share it with whoever you choose, or keep it entirely private. There are no trackers, no marketing emails, and no surprises.",
+    pricing_label: "Pricing",
+    pricing_h2: "Gentle, honest pricing",
+    pricing_from: "From",
+    pricing_free: "Free to build and preview",
+    pricing_cta: "Create a memorial — free to build",
+    pricing_note: "No card needed to begin. Pay only when you're ready to publish.",
+    faq_label: "Questions",
+    faq_h2: "Frequently asked questions",
+    faq1_q: "Is the memorial page private?",
+    faq1_a: "You control who can see it — share just a link with family, or make it open to all who knew them.",
+    faq2_q: "How do family members add their memories?",
+    faq2_a: "Anyone with the link can add a memory, a photo, or a message — no account needed.",
+    faq3_q: "How long does the page stay online?",
+    faq3_a: "Your memorial stays online for as long as you need. There are no annual renewal fees in the base plan.",
+    faq4_q: "Can people light a candle?",
+    faq4_a: "Yes — every memorial includes a candle-lighting feature, so visitors can mark their remembrance.",
+    faq5_q: "Do you store our personal data?",
+    faq5_a: "GatherWall requires no account to build or view a memorial. We store only what you give us to create the page.",
+    faq_bottom_cta: "Create a memorial — free to build",
+    footer_home: "← GatherWall home"
+  },
+  fr: {
+    doc_title: "Page commémorative en ligne — Un lieu durable pour se souvenir",
+    doc_desc: "Un mémorial en ligne tout en douceur : histoire de vie, une bougie à allumer, et des souvenirs partagés par la famille et les amis. Privé, pérenne et facile à créer — à partir de 10 $.",
+    hero_eyebrow: "Mémorial en ligne",
+    hero_h1: "Un lieu pérenne pour se souvenir d'eux, ensemble",
+    hero_lede: "Une page commémorative douce et belle pour quelqu'un qui comptait. Son histoire, une bougie à allumer, et un espace partagé où la famille et les amis peuvent se retrouver — à leur rythme, d'où qu'ils soient.",
+    hero_cta_primary: "Créer un mémorial — gratuit",
+    hero_cta_ghost: "Voir un exemple →",
+    included_label: "Ce qui est inclus",
+    included_h2: "Tout ce qu'une page commémorative devrait offrir",
+    included_sub: "Nous avons réfléchi attentivement à ce dont les familles ont besoin en ces instants — et avons tout gardé simple, doux et digne.",
+    feat1_h3: "Une histoire de vie",
+    feat1_p: "Racontez leur histoire en entier — leur nom, leurs dates, les chapitres de leur vie et les moments qui ont fait d'eux ce qu'ils étaient. Il n'y a pas de limite de mots.",
+    feat2_h3: "Allumer une bougie",
+    feat2_p: "Chaque visiteur peut allumer une bougie numérique en signe de souvenir. Un geste simple et porteur de sens qui apporte du réconfort quelle que soit la distance.",
+    feat3_h3: "Un mur de souvenirs partagé",
+    feat3_p: "La famille et les amis ajoutent leurs propres photos, souvenirs et messages à leur propre rythme — sans compte, sans friction. Juste un espace pour partager.",
+    feat4_h3: "Une chronologie",
+    feat4_p: "Les moments clés de leur vie, présentés avec un soin délicat — de leurs premières années jusqu'à la fin. Un témoignage qui perdurera.",
+    example_label: "Voyez par vous-même",
+    example_h2: "À quoi ressemble une page commémorative",
+    example_sub: "Les mots ne suffisent pas toujours. L'exemple ci-dessous montre ce que l'on ressent face à une page commémorative achevée — la chaleur, l'espace, la douceur qui s'en dégage.",
+    example_card_eyebrow: "Mémorial exemple",
+    example_card_p: "Découvrez l'apparence et l'atmosphère d'une vraie page commémorative — l'histoire de vie, la chronologie, le mur de souvenirs partagé et la bougie. Le tout dans un espace doux et privé.",
+    example_card_link: "Voir le mémorial de Margaret →",
+    how_label: "Comment ça marche",
+    how_h2: "Simple à créer, même maintenant",
+    how_sub: "Nous avons rendu cela aussi doux que possible. Vous n'avez pas besoin de vous préparer — commencez simplement, et avancez au rythme qui vous convient.",
+    step1_h3: "Parlez-nous d'eux",
+    step1_p: "Partagez leur nom, leurs dates, leur histoire et une photo si vous le souhaitez. Il n'y a aucune précipitation et pas de bonne ou mauvaise façon de faire.",
+    step2_h3: "Partagez le lien",
+    step2_p: "Votre page commémorative dispose d'un lien privé que vous partagez avec votre famille quand vous le souhaitez — par message, par e-mail ou imprimé dans un programme de cérémonie.",
+    step3_h3: "Rassemblez les souvenirs, ensemble",
+    step3_p: "Les proches ajoutent leurs souvenirs, allument des bougies et partagent des photos quand ils s'en sentent prêts — sans compte, sans barrière.",
+    prof_label: "Pour les professionnels",
+    prof_h2: "Pour les familles et les directeurs de funérailles",
+    prof_sub: "GatherWall est utilisé par les familles et par les directeurs de funérailles qui souhaitent offrir quelque chose de plus.",
+    prof_card_h3: "Un complément digne pour les services funéraires",
+    prof_card_p1: "Une page commémorative GatherWall peut être proposée en complément d'un programme de cérémonie comme un compagnon numérique durable pour les familles — quelque chose vers lequel elles peuvent revenir longtemps après la journée. Les directeurs de funérailles qui intègrent GatherWall à leur offre constatent que les familles apprécient disposer d'un lieu privé et permanent pour se retrouver et se souvenir.",
+    prof_card_p2: 'Des tarifs groupés sont disponibles pour les pompes funèbres et les célébrants souhaitant proposer GatherWall à plusieurs familles. <a href="mailto:hello@gatherwall.com">Contactez-nous à hello@gatherwall.com</a> pour discuter des options de partenariat.',
+    testimonial_quote: "[Ajoutez ici un témoignage de famille]",
+    testimonial_attr: "Nom de famille, lieu",
+    privacy_label: "Votre confidentialité",
+    privacy_h2: "Votre vie privée nous importe",
+    privacy_h3: "Aucun compte. Aucune donnée collectée au-delà de ce que vous partagez.",
+    privacy_p: "GatherWall ne nécessite aucun compte pour créer ou consulter un mémorial. Nous ne conservons rien au-delà de ce que vous nous confiez pour créer la page. Le lien de la page vous appartient — partagez-le avec qui vous souhaitez, ou gardez-le entièrement privé. Aucun traceur, aucun e-mail marketing, aucune mauvaise surprise.",
+    pricing_label: "Tarifs",
+    pricing_h2: "Des tarifs doux et honnêtes",
+    pricing_from: "À partir de",
+    pricing_free: "Gratuit à créer et à prévisualiser",
+    pricing_cta: "Créer un mémorial — gratuit",
+    pricing_note: "Aucune carte bancaire nécessaire pour commencer. Payez uniquement quand vous êtes prêt à publier.",
+    faq_label: "Questions",
+    faq_h2: "Questions fréquemment posées",
+    faq1_q: "La page commémorative est-elle privée ?",
+    faq1_a: "Vous contrôlez qui peut la voir — partagez simplement un lien avec la famille, ou rendez-la accessible à tous ceux qui les ont connus.",
+    faq2_q: "Comment les membres de la famille ajoutent-ils leurs souvenirs ?",
+    faq2_a: "Toute personne disposant du lien peut ajouter un souvenir, une photo ou un message — aucun compte nécessaire.",
+    faq3_q: "Combien de temps la page reste-t-elle en ligne ?",
+    faq3_a: "Votre mémorial reste en ligne aussi longtemps que vous en avez besoin. Il n'y a pas de frais de renouvellement annuels dans le forfait de base.",
+    faq4_q: "Les gens peuvent-ils allumer une bougie ?",
+    faq4_a: "Oui — chaque mémorial inclut une fonction d'allumage de bougie, afin que les visiteurs puissent marquer leur souvenir.",
+    faq5_q: "Conservez-vous nos données personnelles ?",
+    faq5_a: "GatherWall ne nécessite aucun compte pour créer ou consulter un mémorial. Nous ne conservons que ce que vous nous confiez pour créer la page.",
+    faq_bottom_cta: "Créer un mémorial — gratuit",
+    footer_home: "← Accueil GatherWall"
+  },
+  es: {
+    doc_title: "Página conmemorativa en línea — Un lugar duradero para recordar",
+    doc_desc: "Un memorial en línea delicado: historia de vida, una vela para encender y recuerdos compartidos por familiares y amigos. Privado, duradero y fácil de crear — desde 10 $.",
+    hero_eyebrow: "Memorial en línea",
+    hero_h1: "Un lugar duradero para recordarlos, juntos",
+    hero_lede: "Una página conmemorativa delicada y hermosa para alguien que importaba. Su historia de vida, una vela para encender y un espacio compartido donde la familia y los amigos pueden reunirse — a su propio ritmo, desde donde estén.",
+    hero_cta_primary: "Crear un memorial — gratis",
+    hero_cta_ghost: "Ver un ejemplo →",
+    included_label: "Qué incluye",
+    included_h2: "Todo lo que una página conmemorativa debe tener",
+    included_sub: "Hemos pensado cuidadosamente en lo que las familias necesitan en estos momentos — y lo hemos mantenido simple, delicado y digno.",
+    feat1_h3: "Una historia de vida",
+    feat1_p: "Escribe su historia completa — su nombre, fechas, los capítulos de su vida y los momentos que los hicieron quienes fueron. No hay límite de palabras.",
+    feat2_h3: "Encender una vela",
+    feat2_p: "Cada visitante puede encender una vela digital para marcar su recuerdo. Un acto pequeño y significativo que brinda consuelo sin importar la distancia.",
+    feat3_h3: "Un muro de recuerdos compartido",
+    feat3_p: "Familiares y amigos añaden sus propias fotos, recuerdos y mensajes a su propio ritmo — sin cuenta, sin complicaciones. Solo un espacio para compartir.",
+    feat4_h3: "Una línea de tiempo",
+    feat4_p: "Los momentos clave de su vida, presentados con cuidado y delicadeza — desde sus primeros años hasta el final. Un registro que perdura.",
+    example_label: "Compruébalo tú mismo",
+    example_h2: "Cómo luce una página conmemorativa",
+    example_sub: "Las palabras solo llegan hasta cierto punto. El ejemplo a continuación muestra cómo se siente una página conmemorativa terminada — la calidez, el espacio, la delicadeza.",
+    example_card_eyebrow: "Memorial de ejemplo",
+    example_card_p: "Descubre cómo luce y se siente una página conmemorativa real — la historia de vida, la línea de tiempo, el muro de recuerdos compartido y la función de vela. Todo en un espacio delicado y privado.",
+    example_card_link: "Ver el memorial de Margaret →",
+    how_label: "Cómo funciona",
+    how_h2: "Simple de crear, incluso ahora",
+    how_sub: "Lo hemos hecho tan delicado como es posible. No necesitas prepararte — solo empieza y avanza al ritmo que te parezca bien.",
+    step1_h3: "Cuéntanos sobre ellos",
+    step1_p: "Comparte su nombre, fechas, su historia y una foto si lo deseas. No hay prisa y no hay una forma correcta o incorrecta de hacerlo.",
+    step2_h3: "Comparte el enlace",
+    step2_p: "Tu página conmemorativa tiene un enlace privado que compartes con la familia cuando quieras — por mensaje, por correo electrónico o impreso en un programa de servicio.",
+    step3_h3: "Reunid recuerdos, juntos",
+    step3_p: "Los seres queridos añaden sus recuerdos, encienden velas y comparten fotografías cuando se sientan listos — sin cuenta, sin barreras.",
+    prof_label: "Para profesionales",
+    prof_h2: "Para familias y directores de funerarias",
+    prof_sub: "GatherWall es utilizado por familias y por directores de funerarias que quieren ofrecer algo más.",
+    prof_card_h3: "Un complemento digno para los servicios funerarios",
+    prof_card_p1: "Una página conmemorativa de GatherWall puede ofrecerse junto con un programa de servicio como acompañante digital duradero para las familias — algo a lo que pueden volver mucho después de que haya pasado el día. Los directores de funerarias que ofrecen GatherWall como parte de su servicio descubren que las familias valoran tener un lugar privado y permanente para reunirse y recordar.",
+    prof_card_p2: 'Hay precios por volumen disponibles para funerarias y celebrantes que deseen ofrecer memoriales GatherWall a varias familias. <a href="mailto:hello@gatherwall.com">Contáctenos en hello@gatherwall.com</a> para hablar sobre opciones de colaboración.',
+    testimonial_quote: "[Añade aquí una cita real de una familia]",
+    testimonial_attr: "Nombre de la familia, lugar",
+    privacy_label: "Tu privacidad",
+    privacy_h2: "Tu privacidad nos importa",
+    privacy_h3: "Sin cuenta. Sin datos recopilados más allá de lo que compartes.",
+    privacy_p: "GatherWall no requiere cuenta para crear o ver un memorial. No almacenamos nada más allá de lo que nos compartes para crear la página. El enlace de la página es solo tuyo — compártelo con quien elijas o mantenlo completamente privado. No hay rastreadores, ni correos de marketing, ni sorpresas.",
+    pricing_label: "Precios",
+    pricing_h2: "Precios delicados y honestos",
+    pricing_from: "Desde",
+    pricing_free: "Gratis para crear y previsualizar",
+    pricing_cta: "Crear un memorial — gratis",
+    pricing_note: "No se necesita tarjeta para empezar. Paga solo cuando estés listo para publicar.",
+    faq_label: "Preguntas",
+    faq_h2: "Preguntas frecuentes",
+    faq1_q: "¿Es privada la página conmemorativa?",
+    faq1_a: "Tú controlas quién puede verla — comparte solo un enlace con la familia o hazla accesible a todos los que los conocieron.",
+    faq2_q: "¿Cómo añaden recuerdos los miembros de la familia?",
+    faq2_a: "Cualquier persona con el enlace puede añadir un recuerdo, una foto o un mensaje — no se necesita cuenta.",
+    faq3_q: "¿Cuánto tiempo permanece la página en línea?",
+    faq3_a: "Tu memorial permanece en línea todo el tiempo que lo necesites. No hay tarifas de renovación anual en el plan básico.",
+    faq4_q: "¿Pueden las personas encender una vela?",
+    faq4_a: "Sí — cada memorial incluye una función para encender velas, para que los visitantes puedan marcar su recuerdo.",
+    faq5_q: "¿Almacenáis nuestros datos personales?",
+    faq5_a: "GatherWall no requiere cuenta para crear o ver un memorial. Solo almacenamos lo que nos das para crear la página.",
+    faq_bottom_cta: "Crear un memorial — gratis",
+    footer_home: "← Inicio de GatherWall"
+  },
+  cs: {
+    doc_title: "Online vzpomínková stránka — Trvalé místo pro vzpomínání",
+    doc_desc: "Jemný online pomník: životní příběh, svíčka k rozsvícení a sdílené vzpomínky od rodiny a přátel. Soukromý, trvalý a snadno vytvořitelný — od 10 $.",
+    hero_eyebrow: "Online pomník",
+    hero_h1: "Trvalé místo, kde na ně budete vzpomínat společně",
+    hero_lede: "Jemná a krásná vzpomínková stránka pro někoho, na kom záleželo. Jejich životní příběh, svíčka k rozsvícení a sdílený prostor, kde se rodina a přátelé mohou shromáždit — svým vlastním tempem, odkudkoli na světě.",
+    hero_cta_primary: "Vytvořit pomník — zdarma",
+    hero_cta_ghost: "Zobrazit příklad →",
+    included_label: "Co je zahrnuto",
+    included_h2: "Vše, co by vzpomínková stránka měla mít",
+    included_sub: "Pečlivě jsme promysleli, co rodiny v těchto chvílích potřebují — a vše jsme zachovali jednoduché, jemné a důstojné.",
+    feat1_h3: "Životní příběh",
+    feat1_p: "Napište jejich příběh v plném rozsahu — jejich jméno, data, kapitoly jejich života i okamžiky, které z nich udělaly to, čím byli. Neexistuje žádný limit slov.",
+    feat2_h3: "Rozsvítit svíčku",
+    feat2_p: "Každý návštěvník může rozsvítit digitální svíčku na znamení vzpomínky. Malý, ale hluboký čin, který přináší útěchu přes jakoukoli vzdálenost.",
+    feat3_h3: "Sdílená zeď vzpomínek",
+    feat3_p: "Rodina a přátelé přidávají vlastní fotografie, vzpomínky a zprávy svým vlastním tempem — bez účtu, bez zbytečných překážek. Jen prostor ke sdílení.",
+    feat4_h3: "Časová osa",
+    feat4_p: "Klíčové okamžiky jejich života zobrazené s tichou péčí — od nejranějších let až do samého konce. Záznam, který přetrvá.",
+    example_label: "Přesvědčte se sami",
+    example_h2: "Jak vypadá vzpomínková stránka",
+    example_sub: "Slova mají svá omezení. Níže uvedený příklad ukazuje, jak hotová vzpomínková stránka působí — její vřelost, prostor a jemnost.",
+    example_card_eyebrow: "Ukázkový pomník",
+    example_card_p: "Podívejte se, jak vypadá a jak působí skutečná vzpomínková stránka — životní příběh, časová osa, sdílená zeď vzpomínek a funkce svíčky. Vše v jednom jemném, soukromém prostoru.",
+    example_card_link: "Zobrazit pomník Margaret →",
+    how_label: "Jak to funguje",
+    how_h2: "Snadné vytvoření, i právě teď",
+    how_sub: "Snažili jsme se, aby vše bylo co nejjemnější. Nemusíte se připravovat — stačí začít a postupovat tempem, které vám vyhovuje.",
+    step1_h3: "Řekněte nám o nich",
+    step1_p: "Sdílejte jejich jméno, data, jejich příběh a fotografii, pokud chcete. Není žádný spěch a neexistuje jediný správný způsob, jak to udělat.",
+    step2_h3: "Sdílejte odkaz",
+    step2_p: "Vaše vzpomínková stránka má soukromý odkaz, který sdílíte s rodinou ve vhodnou dobu — zprávou, e-mailem nebo vytištěný v parte.",
+    step3_h3: "Shromažďujte vzpomínky společně",
+    step3_p: "Blízcí přidávají své vzpomínky, rozsvěcují svíčky a sdílejí fotografie, kdykoli jsou připraveni — bez účtu, bez překážek.",
+    prof_label: "Pro odborníky",
+    prof_h2: "Pro rodiny a pohřební ústavy",
+    prof_sub: "GatherWall využívají rodiny i pohřební ústavy, které chtějí nabídnout něco navíc.",
+    prof_card_h3: "Důstojný doplněk pohřebních služeb",
+    prof_card_p1: "Vzpomínková stránka GatherWall může být nabídnuta spolu s parte jako trvalý digitální průvodce pro rodiny — něco, k čemu se mohou vracet dlouho po pohřbu. Pohřební ústavy, které GatherWall nabízejí jako součást svých služeb, zjišťují, že rodiny oceňují mít soukromé a trvalé místo, kde se mohou shromáždit a vzpomínat.",
+    prof_card_p2: 'Pro pohřební ústavy a obřadníky, kteří si přejí nabídnout vzpomínkové stránky GatherWall více rodinám, jsou k dispozici množstevní slevy. <a href="mailto:hello@gatherwall.com">Kontaktujte nás na hello@gatherwall.com</a> a promluvme si o možnostech spolupráce.',
+    testimonial_quote: "[Přidejte zde skutečný citát od rodiny]",
+    testimonial_attr: "Jméno rodiny, místo",
+    privacy_label: "Vaše soukromí",
+    privacy_h2: "Vaše soukromí je pro nás důležité",
+    privacy_h3: "Žádný účet. Žádná data shromážděná nad rámec toho, co sdílíte.",
+    privacy_p: "GatherWall nevyžaduje žádný účet k vytvoření ani prohlížení pomníku. Neukládáme nic nad rámec toho, co nám sdílíte pro vytvoření stránky. Odkaz na stránku patří jen vám — sdílejte ho s kýmkoli chcete, nebo jej udržujte zcela soukromý. Žádné sledovací nástroje, žádné marketingové e-maily a žádná překvapení.",
+    pricing_label: "Ceník",
+    pricing_h2: "Jemné a upřímné ceny",
+    pricing_from: "Od",
+    pricing_free: "Vytvoření a náhled zdarma",
+    pricing_cta: "Vytvořit pomník — zdarma",
+    pricing_note: "K zahájení není potřeba karta. Platba až tehdy, když jste připraveni zveřejnit.",
+    faq_label: "Otázky",
+    faq_h2: "Nejčastěji kladené otázky",
+    faq1_q: "Je vzpomínková stránka soukromá?",
+    faq1_a: "Sami rozhodujete, kdo ji může vidět — sdílejte odkaz jen s rodinou, nebo ji zpřístupněte všem, kteří je znali.",
+    faq2_q: "Jak mohou rodinní příslušníci přidávat své vzpomínky?",
+    faq2_a: "Kdokoli s odkazem může přidat vzpomínku, fotografii nebo zprávu — bez nutnosti účtu.",
+    faq3_q: "Jak dlouho stránka zůstane online?",
+    faq3_a: "Váš pomník zůstane online tak dlouho, jak budete potřebovat. V základním plánu nejsou žádné roční poplatky za obnovu.",
+    faq4_q: "Mohou lidé rozsvítit svíčku?",
+    faq4_a: "Ano — každý pomník obsahuje funkci rozsvícení svíčky, aby návštěvníci mohli vyjádřit svoji vzpomínku.",
+    faq5_q: "Ukládáte naše osobní údaje?",
+    faq5_a: "GatherWall nevyžaduje žádný účet k vytvoření ani prohlížení pomníku. Ukládáme pouze to, co nám poskytnete k vytvoření stránky.",
+    faq_bottom_cta: "Vytvořit pomník — zdarma",
+    footer_home: "← Domovská stránka GatherWall"
+  },
+  de: {
+    doc_title: "Online-Gedenkseite — Ein bleibender Ort zum Erinnern",
+    doc_desc: "Ein sanftes Online-Gedenken: Lebensgeschichte, eine Kerze zum Anzünden und gemeinsame Erinnerungen von Familie und Freunden. Privat, dauerhaft und einfach zu erstellen — ab 10 $.",
+    hero_eyebrow: "Online-Gedenkseite",
+    hero_h1: "Ein bleibender Ort, um gemeinsam zu erinnern",
+    hero_lede: "Eine sanfte, schöne Gedenkseite für jemanden, dem man wichtig war. Ihre Lebensgeschichte, eine Kerze zum Anzünden und ein gemeinsamer Raum, in dem Familie und Freunde zusammenkommen können — in ihrem eigenen Tempo, von überall auf der Welt.",
+    hero_cta_primary: "Gedenkseite erstellen — kostenlos",
+    hero_cta_ghost: "Beispiel ansehen →",
+    included_label: "Was enthalten ist",
+    included_h2: "Alles, was eine Gedenkseite haben sollte",
+    included_sub: "Wir haben sorgfältig darüber nachgedacht, was Familien in diesen Momenten brauchen — und alles einfach, sanft und würdevoll gehalten.",
+    feat1_h3: "Eine Lebensgeschichte",
+    feat1_p: "Schreiben Sie ihre Geschichte vollständig — ihren Namen, Daten, die Kapitel ihres Lebens und die Momente, die sie zu dem gemacht haben, wer sie waren. Es gibt kein Wortlimit.",
+    feat2_h3: "Eine Kerze anzünden",
+    feat2_p: "Jeder Besucher kann eine digitale Kerze anzünden, um seiner Erinnerung Ausdruck zu verleihen. Eine kleine, bedeutungsvolle Geste, die über jede Entfernung hinweg Trost spendet.",
+    feat3_h3: "Eine gemeinsame Erinnerungswand",
+    feat3_p: "Familie und Freunde fügen eigene Fotos, Erinnerungen und Nachrichten in ihrem eigenen Tempo hinzu — kein Konto, keine Hürden. Einfach ein Raum zum Teilen.",
+    feat4_h3: "Eine Zeitleiste",
+    feat4_p: "Wichtige Momente aus ihrem Leben, mit stiller Sorgfalt dargestellt — von den frühesten Jahren bis zum Ende. Ein Zeugnis, das bleibt.",
+    example_label: "Überzeugen Sie sich selbst",
+    example_h2: "Wie eine Gedenkseite aussieht",
+    example_sub: "Worte können nur so weit reichen. Das folgende Beispiel zeigt, wie sich eine fertige Gedenkseite anfühlt — die Wärme, der Raum, die Sanftheit.",
+    example_card_eyebrow: "Beispielgedenken",
+    example_card_p: "Erleben Sie, wie eine echte Gedenkseite aussieht und sich anfühlt — die Lebensgeschichte, die Zeitleiste, die gemeinsame Erinnerungswand und die Kerzenfunktion. Alles in einem sanften, privaten Raum.",
+    example_card_link: "Margarets Gedenkseite ansehen →",
+    how_label: "So funktioniert es",
+    how_h2: "Einfach zu erstellen, auch jetzt",
+    how_sub: "Wir haben alles so sanft wie möglich gestaltet. Sie müssen sich nicht vorbereiten — fangen Sie einfach an und gehen Sie in dem Tempo vor, das sich richtig anfühlt.",
+    step1_h3: "Erzählen Sie uns von ihnen",
+    step1_p: "Teilen Sie ihren Namen, Daten, ihre Geschichte und ein Foto, falls Sie möchten. Es gibt keine Eile und keinen richtigen oder falschen Weg.",
+    step2_h3: "Den Link teilen",
+    step2_p: "Ihre Gedenkseite hat einen privaten Link, den Sie mit der Familie in Ihrem eigenen Tempo teilen — per Nachricht, per E-Mail oder gedruckt in einem Gedenkprogramm.",
+    step3_h3: "Gemeinsam Erinnerungen sammeln",
+    step3_p: "Nahestehende fügen ihre Erinnerungen hinzu, zünden Kerzen an und teilen Fotos, wann immer sie sich bereit fühlen — kein Konto, keine Hürde.",
+    prof_label: "Für Fachleute",
+    prof_h2: "Für Familien und Bestatter",
+    prof_sub: "GatherWall wird von Familien und von Bestattern genutzt, die etwas mehr anbieten möchten.",
+    prof_card_h3: "Eine würdevolle Ergänzung für Beerdigungsservices",
+    prof_card_p1: "Eine GatherWall-Gedenkseite kann neben einem Trauerprogramm als dauerhafter digitaler Begleiter für Familien angeboten werden — etwas, zu dem sie noch lange nach dem Tag zurückkehren können. Bestatter, die GatherWall als Teil ihres Angebots einsetzen, stellen fest, dass Familien es schätzen, einen privaten, dauerhaften Ort zu haben, an dem sie sich versammeln und erinnern können.",
+    prof_card_p2: 'Für Bestatter und Trauerredner, die GatherWall-Gedenkseiten für mehrere Familien anbieten möchten, sind Mengenrabatte verfügbar. <a href="mailto:hello@gatherwall.com">Kontaktieren Sie uns unter hello@gatherwall.com</a>, um Partnerschaftsmöglichkeiten zu besprechen.',
+    testimonial_quote: "[Hier ein echtes Familienzitat einfügen]",
+    testimonial_attr: "Familienname, Ort",
+    privacy_label: "Ihre Privatsphäre",
+    privacy_h2: "Ihre Privatsphäre ist uns wichtig",
+    privacy_h3: "Kein Konto. Keine Daten, die über das Geteilte hinausgehen.",
+    privacy_p: "GatherWall erfordert kein Konto, um eine Gedenkseite zu erstellen oder anzusehen. Wir speichern nichts über das hinaus, was Sie uns mitteilen, um die Seite zu erstellen. Der Seitenlink gehört allein Ihnen — teilen Sie ihn mit wem auch immer Sie möchten oder halten Sie ihn vollständig privat. Keine Tracker, keine Marketing-E-Mails, keine Überraschungen.",
+    pricing_label: "Preise",
+    pricing_h2: "Sanfte, ehrliche Preise",
+    pricing_from: "Ab",
+    pricing_free: "Kostenlos erstellen und in der Vorschau ansehen",
+    pricing_cta: "Gedenkseite erstellen — kostenlos",
+    pricing_note: "Zum Starten wird keine Karte benötigt. Zahlen Sie nur, wenn Sie bereit sind zu veröffentlichen.",
+    faq_label: "Fragen",
+    faq_h2: "Häufig gestellte Fragen",
+    faq1_q: "Ist die Gedenkseite privat?",
+    faq1_a: "Sie entscheiden, wer sie sehen kann — teilen Sie einfach einen Link mit der Familie oder machen Sie sie für alle zugänglich, die sie kannten.",
+    faq2_q: "Wie können Familienmitglieder ihre Erinnerungen hinzufügen?",
+    faq2_a: "Jeder mit dem Link kann eine Erinnerung, ein Foto oder eine Nachricht hinzufügen — kein Konto erforderlich.",
+    faq3_q: "Wie lange bleibt die Seite online?",
+    faq3_a: "Ihre Gedenkseite bleibt so lange online, wie Sie es benötigen. Im Basisplan fallen keine jährlichen Verlängerungsgebühren an.",
+    faq4_q: "Können Menschen eine Kerze anzünden?",
+    faq4_a: "Ja — jede Gedenkseite enthält eine Funktion zum Anzünden einer Kerze, damit Besucher ihrer Erinnerung Ausdruck verleihen können.",
+    faq5_q: "Speichern Sie unsere persönlichen Daten?",
+    faq5_a: "GatherWall erfordert kein Konto, um eine Gedenkseite zu erstellen oder anzusehen. Wir speichern nur das, was Sie uns zur Erstellung der Seite geben.",
+    faq_bottom_cta: "Gedenkseite erstellen — kostenlos",
+    footer_home: "← GatherWall Startseite"
+  }
+};
+
+function setLang(code) {
+  const dict = I18N[code];
+  if (!dict) return;
+
+  // Update html lang attribute
+  document.documentElement.lang = code;
+
+  // Update document title and meta description
+  document.title = dict.doc_title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', dict.doc_desc);
+
+  // Update all tagged elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      // Use innerHTML for keys that may contain HTML tags
+      const htmlKeys = ['prof_card_p2'];
+      if (htmlKeys.indexOf(key) !== -1) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+
+  // Update active pill
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    const active = btn.getAttribute('data-lang') === code;
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  // Persist choice
+  try { localStorage.setItem('gw_lang', code); } catch(e) {}
+}
+
+// On load, apply saved or default language
+(function() {
+  var saved = 'en';
+  try { saved = localStorage.getItem('gw_lang') || 'en'; } catch(e) {}
+  if (!I18N[saved]) saved = 'en';
+  setLang(saved);
+})();
+</script>
+
+
+
+</body></html>
