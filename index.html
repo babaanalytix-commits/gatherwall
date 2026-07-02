@@ -714,7 +714,7 @@ body.kioskmode header.nav{display:none;}
       <a href="wall-of-love.html" style="color:inherit;opacity:.85;text-decoration:none;">💛 Wall of Love</a>
       <a href="privacy.html" style="color:inherit;opacity:.85;text-decoration:none;">Privacy</a>
       <a href="terms.html" style="color:inherit;opacity:.85;text-decoration:none;">Terms</a>
-      <a href="mailto:baba.analytix@gmail.com" style="color:inherit;opacity:.85;text-decoration:none;">Contact</a>
+      <a href="mailto:hello@gatherwall.com" style="color:inherit;opacity:.85;text-decoration:none;">Contact</a>
     </div>
     <div data-i18n="footTag">A living wall of love for any event · gatherwall.com</div>
   </div>
@@ -1758,12 +1758,12 @@ function enquire(type){
     text.textContent='We make each keepsake slowly and by hand — because a moment this special should never be rushed. We only take a few at a time, so every one is our best work. Join the waitlist and we\'ll reach out the moment your slot opens.';
     mail.textContent='✉ Join the waitlist';
     mail.onclick=null;
-    mail.href='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Waitlist: '+type)+'&body='+encodeURIComponent('Please add me to the waitlist for the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang);
+    mail.href='mailto:hello@gatherwall.com?subject='+encodeURIComponent('Waitlist: '+type)+'&body='+encodeURIComponent('Please add me to the waitlist for the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang);
   } else {
     title.textContent=type;
     text.textContent='A keepsake made slowly and by hand, just for you — because some moments deserve more than a template. Tell us the occasion, the date and who it\'s for, and we\'ll craft it and send a quote.';
     mail.textContent='✉ Send enquiry';
-    mail.href='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang+'\nDetails:');
+    mail.href='mailto:hello@gatherwall.com?subject='+encodeURIComponent('Enquiry: '+type)+'&body='+encodeURIComponent('Hi, I\'d like to enquire about the '+type+'.\n\nOccasion:\nDate:\nFor whom:\nPreferred language: '+lang+'\nDetails:');
     mail.onclick=function(){ bumpOpenReq(); };
   }
   document.getElementById('enquireModal').classList.add('on');
@@ -1800,7 +1800,7 @@ function submitBuilder(){
     'Song feeling: '+g('sbGenre')+'\nLyric line to include: '+g('sbLyricLine')+'\nGift card message: '+g('sbMessage')+'\n\n'+
     'Photos: '+sbPhotoData.length+' (attach in the email).';
   try{ localStorage.setItem('gw_lastbrief', brief); bumpOpenReq(); }catch(e){}
-  const mail='mailto:baba.analytix@gmail.com?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
+  const mail='mailto:hello@gatherwall.com?subject='+encodeURIComponent('Keepsake Story: '+name+' — '+occ)+'&body='+encodeURIComponent(brief);
   document.getElementById('enqTitle').textContent='Thank you 💛 their story is ready to send';
   document.getElementById('enqText').textContent='We\'ve captured '+name+'\'s story. Continue to payment to begin crafting — or send us the details first and we\'ll confirm timing.';
   const ml=document.getElementById('enqMail'); ml.textContent='✉ Send their story first'; ml.onclick=null; ml.href=mail;
