@@ -199,7 +199,7 @@
   function applyLang(l){ LANG=UI[l]?l:'en'; try{localStorage.setItem('gw_lang',LANG);}catch(e){} var sel=document.getElementById('lang'); if(sel) sel.value=LANG; render(); }
   // Build the Gumroad pay link (forward ev/tier/order to the webhook)
   var pay=BASE+slug+'?wanted=true';
-  var ev=param('ev'); if(ev) pay+='&ev='+encodeURIComponent(ev);
+  var ev=param('ev'); if(ev){ pay+='&ev='+encodeURIComponent(ev); try{localStorage.setItem('gw_reveal_ev',ev);localStorage.setItem('gw_reveal_at',Date.now());}catch(e){} }
   var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
   var order=param('order'); if(order) pay+='&order='+encodeURIComponent(order);
   document.getElementById('payBtn').href=pay;
