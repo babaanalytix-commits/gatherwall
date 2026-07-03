@@ -994,8 +994,6 @@ body.kioskmode header.nav{display:none;}
     <div class="linkbox"><span id="manageLink"></span>
       <button class="btn btn-primary" onclick="copyLink('manage')">Copy</button></div>
     <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:12px;" onclick="openManage()">Open control panel ▸</button>
-    <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:10px;" onclick="emailLinks()">📧 Email these links to myself</button>
-    <p class="muted" style="font-size:12.5px;margin-top:10px;">Opens your own email app so you have a backup if you lose your phone. GatherWall doesn't store your details — nothing is sent to us.</p>
   </div>
 </div></div>
 </div>
@@ -2119,7 +2117,7 @@ function showShare(e){
       if(btn) btn.textContent='Publish '+t.label+' ('+t.price+') & go live ▸';
     }
   }
-  try{ memRemember((family?'Memory Wall — ':'Wall — ')+e.name, w, m); renderShareSafety(e, w, m, g); renderSongCard(e); }catch(_){}
+  try{ memRemember((family?'Memory Wall — ':'Wall — ')+e.name, w, m); renderShareSafety(e, w, m, g); }catch(_){}
   go('share'); window._cur=id; window._curEvent=e;
 }
 /* ===== The Song of Your Night — turn guest messages into a keepsake song ===== */
