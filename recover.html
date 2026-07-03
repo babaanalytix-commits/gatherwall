@@ -28,6 +28,11 @@
   .found a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;background:var(--soft)}
   .found a:hover{border-color:var(--brand)}
   .found .arr{color:var(--brand)}
+  .found .lbl{display:flex;align-items:center;flex-wrap:wrap;gap:4px;min-width:0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+  .badge.live{background:rgba(46,125,91,.14);color:var(--brand-d)}
+  .badge.draft{background:rgba(194,160,88,.2);color:var(--gold-deep)}
+  .badge.checking{background:var(--bg-2);color:var(--muted)}
   .none{font-size:14px;color:var(--muted)}
   input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--soft);font-size:14px;color:var(--ink);margin-bottom:10px}
   .btn{display:block;width:100%;text-align:center;padding:13px;border-radius:999px;font-family:var(--ui);font-weight:600;font-size:15px;cursor:pointer;border:none;background:var(--brand);color:#fff}
@@ -52,7 +57,7 @@
 
   <div class="card" id="localCard" style="display:none">
     <h2>💻 Saved on this device</h2>
-    <p>We found work you started in this browser:</p>
+    <p>We found work you started in this browser. A <b style="color:var(--brand-d)">green “Live · paid”</b> badge means it's published and paid for; an <b style="color:var(--gold-deep)">amber “Draft”</b> badge means it's still a private draft you haven't published yet.</p>
     <div class="found" id="foundList"></div>
   </div>
 
@@ -79,6 +84,8 @@ function goLink(){
   // only allow navigating to our own pages
   try{ const u=new URL(v, base()); if(u.hostname.endsWith('gatherwall.com')||u.hostname===location.hostname){ location.href=u.href; } }catch(e){}
 }
+const DB="https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
+function extractId(u){ const m=String(u).match(/[?&#](?:ev|id)=([a-z0-9]+)/i); return m?m[1]:''; }
 // Surface anything cached in this browser
 (function(){
   const items=[];
@@ -92,12 +99,21 @@ function goLink(){
     const saved=JSON.parse(localStorage.getItem('gw_my_links')||'[]');
     if(Array.isArray(saved)) saved.forEach(x=>{ if(x&&x.url) items.push(x); });
   }catch(e){}
-  if(items.length){
-    const box=document.getElementById('foundList');
-    box.innerHTML=items.map(x=>'<a href="'+esc(x.url)+'">'+esc(x.label)+'<span class="arr">→</span></a>'+
-      (x.edit?'<a href="'+esc(x.edit)+'" style="font-size:13px;color:var(--muted);background:#fff;">✎ Continue editing this draft<span class="arr">→</span></a>':'')).join('');
-    document.getElementById('localCard').style.display='block';
-  }
+  if(!items.length) return;
+  const box=document.getElementById('foundList');
+  box.innerHTML=items.map((x,i)=>'<a class="mainlink" href="'+esc(x.url)+'"><span class="lbl">'+esc(x.label)+' <span class="badge checking" id="b'+i+'">checking…</span></span><span class="arr">→</span></a>'+
+    (x.edit?'<a href="'+esc(x.edit)+'" style="font-size:13px;color:var(--muted);background:#fff;">✎ Continue editing this draft<span class="arr">→</span></a>':'')).join('');
+  document.getElementById('localCard').style.display='block';
+  // Look up paid/live status for each saved link against the backend
+  items.forEach((x,i)=>{
+    const id=extractId(x.url); const el=document.getElementById('b'+i); if(!el) return;
+    if(!id){ el.remove(); return; }
+    fetch(DB+'/events/'+id+'.json').then(r=>r.json()).then(ev=>{
+      if(ev&&ev.published){ el.className='badge live'; el.textContent='● Live · paid'; }
+      else if(ev){ el.className='badge draft'; el.textContent='Draft · not published'; }
+      else { el.remove(); }
+    }).catch(function(){ el.remove(); });
+  });
 })();
 </script>
 </body>
