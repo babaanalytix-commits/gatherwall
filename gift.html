@@ -124,7 +124,9 @@ function safeUrl(u){ u=String(u||'').trim(); if(!u) return ''; if(!/^https?:/i.t
 
 var to=P.get('to'), from=P.get('from'), msg=P.get('msg'), song=P.get('song');
 
-if(to || msg || song){
+// Card mode only once it's personalised (to/from/message). A bare ?song=
+// link (from "wrap as a gift" on the delivered song) opens the builder pre-filled.
+if(to || msg || from){
   // -------- CARD MODE --------
   document.getElementById('cardMode').style.display='block';
   document.getElementById('c_to').textContent = to ? ('For '+to) : 'For you';
@@ -140,6 +142,7 @@ if(to || msg || song){
 } else {
   // -------- BUILDER MODE --------
   document.getElementById('buildMode').style.display='block';
+  if(song){ var bs=document.getElementById('b_song'); if(bs) bs.value=song; }
 }
 
 function openGift(){
