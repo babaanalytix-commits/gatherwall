@@ -420,4 +420,22 @@
     <xhtml:link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/digital-guestbook.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gatherwall.com/digital-guestbook.html"/>
   </url>
+  <url>
+    <loc>https://gatherwall.com/keepsake-song-vs-songfinch.html</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gatherwall.com/free-song-lyrics-preview.html</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gatherwall.com/affordable-personalised-song.html</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
