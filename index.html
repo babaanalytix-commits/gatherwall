@@ -521,6 +521,18 @@ body.kioskmode header.nav{display:none;}
 
     <a id="d_ode_c" href="keepsake-preview.html" class="door-cta" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:17px;color:#fff;background:#2E7D5B;border-radius:999px;padding:16px 32px;text-decoration:none;box-shadow:0 18px 42px -16px rgba(46,125,91,.6);">✨ See your lyrics — free →</a>
     <div id="d_ode_sub" style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#8a9488;margin:13px 0 0;">No card needed · about 60 seconds · from $39</div>
+
+    <!-- HEAR A REAL ONE -->
+    <div id="hearReal" style="max-width:500px;margin:28px auto 0;background:linear-gradient(160deg,#fff,#FBFAF4);border:1px solid #E6E2D4;border-radius:20px;padding:22px 22px 24px;box-shadow:0 24px 60px -42px rgba(32,39,31,.45);text-align:center;">
+      <div style="font-family:'Inter',system-ui,sans-serif;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:#a9883f;margin-bottom:3px;">A real keepsake song</div>
+      <div style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#5C6B5E;margin-bottom:14px;">&ldquo;Fifty Years of Gold&rdquo; &mdash; written for Mum&rsquo;s 50th</div>
+      <div style="min-height:84px;display:flex;align-items:center;justify-content:center;padding:0 6px;">
+        <span id="hr_line" style="font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:20px;line-height:1.4;color:#20271F;transition:opacity .3s;opacity:.6;">Press play &mdash; hear a real one 🎧</span>
+      </div>
+      <button id="hr_btn" onclick="hrToggle()" style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:#fff;border:1.5px solid #2E7D5B;border-radius:999px;padding:11px 24px;cursor:pointer;">▶ Play a real keepsake</button>
+      <audio id="hr_audio" preload="none" src="fifty-years-of-gold.mp3"></audio>
+    </div>
+
     <div style="max-width:520px;margin:30px auto 0;border-top:1px solid #E6E2D4;padding-top:16px;">
       <a id="d_live" href="#live" onclick="location.hash='live';return false;" style="display:block;font-family:'Inter',system-ui,sans-serif;font-size:14.5px;color:#3a4a40;text-decoration:none;padding:9px 8px;">🎥 A live photo &amp; message wall for your whole event →</a>
       <a id="d_mw" href="#memorywall" onclick="location.hash='memorywall';return false;" style="display:block;font-family:'Inter',system-ui,sans-serif;font-size:14.5px;color:#3a4a40;text-decoration:none;padding:9px 8px;">🖼️ A memory wall loved ones fill over time — revealed on the day →</a>
@@ -2710,6 +2722,30 @@ if(location.hash){route();} else {applyVibe('brand');go('door');}
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   add(); setTimeout(add,500); setTimeout(add,1000); setTimeout(add,1500);
   if(!reduce) setInterval(add, 2600);
+})();
+</script>
+<script>
+/* Homepage "hear a real one" — reveal the song's words in time with the music */
+(function(){
+  var LINES=["Fifty candles, one bright room","Fifty summers come and gone","Every line upon your face","Is a story, is a song","You gave us mornings, gave us light","Held the whole world through the night","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","You were strong when we were small","You were brave when storms would come","Never once did you let go","Of the people you'd become","Through the laughter, through the tears","You have carried all these years","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","And if we could give the world to you","We would wrap it up in gold","For every dream you set aside","For every hand you'd hold","So blow the candles, make the wish","You have earned this, every bit","Fifty years, and just begun","You're the brightest, you're the one","Here's to fifty years of gold","To the love you gave, to the stories told","Brightest heart we've ever known","Happy birthday, welcome home","Fifty years of gold","Happy birthday to you","Fifty years, and shining through"];
+  var a=document.getElementById('hr_audio'), lineEl=document.getElementById('hr_line'), btn=document.getElementById('hr_btn');
+  if(!a||!lineEl||!btn) return;
+  var cur=-1, INTRO=9, OUTRO=7;
+  function set(txt){ lineEl.style.opacity='0'; setTimeout(function(){ lineEl.textContent=txt; lineEl.style.opacity='1'; },150); }
+  window.hrToggle=function(){
+    if(a.paused){ a.play().then(function(){ btn.innerHTML='⏸ Pause'; }).catch(function(){}); }
+    else { a.pause(); btn.innerHTML='▶ Play a real keepsake'; }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(!a.duration) return;
+    var span=a.duration-INTRO-OUTRO; if(span<=4) span=a.duration;
+    var t=a.currentTime-INTRO;
+    if(t<0){ if(cur!==-2){ cur=-2; set('🎧'); } return; }
+    var idx=Math.floor(t/span*LINES.length);
+    idx=Math.max(0,Math.min(LINES.length-1,idx));
+    if(idx!==cur){ cur=idx; set(LINES[idx]); }
+  });
+  a.addEventListener('ended',function(){ btn.innerHTML='↻ Play it again'; set('💛'); cur=-1; });
 })();
 </script>
 </body>
