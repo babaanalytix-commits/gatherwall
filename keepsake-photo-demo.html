@@ -105,6 +105,17 @@ footer .demo-tag{display:inline-block;margin-bottom:10px;font-size:11px;letter-s
 <body>
 <div class="aurora"></div><div class="grain"></div>
 
+<!-- GIFT REVEAL — the recipient's moment -->
+<div id="giftReveal" onclick="openGiftExp()" style="position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;cursor:pointer;background:radial-gradient(900px 520px at 50% 18%,rgba(194,160,88,.20),transparent 60%),#0d1512;transition:opacity .6s;">
+  <div style="max-width:440px;width:100%;text-align:center;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:46px 30px;">
+    <div style="width:84px;height:84px;border-radius:50%;margin:0 auto 22px;background:radial-gradient(circle at 35% 30%,#E7CE86,#C2A058 55%,#9A7D33);display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 16px 34px -12px rgba(154,125,51,.8);">💛</div>
+    <div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:30px;color:#F4EFE3;margin-bottom:8px;">For Mum</div>
+    <div style="font-family:'Inter',system-ui,sans-serif;font-size:15.5px;color:#c9c3b4;line-height:1.6;margin-bottom:26px;">Someone made you something — a song and a story, from a whole life of memories.</div>
+    <div style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:16px;color:#0d1512;background:#E7CE86;border-radius:999px;padding:14px 30px;">Tap to open your gift →</div>
+    <div style="margin-top:18px;font-family:'Inter',system-ui,sans-serif;font-size:12px;color:#8a8676;">This is the moment your loved one will feel.</div>
+  </div>
+</div>
+
 <div class="wrap">
   <a class="crest" href="index.html" title="Back to GatherWall" style="text-decoration:none;color:inherit;cursor:pointer;"><span class="dot"></span><b>GatherWall</b></a>
   <div class="eyebrow" id="eyebrow">Animated Keepsake Story · with photos · sample</div>
@@ -251,6 +262,12 @@ IMGS.forEach((img,i)=>{
 ORDER.forEach(code=>{const L=LANGS[code];const b=document.createElement('button');b.id='plang-'+code;
   b.innerHTML=`<span class='flag'>${L.flag}</span>${L.label}`;b.onclick=()=>setLang(code);langsEl.appendChild(b);});
 
+function openGiftExp(){
+  var o=document.getElementById('giftReveal'); if(!o) return;
+  o.style.opacity='0'; setTimeout(function(){ o.style.display='none'; }, 600);
+  try{ audio.play().catch(function(){}); }catch(e){}
+  var s=document.getElementById('stage'); if(s){ try{ s.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){} }
+}
 function toggle(){audio.paused?audio.play().catch(()=>{}):audio.pause();}
 audio.addEventListener('play',()=>playBtn.textContent='❚❚');
 audio.addEventListener('pause',()=>playBtn.textContent='▶');
