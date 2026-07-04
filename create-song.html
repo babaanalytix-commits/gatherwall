@@ -114,7 +114,7 @@ const T = {
     composing:"Composing your two versions…",composingNote:"This takes about a minute — keep this page open.",
     pickTitle:"Listen & pick your favourite",version:"Version",pick:"Pick Version",
     retry:"↻ Not quite — try again (1 more set)",bothUsed:"That's both tries used — please choose the one you love.",
-    chosenTitle:"Your song is chosen!",download:"Download MP3",
+    chosenTitle:"Your song is chosen!",download:"Download MP3",giftCta:"🎁 Wrap it as a gift →",
     chosenNote1:"A shareable <b>video (MP4)</b> version comes with your finished keepsake.",
     chosenNote2:"We're now crafting your <b>animated keepsake</b> with your photos, then we'll send you the final link. 💛",
     chosenSub:"Song chosen — your keepsake is on the way",
@@ -127,7 +127,7 @@ const T = {
     composing:"Composition de vos deux versions…",composingNote:"Environ une minute — gardez cette page ouverte.",
     pickTitle:"Écoutez et choisissez votre préférée",version:"Version",pick:"Choisir la version",
     retry:"↻ Pas tout à fait — réessayer (1 série de plus)",bothUsed:"Les deux essais sont utilisés — choisissez celle que vous aimez.",
-    chosenTitle:"Votre chanson est choisie !",download:"Télécharger le MP3",
+    chosenTitle:"Votre chanson est choisie !",download:"Télécharger le MP3",giftCta:"🎁 Offrir en cadeau →",
     chosenNote1:"Une version <b>vidéo (MP4)</b> partageable accompagne votre souvenir final.",
     chosenNote2:"Nous créons maintenant votre <b>souvenir animé</b> avec vos photos, puis nous vous enverrons le lien final. 💛",
     chosenSub:"Chanson choisie — votre souvenir arrive",
@@ -140,7 +140,7 @@ const T = {
     composing:"Componiendo tus dos versiones…",composingNote:"Tarda alrededor de un minuto — mantén esta página abierta.",
     pickTitle:"Escucha y elige tu favorita",version:"Versión",pick:"Elegir versión",
     retry:"↻ No del todo — intentar de nuevo (1 set más)",bothUsed:"Se usaron los dos intentos — elige la que más te guste.",
-    chosenTitle:"¡Tu canción está elegida!",download:"Descargar MP3",
+    chosenTitle:"¡Tu canción está elegida!",download:"Descargar MP3",giftCta:"🎁 Envolver como regalo →",
     chosenNote1:"Una versión en <b>vídeo (MP4)</b> para compartir viene con tu recuerdo final.",
     chosenNote2:"Ahora estamos creando tu <b>recuerdo animado</b> con tus fotos y luego te enviaremos el enlace final. 💛",
     chosenSub:"Canción elegida — tu recuerdo está en camino",
@@ -153,7 +153,7 @@ const T = {
     composing:"Skládáme vaše dvě verze…",composingNote:"Trvá to asi minutu — nechte tuto stránku otevřenou.",
     pickTitle:"Poslechněte si a vyberte oblíbenou",version:"Verze",pick:"Vybrat verzi",
     retry:"↻ Není to ono — zkusit znovu (ještě 1 sada)",bothUsed:"Oba pokusy jsou vyčerpané — vyberte tu, kterou máte rádi.",
-    chosenTitle:"Vaše píseň je vybraná!",download:"Stáhnout MP3",
+    chosenTitle:"Vaše píseň je vybraná!",download:"Stáhnout MP3",giftCta:"🎁 Zabalit jako dárek →",
     chosenNote1:"Sdílitelná <b>video (MP4)</b> verze je součástí hotové vzpomínky.",
     chosenNote2:"Nyní tvoříme vaši <b>animovanou vzpomínku</b> s vašimi fotkami a poté vám pošleme finální odkaz. 💛",
     chosenSub:"Píseň vybrána — vaše vzpomínka je na cestě",
@@ -166,7 +166,7 @@ const T = {
     composing:"Ihre zwei Versionen werden komponiert…",composingNote:"Dauert etwa eine Minute — diese Seite offen lassen.",
     pickTitle:"Anhören & Ihren Favoriten wählen",version:"Version",pick:"Version wählen",
     retry:"↻ Nicht ganz — noch einmal (1 weiterer Satz)",bothUsed:"Beide Versuche genutzt — bitte wählen Sie Ihren Favoriten.",
-    chosenTitle:"Ihr Lied ist gewählt!",download:"MP3 herunterladen",
+    chosenTitle:"Ihr Lied ist gewählt!",download:"MP3 herunterladen",giftCta:"🎁 Als Geschenk verpacken →",
     chosenNote1:"Eine teilbare <b>Video-Version (MP4)</b> kommt mit Ihrer fertigen Erinnerung.",
     chosenNote2:"Wir gestalten jetzt Ihre <b>animierte Erinnerung</b> mit Ihren Fotos und senden Ihnen dann den finalen Link. 💛",
     chosenSub:"Lied gewählt — Ihre Erinnerung ist unterwegs",
@@ -252,6 +252,7 @@ function renderChosen(url){
     '<h2 style="font-family:var(--serif);font-weight:600;margin:8px 0 4px">'+t.chosenTitle+'</h2>'+
     '<audio controls src="'+url+'" style="margin-top:10px"></audio><br>'+
     '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
+    '<div style="margin-top:12px"><a href="gift.html?song='+encodeURIComponent(url)+'" style="display:inline-flex;align-items:center;gap:7px;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.28);border-radius:999px;padding:12px 22px;text-decoration:none;">'+(t.giftCta||'🎁 Wrap it as a gift →')+'</a></div>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
     '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p></div>';
   const bundle = rec && rec.bundle && rec.ev;
