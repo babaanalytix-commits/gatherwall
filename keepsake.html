@@ -141,6 +141,7 @@ document.title = (K.recipient? K.recipient+' — ':'')+'A keepsake · GatherWall
   if(K.years&&K.years[i]){ var y=document.createElement('div'); y.className='year'; y.textContent=K.years[i]; f.appendChild(y); }
   stage.appendChild(f);
 });
+if(N){ showFrame(0); }  // show first photo immediately, before audio loads
 function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function fmt(s){s=Math.max(0,s||0);var m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;}
 function showFrame(i){ if(i===curFrame)return; var p=document.getElementById('fr'+curFrame); if(p)p.classList.remove('show'); var n=document.getElementById('fr'+i); if(n)n.classList.add('show'); curFrame=i; }
