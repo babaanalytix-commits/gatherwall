@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keepsake builder (internal) · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2E7D5B;--brand-d:#1C4D3A;--gold:#C2A058;--ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--soft:#FBFAF4;--bg:#F7F5EE;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);background:var(--bg);line-height:1.5}
+  .wrap{max-width:680px;margin:0 auto;padding:30px 20px 80px}
+  h1{font-family:var(--serif);font-size:28px;margin-bottom:4px}
+  .lead{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+  .warn{background:rgba(194,160,88,.12);border:1px solid rgba(194,160,88,.35);border-radius:10px;padding:10px 13px;font-size:13px;color:#7d6524;margin-bottom:22px}
+  fieldset{border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px;margin-bottom:16px;background:#fff}
+  legend{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;padding:0 6px}
+  label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+  label span{font-weight:400;color:var(--muted)}
+  input,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--soft);font-size:14px;font-family:var(--ui);color:var(--ink)}
+  input:focus,textarea:focus{outline:none;border-color:var(--brand)}
+  textarea{resize:vertical;line-height:1.5}
+  .row{display:flex;gap:12px}.row>div{flex:1}
+  .drop{border:1.5px dashed #cfd6c8;border-radius:12px;background:var(--soft);padding:18px;text-align:center;cursor:pointer;font-size:14px;color:var(--muted);margin-top:5px}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-top:10px}
+  .thumb{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--line);background-size:cover;background-position:center}
+  .thumb button{position:absolute;top:3px;right:3px;width:20px;height:20px;border:none;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:12px;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15.5px;color:#fff;background:var(--brand);border:none;border-radius:999px;padding:14px 28px;cursor:pointer}
+  .btn:hover{background:var(--brand-d)}
+  .btn.ghost{background:#fff;color:var(--brand-d);border:1.5px solid var(--brand)}
+  .result{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:18px}
+  .result h3{font-size:16px;margin-bottom:6px}
+  .result p{font-size:13.5px;color:var(--muted);margin-bottom:12px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .hint{font-size:12px;color:var(--muted);margin-top:5px}
+  .err{color:#a15c4a;font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Keepsake builder</h1>
+  <p class="lead">Fill in a client's details → generate their finished, self-contained keepsake page (photos embedded). Internal tool.</p>
+  <div class="warn">⚠️ Internal use only. This produces the client's private keepsake file — commit it to <code>/k/&lt;order&gt;.html</code> (or send the download). The same link is what the client shares as the gift.</div>
+
+  <fieldset>
+    <legend>The gift</legend>
+    <div class="row">
+      <div><label>Who is it for? <span>(recipient)</span></label><input id="recipient" placeholder="Mum"></div>
+      <div><label>From <span>(sender)</span></label><input id="from" placeholder="Aidan &amp; the family"></div>
+    </div>
+    <label>Message on the gift card <span>(what they read when they open it)</span></label>
+    <textarea id="message" rows="3" placeholder="Happy 70th, Mum. We turned your whole story into a song — every word is true. We love you."></textarea>
+  </fieldset>
+
+  <fieldset>
+    <legend>The keepsake</legend>
+    <div class="row">
+      <div><label>Title</label><input id="title" placeholder="Fifty Years of Gold"></div>
+      <div><label>Subtitle</label><input id="sub" placeholder="A life in photos &amp; song"></div>
+    </div>
+    <label>Song URL <span>(the finished MP3 link)</span></label>
+    <input id="songUrl" placeholder="https://cdn.mureka.ai/....mp3  (or fifty-years-of-gold.mp3)">
+    <div class="row" style="margin-top:2px">
+      <div><label>Accent colour</label><input id="colour" value="#C2A058"></div>
+      <div><label>Intro secs <span>(before 1st line)</span></label><input id="intro" value="9"></div>
+      <div><label>Outro secs</label><input id="outro" value="7"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Photos</legend>
+    <label>Their photos <span>(in order — earliest life first works best)</span></label>
+    <div class="drop" id="drop">Tap to choose photos, or drag them here</div>
+    <input type="file" id="file" accept="image/*" multiple hidden>
+    <div class="thumbs" id="thumbs"></div>
+    <label>Year/label under each photo <span>(optional, comma-separated, same order)</span></label>
+    <input id="years" placeholder="1974, 1996, 2001, 2008, 2019, 2026">
+  </fieldset>
+
+  <fieldset>
+    <legend>Lyrics</legend>
+    <label>The song's words <span>(one line per line — these appear in time with the music)</span></label>
+    <textarea id="lyrics" rows="8" placeholder="Fifty candles, one bright room&#10;Fifty summers come and gone&#10;..."></textarea>
+  </fieldset>
+
+  <button class="btn" onclick="generate()">✨ Generate the keepsake</button>
+  <div class="err" id="err"></div>
+
+  <div class="result" id="result">
+    <h3>Keepsake ready 💛</h3>
+    <p>Preview it, then download and commit it to <code>/k/&lt;order&gt;.html</code>, or send the file to the client.</p>
+    <div class="btns">
+      <a class="btn" id="previewBtn" target="_blank">👀 Preview it</a>
+      <button class="btn ghost" id="downloadBtn">⬇ Download the file</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var PHOTOS=[];
+var drop=document.getElementById('drop'), fileInput=document.getElementById('file'), thumbs=document.getElementById('thumbs');
+drop.onclick=function(){ fileInput.click(); };
+drop.ondragover=function(e){ e.preventDefault(); drop.style.background='#eef4ee'; };
+drop.ondragleave=function(){ drop.style.background=''; };
+drop.ondrop=function(e){ e.preventDefault(); drop.style.background=''; addFiles(e.dataTransfer.files); };
+fileInput.onchange=function(){ addFiles(fileInput.files); };
+function compress(file){ return new Promise(function(res){
+  var img=new Image(), u=URL.createObjectURL(file);
+  img.onload=function(){ var s=Math.min(1,1400/Math.max(img.width,img.height)); var c=document.createElement('canvas'); c.width=Math.round(img.width*s); c.height=Math.round(img.height*s); c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(u); res(c.toDataURL('image/jpeg',0.72)); };
+  img.onerror=function(){ res(null); }; img.src=u;
+});}
+async function addFiles(list){
+  for(var i=0;i<list.length;i++){ if(!/^image\//.test(list[i].type))continue; var d=await compress(list[i]); if(d)PHOTOS.push(d); }
+  renderThumbs();
+}
+function renderThumbs(){
+  thumbs.innerHTML=PHOTOS.map(function(src,i){ return '<div class="thumb" style="background-image:url('+src+')"><button data-i="'+i+'">×</button></div>'; }).join('');
+  thumbs.querySelectorAll('button').forEach(function(b){ b.onclick=function(){ PHOTOS.splice(+b.dataset.i,1); renderThumbs(); }; });
+}
+function val(id){ return (document.getElementById(id).value||'').trim(); }
+
+var lastUrl=null;
+async function generate(){
+  var err=document.getElementById('err'); err.textContent='';
+  var K={
+    recipient: val('recipient'),
+    from:      val('from'),
+    message:   val('message'),
+    title:     val('title')||'A keepsake for you',
+    sub:       val('sub')||'A life in photos & song',
+    songUrl:   val('songUrl'),
+    colour:    val('colour')||'#C2A058',
+    intro:     parseFloat(val('intro'))||9,
+    outro:     parseFloat(val('outro'))||7,
+    photos:    PHOTOS.slice(),
+    years:     val('years').split(',').map(function(s){return s.trim();}).filter(Boolean),
+    lyrics:    val('lyrics').split('\n').map(function(s){return s.trim();}).filter(Boolean)
+  };
+  if(!K.songUrl){ err.textContent='Add the song URL.'; return; }
+  if(!PHOTOS.length){ err.textContent='Add at least one photo.'; return; }
+  if(!K.lyrics.length){ err.textContent='Paste the lyrics (one line per line).'; return; }
+  try{
+    var tpl=await fetch('keepsake.html?t='+Date.now()).then(function(r){return r.text();});
+    var filled=tpl.replace(/window\.KEEPSAKE\s*=\s*\{[\s\S]*?\n\};/, 'window.KEEPSAKE = '+JSON.stringify(K,null,2)+';');
+    if(filled.indexOf(JSON.stringify(K.recipient))===-1){ err.textContent='Could not inject the config into the template — tell the team.'; return; }
+    if(lastUrl) URL.revokeObjectURL(lastUrl);
+    lastUrl=URL.createObjectURL(new Blob([filled],{type:'text/html'}));
+    document.getElementById('previewBtn').href=lastUrl;
+    var name=(K.recipient||'keepsake').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'-keepsake.html';
+    document.getElementById('downloadBtn').onclick=function(){ var a=document.createElement('a'); a.href=lastUrl; a.download=name; a.click(); };
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth'});
+  }catch(e){ err.textContent='Error building keepsake: '+e; }
+}
+</script>
+</body>
+</html>
