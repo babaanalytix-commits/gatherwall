@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Guest Walls for Weddings, Parties &amp; Events · GatherWall</title>
+<meta name="description" content="A live wall of photos and messages your guests fill from their phones — up on the big screen, and yours to keep forever. For weddings, parties, memorials, and the DJs and planners who run them.">
+<link rel="canonical" href="https://gatherwall.com/live.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2E7D5B;--brand-d:#1C4D3A;--gold:#C2A058;--gold-l:#E7CE86;--ink:#20271F;--muted:#5C6B5E;--line:#E6E2D4;--cream:#F6F4EC;--soft:#FBFAF4;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ui);color:var(--ink);background:var(--cream);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  /* header */
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(28,77,58,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+  header.nav .row{max-width:1080px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-family:var(--serif);font-weight:600;font-size:21px}
+  .logo span.dot{width:26px;height:24px;display:inline-block;background:url('favicon.svg') center/contain no-repeat}
+  .nav-gift{color:rgba(255,255,255,.9);text-decoration:none;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:8px 16px}
+  .nav-gift:hover{background:rgba(255,255,255,.1)}
+  /* hero */
+  .hero{background:radial-gradient(1100px 620px at 82% -10%,rgba(194,160,88,.22),transparent 60%),radial-gradient(900px 560px at 4% 6%,rgba(52,168,119,.18),transparent 55%),linear-gradient(180deg,#1C4D3A,#153b2d);color:#fff;text-align:center;padding:82px 22px 92px}
+  .kick{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--gold-l)}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,6.4vw,68px);line-height:1.04;letter-spacing:-.015em;margin:18px auto 16px;max-width:16ch}
+  .hero p.sub{font-size:clamp(16px,2.4vw,20px);color:rgba(255,255,255,.86);max-width:56ch;margin:0 auto 34px;line-height:1.6}
+  .cta{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:17.5px;color:#20271F;background:linear-gradient(120deg,var(--gold-l),var(--gold));border:none;border-radius:999px;padding:17px 36px;text-decoration:none;box-shadow:0 22px 50px -18px rgba(0,0,0,.55)}
+  .cta:hover{filter:brightness(1.04)}
+  .reassure{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.72)}
+  /* section */
+  section{padding:74px 0}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold);text-align:center}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4.4vw,44px);line-height:1.1;letter-spacing:-.01em;text-align:center;color:var(--ink);margin:10px auto 8px;max-width:20ch}
+  .lead{text-align:center;color:var(--muted);font-size:17px;max-width:60ch;margin:0 auto 44px}
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;text-align:center}
+  .step .n{width:56px;height:56px;border-radius:50%;background:var(--brand-d);color:var(--gold-l);font-family:var(--serif);font-weight:600;font-size:26px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .step h3{font-family:var(--serif);font-weight:600;font-size:21px;margin-bottom:7px}
+  .step p{color:var(--muted);font-size:15px;line-height:1.5}
+  /* products */
+  .prods{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 28px;display:flex;flex-direction:column}
+  .card.feat{grid-column:1 / -1;background:linear-gradient(160deg,#fff,#FBF7EC);border-color:#E7DCC0}
+  .card .tag{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:9px}
+  .card h3{font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15.5px;line-height:1.55;margin-bottom:18px;flex:1}
+  .card .price{font-weight:700;color:var(--ink);font-size:15px;margin-bottom:16px}
+  .btn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#fff;background:var(--brand);border-radius:999px;padding:12px 24px;text-decoration:none}
+  .btn:hover{background:var(--brand-d)}
+  .btn.gold{color:#3a2f12;background:linear-gradient(120deg,var(--gold-l),var(--gold))}
+  .btn.ghost{color:var(--brand-d);background:#fff;border:1.5px solid var(--brand)}
+  /* pro band */
+  .band{background:var(--brand-d);color:#fff;border-radius:26px;padding:48px 44px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .band h3{font-family:var(--serif);font-weight:600;font-size:30px;margin-bottom:8px}
+  .band p{color:rgba(255,255,255,.82);font-size:16px;max-width:48ch}
+  /* footer */
+  footer{background:#14201A;color:#A9B8AE;text-align:center;padding:52px 22px 46px}
+  footer a{color:#E7CE86;text-decoration:none}
+  footer .big{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:6px}
+  footer .links{margin-top:20px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;font-size:14px}
+  footer .links a{color:#cdd6cd}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}.prods{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="row">
+    <a class="logo" href="live.html"><span class="dot"></span>GatherWall <span style="font-weight:400;font-size:14px;opacity:.7;font-family:var(--ui);margin-left:2px">Live</span></a>
+    <a class="nav-gift" href="index.html">🎁 Looking for a gift? →</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="kick">Live guest walls for any event</div>
+  <h1>Your event, live on the wall.</h1>
+  <p class="sub">A wall of photos and messages your guests fill from their phones — up on the big screen as it happens, and yours to keep forever. No app to download.</p>
+  <a class="cta" href="index.html#live">Create your live wall →</a>
+  <div class="reassure">$10 per event · guests just scan a code · works on any phone</div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>Set up in minutes. Guests do the rest.</h2>
+    <p class="lead">No app, no accounts for your guests — they scan a code and post. You get a living wall that plays on the screen and stays yours after the last dance.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Create your wall</h3><p>Name your event and get a shareable link and QR code — ready in about a minute.</p></div>
+      <div class="step"><div class="n">2</div><h3>Guests scan &amp; post</h3><p>From their phones, guests add photos and messages. They appear on the wall in real time.</p></div>
+      <div class="step"><div class="n">3</div><h3>Play it &amp; keep it</h3><p>Show it live on the big screen during the event — then download a copy to keep forever.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow">Choose your wall</div>
+    <h2>One wall for the moment. Options for every occasion.</h2>
+    <p class="lead">Start with a single event, or pick the format that fits your day.</p>
+    <div class="prods">
+      <div class="card feat">
+        <div class="tag">Most popular</div>
+        <h3>Live Tribute Wall — single event</h3>
+        <p>The full live experience for one occasion: guests post photos and messages from their phones, everything shows on the big screen in real time, and you download it all afterwards. Perfect for weddings, birthdays, retirements and celebrations of life.</p>
+        <div class="price">$10 · one event · unlimited guests</div>
+        <a class="btn gold" href="index.html#live">Create your wall →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Fill over time</div>
+        <h3>Memory Wall</h3>
+        <p>Invite loved ones to add photos and notes quietly over the weeks before — then reveal the whole wall on the big day. A beautiful surprise for milestone birthdays and anniversaries.</p>
+        <div class="price">$10 · builds before the day</div>
+        <a class="btn ghost" href="index.html#memorywall">See the Memory Wall →</a>
+      </div>
+      <div class="card">
+        <div class="tag">For weddings</div>
+        <h3>Digital Guestbook</h3>
+        <p>The modern guestbook: instead of a few scribbled lines, your guests leave photos, videos and heartfelt messages you'll actually revisit for years.</p>
+        <div class="price">Wedding-ready</div>
+        <a class="btn ghost" href="digital-guestbook.html">Explore the guestbook →</a>
+      </div>
+      <div class="card">
+        <div class="tag">For weddings</div>
+        <h3>Wedding Wall</h3>
+        <p>A live wall built for the big day — your photographer isn't everywhere, but your guests are. Capture every candid moment from every table.</p>
+        <div class="price">Wedding-ready</div>
+        <a class="btn ghost" href="wedding-wall.html">See the Wedding Wall →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h3>For DJs, MCs, planners &amp; venues</h3>
+        <p>Run lots of events? Put your own brand on the wall and offer it to every client. Host and Pro plans give you unlimited events and white-label options — a new line you can resell.</p>
+      </div>
+      <a class="btn gold" href="index.html#promonthly" style="white-space:nowrap">See Host &amp; Pro plans →</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Loved by hosts</div>
+    <h2>The wall everyone gathers around.</h2>
+    <p class="lead">Real events, real reactions — see what guests and hosts have said.</p>
+    <a class="btn ghost" href="wall-of-love.html" style="align-self:center">💛 Read the Wall of Love →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="big serif" style="font-family:var(--serif)">Two ways to hold onto a moment.</div>
+  <div style="max-width:52ch;margin:0 auto;font-size:15px;line-height:1.6">You're on the <b style="color:#fff">Live Walls</b> side — for events and the people who run them. Looking for a keepsake gift for someone you love instead?</div>
+  <div class="links">
+    <a href="index.html">🎁 Keepsake songs &amp; gifts</a>
+    <a href="index.html#live">Create a live wall</a>
+    <a href="digital-guestbook.html">Digital guestbook</a>
+    <a href="wedding-wall.html">Wedding wall</a>
+    <a href="index.html#promonthly">Host &amp; Pro plans</a>
+  </div>
+  <div style="margin-top:26px;font-size:12.5px;color:#7f8c82">© GatherWall · <a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a></div>
+</footer>
+
+</body>
+</html>
