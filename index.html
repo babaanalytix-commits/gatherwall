@@ -1746,6 +1746,7 @@ function route(){
   if(path==='memorywall'){startFamilyWall();return;}
   if(path==='memorial'){applyVibe('memorial');go('memorial');initMemorialBuilder(draft);return;}
   if(path==='family'){applyVibe('brand');return go('family');}
+  if(path==='promonthly'){applyVibe('brand');return go('promonthly');}
   // GatherWall Live in-page anchors (#how, #formats, #pricing, etc.): show Live home + scroll
   const liveAnchors=['how','formats','pricing','vibes','founder'];
   if(liveAnchors.includes(path)){applyVibe('brand');go('home');const el=document.getElementById(path);if(el)el.scrollIntoView({behavior:'smooth'});return;}
