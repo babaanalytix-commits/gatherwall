@@ -133,6 +133,19 @@
     </div>
   </header>
 
+  <!-- SEE THE PRODUCT BEFORE BEING ASKED FOR ANYTHING -->
+  <div class="filmblock" style="margin:0 auto 26px;max-width:520px;text-align:center">
+    <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#B8912F;margin-bottom:10px">See a real one first</div>
+    <h2 style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:clamp(22px,4vw,30px);line-height:1.15;margin:0 0 8px;color:#20271F">This is what they actually receive</h2>
+    <p style="color:#5C6B5E;font-size:15.5px;line-height:1.55;margin:0 auto 16px;max-width:44ch">Their story and their photos, moving in time with a song written only for them. 33 seconds — turn the sound on.</p>
+    <div style="position:relative;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 24px 60px -22px rgba(0,0,0,.55);border:1px solid #E6E2D4">
+      <video id="samplefilm" src="sample-storyfilm.mp4" poster="sample-storyfilm-poster.jpg"
+             controls playsinline preload="none"
+             style="display:block;width:100%;height:auto;max-height:70vh;background:#000"></video>
+    </div>
+    <p style="color:#5C6B5E;font-size:13.5px;margin:12px 0 0">👆 A real keepsake film. Yours is made from <em>your</em> story — start free below.</p>
+  </div>
+
   <div class="card" id="form">
     <p class="lead" data-i="lead">The more you share, the more personal the song. Nothing here is shown publicly.</p>
 
@@ -183,7 +196,7 @@
     <div class="pcount" id="pcount" style="display:none"></div>
 
     <button class="btn" id="go" data-i="btn">✨ Preview my lyrics — free</button>
-    <p class="note" data-i="note">No payment, no sign-up. Takes a few seconds.</p>
+    <p class="note" data-i="note">Free — no card needed. Takes a few seconds.</p>
     <div class="err" id="err"></div>
   </div>
 
@@ -192,10 +205,28 @@
       <div class="out-eyebrow" data-i="out_title">Your draft lyrics</div>
       <div class="lyrics" id="lyrics"></div>
       <a class="cta" id="buy" href="checkout.html?p=animated-keepsake-story" data-i="cta">Love it? Create your keepsake song — $39 ▸</a>
+
+      <!-- risk reversal: costs nothing at this margin, stands in for reviews we don't have yet -->
+      <div style="margin:14px auto 4px;max-width:46ch;text-align:center;background:#F3F8F5;border:1px solid #DCEAE2;border-radius:12px;padding:12px 14px">
+        <div style="font-weight:700;color:#1C4D3A;font-size:14.5px;margin-bottom:3px">💛 Love it, or your money back</div>
+        <div style="color:#5C6B5E;font-size:13.5px;line-height:1.5">If the song doesn't move you, tell us and we'll refund you in full. No forms, no argument.</div>
+      </div>
+
       <div class="trust">
         <span data-i="t1">🔒 Private &amp; secure</span>
         <span data-i="t2">🎧 Hear 2 versions</span>
         <span data-i="t3">💛 Kept forever</span>
+      </div>
+
+      <!-- capture the lead: most people won't buy on the spot -->
+      <div style="margin:22px auto 4px;max-width:46ch;text-align:center;border-top:1px solid #E6E2D4;padding-top:20px">
+        <div style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:19px;color:#20271F;margin-bottom:4px">Not ready today?</div>
+        <p style="color:#5C6B5E;font-size:14.5px;line-height:1.55;margin:0 0 12px">Don't lose these lyrics. Pop your email in and we'll send them to you, along with a private sample film — so you can come back when the moment's right.</p>
+        <div class="eo-capture" id="eoPreviewMount"></div>
+        <script>
+        /* Lazy-load the EmailOctopus embed (same pattern as the homepage) so its reCAPTCHA/widget JS never blocks first interaction. */
+        (function(){var mounted=false;function mountEO(){if(mounted)return;mounted=true;var s=document.createElement('script');s.async=true;s.src='https://eocampaign1.com/form/be865e30-7834-11f1-943a-c100c25f29fa.js';s.setAttribute('data-form','be865e30-7834-11f1-943a-c100c25f29fa');(document.getElementById('eoPreviewMount')||document.body).appendChild(s);}var m=document.getElementById('eoPreviewMount');if('IntersectionObserver' in window&&m){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){mountEO();io.disconnect();}});},{rootMargin:'400px'});io.observe(m);}else{(window.requestIdleCallback||function(f){setTimeout(f,1500);})(mountEO);}})();
+        </script>
       </div>
       <button class="again" id="again" data-i="again">↻ Tweak the details &amp; try again</button>
       <p class="note" data-i="cta_note">+ VAT where applicable. You'll get the finished song plus an animated story page with your photos.</p>
@@ -230,7 +261,7 @@ const I18N = {
     l_line:"A line you'd love included", ph_line:"e.g. Thank you, Mum",
     l_photos:"Photos for the keepsake ", l_photos_opt:"(optional, up to 8)",
     drop_t:"Add your photos", drop_h:"Tap to choose, or drag them here",
-    btn:"✨ Preview my lyrics — free", note:"No payment, no sign-up. Takes a few seconds.",
+    btn:"✨ Preview my lyrics — free", note:"Free — no card needed. Takes a few seconds.",
     out_title:"Your draft lyrics", cta:"Love it? Create your keepsake song — $39 ▸",
     again:"↻ Tweak the details & try again",
     cta_note:"+ VAT where applicable. You'll get the finished song plus an animated story page with your photos.",
