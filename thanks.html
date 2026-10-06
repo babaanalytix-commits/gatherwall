@@ -131,9 +131,11 @@ async function init(){
   try{ const r=await fetch(DB+'/events/'+id+'.json'); ev=await r.json(); }catch(e){}
   if(!ev || !ev.name){ fallback(); return; }
   const name=ev.name;
-  // Publish / reveal now (idempotent) so the paid wall goes live even if the webhook missed it.
-  if(!ev.published){
-    try{ await fetch(DB+'/events/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({published:true,paidAt:Date.now()})}); }catch(e){}
+  // Publishing is done server-side by the Stripe webhook (stripe-webhook-worker.js) once payment
+  // is confirmed. Give it a few seconds to land; the links below work either way.
+  for(let i=0;i<6 && !ev.published;i++){
+    await new Promise(r=>setTimeout(r,1500));
+    try{ const r2=await fetch(DB+'/events/'+id+'.json'); const e2=await r2.json(); if(e2) ev=e2; }catch(e){}
   }
   try{ localStorage.removeItem('gw_reveal_ev'); }catch(e){}
 
