@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Their Story — GatherWall</title>
+<meta name="description" content="The story form behind every GatherWall keepsake. Tell us about them, and we'll turn it into a song and a film.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--brand:#2E7D5B;--brand-deep:#1C4D3A;--gold:#C2A058;--gold-deep:#9A7D33;--gold-soft:#F4EEDF;
+--bg:#F7F5EE;--bg-2:#F1EEE3;--card:#fff;--ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--rose:#B4544A;--rose-soft:#FBEDEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:90px;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.15;letter-spacing:-.02em;}
+a{color:var(--brand);}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(247,245,238,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:19px;display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;}
+.logo .dot{width:23px;height:21px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;}
+.saved{font-size:12px;color:var(--muted);}
+
+header.hero{padding:46px 20px 30px;text-align:center;max-width:640px;margin:0 auto;}
+.eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:rgba(46,125,91,.1);padding:5px 13px;border-radius:999px;margin-bottom:18px;}
+header.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);font-weight:600;margin-bottom:14px;}
+header.hero p{color:var(--muted);font-size:1.03rem;}
+
+.note{background:var(--gold-soft);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:26px 0;font-size:.95rem;color:var(--ink);}
+.note strong{font-family:'Fraunces',Georgia,serif;}
+
+.sec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin-bottom:20px;}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:6px;}
+.sec-num{font-family:'Fraunces',Georgia,serif;font-size:.85rem;font-weight:600;color:#fff;background:var(--brand);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:center;}
+.sec h2{font-size:1.22rem;}
+.sec > p.sub{color:var(--muted);font-size:.93rem;margin-bottom:20px;}
+.sec.care{border:1.5px solid var(--rose);background:var(--rose-soft);}
+.sec.care .sec-num{background:var(--rose);}
+
+label{display:block;font-weight:600;font-size:.93rem;margin:16px 0 5px;}
+label .opt{font-weight:400;color:var(--muted);font-size:.85rem;}
+.hint{font-size:.85rem;color:var(--muted);margin:-2px 0 7px;}
+input[type=text],input[type=date],textarea{width:100%;font-family:inherit;font-size:.97rem;color:var(--ink);background:#FDFCF8;border:1px solid var(--line);border-radius:10px;padding:11px 13px;transition:border-color .15s,box-shadow .15s;}
+input:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,125,91,.12);}
+textarea{min-height:92px;resize:vertical;line-height:1.6;}
+textarea.tall{min-height:132px;}
+.care input,.care textarea{background:#fff;border-color:#E8CFCB;}
+.care input:focus,.care textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(180,84,74,.12);}
+
+.bar{position:fixed;bottom:0;left:0;right:0;background:rgba(247,245,238,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 20px;z-index:45;}
+.bar-in{max-width:720px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.prog{flex:1;min-width:120px;height:7px;background:var(--line);border-radius:999px;overflow:hidden;}
+.prog i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s;}
+.prog-t{font-size:12px;color:var(--muted);white-space:nowrap;}
+button{font-family:inherit;font-weight:600;font-size:.93rem;border:none;cursor:pointer;border-radius:999px;padding:12px 20px;transition:background .18s,transform .12s;}
+.b-primary{background:var(--brand);color:#fff;}
+.b-primary:hover{background:var(--brand-deep);transform:translateY(-1px);}
+.b-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand);}
+.b-ghost:hover{background:var(--brand);color:#fff;}
+
+.done{display:none;background:var(--card);border:2px solid var(--brand);border-radius:18px;padding:28px 24px;margin-bottom:20px;}
+.done h2{font-size:1.3rem;margin-bottom:10px;}
+.done textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;margin-top:14px;}
+
+.about{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin:34px 0 10px;}
+.about h3{font-size:1.1rem;margin-bottom:6px;}
+.about p{font-size:.93rem;color:var(--muted);margin-bottom:14px;}
+.lad{list-style:none;font-size:.9rem;}
+.lad li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);}
+.lad li:last-child{border-bottom:none;}
+.lad .p{color:var(--brand);font-weight:600;white-space:nowrap;}
+.about .fine{font-size:.84rem;color:var(--muted);margin-top:14px;margin-bottom:0;}
+footer{text-align:center;padding:30px 20px 10px;font-size:13px;color:var(--muted);}
+@media(max-width:560px){ .bar-in button{flex:1;} .prog{order:-1;flex-basis:100%;} }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
+  <span class="saved" id="saved">Saves as you type</span>
+</div></nav>
+
+<header class="hero">
+  <span class="eyebrow">The story form</span>
+  <h1>Tell us about <span id="who">them</span></h1>
+  <p>This is where the song comes from. There are no wrong answers, and you don't need to write
+     neatly — half-sentences are perfect. The more ordinary the detail, the better it usually sounds.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="note">
+    <strong>Three things worth knowing.</strong><br>
+    You can stop and come back — everything saves on this device automatically.
+    Skip anything you'd rather not answer; nothing here is required.
+    And <strong>section 7 matters most</strong> — it's where you tell us what to leave out.
+  </div>
+
+  <!-- 1 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><h2>The basics</h2></div>
+    <p class="sub">Names and dates, so we spell and pronounce everything correctly.</p>
+    <label>Their full name</label>
+    <input type="text" data-q="Full name">
+    <label>What do people actually call them? <span class="opt">nickname, title, what the grandchildren say</span></label>
+    <input type="text" data-q="What people call them">
+    <label>The occasion <span class="opt">e.g. 70th birthday</span></label>
+    <input type="text" data-q="Occasion">
+    <label>Date of the celebration</label>
+    <input type="date" data-q="Date of celebration">
+    <label>Where is it being held? <span class="opt">optional</span></label>
+    <input type="text" data-q="Venue">
+    <label>Who is organising it? <span class="opt">your name</span></label>
+    <input type="text" data-q="Organiser">
+    <label>Best email or number for you</label>
+    <p class="hint">So we can send you your private link for approving guests' messages, and
+       check anything we're unsure about.</p>
+    <input type="text" data-q="Organiser contact">
+    <label>Is it a surprise?</label>
+    <input type="text" data-q="Surprise?" placeholder="Yes — he knows nothing / No, he knows">
+  </div>
+
+  <!-- 2 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><h2>The people around them</h2></div>
+    <p class="sub">Names are the single most powerful thing in a keepsake song. Hearing your own
+       name sung is what makes people cry. Please give us as many as you can — and tell us how
+       each one is pronounced if it isn't obvious.</p>
+    <label>Partner or spouse — name, and how they met</label>
+    <textarea data-q="Partner / how they met" placeholder="Where, when, who spoke first, what he says about it now..."></textarea>
+    <label>Children — names, in order</label>
+    <textarea data-q="Children" placeholder="Name, roughly what they do or what they're like. One line each is plenty."></textarea>
+    <label>Grandchildren — names <span class="opt">optional</span></label>
+    <textarea data-q="Grandchildren"></textarea>
+    <label>Brothers, sisters, and anyone who counts as family</label>
+    <textarea data-q="Siblings / chosen family"></textarea>
+    <label>Closest friends who'll be in the room</label>
+    <textarea data-q="Close friends"></textarea>
+  </div>
+
+  <!-- 3 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Where they come from</h2></div>
+    <p class="sub">The history. Parents, home, the road that got them here.</p>
+    <label>Where were they born, and where did they grow up?</label>
+    <textarea data-q="Born / grew up"></textarea>
+    <label>Their parents — names, and what they were like</label>
+    <p class="hint">If either has passed away, say so here and tell us in section 7 how you'd like them honoured.</p>
+    <textarea data-q="Parents" class="tall"></textarea>
+    <label>What did the family do? What was life like then?</label>
+    <textarea data-q="Family background"></textarea>
+    <label>School, training, work — the path they took</label>
+    <textarea data-q="Education and work"></textarea>
+    <label>Places they've lived, or moved between</label>
+    <textarea data-q="Places lived"></textarea>
+    <label>Faith, church or community life <span class="opt">optional, but often the heart of it</span></label>
+    <textarea data-q="Faith / community"></textarea>
+  </div>
+
+  <!-- 4 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Who they actually are</h2></div>
+    <p class="sub">This is the section that stops the song sounding like anyone else's.</p>
+    <label>Three words the family would use about them</label>
+    <input type="text" data-q="Three words">
+    <label>Something they always say <span class="opt">a phrase, a piece of advice, a telling-off</span></label>
+    <textarea data-q="Catchphrase / sayings"></textarea>
+    <label>What makes everyone laugh about them?</label>
+    <textarea data-q="What makes everyone laugh" placeholder="The habit, the quirk, the thing they'd deny."></textarea>
+    <label>What are they proudest of?</label>
+    <textarea data-q="Proudest of"></textarea>
+    <label>What would they never boast about — but should?</label>
+    <textarea data-q="Quiet achievement"></textarea>
+    <label>Food, music, teams, hobbies, the things they love</label>
+    <textarea data-q="Loves"></textarea>
+  </div>
+
+  <!-- 5 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><h2>The moments</h2></div>
+    <p class="sub">Two or three real stories beat a page of adjectives. Small ones are best.</p>
+    <label>A memory that sums them up</label>
+    <textarea data-q="Defining memory" class="tall"></textarea>
+    <label>A funny story the room would recognise</label>
+    <textarea data-q="Funny story" class="tall"></textarea>
+    <label>Something hard they came through</label>
+    <p class="hint">Only if it's theirs to tell and they'd be happy for it to be mentioned. We'll handle it gently, or leave it out — your call in section 7.</p>
+    <textarea data-q="Something they overcame"></textarea>
+    <label>If they heard one thing said about them tonight, what should it be?</label>
+    <textarea data-q="The one thing to say"></textarea>
+  </div>
+
+  <!-- 6 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><h2>The music</h2></div>
+    <p class="sub">We write the song to suit them, not the charts.</p>
+    <label>Music they love — artists, genres, an era</label>
+    <textarea data-q="Music they love"></textarea>
+    <label>A song that already means something to them <span class="opt">optional</span></label>
+    <input type="text" data-q="Meaningful song">
+    <label>What should their song feel like?</label>
+    <input type="text" data-q="Mood" placeholder="Warm and gentle / upbeat and funny / soulful / gospel / something to dance to">
+    <label>Language — and any words or phrases in another language we should include</label>
+    <textarea data-q="Language" placeholder="English throughout, but his mother always called him..."></textarea>
+  </div>
+
+  <!-- 7 -->
+  <div class="sec care">
+    <div class="sec-head"><span class="sec-num">7</span><h2>What to leave out</h2></div>
+    <p class="sub">The most important section on this page. We would far rather know now than get
+       it wrong in front of a room full of people. Nothing you write here is ever shown to anyone.</p>
+    <label>Anyone who has passed away — and how you'd like them remembered</label>
+    <p class="hint">Named gently, mentioned without naming, or not at all. Tell us which.</p>
+    <textarea data-q="⚠️ Remembering those who have passed" class="tall"></textarea>
+    <label>Anyone who should <em>not</em> be mentioned</label>
+    <p class="hint">Estrangements, divorces, difficult history. No explanation needed — a name is enough.</p>
+    <textarea data-q="⚠️ Do NOT mention these people"></textarea>
+    <label>Subjects to avoid completely</label>
+    <p class="hint">Health, money, work, a particular period of life, an old nickname they've outgrown.</p>
+    <textarea data-q="⚠️ Subjects to avoid" class="tall"></textarea>
+    <label>Anything that would embarrass or upset them</label>
+    <textarea data-q="⚠️ Would upset or embarrass"></textarea>
+    <label>Is there anything you're unsure about? <span class="opt">we'll ask before using it</span></label>
+    <textarea data-q="⚠️ Unsure about"></textarea>
+  </div>
+
+  <!-- 8 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Photos &amp; the day itself</h2></div>
+    <p class="sub">So the film is cut to the room it's playing in.</p>
+    <div style="background:#fbf6ec;border:1px solid #ecdcb8;border-radius:12px;padding:12px 14px;margin:6px 0 14px;font-size:.92rem;line-height:1.5;">
+      <b>📷 How to send photos:</b> reply to whoever sent you this form (WhatsApp is fine — choose
+      <i>Document</i> so they stay sharp), or email them to <b>hello@gatherwall.com</b>. For lots of
+      photos, a Google Drive / iCloud / WeTransfer link is perfect. Old prints? A phone photo of the
+      print in daylight works well.
+    </div>
+    <label>Roughly how many photos can you gather?</label>
+    <input type="text" data-q="Photo count" placeholder="30–60 is ideal — old ones especially">
+    <label>Any video clips? <span class="opt">optional</span></label>
+    <textarea data-q="Video clips"></textarea>
+    <label>When in the evening will it be played?</label>
+    <input type="text" data-q="When it plays" placeholder="After the meal, instead of the speeches...">
+    <label>What will it play on? <span class="opt">screen, projector, TV — and is there decent sound?</span></label>
+    <textarea data-q="Screen and sound"></textarea>
+    <label>Who's our contact on the day, if something needs fixing?</label>
+    <input type="text" data-q="Contact on the day">
+    <label>Anything else we should know?</label>
+    <textarea data-q="Anything else" class="tall"></textarea>
+  </div>
+
+  <!-- send -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">9</span><h2>Send it over</h2></div>
+    <p class="sub">Press the button and your answers are copied, ready to paste into WhatsApp or
+       email. Nothing is uploaded from this page — it stays on your device until you send it.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="b-primary" onclick="finish()">📋 Copy my answers</button>
+      <button class="b-ghost" onclick="finish(true)">✉️ Open in email</button>
+    </div>
+  </div>
+
+  <div class="done" id="done">
+    <h2>That's everything we need 💛</h2>
+    <p style="color:var(--muted);font-size:.95rem;">Copied. Paste it wherever you like — and if you
+       remember something next week, come back, add it, and send again. Later is fine.</p>
+    <textarea id="out" readonly></textarea>
+  </div>
+
+  <!-- quiet value panel -->
+  <div class="about">
+    <h3>What happens next</h3>
+    <p>We read everything, write the words, and send them to you <em>before</em> anything is
+       produced — so you see every line first and can change it. Then the song is made and the
+       film is cut to it. If someone asks you what this is, here's the honest version:</p>
+    <ul class="lad">
+      <li><span>A memory wall — everyone adds photos and messages</span><span class="p">$10</span></li>
+      <li><span>A keepsake song written for one person</span><span class="p">$39</span></li>
+      <li><span>A story film — song plus their photos</span><span class="p">$149</span></li>
+      <li><span>The full keepsake — several songs, the film, a private page</span><span class="p">$349+</span></li>
+    </ul>
+    <p class="fine">Every one of them starts the same way: this form, and a set of photos. You read
+      the words free before you decide. <a href="index.html">gatherwall.com</a></p>
+  </div>
+
+  <footer>Made with care by GatherWall · <a href="index.html">gatherwall.com</a></footer>
+</div>
+
+<div class="bar"><div class="bar-in">
+  <div class="prog"><i id="pbar"></i></div>
+  <span class="prog-t" id="ptxt">0 of 0 answered</span>
+  <button class="b-primary" onclick="finish()">📋 Copy answers</button>
+</div></div>
+
+<script>
+/* Reusable intake form.
+   Personalise with ?for=Sam  — e.g. story-form.html?for=Sam
+   Answers never leave the device until the user copies or emails them. */
+var KEY='gw_storyform_'+(location.search||'default');
+var fields=[].slice.call(document.querySelectorAll('[data-q]'));
+
+(function personalise(){
+  try{
+    var who=new URLSearchParams(location.search).get('for');
+    if(who){
+      document.getElementById('who').textContent=who;
+      document.title=who+' — Their Story — GatherWall';
+    }
+  }catch(e){}
+})();
+
+function save(){
+  var d={}; fields.forEach(function(f,i){ if(f.value.trim()) d[i]=f.value; });
+  try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){}
+  var n=Object.keys(d).length, t=fields.length;
+  document.getElementById('pbar').style.width=Math.round(n/t*100)+'%';
+  document.getElementById('ptxt').textContent=n+' of '+t+' answered';
+  var s=document.getElementById('saved');
+  s.textContent='Saved ✓'; clearTimeout(window._st);
+  window._st=setTimeout(function(){ s.textContent='Saves as you type'; },1400);
+}
+
+function restore(){
+  try{
+    var d=JSON.parse(localStorage.getItem(KEY)||'{}');
+    fields.forEach(function(f,i){ if(d[i]!==undefined) f.value=d[i]; });
+  }catch(e){}
+  save();
+}
+
+fields.forEach(function(f){ f.addEventListener('input', save); });
+
+function compile(){
+  var who=document.getElementById('who').textContent;
+  var out=['THEIR STORY — '+who,'(sent from the GatherWall story form)',''];
+  var secs=[].slice.call(document.querySelectorAll('.sec'));
+  secs.forEach(function(sec){
+    var h=sec.querySelector('h2'); if(!h) return;
+    var qs=[].slice.call(sec.querySelectorAll('[data-q]')).filter(function(f){return f.value.trim();});
+    if(!qs.length) return;
+    out.push('');
+    out.push('— '+h.textContent.toUpperCase()+' —');
+    qs.forEach(function(f){ out.push(f.getAttribute('data-q')+': '+f.value.trim()); });
+  });
+  if(out.length<=3) out.push('(nothing filled in yet)');
+  return out.join('\n');
+}
+
+function finish(email){
+  var text=compile();
+  document.getElementById('out').value=text;
+  document.getElementById('done').style.display='block';
+  if(email){
+    var who=document.getElementById('who').textContent;
+    // Copy the FULL text first — mail apps cut long links, so we never rely on the link alone.
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).catch(function(){}); }catch(e){}
+    var body = text.length<=1800 ? text
+      : 'Your full answers are copied — please paste them here (Cmd+V / long-press → Paste), replacing this line.\n\n'+text.slice(0,1200)+'\n…';
+    document.querySelector('#done p').textContent=text.length<=1800
+      ? 'Your email app should open with everything filled in. If it doesn\'t, copy the text below and send it to hello@gatherwall.com.'
+      : 'Your answers are long, so they\'re copied in full — paste them into the email that just opened (or into WhatsApp). The full text is also below.';
+    location.href='mailto:hello@gatherwall.com?subject='+encodeURIComponent('Their Story — '+who)
+      +'&body='+encodeURIComponent(body);
+    return;
+  }
+  var ta=document.getElementById('out');
+  ta.select();
+  var ok=false;
+  try{ ok=document.execCommand('copy'); }catch(e){}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(function(){});
+    ok=true;
+  }
+  document.getElementById('done').scrollIntoView({behavior:'smooth',block:'center'});
+  if(!ok) document.querySelector('#done p').textContent=
+    'Select the text below, copy it, and paste it wherever you like.';
+}
+
+restore();
+</script>
+</body></html>

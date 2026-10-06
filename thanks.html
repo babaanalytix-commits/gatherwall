@@ -81,10 +81,47 @@ function emailAll(name, links){
 }
 window.emailAll=emailAll;
 
+// What did they just buy? ?p=SLUG wins, else what checkout.html remembered (within 6h).
+function lastSlug(){
+  const q=P.get('p')||P.get('slug'); if(q) return q.trim();
+  try{
+    const s=localStorage.getItem('gw_last_slug'), at=+localStorage.getItem('gw_last_at')||0;
+    if(s && Date.now()-at < 6*3600*1000) return s;
+  }catch(e){}
+  return '';
+}
+const SLUG=lastSlug();
+const STORY_TIERS={'story-film':'Story Film','wedding-keepsake':'Wedding Keepsake','wedding-keepsake-signature':'Wedding Keepsake — Signature'};
+const SONG_TIERS={'animated-keepsake-story':1,'song-of-your-night':1};
+
 async function init(){
   const area=document.getElementById('area');
+  // Made-for-you tiers ($149 / $349 / $649) → next step is the story form.
+  if(STORY_TIERS[SLUG]){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('h1').textContent='Thank you — let\u2019s make it 💛';
+    document.getElementById('sub').textContent='Your '+STORY_TIERS[SLUG]+' is booked. The next step is the part that makes it yours: tell us their story.';
+    const form=base+'story-form.html';
+    area.innerHTML=linkCard('Step 1 · Tell us their story',
+      'A guided form — names, how you met, the moments that matter, and anything to leave out. It saves as you type, so do it in a few sittings. When you finish, send it to us and we start writing.',
+      form,'📝 Start the story form ▸',form)+
+      '<div class="keepsafe">📷 Start gathering <b>30–60 photos</b> (older ones especially). The form explains how to send them. '+
+      'Questions? <a href="mailto:hello@gatherwall.com" style="color:var(--gold-deep);font-weight:700;">hello@gatherwall.com</a> — a real person replies.</div>';
+    try{ localStorage.removeItem('gw_last_slug'); }catch(e){}
+    return;
+  }
+  // Keepsake song bought without ?order in the URL (Polar) → still route to create-song if we know the order.
+  if(SONG_TIERS[SLUG] && !P.get('ev')){
+    let ord=''; try{ ord=localStorage.getItem('gw_order')||''; }catch(e){}
+    if(ord){
+      document.getElementById('loading').style.display='none';
+      document.getElementById('sub').textContent='Your keepsake is ready to create.';
+      area.innerHTML=linkCard('Create your keepsake song','Open this on the same device you used to preview your lyrics.',base+'create-song.html','🎵 Create my song ▸',base+'create-song.html');
+      return;
+    }
+  }
   // Keepsake song order (no wall) → send them to build their song.
-  if(!P.get('ev') && (P.get('order')||P.get('url_params[order]'))){
+  if(SLUG!=='memorial-eulogy' && !P.get('ev') && (P.get('order')||P.get('url_params[order]'))){
     document.getElementById('sub').textContent='Your keepsake is ready to create.';
     area.innerHTML=linkCard('Create your keepsake song','Open this on the same device you used to preview your lyrics.',base+'create-song.html','🎵 Create my song ▸',base+'create-song.html');
     return;

@@ -57,11 +57,11 @@
   footer{border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   footer a{text-decoration:none;opacity:.85}
-  .gumroad-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:999px!important;
+  .pay-button{background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:999px!important;
     font-family:var(--ui)!important;font-weight:600!important;font-size:17px!important;padding:17px!important;
     display:block!important;width:100%!important;text-align:center!important;text-decoration:none!important;
     box-shadow:0 10px 24px -10px rgba(46,125,91,.7)!important;background-image:none!important;height:auto!important;line-height:1.2!important}
-  .gumroad-button img,.gumroad-button .logo{display:none!important}
+  .pay-button img,.pay-button .logo{display:none!important}
 </style>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
@@ -96,14 +96,14 @@
           <span class="per" id="oPer"></span>
           <span class="was" id="oWas" style="display:none"></span>
         </div>
-        <a class="pay gumroad-button" id="payBtn" href="#">Pay securely ▸</a>
+        <a class="pay pay-button" id="payBtn" href="#">Pay securely ▸</a>
         <div class="trust">
           <div><span class="i">🔒</span> <span id="t_tr1">Card, Apple Pay &amp; Google Pay</span></div>
           <div><span class="i">🌍</span> <span id="t_tr2">Shown in your local currency at checkout</span></div>
           <div><span class="i">✓</span> <span id="t_tr3">Instant confirmation by email</span></div>
         </div>
         <div class="vatnote" id="t_vat" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.55;background:rgba(194,160,88,.1);border:1px solid rgba(194,160,88,.3);border-radius:10px;padding:11px 13px;"></div>
-        <div class="powered" id="t_powered">Payments processed securely by Gumroad</div>
+        <div class="powered" id="t_powered">Secure payment · card, Apple Pay & Google Pay</div>
       </div>
     </aside>
   </div>
@@ -116,15 +116,38 @@
   </div>
 </div></footer>
 
-<script src="https://gumroad.com/js/gumroad.js"></script>
 <script>
-  var BASE='https://analytixbaba.gumroad.com/l/';
+  /* ==========================================================================
+     PAYMENT LINKS  —  PASTE YOUR POLAR CHECKOUT URLS HERE
+     --------------------------------------------------------------------------
+     1. Create each product in Polar (polar.sh).
+     2. Copy its "Checkout Link" and paste it against the matching slug below.
+     3. Leave a value as '' and that product shows a graceful fallback message
+        instead of a broken checkout. Nothing else needs editing.
+     ========================================================================== */
+  var PAY_LINKS = {
+    'live-tribute-wall':       'https://buy.polar.sh/polar_cl_f0GnKGY0XxOTr8qrWwGOgl7wwZ8zOcKq2kgaJ1pHrUR',   // Basic $10
+    'wall-pro':                'https://buy.polar.sh/polar_cl_mKXK1gzSvgpaR45fDT76Kc8XVkxtxm9Rwc3ZG225upP',   // Pro, 3 events, $25/mo
+    'memorial-eulogy':         'https://buy.polar.sh/polar_cl_MwP5dXs1xHAHT2CfEEFHgNUcUpzHl4ooJv1x21pZ3HM',   // $10 one-time
+    'memory-wall':             'https://buy.polar.sh/polar_cl_LIVyvuJ9rYkg4EKtWCQslwSwQnudCNt0EFsbE1DQXYV',   // $10 reveal (occasion-neutral)
+    'animated-keepsake-story': 'https://buy.polar.sh/polar_cl_CeuJHOEQdP0Nu57XyXQXnudb3UAMMg8SbTCol0ONPJH',   // $39 one-time
+    'song-of-your-night':      'https://buy.polar.sh/polar_cl_ZHqdRSCj7661cxoY1QqJHPgCfBy1NZfoH0RD92UjRMF',   // $39 one-time
+    'story-film':              'https://buy.polar.sh/polar_cl_WOXYkZexPhF8KjcQEe3TIHpMMjvf5pWLqWNI82oulp0',   // $149 one-time
+    'wedding-keepsake':        'https://buy.polar.sh/polar_cl_seHnBkhBDUdo03X02QTyDX1LmscbT4oxo8pJ14W4F2j',   // $349 one-time
+    'wedding-keepsake-signature':'https://buy.polar.sh/polar_cl_TRCHvxo5uu5gkioXjgA1MiQuYl0k6ueOOW7N420WCla' // $649 one-time
+  };
+  var SUPPORT_EMAIL = 'hello@gatherwall.com';
+
+  /* Polar passes custom data through as metadata. VERIFY this param format
+     against Polar's checkout-link docs before going live — if it differs,
+     this is the only function you need to change. */
+  function metaParam(key, value){ return 'metadata.' + key + '=' + encodeURIComponent(value); }
   var UI={
-    en:{secure:"Secure checkout",almost:"You're almost there",incl:"What's included",forLine:"GatherWall · secure one-step checkout",pay:"Pay securely ▸",tr1:"Card, Apple Pay & Google Pay",tr2:"Shown in your local currency at checkout",tr3:"Instant confirmation by email",vat:"Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.",powered:"Payments processed securely by Gumroad",priv:"Privacy",terms:"Terms",contact:"Contact"},
-    fr:{secure:"Paiement sécurisé",almost:"Vous y êtes presque",incl:"Ce qui est inclus",forLine:"GatherWall · paiement sécurisé en une étape",pay:"Payer en toute sécurité ▸",tr1:"Carte, Apple Pay & Google Pay",tr2:"Affiché dans votre devise locale au paiement",tr3:"Confirmation immédiate par e-mail",vat:"Les prix sont en USD et <strong>hors TVA</strong>. La TVA locale est ajoutée au paiement le cas échéant — par exemple, un article à 10 $ revient à environ <strong>12 $</strong> avec 20 % de TVA. Vous verrez toujours le total exact avant de payer.",powered:"Paiements traités en toute sécurité par Gumroad",priv:"Confidentialité",terms:"Conditions",contact:"Contact"},
-    es:{secure:"Pago seguro",almost:"Ya casi estás",incl:"Qué incluye",forLine:"GatherWall · pago seguro en un paso",pay:"Pagar de forma segura ▸",tr1:"Tarjeta, Apple Pay y Google Pay",tr2:"Se muestra en tu moneda local al pagar",tr3:"Confirmación inmediata por correo",vat:"Los precios están en USD y <strong>no incluyen IVA</strong>. El IVA local se añade al pagar cuando corresponde — por ejemplo, un artículo de 10 $ cuesta unos <strong>12 $</strong> con un 21 % de IVA. Siempre verás el total exacto antes de pagar.",powered:"Pagos procesados de forma segura por Gumroad",priv:"Privacidad",terms:"Términos",contact:"Contacto"},
-    cs:{secure:"Bezpečná platba",almost:"Už to skoro je",incl:"Co je v ceně",forLine:"GatherWall · bezpečná platba na jeden krok",pay:"Zaplatit bezpečně ▸",tr1:"Karta, Apple Pay a Google Pay",tr2:"Při platbě zobrazeno v místní měně",tr3:"Okamžité potvrzení e-mailem",vat:"Ceny jsou v USD a <strong>nezahrnují DPH</strong>. Místní DPH se přidává při platbě, kde se uplatňuje — například položka za 10 $ vyjde asi na <strong>12 $</strong> s 21% DPH. Před platbou vždy uvidíte přesnou částku.",powered:"Platby bezpečně zpracovává Gumroad",priv:"Soukromí",terms:"Podmínky",contact:"Kontakt"},
-    de:{secure:"Sicherer Checkout",almost:"Fast geschafft",incl:"Inbegriffen",forLine:"GatherWall · sicherer Checkout in einem Schritt",pay:"Sicher bezahlen ▸",tr1:"Karte, Apple Pay & Google Pay",tr2:"Beim Bezahlen in Ihrer lokalen Währung",tr3:"Sofortige Bestätigung per E-Mail",vat:"Preise sind in USD und <strong>ohne MwSt.</strong>. Lokale MwSt. wird beim Bezahlen hinzugefügt, wo sie anfällt — ein Artikel für 10 $ kostet z. B. etwa <strong>12 $</strong> mit 20 % MwSt. Sie sehen den genauen Betrag immer vor dem Bezahlen.",powered:"Zahlungen sicher abgewickelt von Gumroad",priv:"Datenschutz",terms:"AGB",contact:"Kontakt"}
+    en:{secure:"Secure checkout",almost:"You're almost there",incl:"What's included",forLine:"GatherWall · secure one-step checkout",pay:"Pay securely ▸",tr1:"Card, Apple Pay & Google Pay",tr2:"Shown in your local currency at checkout",tr3:"Instant confirmation by email",vat:"Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.",powered:"Secure payment · card, Apple Pay & Google Pay",priv:"Privacy",terms:"Terms",contact:"Contact"},
+    fr:{secure:"Paiement sécurisé",almost:"Vous y êtes presque",incl:"Ce qui est inclus",forLine:"GatherWall · paiement sécurisé en une étape",pay:"Payer en toute sécurité ▸",tr1:"Carte, Apple Pay & Google Pay",tr2:"Affiché dans votre devise locale au paiement",tr3:"Confirmation immédiate par e-mail",vat:"Les prix sont en USD et <strong>hors TVA</strong>. La TVA locale est ajoutée au paiement le cas échéant — par exemple, un article à 10 $ revient à environ <strong>12 $</strong> avec 20 % de TVA. Vous verrez toujours le total exact avant de payer.",powered:"Paiement sécurisé · carte, Apple Pay & Google Pay",priv:"Confidentialité",terms:"Conditions",contact:"Contact"},
+    es:{secure:"Pago seguro",almost:"Ya casi estás",incl:"Qué incluye",forLine:"GatherWall · pago seguro en un paso",pay:"Pagar de forma segura ▸",tr1:"Tarjeta, Apple Pay y Google Pay",tr2:"Se muestra en tu moneda local al pagar",tr3:"Confirmación inmediata por correo",vat:"Los precios están en USD y <strong>no incluyen IVA</strong>. El IVA local se añade al pagar cuando corresponde — por ejemplo, un artículo de 10 $ cuesta unos <strong>12 $</strong> con un 21 % de IVA. Siempre verás el total exacto antes de pagar.",powered:"Pago seguro · tarjeta, Apple Pay y Google Pay",priv:"Privacidad",terms:"Términos",contact:"Contacto"},
+    cs:{secure:"Bezpečná platba",almost:"Už to skoro je",incl:"Co je v ceně",forLine:"GatherWall · bezpečná platba na jeden krok",pay:"Zaplatit bezpečně ▸",tr1:"Karta, Apple Pay a Google Pay",tr2:"Při platbě zobrazeno v místní měně",tr3:"Okamžité potvrzení e-mailem",vat:"Ceny jsou v USD a <strong>nezahrnují DPH</strong>. Místní DPH se přidává při platbě, kde se uplatňuje — například položka za 10 $ vyjde asi na <strong>12 $</strong> s 21% DPH. Před platbou vždy uvidíte přesnou částku.",powered:"Bezpečná platba · karta, Apple Pay a Google Pay",priv:"Soukromí",terms:"Podmínky",contact:"Kontakt"},
+    de:{secure:"Sicherer Checkout",almost:"Fast geschafft",incl:"Inbegriffen",forLine:"GatherWall · sicherer Checkout in einem Schritt",pay:"Sicher bezahlen ▸",tr1:"Karte, Apple Pay & Google Pay",tr2:"Beim Bezahlen in Ihrer lokalen Währung",tr3:"Sofortige Bestätigung per E-Mail",vat:"Preise sind in USD und <strong>ohne MwSt.</strong>. Lokale MwSt. wird beim Bezahlen hinzugefügt, wo sie anfällt — ein Artikel für 10 $ kostet z. B. etwa <strong>12 $</strong> mit 20 % MwSt. Sie sehen den genauen Betrag immer vor dem Bezahlen.",powered:"Sichere Zahlung · Karte, Apple Pay & Google Pay",priv:"Datenschutz",terms:"AGB",contact:"Kontakt"}
   };
   var CATALOG={
     'live-tribute-wall':{
@@ -141,6 +164,12 @@
       incl:{en:['Everything in Premium','Your logo on the wall','Priority support','Choose 3 or 7 events / month at checkout'],fr:['Tout le contenu Premium','Votre logo sur le mur','Support prioritaire','Choisissez 3 ou 7 événements / mois au paiement'],es:['Todo lo de Premium','Tu logo en el muro','Soporte prioritario','Elige 3 o 7 eventos / mes al pagar'],cs:['Vše z Premium','Vaše logo na zdi','Přednostní podpora','Zvolte 3 nebo 7 akcí / měsíc při platbě'],de:['Alles aus Premium','Ihr Logo auf der Wand','Priorisierter Support','Wählen Sie 3 oder 7 Events / Monat']},
       amt:'$25',per:{en:'/ month · from',fr:'/ mois · à partir de',es:'/ mes · desde',cs:'/ měsíc · od',de:'/ Monat · ab'},
       note:{en:'Pick 3 events/month ($25) or 7 events/month ($40) on the next step. Cancel anytime.',fr:'Choisissez 3 événements/mois (25 $) ou 7 événements/mois (40 $) à l\'étape suivante. Annulable à tout moment.',es:'Elige 3 eventos/mes (25 $) o 7 eventos/mes (40 $) en el siguiente paso. Cancela cuando quieras.',cs:'Vyberte 3 akce/měsíc (25 $) nebo 7 akcí/měsíc (40 $) v dalším kroku. Zrušit lze kdykoli.',de:'Wählen Sie 3 Events/Monat (25 $) oder 7 Events/Monat (40 $) im nächsten Schritt. Jederzeit kündbar.'}},
+    'memory-wall':{
+      eyebrow:{en:'Memory Wall',cs:'Zeď vzpomínek'},
+      title:{en:'Reveal the wall on the day',cs:'Odhalte zeď v ten den'},
+      lede:{en:'Everyone has added their photos and messages. Unlock the finished, polished wall to show on the big screen — and to share the reveal afterwards.',cs:'Všichni přidali své fotky a vzkazy. Odemkněte hotovou zeď pro velkou obrazovku — a pro sdílení po akci.'},
+      incl:{en:['The finished wall on the big screen','Every message &amp; photo, beautifully laid out','Share the reveal with everyone after','Yours to keep'],cs:['Hotová zeď na velké obrazovce','Každý vzkaz a fotka v krásném rozvržení','Sdílejte odhalení se všemi','Zůstane vám napořád']},
+      amt:'$10',per:{en:'one-time',cs:'jednorázově'}},
     'memorial-eulogy':{
       eyebrow:{en:'Memorial & Eulogy',fr:'Hommage & Éloge funèbre',es:'Memorial y Elogio',cs:'Vzpomínka & Smuteční řeč',de:'Gedenkseite & Nachruf'},
       title:{en:'A lasting place to remember together',fr:'Un lieu durable pour se souvenir ensemble',es:'Un lugar duradero para recordar juntos',cs:'Trvalé místo pro společné vzpomínání',de:'Ein bleibender Ort des gemeinsamen Gedenkens'},
@@ -153,6 +182,24 @@
       lede:{en:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',fr:'Un souvenir animé et cinématographique de leur vie — scène par scène, sur une chanson originale écrite pour l\'occasion. Notre cadeau signature.',es:'Un recuerdo animado y cinematográfico de su vida — escena a escena, con una canción original escrita para la ocasión. Nuestro regalo estrella.',cs:'Filmová animovaná vzpomínka na jejich život — scéna po scéně, s původní písní napsanou pro tuto příležitost. Náš výjimečný dárek.',de:'Eine filmische, animierte Erinnerung an ihr Leben — Szene für Szene, mit einem eigens komponierten Lied. Unser Signature-Geschenk.'},
       incl:{en:['Original song for the occasion','Hand-crafted animated story','Played at the event & kept forever','Your photos, milestones & message'],fr:['Chanson originale pour l\'occasion','Histoire animée faite main','Diffusée à l\'événement & gardée pour toujours','Vos photos, moments clés & message'],es:['Canción original para la ocasión','Historia animada hecha a mano','Se reproduce en el evento y se guarda para siempre','Tus fotos, hitos y mensaje'],cs:['Původní píseň pro tuto příležitost','Ručně vytvořený animovaný příběh','Přehráno na akci & uchováno navždy','Vaše fotky, milníky & vzkaz'],de:['Eigenes Lied für den Anlass','Handgefertigte animierte Geschichte','Beim Event gezeigt & für immer behalten','Ihre Fotos, Meilensteine & Botschaft']},
       amt:'$39',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'}},
+    'story-film':{
+      eyebrow:{en:'Story Film',cs:'Filmový příběh'},
+      title:{en:'Their whole story, set to a song written for them',cs:'Celý jejich příběh s písní napsanou jen pro ně'},
+      lede:{en:'Your photographs and clips cut into a short film, scored with an original song written from their story — and a private page to share it from.',cs:'Vaše fotky a klipy sestříhané do krátkého filmu s původní písní z vašeho příběhu — a soukromá stránka pro sdílení.'},
+      incl:{en:['An original song written for the occasion','A short film built from your photos & clips','A private keepsake page to share','Delivered in about a week'],cs:['Původní píseň pro danou příležitost','Krátký film z vašich fotek a klipů','Soukromá vzpomínková stránka ke sdílení','Doručení zhruba do týdne']},
+      amt:'$149',per:{en:'one-time',cs:'jednorázově'}},
+    'wedding-keepsake':{
+      eyebrow:{en:'Wedding Keepsake',cs:'Svatební vzpomínka'},
+      title:{en:'Your whole wedding day, as a film and a song',cs:'Celý váš svatební den jako film a píseň'},
+      lede:{en:'Three original songs written from your story, a full wedding film cut to them, and a private bilingual page you can send to anyone.',cs:'Tři původní písně z vašeho příběhu, celovečerní svatební film sestříhaný na ně a soukromá dvojjazyčná stránka, kterou můžete poslat komukoli.'},
+      incl:{en:['Three original songs from your story','A full wedding film cut to your songs','A private keepsake page, in your language','Word-synced lyrics on screen'],cs:['Tři původní písně z vašeho příběhu','Celý svatební film sestříhaný na vaše písně','Soukromá vzpomínková stránka ve vašem jazyce','Text písně synchronizovaný na obrazovce']},
+      amt:'$349',per:{en:'one-time',cs:'jednorázově'}},
+    'wedding-keepsake-signature':{
+      eyebrow:{en:'Wedding Keepsake · Signature',cs:'Svatební vzpomínka · Signature'},
+      title:{en:'Everything — the album, the films, the page',cs:'Všechno — album, filmy i stránka'},
+      lede:{en:'Our most complete keepsake: a six-song album written from your story, the wedding film, a separate thank-you film for your family, and a private page holding all of it.',cs:'Naše nejúplnější vzpomínka: album šesti písní z vašeho příběhu, svatební film, samostatné poděkování rodině a soukromá stránka se vším dohromady.'},
+      incl:{en:['A six-song album written from your story','The full wedding film','A separate thank-you film for your family','Private page, photo gallery & share card','Priority turnaround'],cs:['Album šesti písní z vašeho příběhu','Celý svatební film','Samostatný film s poděkováním rodině','Soukromá stránka, galerie a sdílecí karta','Přednostní zpracování']},
+      amt:'$649',per:{en:'one-time',cs:'jednorázově'}},
     'song-of-your-night':{
       eyebrow:{en:'The Song of Your Night'},
       title:{en:'Your guests\' words, set to a song'},
@@ -197,12 +244,51 @@
     document.title=L(p.eyebrow)+' · '+u.secure+' · GatherWall';
   }
   function applyLang(l){ LANG=UI[l]?l:'en'; try{localStorage.setItem('gw_lang',LANG);}catch(e){} var sel=document.getElementById('lang'); if(sel) sel.value=LANG; render(); }
-  // Build the Gumroad pay link (forward ev/tier/order to the webhook)
-  var pay=BASE+slug+'?wanted=true';
-  var ev=param('ev'); if(ev){ pay+='&ev='+encodeURIComponent(ev); try{localStorage.setItem('gw_reveal_ev',ev);localStorage.setItem('gw_reveal_at',Date.now());}catch(e){} }
-  var tier=param('tier'); if(tier) pay+='&tier='+encodeURIComponent(tier);
-  var order=param('order'); if(order) pay+='&order='+encodeURIComponent(order);
-  document.getElementById('payBtn').href=pay;
+  // Build the pay link (forwards ev/tier/order through as Polar metadata)
+  function buildPayUrl(slug){
+    var base = PAY_LINKS[slug];
+    if(!base) return null;
+    var qs=[];
+    var ev=param('ev');
+    if(ev){
+      qs.push(metaParam('ev',ev));
+      try{ localStorage.setItem('gw_reveal_ev',ev); localStorage.setItem('gw_reveal_at',Date.now()); }catch(e){}
+    }
+    var tier=param('tier');   if(tier)  qs.push(metaParam('tier',tier));
+    var order=param('order'); if(order) qs.push(metaParam('order',order));
+    qs.push(metaParam('slug',slug));
+    return base + (base.indexOf('?')>-1 ? '&' : '?') + qs.join('&');
+  }
+
+  // Wire the button, or fail gracefully if this product has no link yet
+  (function(){
+    var btn=document.getElementById('payBtn');
+    var url=buildPayUrl(slug);
+    if(url){
+      btn.href=url;
+      // Remember what was bought so thanks.html can show the right next step
+      // (Polar returns only ?checkout_id=… to the success URL).
+      btn.addEventListener('click',function(){
+        try{
+          localStorage.setItem('gw_last_slug',slug);
+          localStorage.setItem('gw_last_at',String(Date.now()));
+          var o=param('order'); if(o) localStorage.setItem('gw_order',o);
+          if(!param('ev')) localStorage.removeItem('gw_reveal_ev');
+        }catch(e){}
+      });
+      return;
+    }
+    var subject='Order: '+slug;
+    var body='Hi GatherWall,\n\nI would like to order: '+slug+'\n\nPlease send me a secure payment link.\n\nThank you.';
+    btn.href='mailto:'+SUPPORT_EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    btn.textContent='✉ Request a secure payment link';
+    var n=document.getElementById('note');
+    if(n){
+      n.style.display='';
+      n.textContent='We are moving to a new payment provider. Tap above and we will email you a secure link within a few hours — your price is unchanged.';
+    }
+  })();
+
   document.getElementById('lang').onchange=function(e){ applyLang(e.target.value); };
   applyLang(pickLang());
 </script>

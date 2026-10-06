@@ -1521,7 +1521,7 @@ function watchTrib(id, cb){ // real-time listener (Firebase only)
   if(wallRef){ try{wallRef.off();}catch(e){} wallRef=null; }
   if(USE_FB){ wallRef=fbdb.ref('tributes/'+id); wallRef.on('value', s=>{ const o=s.val()||{}; cb(Object.values(o)); }); }
 }
-/* Real-time "go live" listener (Firebase only). The Gumroad webhook → Cloudflare
+/* Real-time "go live" listener (Firebase only). The payment webhook → Cloudflare
    Worker flips events/<id>/published to true after payment; this fires the moment
    that happens so the wall/guest view leaves the "not live yet" state without a
    manual reload. Demo mode has no server push, so this is a no-op there. */
@@ -1642,9 +1642,10 @@ function optToggle(el){
    Leave a value as '' and Publish falls back to checkout.html?p=live-tribute-wall
    (which still works). Do NOT put fake/placeholder URLs here. */
 const WALL_TIER_CHECKOUT={
-  basic:'',      // TODO: Lemon Squeezy Basic ($10) wall checkout URL
-  plus:'',       // TODO: Lemon Squeezy Plus ($15) wall checkout URL
-  unlimited:''   // TODO: Lemon Squeezy Unlimited ($20) wall checkout URL
+  basic:'',      // Optional: Polar direct checkout URL for Basic ($10)
+  plus:'',       // Optional: Polar direct checkout URL for Plus ($15)
+  unlimited:''   // Optional: Polar direct checkout URL for Unlimited ($20)
+  /* Leave blank to route via checkout.html, which holds all Polar links. */
 };
 
 /* ===================== ROUTER ===================== */
@@ -1658,7 +1659,7 @@ function go(screen){
   window.scrollTo(0,0);
 }
 /* Premium branded checkout: go to GatherWall's own checkout page, where the
-   secure Gumroad overlay (Merchant of Record — handles all tax) opens on-page. */
+   secure provider checkout (Merchant of Record — handles all tax) opens. */
 function buy(slug){ location.href='checkout.html?p='+slug; }
 /* ===================== WALL-KIND ENTRY + BUILDER ADAPT =====================
    The same wall engine powers both the paid Live Tribute Wall and the free
@@ -2185,11 +2186,11 @@ function renderSongCard(e, screenSel, cardId){
 function publishWall(){
   const e=window._curEvent; if(!e){toast('Build a wall first');return;}
   // Family Memory Wall: collecting is free; the host pays a one-time $10 to REVEAL
-  // (unlock the polished big-screen display). Reuses the existing $10 Lemon Squeezy
-  // "Memorial & Eulogy Page" checkout. NOTE: that product is named for memorials —
-  // see report flag to rename it to something occasion-neutral.
-  // Pass the event id (&ev) so the Gumroad webhook can publish THIS wall.
-  if(e.kind==='family'){ location.href='checkout.html?p=memorial-eulogy&ev='+encodeURIComponent(e.id); return; }
+  // (unlock the polished big-screen display). Uses the occasion-neutral
+  // "Memory Wall — Reveal" product, so a birthday wall never checks out through
+  // something called "Memorial & Eulogy Page".
+  // Pass the event id (&ev) so the payment webhook can publish THIS wall.
+  if(e.kind==='family'){ location.href='checkout.html?p=memory-wall&ev='+encodeURIComponent(e.id); return; }
   // Live Tribute Wall: pay-to-go-live by tier.
   const tier=(TIERS[e.tier]?e.tier:'basic');
   const direct=WALL_TIER_CHECKOUT[tier];
