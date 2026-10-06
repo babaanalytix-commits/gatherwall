@@ -1500,7 +1500,17 @@ function getEvent(id, cb){
   else { cb(DB.event(id)); }
 }
 function saveEvent(e, cb){
-  if(USE_FB){ fbdb.ref('events/'+e.id).set(e).then(()=>cb&&cb(true)).catch(()=>{toast('Could not save — check connection');cb&&cb(false);}); }
+  if(USE_FB){
+    // Only the Stripe webhook may change "published" (enforced by database rules).
+    // Existing events: update everything except published/payment fields.
+    // New events: rules reject the update, so create with published:false.
+    const upd=Object.assign({}, e); ['published','paidAt','paidTier','saleId','amount','currency'].forEach(k=>delete upd[k]);
+    const ref=fbdb.ref('events/'+e.id);
+    ref.update(upd)
+      .catch(()=>ref.set(Object.assign({}, e, {published:false})))
+      .then(()=>cb&&cb(true))
+      .catch(()=>{toast('Could not save — check connection');cb&&cb(false);});
+  }
   else { DB.addEvent(e); cb&&cb(true); }
 }
 function addTrib(id, t, cb){
@@ -1885,8 +1895,13 @@ function memHasContent(){
   return !!(g('memName')||g('memMessage')||g('memBorn')||g('memDied')||g('memFrom')||memPhotoData);
 }
 function memSaveRemote(rec){
+  // PATCH without "published" so editing a paid memorial never un-publishes it.
+  // If the record doesn't exist yet, rules reject that, so create it as a draft.
+  const upd=Object.assign({}, rec); delete upd.published;
   return fetch(MEM_DB+'/events/'+rec.id+'.json',
-    {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)});
+    {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(upd)})
+    .then(r=> r.ok ? r : fetch(MEM_DB+'/events/'+rec.id+'.json',
+      {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({}, rec, {published:false}))}));
 }
 /* Autosave as they type — local instantly, cloud debounced. */
 let memAutoT=null;
