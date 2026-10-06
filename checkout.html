@@ -239,7 +239,7 @@
     document.getElementById('t_priv').textContent=u.priv;
     document.getElementById('t_terms').textContent=u.terms;
     document.getElementById('t_contact').textContent=u.contact;
-    document.getElementById('payBtn').textContent=u.pay;
+    document.getElementById('payBtn').textContent=(PAYMENTS_LIVE&&PAY_LINKS[slug])?u.pay:'✉ Request a secure payment link';
     document.documentElement.lang=LANG;
     document.title=L(p.eyebrow)+' · '+u.secure+' · GatherWall';
   }
