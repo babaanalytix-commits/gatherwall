@@ -118,36 +118,35 @@
 
 <script>
   /* ==========================================================================
-     PAYMENT LINKS  —  PASTE YOUR POLAR CHECKOUT URLS HERE
+     PAYMENT LINKS  —  STRIPE PAYMENT LINK URLS
      --------------------------------------------------------------------------
-     1. Create each product in Polar (polar.sh).
+     1. Create each product + Payment Link in the Stripe dashboard.
      2. Copy its "Checkout Link" and paste it against the matching slug below.
      3. Leave a value as '' and that product shows a graceful fallback message
         instead of a broken checkout. Nothing else needs editing.
      ========================================================================== */
+  // Stripe Payment Links (live) — GatherWall Stripe account, created 6 Oct 2026
   var PAY_LINKS = {
-    'live-tribute-wall':       'https://buy.polar.sh/polar_cl_f0GnKGY0XxOTr8qrWwGOgl7wwZ8zOcKq2kgaJ1pHrUR',   // Basic $10
-    'wall-pro':                'https://buy.polar.sh/polar_cl_mKXK1gzSvgpaR45fDT76Kc8XVkxtxm9Rwc3ZG225upP',   // Pro, 3 events, $25/mo
-    'memorial-eulogy':         'https://buy.polar.sh/polar_cl_MwP5dXs1xHAHT2CfEEFHgNUcUpzHl4ooJv1x21pZ3HM',   // $10 one-time
-    'memory-wall':             'https://buy.polar.sh/polar_cl_LIVyvuJ9rYkg4EKtWCQslwSwQnudCNt0EFsbE1DQXYV',   // $10 reveal (occasion-neutral)
-    'animated-keepsake-story': 'https://buy.polar.sh/polar_cl_CeuJHOEQdP0Nu57XyXQXnudb3UAMMg8SbTCol0ONPJH',   // $39 one-time
-    'song-of-your-night':      'https://buy.polar.sh/polar_cl_ZHqdRSCj7661cxoY1QqJHPgCfBy1NZfoH0RD92UjRMF',   // $39 one-time
-    'story-film':              'https://buy.polar.sh/polar_cl_WOXYkZexPhF8KjcQEe3TIHpMMjvf5pWLqWNI82oulp0',   // $149 one-time
-    'wedding-keepsake':        'https://buy.polar.sh/polar_cl_seHnBkhBDUdo03X02QTyDX1LmscbT4oxo8pJ14W4F2j',   // $349 one-time
-    'wedding-keepsake-signature':'https://buy.polar.sh/polar_cl_TRCHvxo5uu5gkioXjgA1MiQuYl0k6ueOOW7N420WCla' // $649 one-time
+    'live-tribute-wall':        'https://buy.stripe.com/7sY00k5pY9BXgPM64O9AA00', // Basic $10
+    'wall-plus':                'https://buy.stripe.com/4gM7sM9GebK5dDAfFo9AA01', // Plus $15
+    'wall-unlimited':           'https://buy.stripe.com/6oU14o6u26pLdDA64O9AA02', // Unlimited $20
+    'wall-pro':                 'https://buy.stripe.com/6oU28s8Cag0lbvsfFo9AA0a', // Pro $25/month
+    'memory-wall':              'https://buy.stripe.com/bJe3cwcSqeWh2YW9h09AA03', // $10 reveal
+    'memorial-eulogy':          'https://buy.stripe.com/eVq4gAcSq6pL8jg9h09AA04', // $10
+    'animated-keepsake-story':  'https://buy.stripe.com/8x200kf0y15reHE0Ku9AA05', // $39
+    'song-of-your-night':       'https://buy.stripe.com/eVq3cwf0y3dz9nk9h09AA06', // $39
+    'story-film':               'https://buy.stripe.com/eVq7sM8Ca8xT7fc8cW9AA07', // $149
+    'wedding-keepsake':         'https://buy.stripe.com/5kQ14o05E8xT430gJs9AA08', // $349
+    'wedding-keepsake-signature':'https://buy.stripe.com/28E7sMdWu3dz430bp89AA09' // $649
   };
   var SUPPORT_EMAIL = 'hello@gatherwall.com';
 
-  /* Polar passes custom data through as metadata. VERIFY this param format
-     against Polar's checkout-link docs before going live — if it differs,
-     this is the only function you need to change. */
-  function metaParam(key, value){ return 'metadata.' + key + '=' + encodeURIComponent(value); }
   var UI={
-    en:{secure:"Secure checkout",almost:"You're almost there",incl:"What's included",forLine:"GatherWall · secure one-step checkout",pay:"Pay securely ▸",tr1:"Card, Apple Pay & Google Pay",tr2:"Shown in your local currency at checkout",tr3:"Instant confirmation by email",vat:"Prices are in USD and <strong>do not include VAT</strong>. Local VAT is added at checkout where it applies — for example, a $10 item is about <strong>$12</strong> with 20% VAT. You'll always see the exact total before you pay.",powered:"Secure payment · card, Apple Pay & Google Pay",priv:"Privacy",terms:"Terms",contact:"Contact"},
-    fr:{secure:"Paiement sécurisé",almost:"Vous y êtes presque",incl:"Ce qui est inclus",forLine:"GatherWall · paiement sécurisé en une étape",pay:"Payer en toute sécurité ▸",tr1:"Carte, Apple Pay & Google Pay",tr2:"Affiché dans votre devise locale au paiement",tr3:"Confirmation immédiate par e-mail",vat:"Les prix sont en USD et <strong>hors TVA</strong>. La TVA locale est ajoutée au paiement le cas échéant — par exemple, un article à 10 $ revient à environ <strong>12 $</strong> avec 20 % de TVA. Vous verrez toujours le total exact avant de payer.",powered:"Paiement sécurisé · carte, Apple Pay & Google Pay",priv:"Confidentialité",terms:"Conditions",contact:"Contact"},
-    es:{secure:"Pago seguro",almost:"Ya casi estás",incl:"Qué incluye",forLine:"GatherWall · pago seguro en un paso",pay:"Pagar de forma segura ▸",tr1:"Tarjeta, Apple Pay y Google Pay",tr2:"Se muestra en tu moneda local al pagar",tr3:"Confirmación inmediata por correo",vat:"Los precios están en USD y <strong>no incluyen IVA</strong>. El IVA local se añade al pagar cuando corresponde — por ejemplo, un artículo de 10 $ cuesta unos <strong>12 $</strong> con un 21 % de IVA. Siempre verás el total exacto antes de pagar.",powered:"Pago seguro · tarjeta, Apple Pay y Google Pay",priv:"Privacidad",terms:"Términos",contact:"Contacto"},
-    cs:{secure:"Bezpečná platba",almost:"Už to skoro je",incl:"Co je v ceně",forLine:"GatherWall · bezpečná platba na jeden krok",pay:"Zaplatit bezpečně ▸",tr1:"Karta, Apple Pay a Google Pay",tr2:"Při platbě zobrazeno v místní měně",tr3:"Okamžité potvrzení e-mailem",vat:"Ceny jsou v USD a <strong>nezahrnují DPH</strong>. Místní DPH se přidává při platbě, kde se uplatňuje — například položka za 10 $ vyjde asi na <strong>12 $</strong> s 21% DPH. Před platbou vždy uvidíte přesnou částku.",powered:"Bezpečná platba · karta, Apple Pay a Google Pay",priv:"Soukromí",terms:"Podmínky",contact:"Kontakt"},
-    de:{secure:"Sicherer Checkout",almost:"Fast geschafft",incl:"Inbegriffen",forLine:"GatherWall · sicherer Checkout in einem Schritt",pay:"Sicher bezahlen ▸",tr1:"Karte, Apple Pay & Google Pay",tr2:"Beim Bezahlen in Ihrer lokalen Währung",tr3:"Sofortige Bestätigung per E-Mail",vat:"Preise sind in USD und <strong>ohne MwSt.</strong>. Lokale MwSt. wird beim Bezahlen hinzugefügt, wo sie anfällt — ein Artikel für 10 $ kostet z. B. etwa <strong>12 $</strong> mit 20 % MwSt. Sie sehen den genauen Betrag immer vor dem Bezahlen.",powered:"Sichere Zahlung · Karte, Apple Pay & Google Pay",priv:"Datenschutz",terms:"AGB",contact:"Kontakt"}
+    en:{secure:"Secure checkout",almost:"You're almost there",incl:"What's included",forLine:"GatherWall · secure one-step checkout",pay:"Pay securely ▸",tr1:"Card, Apple Pay & Google Pay",tr2:"Shown in your local currency at checkout",tr3:"Instant confirmation by email",vat:"Prices are in USD. Your card is charged in USD, or in your local currency where shown. You'll always see the exact total before you pay.",powered:"Secure payment · card, Apple Pay & Google Pay",priv:"Privacy",terms:"Terms",contact:"Contact"},
+    fr:{secure:"Paiement sécurisé",almost:"Vous y êtes presque",incl:"Ce qui est inclus",forLine:"GatherWall · paiement sécurisé en une étape",pay:"Payer en toute sécurité ▸",tr1:"Carte, Apple Pay & Google Pay",tr2:"Affiché dans votre devise locale au paiement",tr3:"Confirmation immédiate par e-mail",vat:"Les prix sont en USD. Vous verrez toujours le total exact avant de payer.",powered:"Paiement sécurisé · carte, Apple Pay & Google Pay",priv:"Confidentialité",terms:"Conditions",contact:"Contact"},
+    es:{secure:"Pago seguro",almost:"Ya casi estás",incl:"Qué incluye",forLine:"GatherWall · pago seguro en un paso",pay:"Pagar de forma segura ▸",tr1:"Tarjeta, Apple Pay y Google Pay",tr2:"Se muestra en tu moneda local al pagar",tr3:"Confirmación inmediata por correo",vat:"Los precios están en USD. Siempre verás el total exacto antes de pagar.",powered:"Pago seguro · tarjeta, Apple Pay y Google Pay",priv:"Privacidad",terms:"Términos",contact:"Contacto"},
+    cs:{secure:"Bezpečná platba",almost:"Už to skoro je",incl:"Co je v ceně",forLine:"GatherWall · bezpečná platba na jeden krok",pay:"Zaplatit bezpečně ▸",tr1:"Karta, Apple Pay a Google Pay",tr2:"Při platbě zobrazeno v místní měně",tr3:"Okamžité potvrzení e-mailem",vat:"Ceny jsou v USD. Přesnou částku vždy uvidíte před zaplacením.",powered:"Bezpečná platba · karta, Apple Pay a Google Pay",priv:"Soukromí",terms:"Podmínky",contact:"Kontakt"},
+    de:{secure:"Sicherer Checkout",almost:"Fast geschafft",incl:"Inbegriffen",forLine:"GatherWall · sicherer Checkout in einem Schritt",pay:"Sicher bezahlen ▸",tr1:"Karte, Apple Pay & Google Pay",tr2:"Beim Bezahlen in Ihrer lokalen Währung",tr3:"Sofortige Bestätigung per E-Mail",vat:"Die Preise sind in USD. Sie sehen den genauen Gesamtbetrag immer vor der Zahlung.",powered:"Sichere Zahlung · Karte, Apple Pay & Google Pay",priv:"Datenschutz",terms:"AGB",contact:"Kontakt"}
   };
   var CATALOG={
     'live-tribute-wall':{
@@ -156,14 +155,14 @@
       lede:{en:'Guests scan a QR code or tap a tablet — no app — and their photos and messages float onto the big screen all night.',fr:'Les invités scannent un QR code ou touchent une tablette — sans appli — et leurs photos et messages s\'affichent sur grand écran toute la soirée.',es:'Los invitados escanean un código QR o tocan una tablet — sin app — y sus fotos y mensajes aparecen en la pantalla grande toda la noche.',cs:'Hosté naskenují QR kód nebo ťuknou na tablet — bez aplikace — a jejich fotky a vzkazy se celý večer objevují na velké obrazovce.',de:'Gäste scannen einen QR-Code oder tippen auf ein Tablet — ohne App — und ihre Fotos und Nachrichten erscheinen den ganzen Abend auf der großen Leinwand.'},
       incl:{en:['Live wall on the venue big screen','Photos + written tributes','Moderation (approve posts before they show)','Choose Basic, Plus or Premium at checkout'],fr:['Mur en direct sur le grand écran du lieu','Photos + messages écrits','Modération (validez avant publication)','Choisissez Basic, Plus ou Premium au paiement'],es:['Muro en vivo en la pantalla grande del lugar','Fotos + mensajes escritos','Moderación (aprueba antes de mostrar)','Elige Basic, Plus o Premium al pagar'],cs:['Živá zeď na velké obrazovce v sále','Fotky + psané vzkazy','Moderování (schválení před zobrazením)','Zvolte Basic, Plus nebo Premium při platbě'],de:['Live-Wand auf der großen Leinwand','Fotos + geschriebene Botschaften','Moderation (vor dem Anzeigen freigeben)','Wählen Sie Basic, Plus oder Premium an der Kasse']},
       amt:'$10',per:{en:'/ event · from',fr:'/ événement · à partir de',es:'/ evento · desde',cs:'/ akce · od',de:'/ Event · ab'},
-      note:{en:'Pick your tier — Basic ($10), Plus ($15) or Premium ($20, unlimited + custom background + download) — on the next step.',fr:'Choisissez votre formule — Basic (10 $), Plus (15 $) ou Premium (20 $, illimité + fond personnalisé + téléchargement) — à l\'étape suivante.',es:'Elige tu nivel — Basic (10 $), Plus (15 $) o Premium (20 $, ilimitado + fondo personalizado + descarga) — en el siguiente paso.',cs:'Vyberte úroveň — Basic (10 $), Plus (15 $) nebo Premium (20 $, neomezeně + vlastní pozadí + stažení) — v dalším kroku.',de:'Wählen Sie Ihre Stufe — Basic (10 $), Plus (15 $) oder Premium (20 $, unbegrenzt + eigener Hintergrund + Download) — im nächsten Schritt.'}},
+      note:{en:'Basic ($10, up to 30 posts), Plus ($15, up to 100) or Premium ($20, unlimited) — you choose your tier when you publish your wall.'}},
     'wall-pro':{
       eyebrow:{en:'Live Tribute Wall · Pro',fr:'Mur d\'hommages en direct · Pro',es:'Muro de homenajes en vivo · Pro',cs:'Živá zeď vzpomínek · Pro',de:'Live-Erinnerungswand · Pro'},
       title:{en:'Run the wall at every booking',fr:'Utilisez le mur à chaque prestation',es:'Usa el muro en cada evento',cs:'Používejte zeď u každé zakázky',de:'Nutzen Sie die Wand bei jeder Buchung'},
       lede:{en:'For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.',fr:'Pour DJ, animateurs, organisateurs et lieux — utilisez le mur sur tous vos événements, avec votre logo à l\'écran.',es:'Para DJ, presentadores, organizadores y locales — usa el muro en todos tus eventos, con tu logo en pantalla.',cs:'Pro DJ, moderátory, organizátory a místa — používejte zeď na všech akcích, s vaším logem na obrazovce.',de:'Für DJs, Moderatoren, Planer und Locations — nutzen Sie die Wand bei allen Events, mit Ihrem Logo auf dem Bildschirm.'},
       incl:{en:['Everything in Premium','Your logo on the wall','Priority support','Choose 3 or 7 events / month at checkout'],fr:['Tout le contenu Premium','Votre logo sur le mur','Support prioritaire','Choisissez 3 ou 7 événements / mois au paiement'],es:['Todo lo de Premium','Tu logo en el muro','Soporte prioritario','Elige 3 o 7 eventos / mes al pagar'],cs:['Vše z Premium','Vaše logo na zdi','Přednostní podpora','Zvolte 3 nebo 7 akcí / měsíc při platbě'],de:['Alles aus Premium','Ihr Logo auf der Wand','Priorisierter Support','Wählen Sie 3 oder 7 Events / Monat']},
       amt:'$25',per:{en:'/ month · from',fr:'/ mois · à partir de',es:'/ mes · desde',cs:'/ měsíc · od',de:'/ Monat · ab'},
-      note:{en:'Pick 3 events/month ($25) or 7 events/month ($40) on the next step. Cancel anytime.',fr:'Choisissez 3 événements/mois (25 $) ou 7 événements/mois (40 $) à l\'étape suivante. Annulable à tout moment.',es:'Elige 3 eventos/mes (25 $) o 7 eventos/mes (40 $) en el siguiente paso. Cancela cuando quieras.',cs:'Vyberte 3 akce/měsíc (25 $) nebo 7 akcí/měsíc (40 $) v dalším kroku. Zrušit lze kdykoli.',de:'Wählen Sie 3 Events/Monat (25 $) oder 7 Events/Monat (40 $) im nächsten Schritt. Jederzeit kündbar.'}},
+      note:{en:'Up to 3 events a month. Cancel anytime.',fr:'Jusqu\'à 3 événements par mois. Annulable à tout moment.',es:'Hasta 3 eventos al mes. Cancela cuando quieras.',cs:'Až 3 akce měsíčně. Zrušit lze kdykoli.',de:'Bis zu 3 Events pro Monat. Jederzeit kündbar.'}},
     'memory-wall':{
       eyebrow:{en:'Memory Wall',cs:'Zeď vzpomínek'},
       title:{en:'Reveal the wall on the day',cs:'Odhalte zeď v ten den'},
@@ -225,12 +224,12 @@
     document.getElementById('t_incl').textContent=u.incl;
     document.getElementById('oName').textContent=L(p.eyebrow);
     document.getElementById('t_for').textContent=u.forLine;
-    document.getElementById('oAmt').textContent=p.amt;
+    var _t=param('tier'); document.getElementById('oAmt').textContent=(slug==='live-tribute-wall'&&_t==='plus')?'$15':(slug==='live-tribute-wall'&&_t==='unlimited')?'$20':p.amt;
     document.getElementById('oPer').textContent=L(p.per);
     var w=document.getElementById('oWas'); if(p.was){w.style.display='';w.textContent=p.was;} else {w.style.display='none';}
     var ul=document.getElementById('incl'); ul.innerHTML='';
     L(p.incl).forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
-    var n=document.getElementById('note'); if(p.note){n.style.display='';n.textContent=L(p.note);} else {n.style.display='none';}
+    var n=document.getElementById('note'); if(p.note && !(slug==='live-tribute-wall'&&_t)){n.style.display='';n.textContent=L(p.note);} else {n.style.display='none';}
     document.getElementById('t_tr1').textContent=u.tr1;
     document.getElementById('t_tr2').textContent=u.tr2;
     document.getElementById('t_tr3').textContent=u.tr3;
@@ -244,25 +243,23 @@
     document.title=L(p.eyebrow)+' · '+u.secure+' · GatherWall';
   }
   function applyLang(l){ LANG=UI[l]?l:'en'; try{localStorage.setItem('gw_lang',LANG);}catch(e){} var sel=document.getElementById('lang'); if(sel) sel.value=LANG; render(); }
-  // Build the pay link (forwards ev/tier/order through as Polar metadata)
-  // Polar denied card payments (6 Oct 2026, under appeal). While false, every Buy button
-  // becomes "Request a secure payment link" (email) instead of a dead Polar page.
-  // Flip to true the moment Polar (or a replacement) can actually take payments.
-  var PAYMENTS_LIVE = false;
+  // Build the pay link. Set PAYMENTS_LIVE=false to turn every Buy button into
+  // "Request a secure payment link" (email) if card payments ever go down.
+  var PAYMENTS_LIVE = true;
   function buildPayUrl(slug){
     if(!PAYMENTS_LIVE) return null;
-    var base = PAY_LINKS[slug];
+    var tier=param('tier');
+    var key=slug;
+    if(slug==='live-tribute-wall' && tier==='plus') key='wall-plus';
+    if(slug==='live-tribute-wall' && tier==='unlimited') key='wall-unlimited';
+    var base = PAY_LINKS[key];
     if(!base) return null;
-    var qs=[];
-    var ev=param('ev');
-    if(ev){
-      qs.push(metaParam('ev',ev));
-      try{ localStorage.setItem('gw_reveal_ev',ev); localStorage.setItem('gw_reveal_at',Date.now()); }catch(e){}
-    }
-    var tier=param('tier');   if(tier)  qs.push(metaParam('tier',tier));
-    var order=param('order'); if(order) qs.push(metaParam('order',order));
-    qs.push(metaParam('slug',slug));
-    return base + (base.indexOf('?')>-1 ? '&' : '?') + qs.join('&');
+    var ev=param('ev'), order=param('order');
+    if(ev){ try{ localStorage.setItem('gw_reveal_ev',ev); localStorage.setItem('gw_reveal_at',Date.now()); }catch(e){} }
+    // Stripe Payment Links accept client_reference_id (letters, numbers, - and _ only, max 200).
+    // Format: slug__tier__ev-ID or slug__tier__or-ID — read by the webhook to publish the right wall.
+    var ref=[slug, tier||'x', ev?('ev-'+ev):(order?('or-'+order):'x')].join('__').replace(/[^A-Za-z0-9_-]/g,'').slice(0,200);
+    return base + (base.indexOf('?')>-1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref);
   }
 
   // Wire the button, or fail gracefully if this product has no link yet
@@ -272,7 +269,6 @@
     if(url){
       btn.href=url;
       // Remember what was bought so thanks.html can show the right next step
-      // (Polar returns only ?checkout_id=… to the success URL).
       btn.addEventListener('click',function(){
         try{
           localStorage.setItem('gw_last_slug',slug);
