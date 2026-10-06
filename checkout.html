@@ -245,7 +245,12 @@
   }
   function applyLang(l){ LANG=UI[l]?l:'en'; try{localStorage.setItem('gw_lang',LANG);}catch(e){} var sel=document.getElementById('lang'); if(sel) sel.value=LANG; render(); }
   // Build the pay link (forwards ev/tier/order through as Polar metadata)
+  // Polar denied card payments (6 Oct 2026, under appeal). While false, every Buy button
+  // becomes "Request a secure payment link" (email) instead of a dead Polar page.
+  // Flip to true the moment Polar (or a replacement) can actually take payments.
+  var PAYMENTS_LIVE = false;
   function buildPayUrl(slug){
+    if(!PAYMENTS_LIVE) return null;
     var base = PAY_LINKS[slug];
     if(!base) return null;
     var qs=[];
@@ -279,13 +284,13 @@
       return;
     }
     var subject='Order: '+slug;
-    var body='Hi GatherWall,\n\nI would like to order: '+slug+'\n\nPlease send me a secure payment link.\n\nThank you.';
+    var body='Hi GatherWall,\n\nI would like to order: '+slug+(param('tier')?' ('+param('tier')+')':'')+(param('ev')?'\nWall ID: '+param('ev'):'')+(param('order')?'\nOrder ID: '+param('order'):'')+'\n\nPlease send me a secure payment link.\n\nThank you.';
     btn.href='mailto:'+SUPPORT_EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
     btn.textContent='✉ Request a secure payment link';
     var n=document.getElementById('note');
     if(n){
       n.style.display='';
-      n.textContent='We are moving to a new payment provider. Tap above and we will email you a secure link within a few hours — your price is unchanged.';
+      n.textContent='Tap above and we\'ll email you a secure payment link within a few hours — same price, and a real person handles your order.';
     }
   })();
 
