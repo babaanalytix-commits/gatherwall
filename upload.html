@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Add photos & videos · GatherWall</title>
+<meta property="og:title" content="Add your photos & videos 📸">
+<meta property="og:description" content="Old prints, phone photos, short clips. Tap the link and add them. No app, no sign-up.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--ink:#1F2622;--muted:#5C6B5E;--brand:#2E7D5B;--gold:#C2A058;--line:#E5E1D5;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding:28px 18px 60px}
+.logo{font-family:Fraunces,serif;font-weight:600;font-size:19px;display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--brand);display:inline-block}
+.portrait{width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 14px;border:4px solid #fff;box-shadow:0 6px 22px rgba(0,0,0,.15)}
+h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(26px,6vw,34px);text-align:center;line-height:1.2}
+.sub{color:var(--muted);text-align:center;margin:8px 0 22px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+label.lbl{font-weight:600;font-size:14px;display:block;margin-bottom:6px}
+input[type=text]{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;font-family:inherit}
+.big{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px;border-radius:14px;font-size:17px;font-weight:600;cursor:pointer;border:0;margin-top:12px;font-family:inherit}
+.big.primary{background:var(--brand);color:#fff}
+.big.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.big input{display:none}
+.tip{font-size:13.5px;color:var(--muted);margin-top:12px}
+.q{margin-top:14px}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row:last-child{border-bottom:0}
+.row .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;width:90px}
+.bar b{display:block;height:100%;width:0;background:var(--brand);transition:width .2s}
+.ok{color:var(--brand);font-weight:600}.err{color:#b3261e;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:10px}
+.grid div{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#e9e5da;display:flex;align-items:center;justify-content:center;font-size:28px}
+.grid img{width:100%;height:100%;object-fit:cover}
+.grid span{position:absolute;left:0;right:0;bottom:0;font-size:10.5px;background:rgba(0,0,0,.45);color:#fff;padding:2px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h3{font-family:Fraunces,serif;font-weight:600;font-size:19px}
+.count{color:var(--muted);font-size:14px;font-weight:400}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:26px}
+.foot a{color:var(--brand)}
+.missing{text-align:center;padding:40px 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><i></i>GatherWall</div>
+  <div id="app"><p class="sub">Loading…</p></div>
+  <p class="foot">Photos go privately to the people making the keepsake. <a href="https://gatherwall.com">gatherwall.com</a></p>
+</div>
+<script>
+const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const BOX=(location.hash||'').replace(/^#/,'').replace(/[^A-Za-z0-9_-]/g,'');
+const CHUNK=3*1024*1024;            // 3 MB raw per chunk (≈4 MB base64)
+const MAX_VIDEO=150*1024*1024;      // 150 MB per video
+const app=document.getElementById('app');
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+async function put(path,val){
+  for(let a=0;a<4;a++){
+    try{ const r=await fetch(DB+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)}); if(r.ok) return true; }catch(e){}
+    await new Promise(r=>setTimeout(r,1200*(a+1)));
+  }
+  throw new Error('upload failed');
+}
+function loadImg(file){ return new Promise((res,rej)=>{ const u=URL.createObjectURL(file); const im=new Image(); im.onload=()=>res(im); im.onerror=rej; im.src=u; }); }
+function scaled(im,max,q){ const s=Math.min(1,max/Math.max(im.naturalWidth,im.naturalHeight)); const c=document.createElement('canvas'); c.width=Math.round(im.naturalWidth*s); c.height=Math.round(im.naturalHeight*s); c.getContext('2d').drawImage(im,0,0,c.width,c.height); return c.toDataURL('image/jpeg',q); }
+function b64(buf){ let s='',a=new Uint8Array(buf); for(let i=0;i<a.length;i+=0x8000) s+=String.fromCharCode.apply(null,a.subarray(i,i+0x8000)); return btoa(s); }
+
+let META=null;
+async function init(){
+  if(!BOX){ app.innerHTML='<div class="missing"><h1>Link incomplete</h1><p class="sub">Please use the full link you were sent.</p></div>'; return; }
+  try{ META=await fetch(DB+'/uploads/'+BOX+'/meta.json').then(r=>r.json()); }catch(e){}
+  if(!META){ app.innerHTML='<div class="missing"><h1>This link isn’t active</h1><p class="sub">Please check you copied the whole link.</p></div>'; return; }
+  document.title='Add photos for '+(META.name||'the keepsake')+' · GatherWall';
+  app.innerHTML=
+   (META.portrait?'<img class="portrait" src="'+esc(META.portrait)+'" alt="">':'')+
+   '<h1>Add your photos for '+esc(META.name||'the keepsake')+'</h1>'+
+   '<p class="sub">'+esc(META.note||'Old prints, phone photos and short video clips. Add as many as you like.')+'</p>'+
+   '<div class="card">'+
+     '<label class="lbl" for="by">Your name</label>'+
+     '<input type="text" id="by" placeholder="e.g. Folake" autocomplete="name">'+
+     '<label class="big primary">📷 Take a photo of a print<input type="file" accept="image/*" capture="environment" onchange="add(this)"></label>'+
+     '<label class="big ghost">🖼 Choose photos & videos<input type="file" accept="image/*,video/*" multiple onchange="add(this)"></label>'+
+     '<p class="tip">Photographing old prints: lay them flat near a window, no flash, and fill the screen with the photo. Blurry or faded is fine — we’ll take care of it.</p>'+
+     '<div class="q" id="queue"></div>'+
+   '</div>'+
+   '<div class="card"><h3>Added so far <span class="count" id="cnt"></span></h3><div class="grid" id="grid"></div></div>';
+  try{ const n=localStorage.getItem('gw_up_by'); if(n) document.getElementById('by').value=n; }catch(e){}
+  refresh();
+}
+async function refresh(){
+  let items=null; try{ items=await fetch(DB+'/uploads/'+BOX+'/items.json').then(r=>r.json()); }catch(e){}
+  const list=Object.values(items||{}).sort((a,b)=>b.ts-a.ts);
+  document.getElementById('cnt').textContent=list.length?'· '+list.length:'';
+  document.getElementById('grid').innerHTML=list.length?list.map(i=>
+    '<div>'+(i.thumb?'<img src="'+esc(i.thumb)+'" alt="">':(i.type==='video'?'🎬':'📄'))+'<span>'+esc(i.by||'')+'</span></div>').join('')
+    :'<p class="tip" style="grid-column:1/-1">Nothing yet. Be the first!</p>';
+}
+const Q=[]; let busy=false;
+function add(input){
+  const by=(document.getElementById('by').value||'').trim();
+  if(!by){ alert('Please add your name first, so we know who sent these 🙂'); input.value=''; document.getElementById('by').focus(); return; }
+  try{ localStorage.setItem('gw_up_by',by); }catch(e){}
+  [...input.files].forEach(f=>{
+    const id=uid(); const row=document.createElement('div'); row.className='row';
+    row.innerHTML='<span>'+(f.type.startsWith('video')?'🎬':'🖼')+'</span><span class="nm">'+esc(f.name)+'</span><span class="bar"><b></b></span><span class="st"></span>';
+    document.getElementById('queue').prepend(row); Q.push({f,id,by,row});
+  });
+  input.value=''; run();
+}
+async function run(){
+  if(busy) return; busy=true;
+  while(Q.length){
+    const j=Q.shift(); const bar=j.row.querySelector('b'), st=j.row.querySelector('.st');
+    try{ await upload(j,p=>bar.style.width=Math.round(p*100)+'%'); bar.style.width='100%'; st.innerHTML='<span class="ok">✓</span>'; }
+    catch(e){ st.innerHTML='<span class="err">'+esc(e.message==='too big'?'too large':'failed — try again')+'</span>'; }
+    refresh();
+  }
+  busy=false;
+}
+async function upload({f,id,by},prog){
+  const base='uploads/'+BOX;
+  if(f.type.startsWith('video')){
+    if(f.size>MAX_VIDEO) throw new Error('too big');
+    const n=Math.ceil(f.size/CHUNK);
+    for(let i=0;i<n;i++){ const buf=await f.slice(i*CHUNK,(i+1)*CHUNK).arrayBuffer(); await put(base+'/data/'+id+'/'+i,b64(buf)); prog((i+1)/(n+1)); }
+    await put(base+'/items/'+id,{by,type:'video',name:f.name.slice(0,120),mime:f.type||'video/mp4',size:f.size,chunks:n,ts:Date.now()});
+    return;
+  }
+  // Photos: keep high quality (long edge 3000px) for the film; tiny thumbnail for the grid.
+  let full, thumb;
+  try{ const im=await loadImg(f); full=scaled(im,3000,0.92); thumb=scaled(im,320,0.7); }
+  catch(e){ const buf=await f.arrayBuffer(); full='data:'+(f.type||'application/octet-stream')+';base64,'+b64(buf); thumb=''; }
+  const raw=full.split(',')[1]||''; const per=Math.ceil(CHUNK*4/3); const n=Math.max(1,Math.ceil(raw.length/per));
+  for(let i=0;i<n;i++){ await put(base+'/data/'+id+'/'+i,raw.slice(i*per,(i+1)*per)); prog((i+1)/(n+1)); }
+  await put(base+'/items/'+id,{by,type:'photo',name:f.name.slice(0,120),mime:full.slice(5,full.indexOf(';'))||'image/jpeg',chunks:n,thumb,ts:Date.now()});
+}
+window.add=add;
+init();
+</script>
+</body>
+</html>
