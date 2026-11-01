@@ -30,18 +30,20 @@ audio{width:100%;max-width:620px;display:block;margin:12px auto 0}
 .tr{display:block;font-size:12.5px;color:var(--muted);font-style:normal;font-weight:400}
 .call{color:var(--muted)}
 .shout{font-family:Fraunces,serif;font-size:30px;color:#b3261e}
+.vers{max-width:620px;margin:12px auto 0;display:flex;gap:8px}.vers button{flex:1;padding:9px 10px;border-radius:999px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;font:600 13.5px Inter,sans-serif;cursor:pointer}.vers button.on{background:#fff;color:#1C4D3A;border-color:#fff}
 .foot{text-align:center;font-size:13px;color:var(--muted);margin-top:30px}
 </style>
 </head>
 <body>
 <div class="top"><div class="in">
   <img src="sam70-portrait.jpg" alt="Brother Sam">
-  <div><h1>Brother Sam (Ya Sap!)</h1><p>For Samuel Olubunmi Latunde at 70 · draft for family review</p></div>
+  <div><h1>Brother Sam (Ya Sap!)</h1><p>For Samuel Olubunmi Latunde at 70 · two versions for family review</p></div>
 </div>
-<audio id="a" controls preload="metadata" src="sam70-song-draft4.mp3"></audio>
+<div class="vers" id="vers"></div>
+<audio id="a" controls preload="metadata"></audio>
 </div>
 <div class="wrap">
-  <div class="note">💛 <b>Private preview — please don't share with Sam!</b> Press play and the lyrics follow along. Tap any section heading to jump to it. Yoruba lines show their meaning underneath.</div>
+  <div class="note">💛 <b>Private preview — please don't share with Sam!</b> There are <b>two versions</b> of the song: switch between them at the top. Press play and the lyrics follow along. Tap any section heading to jump to it. Yoruba lines show their meaning underneath.</div>
   <div id="ly"></div>
   <p class="foot">Made with love by GatherWall · gatherwall.com</p>
 </div>
@@ -49,22 +51,33 @@ audio{width:100%;max-width:620px;display:block;margin:12px auto 0}
 const Y=(yo,en)=>'<span class="yo">'+yo+'<span class="tr">'+en+'</span></span>';
 const S=[
  [0,'Intro','Come see this, come see this!<br>Let\'s bring it home to today\'s parlance:<br>Brother Sam is seventy!'],
- [44,'Verse 1','Liverpool baby, born in the rain,<br>Six years old, Ibadan on a plane.<br>Maryhill, Lagelu, Poly, then Ife,<br>A library card and big dreams for life.<br>Mama Aderinsola, a nurse with healing hands,<br>Papa Deinde, the bursar, helped him understand.<br>But Mama held him through the longest nights,<br>Mama, see your boy: seventy and shining bright!'],
- [78,'Chorus',Y('(Àádọ́rin ọdún! Ọlọ́run ṣé é!)','Seventy years! God has done it!')+'Brother Sam is seventy, oh!<br>Don\'t let small things bother you,<br>Strength through the storm, he\'s coming through!<br>'+Y('(Ọpẹ́ fún Olúwa!)','Thanks be to the Lord!')+'Seventy years and the beat goes on,<br>Come see this, come see this:<br>Brother Sam, still going strong!'],
+ [44,'Verse 1','Liverpool baby, born by the sea,<br>Six years old, on a ship to Ibadan, sailing free.<br>Maryhill, Lagelu, Poly, then Ife,<br>A library card and big dreams for life.<br>Mama Aderinsola, a nurse with healing hands,<br>Papa Deinde, the bursar, helped him understand.<br>But Mama held him through the longest nights,<br>Mama, see your boy: seventy and shining bright!'],
+ [78,'Chorus',Y('(Àádọ́rin ọdún! Ọlọ́run ṣé!)','Seventy years! God has done it!')+'Brother Sam is seventy, oh!<br>Don\'t let small things bother you,<br>Strength through the storm, he\'s coming through!<br>'+Y('(Ọpẹ́ fún Olúwa!)','Thanks be to the Lord!')+'Seventy years and the beat goes on,<br>Come see this, come see this:<br>Brother Sam, still going strong!'],
  [120,'Verse 2','Westminster, the security desk,<br>A lady walking out, he said "Excuse me", you know the rest!<br>Abiola stopped, and she\'s stayed ever since,<br>Thirty-eight years married to her prince!<br>Folake, Ayobami, Ayotunde,<br>The pride of his life every single day.<br>And Akpan, Nathaniel, the one we proudly claim,<br>Sam lights up whenever he calls his name!'],
  [154,'Chorus',null],
  [196,'Verse 3','Seventy years with the sickle cell,<br>Never let it steal his smile, oh no!<br>At death\'s door he was cracking jokes,<br>Dressed like Baba Sala, fooling all the folks.<br>Rushed to emergency, nobody believed,<br>But God had the final word, and we are relieved!<br>Strength through the storm, grace never fails,<br>Here we are today to tell the tale!'],
  [216,'Bridge','No lessons, just a broom and a phone book,<br>Beat it out till the whole house shook!<br>Now he\'s on the keys and the church is clapping,<br>Think he can\'t play?'],
  [238,'Everybody!','<span class="shout">YA SAP!</span>'],
  [252,'Breakdown','Who can talk to anybody? <span class="call">(Brother Sam!)</span><br>Who makes strangers feel at home? <span class="call">(Brother Sam!)</span><br>Good food, sci-fi, library books! <span class="call">(Brother Sam!)</span><br>New Covenant since eighty-nine! <span class="call">(Brother Sam!)</span><br>Humble in the morning, wise at night,<br>Seventy years and he\'s still just right!'],
- [278,'Final Chorus',Y('(Àádọ́rin ọdún! Ọlọ́run ṣé é!)','Seventy years! God has done it!')+'Brother Sam is seventy, oh!<br>Don\'t let small things bother you,<br>Strength through the storm, he\'s coming through!<br>'+Y('(Ọpẹ́ fún Olúwa!)','Thanks be to the Lord!')+'Mama, '+Y('a dúpẹ́ o','Mama, we thank you')+'look at your son:<br>Come see this, come see this,<br>Brother Sam, still going strong!'],
+ [278,'Final Chorus',Y('(Àádọ́rin ọdún! Ọlọ́run ṣé!)','Seventy years! God has done it!')+'Brother Sam is seventy, oh!<br>Don\'t let small things bother you,<br>Strength through the storm, he\'s coming through!<br>'+Y('(Ọpẹ́ fún Olúwa!)','Thanks be to the Lord!')+'Mama, '+Y('a dúpẹ́ o','Mama, we thank you')+'look at your son:<br>Come see this, come see this,<br>Brother Sam, still going strong!'],
  [320,'Outro','Happy seventieth birthday, Brother Sam!<br>We love you!']
 ];
 S[4][2]=S[2][2];
+// Two takes of the same lyrics: section start times (seconds) for each.
+const V=[
+ {label:'Version 1 ✨', src:'sam70-song-v6b.mp3', t:[0,28,61,92,125,155,181,196,211,237,266]},
+ {label:'Version 2', src:'sam70-song-v6a.mp3', t:[0,36,69,99,130,163,195,208,221,245,279]}
+];
+let VI=0;
+function useVersion(i){ VI=i; const a=document.getElementById('a'); const was=!a.paused; a.src=V[i].src; V[i].t.forEach((t,k)=>{S[k][0]=t; const h=document.querySelector('#s'+k+' h3'); if(h) h.dataset.t=t;}); cur=-1;
+  document.querySelectorAll('#vers button').forEach((b,k)=>b.classList.toggle('on',k===i)); if(was) a.play(); }
+
+let cur=-1;
 const ly=document.getElementById('ly'), a=document.getElementById('a');
 ly.innerHTML=S.map((s,i)=>'<div class="sec'+(/Chorus/.test(s[1])?' chorus':'')+'" id="s'+i+'"><h3 data-t="'+s[0]+'">'+s[1]+'</h3><p>'+s[2]+'</p></div>').join('');
+document.getElementById('vers').innerHTML=V.map((v,i)=>'<button onclick="useVersion('+i+')">'+v.label+'</button>').join('');
+useVersion(0);
 ly.addEventListener('click',e=>{const t=e.target.dataset&&e.target.dataset.t; if(t!==undefined){a.currentTime=+t; a.play();}});
-let cur=-1;
 a.addEventListener('timeupdate',()=>{
   let i=0; for(let k=0;k<S.length;k++) if(a.currentTime>=S[k][0]) i=k;
   if(i!==cur){ cur=i; document.querySelectorAll('.sec').forEach((el,k)=>el.classList.toggle('on',k===i));
