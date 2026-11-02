@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Made for you — Signature Celebration Film · GatherWall</title>
+<meta name="description" content="A personal service for milestone birthdays, anniversaries and thanksgivings: we write an original song from their life story, cut a film from your family photos with sing-along lyrics, and gather messages from everyone who loves them.">
+<link rel="canonical" href="https://gatherwall.com/celebration.html">
+<meta property="og:title" content="Made for you — a song and film of their life">
+<meta property="og:description" content="Personal service. Original song from their story, family photo film with sing-along lyrics, tribute wall and keepsake book. 50% off until 31 December.">
+<meta property="og:image" content="https://gatherwall.com/og-image.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--ink:#1F2622;--muted:#5C6B5E;--brand:#2E7D5B;--brand-d:#1C4D3A;--gold:#C2A058;--gold-soft:#F4EAD3;--line:#E5E1D5;--card:#fff;--red:#b3261e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+a{color:var(--brand)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+nav{padding:18px 0}nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:Fraunces,serif;font-weight:600;font-size:21px;text-decoration:none;color:var(--ink);display:flex;gap:8px;align-items:center}
+.logo i{width:11px;height:11px;border-radius:50%;background:var(--brand);display:inline-block}
+.hero{background:linear-gradient(160deg,#1C4D3A,#2E7D5B);color:#fff;padding:64px 0 70px}
+.pill{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.02em}
+.pill.offer{background:var(--gold);border-color:var(--gold);color:#1F2622}
+h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(34px,5.5vw,56px);line-height:1.1;margin:16px 0 14px;max-width:820px}
+.hero p.lead{font-size:clamp(17px,2.2vw,20px);opacity:.92;max-width:700px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:16px}
+.btn.gold{background:var(--gold);color:#1F2622}.btn.ghost{border:2px solid rgba(255,255,255,.7);color:#fff}
+.btn.green{background:var(--brand);color:#fff}.btn.outline{border:2px solid var(--brand);color:var(--brand)}
+section{padding:60px 0}
+h2{font-family:Fraunces,serif;font-weight:600;font-size:clamp(26px,3.6vw,36px);margin-bottom:10px}
+.sub{color:var(--muted);max-width:720px;margin-bottom:28px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.box.hl{border:2px solid var(--gold);box-shadow:0 10px 30px rgba(194,160,88,.18)}
+.box h3{font-family:Fraunces,serif;font-size:22px;margin-bottom:4px}
+.box .tag{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.box ul{list-style:none;margin-top:12px}.box li{padding:6px 0 6px 26px;position:relative;font-size:15px}
+.box li:before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.feat b{display:block;margin-bottom:4px;font-size:16px}.feat span{color:var(--muted);font-size:14.5px}
+.feat .ic{font-size:26px;margin-bottom:8px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative}
+.step:before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:10px}
+.step b{display:block;font-size:15px;margin-bottom:4px}.step span{font-size:13.5px;color:var(--muted)}
+.prices{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.price{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.price.hl{border:2px solid var(--gold)}
+.price h3{font-family:Fraunces,serif;font-size:24px}
+.amt{margin:10px 0 2px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.amt .now{font-family:Fraunces,serif;font-size:42px;font-weight:600}
+.amt .was{text-decoration:line-through;color:var(--muted);font-size:20px}
+.save{display:inline-block;background:var(--gold-soft);color:#8A6A1F;font-weight:700;font-size:12.5px;padding:3px 9px;border-radius:6px;margin-bottom:8px}
+.price ul{list-style:none;margin:10px 0 18px;flex:1}.price li{padding:5px 0 5px 24px;position:relative;font-size:14.5px}
+.price li:before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+.price .btn{justify-content:center}
+.note{background:var(--gold-soft);border-radius:14px;padding:16px 18px;font-size:14.5px;color:#5b4a1d;margin-top:18px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.faq summary{font-weight:600;cursor:pointer}.faq p{margin-top:8px;color:var(--muted);font-size:15px}
+.cta-band{background:var(--brand-d);color:#fff;text-align:center;border-radius:22px;padding:42px 24px}
+.cta-band h2{color:#fff}
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px;text-align:center}
+@media(max-width:820px){.compare,.prices,.grid3{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="index.html"><i></i>GatherWall</a><a href="index.html" style="font-size:14px;font-weight:600;text-decoration:none">← All products</a></div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="pill">Made for you · personal service</span> <span class="pill offer">50% off until 31 December</span>
+  <h1>Their life, as a song and a film — made by us, with you.</h1>
+  <p class="lead">For a 60th, 70th or 80th birthday, an anniversary or a church thanksgiving. We write an original song from their story — in English and the language of home — and cut a film from your family's photos, with the words on screen so the whole room can sing along.</p>
+  <div class="btns">
+    <a class="btn gold" href="#prices">See prices — 50% off</a>
+    <a class="btn ghost" href="mailto:hello@gatherwall.com?subject=Made%20for%20you%20%E2%80%94%20free%20call&body=Hi%20GatherWall%2C%0A%0AWho%20is%20it%20for%3F%0AOccasion%20and%20date%3A%0ABest%20number%20or%20WhatsApp%3A%0A%0AThank%20you">Book a free 15-minute call</a>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>Two ways to celebrate with GatherWall</h2>
+  <p class="sub">Most of GatherWall is instant and do-it-yourself. This page is the other one: a real person works with your family, step by step, until it's exactly right.</p>
+  <div class="compare">
+    <div class="box">
+      <span class="tag">Instant · do it yourself</span>
+      <h3>Ready in minutes</h3>
+      <ul>
+        <li>Live tribute walls and memory walls — from $10</li>
+        <li>Keepsake song from your answers — $39</li>
+        <li>Pay and it's live straight away</li>
+        <li>Best when you want it simple and fast</li>
+      </ul>
+      <p style="margin-top:14px"><a href="index.html">Browse instant products →</a></p>
+    </div>
+    <div class="box hl">
+      <span class="tag" style="color:#8A6A1F">Made for you · personal service</span>
+      <h3>A keepsake they'll watch for years</h3>
+      <ul>
+        <li>We interview you, gather the family's photos and write the song</li>
+        <li>You hear drafts and we refine names, language and pronunciation</li>
+        <li>Film with sing-along lyrics, ready for the screen on the day</li>
+        <li>Takes 2–3 weeks · limited places each month</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2>What's included in the Signature Celebration</h2>
+  <p class="sub">Everything a family needs to honour someone properly — on the day, and for years after.</p>
+  <div class="grid3">
+    <div class="feat"><div class="ic">🎵</div><b>An original song from their life</b><span>Written from your story — their names, their sayings, the people who matter. English with Yoruba (or another language of home), sung the way the names are actually said.</span></div>
+    <div class="feat"><div class="ic">🎬</div><b>A film of their life, in order</b><span>Your photos and clips arranged from childhood to today, set to their song, with the lyrics on screen so everyone can sing.</span></div>
+    <div class="feat"><div class="ic">💬</div><b>A tribute wall for everyone</b><span>One link for family and friends worldwide to leave messages and photos — revealed on the day.</span></div>
+    <div class="feat"><div class="ic">📸</div><b>One upload link for the whole family</b><span>Old prints snapped on a phone, gallery photos, videos — no app, no sign-up. We choose the best and keep quality high.</span></div>
+    <div class="feat"><div class="ic">🖼️</div><b>Old photo restoration</b><span>Faded and damaged prints gently restored — always shown to you first, so the faces stay true to the people you love.</span></div>
+    <div class="feat"><div class="ic">📖</div><b>Tribute book + keepsake page</b><span>Every message, photo and the song lyrics in a beautiful PDF, and one private page with everything — downloadable to watch offline.</span></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2>How it works</h2>
+  <p class="sub">Clear steps, and you approve everything before the day.</p>
+  <div class="steps">
+    <div class="step"><b>Free call</b><span>15 minutes: who it's for, the date, the feel you want.</span></div>
+    <div class="step"><b>Their story</b><span>A guided story form plus one upload link for the family's photos and videos.</span></div>
+    <div class="step"><b>Song drafts</b><span>Read the lyrics, hear two versions, correct names and language.</span></div>
+    <div class="step"><b>Film draft</b><span>Review the film; swap photos, fix anything, until it's right.</span></div>
+    <div class="step"><b>The day</b><span>Screen-ready file, backup copy, and a keepsake page to keep forever.</span></div>
+  </div>
+</div></section>
+
+<section id="prices" style="padding-top:0"><div class="wrap">
+  <h2>Prices</h2>
+  <p class="sub">Launch offer: <b>50% off every made-for-you package booked by 31 December 2026</b>. The discount is applied automatically at checkout.</p>
+  <div class="prices">
+    <div class="price">
+      <h3>Story Film</h3>
+      <div class="amt"><span class="now">$74.50</span><span class="was">$149</span></div>
+      <span class="save">SAVE 50% · until 31 Dec</span>
+      <ul>
+        <li>Original song written from their story</li>
+        <li>Photo film with sing-along lyrics</li>
+        <li>Upload link for the family's photos</li>
+        <li>One round of changes</li>
+        <li>Ready in about 2 weeks</li>
+      </ul>
+      <a class="btn outline" href="checkout.html?p=story-film">Book Story Film</a>
+    </div>
+    <div class="price hl">
+      <span class="pill offer" style="align-self:flex-start;margin-bottom:8px">Most loved</span>
+      <h3>Signature Celebration</h3>
+      <div class="amt"><span class="now">$324.50</span><span class="was">$649</span></div>
+      <span class="save">SAVE 50% · until 31 Dec</span>
+      <ul>
+        <li>Everything in Story Film</li>
+        <li>Two song versions + lyrics in two languages</li>
+        <li>Tribute wall for family &amp; friends worldwide</li>
+        <li>Photo restoration for treasured old prints</li>
+        <li>Video clips "in their own words" after the song</li>
+        <li>Tribute book PDF + private keepsake page</li>
+        <li>On-the-day kit: screen file, backup, running order</li>
+        <li>Two rounds of changes</li>
+      </ul>
+      <a class="btn green" href="checkout.html?p=signature-celebration">Book Signature Celebration</a>
+    </div>
+  </div>
+  <div class="note">💛 <b>Limited places.</b> Because each one is made by hand, we take only a few each month — book early for December dates. Getting married? See our <a href="wedding-keepsake.html">Wedding Keepsake</a> (also 50% off until 31 December).</div>
+</div></section>
+
+<section class="faq" style="padding-top:0"><div class="wrap">
+  <h2>Questions</h2>
+  <details><summary>How is this different from the $39 Keepsake Song?</summary><p>The $39 song is instant: you answer a few questions and the song is created for you automatically. The made-for-you service is personal — we talk with you, gather the family's photos, refine the lyrics and pronunciation with you, and build the film by hand.</p></details>
+  <details><summary>How long does it take?</summary><p>About 2–3 weeks from receiving your story and photos. Tell us your date on the free call and we'll confirm we can make it.</p></details>
+  <details><summary>Can the song include Yoruba, Igbo, Twi or another language?</summary><p>Yes. We spell each phrase the way it is spoken so it sounds right, and you hear it before anything is final.</p></details>
+  <details><summary>What if we don't like it?</summary><p>You review every draft before anything is final. If the finished piece doesn't move you, we rewrite it once free — and if you're still not happy, we refund you in full.</p></details>
+  <details><summary>Is it private?</summary><p>Yes. Everything is on private links that only your family has. Nothing is shared publicly without your permission.</p></details>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="cta-band">
+    <h2>Let's make something they'll never forget</h2>
+    <p style="opacity:.9;max-width:620px;margin:0 auto 22px">Book a free 15-minute call, or reserve your place now at 50% off.</p>
+    <div class="btns" style="justify-content:center">
+      <a class="btn gold" href="checkout.html?p=signature-celebration">Reserve — $324.50 (was $649)</a>
+      <a class="btn ghost" href="mailto:hello@gatherwall.com?subject=Made%20for%20you%20%E2%80%94%20free%20call">Book a free call</a>
+    </div>
+  </div>
+</div></section>
+
+<footer>GatherWall · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a></footer>
+</body>
+</html>

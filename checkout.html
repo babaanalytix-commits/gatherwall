@@ -130,11 +130,12 @@
     'live-tribute-wall':        'https://buy.stripe.com/7sY00k5pY9BXgPM64O9AA00', // Basic $10
     'wall-plus':                'https://buy.stripe.com/4gM7sM9GebK5dDAfFo9AA01', // Plus $15
     'wall-unlimited':           'https://buy.stripe.com/6oU14o6u26pLdDA64O9AA02', // Unlimited $20
-    'wall-pro':                 'https://buy.stripe.com/6oU28s8Cag0lbvsfFo9AA0a', // Pro $25/month
+    'wall-pro':                 '', // Pro $25/month — not on sale until Pro features are automated (waitlist only)
     'memory-wall':              'https://buy.stripe.com/bJe3cwcSqeWh2YW9h09AA03', // $10 reveal
     'memorial-eulogy':          'https://buy.stripe.com/eVq4gAcSq6pL8jg9h09AA04', // $10
     'animated-keepsake-story':  'https://buy.stripe.com/8x200kf0y15reHE0Ku9AA05', // $39
     'song-of-your-night':       'https://buy.stripe.com/eVq3cwf0y3dz9nk9h09AA06', // $39
+    'signature-celebration':    'https://buy.stripe.com/aFa14o7y66pL1US3WG9AA0b', // $649 made-for-you
     'story-film':               'https://buy.stripe.com/eVq7sM8Ca8xT7fc8cW9AA07', // $149
     'wedding-keepsake':         'https://buy.stripe.com/5kQ14o05E8xT430gJs9AA08', // $349
     'wedding-keepsake-signature':'https://buy.stripe.com/28E7sMdWu3dz430bp89AA09' // $649
@@ -181,11 +182,17 @@
       lede:{en:'A cinematic, animated keepsake of their life — scene by scene, set to an original song written for the occasion. Our signature gift.',fr:'Un souvenir animé et cinématographique de leur vie — scène par scène, sur une chanson originale écrite pour l\'occasion. Notre cadeau signature.',es:'Un recuerdo animado y cinematográfico de su vida — escena a escena, con una canción original escrita para la ocasión. Nuestro regalo estrella.',cs:'Filmová animovaná vzpomínka na jejich život — scéna po scéně, s původní písní napsanou pro tuto příležitost. Náš výjimečný dárek.',de:'Eine filmische, animierte Erinnerung an ihr Leben — Szene für Szene, mit einem eigens komponierten Lied. Unser Signature-Geschenk.'},
       incl:{en:['Original song for the occasion','Hand-crafted animated story','Played at the event & kept forever','Your photos, milestones & message'],fr:['Chanson originale pour l\'occasion','Histoire animée faite main','Diffusée à l\'événement & gardée pour toujours','Vos photos, moments clés & message'],es:['Canción original para la ocasión','Historia animada hecha a mano','Se reproduce en el evento y se guarda para siempre','Tus fotos, hitos y mensaje'],cs:['Původní píseň pro tuto příležitost','Ručně vytvořený animovaný příběh','Přehráno na akci & uchováno navždy','Vaše fotky, milníky & vzkaz'],de:['Eigenes Lied für den Anlass','Handgefertigte animierte Geschichte','Beim Event gezeigt & für immer behalten','Ihre Fotos, Meilensteine & Botschaft']},
       amt:'$39',per:{en:'one-time',fr:'unique',es:'pago único',cs:'jednorázově',de:'einmalig'}},
+    'signature-celebration':{
+      eyebrow:{en:'Signature Celebration · made for you'},
+      title:{en:'Their life, as a song and a film — made by us, with you'},
+      lede:{en:'A personal service for milestone birthdays, anniversaries and thanksgivings. We write the song from their story, gather the family\'s photos, and build the film with sing-along lyrics — refining it with you until it\'s right.'},
+      incl:{en:['Original song in English + your language of home (two versions)','Photo film with sing-along lyrics, ready for the screen','Tribute wall + one upload link for the whole family','Photo restoration, tribute book PDF and private keepsake page','Personal service · about 2–3 weeks · we\'ll be in touch within 1 working day']},
+      amt:'$649',per:{en:'one-time'}},
     'story-film':{
       eyebrow:{en:'Story Film',cs:'Filmový příběh'},
       title:{en:'Their whole story, set to a song written for them',cs:'Celý jejich příběh s písní napsanou jen pro ně'},
       lede:{en:'Your photographs and clips cut into a short film, scored with an original song written from their story — and a private page to share it from.',cs:'Vaše fotky a klipy sestříhané do krátkého filmu s původní písní z vašeho příběhu — a soukromá stránka pro sdílení.'},
-      incl:{en:['An original song written for the occasion','A short film built from your photos & clips','A private keepsake page to share','Delivered in about a week'],cs:['Původní píseň pro danou příležitost','Krátký film z vašich fotek a klipů','Soukromá vzpomínková stránka ke sdílení','Doručení zhruba do týdne']},
+      incl:{en:['An original song written for the occasion','A short film built from your photos & clips','A private keepsake page to share','Made with you by hand · about 2 weeks'],cs:['Původní píseň pro danou příležitost','Krátký film z vašich fotek a klipů','Soukromá vzpomínková stránka ke sdílení','Doručení zhruba do týdne']},
       amt:'$149',per:{en:'one-time',cs:'jednorázově'}},
     'wedding-keepsake':{
       eyebrow:{en:'Wedding Keepsake',cs:'Svatební vzpomínka'},
@@ -224,8 +231,8 @@
     document.getElementById('t_incl').textContent=u.incl;
     document.getElementById('oName').textContent=L(p.eyebrow);
     document.getElementById('t_for').textContent=u.forLine;
-    var _t=param('tier'); document.getElementById('oAmt').textContent=(slug==='live-tribute-wall'&&_t==='plus')?'$15':(slug==='live-tribute-wall'&&_t==='unlimited')?'$20':p.amt;
-    document.getElementById('oPer').textContent=L(p.per);
+    var _t=param('tier'); if(launchOn(slug)){ document.getElementById('oAmt').innerHTML=LAUNCH.slugs[slug]+' <s style="font-size:.55em;opacity:.55;font-weight:500">'+p.amt+'</s>'; var pe=document.getElementById('oPer'); } else document.getElementById('oAmt').textContent=(slug==='live-tribute-wall'&&_t==='plus')?'$15':(slug==='live-tribute-wall'&&_t==='unlimited')?'$20':p.amt;
+    document.getElementById('oPer').textContent=L(p.per)+(launchOn(slug)?' · 50% off until 31 Dec — applied at checkout':'');
     var w=document.getElementById('oWas'); if(p.was){w.style.display='';w.textContent=p.was;} else {w.style.display='none';}
     var ul=document.getElementById('incl'); ul.innerHTML='';
     L(p.incl).forEach(function(t){var li=document.createElement('li');li.innerHTML='<span class="tick">✓</span><span>'+t+'</span>';ul.appendChild(li);});
@@ -246,6 +253,9 @@
   // Build the pay link. Set PAYMENTS_LIVE=false to turn every Buy button into
   // "Request a secure payment link" (email) if card payments ever go down.
   var PAYMENTS_LIVE = true;
+  // Launch offer: 50% off made-for-you packages until 31 Dec 2026 (Stripe promo code, auto-applied).
+  var LAUNCH = { code:'LAUNCH50', until:new Date('2027-01-01T00:00:00Z'), slugs:{'story-film':'$74.50','wedding-keepsake':'$174.50','wedding-keepsake-signature':'$324.50','signature-celebration':'$324.50'} };
+  function launchOn(s){ return !!(LAUNCH.slugs[s] && new Date() < LAUNCH.until); }
   function buildPayUrl(slug){
     if(!PAYMENTS_LIVE) return null;
     var tier=param('tier');
@@ -259,7 +269,9 @@
     // Stripe Payment Links accept client_reference_id (letters, numbers, - and _ only, max 200).
     // Format: slug__tier__ev-ID or slug__tier__or-ID — read by the webhook to publish the right wall.
     var ref=[slug, tier||'x', ev?('ev-'+ev):(order?('or-'+order):'x')].join('__').replace(/[^A-Za-z0-9_-]/g,'').slice(0,200);
-    return base + (base.indexOf('?')>-1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref);
+    var url = base + (base.indexOf('?')>-1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref);
+    if(launchOn(slug)) url += '&prefilled_promo_code=' + LAUNCH.code;
+    return url;
   }
 
   // Wire the button, or fail gracefully if this product has no link yet
