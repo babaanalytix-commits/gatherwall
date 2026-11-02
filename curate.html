@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Review photos · GatherWall</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--ink:#1F2622;--muted:#6B786D;--brand:#2E7D5B;--gold:#C2A058;--line:#E5E1D5;--red:#b3261e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:12px 18px}
+.hin{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{font-family:Fraunces,serif;font-size:21px;font-weight:600;margin-right:auto}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font:500 13px Inter;cursor:pointer;margin-left:4px}
+.tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.stat{font-size:13px;color:var(--muted);width:100%}
+.grid{max-width:1200px;margin:18px auto;padding:0 18px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;transition:opacity .2s}
+.card.out{opacity:.38}
+.card .im{position:relative;aspect-ratio:1;background:#e9e5da;display:flex;align-items:center;justify-content:center;cursor:zoom-in;overflow:hidden}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.card .meta{display:flex;align-items:center;gap:6px;padding:8px 10px;font-size:12px;color:var(--muted)}
+.card .meta span.by{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q{font-weight:600;border-radius:6px;padding:2px 6px;font-size:11px}
+.q.good{background:#e3f1e9;color:var(--brand)}.q.ok{background:#fbf1dc;color:#8a6a1f}.q.low{background:#fbe4e2;color:var(--red)}.q.wait{background:#eee;color:#888}
+.acts{display:flex;border-top:1px solid var(--line)}
+.acts button{flex:1;border:0;background:#fff;padding:9px 0;font:600 13px Inter;cursor:pointer;color:var(--muted)}
+.acts button+button{border-left:1px solid var(--line)}
+.acts .k.on{color:var(--brand)}.acts .x.on{color:var(--red)}.acts .f.on{color:#c79300}
+.badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;font:600 11px Inter;padding:3px 7px;border-radius:6px}
+.fav{position:absolute;top:6px;right:8px;font-size:20px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(10,14,12,.94);z-index:20;display:none;flex-direction:column}
+#lb.on{display:flex}
+#lb .stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;position:relative}
+#lb img,#lb video{max-width:94vw;max-height:78vh;object-fit:contain;transition:transform .2s;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:0;color:#fff;font-size:34px;width:56px;height:76px;border-radius:12px;cursor:pointer}
+#lb .prev{left:14px}#lb .next{right:14px}
+#lb .bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;padding:14px;color:#ddd;font-size:13.5px}
+#lb .bar button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:10px;padding:9px 14px;font:600 14px Inter;cursor:pointer}
+#lb .bar button.on.k{background:var(--brand);border-color:var(--brand)}
+#lb .bar button.on.x{background:var(--red);border-color:var(--red)}
+#lb .bar button.on.f{background:#c79300;border-color:#c79300}
+#lb .info{width:100%;text-align:center;color:#bbb}
+#lb .close{position:absolute;top:12px;right:16px;background:none;border:0;color:#fff;font-size:30px;cursor:pointer}
+.loading{color:#ccc}
+.help{max-width:1200px;margin:12px auto 0;padding:0 18px;font-size:13.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="hin">
+  <h1 id="title">Review photos</h1>
+  <div class="tabs" id="tabs"></div>
+  <div class="stat" id="stat"></div>
+</div></header>
+<p class="help">Click a photo to see it big. <b>✓ Keep</b> / <b>✕ Remove</b> / <b>⭐ Must-use</b> / <b>↻ Rotate</b>. In the big view use ← → to move, <b>K</b> keep, <b>X</b> remove, <b>F</b> must-use, <b>R</b> rotate. Quality: <span class="q good">Sharp</span> fine on a big screen · <span class="q ok">OK</span> use smaller · <span class="q low">Low</span> may look soft on a projector. Choices save automatically.</p>
+<div class="grid" id="grid"></div>
+
+<div id="lb"><button class="close" onclick="closeLb()">×</button>
+  <div class="stage"><button class="nav prev" onclick="step(-1)">‹</button><div id="lbm" class="loading">Loading…</div><button class="nav next" onclick="step(1)">›</button></div>
+  <div class="bar">
+    <button class="k" onclick="setS('keep')">✓ Keep (K)</button>
+    <button class="x" onclick="setS('out')">✕ Remove (X)</button>
+    <button class="f" onclick="togFav()">⭐ Must-use (F)</button>
+    <button onclick="rot()">↻ Rotate (R)</button>
+    <div class="info" id="lbi"></div>
+  </div>
+</div>
+
+<script>
+const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const [BOX,KEY]=(location.hash||'').replace(/^#/,'').split('~').map(s=>(s||'').replace(/[^A-Za-z0-9_-]/g,''));
+const CUR='curation/'+BOX+'--'+KEY;
+let ITEMS=[], PICKS={}, FULL={}, Q={}, FILTER='all', LBI=-1;
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const get=p=>fetch(DB+'/'+p+'.json').then(r=>r.json());
+const save=(id,v)=>fetch(DB+'/'+CUR+'/picks/'+id+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)});
+
+async function init(){
+  if(!BOX||!KEY){ document.getElementById('grid').innerHTML='<p>Link incomplete.</p>'; return; }
+  const [meta,items,picks]=await Promise.all([get('uploads/'+BOX+'/meta'),get('uploads/'+BOX+'/items'),get(CUR+'/picks')]);
+  document.getElementById('title').textContent='Review photos · '+((meta&&meta.name)||'');
+  ITEMS=Object.entries(items||{}).map(([id,v])=>Object.assign({id},v)).sort((a,b)=>a.ts-b.ts);
+  PICKS=picks||{};
+  ITEMS.forEach(i=>{ const p=PICKS[i.id]; if(p&&p.w) Q[i.id]=quality(p.w,p.h,p.sharp); });
+  document.getElementById('tabs').innerHTML=[['all','All'],['keep','Kept'],['out','Removed'],['fav','⭐ Must-use'],['low','Low quality'],['video','Videos']]
+    .map(([k,l])=>'<button data-f="'+k+'" onclick="setF(\''+k+'\')">'+l+'</button>').join('');
+  setF('all'); scanQuality();
+}
+function st(id){ return (PICKS[id]&&PICKS[id].status)||'keep'; }
+function quality(w,h,sharp){
+  const L=Math.max(w,h); let lvl=L>=1600?'good':L>=1000?'ok':'low';
+  if(sharp!=null && sharp<6 && lvl==='good') lvl='ok';
+  if(sharp!=null && sharp<3) lvl='low';
+  return {lvl,label:{good:'Sharp',ok:'OK',low:'Low'}[lvl]+' · '+w+'×'+h};
+}
+function visible(){ return ITEMS.filter(i=>{
+  if(FILTER==='keep') return st(i.id)==='keep'; if(FILTER==='out') return st(i.id)==='out';
+  if(FILTER==='fav') return PICKS[i.id]&&PICKS[i.id].fav; if(FILTER==='low') return Q[i.id]&&Q[i.id].lvl==='low';
+  if(FILTER==='video') return i.type==='video'; return true; }); }
+function setF(f){ FILTER=f; document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.f===f)); render(); }
+function render(){
+  const v=visible();
+  document.getElementById('grid').innerHTML=v.map(i=>{
+    const p=PICKS[i.id]||{}, s=st(i.id), q=Q[i.id], n=ITEMS.indexOf(i)+1;
+    return '<div class="card'+(s==='out'?' out':'')+'" id="c_'+i.id+'">'+
+      '<div class="im" onclick="openLb(\''+i.id+'\')">'+(i.thumb?'<img src="'+esc(i.thumb)+'" style="transform:rotate('+(p.rot||0)+'deg)">'+(i.type==='video'?'<span style="position:absolute;font-size:46px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6)">▶</span>':''):(i.type==='video'?'<span style="font-size:42px">🎬</span>':'📄'))+'</div>'+
+      '<span class="badge">#'+n+'</span>'+(p.fav?'<span class="fav">⭐</span>':'')+
+      '<div class="meta"><span class="by">'+esc(i.by)+'</span>'+(i.type==='video'?'<span class="q ok">▶ Video'+(i.vinfo?' '+i.vinfo.dur+'s':'')+'</span>':'<span class="q '+(q?q.lvl:'wait')+'">'+(q?q.label.split(' · ')[0]:'…')+'</span>')+'</div>'+
+      '<div class="acts"><button class="k'+(s==='keep'?' on':'')+'" onclick="setS(\'keep\',\''+i.id+'\')">✓ Keep</button><button class="x'+(s==='out'?' on':'')+'" onclick="setS(\'out\',\''+i.id+'\')">✕ Remove</button><button class="f'+(p.fav?' on':'')+'" onclick="togFav(\''+i.id+'\')">⭐</button><button onclick="rot(\''+i.id+'\')">↻</button></div></div>';
+  }).join('') || '<p style="color:#888">Nothing here.</p>';
+  const k=ITEMS.filter(i=>st(i.id)==='keep').length, f=ITEMS.filter(i=>PICKS[i.id]&&PICKS[i.id].fav).length, lo=ITEMS.filter(i=>Q[i.id]&&Q[i.id].lvl==='low').length;
+  document.getElementById('stat').textContent=ITEMS.length+' uploaded · '+k+' kept · '+(ITEMS.length-k)+' removed · '+f+' must-use · '+lo+' low quality';
+}
+async function full(i){
+  if(FULL[i.id]) return FULL[i.id];
+  const parts=[]; for(let n=0;n<(i.chunks||1);n++) parts.push(await get('uploads/'+BOX+'/data/'+i.id+'/'+n));
+  if(i.type==='video'){ const bin=atob(parts.join('')); const u8=new Uint8Array(bin.length); for(let k=0;k<bin.length;k++) u8[k]=bin.charCodeAt(k);
+    FULL[i.id]=URL.createObjectURL(new Blob([u8],{type:i.mime||'video/mp4'})); }
+  else FULL[i.id]='data:'+(i.mime||'image/jpeg')+';base64,'+parts.join('');
+  return FULL[i.id];
+}
+function measure(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>{
+  // sharpness: mean absolute Laplacian on a 512px greyscale copy
+  const s=Math.min(1,512/Math.max(im.naturalWidth,im.naturalHeight)); const w=Math.round(im.naturalWidth*s), h=Math.round(im.naturalHeight*s);
+  const c=document.createElement('canvas'); c.width=w; c.height=h; const x=c.getContext('2d'); x.drawImage(im,0,0,w,h);
+  const d=x.getImageData(0,0,w,h).data, g=new Float32Array(w*h); for(let p=0;p<w*h;p++) g[p]=.299*d[p*4]+.587*d[p*4+1]+.114*d[p*4+2];
+  let sum=0,n=0; for(let y=1;y<h-1;y++) for(let xx=1;xx<w-1;xx++){ const p=y*w+xx; sum+=Math.abs(4*g[p]-g[p-1]-g[p+1]-g[p-w]-g[p+w]); n++; }
+  res({w:im.naturalWidth,h:im.naturalHeight,sharp:Math.round(sum/n*10)/10}); }; im.onerror=()=>res(null); im.src=src; }); }
+function vthumb(src){ return new Promise(res=>{ const v=document.createElement('video'); v.muted=true; v.preload='auto'; v.src=src;
+  v.onloadeddata=()=>{ v.currentTime=Math.min(1.5,(v.duration||2)/2); };
+  v.onseeked=()=>{ const c=document.createElement('canvas'); const s=Math.min(1,480/Math.max(v.videoWidth,v.videoHeight)); c.width=Math.round(v.videoWidth*s); c.height=Math.round(v.videoHeight*s);
+    c.getContext('2d').drawImage(v,0,0,c.width,c.height); res({thumb:c.toDataURL('image/jpeg',.75),w:v.videoWidth,h:v.videoHeight,dur:Math.round(v.duration)}); };
+  v.onerror=()=>res(null); }); }
+async function scanQuality(){
+  for(const i of ITEMS){ if(i.type!=='video'||i.thumb) continue;
+    try{ const m=await vthumb(await full(i)); if(m){ i.thumb=m.thumb; i.vinfo=m; render(); } }catch(e){} }
+  for(const i of ITEMS){ if(i.type!=='photo'||Q[i.id]) continue;
+    try{ const m=await measure(await full(i)); if(m){ Q[i.id]=quality(m.w,m.h,m.sharp); PICKS[i.id]=Object.assign(PICKS[i.id]||{},m); save(i.id,m);
+      const card=document.getElementById('c_'+i.id); if(card){ const b=card.querySelector('.q'); b.className='q '+Q[i.id].lvl; b.textContent=Q[i.id].label.split(' · ')[0]; }
+      render.t||(render.t=setTimeout(()=>{render.t=0; if(!document.getElementById('lb').classList.contains('on')) render();},1500)); } }catch(e){}
+  }
+}
+function cur(id){ return id || (LBI>=0 && visible()[LBI] && visible()[LBI].id); }
+function setS(s,id){ id=cur(id); if(!id) return; PICKS[id]=Object.assign(PICKS[id]||{},{status:s}); save(id,{status:s,at:Date.now()}); afterChange(id); }
+function togFav(id){ id=cur(id); if(!id) return; const f=!(PICKS[id]&&PICKS[id].fav); PICKS[id]=Object.assign(PICKS[id]||{},{fav:f}); if(f) PICKS[id].status='keep'; save(id,{fav:f,status:st(id),at:Date.now()}); afterChange(id); }
+function rot(id){ id=cur(id); if(!id) return; const r=(((PICKS[id]&&PICKS[id].rot)||0)+90)%360; PICKS[id]=Object.assign(PICKS[id]||{},{rot:r}); save(id,{rot:r,at:Date.now()}); afterChange(id); }
+function afterChange(id){ if(document.getElementById('lb').classList.contains('on')) showLb(); else render(); }
+function openLb(id){ LBI=visible().findIndex(i=>i.id===id); document.getElementById('lb').classList.add('on'); showLb(); }
+function closeLb(){ document.getElementById('lb').classList.remove('on'); const v=document.querySelector('#lbm video'); if(v) v.pause(); LBI=-1; render(); }
+function step(d){ const v=visible(); if(!v.length) return; LBI=(LBI+d+v.length)%v.length; showLb(); }
+async function showLb(){
+  const v=visible(), i=v[LBI]; if(!i){ closeLb(); return; }
+  const p=PICKS[i.id]||{}, s=st(i.id), q=Q[i.id], n=ITEMS.indexOf(i)+1, box=document.getElementById('lbm');
+  document.querySelector('#lb .k').classList.toggle('on',s==='keep'); document.querySelector('#lb .x').classList.toggle('on',s==='out'); document.querySelector('#lb .f').classList.toggle('on',!!p.fav);
+  document.getElementById('lbi').textContent='#'+n+' of '+ITEMS.length+' · from '+(i.by||'?')+(q?' · '+q.label:'')+(s==='out'?' · REMOVED':'');
+  if(box.dataset.id!==i.id){ box.dataset.id=i.id; box.className='loading'; box.innerHTML='Loading…'; const src=await full(i); if(box.dataset.id!==i.id) return; box.className='';
+    box.innerHTML=i.type==='video'?'<video src="'+src+'" controls autoplay></video>':'<img src="'+src+'">'; }
+  const el=box.querySelector('img'); if(el) el.style.transform='rotate('+(p.rot||0)+'deg)';
+}
+document.addEventListener('keydown',e=>{ if(!document.getElementById('lb').classList.contains('on')) return;
+  const k=e.key.toLowerCase(); if(k==='arrowright') step(1); else if(k==='arrowleft') step(-1); else if(k==='escape') closeLb();
+  else if(k==='k') setS('keep'); else if(k==='x') setS('out'); else if(k==='f') togFav(); else if(k==='r') rot(); });
+init();
+</script>
+</body>
+</html>
