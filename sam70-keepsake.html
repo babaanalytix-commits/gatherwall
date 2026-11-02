@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Brother Sam at 70 · your keepsake</title>
+<meta property="og:title" content="Brother Sam at 70 💛 your keepsake">
+<meta property="og:description" content="The film, the song and the tribute wall, all in one place.">
+<meta property="og:image" content="https://gatherwall.com/sam70-card.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--ink:#1F2622;--muted:#6B786D;--brand:#2E7D5B;--deep:#1C4D3A;--gold:#C2A058;--line:#E5E1D5;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+a{color:var(--brand)}
+/* welcome */
+#welcome{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 30%,#2E7D5B,#0f2c21 75%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:opacity .8s}
+#welcome.gone{opacity:0;pointer-events:none}
+#welcome img{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid var(--gold);box-shadow:0 10px 40px rgba(0,0,0,.4);animation:rise 1.2s ease}
+#welcome .to{margin-top:26px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#e4c77a}
+#welcome h1{font-family:Fraunces,serif;font-size:clamp(34px,7vw,56px);font-weight:600;line-height:1.1;margin:10px 0 8px}
+#welcome p{max-width:460px;opacity:.85}
+#welcome button{margin-top:28px;background:var(--gold);color:#1b1b1b;border:0;border-radius:999px;padding:15px 34px;font:600 16px Inter,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+@keyframes rise{from{transform:translateY(20px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+/* hero */
+.hero{background:linear-gradient(180deg,#1C4D3A,#2E7D5B);color:#fff;text-align:center;padding:48px 20px 70px}
+.hero img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--gold)}
+.hero h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(30px,6vw,46px);margin-top:14px;line-height:1.15}
+.hero p{opacity:.85;margin-top:6px}
+.hero .dates{margin-top:14px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.hero .dates span{border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 14px;font-size:13px}
+nav{position:sticky;top:0;z-index:5;background:rgba(247,245,238,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;justify-content:center}
+nav a{white-space:nowrap;text-decoration:none;color:var(--deep);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:999px}
+nav a:hover{background:#ebe7da}
+.wrap{max-width:780px;margin:-40px auto 0;padding:0 16px 40px;position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 24px;margin-bottom:22px;box-shadow:0 6px 24px rgba(0,0,0,.05);scroll-margin-top:70px}
+.num{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.card h2{font-family:Fraunces,serif;font-weight:600;font-size:26px;color:var(--deep);margin:2px 0 6px}
+.card .lead{color:var(--muted);margin-bottom:16px}
+.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#111}
+.video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:11px 18px;font-weight:600;font-size:14.5px;border:1.5px solid var(--brand);color:var(--brand);background:#fff;cursor:pointer;font-family:inherit}
+.btn.solid{background:var(--brand);color:#fff}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1b1b1b}
+.btn small{font-weight:400;opacity:.75}
+.song{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px}
+.song b{display:block;margin-bottom:6px}
+.song .tag{font-size:12px;background:#fdf3d8;color:#7a5a12;border-radius:999px;padding:2px 9px;margin-left:6px;font-weight:600}
+audio{width:100%}
+.link{display:flex;gap:8px;align-items:center;background:#f3f0e6;border-radius:12px;padding:10px 12px;margin:10px 0;font-size:14px;word-break:break-all}
+.link code{flex:1;font-family:inherit}
+.host{border:2px dashed var(--gold);border-radius:16px;padding:16px;margin-top:18px;background:#fffbf0}
+.host h3{font-size:15px;color:#7a5a12;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:6px 0 4px}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+@media(max-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.grid img:nth-child(n+10){display:none}}
+ul.check{list-style:none;margin-top:6px}
+ul.check li{padding:7px 0 7px 30px;position:relative;border-bottom:1px solid #f0ede4}
+ul.check li:before{content:"✓";position:absolute;left:4px;color:var(--brand);font-weight:700}
+.soon{color:var(--muted);font-size:13.5px;font-style:italic}
+.note{font-size:13.5px;color:var(--muted);margin-top:10px}
+.memory{display:flex;gap:16px;align-items:center;background:#f6f3ea;border-radius:14px;padding:14px;margin-top:16px}
+.memory img{width:92px;height:110px;object-fit:cover;border-radius:8px;border:3px solid var(--gold)}
+.gw{max-width:780px;margin:10px auto 0;padding:0 16px 50px;text-align:center}
+.gw .box{border-top:1px solid var(--line);padding-top:26px}
+.gw h3{font-family:Fraunces,serif;font-weight:600;color:var(--deep);font-size:21px}
+.gw p{color:var(--muted);font-size:14.5px;margin:4px auto 16px;max-width:520px}
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
+@media(max-width:600px){.offers{grid-template-columns:1fr}}
+.offer{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;transition:transform .15s,box-shadow .15s}
+.offer:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.07)}
+.offer b{display:block;color:var(--deep)}
+.offer span{font-size:13.5px;color:var(--muted)}
+.offer em{display:inline-block;margin-top:8px;font-style:normal;font-weight:600;color:var(--brand);font-size:14px}
+.foot{font-size:12.5px;color:var(--muted);margin-top:24px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1F2622;color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .3s;z-index:60}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="welcome">
+  <img src="sam70-portrait.jpg" alt="Brother Sam">
+  <div class="to" id="wTo">With love, for the family</div>
+  <h1>Brother Sam at 70</h1>
+  <p>Everything made for his celebration, together in one place: the film, his song, the tribute wall and the photos.</p>
+  <button onclick="openGift()">Open your keepsake ✨</button>
+</div>
+
+<header class="hero">
+  <img src="sam70-portrait.jpg" alt="Brother Sam">
+  <h1>Brother Sam at 70</h1>
+  <p>Samuel Olubunmi Latunde · a life worth singing about</p>
+  <div class="dates"><span>🎂 Born 15 December 1956</span><span>⛪ Thanksgiving · Sunday 6 December 2026</span></div>
+</header>
+
+<nav>
+  <a href="#film">🎬 Film</a><a href="#song">🎵 Song</a><a href="#wall">💬 Tribute wall</a><a href="#photos">📷 Photos</a><a href="#day">⛪ On the day</a><a href="#all">⬇️ Download all</a>
+</nav>
+
+<main class="wrap">
+
+  <section class="card" id="film">
+    <span class="num">01 · The film</span>
+    <h2>His story, in pictures and song</h2>
+    <p class="lead">Five minutes and fifty-three seconds: from Liverpool baby to seventy, cut to his own song, with lyrics on screen for the room to sing along. It ends with Sam in his own words.</p>
+    <div class="video" id="filmBox"></div>
+    <div class="btns">
+      <a class="btn solid" id="dlHD" target="_blank" rel="noopener">⬇️ Download for the big screen <small>HD · 110 MB</small></a>
+      <a class="btn" id="dlPhone" target="_blank" rel="noopener">⬇️ Download for phones <small>35 MB</small></a>
+    </div>
+    <div class="memory">
+      <img src="sam70-siblings.jpg" alt="Sam with Ayoola and Femi">
+      <div><b>In loving memory of Ayoola &amp; Femi</b><br><span class="note" style="margin:0">Sam's beloved siblings are remembered in the film, forever part of his story.</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="song">
+    <span class="num">02 · The song</span>
+    <h2>“Brother Sam (Ya Sap!)”</h2>
+    <p class="lead">An English–Yoruba song written from his life: Liverpool, the ship to Ibadan, Mama Aderinsola, Westminster, the children, the keys, and that famous “Ya sap!”</p>
+    <div class="song"><b>Version 1 <span class="tag">The family's favourite</span></b><audio controls preload="none" src="sam70-song-v6b.mp3"></audio></div>
+    <div class="song"><b>Version 2 <span class="tag">Bonus</span></b><audio controls preload="none" src="sam70-song-v6a.mp3"></audio></div>
+    <div class="btns">
+      <a class="btn solid" href="sam70-song.html" target="_blank">🎤 Sing along with the lyrics</a>
+      <a class="btn" href="sam70-song-v6b.mp3" download="Brother Sam (Ya Sap!) - Version 1.mp3">⬇️ Version 1 MP3</a>
+      <a class="btn" href="sam70-song-v6a.mp3" download="Brother Sam (Ya Sap!) - Version 2.mp3">⬇️ Version 2 MP3</a>
+      <a class="btn" href="sam70-lyrics.pdf" target="_blank">📄 Printable lyrics &amp; meanings</a>
+    </div>
+  </section>
+
+  <section class="card" id="wall">
+    <span class="num">03 · The tribute wall</span>
+    <h2>Messages from everyone who loves him</h2>
+    <p class="lead">Friends and family leave greetings and photos on one link. Nothing appears until it's been approved, and the whole wall is revealed on the day.</p>
+    <b>Share this link with family &amp; friends</b>
+    <div class="link"><code id="guestUrl">https://gatherwall.com/sam70.html</code><button class="btn" style="padding:7px 12px" onclick="copy('guestUrl')">Copy</button></div>
+    <div class="btns">
+      <a class="btn solid" id="waShare" target="_blank" rel="noopener">🟢 Share on WhatsApp</a>
+      <a class="btn" href="index.html#guest?ev=mrilot" target="_blank">👀 See the wall</a>
+    </div>
+    <p class="note">The more people who write, the richer the wall and the tribute book. Messages are open until <b>Sunday 22 November</b>.</p>
+
+    <div class="host" id="hostBox" hidden>
+      <h3>🔑 Just for you: your control panel</h3>
+      <p class="note" style="margin-top:0">This is where you read and approve every message before anyone else sees it. <b>Please don't forward this one</b>; it's your private key to the wall.</p>
+      <div class="btns"><a class="btn gold" id="manageLink" target="_blank" rel="noopener">Open my control panel ▸</a></div>
+    </div>
+
+    <ul class="check" style="margin-top:14px">
+      <li><b>Tribute book (PDF)</b>: every message and photo, laid out like a guestbook, to keep and print. <span class="soon">Added here after the wall closes.</span></li>
+    </ul>
+  </section>
+
+  <section class="card" id="photos">
+    <span class="num">04 · The photo album</span>
+    <h2>Seventy years of photos</h2>
+    <p class="lead">Every photo from the film, in order, including the restored picture of Sam with his parents.</p>
+    <div class="grid">
+      <img src="sam70-k1.jpg" alt=""><img src="sam70-k2.jpg" alt=""><img src="sam70-k3.jpg" alt=""><img src="sam70-k4.jpg" alt=""><img src="sam70-k5.jpg" alt="">
+      <img src="sam70-k6.jpg" alt=""><img src="sam70-k7.jpg" alt=""><img src="sam70-k8.jpg" alt=""><img src="sam70-k9.jpg" alt=""><img src="sam70-k10.jpg" alt="">
+    </div>
+    <div class="btns"><a class="btn solid" id="dlAlbum" target="_blank" rel="noopener">⬇️ Download all 74 photos <small>zip · 57 MB</small></a></div>
+  </section>
+
+  <section class="card" id="day">
+    <span class="num">05 · On the day</span>
+    <h2>Making the moment go smoothly</h2>
+    <ul class="check">
+      <li>Play the film <b>from a USB stick or laptop</b>, not the internet. Church Wi-Fi is never reliable.</li>
+      <li>Test it on the <b>real projector and sound system</b> the week before (around 1 December).</li>
+      <li>Keep the phone version on a second device as a backup.</li>
+      <li>Ask someone to <b>film the room</b> while it plays: Sam's face, the family singing.</li>
+    </ul>
+    <div class="btns"><a class="btn" href="sam70-day-guide.pdf" target="_blank">📄 One-page guide for whoever runs the screen</a></div>
+  </section>
+
+  <section class="card" id="all">
+    <span class="num">06 · Keep everything</span>
+    <h2>Download it all</h2>
+    <p class="lead">One folder with everything above: both films, both songs, the lyrics, the on-the-day guide and the photo album. Save it to your phone or laptop <b>before the cruise</b> so it all plays without Wi-Fi.</p>
+    <div class="btns"><a class="btn solid" id="dlAll" target="_blank" rel="noopener">📁 Open the keepsake folder</a></div>
+  </section>
+
+</main>
+
+<footer class="gw">
+  <div class="box">
+    <h3>Celebrating someone soon?</h3>
+    <p>Sam's keepsake was made with GatherWall. You can start your own in a couple of minutes, with no app and no sign-up.</p>
+    <div class="offers">
+      <a class="offer" href="index.html" target="_blank"><b>💬 A tribute wall</b><span>One link for everyone's messages and photos, revealed on the day. Free to start.</span><br><em>Start a wall ▸</em></a>
+      <a class="offer" href="create-song.html" target="_blank"><b>🎵 A personal song</b><span>Tell us about them and get an original song with their name and story. $39.</span><br><em>Create a song ▸</em></a>
+    </div>
+    <p class="foot">Made with love by <a href="index.html">GatherWall</a> · for Brother Sam, December 2026</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- Google Drive file IDs (filled in once the keepsake folder is uploaded) ----
+const DRIVE = { folder:'', hd:'', phone:'', album:'' };
+
+const view = id => 'https://drive.google.com/file/d/' + id + '/view';
+function setLink(el, id){ const a=document.getElementById(el); if(id){ a.href=view(id); } else { a.removeAttribute('href'); a.style.opacity=.5; a.title='Coming shortly'; } }
+setLink('dlHD', DRIVE.hd); setLink('dlPhone', DRIVE.phone); setLink('dlAlbum', DRIVE.album);
+(function(){ const a=document.getElementById('dlAll'); if(DRIVE.folder){ a.href='https://drive.google.com/drive/folders/'+DRIVE.folder; } else { a.removeAttribute('href'); a.style.opacity=.5; } })();
+document.getElementById('filmBox').innerHTML = DRIVE.phone
+  ? '<iframe src="https://drive.google.com/file/d/'+DRIVE.phone+'/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>'
+  : '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ccc">The film will appear here shortly</div>';
+
+// WhatsApp share for the wall
+const guest = document.getElementById('guestUrl').textContent;
+document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent("Brother Sam is turning 70! 🎉 Please leave him a message or a photo on his tribute wall. It only takes a minute: " + guest);
+
+// Host-only section: the key lives in the link Biola receives (#host=...), never in this page.
+const hk = (location.hash.match(/host=([A-Za-z0-9_-]+)/) || [])[1];
+if (hk) {
+  document.getElementById('hostBox').hidden = false;
+  document.getElementById('manageLink').href = 'index.html#manage?ev=mrilot&key=' + hk;
+  document.getElementById('wTo').textContent = 'For Sister Biola, with love';
+}
+
+// Welcome screen: shown once per visit
+function openGift(){ document.getElementById('welcome').classList.add('gone'); try{ sessionStorage.setItem('sam70open','1'); }catch(e){} }
+try{ if(sessionStorage.getItem('sam70open')) document.getElementById('welcome').classList.add('gone'); }catch(e){}
+
+function copy(id){ const t=document.getElementById(id).textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Link copied ✓')).catch(()=>toast(t)); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2200); }
+</script>
+</body>
+</html>
