@@ -202,7 +202,7 @@ ul.check li:before{content:"✓";position:absolute;left:4px;color:var(--brand);f
 
 <script>
 // ---- Google Drive file IDs (filled in once the keepsake folder is uploaded) ----
-const DRIVE = { folder:'', hd:'', phone:'', album:'' };
+const DRIVE = { folder:'1WKteGsvGv7BnRr6BU31eYuxUCOVR0TTO', hd:'1CdJJkzmee6_E3ojlJP3VPRhsU0ANhaby', phone:'1yRTwFWcKpArlBu64zMrM2ywUbMBHLp6h', album:'12UW1OX2Q88WPpOTs_Or71xEOkAn_ePdh' };
 
 const view = id => 'https://drive.google.com/file/d/' + id + '/view';
 function setLink(el, id){ const a=document.getElementById(el); if(id){ a.href=view(id); } else { a.removeAttribute('href'); a.style.opacity=.5; a.title='Coming shortly'; } }
