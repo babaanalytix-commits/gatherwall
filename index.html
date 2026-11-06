@@ -1182,6 +1182,7 @@ body.kioskmode header.nav{display:none;}
     </div>
     <button class="btn btn-primary" id="t_addBtn" style="width:100%;justify-content:center;" onclick="submitTribute()">Add to the wall ✦</button>
   </div>
+  <div id="myPosts" style="display:none;margin-top:16px;"></div>
   <div id="gestureBox" class="center" style="margin-top:18px;display:none;">
     <button class="btn btn-ghost" id="gestureBtn" onclick="doGesture()">🕯️ Light a candle</button>
     <div class="muted" id="gestureCount" style="margin-top:8px;font-size:13.5px;"></div>
@@ -1751,7 +1752,7 @@ function adaptBuilder(){
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
-  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||'', draft:params.get('draft')||''};
+  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||'', draft:params.get('draft')||'', edit:params.get('edit')||''};
 }
 /* ===================== DOORWAY i18n ===================== */
 const DOOR={
@@ -2400,6 +2401,8 @@ function renderGuest(id, kiosk){
     watchGesture(id, n=>{ const gm=((L().gestures[e.vibe])||L().gestures.celebration).emoji; document.getElementById('gestureCount').textContent = n? (gm+' '+n) : ''; });
     buildLangBar(); guestLang=defaultLang(); applyGuestLang();
     go('guest');
+    const ed=parseHash().edit; if(ed && ed.indexOf('.')>0){ const [r,k]=ed.split('.'); rememberMine(id,r,k); openTribEdit(id,r,k,false); }
+    renderMine();
   });
 }
 function renderPrompts(vibe){
@@ -2494,8 +2497,10 @@ function submitTribute(){
   const moder=!!(guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation);
   const t={msg,name,photo:photoData,video:videoData,audio:audioData,ts:Date.now(),approved:!moder};
   if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor; }
+  t.ek=Math.random().toString(36).slice(2,8)+Math.random().toString(36).slice(2,8);
   addTrib(guestEv,t, ok=>{
     if(!ok){ toast('Could not add — try a smaller/no photo or check connection'); return; }
+    if(!guestKiosk){ rememberMine(guestEv,t.rid,t.ek); renderMine(); }
     document.getElementById('tMsg').value='';document.getElementById('tName').value='';
     document.getElementById('tPhoto').value='';photoData=null;
     if(tv)tv.value=''; videoData=null; audioData=null; showVoicePreview();
@@ -2508,6 +2513,63 @@ function submitTribute(){
     if(!moder) burst();
   });
 }
+/* ===================== EDIT A TRIBUTE =====================
+   Guests: every new message gets a private edit key (t.ek). This device remembers it,
+   and the guest can copy a personal edit link (#guest?ev=..&edit=<rid>.<key>) to use
+   on another phone. Editing a moderated wall sends the message back for approval.
+   Hosts: the control panel can edit any message (for posts made before this existed). */
+function mineKey(ev){ return 'gw_mine_'+ev; }
+function getMine(ev){ try{ return JSON.parse(localStorage.getItem(mineKey(ev))||'[]'); }catch(e){ return []; } }
+function rememberMine(ev,rid,ek){ try{ const a=getMine(ev).filter(x=>x.rid!==rid); a.push({rid,ek}); localStorage.setItem(mineKey(ev),JSON.stringify(a)); }catch(e){} }
+function editLink(ev,rid,ek){ return baseURL()+'#guest?ev='+encodeURIComponent(ev)+'&edit='+rid+'.'+ek; }
+function readOneTrib(ev,rid,cb){
+  if(USE_FB){ fbdb.ref('tributes/'+ev+'/'+rid).once('value').then(s=>cb(s.val())).catch(()=>cb(null)); }
+  else { cb(DB.tributes(ev).find(t=>t.rid===rid)||null); }
+}
+function renderMine(){
+  const box=document.getElementById('myPosts'); if(!box||!guestEv||guestKiosk) return;
+  const mine=getMine(guestEv); if(!mine.length){ box.style.display='none'; return; }
+  let done=0; const rows=[];
+  mine.forEach((m,i)=>readOneTrib(guestEv,m.rid,t=>{
+    if(t && t.ek===m.ek){ rows[i]=`<div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)">
+      <div style="flex:1;min-width:0"><div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(t.msg||(t.photo?'📷 Photo':'…'))}</div>
+      <div class="muted" style="font-size:12.5px">— ${escapeHTML(t.name||'')}${t.approved===true?'':' · waiting for approval'}</div></div>
+      <button class="btn btn-ghost" style="padding:7px 12px;font-size:13px" onclick="openTribEdit(guestEv,'${m.rid}','${m.ek}',false)">✏️ Edit</button>
+      <button class="btn btn-ghost" style="padding:7px 12px;font-size:13px" title="Copy a private link to edit this from any phone" onclick="copyText(editLink(guestEv,'${m.rid}','${m.ek}'),'Your private edit link is copied ✓ Keep it to yourself')">🔗</button></div>`; }
+    if(++done===mine.length){
+      const html=rows.filter(Boolean).join('');
+      box.style.display=html?'':'none';
+      box.innerHTML=html?`<div class="card" style="padding:14px 18px"><b style="font-size:14.5px">Your messages</b><span class="muted" style="font-size:12.5px"> · only you can see this</span>${html}</div>`:'';
+    }
+  }));
+}
+function copyText(txt,msg){ (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(msg||'Copied ✓')).catch(()=>prompt('Copy this link:',txt)); }
+function openTribEdit(ev,rid,ek,asHost){
+  readOneTrib(ev,rid,t=>{
+    if(!t){ toast('Message not found'); return; }
+    if(!asHost && t.ek!==ek){ toast('This edit link is not valid'); return; }
+    let ov=document.getElementById('editTribModal');
+    if(!ov){ ov=document.createElement('div'); ov.id='editTribModal'; ov.className='modal-overlay'; document.body.appendChild(ov); }
+    ov.innerHTML=`<div class="modal" style="max-width:520px">
+      <h3 style="margin-bottom:6px">✏️ Edit ${asHost?'this message':'your message'}</h3>
+      <div class="field"><label>Message</label><textarea id="etMsg" rows="6" style="width:100%"></textarea></div>
+      <div class="field"><label>Name</label><input id="etName" style="width:100%"></div>
+      ${(!asHost && guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation)?'<p class="muted" style="font-size:13px;margin:4px 0 10px">After you save, the host will take a quick look again before it shows on the wall.</p>':''}
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+        <button class="btn btn-ghost" onclick="closeTribEdit()">Cancel</button>
+        <button class="btn btn-primary" id="etSave">Save changes</button></div></div>`;
+    document.getElementById('etMsg').value=t.msg||''; document.getElementById('etName').value=t.name||'';
+    ov.style.display='flex'; ov.classList.add('open','show','on');
+    document.getElementById('etSave').onclick=()=>{
+      const msg=document.getElementById('etMsg').value.trim(), name=document.getElementById('etName').value.trim()||'A guest';
+      if(!msg && !t.photo && !t.audio){ toast('Write a message first'); return; }
+      const f={msg,name,editedAt:Date.now()};
+      if(!asHost){ const moder=!!(guestEvObj&&guestEvObj.opts&&guestEvObj.opts.moderation); if(moder && msg!==(t.msg||'')) f.approved=false; }
+      updateTribute(ev,rid,f,()=>{ closeTribEdit(); toast(asHost?'Message updated ✓':(f.approved===false?'Saved ✓ The host will approve your update shortly':'Saved ✓')); if(!asHost) renderMine(); });
+    };
+  });
+}
+function closeTribEdit(){ const ov=document.getElementById('editTribModal'); if(ov){ ov.style.display='none'; ov.classList.remove('open','show','on'); } }
 function showKioskThanks(){
   const k=document.getElementById('kioskThanks'); if(!k)return;
   k.classList.add('on');
@@ -2660,7 +2722,7 @@ function mgPaint(){
 }
 function mgCard(t){
   const pend=t.approved!==true;
-  const badges=(pend?'<span class="badge pend">Pending</span>':'')+(t.type==='song'?'<span class="badge song">🎵 Song</span>':'')+(t.pinned?'<span class="badge song">📌 Pinned</span>':'');
+  const badges=(pend?'<span class="badge pend">Pending</span>':'')+(t.type==='song'?'<span class="badge song">🎵 Song</span>':'')+(t.pinned?'<span class="badge song">📌 Pinned</span>':'')+(t.editedAt?'<span class="badge">✏️ Edited</span>':'');
   const media=t.photo?`<img src="${t.photo}" alt="">`:'';
   const main=t.type==='song'?(escapeHTML(t.songTitle||'')+(t.songFor?(' · for '+escapeHTML(t.songFor)):'')):escapeHTML(t.msg||(t.audio?'🎤 Voice note':''));
   return `<div class="mg-card ${pend?'pending':''}">${media}<div class="mg-body">
@@ -2669,6 +2731,7 @@ function mgCard(t){
     <div class="mg-from">— ${escapeHTML(t.name)}</div>
     <div class="mg-actions">
       ${pend?`<button class="ok" onclick="mgAct('${t.rid}','approve')">✓ Approve</button>`:`<button class="hide" onclick="mgAct('${t.rid}','hide')">Hide</button>`}
+      ${t.type==='song'?'':`<button class="pin" onclick="openTribEdit(mgEv,'${t.rid}','',true)">✏️ Edit</button>`}
       <button class="pin" onclick="mgAct('${t.rid}','${t.pinned?'unpin':'pin'}')">${t.pinned?'Unpin':'📌 Pin'}</button>
       <button class="del" onclick="mgAct('${t.rid}','delete')">Delete</button>
     </div></div></div>`;
