@@ -231,5 +231,6 @@ try{ if(sessionStorage.getItem('sam70open')) document.getElementById('welcome').
 function copy(id){ const t=document.getElementById(id).textContent; (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Link copied ✓')).catch(()=>toast(t)); }
 function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2200); }
 </script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 </body>
 </html>
