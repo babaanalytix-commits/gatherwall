@@ -131,7 +131,7 @@ async function load(){
   if(m.from){ const f=$('mFrom'); f.textContent='Shared by '+m.from; f.style.display='block'; }
   // paid / draft state
   const order=await fb('orders/'+id);
-  if(!(order&&order.paid===true)){ $('draftBanner').style.display='block'; }
+  if(!(m.published===true || (order&&order.paid===true))){ $('draftBanner').style.display='block'; }
   $('state').style.display='none'; $('page').style.display='block';
   loadCandles(); loadMemories();
 }

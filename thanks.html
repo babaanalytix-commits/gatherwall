@@ -91,7 +91,7 @@ function lastSlug(){
   return '';
 }
 const SLUG=lastSlug();
-const STORY_TIERS={'story-film':'Story Film','wedding-keepsake':'Wedding Keepsake','wedding-keepsake-signature':'Wedding Keepsake — Signature'};
+const STORY_TIERS={'story-film':'Story Film','wedding-keepsake':'Wedding Keepsake','wedding-keepsake-signature':'Wedding Keepsake — Signature','signature-celebration':'Signature Celebration'};
 const SONG_TIERS={'animated-keepsake-story':1,'song-of-your-night':1};
 
 async function init(){
@@ -144,7 +144,7 @@ async function init(){
     const url=base+'memorial.html?id='+id;
     area.innerHTML=linkCard('Your memorial','Share it with family, or keep it private.',url,'👀 Open memorial ▸',url,
       '<button class="btn ghost" onclick=\'emailAll('+JSON.stringify(name)+','+JSON.stringify("Memorial:\n"+url)+')\'>✉️ Email it to me</button>')+
-      '<div class="keepsafe">🔒 <b>We keep no accounts</b> — this link is your only key. It’s also in your email receipt. Email it to yourself to be safe.</div>';
+      '<div class="keepsafe">🔒 <b>We keep no accounts</b> — this link is your only key. <b>Email it to yourself now</b> and bookmark this page, so you never lose it.</div>';
     return;
   }
 
@@ -159,14 +159,14 @@ async function init(){
     linkCard('1 · Share with guests','Send this so family &amp; friends can add photos and messages.',guest,'Open guest page ▸',guest)+
     linkCard('2 · Your control panel 🔑','Approve posts, see the album, export. Keep this private.',manage,'Open control panel ▸',manage,
       '<a class="btn ghost" href="'+esc(wall)+'" target="_blank">📺 Big screen</a>')+
-    '<div class="keepsafe">🔒 <b>We keep no accounts</b> — these links are your only key, and they’re in your email receipt too. '+
+    '<div class="keepsafe">🔒 <b>We keep no accounts</b> — these links are your only key. <b>Email them to yourself now</b> and bookmark this page. '+
     '<a href="#" onclick=\'emailAll('+JSON.stringify(name)+','+JSON.stringify(allLinks)+');return false;\' style="color:var(--gold-deep);font-weight:700;">✉️ Email all my links to me</a></div>';
 }
 function fallback(){
   document.getElementById('loading').style.display='none';
   document.getElementById('sub').textContent='Your payment went through 💛';
   document.getElementById('area').innerHTML=
-    '<div class="card"><p class="muted" style="font-size:14.5px;">Your private link is in the <b>email receipt</b> you just received — search your inbox for “GatherWall”. If you built it on this device, you can also <a href="recover.html" style="color:var(--brand);font-weight:600;">recover it here</a>.</p></div>';
+    '<div class="card"><p class="muted" style="font-size:14.5px;">If you built it on this device, you can <a href="recover.html" style="color:var(--brand);font-weight:600;">recover it here</a>.</p></div>';
 }
 init();
 </script>

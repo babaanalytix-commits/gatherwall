@@ -525,6 +525,19 @@ body.kioskmode header.nav{display:none;}
 
     <a id="d_ode_c" href="keepsake-preview.html" class="door-cta" style="display:inline-flex;align-items:center;gap:9px;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:17px;color:#fff;background:#2E7D5B;border-radius:999px;padding:16px 32px;text-decoration:none;box-shadow:0 18px 42px -16px rgba(46,125,91,.6);">✨ See your lyrics — free →</a>
     <div id="d_ode_sub" style="font-family:'Inter',system-ui,sans-serif;font-size:13px;color:#8a9488;margin:13px 0 0;">No card needed · about 60 seconds · from $39</div>
+    <!-- THREE DOORS: instant products vs made-for-you (audit 2026-11-07) -->
+    <div class="door-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:680px;margin:26px auto 0;text-align:left;">
+      <a href="#family" onclick="location.hash='family';return false;" style="display:block;text-decoration:none;background:#fff;border:1px solid #E6E2D4;border-radius:16px;padding:15px 14px;">
+        <div style="font-size:20px">💬</div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16.5px;color:#20271F;margin:4px 0 3px">Collect messages</div>
+        <div style="font-family:'Inter',system-ui,sans-serif;font-size:12.5px;color:#5C6B5E;line-height:1.45">A tribute wall everyone fills, revealed on the day. From $10 · ready instantly</div></a>
+      <a href="keepsake-preview.html" style="display:block;text-decoration:none;background:#fff;border:1px solid #E6E2D4;border-radius:16px;padding:15px 14px;">
+        <div style="font-size:20px">🎵</div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16.5px;color:#20271F;margin:4px 0 3px">A song for them</div>
+        <div style="font-family:'Inter',system-ui,sans-serif;font-size:12.5px;color:#5C6B5E;line-height:1.45">An original song from their story. Lyrics free, song $39 · made in minutes</div></a>
+      <a href="celebration.html" style="display:block;text-decoration:none;background:linear-gradient(160deg,#FBF7EC,#F5EFDE);border:1px solid #E7DCC0;border-radius:16px;padding:15px 14px;">
+        <div style="font-size:20px">✨</div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16.5px;color:#20271F;margin:4px 0 3px">Made for you</div>
+        <div style="font-family:'Inter',system-ui,sans-serif;font-size:12.5px;color:#5C6B5E;line-height:1.45">Song + film + tribute book, made by our team. <b style="color:#8a6a1f">50% off until 31 Dec</b></div></a>
+    </div>
+
 
     <!-- SEE THE KEEPSAKE THEY'LL OPEN -->
     <a href="keepsake-photo-demo.html" style="display:block;max-width:500px;margin:28px auto 0;background:linear-gradient(160deg,#fff,#FBFAF4);border:1px solid #E6E2D4;border-radius:20px;padding:24px 22px;box-shadow:0 24px 60px -42px rgba(32,39,31,.45);text-align:center;text-decoration:none;">
@@ -730,18 +743,11 @@ body.kioskmode header.nav{display:none;}
         <h3>One song</h3>
         <div class="amt">$39<span> one-time</span></div>
         <p class="muted">Pay once, after your event — preview the lyrics free first.</p>
-        <ul><li>Made from your guests' real messages</li><li>Two lyric versions to choose from</li><li>An original, produced song to keep forever</li></ul>
+        <ul><li>Made from your guests' real messages</li><li>Two versions of the song to choose from</li><li>An original, produced song to keep forever</li></ul>
         <button class="btn btn-primary" onclick="startLiveWall()">Start a wall ▸</button>
       </div>
-      <div class="price">
-        <h3>Member rate</h3>
-        <div class="amt">$25<span> / song</span></div>
-        <p class="muted">For Host &amp; Pro monthly members.</p>
-        <ul><li>Your plan covers the walls (3–7 events / month)</li><li>Add a Song to any event for $25</li><li>Apply your member code at checkout</li></ul>
-        <button class="btn btn-ghost" onclick="go('promonthly')">See monthly plans ▸</button>
-      </div>
     </div>
-    <p class="price-note" style="text-align:center;">Monthly plans cover your live walls. The Song of Your Night is its own one-time keepsake — $39 (or $25 for active members). It is never added onto your wall price.</p>
+    <p class="price-note" style="text-align:center;">Monthly plans cover your live walls. The Song of Your Night is its own one-time keepsake — $39. It is never added onto your wall price.</p>
   </div>
 </section>
 
