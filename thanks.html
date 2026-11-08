@@ -96,7 +96,7 @@ const SONG_TIERS={'animated-keepsake-story':1,'song-of-your-night':1};
 
 async function init(){
   const area=document.getElementById('area');
-  // Made-for-you tiers ($149 / $349 / $649) → next step is the story form.
+  // Made-for-you tiers (Story Film $149 / Signature $299; legacy wedding tiers kept for old links) → next step is the story form.
   if(STORY_TIERS[SLUG]){
     document.getElementById('loading').style.display='none';
     document.getElementById('h1').textContent='Thank you — let\u2019s make it 💛';

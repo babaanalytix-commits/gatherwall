@@ -135,7 +135,7 @@
     'memorial-eulogy':          'https://buy.stripe.com/eVq4gAcSq6pL8jg9h09AA04', // $10
     'animated-keepsake-story':  'https://buy.stripe.com/8x200kf0y15reHE0Ku9AA05', // $39
     'song-of-your-night':       'https://buy.stripe.com/eVq3cwf0y3dz9nk9h09AA06', // $39
-    'signature-celebration':    'https://buy.stripe.com/aFa14o7y66pL1US3WG9AA0b', // $649 made-for-you
+    'signature-celebration':    'https://buy.stripe.com/eVqdRabOm9BX574dxg9AA0c', // $299 Signature (was $649 link aFa14o7y66pL1US3WG9AA0b)
     'story-film':               'https://buy.stripe.com/eVq7sM8Ca8xT7fc8cW9AA07', // $149
     'wedding-keepsake':         'https://buy.stripe.com/5kQ14o05E8xT430gJs9AA08', // $349
     'wedding-keepsake-signature':'https://buy.stripe.com/28E7sMdWu3dz430bp89AA09' // $649
@@ -186,8 +186,8 @@
       eyebrow:{en:'Signature Celebration · made for you'},
       title:{en:'Their life, as a song and a film — made by us, with you'},
       lede:{en:'A personal service for milestone birthdays, anniversaries and thanksgivings. We write the song from their story, gather the family\'s photos, and build the film with sing-along lyrics — refining it with you until it\'s right.'},
-      incl:{en:['Original song in English + your language of home (two versions)','Photo film with sing-along lyrics, ready for the screen','Tribute wall + one upload link for the whole family','Photo restoration, tribute book PDF and private keepsake page','Personal service · about 2–3 weeks · we\'ll be in touch within 1 working day']},
-      amt:'$649',per:{en:'one-time'}},
+      incl:{en:['Original song in English + your language of home (two versions)','Photo film with sing-along lyrics, ready for the screen','Tribute wall + one upload link for the whole family','Photo restoration, tribute book PDF and private keepsake page','Personal service · 2 rounds of changes · book 4 weeks ahead · we\'ll be in touch within 1 working day']},
+      amt:'$299',per:{en:'one-time'}},
     'story-film':{
       eyebrow:{en:'Story Film',cs:'Filmový příběh'},
       title:{en:'Their whole story, set to a song written for them',cs:'Celý jejich příběh s písní napsanou jen pro ně'},
@@ -254,7 +254,7 @@
   // "Request a secure payment link" (email) if card payments ever go down.
   var PAYMENTS_LIVE = true;
   // Launch offer: 50% off made-for-you packages until 31 Dec 2026 (Stripe promo code, auto-applied).
-  var LAUNCH = { code:'LAUNCH50', until:new Date('2027-01-01T00:00:00Z'), slugs:{'story-film':'$74.50','wedding-keepsake':'$174.50','wedding-keepsake-signature':'$324.50','signature-celebration':'$324.50'} };
+  var LAUNCH = { code:'LAUNCH50', until:new Date('2027-01-01T00:00:00Z'), slugs:{'story-film':'$74.50','wedding-keepsake':'$174.50','wedding-keepsake-signature':'$324.50','signature-celebration':'$149.50'} };
   function launchOn(s){ return !!(LAUNCH.slugs[s] && new Date() < LAUNCH.until); }
   function buildPayUrl(slug){
     if(!PAYMENTS_LIVE) return null;
