@@ -197,7 +197,7 @@ async function load(){
   if(!rec){ sub.textContent=t.notFound; app.innerHTML='<div class="card">'+t.notFoundBody+'</div>'; return; }
   if(rec.paid!==true){ sub.textContent=t.awaitPay; app.innerHTML='<div class="card">'+t.awaitBody+'</div>'; return; }
   sub.textContent = rec.for ? t.forName.replace("{x}",rec.for) : t.yourSong;
-  if(rec.chosen) return renderChosen(rec.chosen);
+  if(rec.chosen) return renderChosen(rec.songFile||rec.chosen);
   if(rec.takes && rec.takes.length) return renderTakes(rec.takes);
   renderStart();
 }
@@ -254,7 +254,8 @@ function renderChosen(url){
     '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
     '<div style="margin-top:12px"><a href="gift.html?song='+encodeURIComponent(url)+'" style="display:inline-flex;align-items:center;gap:7px;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.28);border-radius:999px;padding:12px 22px;text-decoration:none;">'+(t.giftCta||'🎁 Wrap it as a gift →')+'</a></div>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
-    '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p></div>';
+    '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p>'+
+    '<p class="note" style="margin-top:10px;word-break:break-all">🔖 Your private link (works on any device): <a href="'+location.origin+location.pathname+'?order='+encodeURIComponent(ORDER)+'">'+location.host+location.pathname+'?order='+esc(ORDER)+'</a></p></div>';
   const bundle = rec && rec.bundle && rec.ev;
   if(bundle){
     const w=WALL[L]||WALL.en;
