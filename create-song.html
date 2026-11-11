@@ -197,7 +197,7 @@ async function load(){
   if(!rec){ sub.textContent=t.notFound; app.innerHTML='<div class="card">'+t.notFoundBody+'</div>'; return; }
   if(rec.paid!==true){ sub.textContent=t.awaitPay; app.innerHTML='<div class="card">'+t.awaitBody+'</div>'; return; }
   sub.textContent = rec.for ? t.forName.replace("{x}",rec.for) : t.yourSong;
-  if(rec.chosen) return renderChosen(rec.songFile||rec.chosen);
+  if(rec.chosen) return renderChosen(rec.chosen);
   if(rec.takes && rec.takes.length) return renderTakes(rec.takes);
   renderStart();
 }
@@ -247,11 +247,25 @@ async function pick(url){
   if(d.error){ const e=document.getElementById("err"); if(e)e.textContent=d.error; document.querySelectorAll(".pick").forEach(b=>b.disabled=false); return; }
   renderChosen(url);
 }
+
+/* If the song's original link stops working, play the permanent copy kept in the database. */
+function gwDbSong(order, audioEl){
+  var DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+  if(!order || audioEl.dataset.gwFallback) return; audioEl.dataset.gwFallback='1';
+  fetch(DB+'/songs/'+encodeURIComponent(order)+'/meta.json').then(function(r){return r.json();}).then(function(m){
+    if(!m||!m.n) return;
+    var parts=[]; for(var i=0;i<m.n;i++) parts.push(fetch(DB+'/songs/'+encodeURIComponent(order)+'/c/'+i+'.json').then(function(r){return r.json();}));
+    return Promise.all(parts).then(function(chunks){
+      var bin=atob(chunks.join('')), u=new Uint8Array(bin.length); for(var j=0;j<bin.length;j++) u[j]=bin.charCodeAt(j);
+      var was=!audioEl.paused; audioEl.src=URL.createObjectURL(new Blob([u],{type:m.mime||'audio/mpeg'})); if(was) audioEl.play().catch(function(){});
+    });
+  }).catch(function(){});
+}
 function renderChosen(url){
   let html='<div class="card center"><div class="big">🎉</div>'+
     '<h2 style="font-family:var(--serif);font-weight:600;margin:8px 0 4px">'+t.chosenTitle+'</h2>'+
-    '<audio controls src="'+url+'" style="margin-top:10px"></audio><br>'+
-    '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
+    '<audio id="chosenAudio" controls src="'+url+'" style="margin-top:10px"></audio><br>'+
+    '<a class="dl" href="'+((rec&&rec.songFile)||url)+'" download>⬇ '+t.download+'</a>'+
     (rec&&rec.lyricsPdf?'<a class="dl" href="'+rec.lyricsPdf+'" style="margin-left:8px">📄 Lyrics (PDF)</a>':'<div class="note" style="margin-top:8px">📄 A printable lyrics PDF appears here within a few minutes. Refresh to see it.</div>')+
     '<div style="margin-top:12px"><a href="keepsake.html?order='+encodeURIComponent(ORDER)+'" style="display:inline-flex;align-items:center;gap:7px;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.28);border-radius:999px;padding:12px 22px;text-decoration:none;">'+(t.giftCta||'🎁 Wrap it as a gift →')+'</a></div>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
@@ -272,6 +286,7 @@ function renderChosen(url){
       '<p class="note" style="margin-top:12px">'+w.note+'</p></div>';
   }
   app.innerHTML=html;
+  var ca=document.getElementById('chosenAudio'); if(ca) ca.addEventListener('error',function(){ gwDbSong(ORDER, ca); });
   sub.textContent=t.chosenSub;
   if(bundle){
     try{

@@ -51,7 +51,7 @@ window.KEEPSAKE = {
     recipient: who, from: o.from||b.from||'',
     message: (b.occasion? b.occasion+' · ':'')+'A song written from your story, with the photos that tell it.',
     title: 'A song for '+who, sub: b.occasion||'A life in photos & song',
-    songUrl: o.songFile||o.chosen||'', colour:'#C2A058', intro:8, outro:6,
+    songUrl: o.chosen||o.songFile||'', downloadUrl: o.songFile||o.chosen||'', orderId: id, colour:'#C2A058', intro:8, outro:6,
     photos: photos.filter(function(p){return typeof p==='string' && p;}), years: [], lyrics: lines,
     lyricsPdf: o.lyricsPdf||'', allLyrics: String(o.lyrics||'')
   };
@@ -160,7 +160,8 @@ if(K.colour){ document.documentElement.style.setProperty('--gold', K.colour); }
 document.getElementById('title').textContent = K.title||'A keepsake for you';
 document.getElementById('sub').textContent = K.sub||'A life in photos & song';
 document.getElementById('track').textContent = (K.title? K.title+' · ':'')+'composed just for '+(K.recipient||'you');
-audio.src = K.songUrl||''; var ds=document.getElementById('dlSong'); if(K.songUrl){ ds.href=K.songUrl; } else { ds.style.display='none'; }
+audio.src = K.songUrl||''; var ds=document.getElementById('dlSong'); if(K.downloadUrl||K.songUrl){ ds.href=K.downloadUrl||K.songUrl; } else { ds.style.display='none'; }
+audio.addEventListener('error',function(){ if(K.orderId) gwDbSong(K.orderId, audio); });
 document.getElementById('rvTo').textContent = 'For '+(K.recipient||'you');
 document.getElementById('rvMsg').textContent = K.message||'Someone made you something — a song and a story, from a whole life of memories.';
 document.getElementById('rvFrom').innerHTML = K.from? 'With love, <b style="color:#cdbf99">'+esc(K.from)+'</b>' : '';
@@ -230,6 +231,20 @@ audio.addEventListener('timeupdate',function(){
   var c=document.getElementById('sl'+li); if(c){ c.classList.add('now'); var box=document.getElementById('sing'); box.scrollTo({top:c.offsetTop-box.offsetTop-box.clientHeight/3,behavior:'smooth'}); }
   singCur=li;
 });
+
+/* If the song's original link stops working, play the permanent copy kept in the database. */
+function gwDbSong(order, audioEl){
+  var DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+  if(!order || audioEl.dataset.gwFallback) return; audioEl.dataset.gwFallback='1';
+  fetch(DB+'/songs/'+encodeURIComponent(order)+'/meta.json').then(function(r){return r.json();}).then(function(m){
+    if(!m||!m.n) return;
+    var parts=[]; for(var i=0;i<m.n;i++) parts.push(fetch(DB+'/songs/'+encodeURIComponent(order)+'/c/'+i+'.json').then(function(r){return r.json();}));
+    return Promise.all(parts).then(function(chunks){
+      var bin=atob(chunks.join('')), u=new Uint8Array(bin.length); for(var j=0;j<bin.length;j++) u[j]=bin.charCodeAt(j);
+      var was=!audioEl.paused; audioEl.src=URL.createObjectURL(new Blob([u],{type:m.mime||'audio/mpeg'})); if(was) audioEl.play().catch(function(){});
+    });
+  }).catch(function(){});
+}
 function downloadKeepsake(){
   try{
     var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;

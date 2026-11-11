@@ -1,0 +1,86 @@
+{
+  "rules": {
+    "events": {
+      "$id": {
+        ".read": true,
+        ".write": true,
+        ".validate": "(data.exists() && newData.child('published').val() === data.child('published').val()) || (!data.exists() && newData.child('published').val() === false)",
+        "published": {
+          ".validate": "newData.val() === data.val() || (!data.exists() && !data.parent().exists() && newData.val() === false)"
+        }
+      }
+    },
+    "tributes": {
+      "$id": {
+        ".read": true,
+        ".write": true
+      }
+    },
+    "gestures": {
+      "$id": {
+        ".read": true,
+        ".write": true
+      }
+    },
+    "orders": {
+      "$id": {
+        ".read": true,
+        ".write": true,
+        "paid": {
+          ".validate": "newData.val() === data.val() || newData.val() === false"
+        }
+      }
+    },
+    "photos": {
+      "$id": {
+        ".read": true,
+        ".write": true
+      }
+    },
+    "love": {
+      "messages": {
+        ".read": true,
+        "$id": {
+          ".write": true
+        }
+      },
+      "reactions": {
+        ".read": true,
+        "$id": {
+          ".write": true
+        }
+      }
+    },
+    "uploads": {
+      "$box": {
+        ".read": true,
+        "meta": {
+          ".write": "!data.exists()"
+        },
+        "items": {
+          "$id": {
+            ".write": "!data.exists()"
+          }
+        },
+        "data": {
+          "$id": {
+            "$i": {
+              ".write": "!data.exists() && newData.isString() && newData.val().length < 6000000"
+            }
+          }
+        }
+      }
+    },
+    "curation": {
+      "$cid": {
+        ".read": true,
+        ".write": true
+      }
+    },
+    "songs": {
+      "$id": {
+        ".read": true
+      }
+    }
+  }
+}
