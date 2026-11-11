@@ -125,7 +125,6 @@
 
 <script>
 const FIREBASE_DB="https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app";
-const MOD_KEY="love-9f3k7q2x";
 const I18N={
   en:{nav:"Make your own ▸",eyebrow:"The Wall of Love",h1:"Kind words from people who gathered with us",sub:"Real notes from families and hosts who've used GatherWall & Ode. Send a little love of your own — every message is read before it appears.",formH:"Leave a little love 💛",formHint:"A sentence or two is perfect. Your note appears once we've had a quick look.",phName:"Your name (or how to sign it) — optional",phMsg:"What did GatherWall or Ode mean to you?",send:"Send my message",sending:"Sending…",loading:"Loading the love…",empty:"Be the first to leave a little love 💛",thanks:"Thank you 💛 Your note will appear once we've had a quick look.",errShort:"Please write a few words first.",errRate:"Thanks! Just a moment between messages, please.",errFail:"Something went wrong — please try again in a moment.",friend:"A GatherWall friend",foot:"← Back to GatherWall"},
   fr:{nav:"Créez la vôtre ▸",eyebrow:"Le Mur d'amour",h1:"De gentils mots de ceux qui se sont rassemblés avec nous",sub:"De vrais témoignages de familles et d'hôtes qui ont utilisé GatherWall & Ode. Laissez un peu d'amour à votre tour — chaque message est lu avant d'apparaître.",formH:"Laissez un peu d'amour 💛",formHint:"Une phrase ou deux suffisent. Votre mot apparaît après une petite vérification.",phName:"Votre nom (ou votre signature) — facultatif",phMsg:"Qu'est-ce que GatherWall ou Ode a représenté pour vous ?",send:"Envoyer mon message",sending:"Envoi…",loading:"Chargement de l'amour…",empty:"Soyez le premier à laisser un peu d'amour 💛",thanks:"Merci 💛 Votre mot apparaîtra après une petite vérification.",errShort:"Écrivez quelques mots d'abord.",errRate:"Merci ! Patientez un instant entre les messages.",errFail:"Une erreur s'est produite — réessayez dans un instant.",friend:"Un ami de GatherWall",foot:"← Retour à GatherWall"},
@@ -144,7 +143,10 @@ function applyLang(l){
   loadMessages();
 }
 const q=new URLSearchParams(location.search);
-const MOD = (q.get("moderate")||"")===MOD_KEY;
+const MOD_K = (q.get("moderate")||"").trim();
+let MOD = false;
+const HOST_API="https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host";
+const hostCall=(op,p)=>fetch(HOST_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(Object.assign({op,ev:"love",key:MOD_K},p||{}))}).then(r=>r.json()).catch(()=>({ok:false}));
 const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const $=id=>document.getElementById(id);
 async function fbGet(p){ const r=await fetch(FIREBASE_DB+"/"+p+".json"); return r.ok?r.json():null; }
@@ -192,11 +194,11 @@ function card(m,mod){
     '</div>';
 }
 async function setApproved(id,val){
-  await fetch(FIREBASE_DB+"/love/messages/"+id+".json",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({approved:val})});
+  const r=await hostCall("love.approve",{rid:id,val}); if(!r.ok) alert("Could not save. Check your moderation link.");
   loadMessages();
 }
 async function hideMsg(id){
-  await fetch(FIREBASE_DB+"/love/messages/"+id+".json",{method:"DELETE"});
+  const r=await hostCall("love.delete",{rid:id}); if(!r.ok) alert("Could not remove. Check your moderation link.");
   loadMessages();
 }
 $("msg").addEventListener("input",()=>{ $("cc").textContent=$("msg").value.length; });
@@ -215,7 +217,7 @@ $("send").addEventListener("click",async()=>{
   }catch(e){ err.textContent=t().errFail; err.style.display="block"; }
   btn.disabled=false; btn.textContent=t().send;
 });
-if(MOD){ $("modbar").innerHTML='<div class="modbar">🔒 Moderation view — pending messages shown first. Approvals appear publicly straight away.</div>'; }
+if(MOD_K){ hostCall("verify").then(r=>{ if(!r.ok) return; MOD=true; $("modbar").innerHTML='<div class="modbar">🔒 Moderation view: pending messages shown first. Approvals appear publicly straight away.</div>'; loadMessages(); }); }
 (function init(){
   let l="en";
   try{ const s=localStorage.getItem("gw_lang"); if(s&&I18N[s]) l=s; }catch(e){}
