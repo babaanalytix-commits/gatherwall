@@ -252,6 +252,7 @@ function renderChosen(url){
     '<h2 style="font-family:var(--serif);font-weight:600;margin:8px 0 4px">'+t.chosenTitle+'</h2>'+
     '<audio controls src="'+url+'" style="margin-top:10px"></audio><br>'+
     '<a class="dl" href="'+url+'" download>⬇ '+t.download+'</a>'+
+    (rec&&rec.lyricsPdf?'<a class="dl" href="'+rec.lyricsPdf+'" style="margin-left:8px">📄 Lyrics (PDF)</a>':'<div class="note" style="margin-top:8px">📄 A printable lyrics PDF appears here within a few minutes. Refresh to see it.</div>')+
     '<div style="margin-top:12px"><a href="gift.html?song='+encodeURIComponent(url)+'" style="display:inline-flex;align-items:center;gap:7px;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.28);border-radius:999px;padding:12px 22px;text-decoration:none;">'+(t.giftCta||'🎁 Wrap it as a gift →')+'</a></div>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
     '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p>'+
