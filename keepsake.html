@@ -53,7 +53,7 @@ window.KEEPSAKE = {
     title: 'A song for '+who, sub: b.occasion||'A life in photos & song',
     songUrl: o.chosen||o.songFile||'', downloadUrl: o.songFile||o.chosen||'', orderId: id, colour:'#C2A058', intro:8, outro:6,
     photos: photos.filter(function(p){return typeof p==='string' && p;}), years: [], lyrics: lines,
-    lyricsPdf: o.lyricsPdf||'', allLyrics: String(o.lyrics||'')
+    lyricsPdf: o.lyricsPdf||'', allLyrics: String(o.lyrics||''), lyricTimes: (Array.isArray(o.lyricTimes)&&o.lyricTimes.length===lines.length)?o.lyricTimes:null
   };
 })();
 </script>
@@ -190,7 +190,7 @@ audio.addEventListener('timeupdate',function(){
   fill.style.width=(audio.currentTime/audio.duration*100)+'%'; curEl.textContent=fmt(audio.currentTime);
   var span=Math.max(1,audio.duration-INTRO-OUTRO), prog=(audio.currentTime-INTRO)/span;
   if(N){ showFrame(Math.max(0,Math.min(N-1,Math.floor(prog*N)))); }
-  var L=K.lyrics||[]; if(L.length){ var li=Math.max(0,Math.min(L.length-1,Math.floor(prog*L.length))); if(li!==curLine){ setLine(L[li]); curLine=li; } }
+  var L=K.lyrics||[]; if(L.length){ var li=lineAt(audio.currentTime); if(li>=0 && li!==curLine){ setLine(L[li]); curLine=li; } }
 });
 function openGift(){
   var o=document.getElementById('reveal'); o.style.opacity='0'; setTimeout(function(){o.style.display='none';},600);
@@ -225,8 +225,7 @@ var singCur=-1;
 audio.addEventListener('timeupdate',function(){
   if(!audio.duration || !document.getElementById('sing').classList.contains('on')) return;
   var L=K.lyrics||[]; if(!L.length) return;
-  var span=Math.max(1,audio.duration-INTRO-OUTRO), prog=(audio.currentTime-INTRO)/span;
-  var li=Math.max(0,Math.min(L.length-1,Math.floor(prog*L.length))); if(li===singCur) return;
+  var li=lineAt(audio.currentTime); if(li<0 || li===singCur) return;
   var p=document.getElementById('sl'+singCur); if(p)p.classList.remove('now');
   var c=document.getElementById('sl'+li); if(c){ c.classList.add('now'); var box=document.getElementById('sing'); box.scrollTo({top:c.offsetTop-box.offsetTop-box.clientHeight/3,behavior:'smooth'}); }
   singCur=li;
@@ -245,6 +244,9 @@ function gwDbSong(order, audioEl){
     });
   }).catch(function(){});
 }
+function lineAt(t){ var L=K.lyrics||[]; if(!L.length) return -1;
+  if(K.lyricTimes){ var i=-1; for(var k=0;k<K.lyricTimes.length;k++){ if(t+0.25>=K.lyricTimes[k]) i=k; else break; } return i; }
+  var span=Math.max(1,audio.duration-INTRO-OUTRO), prog=(t-INTRO)/span; return Math.max(0,Math.min(L.length-1,Math.floor(prog*L.length))); }
 function downloadKeepsake(){
   try{
     var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
