@@ -116,7 +116,7 @@ const T = {
     retry:"↻ Not quite — try again (1 more set)",bothUsed:"That's both tries used — please choose the one you love.",
     chosenTitle:"Your song is chosen!",download:"Download MP3",giftCta:"🎁 Wrap it as a gift →",
     chosenNote1:"A shareable <b>video (MP4)</b> version comes with your finished keepsake.",
-    chosenNote2:"Our team is now hand-finishing your <b>animated photo story</b> — we'll email you the link within 3 working days. 💛",
+    chosenNote2:"Your <b>animated keepsake</b> is ready too: your photos and lyrics moving with your song. Open it below and share it with them. 💛",
     chosenSub:"Song chosen — your keepsake is on the way",
     hiccup:"The song engine had a hiccup.",tryAgainBtn:"Try again",still:"Still working — please refresh in a minute.",refresh:"Refresh",composingState:"Composing your two versions"},
   fr:{h1:"Créez votre chanson",forName:"Pour {x}",yourSong:"Votre chanson-souvenir",
@@ -129,7 +129,7 @@ const T = {
     retry:"↻ Pas tout à fait — réessayer (1 série de plus)",bothUsed:"Les deux essais sont utilisés — choisissez celle que vous aimez.",
     chosenTitle:"Votre chanson est choisie !",download:"Télécharger le MP3",giftCta:"🎁 Offrir en cadeau →",
     chosenNote1:"Une version <b>vidéo (MP4)</b> partageable accompagne votre souvenir final.",
-    chosenNote2:"Notre équipe finalise maintenant votre <b>histoire photo animée</b> — vous recevrez le lien par e-mail sous 3 jours ouvrés. 💛",
+    chosenNote2:"Votre <b>souvenir animé</b> est prêt aussi : vos photos et vos paroles au rythme de votre chanson. Ouvrez-le ci-dessous et partagez-le. 💛",
     chosenSub:"Chanson choisie — votre souvenir arrive",
     hiccup:"Le générateur a rencontré un souci.",tryAgainBtn:"Réessayer",still:"Toujours en cours — actualisez dans une minute.",refresh:"Actualiser",composingState:"Composition de vos deux versions"},
   es:{h1:"Crea tu canción",forName:"Para {x}",yourSong:"Tu canción-recuerdo",
@@ -142,7 +142,7 @@ const T = {
     retry:"↻ No del todo — intentar de nuevo (1 set más)",bothUsed:"Se usaron los dos intentos — elige la que más te guste.",
     chosenTitle:"¡Tu canción está elegida!",download:"Descargar MP3",giftCta:"🎁 Envolver como regalo →",
     chosenNote1:"Una versión en <b>vídeo (MP4)</b> para compartir viene con tu recuerdo final.",
-    chosenNote2:"Nuestro equipo está terminando tu <b>historia fotográfica animada</b> — te enviaremos el enlace por correo en 3 días laborables. 💛",
+    chosenNote2:"Tu <b>recuerdo animado</b> también está listo: tus fotos y tu letra al ritmo de tu canción. Ábrelo abajo y compártelo. 💛",
     chosenSub:"Canción elegida — tu recuerdo está en camino",
     hiccup:"El generador tuvo un problema.",tryAgainBtn:"Intentar de nuevo",still:"Aún trabajando — actualiza en un minuto.",refresh:"Actualizar",composingState:"Componiendo tus dos versiones"},
   cs:{h1:"Vytvořte svou píseň",forName:"Pro {x}",yourSong:"Vaše vzpomínková píseň",
@@ -155,7 +155,7 @@ const T = {
     retry:"↻ Není to ono — zkusit znovu (ještě 1 sada)",bothUsed:"Oba pokusy jsou vyčerpané — vyberte tu, kterou máte rádi.",
     chosenTitle:"Vaše píseň je vybraná!",download:"Stáhnout MP3",giftCta:"🎁 Zabalit jako dárek →",
     chosenNote1:"Sdílitelná <b>video (MP4)</b> verze je součástí hotové vzpomínky.",
-    chosenNote2:"Náš tým teď ručně dokončuje váš <b>animovaný fotopříběh</b> — odkaz vám pošleme e-mailem do 3 pracovních dnů. 💛",
+    chosenNote2:"Vaše <b>animovaná vzpomínka</b> je také hotová: vaše fotky a text v rytmu vaší písně. Otevřete ji níže a sdílejte. 💛",
     chosenSub:"Píseň vybrána — vaše vzpomínka je na cestě",
     hiccup:"Generátor měl drobný problém.",tryAgainBtn:"Zkusit znovu",still:"Stále pracujeme — obnovte za minutu.",refresh:"Obnovit",composingState:"Skládáme vaše dvě verze"},
   de:{h1:"Erstellen Sie Ihr Lied",forName:"Für {x}",yourSong:"Ihr Erinnerungslied",
@@ -168,7 +168,7 @@ const T = {
     retry:"↻ Nicht ganz — noch einmal (1 weiterer Satz)",bothUsed:"Beide Versuche genutzt — bitte wählen Sie Ihren Favoriten.",
     chosenTitle:"Ihr Lied ist gewählt!",download:"MP3 herunterladen",giftCta:"🎁 Als Geschenk verpacken →",
     chosenNote1:"Eine teilbare <b>Video-Version (MP4)</b> kommt mit Ihrer fertigen Erinnerung.",
-    chosenNote2:"Unser Team stellt jetzt Ihre <b>animierte Fotogeschichte</b> fertig — Sie erhalten den Link innerhalb von 3 Werktagen per E-Mail. 💛",
+    chosenNote2:"Ihr <b>animiertes Andenken</b> ist ebenfalls fertig: Ihre Fotos und Ihr Liedtext im Takt Ihres Liedes. Öffnen Sie es unten und teilen Sie es. 💛",
     chosenSub:"Lied gewählt — Ihre Erinnerung ist unterwegs",
     hiccup:"Der Generator hatte einen kleinen Fehler.",tryAgainBtn:"Erneut versuchen",still:"Arbeitet noch — bitte in einer Minute aktualisieren.",refresh:"Aktualisieren",composingState:"Ihre zwei Versionen werden komponiert"}
 };
@@ -255,6 +255,7 @@ function renderChosen(url){
     '<div style="margin-top:12px"><a href="gift.html?song='+encodeURIComponent(url)+'" style="display:inline-flex;align-items:center;gap:7px;font-family:Inter,system-ui,sans-serif;font-weight:600;font-size:15px;color:#256048;background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.28);border-radius:999px;padding:12px 22px;text-decoration:none;">'+(t.giftCta||'🎁 Wrap it as a gift →')+'</a></div>'+
     '<p class="note">'+t.chosenNote1+'</p>'+
     '<p class="note" style="margin-top:10px">'+t.chosenNote2+'</p>'+
+    '<div style="margin-top:14px"><a class="dl" href="keepsake.html?order='+encodeURIComponent(ORDER)+'" style="background:#C2A058;color:#1F2622">🎞 Open your animated keepsake ›</a></div>'+
     '<p class="note" style="margin-top:10px;word-break:break-all">🔖 Your private link (works on any device): <a href="'+location.origin+location.pathname+'?order='+encodeURIComponent(ORDER)+'">'+location.host+location.pathname+'?order='+esc(ORDER)+'</a></p></div>';
   const bundle = rec && rec.bundle && rec.ev;
   if(bundle){

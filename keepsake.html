@@ -35,6 +35,27 @@ window.KEEPSAKE = {
   lyrics:    ["Fifty candles, one bright room","Fifty summers come and gone","Every line upon your face","Is a story, is a song","You gave us mornings, gave us light","Held the whole world through the night","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","You were strong when we were small","You were brave when storms would come","Never once did you let go","Of the people you'd become","Through the laughter, through the tears","You have carried all these years","Here's to fifty years of gold","To the love you gave, to the hands you'd hold","Brightest heart we've ever known","Mum, you made this house a home","Fifty years of gold","And if we could give the world to you","We would wrap it up in gold","For every dream you set aside","For every hand you'd hold","So blow the candles, make the wish","You have earned this, every bit","Fifty years, and just begun","You're the brightest, you're the one","Here's to fifty years of gold","To the love you gave, to the stories told","Brightest heart we've ever known","Happy birthday, welcome home","Fifty years of gold","Happy birthday to you","Fifty years, and shining through"]
 };
 </script>
+<script>
+/* AUTOMATIC KEEPSAKE: keepsake.html?order=<id> builds itself from the paid $39 order:
+   the customer's chosen song, their lyrics and the photos they uploaded. No manual work. */
+(function(){
+  var id=(new URLSearchParams(location.search).get('order')||'').trim(); if(!id) return;
+  var DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+  function get(p){ try{ var x=new XMLHttpRequest(); x.open('GET',DB+'/'+p+'.json',false); x.send(); return x.status===200?JSON.parse(x.responseText):null; }catch(e){ return null; } }
+  var o=get('orders/'+encodeURIComponent(id))||{};
+  window.GW_ORDER_STATE = !o.paid ? 'unpaid' : (!(o.songFile||o.chosen) ? 'nosong' : 'ok');
+  var photos=get('photos/'+encodeURIComponent(id))||[]; if(!Array.isArray(photos)) photos=Object.values(photos);
+  var lines=String(o.lyrics||'').split(/\n+/).map(function(l){return l.trim();}).filter(function(l){return l && l.charAt(0)!=='[' && l.charAt(0)!=='(';});
+  var b=o.brief||{}, who=o.for||b.for||'you';
+  window.KEEPSAKE={
+    recipient: who, from: o.from||b.from||'',
+    message: (b.occasion? b.occasion+' · ':'')+'A song written from your story, with the photos that tell it.',
+    title: 'A song for '+who, sub: b.occasion||'A life in photos & song',
+    songUrl: o.songFile||o.chosen||'', colour:'#C2A058', intro:8, outro:6,
+    photos: photos.filter(function(p){return typeof p==='string' && p;}), years: [], lyrics: lines
+  };
+})();
+</script>
 <style>
   :root{--gold:#C2A058;--ink:#F4EFE3;--muted:#c9c3b4;--bg:#0d1512;--ui:'Inter',system-ui,sans-serif;--serif:'Fraunces',Georgia,serif;}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -164,6 +185,14 @@ function openGift(){
   audio.play().catch(function(){});
   var s=document.getElementById('stage'); if(s){ try{ s.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){} }
 }
+if(window.GW_ORDER_STATE && window.GW_ORDER_STATE!=='ok'){
+  var oid=new URLSearchParams(location.search).get('order')||'';
+  document.getElementById('reveal').style.display='none';
+  document.getElementById('stage').innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;font-family:var(--serif);font-size:20px;line-height:1.5">'+
+    (window.GW_ORDER_STATE==='unpaid'?'This keepsake isn\'t ready yet.':'Choose your favourite version of the song first, then your animated keepsake appears here.')+
+    '<br><a style="color:var(--gold);font-size:16px" href="create-song.html?order='+encodeURIComponent(oid)+'">Go to your song ›</a></div>';
+}
+if(!N && window.GW_ORDER_STATE==='ok'){ stage.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:28px;color:var(--gold)">For '+esc(K.recipient||'you')+'</div>'; }
 function downloadKeepsake(){
   try{
     var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
