@@ -154,7 +154,10 @@ async function init(){
   document.getElementById('sub').textContent='Your wall is revealed and ready. Share the guest link so everyone can add their photos and messages — and keep your control-panel link safe.';
   const guest=base+'index.html#guest?ev='+id;
   const wall=base+'index.html#wall?ev='+id;
-  const manage=base+'index.html#manage?ev='+id+(ev.manageKey?'&key='+ev.manageKey:'');
+  // The control-panel key is private (never stored on the public wall). The creator's browser remembers it.
+  let manage=base+'index.html#manage?ev='+id;
+  try{ (JSON.parse(localStorage.getItem('gw_my_links')||'[]')||[]).forEach(x=>{ if(x&&x.url&&x.url.indexOf('#manage?ev='+id+'&key=')>-1) manage=x.url; }); }catch(e){}
+  if(ev.manageKey) manage=base+'index.html#manage?ev='+id+'&key='+ev.manageKey;
   const allLinks="Share with guests:\n"+guest+"\n\nBig screen:\n"+wall+"\n\nControl panel (keep private):\n"+manage;
   area.innerHTML=
     linkCard('1 · Share with guests','Send this so family &amp; friends can add photos and messages.',guest,'Open guest page ▸',guest)+

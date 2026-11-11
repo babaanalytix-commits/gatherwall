@@ -1620,24 +1620,35 @@ function getEvent(id, cb){
   if(USE_FB){ fbdb.ref('events/'+id).once('value').then(s=>cb(s.val())).catch(()=>cb(null)); }
   else { cb(DB.event(id)); }
 }
+/* HOST GATEWAY: control-panel actions are checked privately by our server, which holds the keys. */
+const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
+function hostCall(op, payload){
+  return fetch(HOST_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op:op},payload))})
+    .then(r=>r.json()).catch(()=>({ok:false,error:'Could not reach the server — check your connection'}));
+}
 function saveEvent(e, cb){
   if(USE_FB){
-    // Only the Stripe webhook may change "published" (enforced by database rules).
-    // Existing events: update everything except published/payment fields.
-    // New events: rules reject the update, so create with published:false.
-    const upd=Object.assign({}, e); ['published','paidAt','paidTier','saleId','amount','currency'].forEach(k=>delete upd[k]);
+    const key=e.manageKey;
+    const body=Object.assign({}, e); ['manageKey','published','paidAt','paidTier','saleId','amount','currency'].forEach(k=>delete body[k]);
+    const fail=()=>{toast('Could not save — check connection');cb&&cb(false);};
+    // The host changing an existing wall from the control panel → verified by the server.
+    if(mgEv===e.id && mgKey){ hostCall('event.update',{ev:e.id,key:mgKey,fields:body}).then(r=>r&&r.ok?(cb&&cb(true)):fail()); return; }
     const ref=fbdb.ref('events/'+e.id);
-    ref.update(upd)
-      .catch(()=>ref.set(Object.assign({}, e, {published:false})))
-      .then(()=>cb&&cb(true))
-      .catch(()=>{toast('Could not save — check connection');cb&&cb(false);});
+    ref.once('value').then(snap=>{
+      if(snap.exists()) return ref.update(body);                       // legacy / demo walls
+      // New wall: store its private key first (never readable by browsers), then the wall itself.
+      return (key? fbdb.ref('hostkeys/'+e.id).set(key) : Promise.resolve()).then(()=>ref.set(Object.assign({}, body, {published:false})));
+    }).then(()=>cb&&cb(true)).catch(fail);
   }
   else { DB.addEvent(e); cb&&cb(true); }
 }
 function addTrib(id, t, cb){
   t.rid = t.rid || (Date.now().toString(36)+Math.random().toString(36).slice(2,6));
   if(typeof t.hearts!=='number') t.hearts=0;
-  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+t.rid).set(t).then(()=>cb&&cb(true)).catch(()=>cb&&cb(false)); }
+  if(USE_FB){
+    const ek=t.ek; const rec=Object.assign({},t); delete rec.ek;   // the edit key is stored privately, never on the message
+    (ek? fbdb.ref('editkeys/'+id+'/'+t.rid).set(ek) : Promise.resolve())
+      .then(()=>fbdb.ref('tributes/'+id+'/'+t.rid).set(rec)).then(()=>cb&&cb(true)).catch(()=>cb&&cb(false)); }
   else { try{DB.addTribute(id,t);cb&&cb(true);}catch(err){cb&&cb(false);} }
 }
 function heartTribute(rid){
@@ -1678,11 +1689,11 @@ function stopManageWatch(){
   if(mgPollTimer){ clearInterval(mgPollTimer); mgPollTimer=null; }
 }
 function updateTribute(id, rid, fields, cb){
-  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+rid).update(fields).then(()=>cb&&cb()).catch(()=>cb&&cb()); }
+  if(USE_FB){ hostCall('trib.update',{ev:id,key:mgKey,rid:rid,fields:fields}).then(r=>{ if(!r||!r.ok) toast((r&&r.error)||'Could not save — try again'); cb&&cb(); }); }
   else { const a=DB.tributes(id); const x=a.find(t=>t.rid===rid); if(x){Object.assign(x,fields); localStorage.setItem('gw_trib_'+id,JSON.stringify(a));} cb&&cb(); }
 }
 function deleteTribute(id, rid, cb){
-  if(USE_FB){ fbdb.ref('tributes/'+id+'/'+rid).remove().then(()=>cb&&cb()).catch(()=>cb&&cb()); }
+  if(USE_FB){ hostCall('trib.delete',{ev:id,key:mgKey,rid:rid}).then(r=>{ if(!r||!r.ok) toast((r&&r.error)||'Could not delete — try again'); cb&&cb(); }); }
   else { let a=DB.tributes(id).filter(t=>t.rid!==rid); localStorage.setItem('gw_trib_'+id,JSON.stringify(a)); cb&&cb(); }
 }
 let gestRef=null;
@@ -2460,7 +2471,7 @@ function mgSetPortrait(input){
     c.getContext('2d').drawImage(im,0,0,c.width,c.height);
     const data=c.toDataURL('image/jpeg',0.85);
     const done=()=>{ if(mgEvObj) mgEvObj.portrait=data; toast('Photo added ✓ — it now shows on the guest page and the wall'); };
-    if(USE_FB){ fbdb.ref('events/'+mgEv).update({portrait:data}).then(done).catch(()=>toast('Could not save the photo — try again')); }
+    if(USE_FB){ hostCall('event.update',{ev:mgEv,key:mgKey,fields:{portrait:data}}).then(r=>r&&r.ok?done():toast('Could not save the photo — try again')); }
     else { const e=DB.event(mgEv); if(e){ e.portrait=data; DB.addEvent(e); } done(); }
   }; im.src=ev.target.result; };
   rd.readAsDataURL(f); input.value='';
@@ -2636,7 +2647,7 @@ function renderMine(){
   const mine=getMine(guestEv); if(!mine.length){ box.style.display='none'; return; }
   let done=0; const rows=[];
   mine.forEach((m,i)=>readOneTrib(guestEv,m.rid,t=>{
-    if(t && t.ek===m.ek){ rows[i]=`<div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)">
+    if(t){ rows[i]=`<div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)">
       <div style="flex:1;min-width:0"><div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(t.msg||(t.photo?'📷 Photo':'…'))}</div>
       <div class="muted" style="font-size:12.5px">— ${escapeHTML(t.name||'')}${t.approved===true?'':' · waiting for approval'}</div></div>
       <button class="btn btn-ghost" style="padding:7px 12px;font-size:13px" onclick="openTribEdit(guestEv,'${m.rid}','${m.ek}',false)">✏️ Edit</button>
@@ -2652,7 +2663,6 @@ function copyText(txt,msg){ (navigator.clipboard?navigator.clipboard.writeText(t
 function openTribEdit(ev,rid,ek,asHost){
   readOneTrib(ev,rid,t=>{
     if(!t){ toast('Message not found'); return; }
-    if(!asHost && t.ek!==ek){ toast('This edit link is not valid'); return; }
     let ov=document.getElementById('editTribModal');
     if(!ov){ ov=document.createElement('div'); ov.id='editTribModal'; ov.className='modal-overlay'; document.body.appendChild(ov); }
     ov.innerHTML=`<div class="modal" style="max-width:520px">
@@ -2670,7 +2680,10 @@ function openTribEdit(ev,rid,ek,asHost){
       if(!msg && !t.photo && !t.audio){ toast('Write a message first'); return; }
       const f={msg,name,editedAt:Date.now()};
       if(!asHost){ const moder=!!(guestEvObj&&guestEvObj.opts&&guestEvObj.opts.moderation); if(moder && msg!==(t.msg||'')) f.approved=false; }
-      updateTribute(ev,rid,f,()=>{ closeTribEdit(); toast(asHost?'Message updated ✓':(f.approved===false?'Saved ✓ The host will approve your update shortly':'Saved ✓')); if(!asHost) renderMine(); });
+      if(asHost){ updateTribute(ev,rid,f,()=>{ closeTribEdit(); toast('Message updated ✓'); }); return; }
+      hostCall('guest.edit',{ev:ev,rid:rid,ek:ek,msg:msg,name:name}).then(r=>{
+        if(!r||!r.ok){ toast((r&&r.error)||'Could not save — try again'); return; }
+        closeTribEdit(); toast(r.approved===false?'Saved ✓ The host will approve your update shortly':'Saved ✓'); renderMine(); });
     };
   });
 }
@@ -2795,7 +2808,9 @@ let mgCache=[]; // latest tributes from the live listener
 function renderManage(id, key){
   getEvent(id, e=>{
     if(!e){ if(id===DEMO_ID){return seedDemo(()=>renderManage(id,key));} toast('Event not found');return go('home'); }
-    if(e.manageKey && key!==e.manageKey){ toast('Invalid control-panel link'); return go('home'); }
+    if(USE_FB && id!==DEMO_ID && renderManage._ok!==id+'|'+key){
+      return hostCall('verify',{ev:id,key:key}).then(r=>{ if(r&&r.ok){ renderManage._ok=id+'|'+key; renderManage(id,key); } else { toast((r&&r.error)||'Invalid control-panel link'); go('home'); } });
+    }
     mgEv=id; mgKey=key; mgEvObj=e; applyVibe(e.vibe,e.color);
     document.getElementById('mgVibe').textContent=(VIBES[e.vibe]||VIBES.celebration).label;
     document.getElementById('mgTitle').textContent=e.name+' — control panel';
