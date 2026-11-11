@@ -1868,7 +1868,7 @@ function adaptBuilder(){
 function parseHash(){
   const h=location.hash.replace(/^#/,''); const [path,q]=h.split('?');
   const params=new URLSearchParams(q||'');
-  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||'', draft:params.get('draft')||'', edit:params.get('edit')||''};
+  return {path, ev:params.get('ev'), kiosk:params.get('kiosk')==='1', key:params.get('key')||'', draft:params.get('draft')||'', k:params.get('k')||'', edit:params.get('edit')||''};
 }
 /* ===================== DOORWAY i18n ===================== */
 const DOOR={
@@ -1882,7 +1882,7 @@ function buildDoorLang(){ var bar=document.getElementById('doorLang'); if(!bar)r
 function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); }
 
 function route(){
-  const {path,ev,kiosk,key,draft}=parseHash();
+  const {path,ev,kiosk,key,draft,k}=parseHash();
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
@@ -1891,7 +1891,7 @@ function route(){
   if(path==='live'||path==='home'){applyVibe('brand');return go('home');}
   // Ode hub deep-links into the family/individual build flows
   if(path==='memorywall'){startFamilyWall();return;}
-  if(path==='memorial'){applyVibe('memorial');go('memorial');initMemorialBuilder(draft);return;}
+  if(path==='memorial'){applyVibe('memorial');go('memorial');initMemorialBuilder(draft,k);return;}
   if(path==='family'){applyVibe('brand');return go('family');}
   if(path==='promonthly'){applyVibe('brand');return go('promonthly');}
   // GatherWall Live in-page anchors (#how, #formats, #pricing, etc.): show Live home + scroll
@@ -2016,6 +2016,15 @@ function memDraftId(){
   if(!memSavedId){ memSavedId=uid(); try{ localStorage.setItem('gw_mem_lastdraft', memSavedId); }catch(e){} }
   return memSavedId;
 }
+/* Each memorial has a private edit key. The public page link can't change anything. */
+let memKeyVal='';
+function memNewKey(){ try{ const a=new Uint8Array(12); crypto.getRandomValues(a); return Array.from(a,b=>('0'+b.toString(36)).slice(-2)).join(''); }catch(e){ return uid()+uid()+uid(); } }
+function memGetKey(id){
+  if(!memKeyVal){ try{ memKeyVal=localStorage.getItem('gw_mem_key_'+id)||''; }catch(e){} }
+  if(!memKeyVal){ memKeyVal=memNewKey(); }
+  try{ localStorage.setItem('gw_mem_key_'+id, memKeyVal); }catch(e){}
+  return memKeyVal;
+}
 function memCollect(){
   const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
   return { id:memDraftId(), name:g('memName'), kind:'memorial', vibe:'memorial',
@@ -2027,13 +2036,17 @@ function memHasContent(){
   return !!(g('memName')||g('memMessage')||g('memBorn')||g('memDied')||g('memFrom')||memPhotoData);
 }
 function memSaveRemote(rec){
-  // PATCH without "published" so editing a paid memorial never un-publishes it.
-  // If the record doesn't exist yet, rules reject that, so create it as a draft.
-  const upd=Object.assign({}, rec); delete upd.published;
-  return fetch(MEM_DB+'/events/'+rec.id+'.json',
-    {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(upd)})
-    .then(r=> r.ok ? r : fetch(MEM_DB+'/events/'+rec.id+'.json',
-      {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({}, rec, {published:false}))}));
+  // Existing memorial → our server checks the private edit key, then saves (never touches "published").
+  // Brand-new memorial → register its private key first, then create it as a draft.
+  const key=memGetKey(rec.id);
+  const upd=Object.assign({}, rec); delete upd.published; delete upd.id;
+  const put=(path,body)=>fetch(MEM_DB+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  return hostCall('event.update',{ev:rec.id,key:key,fields:upd}).then(r=>{
+    if(r&&r.ok) return {ok:true};
+    return put('hostkeys/'+rec.id, key)
+      .then(()=>put('events/'+rec.id, Object.assign({}, rec, {published:false})))
+      .then(r2=>({ok:r2.ok}));
+  });
 }
 /* Autosave as they type — local instantly, cloud debounced. */
 let memAutoT=null;
@@ -2044,7 +2057,7 @@ function memAutosave(){
   renderMemResume(rec.id);
   if(USE_FB){ clearTimeout(memAutoT); memAutoT=setTimeout(()=>{ memSaveRemote(rec).catch(()=>{}); }, 1200); }
 }
-function memResumeURL(id){ return baseURL()+'#memorial?draft='+id; }
+function memResumeURL(id){ return baseURL()+'#memorial?draft='+id+'&k='+memGetKey(id); }
 function memLiveURL(id){ return baseURL().replace(/[^/]*$/,'') + 'memorial.html?id=' + id; }
 function memMailto(url, subject, body){
   location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
@@ -2059,7 +2072,7 @@ function memEmailLive(){
   const id=memDraftId(); const url=memLiveURL(id);
   const nm=(document.getElementById('memName')||{}).value||'your memorial';
   memMailto(url, 'Your GatherWall memorial — '+nm,
-    "We don't store your details, so this private link is the only way back to "+nm+".\n\nView, share or finish publishing here:\n"+url+"\n\nKeep this email safe. 💛\nGatherWall");
+    "We don't store your details, so these links are the only way back to "+nm+".\n\nThe memorial page (share this one with family and friends):\n"+url+"\n\nYour PRIVATE edit link (keep this to yourself, it lets you change the page):\n"+memResumeURL(id)+"\n\nKeep this email safe. 💛\nGatherWall");
 }
 function memCopy(inputId){ var i=document.getElementById(inputId); if(!i)return; i.select(); try{document.execCommand('copy');toast('Link copied');}catch(e){} }
 /* The "save your link" panel shown while building — privacy as the pitch. */
@@ -2087,7 +2100,7 @@ function memPrefill(rec){
   memSavedId=rec.id||memSavedId;
 }
 let memAutoWired=false;
-function initMemorialBuilder(draftId){
+function initMemorialBuilder(draftId, k){
   // wire autosave listeners once
   if(!memAutoWired){
     ['memName','memBorn','memDied','memMessage','memFrom'].forEach(function(id){
@@ -2098,6 +2111,8 @@ function initMemorialBuilder(draftId){
   if(draftId){
     // resume from a shared/emailed link — works on any device
     memSavedId=draftId;
+    if(k){ memKeyVal=k; try{ localStorage.setItem('gw_mem_key_'+draftId,k); }catch(e){} }
+    else { try{ memKeyVal=localStorage.getItem('gw_mem_key_'+draftId)||''; }catch(e){} if(!memKeyVal) toast('This link can view the memorial. To edit it, open your private edit link.'); }
     fetch(MEM_DB+'/events/'+draftId+'.json').then(r=>r.json()).then(rec=>{
       if(rec&&rec.kind==='memorial'){ memPrefill(rec); renderMemResume(draftId); toast('Welcome back — your memorial is restored'); }
       else { renderMemResume(draftId); }
@@ -2122,7 +2137,7 @@ function saveMemorialRecord(cb){
   if(USE_FB){
     // REST PUT is more reliable than the SDK socket for this one-shot write
     memSaveRemote(rec)
-      .then(r=>{ if(r.ok){ cb&&cb(rec); } else { toast('Could not save — please try again'); } })
+      .then(r=>{ if(r.ok){ cb&&cb(rec); } else { toast('Could not save. To change an existing memorial, open your private edit link.'); } })
       .catch(()=>{ toast('Could not save — check your connection'); });
   } else {
     try{ localStorage.setItem('gw_mem_'+rec.id, JSON.stringify(rec)); }catch(e){}
@@ -2132,19 +2147,24 @@ function saveMemorialRecord(cb){
 function publishMemorial(){
   saveMemorialRecord(rec=>{
     const url=memLiveURL(rec.id);
-    try{ memRemember('Memorial — '+(rec.name||'your memorial'), url); }catch(_){}
+    try{ memRemember('Memorial — '+(rec.name||'your memorial'), url, memResumeURL(rec.id)); }catch(_){}
     const box=document.getElementById('memPreview');
     if(box){
       box.style.display='block';
       box.innerHTML=
         '<div style="border:2px solid var(--brand);border-radius:16px;padding:22px;background:color-mix(in srgb,var(--brand) 5%,#fff);text-align:left;">'+
         '<h3 style="font-size:19px;margin-bottom:6px;">Your memorial page is ready 🕯️</h3>'+
-        '<p class="muted" style="font-size:14px;margin-bottom:14px;">It\'s live and shareable now. <b>We keep no records tied to you</b> — so this private link is the only way back. Email it to yourself to keep it safe. Publishing ($10) removes the draft notice and keeps it online for good.</p>'+
-        '<label style="font-size:13px;font-weight:600;">Your private link</label>'+
+        '<p class="muted" style="font-size:14px;margin-bottom:14px;">It\'s live and shareable now. <b>We keep no records tied to you</b>, so email yourself both links below. Only the private edit link can change the page. Publishing ($10) removes the draft notice and keeps it online for good.</p>'+
+        '<label style="font-size:13px;font-weight:600;">Link to share with family and friends</label>'+
         '<div style="display:flex;gap:8px;margin:6px 0 12px;flex-wrap:wrap;">'+
           '<input id="memLink" readonly value="'+url+'" style="flex:1;min-width:180px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:13px;">'+
           '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memCopy(\'memLink\')">Copy</button>'+
-          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memEmailLive()">✉️ Email me my link</button>'+
+          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memEmailLive()">✉️ Email me my links</button>'+
+        '</div>'+
+        '<label style="font-size:13px;font-weight:600;">🔒 Your private edit link (keep this to yourself)</label>'+
+        '<div style="display:flex;gap:8px;margin:6px 0 12px;flex-wrap:wrap;">'+
+          '<input id="memEditLink" readonly value="'+memResumeURL(rec.id)+'" style="flex:1;min-width:180px;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:13px;">'+
+          '<button class="btn btn-ghost" style="white-space:nowrap;" onclick="memCopy(\'memEditLink\')">Copy</button>'+
         '</div>'+
         '<div style="display:flex;gap:10px;flex-wrap:wrap;">'+
           '<a class="btn btn-ghost" href="'+url+'" target="_blank" style="flex:1;justify-content:center;text-align:center;">👀 View memorial</a>'+
