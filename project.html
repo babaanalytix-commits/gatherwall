@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Your project · GatherWall</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2E7D5B">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+
+:root{--brand:#2E7D5B;--brand-deep:#1C4D3A;--gold:#C2A058;--gold-deep:#9A7D33;--gold-soft:#F4EEDF;
+--bg:#F7F5EE;--bg-2:#F1EEE3;--card:#fff;--ink:#1F2622;--muted:#5C6B5E;--line:#E5E1D5;--rose:#B4544A;--rose-soft:#FBEDEB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:90px;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.15;letter-spacing:-.02em;}
+a{color:var(--brand);}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(247,245,238,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:720px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:19px;display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;}
+.logo .dot{width:23px;height:21px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='20' rx='7' fill='%232E7D5B'/%3E%3Cpath d='M9 22L9 29L17 22Z' fill='%232E7D5B'/%3E%3Cpath transform='translate(10,7)' d='M6,10.5 C6,10.5 0.5,6.5 0.5,3.25 C0.5,1.5 1.75,0.5 3.25,0.5 C4.5,0.5 5.5,1.3 6,2.25 C6.5,1.3 7.5,0.5 8.75,0.5 C10.25,0.5 11.5,1.75 11.5,3.25 C11.5,6.5 6,10.5 6,10.5 Z' fill='%23C2A058'/%3E%3C/svg%3E") center/contain no-repeat;}
+.saved{font-size:12px;color:var(--muted);}
+
+header.hero{padding:46px 20px 30px;text-align:center;max-width:640px;margin:0 auto;}
+.eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);background:rgba(46,125,91,.1);padding:5px 13px;border-radius:999px;margin-bottom:18px;}
+header.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);font-weight:600;margin-bottom:14px;}
+header.hero p{color:var(--muted);font-size:1.03rem;}
+
+.note{background:var(--gold-soft);border:1px solid var(--gold);border-radius:14px;padding:18px 20px;margin:26px 0;font-size:.95rem;color:var(--ink);}
+.note strong{font-family:'Fraunces',Georgia,serif;}
+
+.sec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin-bottom:20px;}
+.sec-head{display:flex;align-items:baseline;gap:11px;margin-bottom:6px;}
+.sec-num{font-family:'Fraunces',Georgia,serif;font-size:.85rem;font-weight:600;color:#fff;background:var(--brand);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;align-self:center;}
+.sec h2{font-size:1.22rem;}
+.sec > p.sub{color:var(--muted);font-size:.93rem;margin-bottom:20px;}
+.sec.care{border:1.5px solid var(--rose);background:var(--rose-soft);}
+.sec.care .sec-num{background:var(--rose);}
+
+label{display:block;font-weight:600;font-size:.93rem;margin:16px 0 5px;}
+label .opt{font-weight:400;color:var(--muted);font-size:.85rem;}
+.hint{font-size:.85rem;color:var(--muted);margin:-2px 0 7px;}
+input[type=text],input[type=date],textarea{width:100%;font-family:inherit;font-size:.97rem;color:var(--ink);background:#FDFCF8;border:1px solid var(--line);border-radius:10px;padding:11px 13px;transition:border-color .15s,box-shadow .15s;}
+input:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,125,91,.12);}
+textarea{min-height:92px;resize:vertical;line-height:1.6;}
+textarea.tall{min-height:132px;}
+.care input,.care textarea{background:#fff;border-color:#E8CFCB;}
+.care input:focus,.care textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(180,84,74,.12);}
+
+.bar{position:fixed;bottom:0;left:0;right:0;background:rgba(247,245,238,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 20px;z-index:45;}
+.bar-in{max-width:720px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.prog{flex:1;min-width:120px;height:7px;background:var(--line);border-radius:999px;overflow:hidden;}
+.prog i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s;}
+.prog-t{font-size:12px;color:var(--muted);white-space:nowrap;}
+button{font-family:inherit;font-weight:600;font-size:.93rem;border:none;cursor:pointer;border-radius:999px;padding:12px 20px;transition:background .18s,transform .12s;}
+.b-primary{background:var(--brand);color:#fff;}
+.b-primary:hover{background:var(--brand-deep);transform:translateY(-1px);}
+.b-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand);}
+.b-ghost:hover{background:var(--brand);color:#fff;}
+
+.done{display:none;background:var(--card);border:2px solid var(--brand);border-radius:18px;padding:28px 24px;margin-bottom:20px;}
+.done h2{font-size:1.3rem;margin-bottom:10px;}
+.done textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;margin-top:14px;}
+
+.about{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin:34px 0 10px;}
+.about h3{font-size:1.1rem;margin-bottom:6px;}
+.about p{font-size:.93rem;color:var(--muted);margin-bottom:14px;}
+.lad{list-style:none;font-size:.9rem;}
+.lad li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);}
+.lad li:last-child{border-bottom:none;}
+.lad .p{color:var(--brand);font-weight:600;white-space:nowrap;}
+.about .fine{font-size:.84rem;color:var(--muted);margin-top:14px;margin-bottom:0;}
+footer{text-align:center;padding:30px 20px 10px;font-size:13px;color:var(--muted);}
+@media(max-width:560px){ .bar-in button{flex:1;} .prog{order:-1;flex-basis:100%;} }
+
+/* project page */
+.nav{display:none}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:20px}
+.pcard h2{font-size:1.25rem;margin-bottom:6px}
+.pcard .sub{color:var(--muted);font-size:.93rem;margin-bottom:14px}
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 4px}
+.tier{border:1.5px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;background:#FDFCF8}
+.tier.on{border-color:var(--brand);background:rgba(46,125,91,.06)}
+.tier b{display:block;font-family:'Fraunces',Georgia,serif;font-size:1.05rem}
+.tier span{font-size:.85rem;color:var(--muted)}
+.tier s{color:var(--muted)}
+select{width:100%;font-family:inherit;font-size:.97rem;background:#FDFCF8;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:600px){.grid2,.tiers{grid-template-columns:1fr}}
+.tl{list-style:none;margin:6px 0 0}
+.tl li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.tl li:last-child{border-bottom:none}
+.tl .d{font-weight:600;color:var(--brand)}
+.warn{background:var(--rose-soft);border:1.5px solid var(--rose);border-radius:14px;padding:14px 16px;font-size:.93rem;margin:12px 0}
+.ok{background:rgba(46,125,91,.08);border:1px solid rgba(46,125,91,.35);border-radius:14px;padding:14px 16px;font-size:.93rem;margin:12px 0}
+.hintbox{background:#fbf6ec;border:1px solid #ecdcb8;border-radius:12px;padding:12px 14px;margin:6px 0 14px;font-size:.92rem;line-height:1.5}
+.checks{list-style:none;font-size:.92rem}
+.checks li{padding:5px 0}
+.checks li:before{content:'○ ';color:var(--muted)}
+.checks li.done:before{content:'✓ ';color:var(--brand);font-weight:700}
+.rules{font-size:.92rem;margin:8px 0 0 18px}
+.rules li{margin:6px 0}
+.agree{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:.93rem}
+.agree input{margin-top:4px;width:18px;height:18px}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+button[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
+.stage{border:1px solid var(--line);border-radius:16px;padding:18px 18px;margin:12px 0;background:#fff}
+.stage.locked{opacity:.55}
+.stage h3{font-size:1.08rem;display:flex;align-items:center;gap:10px}
+.pill{font-family:Inter,sans-serif;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--bg-2);color:var(--muted)}
+.pill.you{background:var(--gold-soft);color:var(--gold-deep)}
+.pill.done{background:rgba(46,125,91,.12);color:var(--brand)}
+.draft{white-space:pre-wrap;background:#FDFCF8;border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;font-size:.95rem;max-height:420px;overflow:auto}
+.small{font-size:.85rem;color:var(--muted)}
+.admin{border:2px dashed var(--gold);background:var(--gold-soft)}
+.admin textarea{min-height:120px}
+.taste{white-space:pre-wrap;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.6;background:#FDFCF8;border-left:3px solid var(--gold);padding:12px 16px;margin:12px 0;border-radius:6px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1F2622;color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;display:none;z-index:99}
+</style>
+</head>
+<body>
+<script src="/gw-header.js"></script>
+
+<header class="hero">
+  <span class="eyebrow" id="eyebrow">Made for you</span>
+  <h1 id="h1">Start your project</h1>
+  <p id="lead">Tell us who it's for and we'll build your plan straight away: your dates, what we need from you, and exactly how each step works. Nothing to pay until you're happy with the plan.</p>
+</header>
+
+<div class="wrap" id="app"><p class="small" style="text-align:center">Loading…</p></div>
+
+<div id="toast"></div>
+
+<template id="tpl-story">
+  <!-- 2 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><h2>The people around them</h2></div>
+    <p class="sub">Names are the single most powerful thing in a keepsake song. Hearing your own
+       name sung is what makes people cry. Please give us as many as you can — and tell us how
+       each one is pronounced if it isn't obvious.</p>
+    <label>Partner or spouse — name, and how they met</label>
+    <textarea data-q="Partner / how they met" placeholder="Where, when, who spoke first, what he says about it now..."></textarea>
+    <label>Children — names, in order</label>
+    <textarea data-q="Children" placeholder="Name, roughly what they do or what they're like. One line each is plenty."></textarea>
+    <label>Grandchildren — names <span class="opt">optional</span></label>
+    <textarea data-q="Grandchildren"></textarea>
+    <label>Brothers, sisters, and anyone who counts as family</label>
+    <textarea data-q="Siblings / chosen family"></textarea>
+    <label>Closest friends who'll be in the room</label>
+    <textarea data-q="Close friends"></textarea>
+  </div>
+
+  <!-- 3 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Where they come from</h2></div>
+    <p class="sub">The history. Parents, home, the road that got them here.</p>
+    <label>Where were they born, and where did they grow up?</label>
+    <textarea data-q="Born / grew up"></textarea>
+    <label>Their parents — names, and what they were like</label>
+    <p class="hint">If either has passed away, say so here and tell us in section 7 how you'd like them honoured.</p>
+    <textarea data-q="Parents" class="tall"></textarea>
+    <label>What did the family do? What was life like then?</label>
+    <textarea data-q="Family background"></textarea>
+    <label>School, training, work — the path they took</label>
+    <textarea data-q="Education and work"></textarea>
+    <label>Places they've lived, or moved between</label>
+    <textarea data-q="Places lived"></textarea>
+    <label>Faith, church or community life <span class="opt">optional, but often the heart of it</span></label>
+    <textarea data-q="Faith / community"></textarea>
+  </div>
+
+  <!-- 4 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Who they actually are</h2></div>
+    <p class="sub">This is the section that stops the song sounding like anyone else's.</p>
+    <label>Three words the family would use about them</label>
+    <input type="text" data-q="Three words">
+    <label>Something they always say <span class="opt">a phrase, a piece of advice, a telling-off</span></label>
+    <textarea data-q="Catchphrase / sayings"></textarea>
+    <label>What makes everyone laugh about them?</label>
+    <textarea data-q="What makes everyone laugh" placeholder="The habit, the quirk, the thing they'd deny."></textarea>
+    <label>What are they proudest of?</label>
+    <textarea data-q="Proudest of"></textarea>
+    <label>What would they never boast about — but should?</label>
+    <textarea data-q="Quiet achievement"></textarea>
+    <label>Food, music, teams, hobbies, the things they love</label>
+    <textarea data-q="Loves"></textarea>
+  </div>
+
+  <!-- 5 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><h2>The moments</h2></div>
+    <p class="sub">Two or three real stories beat a page of adjectives. Small ones are best.</p>
+    <label>A memory that sums them up</label>
+    <textarea data-q="Defining memory" class="tall"></textarea>
+    <label>A funny story the room would recognise</label>
+    <textarea data-q="Funny story" class="tall"></textarea>
+    <label>Something hard they came through</label>
+    <p class="hint">Only if it's theirs to tell and they'd be happy for it to be mentioned. We'll handle it gently, or leave it out — your call in section 7.</p>
+    <textarea data-q="Something they overcame"></textarea>
+    <label>If they heard one thing said about them tonight, what should it be?</label>
+    <textarea data-q="The one thing to say"></textarea>
+  </div>
+
+  <!-- 6 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><h2>The music</h2></div>
+    <p class="sub">We write the song to suit them, not the charts.</p>
+    <label>Music they love — artists, genres, an era</label>
+    <textarea data-q="Music they love"></textarea>
+    <label>A song that already means something to them <span class="opt">optional</span></label>
+    <input type="text" data-q="Meaningful song">
+    <label>What should their song feel like?</label>
+    <input type="text" data-q="Mood" placeholder="Warm and gentle / upbeat and funny / soulful / gospel / something to dance to">
+    <label>Language — and any words or phrases in another language we should include</label>
+    <textarea data-q="Language" placeholder="English throughout, but his mother always called him..."></textarea>
+  </div>
+
+  <!-- 7 -->
+  <div class="sec care">
+    <div class="sec-head"><span class="sec-num">7</span><h2>What to leave out</h2></div>
+    <p class="sub">The most important section on this page. We would far rather know now than get
+       it wrong in front of a room full of people. Nothing you write here is ever shown to anyone.</p>
+    <label>Anyone who has passed away — and how you'd like them remembered</label>
+    <p class="hint">Named gently, mentioned without naming, or not at all. Tell us which.</p>
+    <textarea data-q="⚠️ Remembering those who have passed" class="tall"></textarea>
+    <label>Anyone who should <em>not</em> be mentioned</label>
+    <p class="hint">Estrangements, divorces, difficult history. No explanation needed — a name is enough.</p>
+    <textarea data-q="⚠️ Do NOT mention these people"></textarea>
+    <label>Subjects to avoid completely</label>
+    <p class="hint">Health, money, work, a particular period of life, an old nickname they've outgrown.</p>
+    <textarea data-q="⚠️ Subjects to avoid" class="tall"></textarea>
+    <label>Anything that would embarrass or upset them</label>
+    <textarea data-q="⚠️ Would upset or embarrass"></textarea>
+    <label>Is there anything you're unsure about? <span class="opt">we'll ask before using it</span></label>
+    <textarea data-q="⚠️ Unsure about"></textarea>
+  </div>
+
+  <!-- 8 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Photos &amp; the day itself</h2></div>
+    <p class="sub">So the film is cut to the room it's playing in.</p>
+    <div class="hintbox">📷 <b>Photos come after booking.</b> Your project page will give you one private upload link to share with the family: no app, full quality, photos and short videos. Start gathering now.</div>
+    <label>Roughly how many photos can you gather?</label>
+    <input type="text" data-q="Photo count" placeholder="30–60 is ideal — old ones especially">
+    <label>Any video clips? <span class="opt">optional</span></label>
+    <textarea data-q="Video clips"></textarea>
+    <label>When in the evening will it be played?</label>
+    <input type="text" data-q="When it plays" placeholder="After the meal, instead of the speeches...">
+    <label>What will it play on? <span class="opt">screen, projector, TV — and is there decent sound?</span></label>
+    <textarea data-q="Screen and sound"></textarea>
+    <label>Who's our contact on the day, if something needs fixing?</label>
+    <input type="text" data-q="Contact on the day">
+    <label>Anything else we should know?</label>
+    <textarea data-q="Anything else" class="tall"></textarea>
+  </div>
+
+  <!-- 9 (added Nov 2026 — learned from Brother Sam's 70th) -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">9</span><h2>Getting the details exactly right</h2></div>
+    <p class="sub">Small things that make a big difference when the song is sung out loud.</p>
+    <label>How is each name said? <span class="opt">spell it the way it sounds</span></label>
+    <p class="hint">E.g. “Aderinsola — Ah-day-reen-saw-la”. Include nicknames and the names of children and grandchildren.</p>
+    <textarea data-q="Pronunciation of names" class="tall"></textarea>
+    <label>Words or phrases in another language — what they mean, and how to say them</label>
+    <p class="hint">E.g. “Ọlọ́run ṣé — God has done it — said ‘Or-loor-roon shay’”.</p>
+    <textarea data-q="Phrases, meanings and pronunciation"></textarea>
+    <label>Their actual birthday or anniversary date <span class="opt">if different from the event</span></label>
+    <input type="date" data-q="Actual birthday or anniversary date">
+    <label>A song whose style you'd love us to follow <span class="opt">a YouTube or Spotify link is perfect</span></label>
+    <input type="text" data-q="Style reference link">
+  </div>
+
+
+</template>
+
+<script>
+const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
+const LYRICS_API='https://gatherwall-lyrics.baba-analytix.workers.dev';
+const TERMS_VERSION='2026-11-12';
+const RESPOND_DAYS=5;
+const TIERS={
+  'story-film':{name:'Story Film',price:'$149',launch:'$74.50',lead:14,min:21,lyricRounds:1,filmRounds:1,
+    inc:['An original song written from their story','A film of their photos with sing-along lyrics','A family upload link for photos','1 round of changes on the lyrics and 1 on the film','A private gift page for the celebrant']},
+  'signature-celebration':{name:'Signature Celebration',price:'$299',launch:'$149.50',lead:21,min:28,lyricRounds:2,filmRounds:2,
+    inc:['Everything in Story Film','Two song versions, lyrics in two languages if you like','A tribute wall for family and friends worldwide','Restoration of treasured old prints','Tribute book PDF and a private keepsake page','On-the-day kit: screen file, backup and running order','2 rounds of changes on the lyrics and 2 on the film']}
+};
+const LAUNCH_UNTIL=new Date('2027-01-01T00:00:00Z');
+const Q=new URLSearchParams(location.search);
+let CID=Q.get('p')||'', ADMIN=Q.get('admin')||'', P=null, IS_ADMIN=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(m){ const t=$('toast'); t.textContent=m; t.style.display='block'; clearTimeout(toast._t); toast._t=setTimeout(()=>t.style.display='none',2600); }
+const TS={'.sv':'timestamp'};
+async function dbGet(p){ const r=await fetch(DB+'/'+p+'.json'); return r.ok?r.json():null; }
+async function dbPut(p,v){ return fetch(DB+'/'+p+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)}); }
+async function dbPatch(p,v){ return fetch(DB+'/'+p+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)}); }
+function hostCall(op,payload){ return fetch(HOST_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op},payload))}).then(r=>r.json()).catch(()=>({ok:false})); }
+function rnd(n){ const a=new Uint8Array(n); crypto.getRandomValues(a); return Array.from(a,b=>'abcdefghijklmnopqrstuvwxyz0123456789'[b%36]).join(''); }
+function fmt(d){ return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'}); }
+function fmtTs(ts){ return ts? new Date(ts).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : ''; }
+function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function addWorkDays(d,n){ const x=new Date(d); while(n>0){ x.setDate(x.getDate()+1); if(x.getDay()%6) n--; } return x; }
+function rememberProject(cid,label){ try{ let a=JSON.parse(localStorage.getItem('gw_my_links')||'[]'); const url=location.origin+'/project.html?p='+cid; if(!a.some(x=>x.url===url)) a.unshift({label,url}); localStorage.setItem('gw_my_links',JSON.stringify(a.slice(0,12))); localStorage.setItem('gw_proj_last',cid); }catch(e){} }
+
+/* ================= START: new project ================= */
+function renderStart(){
+  const t=Q.get('new')==='signature-celebration'?'signature-celebration':'story-film';
+  $('app').innerHTML=`
+  <div class="pcard">
+    <h2>1 · Choose your package</h2>
+    <div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===t)).join('')}</div>
+    <p class="small" style="margin-top:8px">You can switch package any time before you book.</p>
+  </div>
+  <div class="pcard">
+    <h2>2 · The essentials</h2>
+    <p class="sub">So we can build your plan. Everything else comes on the next page, at your own pace.</p>
+    <div class="grid2">
+      <div><label>Who is it for? <span class="opt">full name</span></label><input type="text" id="b_for"></div>
+      <div><label>What do people call them?</label><input type="text" id="b_call" placeholder="Mummy, Uncle B, Grandpa…"></div>
+      <div><label>The occasion</label><input type="text" id="b_occ" placeholder="70th birthday, wedding, remembrance…"></div>
+      <div><label>Date of the event</label><input type="date" id="b_date"><label class="small" style="font-weight:400;margin-top:6px"><input type="checkbox" id="b_nodate"> No fixed date</label></div>
+      <div><label>Your name</label><input type="text" id="b_you"></div>
+      <div><label>You are their…</label><input type="text" id="b_rel" placeholder="daughter, son, friend…"></div>
+      <div><label>Your email</label><input type="text" id="b_email" inputmode="email"></div>
+      <div><label>Your WhatsApp number <span class="opt">with country code</span></label><input type="text" id="b_wa" inputmode="tel" placeholder="+44 …"></div>
+      <div><label>Song language</label><select id="b_lang"><option>English</option><option>English with Yoruba phrases</option><option>English with Igbo phrases</option><option>English with Hausa phrases</option><option>English with Pidgin</option><option>Français</option><option>Español</option><option>Deutsch</option><option>Čeština</option><option>Other (tell us in the story)</option></select></div>
+      <div><label>How should it feel?</label><select id="b_mood"><option>Warm soul ballad</option><option>Afrobeats celebration</option><option>Highlife, joyful</option><option>Gospel, uplifting</option><option>Gentle acoustic</option><option>Upbeat pop</option><option>Quiet and reflective</option></select></div>
+    </div>
+    <div class="btnrow"><button class="b-primary" id="createBtn">Create my project and see my plan →</button></div>
+    <p class="small" style="margin-top:10px">Your project gets a private link. We'll email it to you so you can come back any time, on any device.</p>
+    <p class="small err" id="startErr" style="color:var(--rose);display:none"></p>
+  </div>`;
+  document.querySelectorAll('.tier').forEach(el=>el.onclick=()=>{ document.querySelectorAll('.tier').forEach(x=>x.classList.remove('on')); el.classList.add('on'); });
+  $('createBtn').onclick=createProject;
+}
+function tierBtn(k,on){ const T=TIERS[k], launch=new Date()<LAUNCH_UNTIL; return `<div class="tier${on?' on':''}" data-t="${k}"><b>${T.name}</b><span>${launch?`<s>${T.price}</s> ${T.launch} launch price`:T.price}</span></div>`; }
+async function createProject(){
+  const v=id=>($(id).value||'').trim();
+  const basics={for:v('b_for'),call:v('b_call'),occasion:v('b_occ'),date:$('b_nodate').checked?'':v('b_date'),noDate:$('b_nodate').checked,you:v('b_you'),rel:v('b_rel'),email:v('b_email'),wa:v('b_wa'),lang:v('b_lang'),mood:v('b_mood')};
+  const miss=[]; if(!basics.for)miss.push('who it is for'); if(!basics.occasion)miss.push('the occasion'); if(!basics.date&&!basics.noDate)miss.push('the date (or tick “No fixed date”)'); if(!basics.you)miss.push('your name'); if(!/.+@.+\..+/.test(basics.email))miss.push('a valid email'); if(basics.wa.replace(/\D/g,'').length<8)miss.push('your WhatsApp number');
+  if(miss.length){ const e=$('startErr'); e.textContent='Please add '+miss.join(', ')+'.'; e.style.display='block'; return; }
+  const tier=(document.querySelector('.tier.on')||{}).dataset.t||'story-film';
+  const cid='p'+rnd(6)+'--'+rnd(16);
+  $('createBtn').disabled=true; $('createBtn').textContent='Creating…';
+  const r=await dbPut('projects/'+cid,{tier,created:TS,brief:{basics,answers:{}}});
+  if(!r.ok){ $('createBtn').disabled=false; $('createBtn').textContent='Create my project and see my plan →'; toast('Could not create the project. Please try again.'); return; }
+  rememberProject(cid,(TIERS[tier].name)+' for '+basics.for);
+  location.href='project.html?p='+cid;
+}
+
+/* ================= LOAD ================= */
+async function load(){
+  if(!CID){ renderStart(); return; }
+  P=await dbGet('projects/'+CID);
+  if(!P||!P.tier){ $('h1').textContent='Project not found'; $('lead').textContent='Please check the link from your email. If it still doesn\'t work, message us and we\'ll find it.'; $('app').innerHTML=''; return; }
+  if(ADMIN){ const r=await hostCall('verify',{ev:'admin',key:ADMIN}); IS_ADMIN=!!(r&&r.ok); }
+  rememberProject(CID,TIERS[P.tier].name+' for '+((P.brief&&P.brief.basics&&P.brief.basics.for)||''));
+  render();
+}
+function B(){ return (P.brief&&P.brief.basics)||{}; }
+function who(){ const b=B(); return b.call||b.for||'them'; }
+function render(){
+  const T=TIERS[P.tier];
+  $('eyebrow').textContent=T.name+(P.paid?' · booked':' · plan');
+  $('h1').textContent=(P.paid?'':'Your plan: ')+T.name+' for '+who();
+  $('lead').textContent=P.paid? 'This is your private project page. Everything happens here: drafts, approvals and delivery. Keep this link safe.' : 'Here is your personal plan. Fill in the story below at your own pace (it saves as you type). When it\'s complete and you\'re happy with the plan, book to reserve your date.';
+  let h='';
+  if(IS_ADMIN) h+=adminPanel();
+  h+= P.paid? paidView(T) : planView(T);
+  $('app').innerHTML=h;
+  if(!P.paid) wirePlan(T); else wirePaid(T);
+  if(IS_ADMIN) wireAdmin();
+}
+
+/* ================= PLAN (before payment) ================= */
+function schedule(T){
+  const b=B(), today=new Date(); today.setHours(0,0,0,0);
+  const ev=b.date? new Date(b.date+'T12:00:00'):null;
+  const days=ev? Math.round((ev-today)/864e5):null;
+  const rows=[];
+  const book=today;
+  rows.push(['Today','You finish the story on this page and book. Your date is reserved once paid.']);
+  rows.push([fmt(addWorkDays(book,3)),'First lyrics draft on this page (within 3 working days of booking and a complete story).']);
+  rows.push(['5 days','You approve the lyrics or send one message with all your changes. Included: '+T.lyricRounds+' round'+(T.lyricRounds>1?'s':'')+'.']);
+  rows.push(['+3 work days','Song versions to choose from, once the lyrics are approved.']);
+  rows.push([ev?fmt(addDays(ev,-T.lead)):'—','All photos uploaded and confirmed final'+(ev?'':' (we\'ll agree a date with you)')+'.']);
+  rows.push([ev?fmt(addDays(ev,-7)):'—','Film draft on this page. Included: '+T.filmRounds+' round'+(T.filmRounds>1?'s':'')+' of changes.']);
+  rows.push([ev?fmt(addDays(ev,-3)):'—','Final delivery: film, song, lyrics and gift page.']);
+  return {rows,days,ev};
+}
+const REQ=[
+  ['Children','The people around them (at least one name)',a=>['Partner / how they met','Children','Grandchildren','Siblings / chosen family','Close friends'].some(q=>a[q])],
+  ['Pronunciation of names','How each name is said (or “all names are straightforward”)'],
+  ['Defining memory','A memory that sums them up'],
+  ['Three words','Three words the family would use'],
+  ['Loves','The things they love'],
+  ['Mood','What their song should feel like'],
+  ['leave','Section 7: what to leave out (or tick “nothing to leave out”)',(a,br)=>br.nothingToAvoid||Object.keys(a).some(q=>q.indexOf('⚠️')===0&&a[q])],
+  ['Photo count','Roughly how many photos you can gather'],
+];
+function answersByQ(){ const o={}; const A=(P.brief&&P.brief.answers)||{}; Object.keys(A).forEach(k=>{ if(A[k]&&A[k].a) o[A[k].q]=A[k].a; }); return o; }
+function reqStatus(){ const a=answersByQ(), br=P.brief||{}; return REQ.map(([k,label,fn])=>({label,done: fn? !!fn(a,br) : !!a[k]})); }
+function planView(T){
+  const s=schedule(T), b=B();
+  const tooSoon = s.days!==null && s.days < T.min;
+  const launch=new Date()<LAUNCH_UNTIL;
+  let h=`<div class="pcard"><h2>Your package</h2><div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===P.tier)).join('')}</div>
+    <ul class="rules" style="margin-top:12px">${T.inc.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul></div>`;
+  h+=`<div class="pcard"><h2>Your timeline</h2><p class="sub">${esc(b.occasion||'')}${s.ev?' on '+fmt(s.ev):''}${s.days!==null?' · '+s.days+' days away':''}</p>`;
+  if(tooSoon) h+=`<div class="warn"><b>Your date is closer than our standard schedule (${T.min} days).</b> Please message us before booking and we'll tell you honestly whether we can make it: <a href="mailto:hello@gatherwall.com?subject=${encodeURIComponent('Date check: '+T.name+' for '+(b.for||''))}">hello@gatherwall.com</a>. Booking is paused for this date until we confirm.</div>`;
+  h+=`<ul class="tl">${s.rows.map(r=>`<li><span class="d">${esc(r[0])}</span><span>${esc(r[1])}</span></li>`).join('')}</ul></div>`;
+  h+=`<div class="pcard"><h2>A taste of their song</h2><p class="sub">Once you've filled in a few memories, hear the opening lines we'd write. Free, and only takes a minute. Your full lyrics are written by our team after booking.</p>
+    <div id="tasteBox">${P.taste?'<div class="taste">'+esc(P.taste.text)+'</div>':''}</div>
+    ${P.taste?'':'<button class="b-ghost" id="tasteBtn">✨ Show me the opening lines</button>'}</div>`;
+  h+=`<div class="note"><strong>Their story.</strong> This is where the song and film come from, so please be generous. It saves as you type, so do it in a few sittings and share this link with family who know the stories. <b>Section 7 matters most</b>: what to leave out.</div>`;
+  h+=`<div id="storyHost"></div>`;
+  h+=`<div class="pcard"><label class="agree" style="margin:0"><input type="checkbox" id="nothingAvoid" ${(P.brief&&P.brief.nothingToAvoid)?'checked':''}> There is nothing we need to leave out or handle carefully.</label></div>`;
+  const rs=reqStatus(), ready=rs.every(x=>x.done);
+  h+=`<div class="pcard" id="bookCard"><h2>Book and reserve your date</h2>
+    <p class="sub">Before booking we need the essentials, so we can start the moment you pay:</p>
+    <ul class="checks" id="checks">${rs.map(x=>`<li class="${x.done?'done':''}">${esc(x.label)}</li>`).join('')}</ul>
+    <h3 style="font-size:1.05rem;margin-top:18px">How it works, step by step</h3>
+    <ol class="rules">
+      <li><b>Lyrics.</b> You get a draft here. Approve it, or send one message with all your changes (${T.lyricRounds} round${T.lyricRounds>1?'s':''} included). <b>Once approved, the words are locked</b> and the song is recorded from them.</li>
+      <li><b>Song.</b> You choose your favourite version. One style redo is included before you approve. <b>Once approved, the song is locked.</b></li>
+      <li><b>Photos.</b> One upload link for the whole family. When you press “photos complete”, the set is locked and the film is built from it.</li>
+      <li><b>Film.</b> You get a draft here. ${T.filmRounds} round${T.filmRounds>1?'s':''} of fixes included, using the approved song and photos (timing, order, captions, swaps from your uploads).</li>
+      <li><b>${RESPOND_DAYS} days to reply.</b> Each draft has a ${RESPOND_DAYS}-day reply window. We remind you before it ends; if we don't hear back, that stage counts as approved so your date is never at risk.</li>
+      <li><b>After approval.</b> Changes to a locked stage aren't included. If something must change, ask and we'll quote first (extra rounds are $29); nothing is done or charged without your OK.</li>
+      <li><b>Refunds.</b> Full refund before your first lyrics draft; 50% after it; none once the song is approved, because it's made for one person. Full details in our <a href="terms.html#madeforyou" target="_blank">terms</a>.</li>
+    </ol>
+    <label class="agree"><input type="checkbox" id="agree"> I've read how it works, and I agree to the stage rules, reply windows and <a href="terms.html#madeforyou" target="_blank">terms</a>.</label>
+    <div class="btnrow"><button class="b-primary" id="payBtn" ${(!ready||tooSoon)?'disabled':''}>Book ${esc(T.name)} · ${launch?T.launch:T.price} →</button></div>
+    <p class="small" id="payNote" style="margin-top:8px">${tooSoon?'Booking paused until we confirm your date.':ready?'Secure payment by Stripe. Your project continues on this page.':'Complete the items above to book.'}</p>
+  </div>`;
+  return h;
+}
+let saveT=null;
+function wirePlan(T){
+  document.querySelectorAll('.tier').forEach(el=>el.onclick=async()=>{ if(el.dataset.t===P.tier)return; await dbPut('projects/'+CID+'/tier',el.dataset.t); P.tier=el.dataset.t; render(); });
+  const host=$('storyHost'); host.innerHTML=$('tpl-story').innerHTML;
+  const fields=[...host.querySelectorAll('[data-q]')];
+  const A=(P.brief&&P.brief.answers)||{};
+  fields.forEach((f,i)=>{ const k='f'+i; if(A[k]&&A[k].a) f.value=A[k].a; f.addEventListener('input',()=>{ clearTimeout(saveT); saveT=setTimeout(()=>saveAnswers(fields),900); }); });
+  $('nothingAvoid').onchange=async e=>{ P.brief.nothingToAvoid=e.target.checked; await dbPatch('projects/'+CID+'/brief',{nothingToAvoid:e.target.checked}); refreshChecks(); };
+  const tb=$('tasteBtn'); if(tb) tb.onclick=taste;
+  $('agree').onchange=refreshChecks;
+  $('payBtn').onclick=()=>book(T);
+}
+async function saveAnswers(fields){
+  const ans={}; fields.forEach((f,i)=>{ const v=f.value.trim(); if(v) ans['f'+i]={q:f.getAttribute('data-q'),a:v.slice(0,6000)}; });
+  P.brief.answers=ans;
+  const r=await dbPut('projects/'+CID+'/brief/answers',ans);
+  toast(r.ok?'Saved ✓':'Could not save. Check your connection.');
+  refreshChecks();
+}
+function refreshChecks(){
+  const T=TIERS[P.tier], rs=reqStatus(), ready=rs.every(x=>x.done), s=schedule(T), tooSoon=s.days!==null&&s.days<T.min;
+  const c=$('checks'); if(c) c.innerHTML=rs.map(x=>`<li class="${x.done?'done':''}">${esc(x.label)}</li>`).join('');
+  const pb=$('payBtn'); if(pb) pb.disabled=!ready||tooSoon;
+  const pn=$('payNote'); if(pn) pn.textContent=tooSoon?'Booking paused until we confirm your date.':ready?'Secure payment by Stripe. Your project continues on this page.':'Complete the items above to book.';
+}
+async function taste(){
+  const a=answersByQ(), b=B();
+  if(!(a['Defining memory']||a['Loves']||a['Three words'])){ toast('Add a memory or two first (sections 4 and 5).'); return; }
+  const tb=$('tasteBtn'); tb.disabled=true; tb.textContent='Writing…';
+  const story=Object.keys(a).filter(q=>q.indexOf('⚠️')!==0).map(q=>q+': '+a[q]).join('\n').slice(0,3500);
+  const avoid=Object.keys(a).filter(q=>q.indexOf('⚠️')===0).map(q=>q+': '+a[q]).join('\n');
+  try{
+    const r=await fetch(LYRICS_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({for:b.call||b.for,occasion:b.occasion,feeling:b.mood,styleDesc:b.mood,language:/Fran|Espa|Deut|Če/.test(b.lang)?b.lang:'English',from:b.you,story:story+(avoid?'\n\nDO NOT MENTION / HANDLE WITH CARE:\n'+avoid:''),people:[a['Partner / how they met'],a['Children'],a['Grandchildren']].filter(Boolean).join('; '),proud:a['Proudest of']||'',includeLine:a['Catchphrase / sayings']||''})});
+    const d=await r.json(); if(!d.lyrics) throw 0;
+    const lines=d.lyrics.split('\n').map(l=>l.trim()).filter(l=>l&&l[0]!=='['&&l[0]!=='(').slice(0,8).join('\n');
+    await dbPut('projects/'+CID+'/taste',{text:lines,at:TS});
+    $('tasteBox').innerHTML='<div class="taste">'+esc(lines)+'</div><p class="small">A first sketch from what you\'ve written so far. After booking, we write the full song with you, line by line.</p>'; tb.remove();
+  }catch(e){ tb.disabled=false; tb.textContent='✨ Show me the opening lines'; toast('Couldn\'t write it just now. Please try again in a minute.'); }
+}
+async function book(T){
+  if(!$('agree').checked){ toast('Please tick the box to agree to how it works.'); return; }
+  const pb=$('payBtn'); pb.disabled=true; pb.textContent='Opening secure checkout…';
+  if(!P.terms){ await dbPut('projects/'+CID+'/terms',{at:TS,v:TERMS_VERSION}); }
+  try{ localStorage.setItem('gw_proj_last',CID); }catch(e){}
+  location.href='checkout.html?p='+P.tier+'&order='+encodeURIComponent(CID);
+}
+
+/* ================= PAID: stages ================= */
+const STAGES=[['lyrics','1 · Lyrics'],['song','2 · Song'],['photos','3 · Photos'],['film','4 · Film']];
+function st(stg){ const ap=(P.approvals||{})[stg], d=(P.drafts||{})[stg], rq=(P.requests||{})[stg]||{}; return {ap,d,rq}; }
+function prevOk(stg){ const A=P.approvals||{}; if(stg==='song') return !!A.lyrics; if(stg==='film') return !!(A.song&&A.photos); return true; }
+function roundsFor(stg){ const T=TIERS[P.tier]; return stg==='lyrics'?T.lyricRounds:stg==='film'?T.filmRounds:stg==='song'?1:0; }
+function paidView(T){
+  let h=`<div class="pcard"><h2>Where things are</h2><p class="sub">Booked ${fmtTs(P.paidAt)}${B().date?' · event '+fmt(new Date(B().date+'T12:00:00')):''}. You have ${RESPOND_DAYS} days to reply to each draft; we'll remind you.</p>`;
+  STAGES.forEach(([k,label])=>{ h+=stageCard(k,label); });
+  if(P.final) h+=finalCard();
+  h+=`</div>`;
+  h+=`<div class="pcard"><h2>Your story</h2><p class="sub">What you told us before booking. Spotted something wrong (a name, a spelling)? Tell us in your next reply on the lyrics.</p><details><summary class="small">Show the story</summary><div class="draft">${esc(compileBrief())}</div></details></div>`;
+  h+=`<p class="small" style="text-align:center">Questions? <a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>. For changes, please use the buttons on this page so everything is in one place.</p>`;
+  return h;
+}
+function stageCard(k,label){
+  const {ap,d,rq}=st(k), locked=!prevOk(k)&&!ap;
+  let pill,body='';
+  if(ap){ pill=`<span class="pill done">Approved 🔒 ${fmtTs(ap.at)}${ap.auto?' (automatically, after '+RESPOND_DAYS+' days)':''}</span>`; }
+  else if(k==='photos'){ pill=`<span class="pill you">Your turn</span>`; }
+  else if(locked||!d){ pill=`<span class="pill">${locked?'Waiting on the previous step':'We\'re working on it'}</span>`; }
+  else if(rq['r'+d.v]){ pill=`<span class="pill">Changes received · new version within 3 working days</span>`; }
+  else { pill=`<span class="pill you">Ready for you · reply by ${fmt(addDays(new Date(d.sentAt),RESPOND_DAYS))}</span>`; }
+  // content
+  if(k==='lyrics' && d) body+=`<div class="draft">${esc(d.text)}</div><p class="small">Version ${d.v}</p>`;
+  if(k==='song' && d) body+=['a','b'].filter(x=>d[x]).map(x=>`<div style="margin:10px 0"><b>Version ${x.toUpperCase()}</b>${ap&&ap.choice===x?' ✓ chosen':''}<br><audio controls preload="none" src="${esc(d[x])}" style="width:100%"></audio></div>`).join('');
+  if(k==='film' && d) body+=`<p style="margin:10px 0"><a class="b-ghost" style="display:inline-block;text-decoration:none;padding:10px 18px;border-radius:999px" href="${esc(d.url)}" target="_blank">▶ Watch film draft (version ${d.v})</a></p>`;
+  if(k==='photos'){ const up=(P.meta||{}).uploadUrl; body+= up? `<p style="margin:10px 0"><a href="${esc(up)}" target="_blank"><b>📷 Your family upload link</b></a> · share it with everyone. Full quality, photos and short videos.</p>` : `<p class="small" style="margin:10px 0">Your private upload link appears here within 1 working day of booking. Start gathering 30–60 photos, older ones especially.</p>`;
+    body+=`<p class="small">Please confirm by ${B().date?fmt(addDays(new Date(B().date+'T12:00:00'),-TIERS[P.tier].lead)):'the date we agree'}.</p>`; }
+  // actions
+  if(!ap && !locked){
+    if(k==='photos'){ body+=`<div class="btnrow"><button class="b-primary" data-approve="photos">My photos are complete</button></div>`; }
+    else if(d && !rq['r'+d.v]){
+      const used=Object.keys(rq).length, left=roundsFor(k)-used, canReq=left>0 && ((k==='lyrics'||k==='film')? d.v<=roundsFor(k) : d.v===1);
+      body+=`<div class="btnrow">`+(k==='song'?`<select id="songChoice" style="max-width:220px"><option value="a">I choose Version A</option>${d.b?'<option value="b">I choose Version B</option>':''}</select>`:'')+
+        `<button class="b-primary" data-approve="${k}">Approve ${k==='song'?'this version':'and lock'}</button>`+
+        (canReq?`<button class="b-ghost" data-req="${k}">Request changes (${left} left)</button>`:'')+`</div>`+
+        (canReq?`<div id="req_${k}" style="display:none;margin-top:12px"><label>All your changes in one message</label><p class="hint">${k==='song'?'Tell us the style change you\'d like (tempo, feel, voice). The words stay as approved.':k==='film'?'Timing, photo order, captions, swapping photos from your uploads. The song and the photo set stay as approved.':'Be specific: line, what to change, and to what. This counts as one round.'}</p><textarea id="reqText_${k}"></textarea><div class="btnrow"><button class="b-primary" data-send="${k}">Send my changes</button></div></div>`:
+        `<p class="small" style="margin-top:8px">Included rounds used. If something must still change, email us and we'll quote before doing anything.</p>`);
+    }
+  }
+  // history of requests
+  const hist=Object.keys(rq).sort().map(n=>`<p class="small">Your changes (${n.toUpperCase()}, ${fmtTs(rq[n].at)}): “${esc(rq[n].text)}”</p>`).join('');
+  return `<div class="stage${locked?' locked':''}"><h3>${label} ${pill}</h3>${body}${hist}</div>`;
+}
+function finalCard(){ const f=P.final; const lines=String(f.links||'').split('\n').map(l=>l.split('|')).filter(x=>x[1]);
+  return `<div class="stage" style="border-color:var(--brand)"><h3>🎁 Delivered ${fmtTs(f.at)}</h3>${lines.map(x=>`<p style="margin:8px 0"><a href="${esc(x[1].trim())}" target="_blank"><b>${esc(x[0].trim())}</b></a></p>`).join('')}<p class="small">Please download your files. They stay available for 90 days after delivery.</p></div>`; }
+function wirePaid(){
+  document.querySelectorAll('[data-req]').forEach(b=>b.onclick=()=>{ const el=$('req_'+b.dataset.req); el.style.display=el.style.display==='none'?'block':'none'; });
+  document.querySelectorAll('[data-send]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.send, text=($('reqText_'+k).value||'').trim(); if(text.length<5){ toast('Please describe your changes.'); return; }
+    const d=st(k).d; if(!confirm('Send these changes? This uses one of your included rounds. Please make sure everything is in this one message.')) return;
+    b.disabled=true; const r=await dbPut('projects/'+CID+'/requests/'+k+'/r'+d.v,{text:text.slice(0,3000),at:TS});
+    if(!r.ok){ b.disabled=false; toast('Could not send. Please try again.'); return; } toast('Sent. We\'ll be back with a new version.'); reload();
+  });
+  document.querySelectorAll('[data-approve]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.approve;
+    const msg={lyrics:'Approve the lyrics? The words are then locked and the song is recorded from them. Changes after this are not included.',song:'Approve this version of the song? It is then locked and the film is cut to it.',photos:'Confirm your photos are complete? The set is then locked and the film is built from it. Photos added later are not included.',film:'Approve the film? This is your final sign-off and we prepare your delivery.'}[k];
+    if(!confirm(msg)) return;
+    const v={at:TS}; if(k==='song') v.choice=($('songChoice')||{}).value||'a'; const d=st(k).d; if(d) v.v=d.v;
+    b.disabled=true; const r=await dbPut('projects/'+CID+'/approvals/'+k,v);
+    if(!r.ok){ b.disabled=false; toast('Could not save. Please try again.'); return; } toast('Approved ✓'); reload();
+  });
+}
+async function reload(){ P=await dbGet('projects/'+CID); render(); }
+function compileBrief(){
+  const b=B(), a=(P.brief&&P.brief.answers)||{};
+  const out=['PROJECT: '+TIERS[P.tier].name+' for '+(b.for||''),'Call them: '+(b.call||''),'Occasion: '+(b.occasion||''),'Date: '+(b.date||'no fixed date'),'From: '+(b.you||'')+' ('+(b.rel||'')+')','Email: '+(b.email||''),'WhatsApp: '+(b.wa||''),'Language: '+(b.lang||''),'Feel: '+(b.mood||''),''];
+  Object.keys(a).sort((x,y)=>+x.slice(1)-+y.slice(1)).forEach(k=>out.push(a[k].q+': '+a[k].a));
+  if(P.brief&&P.brief.nothingToAvoid) out.push('Nothing to leave out (confirmed).');
+  return out.join('\n');
+}
+
+/* ================= ADMIN ================= */
+function adminPanel(){
+  const d=P.drafts||{}, nv=k=>((d[k]&&d[k].v)||0)+1;
+  return `<div class="pcard admin"><h2>Admin · ${P.paid?'paid '+fmtTs(P.paidAt):'not paid yet'}</h2>
+  <p class="small">Terms accepted: ${P.terms?fmtTs(P.terms.at)+' (v'+esc(P.terms.v)+')':'no'}</p>
+  <details><summary><b>Full brief</b> (copy for lyrics)</summary><textarea readonly style="min-height:220px">${esc(compileBrief())}</textarea></details>
+  <label>Lyrics · send version ${nv('lyrics')}</label><textarea id="ad_lyrics">${esc((d.lyrics&&d.lyrics.text)||'')}</textarea><button class="b-primary" data-ad="lyrics">Send lyrics v${nv('lyrics')}</button>
+  <label>Song · version ${nv('song')} (URLs)</label><input type="text" id="ad_song_a" placeholder="Version A URL" value="${esc((d.song&&d.song.a)||'')}"><input type="text" id="ad_song_b" placeholder="Version B URL (optional)" style="margin-top:6px" value="${esc((d.song&&d.song.b)||'')}"><button class="b-primary" data-ad="song" style="margin-top:6px">Send song v${nv('song')}</button>
+  <label>Family upload link</label><input type="text" id="ad_up" value="${esc((P.meta||{}).uploadUrl||'')}"><button class="b-ghost" data-ad="meta" style="margin-top:6px">Save upload link</button>
+  <label>Film · version ${nv('film')} (URL)</label><input type="text" id="ad_film" value="${esc((d.film&&d.film.url)||'')}"><button class="b-primary" data-ad="film" style="margin-top:6px">Send film v${nv('film')}</button>
+  <label>Final delivery (one per line: Label | URL)</label><textarea id="ad_final">${esc((P.final&&P.final.links)||'')}</textarea><button class="b-primary" data-ad="final">Deliver</button>
+  </div>`;
+}
+function wireAdmin(){
+  document.querySelectorAll('[data-ad]').forEach(b=>b.onclick=async()=>{
+    const k=b.dataset.ad, d=P.drafts||{}, v=((d[k]&&d[k].v)||0)+1; let sub,fields;
+    if(k==='lyrics'){ sub='drafts/lyrics'; fields={v,text:$('ad_lyrics').value,sentAt:Date.now()}; fields['t'+v]=fields.text; }
+    if(k==='song'){ sub='drafts/song'; fields={v,a:$('ad_song_a').value.trim(),b:$('ad_song_b').value.trim(),sentAt:Date.now()}; }
+    if(k==='film'){ sub='drafts/film'; fields={v,url:$('ad_film').value.trim(),sentAt:Date.now()}; }
+    if(k==='meta'){ sub='meta'; fields={uploadUrl:$('ad_up').value.trim()}; }
+    if(k==='final'){ sub='final'; fields={links:$('ad_final').value,at:Date.now()}; }
+    if(!confirm('Send this to the client now? They will be emailed.')) return;
+    const r=await hostCall('admin.patch',{ev:'admin',key:ADMIN,pid:CID,sub,fields}); toast(r&&r.ok?'Sent ✓':'Failed: '+((r&&r.error)||'')); reload();
+  });
+}
+load();
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+</body>
+</html>

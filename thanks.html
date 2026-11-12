@@ -102,6 +102,11 @@ async function init(){
     document.getElementById('loading').style.display='none';
     document.getElementById('h1').textContent='Thank you — let\u2019s make it 💛';
     document.getElementById('sub').textContent='Your '+STORY_TIERS[SLUG]+' is booked. The next step is the part that makes it yours: tell us their story.';
+    let pj=''; try{ pj=localStorage.getItem('gw_proj_last')||''; }catch(e){}
+    if(pj){ const pu=base+'project.html?p='+pj;
+      area.innerHTML=linkCard('Your project page','Everything happens here: your first lyrics draft (within 3 working days), the family photo upload link, approvals and delivery. We also emailed you this link.',pu,'Open my project ▸',pu);
+      document.getElementById('sub').textContent='Your '+STORY_TIERS[SLUG]+' is booked and your date is reserved.';
+      try{ localStorage.removeItem('gw_last_slug'); }catch(e){} return; }
     const form=base+'story-form.html';
     area.innerHTML=linkCard('Step 1 · Tell us their story',
       'A guided form — names, how you met, the moments that matter, and anything to leave out. It saves as you type, so do it in a few sittings. When you finish, send it to us and we start writing.',
