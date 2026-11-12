@@ -100,7 +100,7 @@ select{width:100%;font-family:inherit;font-size:.97rem;background:#FDFCF8;border
 .checks{list-style:none;font-size:.92rem}
 .checks li{padding:5px 0}
 .checks li:before{content:'○ ';color:var(--muted)}
-.checks li.done:before{content:'✓ ';color:var(--brand);font-weight:700}
+.checks li.isdone:before{content:'✓ ';color:var(--brand);font-weight:700}
 .rules{font-size:.92rem;margin:8px 0 0 18px}
 .rules li{margin:6px 0}
 .agree{display:flex;gap:10px;align-items:flex-start;margin:16px 0;font-size:.93rem}
@@ -112,7 +112,7 @@ button[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
 .stage h3{font-size:1.08rem;display:flex;align-items:center;gap:10px}
 .pill{font-family:Inter,sans-serif;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--bg-2);color:var(--muted)}
 .pill.you{background:var(--gold-soft);color:var(--gold-deep)}
-.pill.done{background:rgba(46,125,91,.12);color:var(--brand)}
+.pill.isdone{background:rgba(46,125,91,.12);color:var(--brand)}
 .draft{white-space:pre-wrap;background:#FDFCF8;border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;font-size:.95rem;max-height:420px;overflow:auto}
 .small{font-size:.85rem;color:var(--muted)}
 .admin{border:2px dashed var(--gold);background:var(--gold-soft)}
@@ -423,7 +423,7 @@ function planView(T){
   const rs=reqStatus(), ready=rs.every(x=>x.done);
   h+=`<div class="pcard" id="bookCard"><h2>Book and reserve your date</h2>
     <p class="sub">Before booking we need the essentials, so we can start the moment you pay:</p>
-    <ul class="checks" id="checks">${rs.map(x=>`<li class="${x.done?'done':''}">${esc(x.label)}</li>`).join('')}</ul>
+    <ul class="checks" id="checks">${rs.map(x=>`<li class="${x.done?'isdone':''}">${esc(x.label)}</li>`).join('')}</ul>
     <h3 style="font-size:1.05rem;margin-top:18px">How it works, step by step</h3>
     <ol class="rules">
       <li><b>Lyrics.</b> You get a draft here. Approve it, or send one message with all your changes (${T.lyricRounds} round${T.lyricRounds>1?'s':''} included). <b>Once approved, the words are locked</b> and the song is recorded from them.</li>
@@ -461,7 +461,7 @@ async function saveAnswers(fields){
 }
 function refreshChecks(){
   const T=TIERS[P.tier], rs=reqStatus(), ready=rs.every(x=>x.done), s=schedule(T), tooSoon=s.days!==null&&s.days<T.min;
-  const c=$('checks'); if(c) c.innerHTML=rs.map(x=>`<li class="${x.done?'done':''}">${esc(x.label)}</li>`).join('');
+  const c=$('checks'); if(c) c.innerHTML=rs.map(x=>`<li class="${x.done?'isdone':''}">${esc(x.label)}</li>`).join('');
   const pb=$('payBtn'); if(pb) pb.disabled=!ready||tooSoon;
   const pn=$('payNote'); if(pn) pn.textContent=tooSoon?'Booking paused until we confirm your date.':ready?'Secure payment by Stripe. Your project continues on this page.':'Complete the items above to book.';
 }
@@ -504,7 +504,7 @@ function paidView(T){
 function stageCard(k,label){
   const {ap,d,rq}=st(k), locked=!prevOk(k)&&!ap;
   let pill,body='';
-  if(ap){ pill=`<span class="pill done">Approved 🔒 ${fmtTs(ap.at)}${ap.auto?' (automatically, after '+RESPOND_DAYS+' days)':''}</span>`; }
+  if(ap){ pill=`<span class="pill isdone">Approved 🔒 ${fmtTs(ap.at)}${ap.auto?' (automatically, after '+RESPOND_DAYS+' days)':''}</span>`; }
   else if(k==='photos'){ pill=`<span class="pill you">Your turn</span>`; }
   else if(locked||!d){ pill=`<span class="pill">${locked?'Waiting on the previous step':'We\'re working on it'}</span>`; }
   else if(rq['r'+d.v]){ pill=`<span class="pill">Changes received · new version within 3 working days</span>`; }
@@ -561,14 +561,14 @@ function compileBrief(){
 
 /* ================= ADMIN ================= */
 function adminPanel(){
-  const d=P.drafts||{}, nv=k=>((d[k]&&d[k].v)||0)+1;
+  const d=P.drafts||{}, nv=k=>((d[k]&&d[k].v)||0)+1, A=P.approvals||{}, lockd=k=>A[k]?'<p class="small">🔒 Approved '+fmtTs(A[k].at)+(A[k].auto?' (auto)':'')+(A[k].choice?' · version '+String(A[k].choice).toUpperCase():'')+'. Locked.</p>':'';
   return `<div class="pcard admin"><h2>Admin · ${P.paid?'paid '+fmtTs(P.paidAt):'not paid yet'}</h2>
   <p class="small">Terms accepted: ${P.terms?fmtTs(P.terms.at)+' (v'+esc(P.terms.v)+')':'no'}</p>
   <details><summary><b>Full brief</b> (copy for lyrics)</summary><textarea readonly style="min-height:220px">${esc(compileBrief())}</textarea></details>
-  <label>Lyrics · send version ${nv('lyrics')}</label><textarea id="ad_lyrics">${esc((d.lyrics&&d.lyrics.text)||'')}</textarea><button class="b-primary" data-ad="lyrics">Send lyrics v${nv('lyrics')}</button>
-  <label>Song · version ${nv('song')} (URLs)</label><input type="text" id="ad_song_a" placeholder="Version A URL" value="${esc((d.song&&d.song.a)||'')}"><input type="text" id="ad_song_b" placeholder="Version B URL (optional)" style="margin-top:6px" value="${esc((d.song&&d.song.b)||'')}"><button class="b-primary" data-ad="song" style="margin-top:6px">Send song v${nv('song')}</button>
-  <label>Family upload link</label><input type="text" id="ad_up" value="${esc((P.meta||{}).uploadUrl||'')}"><button class="b-ghost" data-ad="meta" style="margin-top:6px">Save upload link</button>
-  <label>Film · version ${nv('film')} (URL)</label><input type="text" id="ad_film" value="${esc((d.film&&d.film.url)||'')}"><button class="b-primary" data-ad="film" style="margin-top:6px">Send film v${nv('film')}</button>
+  <label>Lyrics · send version ${nv('lyrics')}</label><textarea id="ad_lyrics">${esc((d.lyrics&&d.lyrics.text)||'')}</textarea>${A.lyrics?lockd('lyrics'):`<button class="b-primary" data-ad="lyrics">Send lyrics v${nv('lyrics')}</button>`}
+  <label>Song · version ${nv('song')} (URLs)</label><input type="text" id="ad_song_a" placeholder="Version A URL" value="${esc((d.song&&d.song.a)||'')}"><input type="text" id="ad_song_b" placeholder="Version B URL (optional)" style="margin-top:6px" value="${esc((d.song&&d.song.b)||'')}">${A.song?lockd('song'):`<button class="b-primary" data-ad="song" style="margin-top:6px">Send song v${nv('song')}</button>`}
+  <label>Family upload link ${A.photos?'· photos confirmed '+fmtTs(A.photos.at):''}</label><input type="text" id="ad_up" value="${esc((P.meta||{}).uploadUrl||'')}"><button class="b-ghost" data-ad="meta" style="margin-top:6px">Save upload link</button>
+  <label>Film · version ${nv('film')} (URL)</label><input type="text" id="ad_film" value="${esc((d.film&&d.film.url)||'')}">${A.film?lockd('film'):`<button class="b-primary" data-ad="film" style="margin-top:6px">Send film v${nv('film')}</button>`}
   <label>Final delivery (one per line: Label | URL)</label><textarea id="ad_final">${esc((P.final&&P.final.links)||'')}</textarea><button class="b-primary" data-ad="final">Deliver</button>
   </div>`;
 }
