@@ -36,6 +36,7 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01e
 .kpi b{font-family:Fraunces,Georgia,serif;font-size:28px;display:block;margin-top:4px}
 .kpi span{font-size:12px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.grid>*{min-width:0}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border-radius:20px;padding:20px 22px;margin-bottom:18px}
 .card h2{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:10px}
@@ -244,7 +245,7 @@ function renderAll(X){
   if(pendLove.length) tasks.push({t:'Review '+pendLove.length+' Wall of Love message'+(pendLove.length>1?'s':''),m:'Approve or remove with your moderation link',due:Date.now()+2*D,link:'#',go:'Messages',tab:'messages'});
   const items=(X.inbox.items||[]); const unread=items.filter(i=>i.u);
   if(unread.length) tasks.push({t:unread.length+' unread email'+(unread.length>1?'s':''),m:esc(unread[0].s),due:Date.now()+D/2,link:'#',go:'Messages',tab:'messages'});
-  const orders=X.summary.orders||{}; Object.entries(orders).forEach(([id,o])=>{ if(o.paid&&o.chosen&&!o.synced) tasks.push({t:'Song lyrics not synced',m:(o.for||id)+' · check before they share',due:Date.now()+D,link:'/create-song.html?order='+id,go:'Open'}); });
+  const orders=X.summary.orders||{}; Object.entries(orders).forEach(([id,o])=>{ if(o.paid&&o.chosen&&!o.synced&&(o.paidAt||0)>Date.now()-14*D) tasks.push({t:'Song lyrics not synced',m:(o.for||id)+' · check before they share',due:Date.now()+D,link:'/create-song.html?order='+id,go:'Open'}); });
   plans.filter(x=>x.p.terms&&!x.p.paid).forEach(x=>tasks.push({t:'Checkout started, not paid',m:x.who+' · '+x.client+' · '+x.wa,due:Date.now()+3*D,link:plink(x.cid),go:'Open'}));
   tasks.sort((a,b)=>(a.due||9e15)-(b.due||9e15));
   $('todo').innerHTML=tasks.length?tasks.map(t=>`<div class="task"><span class="dot ${urg(t.due)}"></span><div><div class="t">${esc(t.t)}</div><div class="m">${esc(t.m)}${t.due?' · <b>'+dueTxt(t.due)+'</b>':''}</div></div><a class="go" href="${t.link}" ${t.tab?`data-tab="${t.tab}"`:'target="_blank"'}>${t.go} ›</a></div>`).join(''):'<p class="empty">Nothing needs you right now. 🌿</p>';
