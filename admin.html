@@ -302,14 +302,16 @@ function renderVisitors(r){
       <ol style="margin:8px 0 0 20px;font-size:14px;line-height:1.7"><li>Cloudflare → your profile icon → <b>My Profile → API Tokens → Create Token → Create Custom Token</b>.</li><li>Name it <b>GatherWall admin</b>. Permission: <b>Account → Account Analytics → Read</b>. Create, then copy the token.</li><li>Workers → <b>gatherwall-stripe-webhook → Settings → Variables and Secrets → Add</b>: type <b>Secret</b>, name <b>CF_API_TOKEN</b>, paste the token, Deploy.</li></ol><p class="note">Until then: <a href="https://dash.cloudflare.com/1eba586a4e9fa089814ee8d3c7e29ca4/web-analytics" target="_blank">open Web Analytics in Cloudflare</a>.</p>`:`<p class="sub">Couldn't load visitor numbers just now.</p><p class="note">${esc(JSON.stringify((r&&r.errors)||'').slice(0,300))}</p>`}</div>`; return; }
   const acc=(((r.data||{}).viewer||{}).accounts||[])[0]||{};
   const vis=g=>(g.sum&&g.sum.visits)||0;
-  const total=(acc.byDate||[]).reduce((s,g)=>s+vis(g),0), views=(acc.byDate||[]).reduce((s,g)=>s+(g.count||0),0);
+  const total=(acc.byCountry||[]).reduce((s,g)=>s+vis(g),0), views=(acc.byDate||[]).reduce((s,g)=>s+(g.count||0),0);
+  let CN=null; try{ CN=new Intl.DisplayNames(['en'],{type:'region'}); }catch(e){}
+  const cname=c=>{ try{ return (CN&&c&&c.length===2)?CN.of(c):c; }catch(e){ return c; } };
   $('kpiVis').textContent=total.toLocaleString();
-  const mx=Math.max(1,...(acc.byDate||[]).map(vis));
+  const pv=g=>g.count||0; const mx=Math.max(1,...(acc.byDate||[]).map(pv));
   const list=(arr,lab,val)=>{ const m=Math.max(1,...arr.map(val)); return '<div class="bars">'+(arr.length?arr.map(g=>`<div class="row"><span>${esc(lab(g)||'(direct / unknown)')}</span><div class="bar"><i style="width:${Math.round(val(g)/m*100)}%"></i></div><span>${val(g).toLocaleString()}</span></div>`).join(''):'<p class="empty">No data yet.</p>')+'</div>'; };
-  box.innerHTML=`<div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><small>Visits · 30 days</small><b>${total.toLocaleString()}</b><span>sessions</span></div><div class="kpi"><small>Page views · 30 days</small><b>${views.toLocaleString()}</b><span>${total?(views/total).toFixed(1):0} pages per visit</span></div><div class="kpi"><small>Top country</small><b style="font-size:22px">${esc(((acc.byCountry||[])[0]||{dimensions:{}}).dimensions.countryName||'—')}</b><span>by visits</span></div></div>
-  <div class="card"><h2>Visits per day</h2><div class="spark">${(acc.byDate||[]).map(g=>`<i title="${g.dimensions.date}: ${vis(g)}" style="height:${Math.round(vis(g)/mx*100)}%"></i>`).join('')}</div><p class="note">Last 30 days · hover a bar for the date</p></div>
-  <div class="grid"><div class="card"><h2>Where visitors are</h2>${list(acc.byCountry||[],g=>g.dimensions.countryName,vis)}</div>
-  <div class="card"><h2>Where they came from</h2>${list(acc.byRef||[],g=>g.dimensions.refererHost,vis)}</div></div>
+  box.innerHTML=`<div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><small>Visits · 30 days</small><b>${total.toLocaleString()}</b><span>sessions</span></div><div class="kpi"><small>Page views · 30 days</small><b>${views.toLocaleString()}</b><span>${total?(views/total).toFixed(1):0} pages per visit</span></div><div class="kpi"><small>Top country</small><b style="font-size:22px">${esc(cname(((acc.byCountry||[])[0]||{dimensions:{}}).dimensions.countryName)||'—')}</b><span>by visits</span></div></div>
+  <div class="card"><h2>Page views per day</h2><div class="spark">${(acc.byDate||[]).map(g=>`<i title="${g.dimensions.date}: ${pv(g)} views" style="height:${Math.round(pv(g)/mx*100)}%"></i>`).join('')}</div><p class="note">Last 30 days · hover a bar for the date · Cloudflare samples traffic, so small numbers are rounded</p></div>
+  <div class="grid"><div class="card"><h2>Where visitors are</h2>${list(acc.byCountry||[],g=>cname(g.dimensions.countryName),vis)}</div>
+  <div class="card"><h2>Where they came from</h2>${list((acc.byRef||[]).filter(g=>g.dimensions.refererHost!=='gatherwall.com'),g=>g.dimensions.refererHost||'Direct, WhatsApp or apps',g=>g.count||0)}</div></div>
   <div class="grid"><div class="card"><h2>Most viewed pages</h2>${list(acc.byPath||[],g=>g.dimensions.requestPath,g=>g.count||0)}</div>
   <div class="card"><h2>Devices</h2>${list(acc.byDevice||[],g=>g.dimensions.deviceType,g=>g.count||0)}</div></div>`;
 }
