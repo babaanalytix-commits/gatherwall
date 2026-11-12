@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>GatherWall · Admin</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1d1f;--muted:#6e6e73;--line:#e8e8ed;--bg:#f5f5f7;--card:#fff;--brand:#2E7D5B;--gold:#B8913F;--rose:#B4544A;--amber:#B7791F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.top{background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .in{max-width:1180px;margin:0 auto;padding:0 20px;height:54px;display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:8px;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:18px;color:var(--ink)}
+.logo i{width:20px;height:19px;background:url(favicon.svg) center/contain no-repeat;display:inline-block}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.tabs button{border:0;background:none;font:500 13.5px Inter,sans-serif;color:#424245;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--ink);color:#fff}
+.tabs .b{display:inline-block;min-width:18px;padding:0 5px;margin-left:5px;border-radius:999px;background:var(--rose);color:#fff;font-size:11px;line-height:18px}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+.hero{position:relative;border-radius:24px;overflow:hidden;min-height:170px;margin-bottom:22px;display:flex;align-items:flex-end;background:#1C4D3A}
+.hero .mos{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);opacity:.55}
+.hero .mos div{background-size:cover;background-position:center}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,40,30,.92) 0%,rgba(20,40,30,.55) 55%,rgba(20,40,30,.2) 100%)}
+.hero .txt{position:relative;padding:26px 28px;color:#fff}
+.hero h1{font-size:clamp(26px,3.4vw,38px)}
+.hero p{opacity:.85;margin-top:6px;font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border-radius:18px;padding:16px 18px}
+.kpi small{color:var(--muted);font-size:12.5px;display:block}
+.kpi b{font-family:Fraunces,Georgia,serif;font-size:28px;display:block;margin-top:4px}
+.kpi span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:20px;padding:20px 22px;margin-bottom:18px}
+.card h2{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.card .sub{color:var(--muted);font-size:13.5px;margin-bottom:12px}
+.task{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.task:first-of-type{border-top:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.dot.r{background:var(--rose)}.dot.a{background:var(--amber)}.dot.g{background:var(--brand)}.dot.n{background:#c7c7cc}
+.task .t{font-weight:600;font-size:14.5px}
+.task .m{color:var(--muted);font-size:13px;margin-top:2px}
+.task .go{margin-left:auto;font-size:13px;white-space:nowrap;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:#f0f0f3;color:#424245;white-space:nowrap}
+.pill.us{background:#fdecea;color:var(--rose)}.pill.them{background:#fdf3e1;color:var(--amber)}.pill.ok{background:#e6f2ec;color:var(--brand)}
+.stages{display:flex;gap:3px}
+.stages i{width:22px;height:6px;border-radius:3px;background:#e5e5ea}
+.stages i.d{background:var(--brand)}.stages i.w{background:var(--amber)}.stages i.u{background:var(--rose)}
+.bars .row{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;font-size:13px;padding:4px 0}
+.bars .bar{height:8px;border-radius:4px;background:#e5e5ea;overflow:hidden}.bars .bar i{display:block;height:100%;background:var(--brand)}
+.bars .row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.spark{display:flex;align-items:flex-end;gap:3px;height:90px;margin:8px 0 4px}
+.spark i{flex:1;background:var(--brand);border-radius:3px 3px 0 0;min-height:2px;opacity:.85}
+.mail{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--ink)}
+.mail:first-child{border-top:0}
+.mail:hover{text-decoration:none;background:#fafafa}
+.mail .s{font-size:14px}.mail.u .s{font-weight:700}
+.mail .f{font-size:12.5px;color:var(--muted)}
+.mail .x{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.links a{background:#fafafa;border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--ink);font-size:14px}
+.links a b{display:block;font-size:14.5px}.links a span{color:var(--muted);font-size:12.5px}
+.btn{display:inline-block;border:0;border-radius:999px;background:var(--brand);color:#fff;font:600 14px Inter,sans-serif;padding:10px 18px;cursor:pointer}
+.btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink)}
+input[type=password],input[type=text]{width:100%;font:inherit;padding:11px 13px;border:1px solid var(--line);border-radius:10px}
+.login{max-width:420px;margin:12vh auto;background:#fff;border-radius:22px;padding:30px}
+.empty{color:var(--muted);font-size:13.5px;padding:8px 0}
+.view{display:none}.view.on{display:block}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px}
+.scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+
+<div id="loginBox" class="login" style="display:none">
+  <h1 style="font-size:26px">GatherWall admin</h1>
+  <p class="note" style="margin:6px 0 16px">Enter your private admin key. It is remembered on this device only.</p>
+  <input type="password" id="keyIn" placeholder="adm…">
+  <div style="margin-top:12px"><button class="btn" id="keyBtn">Open dashboard</button></div>
+  <p class="note" id="keyErr" style="color:var(--rose)"></p>
+</div>
+
+<div id="appBox" style="display:none">
+<div class="top"><div class="in">
+  <a class="logo" href="/"><i></i>GatherWall</a><span class="pill">Admin</span>
+  <nav class="tabs" id="tabs">
+    <button data-v="overview" class="on">Today</button>
+    <button data-v="projects">Made for you</button>
+    <button data-v="songs">Songs</button>
+    <button data-v="walls">Walls &amp; memorials</button>
+    <button data-v="messages">Messages</button>
+    <button data-v="visitors">Visitors</button>
+    <button data-v="money">Money</button>
+    <button data-v="links">Tools</button>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="mos"><div style="background-image:url(img/family-toast.jpg)"></div><div style="background-image:url(img/wedding-asooke-pink.jpg)"></div><div style="background-image:url(img/grandma-flower.jpg)"></div><div style="background-image:url(img/birthday-cake.jpg)"></div><div style="background-image:url(img/anniversary-couple.jpg)"></div><div style="background-image:url(img/family-celebration-india.jpg)"></div></div>
+    <div class="shade"></div>
+    <div class="txt"><h1 id="greet">Hello, Yomi</h1><p id="greetSub">Loading your day…</p></div>
+  </div>
+
+  <!-- TODAY -->
+  <section class="view on" id="v-overview">
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card"><h2>To do</h2><p class="sub">What needs you, most urgent first. Red is overdue or due today; amber is due soon.</p><div id="todo"></div></div>
+      <div>
+        <div class="card"><h2>Waiting on clients</h2><p class="sub">Their move. Reminders and auto-approval run automatically.</p><div id="waiting"></div></div>
+        <div class="card"><h2>Latest emails</h2><p class="sub">GatherWall-related, last 30 days.</p><div id="mailMini"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="view" id="v-projects">
+    <div class="card"><h2>Made-for-you pipeline</h2><p class="sub">Lyrics · Song · Photos · Film · Delivered. Green done, amber waiting on the client, red waiting on us.</p><div class="scroll"><table id="projTable"></table></div></div>
+    <div class="card"><h2>Plans not booked yet</h2><p class="sub">People who started a plan. A friendly WhatsApp after a few days often helps.</p><div class="scroll"><table id="planTable"></table></div></div>
+  </section>
+
+  <!-- SONGS -->
+  <section class="view" id="v-songs">
+    <div class="card"><h2>$39 Keepsake songs</h2><p class="sub">Fully automatic. Only flagged rows need a look. Updated hourly.</p><div class="scroll"><table id="songTable"></table></div></div>
+  </section>
+
+  <!-- WALLS -->
+  <section class="view" id="v-walls">
+    <div class="card"><h2>Tribute walls, memory walls &amp; memorials</h2><p class="sub">Updated hourly. Drafts are unpaid; published ones are live.</p><div class="scroll"><table id="wallTable"></table></div></div>
+  </section>
+
+  <!-- MESSAGES -->
+  <section class="view" id="v-messages">
+    <div class="grid">
+      <div class="card"><h2>Email</h2><p class="sub" id="mailSub">GatherWall-related threads in your Gmail, last 30 days. Click to open in Gmail.</p><div id="mailFull"></div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn ghost" href="https://mail.google.com/mail/u/0/#inbox" target="_blank">Open Gmail</a><a class="btn ghost" href="https://web.whatsapp.com/" target="_blank">Open WhatsApp Web</a></div></div>
+      <div class="card"><h2>Wall of Love</h2><p class="sub">Messages waiting for your approval.</p><div id="loveList"></div><p class="note">Approve or remove with your moderation link (in your admin note).</p></div>
+    </div>
+  </section>
+
+  <!-- VISITORS -->
+  <section class="view" id="v-visitors"><div id="visitors"></div></section>
+
+  <!-- MONEY -->
+  <section class="view" id="v-money">
+    <div class="card"><h2>Sales recorded by GatherWall</h2><p class="sub">From completed checkouts since the automation went live (Nov 2026). Stripe is the source of truth for payouts, fees and refunds.</p><div id="money"></div>
+    <div style="margin-top:14px"><a class="btn ghost" href="https://dashboard.stripe.com/payments" target="_blank">Open Stripe payments</a></div></div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="view" id="v-links">
+    <div class="card"><h2>Tools</h2><p class="sub">Everything that runs GatherWall, in one place.</p>
+      <div class="links">
+        <a href="https://dashboard.stripe.com/payments" target="_blank"><b>Stripe</b><span>Payments, refunds, coupons</span></a>
+        <a href="https://dash.cloudflare.com/1eba586a4e9fa089814ee8d3c7e29ca4/web-analytics" target="_blank"><b>Cloudflare</b><span>Web analytics, workers</span></a>
+        <a href="https://console.firebase.google.com/project/tributewall-27c75/database/tributewall-27c75-default-rtdb/data" target="_blank"><b>Firebase</b><span>Database and rules</span></a>
+        <a href="https://script.google.com/home/projects/1iIdq9-CCfJhVcP9RcysXBpih1wIXfwCyngSdSBak06wEIWUYVGVie_7K/edit" target="_blank"><b>Apps Script</b><span>Emails and automations</span></a>
+        <a href="https://github.com/babaanalytix-commits/gatherwall" target="_blank"><b>GitHub</b><span>The website files</span></a>
+        <a href="https://platform.mureka.ai/" target="_blank"><b>Mureka</b><span>Song credits</span></a>
+        <a href="https://drive.google.com/drive/search?q=GatherWall" target="_blank"><b>Google Drive</b><span>Songs and deliveries</span></a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><b>Gmail</b><span>Inbox</span></a>
+        <a href="/wall-of-love.html" target="_blank"><b>Wall of Love</b><span>Public page</span></a>
+        <a href="/project.html?new=story-film" target="_blank"><b>New plan (test)</b><span>See what clients see</span></a>
+      </div>
+      <p class="note" style="margin-top:16px"><button class="btn ghost" id="logout">Forget the key on this device</button></p>
+    </div>
+  </section>
+</div>
+</div>
+
+<script>
+const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
+const D=864e5, RESP=5;
+const TIER={'story-film':{n:'Story Film',lead:14},'signature-celebration':{n:'Signature',lead:21}};
+const NAMES={'story-film':'Story Film','signature-celebration':'Signature','animated-keepsake-story':'Keepsake Song','song-of-your-night':'Song of your night','live-tribute-wall':'Live Tribute Wall','memory-wall':'Memory Wall','memorial-eulogy':'Memorial page','wall-plus':'Wall Plus','wall-unlimited':'Wall Unlimited','wedding-keepsake':'Wedding Keepsake','wedding-keepsake-signature':'Wedding Signature','wall-pro':'Pro'};
+let KEY=''; try{ KEY=localStorage.getItem('gw_admin_key')||''; }catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const call=(op,p)=>fetch(HOST_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op,ev:'admin',key:KEY},p||{}))}).then(r=>r.json()).catch(()=>({ok:false}));
+const day=t=>t?new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
+const ago=t=>{ if(!t) return ''; const s=(Date.now()-t)/1000; if(s<3600) return Math.max(1,Math.round(s/60))+'m ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; };
+const addWork=(t,n)=>{ const x=new Date(t); while(n>0){ x.setDate(x.getDate()+1); if(x.getDay()%6) n--; } return x.getTime(); };
+const evDate=p=>{ const d=p.brief&&p.brief.basics&&p.brief.basics.date; return d? new Date(d+'T12:00:00').getTime():0; };
+const plink=cid=>'/project.html?p='+cid+'&admin='+encodeURIComponent(KEY);
+
+async function start(){
+  if(!KEY){ $('loginBox').style.display='block'; return; }
+  const v=await call('verify'); if(!v.ok){ KEY=''; try{localStorage.removeItem('gw_admin_key')}catch(e){} $('loginBox').style.display='block'; $('keyErr').textContent='That key did not work.'; return; }
+  $('appBox').style.display='block';
+  const h=new Date().getHours(); $('greet').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+', Yomi';
+  const [pr,ad,ml,lv]=await Promise.all([call('admin.get',{path:'projects'}),call('admin.get',{path:'admin'}),call('admin.get',{path:'mail'}),call('admin.get',{path:'love/messages'})]);
+  const DATA={projects:(pr&&pr.data)||{},summary:((ad&&ad.data)||{}).summary||{},inbox:((ad&&ad.data)||{}).inbox||{},mail:(ml&&ml.data)||{},love:(lv&&lv.data)||{}};
+  window.DATA=DATA;
+  renderAll(DATA);
+  call('admin.analytics',{days:30}).then(renderVisitors);
+}
+$('keyBtn').onclick=()=>{ KEY=$('keyIn').value.trim(); try{localStorage.setItem('gw_admin_key',KEY)}catch(e){} $('loginBox').style.display='none'; start(); };
+$('keyIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('keyBtn').click(); });
+$('logout').onclick=()=>{ try{localStorage.removeItem('gw_admin_key')}catch(e){} location.reload(); };
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b)); document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v)); window.scrollTo(0,0); });
+
+/* ---------- project analysis: what's next and whose move it is ---------- */
+function analyse(cid,p){
+  const b=(p.brief&&p.brief.basics)||{}, A=p.approvals||{}, Dr=p.drafts||{}, R=p.requests||{}, T=TIER[p.tier]||TIER['story-film'], ev=evDate(p);
+  const who=b.call||b.for||'(no name)', out={cid,p,who,client:b.you||'',email:b.email||'',wa:b.wa||'',tier:T.n,ev,us:[],them:[],stage:'',bars:[]};
+  if(!p.paid){ out.stage='Plan'; return out; }
+  const st=(k,label)=>{ const d=Dr[k], ap=A[k], rq=R[k]||{};
+    if(ap) return 'd';
+    if(k==='photos'){ out.them.push({t:'Photos to confirm',m:who+(ev?' · by '+day(ev-T.lead*D):''),due:ev?ev-T.lead*D:0,cid}); return 'w'; }
+    if(!d) return null;
+    const r=rq['r'+d.v]; if(r){ out.us.push({t:'Revise '+label+' → v'+(d.v+1),m:who+' asked: “'+String(r.text).slice(0,90)+'”',due:addWork(r.at,3),cid}); return 'u'; }
+    out.them.push({t:label+' v'+d.v+' with client',m:who+' · auto-approves '+day(d.sentAt+RESP*D),due:d.sentAt+RESP*D,cid}); return 'w'; };
+  const meta=p.meta||{};
+  if(!meta.uploadUrl) out.us.push({t:'Add family upload link',m:who+' · '+out.tier,due:addWork(p.paidAt,1),cid});
+  let l=st('lyrics','Lyrics'); if(l===null){ out.us.push({t:'Write lyrics v1',m:who+' · '+out.tier,due:addWork(p.paidAt,3),cid}); l='u'; }
+  let s=null; if(A.lyrics){ s=st('song','Song'); if(s===null){ out.us.push({t:'Make song versions',m:who,due:addWork(A.lyrics.at,3),cid}); s='u'; } }
+  let ph=st('photos','Photos');
+  let f=null; if(A.song&&A.photos){ f=st('film','Film'); if(f===null){ out.us.push({t:'Build film draft',m:who,due:ev?ev-7*D:addWork(Math.max(A.song.at,A.photos.at),5),cid}); f='u'; } }
+  let fin=null; if(A.film){ if(p.final&&p.final.at) fin='d'; else { out.us.push({t:'Deliver final package',m:who,due:ev?ev-3*D:addWork(A.film.at,2),cid}); fin='u'; } }
+  out.bars=[l,s,ph,f,fin];
+  out.stage=p.final&&p.final.at?'Delivered':!A.lyrics?'Lyrics':!A.song?'Song':!A.photos?'Photos':!A.film?'Film':'Delivery';
+  return out;
+}
+function urg(due){ if(!due) return 'n'; const d=due-Date.now(); return d<D?'r':d<3*D?'a':'g'; }
+function dueTxt(due){ if(!due) return ''; const d=Math.round((due-Date.now())/D); return d<0?Math.abs(d)+'d overdue':d===0?'due today':'due in '+d+'d'; }
+
+function renderAll(X){
+  const P=Object.keys(X.projects).map(k=>analyse(k,X.projects[k]));
+  const paid=P.filter(x=>x.p.paid), plans=P.filter(x=>!x.p.paid);
+  // ---- tasks
+  let tasks=[]; paid.forEach(x=>x.us.forEach(t=>tasks.push(Object.assign({link:plink(t.cid),go:'Open'},t))));
+  const pendLove=Object.entries(X.love).filter(([k,m])=>m&&!m.approved);
+  if(pendLove.length) tasks.push({t:'Review '+pendLove.length+' Wall of Love message'+(pendLove.length>1?'s':''),m:'Approve or remove with your moderation link',due:Date.now()+2*D,link:'#',go:'Messages',tab:'messages'});
+  const items=(X.inbox.items||[]); const unread=items.filter(i=>i.u);
+  if(unread.length) tasks.push({t:unread.length+' unread email'+(unread.length>1?'s':''),m:esc(unread[0].s),due:Date.now()+D/2,link:'#',go:'Messages',tab:'messages'});
+  const orders=X.summary.orders||{}; Object.entries(orders).forEach(([id,o])=>{ if(o.paid&&o.chosen&&!o.synced) tasks.push({t:'Song lyrics not synced',m:(o.for||id)+' · check before they share',due:Date.now()+D,link:'/create-song.html?order='+id,go:'Open'}); });
+  plans.filter(x=>x.p.terms&&!x.p.paid).forEach(x=>tasks.push({t:'Checkout started, not paid',m:x.who+' · '+x.client+' · '+x.wa,due:Date.now()+3*D,link:plink(x.cid),go:'Open'}));
+  tasks.sort((a,b)=>(a.due||9e15)-(b.due||9e15));
+  $('todo').innerHTML=tasks.length?tasks.map(t=>`<div class="task"><span class="dot ${urg(t.due)}"></span><div><div class="t">${esc(t.t)}</div><div class="m">${esc(t.m)}${t.due?' · <b>'+dueTxt(t.due)+'</b>':''}</div></div><a class="go" href="${t.link}" ${t.tab?`data-tab="${t.tab}"`:'target="_blank"'}>${t.go} ›</a></div>`).join(''):'<p class="empty">Nothing needs you right now. 🌿</p>';
+  document.querySelectorAll('[data-tab]').forEach(a=>a.onclick=e=>{ e.preventDefault(); document.querySelector('#tabs [data-v="'+a.dataset.tab+'"]').click(); });
+  const them=[]; paid.forEach(x=>x.them.forEach(t=>them.push(t))); them.sort((a,b)=>(a.due||9e15)-(b.due||9e15));
+  $('waiting').innerHTML=them.length?them.map(t=>`<div class="task"><span class="dot n"></span><div><div class="t">${esc(t.t)}</div><div class="m">${esc(t.m)}</div></div><a class="go" href="${plink(t.cid)}" target="_blank">Open ›</a></div>`).join(''):'<p class="empty">No one is waiting on a reply.</p>';
+  // ---- KPIs
+  const now=new Date(), mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  const sales=Object.values(X.mail).filter(m=>m&&m.ts); const monthSales=sales.filter(m=>m.ts>=mStart);
+  const sum=a=>a.reduce((s,m)=>s+(+m.amount||0),0)/100;
+  const ev=X.summary.events||{}; const live=Object.values(ev).filter(e=>e.published).length;
+  $('kpis').innerHTML=[
+    ['To do',tasks.filter(t=>urg(t.due)!=='g'&&urg(t.due)!=='n').length+' / '+tasks.length,'urgent / total'],
+    ['Made for you',paid.filter(x=>x.stage!=='Delivered').length,plans.length+' plan'+(plans.length===1?'':'s')+' not booked'],
+    ['Sales this month','$'+sum(monthSales).toFixed(2),monthSales.length+' checkout'+(monthSales.length===1?'':'s')],
+    ['Live walls & pages',live,Object.keys(ev).length+' created in total'],
+    ['Visitors (30 days)','<span id="kpiVis">…</span>','from Cloudflare']
+  ].map(k=>`<div class="kpi"><small>${k[0]}</small><b>${k[1]}</b><span>${k[2]}</span></div>`).join('');
+  $('greetSub').textContent=(tasks.length?tasks.length+' thing'+(tasks.length>1?'s':'')+' on your list':'Nothing urgent')+' · '+paid.filter(x=>x.stage!=='Delivered').length+' active project'+(paid.length===1?'':'s')+' · '+unread.length+' unread';
+  const tb=document.querySelector('#tabs [data-v="overview"]'); if(tasks.length) tb.innerHTML='Today<span class="b">'+tasks.length+'</span>';
+  // ---- pipeline
+  const bar=c=>`<i class="${c==='d'?'d':c==='w'?'w':c==='u'?'u':''}"></i>`;
+  $('projTable').innerHTML='<tr><th>Client</th><th>Package</th><th>Event</th><th>Progress</th><th>Now</th><th>Next deadline</th><th></th></tr>'+(paid.length?paid.sort((a,b)=>(a.ev||9e15)-(b.ev||9e15)).map(x=>{ const nx=[...x.us,...x.them].sort((a,b)=>(a.due||9e15)-(b.due||9e15))[0]; const ball=x.us.length?'<span class="pill us">Our move</span>':x.them.length?'<span class="pill them">Client\'s move</span>':'<span class="pill ok">'+x.stage+'</span>';
+    return `<tr><td><b>${esc(x.who)}</b><br><span class="note">${esc(x.client)} · <a href="mailto:${esc(x.email)}">email</a>${x.wa?' · <a href="https://wa.me/'+esc(x.wa.replace(/\D/g,''))+'" target="_blank">WhatsApp</a>':''}</span></td><td>${esc(x.tier)}</td><td>${x.ev?day(x.ev)+'<br><span class="note">'+Math.round((x.ev-Date.now())/D)+' days</span>':'—'}</td><td><div class="stages">${x.bars.map(bar).join('')}</div><span class="note">${esc(x.stage)}</span></td><td>${ball}</td><td>${nx?esc(nx.t)+'<br><span class="note">'+dueTxt(nx.due)+'</span>':'—'}</td><td><a href="${plink(x.cid)}" target="_blank">Open ›</a></td></tr>`; }).join(''):'<tr><td colspan="7" class="empty">No booked projects yet.</td></tr>');
+  $('planTable').innerHTML='<tr><th>For</th><th>From</th><th>Package</th><th>Event</th><th>Started</th><th>Story</th><th></th></tr>'+(plans.length?plans.sort((a,b)=>(b.p.created||0)-(a.p.created||0)).map(x=>{ const n=Object.keys((x.p.brief&&x.p.brief.answers)||{}).length;
+    return `<tr><td><b>${esc(x.who)}</b></td><td>${esc(x.client)}<br><span class="note"><a href="mailto:${esc(x.email)}">email</a>${x.wa?' · <a href="https://wa.me/'+esc(x.wa.replace(/\D/g,''))+'" target="_blank">WhatsApp</a>':''}</span></td><td>${esc(x.tier)}</td><td>${x.ev?day(x.ev):'—'}</td><td>${ago(x.p.created)}</td><td>${n} answers${x.p.terms?' · <span class="pill them">at checkout</span>':''}</td><td><a href="${plink(x.cid)}" target="_blank">Open ›</a></td></tr>`; }).join(''):'<tr><td colspan="7" class="empty">No open plans.</td></tr>');
+  // ---- songs
+  const ord=Object.entries(orders).filter(([k,o])=>o.paid).sort((a,b)=>(b[1].paidAt||0)-(a[1].paidAt||0));
+  $('songTable').innerHTML='<tr><th>For</th><th>Paid</th><th>Status</th><th>Tries</th><th></th></tr>'+(ord.length?ord.map(([id,o])=>`<tr><td><b>${esc(o.for||id)}</b></td><td>${day(o.paidAt)}</td><td>${o.chosen?(o.synced?'<span class="pill ok">Delivered · synced</span>':'<span class="pill us">Delivered · not synced</span>'):(o.gens?'<span class="pill them">Listening</span>':'<span class="pill them">Not started</span>')}</td><td>${o.gens||0}/2</td><td><a href="/keepsake.html?order=${esc(id)}" target="_blank">Gift page</a> · <a href="/create-song.html?order=${esc(id)}" target="_blank">Owner page</a></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No paid song orders yet.</td></tr>')+(X.summary.at?`<tr><td colspan="5" class="note">Updated ${ago(X.summary.at)}</td></tr>`:'');
+  // ---- walls
+  const KIND={memorial:'Memorial',family:'Memory wall',live:'Live wall'};
+  const evs=Object.entries(ev).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+  $('wallTable').innerHTML='<tr><th>Name</th><th>Type</th><th>Status</th><th>Messages</th><th>Created</th><th></th></tr>'+(evs.length?evs.map(([id,e])=>`<tr><td><b>${esc(e.name||'(untitled)')}</b></td><td>${esc(KIND[e.kind]||e.kind||'Wall')}</td><td>${e.published?'<span class="pill ok">Live'+(e.paidAt?' · paid '+day(e.paidAt):'')+'</span>':'<span class="pill">Draft</span>'}</td><td>${e.msgs||0}</td><td>${day(e.ts)}</td><td><a href="${e.kind==='memorial'?'/memorial.html?id='+esc(id):'/index.html#wall?ev='+esc(id)}" target="_blank">View ›</a></td></tr>`).join(''):'<tr><td colspan="6" class="empty">Summary is building (hourly).</td></tr>');
+  // ---- messages
+  const mailRow=i=>`<a class="mail ${i.u?'u':''}" href="https://mail.google.com/mail/u/0/#all/${esc(i.id)}" target="_blank"><div class="s">${esc(i.s||'(no subject)')}</div><div class="f">${esc(i.f)} · ${ago(i.d)}${i.n>1?' · '+i.n+' messages':''}</div><div class="x">${esc(i.x)}</div></a>`;
+  $('mailMini').innerHTML=items.length?items.slice(0,5).map(mailRow).join(''):'<p class="empty">No GatherWall emails yet.</p>';
+  $('mailFull').innerHTML=items.length?items.map(mailRow).join(''):'<p class="empty">No GatherWall emails yet.</p>';
+  if(X.inbox.at) $('mailSub').textContent='GatherWall-related threads in your Gmail, last 30 days · updated '+ago(X.inbox.at)+'. Click to open in Gmail.';
+  $('loveList').innerHTML=pendLove.length?pendLove.map(([k,m])=>`<div class="task"><span class="dot a"></span><div><div class="t">“${esc(m.msg)}”</div><div class="m">${esc(m.from||'Anonymous')} · ${ago(m.ts)}</div></div></div>`).join(''):'<p class="empty">Nothing waiting.</p>';
+  // ---- money
+  const byP={}; sales.forEach(m=>{ const k=m.slug||'other'; byP[k]=byP[k]||{n:0,a:0}; byP[k].n++; byP[k].a+=(+m.amount||0)/100; });
+  const months={}; sales.forEach(m=>{ const d=new Date(m.ts); const k=d.toLocaleDateString('en-GB',{month:'short',year:'numeric'}); months[k]=(months[k]||0)+(+m.amount||0)/100; });
+  $('money').innerHTML=`<div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><small>All time</small><b>$${sum(sales).toFixed(2)}</b><span>${sales.length} checkouts</span></div><div class="kpi"><small>This month</small><b>$${sum(monthSales).toFixed(2)}</b><span>${monthSales.length} checkouts</span></div><div class="kpi"><small>Free / test checkouts</small><b>${sales.filter(m=>!+m.amount).length}</b><span>100% coupons</span></div></div>
+   <table><tr><th>Product</th><th>Checkouts</th><th>Revenue</th></tr>${Object.entries(byP).sort((a,b)=>b[1].a-a[1].a).map(([k,v])=>`<tr><td>${esc(NAMES[k]||k)}</td><td>${v.n}</td><td>$${v.a.toFixed(2)}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">No checkouts yet.</td></tr>'}</table>
+   <h3 style="font-size:16px;margin:18px 0 6px">By month</h3><table>${Object.entries(months).map(([k,v])=>`<tr><td>${k}</td><td>$${v.toFixed(2)}</td></tr>`).join('')}</table>`;
+}
+
+/* ---------- visitors (Cloudflare Web Analytics) ---------- */
+function renderVisitors(r){
+  const box=$('visitors');
+  if(!r||!r.ok){
+    $('kpiVis').textContent='—';
+    box.innerHTML=`<div class="card"><h2>Visitors</h2>${r&&r.error==='no-token'?`<p class="sub">One quick setup step connects Cloudflare's visitor numbers here (free):</p>
+      <ol style="margin:8px 0 0 20px;font-size:14px;line-height:1.7"><li>Cloudflare → your profile icon → <b>My Profile → API Tokens → Create Token → Create Custom Token</b>.</li><li>Name it <b>GatherWall admin</b>. Permission: <b>Account → Account Analytics → Read</b>. Create, then copy the token.</li><li>Workers → <b>gatherwall-stripe-webhook → Settings → Variables and Secrets → Add</b>: type <b>Secret</b>, name <b>CF_API_TOKEN</b>, paste the token, Deploy.</li></ol><p class="note">Until then: <a href="https://dash.cloudflare.com/1eba586a4e9fa089814ee8d3c7e29ca4/web-analytics" target="_blank">open Web Analytics in Cloudflare</a>.</p>`:`<p class="sub">Couldn't load visitor numbers just now.</p><p class="note">${esc(JSON.stringify((r&&r.errors)||'').slice(0,300))}</p>`}</div>`; return; }
+  const acc=(((r.data||{}).viewer||{}).accounts||[])[0]||{};
+  const vis=g=>(g.sum&&g.sum.visits)||0;
+  const total=(acc.byDate||[]).reduce((s,g)=>s+vis(g),0), views=(acc.byDate||[]).reduce((s,g)=>s+(g.count||0),0);
+  $('kpiVis').textContent=total.toLocaleString();
+  const mx=Math.max(1,...(acc.byDate||[]).map(vis));
+  const list=(arr,lab,val)=>{ const m=Math.max(1,...arr.map(val)); return '<div class="bars">'+(arr.length?arr.map(g=>`<div class="row"><span>${esc(lab(g)||'(direct / unknown)')}</span><div class="bar"><i style="width:${Math.round(val(g)/m*100)}%"></i></div><span>${val(g).toLocaleString()}</span></div>`).join(''):'<p class="empty">No data yet.</p>')+'</div>'; };
+  box.innerHTML=`<div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><small>Visits · 30 days</small><b>${total.toLocaleString()}</b><span>sessions</span></div><div class="kpi"><small>Page views · 30 days</small><b>${views.toLocaleString()}</b><span>${total?(views/total).toFixed(1):0} pages per visit</span></div><div class="kpi"><small>Top country</small><b style="font-size:22px">${esc(((acc.byCountry||[])[0]||{dimensions:{}}).dimensions.countryName||'—')}</b><span>by visits</span></div></div>
+  <div class="card"><h2>Visits per day</h2><div class="spark">${(acc.byDate||[]).map(g=>`<i title="${g.dimensions.date}: ${vis(g)}" style="height:${Math.round(vis(g)/mx*100)}%"></i>`).join('')}</div><p class="note">Last 30 days · hover a bar for the date</p></div>
+  <div class="grid"><div class="card"><h2>Where visitors are</h2>${list(acc.byCountry||[],g=>g.dimensions.countryName,vis)}</div>
+  <div class="card"><h2>Where they came from</h2>${list(acc.byRef||[],g=>g.dimensions.refererHost,vis)}</div></div>
+  <div class="grid"><div class="card"><h2>Most viewed pages</h2>${list(acc.byPath||[],g=>g.dimensions.requestPath,g=>g.count||0)}</div>
+  <div class="card"><h2>Devices</h2>${list(acc.byDevice||[],g=>g.dimensions.deviceType,g=>g.count||0)}</div></div>`;
+}
+start();
+</script>
+</body>
+</html>
