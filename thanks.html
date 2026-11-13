@@ -96,6 +96,7 @@ const STORY_TIERS={'story-film':'Story Film','wedding-keepsake':'Wedding Keepsak
 const SONG_TIERS={'animated-keepsake-story':1,'song-of-your-night':1};
 
 async function init(){
+  try{ const sk='gw_sale_'+(P.get('session_id')||SLUG||''); if(SLUG&&!sessionStorage.getItem(sk)){ sessionStorage.setItem(sk,'1'); setTimeout(()=>{ window.gwTrack&&window.gwTrack('sales',SLUG); },1500); } }catch(e){}
   const area=document.getElementById('area');
   // Made-for-you tiers (Story Film $149 / Signature $299; legacy wedding tiers kept for old links) → next step is the story form.
   if(STORY_TIERS[SLUG]){

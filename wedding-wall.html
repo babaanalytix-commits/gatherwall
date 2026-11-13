@@ -276,7 +276,7 @@ details .ans{padding:0 4px 18px;color:var(--muted);font-size:15px;line-height:1.
     <button class="lang-btn" data-lang="cs" aria-pressed="false" onclick="setLang('cs')">CS</button>
     <button class="lang-btn" data-lang="de" aria-pressed="false" onclick="setLang('de')">DE</button>
   </div>
-  <a class="back" href="index.html">← Home</a>
+  <a class="back" href="index.html" data-i18n="nav_home">← Home</a>
 </div></nav>
 
 <!-- HERO -->
@@ -439,16 +439,16 @@ details .ans{padding:0 4px 18px;color:var(--muted);font-size:15px;line-height:1.
   </div>
 </section>
 
-<div style="max-width:720px;margin:0 auto 56px;padding:26px;text-align:center;background:#F4EEDF;border:1px solid #C2A058;border-radius:16px;"><h3 style="font-family:Fraunces,Georgia,serif;font-size:1.2rem;margin-bottom:8px;">Want the whole day, not just the wall?</h3><p style="color:#5C6B5E;font-size:.96rem;margin-bottom:16px;">The Wedding Keepsake turns your photos and your story into original songs and a film you can send to everyone. From $149.</p><a href="wedding-keepsake.html" style="display:inline-block;background:#2E7D5B;color:#fff;font-weight:600;padding:13px 26px;border-radius:999px;">See the Wedding Keepsake →</a></div>
+<div style="max-width:720px;margin:0 auto 56px;padding:26px;text-align:center;background:#F4EEDF;border:1px solid #C2A058;border-radius:16px;"><h3 style="font-family:Fraunces,Georgia,serif;font-size:1.2rem;margin-bottom:8px;" data-i18n="wk_h3">Want the whole day, not just the wall?</h3><p style="color:#5C6B5E;font-size:.96rem;margin-bottom:16px;" data-i18n="wk_p">The Wedding Keepsake turns your photos and your story into original songs and a film you can send to everyone. From $149.</p><a href="wedding-keepsake.html" style="display:inline-block;background:#2E7D5B;color:#fff;font-weight:600;padding:13px 26px;border-radius:999px;" data-i18n="wk_cta">See the Wedding Keepsake →</a></div>
 <footer class="site-footer">
   <div class="footlinks">
-    <a href="ode.html">Ode hub</a>
-    <a href="keepsake-song.html">Keepsake Song</a>
-    <a href="memorial-page.html">Memorial Page</a>
-    <a href="wedding-wall.html">Wedding Wall</a>
-    <a href="birthday-song.html">Birthday Song</a>
-    <a href="examples.html">Examples</a>
-    <a href="digital-guestbook.html">Digital Guestbook</a>
+    <a href="ode.html" data-i18n="foot_ode">Ode hub</a>
+    <a href="keepsake-song.html" data-i18n="foot_keepsake">Keepsake Song</a>
+    <a href="memorial-page.html" data-i18n="foot_memorial">Memorial Page</a>
+    <a href="wedding-wall.html" data-i18n="foot_wedding">Wedding Wall</a>
+    <a href="birthday-song.html" data-i18n="foot_birthday">Birthday Song</a>
+    <a href="examples.html" data-i18n="foot_examples">Examples</a>
+    <a href="digital-guestbook.html" data-i18n="foot_guestbook">Digital Guestbook</a>
   </div>
   <a href="index.html" data-i18n="footer_home">← GatherWall home</a>
 </footer>
@@ -512,7 +512,18 @@ const I18N = {
     final_cta_p: "Free to build, free to share with a few guests. Publish when you're ready — from $10.",
     final_cta_primary: "Build your wedding wall — free",
     final_cta_song: "Add The Song of Your Night →",
-    footer_home: "← GatherWall home"
+    footer_home: "← GatherWall home",
+    nav_home: "← Home",
+    wk_h3: "Want the whole day, not just the wall?",
+    wk_p: "The Wedding Keepsake turns your photos and your story into original songs and a film you can send to everyone. From $149.",
+    wk_cta: "See the Wedding Keepsake →",
+    foot_ode: "Ode hub",
+    foot_keepsake: "Keepsake Song",
+    foot_memorial: "Memorial Page",
+    foot_wedding: "Wedding Wall",
+    foot_birthday: "Birthday Song",
+    foot_examples: "Examples",
+    foot_guestbook: "Digital Guestbook"
   },
   fr: {
     doc_title: "Livre d'or numérique — Un mur d'amour en direct",
@@ -571,7 +582,18 @@ const I18N = {
     final_cta_p: "Gratuit à créer, gratuit à partager avec quelques invités. Publiez quand vous êtes prêt — à partir de 10 $.",
     final_cta_primary: "Créer votre mur de mariage — gratuit",
     final_cta_song: "Ajouter La Chanson de Votre Nuit →",
-    footer_home: "← Accueil GatherWall"
+    footer_home: "← Accueil GatherWall",
+    nav_home: "← Accueil",
+    wk_h3: "Envie de garder toute la journée, pas seulement le mur ?",
+    wk_p: "Le Souvenir de mariage transforme vos photos et votre histoire en chansons originales et en un film que vous pouvez envoyer à tous vos proches. À partir de 149 $.",
+    wk_cta: "Découvrir le Souvenir de mariage →",
+    foot_ode: "Espace Ode",
+    foot_keepsake: "Chanson souvenir",
+    foot_memorial: "Page commémorative",
+    foot_wedding: "Mur de mariage",
+    foot_birthday: "Chanson d'anniversaire",
+    foot_examples: "Exemples",
+    foot_guestbook: "Livre d'or numérique"
   },
   es: {
     doc_title: "Libro de visitas digital de boda — Un muro de amor en vivo",
@@ -630,7 +652,18 @@ const I18N = {
     final_cta_p: "Gratis para crear, gratis para compartir con algunos invitados. Publica cuando estés listo — desde 10 $.",
     final_cta_primary: "Crear tu muro de boda — gratis",
     final_cta_song: "Añadir La Canción de Tu Noche →",
-    footer_home: "← Inicio de GatherWall"
+    footer_home: "← Inicio de GatherWall",
+    nav_home: "← Inicio",
+    wk_h3: "¿Quieres guardar todo el día, no solo el muro?",
+    wk_p: "El Recuerdo de boda convierte vuestras fotos y vuestra historia en canciones originales y en una película que podéis enviar a todos. Desde 149 $.",
+    wk_cta: "Ver el Recuerdo de boda →",
+    foot_ode: "Centro Ode",
+    foot_keepsake: "Canción recuerdo",
+    foot_memorial: "Página conmemorativa",
+    foot_wedding: "Muro de boda",
+    foot_birthday: "Canción de cumpleaños",
+    foot_examples: "Ejemplos",
+    foot_guestbook: "Libro de visitas digital"
   },
   cs: {
     doc_title: "Digitální svatební kniha hostů — Živá zeď lásky",
@@ -689,7 +722,18 @@ const I18N = {
     final_cta_p: "Vytvoření zdarma, sdílení s několika hosty zdarma. Zveřejněte, až budete připraveni — od 10 $.",
     final_cta_primary: "Vytvořit svatební zeď — zdarma",
     final_cta_song: "Přidat Píseň Vaší Noci →",
-    footer_home: "← Domovská stránka GatherWall"
+    footer_home: "← Domovská stránka GatherWall",
+    nav_home: "← Domů",
+    wk_h3: "Chcete si uchovat celý den, ne jen zeď?",
+    wk_p: "Svatební vzpomínka promění vaše fotky a váš příběh v původní písně a film, který můžete poslat všem blízkým. Od 149 $.",
+    wk_cta: "Prohlédnout Svatební vzpomínku →",
+    foot_ode: "Rozcestník Ode",
+    foot_keepsake: "Píseň na míru",
+    foot_memorial: "Vzpomínková stránka",
+    foot_wedding: "Svatební zeď",
+    foot_birthday: "Narozeninová píseň",
+    foot_examples: "Ukázky",
+    foot_guestbook: "Digitální kniha hostů"
   },
   de: {
     doc_title: "Digitales Hochzeitsgästebuch — Eine Live-Wand der Liebe",
@@ -698,7 +742,7 @@ const I18N = {
     hero_h1: "Das Hochzeitsgästebuch,<br>das Ihre Gäste wirklich nutzen werden",
     hero_lede: "Gäste scannen einen QR-Code — ihre Fotos und Nachrichten erscheinen live auf der großen Leinwand, keine App erforderlich. Sie behalten alles für immer.",
     hero_cta_primary: "Ihre Hochzeitswand erstellen — kostenlos",
-    hero_cta_song: "Die Lied Ihrer Nacht hinzufügen →",
+    hero_cta_song: "Das Lied Ihrer Nacht hinzufügen →",
     how_h2: "So funktioniert es — scannen, posten, große Leinwand",
     how_sub: "Drei mühelose Schritte, von Ihren Einladungen über Ihre Hochzeitsnacht bis hin zu einem Andenken, das Sie für immer behalten.",
     step1_h3: "Sie teilen einen QR-Code",
@@ -748,7 +792,18 @@ const I18N = {
     final_cta_p: "Kostenlos erstellen, kostenlos mit einigen Gästen teilen. Veröffentlichen Sie, wenn Sie bereit sind — ab 10 $.",
     final_cta_primary: "Ihre Hochzeitswand erstellen — kostenlos",
     final_cta_song: "Das Lied Ihrer Nacht hinzufügen →",
-    footer_home: "← GatherWall Startseite"
+    footer_home: "← GatherWall Startseite",
+    nav_home: "← Startseite",
+    wk_h3: "Lieber den ganzen Tag als nur die Wand?",
+    wk_p: "Das Hochzeits-Andenken verwandelt Ihre Fotos und Ihre Geschichte in eigene Lieder und einen Film, den Sie allen schicken können. Ab 149 $.",
+    wk_cta: "Das Hochzeits-Andenken ansehen →",
+    foot_ode: "Ode-Übersicht",
+    foot_keepsake: "Erinnerungslied",
+    foot_memorial: "Gedenkseite",
+    foot_wedding: "Hochzeitswand",
+    foot_birthday: "Geburtstagslied",
+    foot_examples: "Beispiele",
+    foot_guestbook: "Digitales Gästebuch"
   }
 };
 

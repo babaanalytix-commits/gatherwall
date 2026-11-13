@@ -124,7 +124,7 @@
     <div class="eyebrow">Ode · by GatherWall</div>
     <h1 data-i="title">Their story, set to a song made for them</h1>
     <p class="sub" data-i="sub">Tell us about them and see your personalised lyrics — free, before you pay.</p>
-    <div><a class="hearlink" href="samples.html">🎧 Hear real examples</a></div>
+    <div><a class="hearlink" href="samples.html" data-i="hear">🎧 Hear real examples</a></div>
     <div class="steps">
       <div class="s on"><span class="n">1</span><span data-i="step1">Tell their story</span></div>
       <span class="bar"></span>
@@ -136,15 +136,15 @@
 
   <!-- SEE THE PRODUCT BEFORE BEING ASKED FOR ANYTHING -->
   <div class="filmblock" style="margin:0 auto 26px;max-width:520px;text-align:center">
-    <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#B8912F;margin-bottom:10px">See a real one first</div>
-    <h2 style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:clamp(22px,4vw,30px);line-height:1.15;margin:0 0 8px;color:#20271F">This is what they actually receive</h2>
-    <p style="color:#5C6B5E;font-size:15.5px;line-height:1.55;margin:0 auto 16px;max-width:44ch">Their story and their photos, moving in time with a song written only for them. 33 seconds — turn the sound on.</p>
+    <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#B8912F;margin-bottom:10px" data-i="film_eyebrow">See a real one first</div>
+    <h2 style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:clamp(22px,4vw,30px);line-height:1.15;margin:0 0 8px;color:#20271F" data-i="film_h">This is what they actually receive</h2>
+    <p style="color:#5C6B5E;font-size:15.5px;line-height:1.55;margin:0 auto 16px;max-width:44ch" data-i="film_p">Their story and their photos, moving in time with a song written only for them. 33 seconds — turn the sound on.</p>
     <div style="position:relative;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 24px 60px -22px rgba(0,0,0,.55);border:1px solid #E6E2D4">
       <video id="samplefilm" src="sample-storyfilm.mp4" poster="sample-storyfilm-poster.jpg"
              controls playsinline preload="none"
              style="display:block;width:100%;height:auto;max-height:70vh;background:#000"></video>
     </div>
-    <p style="color:#5C6B5E;font-size:13.5px;margin:12px 0 0">👆 A real keepsake film. Yours is made from <em>your</em> story — start free below.</p>
+    <p style="color:#5C6B5E;font-size:13.5px;margin:12px 0 0" data-i="film_note">👆 A real keepsake film. Yours is made from <em>your</em> story — start free below.</p>
   </div>
 
   <div class="card" id="form">
@@ -209,8 +209,8 @@
 
       <!-- risk reversal: costs nothing at this margin, stands in for reviews we don't have yet -->
       <div style="margin:14px auto 4px;max-width:46ch;text-align:center;background:#F3F8F5;border:1px solid #DCEAE2;border-radius:12px;padding:12px 14px">
-        <div style="font-weight:700;color:#1C4D3A;font-size:14.5px;margin-bottom:3px">💛 Love it, or your money back</div>
-        <div style="color:#5C6B5E;font-size:13.5px;line-height:1.5">If the song doesn't move you, tell us and we'll refund you in full. No forms, no argument.</div>
+        <div style="font-weight:700;color:#1C4D3A;font-size:14.5px;margin-bottom:3px" data-i="mb_h">💛 Love it, or your money back</div>
+        <div style="color:#5C6B5E;font-size:13.5px;line-height:1.5" data-i="mb_p">If the song doesn't move you, tell us and we'll refund you in full. No forms, no argument.</div>
       </div>
 
       <div class="trust">
@@ -221,8 +221,8 @@
 
       <!-- capture the lead: most people won't buy on the spot -->
       <div style="margin:22px auto 4px;max-width:46ch;text-align:center;border-top:1px solid #E6E2D4;padding-top:20px">
-        <div style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:19px;color:#20271F;margin-bottom:4px">Not ready today?</div>
-        <p style="color:#5C6B5E;font-size:14.5px;line-height:1.55;margin:0 0 12px">Don't lose these lyrics. Pop your email in and we'll send them to you, along with a private sample film — so you can come back when the moment's right.</p>
+        <div style="font-family:var(--serif,Georgia,serif);font-weight:600;font-size:19px;color:#20271F;margin-bottom:4px" data-i="nr_h">Not ready today?</div>
+        <p style="color:#5C6B5E;font-size:14.5px;line-height:1.55;margin:0 0 12px" data-i="nr_p">Don't lose these lyrics. Pop your email in and we'll send them to you, along with a private sample film — so you can come back when the moment's right.</p>
         <div class="eo-capture" id="eoPreviewMount"></div>
         <script>
         /* Lazy-load the EmailOctopus embed (same pattern as the homepage) so its reCAPTCHA/widget JS never blocks first interaction. */
@@ -231,13 +231,13 @@
       </div>
       <button class="again" id="again" data-i="again">↻ Tweak the details &amp; try again</button>
       <p class="note" data-i="cta_note">Your song is created instantly after checkout, together with an animated keepsake of your photos and lyrics, ready to share.</p>
-      <p class="note" style="margin-top:10px;">🎁 Giving it as a gift? You'll wrap it in a card they open — your message, their name, then play the song. <a href="gift.html?to=Mum&amp;from=Aidan%20%26%20the%20family&amp;msg=Happy%2070th%2C%20Mum.%20We%20turned%20your%20whole%20story%20into%20a%20song%20%E2%80%94%20every%20word%20is%20true.%20We%20love%20you.&amp;song=samples.html" target="_blank" rel="noopener" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(46,125,91,.35);">See the gift card →</a></p>
+      <p class="note" style="margin-top:10px;"><span data-i="gift_note">🎁 Giving it as a gift? You'll wrap it in a card they open — your message, their name, then play the song.</span> <a data-i="gift_link" href="gift.html?to=Mum&amp;from=Aidan%20%26%20the%20family&amp;msg=Happy%2070th%2C%20Mum.%20We%20turned%20your%20whole%20story%20into%20a%20song%20%E2%80%94%20every%20word%20is%20true.%20We%20love%20you.&amp;song=samples.html" target="_blank" rel="noopener" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(46,125,91,.35);">See the gift card →</a></p>
     </div>
   </div>
 
   <footer>
     <span data-i="foot">GatherWall · a living wall of love for any moment. Lyrics are a free preview — the full song &amp; animated keepsake come with your order.</span>
-    <br><a href="wall-of-love.html">💛 Read the Wall of Love</a>
+    <br><a href="wall-of-love.html" data-i="wol">💛 Read the Wall of Love</a>
   </footer>
 </div>
 
@@ -271,7 +271,27 @@ const I18N = {
     err_for:"Please tell us who the song is for.",
     err_engine:"Couldn't reach the lyric engine. Please try again in a moment.",
     err_generic:"Something went wrong. Please try again.",
-    loading:"Writing your lyrics…", pcount:"{n} of 8 photos added"
+    loading:"Writing your lyrics…", pcount:"{n} of 8 photos added",
+    hear:"🎧 Hear real examples",
+    film_eyebrow:"See a real one first",
+    film_h:"This is what they actually receive",
+    film_p:"Their story and their photos, moving in time with a song written only for them. 33 seconds — turn the sound on.",
+    film_note:"👆 A real keepsake film. Yours is made from <em>your</em> story — start free below.",
+    mb_h:"💛 Love it, or your money back",
+    mb_p:"If the song doesn't move you, tell us and we'll refund you in full. No forms, no argument.",
+    nr_h:"Not ready today?",
+    nr_p:"Don't lose these lyrics. Pop your email in and we'll send them to you, along with a private sample film — so you can come back when the moment's right.",
+    gift_note:"🎁 Giving it as a gift? You'll wrap it in a card they open — your message, their name, then play the song.",
+    gift_link:"See the gift card →",
+    wol:"💛 Read the Wall of Love",
+    out_two:"Two versions — pick the one that feels like your night",
+    verA:"Version A",
+    verB:"Version B",
+    chooseA:"Choose Version A ▸",
+    chooseB:"Choose Version B ▸",
+    out_ready:"Your lyrics — ready when you are",
+    cta_night:"Love it? Create your Song of Your Night — $39 ▸",
+    seed_banner:"🎵 <b>The Song of Your Night.</b> We’ve filled in the messages your guests left on your wall — preview the song they become, free."
   },
   fr:{
     eyebrow:"Histoire-souvenir animée", title:"Leur histoire, dans une chanson rien que pour eux",
@@ -298,7 +318,27 @@ const I18N = {
     err_for:"Dites-nous pour qui est la chanson.",
     err_engine:"Impossible de joindre le générateur. Réessayez dans un instant.",
     err_generic:"Une erreur est survenue. Réessayez.",
-    loading:"Écriture de vos paroles…", pcount:"{n} photos sur 8 ajoutées"
+    loading:"Écriture de vos paroles…", pcount:"{n} photos sur 8 ajoutées",
+    hear:"🎧 Écouter de vrais exemples",
+    film_eyebrow:"D'abord, un vrai exemple",
+    film_h:"Voici ce qu'ils reçoivent vraiment",
+    film_p:"Leur histoire et leurs photos, au rythme d'une chanson écrite rien que pour eux. 33 secondes — montez le son.",
+    film_note:"👆 Un vrai film-souvenir. Le vôtre naîtra de <em>votre</em> histoire — commencez gratuitement ci-dessous.",
+    mb_h:"💛 Conquis, ou remboursé",
+    mb_p:"Si la chanson ne vous touche pas, dites-le-nous et nous vous remboursons intégralement. Sans formulaire, sans discussion.",
+    nr_h:"Pas encore prêt ?",
+    nr_p:"Ne perdez pas ces paroles. Laissez-nous votre e-mail : nous vous les enverrons, avec un film d'exemple privé — pour revenir quand le moment sera venu.",
+    gift_note:"🎁 C'est un cadeau ? Vous l'offrirez dans une carte à ouvrir — votre message, leur prénom, puis la chanson.",
+    gift_link:"Voir la carte cadeau →",
+    wol:"💛 Lire le Mur d'amour",
+    out_two:"Deux versions — choisissez celle qui ressemble à votre soirée",
+    verA:"Version A",
+    verB:"Version B",
+    chooseA:"Choisir la version A ▸",
+    chooseB:"Choisir la version B ▸",
+    out_ready:"Vos paroles — prêtes quand vous l'êtes",
+    cta_night:"On adore ? Créez la Chanson de votre soirée — 39 $ ▸",
+    seed_banner:"🎵 <b>La Chanson de votre soirée.</b> Nous avons repris les messages laissés par vos invités sur votre mur — découvrez gratuitement la chanson qu'ils deviennent."
   },
   es:{
     eyebrow:"Recuerdo animado", title:"Su historia, en una canción hecha para ellos",
@@ -325,7 +365,27 @@ const I18N = {
     err_for:"Dinos para quién es la canción.",
     err_engine:"No se pudo conectar con el generador. Inténtalo de nuevo en un momento.",
     err_generic:"Algo salió mal. Inténtalo de nuevo.",
-    loading:"Escribiendo tu letra…", pcount:"{n} de 8 fotos añadidas"
+    loading:"Escribiendo tu letra…", pcount:"{n} de 8 fotos añadidas",
+    hear:"🎧 Escucha ejemplos reales",
+    film_eyebrow:"Primero, mira uno de verdad",
+    film_h:"Esto es lo que reciben de verdad",
+    film_p:"Su historia y sus fotos, al compás de una canción escrita solo para ellos. 33 segundos — sube el volumen.",
+    film_note:"👆 Una película-recuerdo real. La tuya se hace con <em>tu</em> historia — empieza gratis aquí abajo.",
+    mb_h:"💛 Te encanta o te devolvemos el dinero",
+    mb_p:"Si la canción no te emociona, dínoslo y te devolvemos el importe íntegro. Sin formularios ni discusiones.",
+    nr_h:"¿Aún no te decides?",
+    nr_p:"No pierdas esta letra. Déjanos tu correo y te la enviamos, junto con una película de muestra privada, para que vuelvas cuando sea el momento.",
+    gift_note:"🎁 ¿Es un regalo? Lo envolverás en una tarjeta que abrirán: tu mensaje, su nombre y, después, la canción.",
+    gift_link:"Ver la tarjeta regalo →",
+    wol:"💛 Lee el Muro del Amor",
+    out_two:"Dos versiones: elige la que más se parezca a tu noche",
+    verA:"Versión A",
+    verB:"Versión B",
+    chooseA:"Elegir la versión A ▸",
+    chooseB:"Elegir la versión B ▸",
+    out_ready:"Tu letra, lista cuando tú lo estés",
+    cta_night:"¿Te encanta? Crea la Canción de tu noche — 39 $ ▸",
+    seed_banner:"🎵 <b>La Canción de tu noche.</b> Hemos incluido los mensajes que tus invitados dejaron en tu muro: descubre gratis la canción en la que se convierten."
   },
   cs:{
     eyebrow:"Animovaná vzpomínka", title:"Jejich příběh v písni stvořené jen pro ně",
@@ -352,7 +412,27 @@ const I18N = {
     err_for:"Napište nám, pro koho píseň je.",
     err_engine:"Nepodařilo se spojit s generátorem. Zkuste to za chvíli.",
     err_generic:"Něco se pokazilo. Zkuste to znovu.",
-    loading:"Píšeme váš text…", pcount:"Přidáno {n} z 8 fotek"
+    loading:"Píšeme váš text…", pcount:"Přidáno {n} z 8 fotek",
+    hear:"🎧 Poslechněte si skutečné ukázky",
+    film_eyebrow:"Nejdřív skutečná ukázka",
+    film_h:"Tohle opravdu dostanou",
+    film_p:"Jejich příběh a fotky v rytmu písně napsané jen pro ně. 33 sekund — zapněte si zvuk.",
+    film_note:"👆 Skutečný vzpomínkový film. Ten váš vznikne z <em>vašeho</em> příběhu — začněte zdarma níže.",
+    mb_h:"💛 Buď se vám bude líbit, nebo vrátíme peníze",
+    mb_p:"Pokud vás píseň nedojme, napište nám a vrátíme vám celou částku. Žádné formuláře, žádné dohadování.",
+    nr_h:"Dnes ještě ne?",
+    nr_p:"Nepřijďte o tento text. Zadejte e-mail a pošleme vám ho spolu se soukromým ukázkovým filmem — ať se můžete vrátit, až přijde ta správná chvíle.",
+    gift_note:"🎁 Dáváte ji jako dárek? Zabalíte ji do přání, které otevřou — váš vzkaz, jejich jméno a pak píseň.",
+    gift_link:"Prohlédnout dárkové přání →",
+    wol:"💛 Přečtěte si Zeď lásky",
+    out_two:"Dvě verze — vyberte tu, která nejlépe sedí k vašemu večeru",
+    verA:"Verze A",
+    verB:"Verze B",
+    chooseA:"Vybrat verzi A ▸",
+    chooseB:"Vybrat verzi B ▸",
+    out_ready:"Váš text — připravený, až budete chtít",
+    cta_night:"Líbí se? Vytvořte Píseň vašeho večera — 39 $ ▸",
+    seed_banner:"🎵 <b>Píseň vašeho večera.</b> Doplnili jsme vzkazy, které vám hosté nechali na zdi — podívejte se zdarma, jaká z nich vznikne píseň."
   },
   de:{
     eyebrow:"Animierte Erinnerung", title:"Ihre Geschichte, als Lied nur für sie",
@@ -379,7 +459,27 @@ const I18N = {
     err_for:"Sagen Sie uns, für wen das Lied ist.",
     err_engine:"Der Generator ist nicht erreichbar. Bitte gleich noch einmal versuchen.",
     err_generic:"Etwas ist schiefgelaufen. Bitte erneut versuchen.",
-    loading:"Ihr Liedtext wird geschrieben…", pcount:"{n} von 8 Fotos hinzugefügt"
+    loading:"Ihr Liedtext wird geschrieben…", pcount:"{n} von 8 Fotos hinzugefügt",
+    hear:"🎧 Echte Beispiele anhören",
+    film_eyebrow:"Erst ein echtes Beispiel",
+    film_h:"Das bekommen sie wirklich",
+    film_p:"Ihre Geschichte und ihre Fotos, im Takt eines Liedes, das nur für sie geschrieben wurde. 33 Sekunden — Ton an.",
+    film_note:"👆 Ein echter Erinnerungsfilm. Ihrer entsteht aus <em>Ihrer</em> Geschichte — starten Sie unten kostenlos.",
+    mb_h:"💛 Begeistert – oder Geld zurück",
+    mb_p:"Wenn Sie das Lied nicht berührt, sagen Sie es uns – wir erstatten den vollen Betrag. Ohne Formulare, ohne Diskussion.",
+    nr_h:"Heute noch nicht so weit?",
+    nr_p:"Verlieren Sie diesen Liedtext nicht. Geben Sie Ihre E-Mail-Adresse ein, und wir schicken ihn Ihnen zusammen mit einem privaten Beispielfilm – so können Sie zurückkommen, wenn der Moment passt.",
+    gift_note:"🎁 Als Geschenk gedacht? Sie verpacken es in eine Karte zum Öffnen – Ihre Nachricht, der Name, dann erklingt das Lied.",
+    gift_link:"Geschenkkarte ansehen →",
+    wol:"💛 Die Wand der Liebe lesen",
+    out_two:"Zwei Versionen – wählen Sie die, die sich nach Ihrem Abend anfühlt",
+    verA:"Version A",
+    verB:"Version B",
+    chooseA:"Version A wählen ▸",
+    chooseB:"Version B wählen ▸",
+    out_ready:"Ihr Liedtext – bereit, wenn Sie es sind",
+    cta_night:"Gefällt's? Erstellen Sie das Lied Ihres Abends — 39 $ ▸",
+    seed_banner:"🎵 <b>Das Lied Ihres Abends.</b> Wir haben die Nachrichten eingetragen, die Ihre Gäste an Ihrer Wand hinterlassen haben – sehen Sie kostenlos, welches Lied daraus wird."
   }
 };
 
@@ -506,6 +606,7 @@ async function preview(){
       genLyrics(Object.assign({},b,{variant:"B"}))
     ]);
     LYRIC_OPTS=pair; CUR_BRIEF=b;
+    try{ window.gwTrack&&window.gwTrack('plans','song-lyrics'); }catch(e){}
     renderChoices(b);
     $("form").style.display="none"; $("out").style.display="block";
     window.scrollTo({top:0,behavior:"smooth"});
@@ -513,15 +614,16 @@ async function preview(){
   finally{ $("go").disabled=false; $("go").innerHTML=t.btn; }
 }
 function renderChoices(b){
-  var eb=document.querySelector('#out [data-i="out_title"]'); if(eb){ eb.removeAttribute("data-i"); eb.textContent="Two versions — pick the one that feels like your night"; }
+  var t=I18N[LANG];
+  var eb=document.querySelector('#out .out-eyebrow'); if(eb){ eb.setAttribute("data-i","out_two"); eb.textContent=t.out_two; }
   var buy=$("buy"); if(buy) buy.style.display="none";
-  var labels=["Version A","Version B"];
+  var lk=["verA","verB"], ck=["chooseA","chooseB"];
   var html="";
   for(var i=0;i<LYRIC_OPTS.length;i++){
     html+='<div class="ly-opt" id="lyopt'+i+'" style="border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#fff;transition:opacity .2s;">'+
-      '<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand2,#2E7D5B);font-weight:700;margin-bottom:8px;">'+labels[i]+'</div>'+
+      '<div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand2,#2E7D5B);font-weight:700;margin-bottom:8px;" data-i="'+lk[i]+'">'+t[lk[i]]+'</div>'+
       '<div class="lyrics" style="white-space:pre-wrap;">'+escLy(LYRIC_OPTS[i])+'</div>'+
-      '<button class="btn" style="margin-top:13px;width:100%;justify-content:center;" onclick="chooseLyric('+i+')">Choose '+labels[i]+' ▸</button>'+
+      '<button class="btn" style="margin-top:13px;width:100%;justify-content:center;" onclick="chooseLyric('+i+')" data-i="'+ck[i]+'">'+t[ck[i]]+'</button>'+
     '</div>';
   }
   $("lyrics").innerHTML=html;
@@ -530,7 +632,7 @@ async function chooseLyric(i){
   var b=CUR_BRIEF||brief();
   var chosen=LYRIC_OPTS[i]; if(chosen==null) return;
   for(var k=0;k<LYRIC_OPTS.length;k++){ var el=document.getElementById("lyopt"+k); if(el){ el.style.borderColor=(k===i)?"var(--brand2,#2E7D5B)":"var(--line)"; el.style.opacity=(k===i)?"1":".45"; var bn=el.querySelector("button"); if(bn) bn.style.display=(k===i)?"none":""; } }
-  var eb=document.querySelector('#out .out-eyebrow'); if(eb){ eb.textContent="Your lyrics — ready when you are"; }
+  var eb=document.querySelector('#out .out-eyebrow'); if(eb){ eb.setAttribute("data-i","out_ready"); eb.textContent=I18N[LANG].out_ready; }
   var orderId="ks_"+Math.random().toString(36).slice(2,10);
   try{
     var style=(b.styleDesc||"warm soulful pop, heartfelt vocal");
@@ -546,8 +648,9 @@ async function chooseLyric(i){
   if(buy){
     var p=window.GW_WALL_SONG?"song-of-your-night":"animated-keepsake-story";
     buy.setAttribute("href","checkout.html?p="+p+"&order="+encodeURIComponent(orderId)+"&for="+encodeURIComponent(b.for));
-    buy.removeAttribute("data-i");
-    buy.textContent=window.GW_WALL_SONG?"Love it? Create your Song of Your Night — $39 ▸":"Love it? Create your keepsake song — $39 ▸";
+    var ckey=window.GW_WALL_SONG?"cta_night":"cta";
+    buy.setAttribute("data-i",ckey);
+    buy.textContent=I18N[LANG][ckey];
     buy.style.display="";
     try{ buy.scrollIntoView({behavior:"smooth",block:"center"}); }catch(e){}
   }
@@ -578,7 +681,7 @@ $("lang").onchange=e=>applyLang(e.target.value);
     if(form && form.parentNode){
       var b=document.createElement("div");
       b.style.cssText="background:#EAF1EC;border:1px solid #E5E1D5;border-radius:14px;padding:13px 16px;margin-bottom:16px;font-size:14px;color:#1F2622;line-height:1.5;";
-      b.innerHTML="🎵 <b>The Song of Your Night.</b> We’ve filled in the messages your guests left on your wall — preview the song they become, free.";
+      b.setAttribute("data-i","seed_banner"); b.innerHTML=I18N[LANG].seed_banner;
       form.parentNode.insertBefore(b, form);
       try{ b.scrollIntoView({behavior:"smooth",block:"start"}); }catch(e){}
     }

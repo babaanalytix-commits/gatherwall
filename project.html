@@ -123,154 +123,155 @@ button[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
 </head>
 <body>
 <script src="/gw-header.js"></script>
+<nav class="nav gw-old"><div class="lang-switcher" role="group" aria-label="Language"><button class="lang-btn" data-lang="en">EN</button><button class="lang-btn" data-lang="fr">FR</button><button class="lang-btn" data-lang="es">ES</button><button class="lang-btn" data-lang="de">DE</button><button class="lang-btn" data-lang="cs">CZ</button></div></nav>
 
 <header class="hero">
-  <span class="eyebrow" id="eyebrow">Made for you</span>
-  <h1 id="h1">Start your project</h1>
-  <p id="lead">Tell us who it's for and we'll build your plan straight away: your dates, what we need from you, and exactly how each step works. Nothing to pay until you're happy with the plan.</p>
+  <span class="eyebrow" id="eyebrow" data-i18n="eyebrow_start">Made for you</span>
+  <h1 id="h1" data-i18n="h1_start">Start your project</h1>
+  <p id="lead" data-i18n="lead_start">Tell us who it's for and we'll build your plan straight away: your dates, what we need from you, and exactly how each step works. Nothing to pay until you're happy with the plan.</p>
 </header>
 
-<div class="wrap" id="app"><p class="small" style="text-align:center">Loading…</p></div>
+<div class="wrap" id="app"><p class="small" style="text-align:center" data-i18n="loading">Loading…</p></div>
 
 <div id="toast"></div>
 
 <template id="tpl-story">
   <!-- 2 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">2</span><h2>The people around them</h2></div>
-    <p class="sub">Names are the single most powerful thing in a keepsake song. Hearing your own
+    <div class="sec-head"><span class="sec-num">2</span><h2 data-i18n="s2_h">The people around them</h2></div>
+    <p class="sub" data-i18n="s2_sub">Names are the single most powerful thing in a keepsake song. Hearing your own
        name sung is what makes people cry. Please give us as many as you can — and tell us how
        each one is pronounced if it isn't obvious.</p>
-    <label>Partner or spouse — name, and how they met</label>
-    <textarea data-q="Partner / how they met" placeholder="Where, when, who spoke first, what he says about it now..."></textarea>
-    <label>Children — names, in order</label>
-    <textarea data-q="Children" placeholder="Name, roughly what they do or what they're like. One line each is plenty."></textarea>
-    <label>Grandchildren — names <span class="opt">optional</span></label>
+    <label data-i18n="tq_partner">Partner or spouse — name, and how they met</label>
+    <textarea data-q="Partner / how they met" data-i18n-ph="tp_partner" placeholder="Where, when, who spoke first, what he says about it now..."></textarea>
+    <label data-i18n="tq_children">Children — names, in order</label>
+    <textarea data-q="Children" data-i18n-ph="tp_children" placeholder="Name, roughly what they do or what they're like. One line each is plenty."></textarea>
+    <label data-i18n="tq_grand">Grandchildren — names <span class="opt">optional</span></label>
     <textarea data-q="Grandchildren"></textarea>
-    <label>Brothers, sisters, and anyone who counts as family</label>
+    <label data-i18n="tq_siblings">Brothers, sisters, and anyone who counts as family</label>
     <textarea data-q="Siblings / chosen family"></textarea>
-    <label>Closest friends who'll be in the room</label>
+    <label data-i18n="tq_friends">Closest friends who'll be in the room</label>
     <textarea data-q="Close friends"></textarea>
   </div>
 
   <!-- 3 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">3</span><h2>Where they come from</h2></div>
-    <p class="sub">The history. Parents, home, the road that got them here.</p>
-    <label>Where were they born, and where did they grow up?</label>
+    <div class="sec-head"><span class="sec-num">3</span><h2 data-i18n="s3_h">Where they come from</h2></div>
+    <p class="sub" data-i18n="s3_sub">The history. Parents, home, the road that got them here.</p>
+    <label data-i18n="tq_born">Where were they born, and where did they grow up?</label>
     <textarea data-q="Born / grew up"></textarea>
-    <label>Their parents — names, and what they were like</label>
-    <p class="hint">If either has passed away, say so here and tell us in section 7 how you'd like them honoured.</p>
+    <label data-i18n="tq_parents">Their parents — names, and what they were like</label>
+    <p class="hint" data-i18n="th_parents">If either has passed away, say so here and tell us in section 7 how you'd like them honoured.</p>
     <textarea data-q="Parents" class="tall"></textarea>
-    <label>What did the family do? What was life like then?</label>
+    <label data-i18n="tq_famback">What did the family do? What was life like then?</label>
     <textarea data-q="Family background"></textarea>
-    <label>School, training, work — the path they took</label>
+    <label data-i18n="tq_edu">School, training, work — the path they took</label>
     <textarea data-q="Education and work"></textarea>
-    <label>Places they've lived, or moved between</label>
+    <label data-i18n="tq_places">Places they've lived, or moved between</label>
     <textarea data-q="Places lived"></textarea>
-    <label>Faith, church or community life <span class="opt">optional, but often the heart of it</span></label>
+    <label data-i18n="tq_faith">Faith, church or community life <span class="opt">optional, but often the heart of it</span></label>
     <textarea data-q="Faith / community"></textarea>
   </div>
 
   <!-- 4 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">4</span><h2>Who they actually are</h2></div>
-    <p class="sub">This is the section that stops the song sounding like anyone else's.</p>
-    <label>Three words the family would use about them</label>
+    <div class="sec-head"><span class="sec-num">4</span><h2 data-i18n="s4_h">Who they actually are</h2></div>
+    <p class="sub" data-i18n="s4_sub">This is the section that stops the song sounding like anyone else's.</p>
+    <label data-i18n="tq_three">Three words the family would use about them</label>
     <input type="text" data-q="Three words">
-    <label>Something they always say <span class="opt">a phrase, a piece of advice, a telling-off</span></label>
+    <label data-i18n="tq_saying">Something they always say <span class="opt">a phrase, a piece of advice, a telling-off</span></label>
     <textarea data-q="Catchphrase / sayings"></textarea>
-    <label>What makes everyone laugh about them?</label>
-    <textarea data-q="What makes everyone laugh" placeholder="The habit, the quirk, the thing they'd deny."></textarea>
-    <label>What are they proudest of?</label>
+    <label data-i18n="tq_laugh">What makes everyone laugh about them?</label>
+    <textarea data-q="What makes everyone laugh" data-i18n-ph="tp_laugh" placeholder="The habit, the quirk, the thing they'd deny."></textarea>
+    <label data-i18n="tq_proud">What are they proudest of?</label>
     <textarea data-q="Proudest of"></textarea>
-    <label>What would they never boast about — but should?</label>
+    <label data-i18n="tq_quiet">What would they never boast about — but should?</label>
     <textarea data-q="Quiet achievement"></textarea>
-    <label>Food, music, teams, hobbies, the things they love</label>
+    <label data-i18n="tq_loves">Food, music, teams, hobbies, the things they love</label>
     <textarea data-q="Loves"></textarea>
   </div>
 
   <!-- 5 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">5</span><h2>The moments</h2></div>
-    <p class="sub">Two or three real stories beat a page of adjectives. Small ones are best.</p>
-    <label>A memory that sums them up</label>
+    <div class="sec-head"><span class="sec-num">5</span><h2 data-i18n="s5_h">The moments</h2></div>
+    <p class="sub" data-i18n="s5_sub">Two or three real stories beat a page of adjectives. Small ones are best.</p>
+    <label data-i18n="tq_memory">A memory that sums them up</label>
     <textarea data-q="Defining memory" class="tall"></textarea>
-    <label>A funny story the room would recognise</label>
+    <label data-i18n="tq_funny">A funny story the room would recognise</label>
     <textarea data-q="Funny story" class="tall"></textarea>
-    <label>Something hard they came through</label>
-    <p class="hint">Only if it's theirs to tell and they'd be happy for it to be mentioned. We'll handle it gently, or leave it out — your call in section 7.</p>
+    <label data-i18n="tq_overcame">Something hard they came through</label>
+    <p class="hint" data-i18n="th_overcame">Only if it's theirs to tell and they'd be happy for it to be mentioned. We'll handle it gently, or leave it out — your call in section 7.</p>
     <textarea data-q="Something they overcame"></textarea>
-    <label>If they heard one thing said about them tonight, what should it be?</label>
+    <label data-i18n="tq_onething">If they heard one thing said about them tonight, what should it be?</label>
     <textarea data-q="The one thing to say"></textarea>
   </div>
 
   <!-- 6 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">6</span><h2>The music</h2></div>
-    <p class="sub">We write the song to suit them, not the charts.</p>
-    <label>Music they love — artists, genres, an era</label>
+    <div class="sec-head"><span class="sec-num">6</span><h2 data-i18n="s6_h">The music</h2></div>
+    <p class="sub" data-i18n="s6_sub">We write the song to suit them, not the charts.</p>
+    <label data-i18n="tq_music">Music they love — artists, genres, an era</label>
     <textarea data-q="Music they love"></textarea>
-    <label>A song that already means something to them <span class="opt">optional</span></label>
+    <label data-i18n="tq_meansong">A song that already means something to them <span class="opt">optional</span></label>
     <input type="text" data-q="Meaningful song">
-    <label>What should their song feel like?</label>
-    <input type="text" data-q="Mood" placeholder="Warm and gentle / upbeat and funny / soulful / gospel / something to dance to">
-    <label>Language — and any words or phrases in another language we should include</label>
-    <textarea data-q="Language" placeholder="English throughout, but his mother always called him..."></textarea>
+    <label data-i18n="tq_mood">What should their song feel like?</label>
+    <input type="text" data-q="Mood" data-i18n-ph="tp_mood" placeholder="Warm and gentle / upbeat and funny / soulful / gospel / something to dance to">
+    <label data-i18n="tq_language">Language — and any words or phrases in another language we should include</label>
+    <textarea data-q="Language" data-i18n-ph="tp_language" placeholder="English throughout, but his mother always called him..."></textarea>
   </div>
 
   <!-- 7 -->
   <div class="sec care">
-    <div class="sec-head"><span class="sec-num">7</span><h2>What to leave out</h2></div>
-    <p class="sub">The most important section on this page. We would far rather know now than get
+    <div class="sec-head"><span class="sec-num">7</span><h2 data-i18n="s7_h">What to leave out</h2></div>
+    <p class="sub" data-i18n="s7_sub">The most important section on this page. We would far rather know now than get
        it wrong in front of a room full of people. Nothing you write here is ever shown to anyone.</p>
-    <label>Anyone who has passed away — and how you'd like them remembered</label>
-    <p class="hint">Named gently, mentioned without naming, or not at all. Tell us which.</p>
+    <label data-i18n="tq_passed">Anyone who has passed away — and how you'd like them remembered</label>
+    <p class="hint" data-i18n="th_passed">Named gently, mentioned without naming, or not at all. Tell us which.</p>
     <textarea data-q="⚠️ Remembering those who have passed" class="tall"></textarea>
-    <label>Anyone who should <em>not</em> be mentioned</label>
-    <p class="hint">Estrangements, divorces, difficult history. No explanation needed — a name is enough.</p>
+    <label data-i18n="tq_nomention">Anyone who should <em>not</em> be mentioned</label>
+    <p class="hint" data-i18n="th_nomention">Estrangements, divorces, difficult history. No explanation needed — a name is enough.</p>
     <textarea data-q="⚠️ Do NOT mention these people"></textarea>
-    <label>Subjects to avoid completely</label>
-    <p class="hint">Health, money, work, a particular period of life, an old nickname they've outgrown.</p>
+    <label data-i18n="tq_avoid">Subjects to avoid completely</label>
+    <p class="hint" data-i18n="th_avoid">Health, money, work, a particular period of life, an old nickname they've outgrown.</p>
     <textarea data-q="⚠️ Subjects to avoid" class="tall"></textarea>
-    <label>Anything that would embarrass or upset them</label>
+    <label data-i18n="tq_upset">Anything that would embarrass or upset them</label>
     <textarea data-q="⚠️ Would upset or embarrass"></textarea>
-    <label>Is there anything you're unsure about? <span class="opt">we'll ask before using it</span></label>
+    <label data-i18n="tq_unsure">Is there anything you're unsure about? <span class="opt">we'll ask before using it</span></label>
     <textarea data-q="⚠️ Unsure about"></textarea>
   </div>
 
   <!-- 8 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">8</span><h2>Photos &amp; the day itself</h2></div>
-    <p class="sub">So the film is cut to the room it's playing in.</p>
-    <div class="hintbox">📷 <b>Photos come after booking.</b> Your project page will give you one private upload link to share with the family: no app, full quality, photos and short videos. Start gathering now.</div>
-    <label>Roughly how many photos can you gather?</label>
-    <input type="text" data-q="Photo count" placeholder="30–60 is ideal — old ones especially">
-    <label>Any video clips? <span class="opt">optional</span></label>
+    <div class="sec-head"><span class="sec-num">8</span><h2 data-i18n="s8_h">Photos &amp; the day itself</h2></div>
+    <p class="sub" data-i18n="s8_sub">So the film is cut to the room it's playing in.</p>
+    <div class="hintbox" data-i18n="s8_box">📷 <b>Photos come after booking.</b> Your project page will give you one private upload link to share with the family: no app, full quality, photos and short videos. Start gathering now.</div>
+    <label data-i18n="tq_photocount">Roughly how many photos can you gather?</label>
+    <input type="text" data-q="Photo count" data-i18n-ph="tp_photocount" placeholder="30–60 is ideal — old ones especially">
+    <label data-i18n="tq_video">Any video clips? <span class="opt">optional</span></label>
     <textarea data-q="Video clips"></textarea>
-    <label>When in the evening will it be played?</label>
-    <input type="text" data-q="When it plays" placeholder="After the meal, instead of the speeches...">
-    <label>What will it play on? <span class="opt">screen, projector, TV — and is there decent sound?</span></label>
+    <label data-i18n="tq_whenplays">When in the evening will it be played?</label>
+    <input type="text" data-q="When it plays" data-i18n-ph="tp_whenplays" placeholder="After the meal, instead of the speeches...">
+    <label data-i18n="tq_screen">What will it play on? <span class="opt">screen, projector, TV — and is there decent sound?</span></label>
     <textarea data-q="Screen and sound"></textarea>
-    <label>Who's our contact on the day, if something needs fixing?</label>
+    <label data-i18n="tq_contact">Who's our contact on the day, if something needs fixing?</label>
     <input type="text" data-q="Contact on the day">
-    <label>Anything else we should know?</label>
+    <label data-i18n="tq_else">Anything else we should know?</label>
     <textarea data-q="Anything else" class="tall"></textarea>
   </div>
 
   <!-- 9 (added Nov 2026 — learned from Brother Sam's 70th) -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">9</span><h2>Getting the details exactly right</h2></div>
-    <p class="sub">Small things that make a big difference when the song is sung out loud.</p>
-    <label>How is each name said? <span class="opt">spell it the way it sounds</span></label>
-    <p class="hint">E.g. “Aderinsola — Ah-day-reen-saw-la”. Include nicknames and the names of children and grandchildren.</p>
+    <div class="sec-head"><span class="sec-num">9</span><h2 data-i18n="s9_h">Getting the details exactly right</h2></div>
+    <p class="sub" data-i18n="s9_sub">Small things that make a big difference when the song is sung out loud.</p>
+    <label data-i18n="tq_pron">How is each name said? <span class="opt">spell it the way it sounds</span></label>
+    <p class="hint" data-i18n="th_pron">E.g. “Aderinsola — Ah-day-reen-saw-la”. Include nicknames and the names of children and grandchildren.</p>
     <textarea data-q="Pronunciation of names" class="tall"></textarea>
-    <label>Words or phrases in another language — what they mean, and how to say them</label>
-    <p class="hint">E.g. “Ọlọ́run ṣé — God has done it — said ‘Or-loor-roon shay’”.</p>
+    <label data-i18n="tq_phrases">Words or phrases in another language — what they mean, and how to say them</label>
+    <p class="hint" data-i18n="th_phrases">E.g. “Ọlọ́run ṣé — God has done it — said ‘Or-loor-roon shay’”.</p>
     <textarea data-q="Phrases, meanings and pronunciation"></textarea>
-    <label>Their actual birthday or anniversary date <span class="opt">if different from the event</span></label>
+    <label data-i18n="tq_bday">Their actual birthday or anniversary date <span class="opt">if different from the event</span></label>
     <input type="date" data-q="Actual birthday or anniversary date">
-    <label>A song whose style you'd love us to follow <span class="opt">a YouTube or Spotify link is perfect</span></label>
+    <label data-i18n="tq_style">A song whose style you'd love us to follow <span class="opt">a YouTube or Spotify link is perfect</span></label>
     <input type="text" data-q="Style reference link">
   </div>
 
@@ -278,6 +279,1308 @@ button[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
 </template>
 
 <script>
+const L={
+en:{
+"eyebrow_start":"Made for you",
+"h1_start":"Start your project",
+"lead_start":"Tell us who it's for and we'll build your plan straight away: your dates, what we need from you, and exactly how each step works. Nothing to pay until you're happy with the plan.",
+"loading":"Loading…",
+"st_choose":"1 · Choose your package",
+"st_switch":"You can switch package any time before you book.",
+"st_ess":"2 · The essentials",
+"st_ess_sub":"So we can build your plan. Everything else comes on the next page, at your own pace.",
+"f_for":"Who is it for? <span class=\"opt\">full name</span>",
+"f_call":"What do people call them?",
+"f_call_ph":"Mummy, Uncle B, Grandpa…",
+"f_occ":"The occasion",
+"f_occ_ph":"70th birthday, wedding, remembrance…",
+"f_date":"Date of the event",
+"f_nodate":"No fixed date",
+"f_you":"Your name",
+"f_rel":"You are their…",
+"f_rel_ph":"daughter, son, friend…",
+"f_email":"Your email",
+"f_wa":"Your WhatsApp number <span class=\"opt\">with country code</span>",
+"f_lang":"Song language",
+"lo_en":"English",
+"lo_yo":"English with Yoruba phrases",
+"lo_ig":"English with Igbo phrases",
+"lo_ha":"English with Hausa phrases",
+"lo_pcm":"English with Pidgin",
+"lo_other":"Other (tell us in the story)",
+"f_mood":"How should it feel?",
+"mo_soul":"Warm soul ballad",
+"mo_afro":"Afrobeats celebration",
+"mo_high":"Highlife, joyful",
+"mo_gospel":"Gospel, uplifting",
+"mo_acoustic":"Gentle acoustic",
+"mo_pop":"Upbeat pop",
+"mo_quiet":"Quiet and reflective",
+"st_create":"Create my project and see my plan →",
+"st_link":"Your project gets a private link. We'll email it to you so you can come back any time, on any device.",
+"launch_price":"launch price",
+"miss_for":"who it is for",
+"miss_occ":"the occasion",
+"miss_date":"the date (or tick “No fixed date”)",
+"miss_you":"your name",
+"miss_email":"a valid email",
+"miss_wa":"your WhatsApp number",
+"err_add":"Please add {list}.",
+"creating":"Creating…",
+"err_create":"Could not create the project. Please try again.",
+"tier_for":"{tier} for {name}",
+"nf_h1":"Project not found",
+"nf_lead":"Please check the link from your email. If it still doesn't work, message us and we'll find it.",
+"them":"them",
+"ey_booked":"{tier} · booked",
+"ey_plan":"{tier} · plan",
+"h1_paid":"{tier} for {who}",
+"h1_plan":"Your plan: {tier} for {who}",
+"lead_paid":"This is your private project page. Everything happens here: drafts, approvals and delivery. Keep this link safe.",
+"lead_plan":"Here is your personal plan. Fill in the story below at your own pace (it saves as you type). When it's complete and you're happy with the plan, book to reserve your date.",
+"round1":"{n} round",
+"round2":"{n} rounds",
+"round5":"{n} rounds",
+"sc_today":"Today",
+"sc_today_t":"You finish the story on this page and book. Your date is reserved once paid.",
+"sc_lyr_t":"First lyrics draft on this page (within 3 working days of booking and a complete story).",
+"sc_5d":"5 days",
+"sc_5d_t":"You approve the lyrics or send one message with all your changes. Included: {r}.",
+"sc_3wd":"+3 work days",
+"sc_3wd_t":"Song versions to choose from, once the lyrics are approved.",
+"sc_photos_t":"All photos uploaded and confirmed final.",
+"sc_photos_t_nd":"All photos uploaded and confirmed final (we'll agree a date with you).",
+"sc_film_t":"Film draft on this page. Included: {r} of changes.",
+"sc_final_t":"Final delivery: film, song, lyrics and gift page.",
+"req_people":"The people around them (at least one name)",
+"req_pron":"How each name is said (or “all names are straightforward”)",
+"req_mem":"A memory that sums them up",
+"req_three":"Three words the family would use",
+"req_loves":"The things they love",
+"req_mood":"What their song should feel like",
+"req_leave":"Section 7: what to leave out (or tick “nothing to leave out”)",
+"req_photos":"Roughly how many photos you can gather",
+"pv_pkg":"Your package",
+"pv_tl":"Your timeline",
+"pv_on":"on {date}",
+"pv_days":"{n} days away",
+"pv_soon_b":"Your date is closer than our standard schedule ({min} days).",
+"pv_soon":"Please message us before booking and we'll tell you honestly whether we can make it:",
+"pv_soon2":"Booking is paused for this date until we confirm.",
+"pv_taste_h":"A taste of their song",
+"pv_taste_sub":"Once you've filled in a few memories, hear the opening lines we'd write. Free, and only takes a minute. Your full lyrics are written by our team after booking.",
+"pv_taste_btn":"✨ Show me the opening lines",
+"pv_note":"<strong>Their story.</strong> This is where the song and film come from, so please be generous. It saves as you type, so do it in a few sittings and share this link with family who know the stories. <b>Section 7 matters most</b>: what to leave out.",
+"pv_nothing":"There is nothing we need to leave out or handle carefully.",
+"pv_book_h":"Book and reserve your date",
+"pv_book_sub":"Before booking we need the essentials, so we can start the moment you pay:",
+"pv_how":"How it works, step by step",
+"rule_lyrics":"<b>Lyrics.</b> You get a draft here. Approve it, or send one message with all your changes ({r} included). <b>Once approved, the words are locked</b> and the song is recorded from them.",
+"rule_song":"<b>Song.</b> You choose your favourite version. One style redo is included before you approve. <b>Once approved, the song is locked.</b>",
+"rule_photos":"<b>Photos.</b> One upload link for the whole family. When you press “photos complete”, the set is locked and the film is built from it.",
+"rule_film":"<b>Film.</b> You get a draft here. {r} of fixes included, using the approved song and photos (timing, order, captions, swaps from your uploads).",
+"rule_reply":"<b>{d} days to reply.</b> Each draft has a {d}-day reply window. We remind you before it ends; if we don't hear back, that stage counts as approved so your date is never at risk.",
+"rule_after":"<b>After approval.</b> Changes to a locked stage aren't included. If something must change, ask and we'll quote first (extra rounds are $29); nothing is done or charged without your OK.",
+"rule_refund":"<b>Refunds.</b> Full refund before your first lyrics draft; 50% after it; none once the song is approved, because it's made for one person. Full details in our <a href=\"terms.html#madeforyou\" target=\"_blank\">terms</a>.",
+"agree":"I've read how it works, and I agree to the stage rules, reply windows and <a href=\"terms.html#madeforyou\" target=\"_blank\">terms</a>.",
+"pay_btn":"Book {tier} · {price} →",
+"pn_paused":"Booking paused until we confirm your date.",
+"pn_ready":"Secure payment by Stripe. Your project continues on this page.",
+"pn_todo":"Complete the items above to book.",
+"saved":"Saved ✓",
+"err_save_conn":"Could not save. Check your connection.",
+"taste_need":"Add a memory or two first (sections 4 and 5).",
+"writing":"Writing…",
+"taste_note":"A first sketch from what you've written so far. After booking, we write the full song with you, line by line.",
+"taste_err":"Couldn't write it just now. Please try again in a minute.",
+"agree_need":"Please tick the box to agree to how it works.",
+"opening":"Opening secure checkout…",
+"stg_lyrics":"1 · Lyrics",
+"stg_song":"2 · Song",
+"stg_photos":"3 · Photos",
+"stg_film":"4 · Film",
+"pd_where":"Where things are",
+"pd_booked":"Booked {ts}",
+"pd_event":"event {date}",
+"pd_reply":"You have {d} days to reply to each draft; we'll remind you.",
+"pd_story_h":"Your story",
+"pd_story_sub":"What you told us before booking. Spotted something wrong (a name, a spelling)? Tell us in your next reply on the lyrics.",
+"pd_show":"Show the story",
+"pd_q":"Questions? <a href=\"mailto:hello@gatherwall.com\">hello@gatherwall.com</a>. For changes, please use the buttons on this page so everything is in one place.",
+"pill_ap":"Approved 🔒 {ts}",
+"pill_auto":"(automatically, after {d} days)",
+"pill_you":"Your turn",
+"pill_wait":"Waiting on the previous step",
+"pill_work":"We're working on it",
+"pill_chg":"Changes received · new version within 3 working days",
+"pill_ready":"Ready for you · reply by {date}",
+"ver":"Version {v}",
+"chosen":"✓ chosen",
+"watch":"▶ Watch film draft (version {v})",
+"ph_link":"📷 Your family upload link",
+"ph_share":"· share it with everyone. Full quality, photos and short videos.",
+"ph_pending":"Your private upload link appears here within 1 working day of booking. Start gathering 30–60 photos, older ones especially.",
+"ph_confirm":"Please confirm by {date}.",
+"ph_confirm_nd":"Please confirm by the date we agree.",
+"btn_photos":"My photos are complete",
+"choose":"I choose Version {v}",
+"ap_song":"Approve this version",
+"ap_lock":"Approve and lock",
+"req_btn":"Request changes ({n} left)",
+"req_lbl":"All your changes in one message",
+"hint_song":"Tell us the style change you'd like (tempo, feel, voice). The words stay as approved.",
+"hint_film":"Timing, photo order, captions, swapping photos from your uploads. The song and the photo set stay as approved.",
+"hint_lyrics":"Be specific: line, what to change, and to what. This counts as one round.",
+"send_chg":"Send my changes",
+"used_up":"Included rounds used. If something must still change, email us and we'll quote before doing anything.",
+"hist":"Your changes ({n}, {ts}): “{text}”",
+"fin_h":"🎁 Delivered {ts}",
+"fin_note":"Please download your files. They stay available for 90 days after delivery.",
+"describe":"Please describe your changes.",
+"cf_send":"Send these changes? This uses one of your included rounds. Please make sure everything is in this one message.",
+"err_send":"Could not send. Please try again.",
+"sent":"Sent. We'll be back with a new version.",
+"cf_lyrics":"Approve the lyrics? The words are then locked and the song is recorded from them. Changes after this are not included.",
+"cf_song":"Approve this version of the song? It is then locked and the film is cut to it.",
+"cf_photos":"Confirm your photos are complete? The set is then locked and the film is built from it. Photos added later are not included.",
+"cf_film":"Approve the film? This is your final sign-off and we prepare your delivery.",
+"err_save":"Could not save. Please try again.",
+"approved":"Approved ✓",
+"cb_project":"PROJECT",
+"cb_call":"Call them",
+"cb_occ":"Occasion",
+"cb_date":"Date",
+"cb_nodate":"no fixed date",
+"cb_from":"From",
+"cb_email":"Email",
+"cb_lang":"Language",
+"cb_feel":"Feel",
+"cb_nothing":"Nothing to leave out (confirmed).",
+"inc_sf1":"An original song written from their story",
+"inc_sf2":"A film of their photos with sing-along lyrics",
+"inc_sf3":"A family upload link for photos",
+"inc_sf4":"1 round of changes on the lyrics and 1 on the film",
+"inc_sf5":"A private gift page for the celebrant",
+"inc_sc1":"Everything in Story Film",
+"inc_sc2":"Two song versions, lyrics in two languages if you like",
+"inc_sc3":"A tribute wall for family and friends worldwide",
+"inc_sc4":"Restoration of treasured old prints",
+"inc_sc5":"Tribute book PDF and a private keepsake page",
+"inc_sc6":"On-the-day kit: screen file, backup and running order",
+"inc_sc7":"2 rounds of changes on the lyrics and 2 on the film",
+"s2_h":"The people around them",
+"s2_sub":"Names are the single most powerful thing in a keepsake song. Hearing your own name sung is what makes people cry. Please give us as many as you can — and tell us how each one is pronounced if it isn't obvious.",
+"tq_partner":"Partner or spouse — name, and how they met",
+"tp_partner":"Where, when, who spoke first, what he says about it now...",
+"tq_children":"Children — names, in order",
+"tp_children":"Name, roughly what they do or what they're like. One line each is plenty.",
+"tq_grand":"Grandchildren — names <span class=\"opt\">optional</span>",
+"tq_siblings":"Brothers, sisters, and anyone who counts as family",
+"tq_friends":"Closest friends who'll be in the room",
+"s3_h":"Where they come from",
+"s3_sub":"The history. Parents, home, the road that got them here.",
+"tq_born":"Where were they born, and where did they grow up?",
+"tq_parents":"Their parents — names, and what they were like",
+"th_parents":"If either has passed away, say so here and tell us in section 7 how you'd like them honoured.",
+"tq_famback":"What did the family do? What was life like then?",
+"tq_edu":"School, training, work — the path they took",
+"tq_places":"Places they've lived, or moved between",
+"tq_faith":"Faith, church or community life <span class=\"opt\">optional, but often the heart of it</span>",
+"s4_h":"Who they actually are",
+"s4_sub":"This is the section that stops the song sounding like anyone else's.",
+"tq_three":"Three words the family would use about them",
+"tq_saying":"Something they always say <span class=\"opt\">a phrase, a piece of advice, a telling-off</span>",
+"tq_laugh":"What makes everyone laugh about them?",
+"tp_laugh":"The habit, the quirk, the thing they'd deny.",
+"tq_proud":"What are they proudest of?",
+"tq_quiet":"What would they never boast about — but should?",
+"tq_loves":"Food, music, teams, hobbies, the things they love",
+"s5_h":"The moments",
+"s5_sub":"Two or three real stories beat a page of adjectives. Small ones are best.",
+"tq_memory":"A memory that sums them up",
+"tq_funny":"A funny story the room would recognise",
+"tq_overcame":"Something hard they came through",
+"th_overcame":"Only if it's theirs to tell and they'd be happy for it to be mentioned. We'll handle it gently, or leave it out — your call in section 7.",
+"tq_onething":"If they heard one thing said about them tonight, what should it be?",
+"s6_h":"The music",
+"s6_sub":"We write the song to suit them, not the charts.",
+"tq_music":"Music they love — artists, genres, an era",
+"tq_meansong":"A song that already means something to them <span class=\"opt\">optional</span>",
+"tq_mood":"What should their song feel like?",
+"tp_mood":"Warm and gentle / upbeat and funny / soulful / gospel / something to dance to",
+"tq_language":"Language — and any words or phrases in another language we should include",
+"tp_language":"English throughout, but his mother always called him...",
+"s7_h":"What to leave out",
+"s7_sub":"The most important section on this page. We would far rather know now than get it wrong in front of a room full of people. Nothing you write here is ever shown to anyone.",
+"tq_passed":"Anyone who has passed away — and how you'd like them remembered",
+"th_passed":"Named gently, mentioned without naming, or not at all. Tell us which.",
+"tq_nomention":"Anyone who should <em>not</em> be mentioned",
+"th_nomention":"Estrangements, divorces, difficult history. No explanation needed — a name is enough.",
+"tq_avoid":"Subjects to avoid completely",
+"th_avoid":"Health, money, work, a particular period of life, an old nickname they've outgrown.",
+"tq_upset":"Anything that would embarrass or upset them",
+"tq_unsure":"Is there anything you're unsure about? <span class=\"opt\">we'll ask before using it</span>",
+"s8_h":"Photos &amp; the day itself",
+"s8_sub":"So the film is cut to the room it's playing in.",
+"s8_box":"📷 <b>Photos come after booking.</b> Your project page will give you one private upload link to share with the family: no app, full quality, photos and short videos. Start gathering now.",
+"tq_photocount":"Roughly how many photos can you gather?",
+"tp_photocount":"30–60 is ideal — old ones especially",
+"tq_video":"Any video clips? <span class=\"opt\">optional</span>",
+"tq_whenplays":"When in the evening will it be played?",
+"tp_whenplays":"After the meal, instead of the speeches...",
+"tq_screen":"What will it play on? <span class=\"opt\">screen, projector, TV — and is there decent sound?</span>",
+"tq_contact":"Who's our contact on the day, if something needs fixing?",
+"tq_else":"Anything else we should know?",
+"s9_h":"Getting the details exactly right",
+"s9_sub":"Small things that make a big difference when the song is sung out loud.",
+"tq_pron":"How is each name said? <span class=\"opt\">spell it the way it sounds</span>",
+"th_pron":"E.g. “Aderinsola — Ah-day-reen-saw-la”. Include nicknames and the names of children and grandchildren.",
+"tq_phrases":"Words or phrases in another language — what they mean, and how to say them",
+"th_phrases":"E.g. “Ọlọ́run ṣé — God has done it — said ‘Or-loor-roon shay’”.",
+"tq_bday":"Their actual birthday or anniversary date <span class=\"opt\">if different from the event</span>",
+"tq_style":"A song whose style you'd love us to follow <span class=\"opt\">a YouTube or Spotify link is perfect</span>"
+},
+fr:{
+"eyebrow_start":"Fait pour vous",
+"h1_start":"Lancez votre projet",
+"lead_start":"Dites-nous à qui il est destiné et nous créons votre plan tout de suite : vos dates, ce dont nous avons besoin de votre part, et le détail de chaque étape. Rien à payer tant que le plan ne vous convient pas.",
+"loading":"Chargement…",
+"st_choose":"1 · Choisissez votre formule",
+"st_switch":"Vous pouvez changer de formule à tout moment avant de réserver.",
+"st_ess":"2 · L'essentiel",
+"st_ess_sub":"Pour que nous puissions établir votre plan. Tout le reste vient à la page suivante, à votre rythme.",
+"f_for":"Pour qui est-ce ? <span class=\"opt\">nom complet</span>",
+"f_call":"Comment l'appelle-t-on ?",
+"f_call_ph":"Maman, Tonton B, Papi…",
+"f_occ":"L'occasion",
+"f_occ_ph":"70 ans, mariage, hommage…",
+"f_date":"Date de l'événement",
+"f_nodate":"Pas de date fixe",
+"f_you":"Votre nom",
+"f_rel":"Vous êtes son/sa…",
+"f_rel_ph":"fille, fils, ami·e…",
+"f_email":"Votre e-mail",
+"f_wa":"Votre numéro WhatsApp <span class=\"opt\">avec l'indicatif du pays</span>",
+"f_lang":"Langue de la chanson",
+"lo_en":"Anglais",
+"lo_yo":"Anglais avec des expressions yoruba",
+"lo_ig":"Anglais avec des expressions igbo",
+"lo_ha":"Anglais avec des expressions haoussa",
+"lo_pcm":"Anglais avec du pidgin",
+"lo_other":"Autre (précisez-le dans l'histoire)",
+"f_mood":"Quelle ambiance ?",
+"mo_soul":"Ballade soul chaleureuse",
+"mo_afro":"Fête afrobeats",
+"mo_high":"Highlife, joyeux",
+"mo_gospel":"Gospel, porteur",
+"mo_acoustic":"Acoustique tout en douceur",
+"mo_pop":"Pop entraînante",
+"mo_quiet":"Calme et méditatif",
+"st_create":"Créer mon projet et voir mon plan →",
+"st_link":"Votre projet a un lien privé. Nous vous l'envoyons par e-mail pour que vous puissiez revenir à tout moment, sur n'importe quel appareil.",
+"launch_price":"prix de lancement",
+"miss_for":"pour qui c'est",
+"miss_occ":"l'occasion",
+"miss_date":"la date (ou cochez « Pas de date fixe »)",
+"miss_you":"votre nom",
+"miss_email":"une adresse e-mail valide",
+"miss_wa":"votre numéro WhatsApp",
+"err_add":"Merci d'indiquer : {list}.",
+"creating":"Création…",
+"err_create":"Impossible de créer le projet. Veuillez réessayer.",
+"tier_for":"{tier} pour {name}",
+"nf_h1":"Projet introuvable",
+"nf_lead":"Vérifiez le lien reçu par e-mail. Si cela ne fonctionne toujours pas, écrivez-nous et nous le retrouverons.",
+"them":"cette personne",
+"ey_booked":"{tier} · réservé",
+"ey_plan":"{tier} · plan",
+"h1_paid":"{tier} pour {who}",
+"h1_plan":"Votre plan : {tier} pour {who}",
+"lead_paid":"Voici la page privée de votre projet. Tout se passe ici : brouillons, validations et livraison. Conservez précieusement ce lien.",
+"lead_plan":"Voici votre plan personnel. Remplissez l'histoire ci-dessous à votre rythme (elle s'enregistre au fil de la saisie). Quand elle est complète et que le plan vous convient, réservez pour bloquer votre date.",
+"round1":"{n} tour",
+"round2":"{n} tours",
+"round5":"{n} tours",
+"sc_today":"Aujourd'hui",
+"sc_today_t":"Vous complétez l'histoire sur cette page et vous réservez. Votre date est bloquée dès le paiement.",
+"sc_lyr_t":"Premier brouillon des paroles sur cette page (sous 3 jours ouvrés après la réservation et une histoire complète).",
+"sc_5d":"5 jours",
+"sc_5d_t":"Vous validez les paroles ou envoyez un seul message avec toutes vos modifications. Inclus : {r}.",
+"sc_3wd":"+3 jours ouvrés",
+"sc_3wd_t":"Des versions de la chanson au choix, une fois les paroles validées.",
+"sc_photos_t":"Toutes les photos envoyées et confirmées comme définitives.",
+"sc_photos_t_nd":"Toutes les photos envoyées et confirmées comme définitives (nous conviendrons d'une date avec vous).",
+"sc_film_t":"Brouillon du film sur cette page. Inclus : {r} de modifications.",
+"sc_final_t":"Livraison finale : film, chanson, paroles et page cadeau.",
+"req_people":"Son entourage (au moins un nom)",
+"req_pron":"La prononciation de chaque nom (ou « tous les noms sont simples »)",
+"req_mem":"Un souvenir qui le/la résume",
+"req_three":"Trois mots que la famille utiliserait",
+"req_loves":"Ce qu'il/elle aime",
+"req_mood":"L'ambiance de sa chanson",
+"req_leave":"Section 7 : ce qu'il faut éviter (ou cochez « rien à éviter »)",
+"req_photos":"Le nombre approximatif de photos que vous pouvez réunir",
+"pv_pkg":"Votre formule",
+"pv_tl":"Votre calendrier",
+"pv_on":"le {date}",
+"pv_days":"dans {n} jours",
+"pv_soon_b":"Votre date est plus proche que notre calendrier standard ({min} jours).",
+"pv_soon":"Écrivez-nous avant de réserver et nous vous dirons honnêtement si c'est faisable :",
+"pv_soon2":"La réservation est suspendue pour cette date jusqu'à notre confirmation.",
+"pv_taste_h":"Un avant-goût de sa chanson",
+"pv_taste_sub":"Dès que vous avez noté quelques souvenirs, découvrez les premières lignes que nous écririons. Gratuit, et cela ne prend qu'une minute. Les paroles complètes sont écrites par notre équipe après la réservation.",
+"pv_taste_btn":"✨ Montrez-moi les premières lignes",
+"pv_note":"<strong>Son histoire.</strong> C'est d'ici que naissent la chanson et le film, alors n'hésitez pas à être généreux. Tout s'enregistre au fil de la saisie : faites-le en plusieurs fois et partagez ce lien avec les proches qui connaissent les histoires. <b>La section 7 est la plus importante</b> : ce qu'il faut éviter.",
+"pv_nothing":"Il n'y a rien à éviter ni à traiter avec précaution.",
+"pv_book_h":"Réservez et bloquez votre date",
+"pv_book_sub":"Avant la réservation, il nous faut l'essentiel pour pouvoir commencer dès votre paiement :",
+"pv_how":"Comment ça marche, étape par étape",
+"rule_lyrics":"<b>Paroles.</b> Vous recevez un brouillon ici. Validez-le, ou envoyez un seul message avec toutes vos modifications ({r} inclus). <b>Une fois validées, les paroles sont verrouillées</b> et la chanson est enregistrée à partir d'elles.",
+"rule_song":"<b>Chanson.</b> Vous choisissez votre version préférée. Une reprise du style est incluse avant votre validation. <b>Une fois validée, la chanson est verrouillée.</b>",
+"rule_photos":"<b>Photos.</b> Un seul lien d'envoi pour toute la famille. Quand vous cliquez sur « photos complètes », l'ensemble est verrouillé et le film est construit à partir de celui-ci.",
+"rule_film":"<b>Film.</b> Vous recevez un brouillon ici. {r} de retouches inclus, avec la chanson et les photos validées (rythme, ordre, légendes, remplacement de photos parmi vos envois).",
+"rule_reply":"<b>{d} jours pour répondre.</b> Chaque brouillon a un délai de réponse de {d} jours. Nous vous le rappelons avant la fin ; sans réponse de votre part, l'étape est considérée comme validée, pour que votre date ne soit jamais compromise.",
+"rule_after":"<b>Après validation.</b> Les modifications d'une étape verrouillée ne sont pas incluses. Si quelque chose doit changer, demandez-nous et nous vous ferons d'abord un devis (tour supplémentaire : 29 $) ; rien n'est fait ni facturé sans votre accord.",
+"rule_refund":"<b>Remboursements.</b> Remboursement intégral avant votre premier brouillon de paroles ; 50 % après ; aucun une fois la chanson validée, car elle est créée pour une seule personne. Tous les détails dans nos <a href=\"terms.html#madeforyou\" target=\"_blank\">conditions</a>.",
+"agree":"J'ai lu comment ça marche et j'accepte les règles des étapes, les délais de réponse et les <a href=\"terms.html#madeforyou\" target=\"_blank\">conditions</a>.",
+"pay_btn":"Réserver {tier} · {price} →",
+"pn_paused":"Réservation suspendue jusqu'à la confirmation de votre date.",
+"pn_ready":"Paiement sécurisé par Stripe. Votre projet continue sur cette page.",
+"pn_todo":"Complétez les éléments ci-dessus pour réserver.",
+"saved":"Enregistré ✓",
+"err_save_conn":"Enregistrement impossible. Vérifiez votre connexion.",
+"taste_need":"Ajoutez d'abord un ou deux souvenirs (sections 4 et 5).",
+"writing":"Écriture…",
+"taste_note":"Une première esquisse à partir de ce que vous avez écrit jusqu'ici. Après la réservation, nous écrivons la chanson complète avec vous, ligne par ligne.",
+"taste_err":"Impossible de l'écrire pour l'instant. Réessayez dans une minute.",
+"agree_need":"Cochez la case pour accepter le fonctionnement.",
+"opening":"Ouverture du paiement sécurisé…",
+"stg_lyrics":"1 · Paroles",
+"stg_song":"2 · Chanson",
+"stg_photos":"3 · Photos",
+"stg_film":"4 · Film",
+"pd_where":"Où en est-on",
+"pd_booked":"Réservé le {ts}",
+"pd_event":"événement le {date}",
+"pd_reply":"Vous avez {d} jours pour répondre à chaque brouillon ; nous vous le rappellerons.",
+"pd_story_h":"Votre histoire",
+"pd_story_sub":"Ce que vous nous avez dit avant la réservation. Vous avez repéré une erreur (un nom, une orthographe) ? Signalez-la dans votre prochaine réponse sur les paroles.",
+"pd_show":"Afficher l'histoire",
+"pd_q":"Des questions ? <a href=\"mailto:hello@gatherwall.com\">hello@gatherwall.com</a>. Pour les modifications, utilisez les boutons de cette page afin que tout soit au même endroit.",
+"pill_ap":"Validé 🔒 {ts}",
+"pill_auto":"(automatiquement, après {d} jours)",
+"pill_you":"À vous",
+"pill_wait":"En attente de l'étape précédente",
+"pill_work":"Nous y travaillons",
+"pill_chg":"Modifications reçues · nouvelle version sous 3 jours ouvrés",
+"pill_ready":"Prêt pour vous · répondez avant le {date}",
+"ver":"Version {v}",
+"chosen":"✓ choisie",
+"watch":"▶ Voir le brouillon du film (version {v})",
+"ph_link":"📷 Votre lien d'envoi familial",
+"ph_share":"· partagez-le avec tout le monde. Pleine qualité, photos et courtes vidéos.",
+"ph_pending":"Votre lien d'envoi privé apparaît ici sous 1 jour ouvré après la réservation. Commencez à réunir 30 à 60 photos, surtout des anciennes.",
+"ph_confirm":"Merci de confirmer avant le {date}.",
+"ph_confirm_nd":"Merci de confirmer avant la date convenue.",
+"btn_photos":"Mes photos sont complètes",
+"choose":"Je choisis la version {v}",
+"ap_song":"Valider cette version",
+"ap_lock":"Valider et verrouiller",
+"req_btn":"Demander des modifications (reste : {n})",
+"req_lbl":"Toutes vos modifications en un seul message",
+"hint_song":"Dites-nous quel changement de style vous souhaitez (tempo, ambiance, voix). Les paroles restent telles que validées.",
+"hint_film":"Rythme, ordre des photos, légendes, remplacement de photos parmi vos envois. La chanson et l'ensemble de photos restent tels que validés.",
+"hint_lyrics":"Soyez précis : la ligne, ce qu'il faut changer, et par quoi. Cela compte pour un tour.",
+"send_chg":"Envoyer mes modifications",
+"used_up":"Tours inclus utilisés. Si quelque chose doit encore changer, écrivez-nous et nous vous ferons un devis avant toute intervention.",
+"hist":"Vos modifications ({n}, {ts}) : « {text} »",
+"fin_h":"🎁 Livré le {ts}",
+"fin_note":"Pensez à télécharger vos fichiers. Ils restent disponibles 90 jours après la livraison.",
+"describe":"Merci de décrire vos modifications.",
+"cf_send":"Envoyer ces modifications ? Cela utilise l'un de vos tours inclus. Assurez-vous que tout figure dans ce seul message.",
+"err_send":"Envoi impossible. Veuillez réessayer.",
+"sent":"Envoyé. Nous revenons vers vous avec une nouvelle version.",
+"cf_lyrics":"Valider les paroles ? Elles seront alors verrouillées et la chanson sera enregistrée à partir d'elles. Les modifications ultérieures ne sont pas incluses.",
+"cf_song":"Valider cette version de la chanson ? Elle sera alors verrouillée et le film sera monté dessus.",
+"cf_photos":"Confirmer que vos photos sont complètes ? L'ensemble sera alors verrouillé et le film construit à partir de celui-ci. Les photos ajoutées ensuite ne sont pas incluses.",
+"cf_film":"Valider le film ? C'est votre validation finale et nous préparons votre livraison.",
+"err_save":"Enregistrement impossible. Veuillez réessayer.",
+"approved":"Validé ✓",
+"cb_project":"PROJET",
+"cb_call":"Surnom",
+"cb_occ":"Occasion",
+"cb_date":"Date",
+"cb_nodate":"pas de date fixe",
+"cb_from":"De la part de",
+"cb_email":"E-mail",
+"cb_lang":"Langue",
+"cb_feel":"Ambiance",
+"cb_nothing":"Rien à éviter (confirmé).",
+"inc_sf1":"Une chanson originale écrite à partir de son histoire",
+"inc_sf2":"Un film de ses photos avec les paroles à chanter",
+"inc_sf3":"Un lien d'envoi familial pour les photos",
+"inc_sf4":"1 tour de modifications sur les paroles et 1 sur le film",
+"inc_sf5":"Une page cadeau privée pour la personne fêtée",
+"inc_sc1":"Tout le contenu de Story Film",
+"inc_sc2":"Deux versions de la chanson, avec des paroles en deux langues si vous le souhaitez",
+"inc_sc3":"Un mur d'hommages pour la famille et les amis du monde entier",
+"inc_sc4":"Restauration de précieux tirages anciens",
+"inc_sc5":"Livre d'hommages en PDF et une page souvenir privée",
+"inc_sc6":"Kit pour le jour J : fichier pour l'écran, copie de secours et déroulé",
+"inc_sc7":"2 tours de modifications sur les paroles et 2 sur le film",
+"s2_h":"Son entourage",
+"s2_sub":"Les prénoms sont ce qu'il y a de plus fort dans une chanson souvenir. Entendre son propre prénom chanté, c'est ce qui fait pleurer. Donnez-nous-en autant que possible — et dites-nous comment chacun se prononce si ce n'est pas évident.",
+"tq_partner":"Conjoint ou partenaire — prénom, et comment ils se sont rencontrés",
+"tp_partner":"Où, quand, qui a parlé en premier, ce qu'il en dit aujourd'hui...",
+"tq_children":"Enfants — prénoms, dans l'ordre",
+"tp_children":"Prénom, en gros ce qu'ils font ou comment ils sont. Une ligne chacun suffit.",
+"tq_grand":"Petits-enfants — prénoms <span class=\"opt\">facultatif</span>",
+"tq_siblings":"Frères, sœurs, et tous ceux qui comptent comme la famille",
+"tq_friends":"Les amis les plus proches qui seront présents",
+"s3_h":"D'où il/elle vient",
+"s3_sub":"L'histoire. Les parents, la maison, le chemin parcouru jusqu'ici.",
+"tq_born":"Où est-il/elle né·e, et où a-t-il/elle grandi ?",
+"tq_parents":"Ses parents — prénoms, et comment ils étaient",
+"th_parents":"Si l'un d'eux est décédé, indiquez-le ici et dites-nous à la section 7 comment vous souhaitez lui rendre hommage.",
+"tq_famback":"Que faisait la famille ? À quoi ressemblait la vie à l'époque ?",
+"tq_edu":"École, formation, travail — le chemin suivi",
+"tq_places":"Les lieux où il/elle a vécu, ou entre lesquels il/elle a bougé",
+"tq_faith":"Foi, église ou vie communautaire <span class=\"opt\">facultatif, mais souvent le cœur de tout</span>",
+"s4_h":"Qui il/elle est vraiment",
+"s4_sub":"C'est la section qui fait que la chanson ne ressemble à aucune autre.",
+"tq_three":"Trois mots que la famille utiliserait pour le/la décrire",
+"tq_saying":"Une chose qu'il/elle dit toujours <span class=\"opt\">une expression, un conseil, un sermon</span>",
+"tq_laugh":"Qu'est-ce qui fait rire tout le monde chez lui/elle ?",
+"tp_laugh":"L'habitude, la manie, ce qu'il/elle nierait.",
+"tq_proud":"De quoi est-il/elle le plus fier/fière ?",
+"tq_quiet":"De quoi ne se vanterait-il/elle jamais — alors qu'il le faudrait ?",
+"tq_loves":"Cuisine, musique, équipes, loisirs, ce qu'il/elle aime",
+"s5_h":"Les moments",
+"s5_sub":"Deux ou trois vraies histoires valent mieux qu'une page d'adjectifs. Les petites sont les meilleures.",
+"tq_memory":"Un souvenir qui le/la résume",
+"tq_funny":"Une histoire drôle que l'assemblée reconnaîtrait",
+"tq_overcame":"Une épreuve qu'il/elle a surmontée",
+"th_overcame":"Seulement si c'est à lui/elle de la raconter et qu'il/elle serait d'accord pour qu'on l'évoque. Nous la traiterons avec délicatesse, ou la laisserons de côté — à vous de décider à la section 7.",
+"tq_onething":"S'il/elle ne devait entendre qu'une chose à son sujet ce soir, que serait-elle ?",
+"s6_h":"La musique",
+"s6_sub":"Nous écrivons la chanson à son image, pas à celle des hit-parades.",
+"tq_music":"La musique qu'il/elle aime — artistes, genres, une époque",
+"tq_meansong":"Une chanson qui compte déjà pour lui/elle <span class=\"opt\">facultatif</span>",
+"tq_mood":"Quelle ambiance pour sa chanson ?",
+"tp_mood":"Douce et chaleureuse / entraînante et drôle / soul / gospel / de quoi danser",
+"tq_language":"Langue — et les mots ou expressions dans une autre langue à inclure",
+"tp_language":"En anglais du début à la fin, mais sa mère l'appelait toujours...",
+"s7_h":"Ce qu'il faut éviter",
+"s7_sub":"La section la plus importante de cette page. Nous préférons de loin le savoir maintenant plutôt que de nous tromper devant toute une salle. Rien de ce que vous écrivez ici n'est jamais montré à qui que ce soit.",
+"tq_passed":"Les personnes disparues — et comment vous souhaitez qu'on s'en souvienne",
+"th_passed":"Nommées avec délicatesse, évoquées sans être nommées, ou pas du tout. Dites-nous laquelle.",
+"tq_nomention":"Les personnes à <em>ne pas</em> mentionner",
+"th_nomention":"Brouilles, divorces, histoire difficile. Pas besoin d'explication — un nom suffit.",
+"tq_avoid":"Les sujets à éviter complètement",
+"th_avoid":"Santé, argent, travail, une période particulière de la vie, un vieux surnom dépassé.",
+"tq_upset":"Tout ce qui pourrait le/la gêner ou le/la blesser",
+"tq_unsure":"Y a-t-il quelque chose dont vous n'êtes pas sûr ? <span class=\"opt\">nous demanderons avant de l'utiliser</span>",
+"s8_h":"Les photos &amp; le jour J",
+"s8_sub":"Pour que le film soit adapté à la salle où il sera projeté.",
+"s8_box":"📷 <b>Les photos viennent après la réservation.</b> La page de votre projet vous donnera un lien d'envoi privé à partager avec la famille : sans application, en pleine qualité, photos et courtes vidéos. Commencez à les réunir dès maintenant.",
+"tq_photocount":"Environ combien de photos pouvez-vous réunir ?",
+"tp_photocount":"30 à 60, c'est idéal — surtout des anciennes",
+"tq_video":"Des extraits vidéo ? <span class=\"opt\">facultatif</span>",
+"tq_whenplays":"À quel moment de la soirée sera-t-il diffusé ?",
+"tp_whenplays":"Après le repas, à la place des discours...",
+"tq_screen":"Sur quoi sera-t-il diffusé ? <span class=\"opt\">écran, projecteur, TV — et le son est-il correct ?</span>",
+"tq_contact":"Qui est notre contact le jour J, si quelque chose doit être réglé ?",
+"tq_else":"Autre chose que nous devrions savoir ?",
+"s9_h":"Des détails parfaitement justes",
+"s9_sub":"De petites choses qui font une grande différence quand la chanson est chantée à voix haute.",
+"tq_pron":"Comment se prononce chaque nom ? <span class=\"opt\">écrivez-le comme il se prononce</span>",
+"th_pron":"Par ex. « Aderinsola — A-dé-rine-so-la ». Incluez les surnoms et les prénoms des enfants et petits-enfants.",
+"tq_phrases":"Mots ou expressions dans une autre langue — ce qu'ils signifient et comment les dire",
+"th_phrases":"Par ex. « Ọlọ́run ṣé — Dieu l'a fait — prononcé ‘O-lo-roune ché’ ».",
+"tq_bday":"Sa vraie date d'anniversaire (naissance ou mariage) <span class=\"opt\">si différente de l'événement</span>",
+"tq_style":"Une chanson dont vous aimeriez qu'on suive le style <span class=\"opt\">un lien YouTube ou Spotify est parfait</span>"
+},
+es:{
+"eyebrow_start":"Hecho para ti",
+"h1_start":"Empieza tu proyecto",
+"lead_start":"Cuéntanos para quién es y prepararemos tu plan al momento: tus fechas, lo que necesitamos de ti y cómo funciona exactamente cada paso. No pagas nada hasta que el plan te convenza.",
+"loading":"Cargando…",
+"st_choose":"1 · Elige tu paquete",
+"st_switch":"Puedes cambiar de paquete en cualquier momento antes de reservar.",
+"st_ess":"2 · Lo esencial",
+"st_ess_sub":"Para poder preparar tu plan. Todo lo demás viene en la página siguiente, a tu ritmo.",
+"f_for":"¿Para quién es? <span class=\"opt\">nombre completo</span>",
+"f_call":"¿Cómo le llama la gente?",
+"f_call_ph":"Mamá, tío B, abuelo…",
+"f_occ":"La ocasión",
+"f_occ_ph":"70 cumpleaños, boda, homenaje…",
+"f_date":"Fecha del evento",
+"f_nodate":"Sin fecha fija",
+"f_you":"Tu nombre",
+"f_rel":"Eres su…",
+"f_rel_ph":"hija, hijo, amigo…",
+"f_email":"Tu correo electrónico",
+"f_wa":"Tu número de WhatsApp <span class=\"opt\">con prefijo del país</span>",
+"f_lang":"Idioma de la canción",
+"lo_en":"Inglés",
+"lo_yo":"Inglés con frases en yoruba",
+"lo_ig":"Inglés con frases en igbo",
+"lo_ha":"Inglés con frases en hausa",
+"lo_pcm":"Inglés con pidgin",
+"lo_other":"Otro (cuéntanoslo en la historia)",
+"f_mood":"¿Cómo debería sentirse?",
+"mo_soul":"Balada soul cálida",
+"mo_afro":"Fiesta afrobeats",
+"mo_high":"Highlife, alegre",
+"mo_gospel":"Gospel, inspirador",
+"mo_acoustic":"Acústico y suave",
+"mo_pop":"Pop animado",
+"mo_quiet":"Tranquilo y reflexivo",
+"st_create":"Crear mi proyecto y ver mi plan →",
+"st_link":"Tu proyecto tiene un enlace privado. Te lo enviaremos por correo para que puedas volver cuando quieras, desde cualquier dispositivo.",
+"launch_price":"precio de lanzamiento",
+"miss_for":"para quién es",
+"miss_occ":"la ocasión",
+"miss_date":"la fecha (o marca «Sin fecha fija»)",
+"miss_you":"tu nombre",
+"miss_email":"un correo electrónico válido",
+"miss_wa":"tu número de WhatsApp",
+"err_add":"Por favor, añade: {list}.",
+"creating":"Creando…",
+"err_create":"No se pudo crear el proyecto. Inténtalo de nuevo.",
+"tier_for":"{tier} para {name}",
+"nf_h1":"Proyecto no encontrado",
+"nf_lead":"Revisa el enlace de tu correo. Si sigue sin funcionar, escríbenos y lo encontraremos.",
+"them":"esa persona",
+"ey_booked":"{tier} · reservado",
+"ey_plan":"{tier} · plan",
+"h1_paid":"{tier} para {who}",
+"h1_plan":"Tu plan: {tier} para {who}",
+"lead_paid":"Esta es la página privada de tu proyecto. Aquí ocurre todo: borradores, aprobaciones y entrega. Guarda bien este enlace.",
+"lead_plan":"Este es tu plan personal. Completa la historia de abajo a tu ritmo (se guarda mientras escribes). Cuando esté completa y el plan te convenza, reserva para asegurar tu fecha.",
+"round1":"{n} ronda",
+"round2":"{n} rondas",
+"round5":"{n} rondas",
+"sc_today":"Hoy",
+"sc_today_t":"Completas la historia en esta página y reservas. Tu fecha queda reservada una vez pagada.",
+"sc_lyr_t":"Primer borrador de la letra en esta página (en 3 días laborables desde la reserva y con la historia completa).",
+"sc_5d":"5 días",
+"sc_5d_t":"Apruebas la letra o envías un solo mensaje con todos tus cambios. Incluido: {r}.",
+"sc_3wd":"+3 días laborables",
+"sc_3wd_t":"Versiones de la canción para elegir, una vez aprobada la letra.",
+"sc_photos_t":"Todas las fotos subidas y confirmadas como definitivas.",
+"sc_photos_t_nd":"Todas las fotos subidas y confirmadas como definitivas (acordaremos una fecha contigo).",
+"sc_film_t":"Borrador del vídeo en esta página. Incluido: {r} de cambios.",
+"sc_final_t":"Entrega final: vídeo, canción, letra y página de regalo.",
+"req_people":"Las personas de su vida (al menos un nombre)",
+"req_pron":"Cómo se pronuncia cada nombre (o «todos los nombres son sencillos»)",
+"req_mem":"Un recuerdo que lo resuma",
+"req_three":"Tres palabras que usaría la familia",
+"req_loves":"Las cosas que le encantan",
+"req_mood":"Cómo debería sentirse su canción",
+"req_leave":"Sección 7: qué evitar (o marca «no hay nada que evitar»)",
+"req_photos":"Cuántas fotos puedes reunir, aproximadamente",
+"pv_pkg":"Tu paquete",
+"pv_tl":"Tu calendario",
+"pv_on":"el {date}",
+"pv_days":"faltan {n} días",
+"pv_soon_b":"Tu fecha está más cerca que nuestro calendario estándar ({min} días).",
+"pv_soon":"Escríbenos antes de reservar y te diremos con sinceridad si podemos llegar a tiempo:",
+"pv_soon2":"La reserva para esta fecha queda en pausa hasta que lo confirmemos.",
+"pv_taste_h":"Un adelanto de su canción",
+"pv_taste_sub":"En cuanto hayas escrito algunos recuerdos, escucha las primeras líneas que escribiríamos. Gratis, y solo lleva un minuto. La letra completa la escribe nuestro equipo después de la reserva.",
+"pv_taste_btn":"✨ Muéstrame las primeras líneas",
+"pv_note":"<strong>Su historia.</strong> De aquí nacen la canción y el vídeo, así que no te quedes corto. Se guarda mientras escribes: hazlo en varias sesiones y comparte este enlace con los familiares que conocen las historias. <b>La sección 7 es la más importante</b>: qué evitar.",
+"pv_nothing":"No hay nada que debamos evitar ni tratar con especial cuidado.",
+"pv_book_h":"Reserva y asegura tu fecha",
+"pv_book_sub":"Antes de reservar necesitamos lo esencial, para poder empezar en cuanto pagues:",
+"pv_how":"Cómo funciona, paso a paso",
+"rule_lyrics":"<b>Letra.</b> Recibes un borrador aquí. Apruébalo o envía un solo mensaje con todos tus cambios (incluye {r}). <b>Una vez aprobada, la letra queda bloqueada</b> y la canción se graba a partir de ella.",
+"rule_song":"<b>Canción.</b> Eliges tu versión favorita. Se incluye un cambio de estilo antes de que la apruebes. <b>Una vez aprobada, la canción queda bloqueada.</b>",
+"rule_photos":"<b>Fotos.</b> Un único enlace de subida para toda la familia. Cuando pulsas «fotos completas», el conjunto queda bloqueado y el vídeo se crea a partir de él.",
+"rule_film":"<b>Vídeo.</b> Recibes un borrador aquí. Incluye {r} de ajustes, con la canción y las fotos aprobadas (ritmo, orden, textos, cambio de fotos entre las que subiste).",
+"rule_reply":"<b>{d} días para responder.</b> Cada borrador tiene un plazo de respuesta de {d} días. Te lo recordamos antes de que termine; si no sabemos nada de ti, esa etapa se considera aprobada para que tu fecha nunca corra peligro.",
+"rule_after":"<b>Después de aprobar.</b> Los cambios en una etapa bloqueada no están incluidos. Si algo tiene que cambiar, pídenoslo y primero te daremos un presupuesto (cada ronda extra cuesta 29 $); no se hace ni se cobra nada sin tu visto bueno.",
+"rule_refund":"<b>Reembolsos.</b> Reembolso completo antes del primer borrador de la letra; 50 % después; ninguno una vez aprobada la canción, porque está hecha para una sola persona. Todos los detalles en nuestras <a href=\"terms.html#madeforyou\" target=\"_blank\">condiciones</a>.",
+"agree":"He leído cómo funciona y acepto las reglas de cada etapa, los plazos de respuesta y las <a href=\"terms.html#madeforyou\" target=\"_blank\">condiciones</a>.",
+"pay_btn":"Reservar {tier} · {price} →",
+"pn_paused":"Reserva en pausa hasta que confirmemos tu fecha.",
+"pn_ready":"Pago seguro con Stripe. Tu proyecto continúa en esta página.",
+"pn_todo":"Completa los puntos de arriba para reservar.",
+"saved":"Guardado ✓",
+"err_save_conn":"No se pudo guardar. Revisa tu conexión.",
+"taste_need":"Añade primero un recuerdo o dos (secciones 4 y 5).",
+"writing":"Escribiendo…",
+"taste_note":"Un primer boceto con lo que has escrito hasta ahora. Después de reservar, escribimos contigo la canción completa, verso a verso.",
+"taste_err":"No hemos podido escribirlo ahora mismo. Inténtalo de nuevo en un minuto.",
+"agree_need":"Marca la casilla para aceptar cómo funciona.",
+"opening":"Abriendo el pago seguro…",
+"stg_lyrics":"1 · Letra",
+"stg_song":"2 · Canción",
+"stg_photos":"3 · Fotos",
+"stg_film":"4 · Vídeo",
+"pd_where":"En qué punto estamos",
+"pd_booked":"Reservado el {ts}",
+"pd_event":"evento el {date}",
+"pd_reply":"Tienes {d} días para responder a cada borrador; te lo recordaremos.",
+"pd_story_h":"Tu historia",
+"pd_story_sub":"Lo que nos contaste antes de reservar. ¿Has visto algún error (un nombre, una falta)? Dínoslo en tu próxima respuesta sobre la letra.",
+"pd_show":"Mostrar la historia",
+"pd_q":"¿Preguntas? <a href=\"mailto:hello@gatherwall.com\">hello@gatherwall.com</a>. Para pedir cambios, usa los botones de esta página para que todo quede en un mismo sitio.",
+"pill_ap":"Aprobado 🔒 {ts}",
+"pill_auto":"(automáticamente, tras {d} días)",
+"pill_you":"Te toca",
+"pill_wait":"Esperando el paso anterior",
+"pill_work":"Estamos trabajando en ello",
+"pill_chg":"Cambios recibidos · nueva versión en 3 días laborables",
+"pill_ready":"Listo para ti · responde antes del {date}",
+"ver":"Versión {v}",
+"chosen":"✓ elegida",
+"watch":"▶ Ver el borrador del vídeo (versión {v})",
+"ph_link":"📷 Tu enlace de subida familiar",
+"ph_share":"· compártelo con todos. Máxima calidad, fotos y vídeos cortos.",
+"ph_pending":"Tu enlace privado de subida aparecerá aquí en 1 día laborable desde la reserva. Empieza a reunir entre 30 y 60 fotos, sobre todo antiguas.",
+"ph_confirm":"Confírmalo antes del {date}.",
+"ph_confirm_nd":"Confírmalo antes de la fecha que acordemos.",
+"btn_photos":"Mis fotos están completas",
+"choose":"Elijo la versión {v}",
+"ap_song":"Aprobar esta versión",
+"ap_lock":"Aprobar y bloquear",
+"req_btn":"Pedir cambios (quedan {n})",
+"req_lbl":"Todos tus cambios en un solo mensaje",
+"hint_song":"Dinos qué cambio de estilo quieres (tempo, ambiente, voz). La letra se mantiene tal como se aprobó.",
+"hint_film":"Ritmo, orden de las fotos, textos, cambiar fotos por otras de las que subiste. La canción y el conjunto de fotos se mantienen tal como se aprobaron.",
+"hint_lyrics":"Sé concreto: el verso, qué cambiar y cómo debe quedar. Esto cuenta como una ronda.",
+"send_chg":"Enviar mis cambios",
+"used_up":"Rondas incluidas agotadas. Si algo aún tiene que cambiar, escríbenos y te daremos un presupuesto antes de hacer nada.",
+"hist":"Tus cambios ({n}, {ts}): «{text}»",
+"fin_h":"🎁 Entregado el {ts}",
+"fin_note":"Descarga tus archivos. Estarán disponibles durante 90 días tras la entrega.",
+"describe":"Describe tus cambios, por favor.",
+"cf_send":"¿Enviar estos cambios? Esto usa una de tus rondas incluidas. Asegúrate de que todo está en este único mensaje.",
+"err_send":"No se pudo enviar. Inténtalo de nuevo.",
+"sent":"Enviado. Volveremos con una nueva versión.",
+"cf_lyrics":"¿Aprobar la letra? Quedará bloqueada y la canción se grabará a partir de ella. Los cambios posteriores no están incluidos.",
+"cf_song":"¿Aprobar esta versión de la canción? Quedará bloqueada y el vídeo se montará sobre ella.",
+"cf_photos":"¿Confirmas que tus fotos están completas? El conjunto quedará bloqueado y el vídeo se creará a partir de él. Las fotos que se añadan después no están incluidas.",
+"cf_film":"¿Aprobar el vídeo? Es tu aprobación final y preparamos tu entrega.",
+"err_save":"No se pudo guardar. Inténtalo de nuevo.",
+"approved":"Aprobado ✓",
+"cb_project":"PROYECTO",
+"cb_call":"Le llaman",
+"cb_occ":"Ocasión",
+"cb_date":"Fecha",
+"cb_nodate":"sin fecha fija",
+"cb_from":"De",
+"cb_email":"Correo",
+"cb_lang":"Idioma",
+"cb_feel":"Ambiente",
+"cb_nothing":"Nada que evitar (confirmado).",
+"inc_sf1":"Una canción original escrita a partir de su historia",
+"inc_sf2":"Un vídeo con sus fotos y la letra para cantar",
+"inc_sf3":"Un enlace familiar para subir las fotos",
+"inc_sf4":"1 ronda de cambios en la letra y 1 en el vídeo",
+"inc_sf5":"Una página de regalo privada para la persona homenajeada",
+"inc_sc1":"Todo lo de Story Film",
+"inc_sc2":"Dos versiones de la canción, con letra en dos idiomas si quieres",
+"inc_sc3":"Un muro de homenajes para familia y amigos de todo el mundo",
+"inc_sc4":"Restauración de fotos antiguas muy queridas",
+"inc_sc5":"Libro de homenajes en PDF y una página recuerdo privada",
+"inc_sc6":"Kit para el gran día: archivo para la pantalla, copia de seguridad y orden del programa",
+"inc_sc7":"2 rondas de cambios en la letra y 2 en el vídeo",
+"s2_h":"Las personas de su vida",
+"s2_sub":"Los nombres son lo más poderoso de una canción recuerdo. Oír tu propio nombre cantado es lo que hace llorar. Danos todos los que puedas — y dinos cómo se pronuncia cada uno si no es obvio.",
+"tq_partner":"Pareja o cónyuge — nombre, y cómo se conocieron",
+"tp_partner":"Dónde, cuándo, quién habló primero, qué dice él ahora de aquello...",
+"tq_children":"Hijos — nombres, por orden",
+"tp_children":"Nombre y, a grandes rasgos, a qué se dedican o cómo son. Con una línea por persona basta.",
+"tq_grand":"Nietos — nombres <span class=\"opt\">opcional</span>",
+"tq_siblings":"Hermanos, hermanas y cualquiera que cuente como familia",
+"tq_friends":"Los amigos más cercanos que estarán en la sala",
+"s3_h":"De dónde viene",
+"s3_sub":"La historia. Sus padres, su hogar, el camino que le trajo hasta aquí.",
+"tq_born":"¿Dónde nació y dónde creció?",
+"tq_parents":"Sus padres — nombres, y cómo eran",
+"th_parents":"Si alguno ha fallecido, indícalo aquí y dinos en la sección 7 cómo te gustaría que lo honráramos.",
+"tq_famback":"¿A qué se dedicaba la familia? ¿Cómo era la vida entonces?",
+"tq_edu":"Estudios, formación, trabajo — el camino que siguió",
+"tq_places":"Lugares donde ha vivido o entre los que se ha mudado",
+"tq_faith":"Fe, iglesia o vida en comunidad <span class=\"opt\">opcional, pero a menudo es el corazón de todo</span>",
+"s4_h":"Cómo es de verdad",
+"s4_sub":"Esta es la sección que hace que la canción no suene como la de cualquier otra persona.",
+"tq_three":"Tres palabras que la familia usaría para describirle",
+"tq_saying":"Algo que siempre dice <span class=\"opt\">una frase, un consejo, una regañina</span>",
+"tq_laugh":"¿Qué de esa persona hace reír a todo el mundo?",
+"tp_laugh":"La costumbre, la manía, eso que negaría.",
+"tq_proud":"¿De qué está más orgulloso/a?",
+"tq_quiet":"¿De qué nunca presumiría — aunque debería?",
+"tq_loves":"Comida, música, equipos, aficiones, las cosas que le encantan",
+"s5_h":"Los momentos",
+"s5_sub":"Dos o tres historias reales valen más que una página de adjetivos. Las pequeñas son las mejores.",
+"tq_memory":"Un recuerdo que lo resuma",
+"tq_funny":"Una anécdota graciosa que todos reconocerían",
+"tq_overcame":"Algo difícil que superó",
+"th_overcame":"Solo si le corresponde contarlo y le parecería bien que se mencione. Lo trataremos con delicadeza o lo dejaremos fuera — tú decides en la sección 7.",
+"tq_onething":"Si esta noche oyera decir una sola cosa sobre sí, ¿cuál debería ser?",
+"s6_h":"La música",
+"s6_sub":"Escribimos la canción a su medida, no a la de las listas de éxitos.",
+"tq_music":"Música que le encanta — artistas, géneros, una época",
+"tq_meansong":"Una canción que ya significa algo para esa persona <span class=\"opt\">opcional</span>",
+"tq_mood":"¿Cómo debería sentirse su canción?",
+"tp_mood":"Cálida y suave / animada y divertida / soul / gospel / algo para bailar",
+"tq_language":"Idioma — y cualquier palabra o frase en otro idioma que debamos incluir",
+"tp_language":"En inglés de principio a fin, pero su madre siempre le llamaba...",
+"s7_h":"Qué evitar",
+"s7_sub":"La sección más importante de esta página. Preferimos mil veces saberlo ahora que equivocarnos delante de una sala llena de gente. Nada de lo que escribas aquí se muestra nunca a nadie.",
+"tq_passed":"Personas que han fallecido — y cómo te gustaría que se las recordara",
+"th_passed":"Nombradas con delicadeza, mencionadas sin nombrarlas, o en absoluto. Dinos cuál.",
+"tq_nomention":"Personas que <em>no</em> deben mencionarse",
+"th_nomention":"Distanciamientos, divorcios, historias difíciles. No hace falta explicarlo — basta con un nombre.",
+"tq_avoid":"Temas que hay que evitar por completo",
+"th_avoid":"Salud, dinero, trabajo, una etapa concreta de su vida, un viejo apodo que ya no le pega.",
+"tq_upset":"Cualquier cosa que pudiera avergonzarle o molestarle",
+"tq_unsure":"¿Hay algo de lo que no estés seguro? <span class=\"opt\">preguntaremos antes de usarlo</span>",
+"s8_h":"Las fotos y el gran día",
+"s8_sub":"Para que el vídeo se adapte a la sala donde se va a proyectar.",
+"s8_box":"📷 <b>Las fotos llegan después de reservar.</b> La página de tu proyecto te dará un enlace privado de subida para compartir con la familia: sin aplicaciones, en máxima calidad, fotos y vídeos cortos. Empieza a reunirlas ya.",
+"tq_photocount":"¿Cuántas fotos puedes reunir, más o menos?",
+"tp_photocount":"Lo ideal son 30–60 — sobre todo antiguas",
+"tq_video":"¿Algún vídeo? <span class=\"opt\">opcional</span>",
+"tq_whenplays":"¿En qué momento de la velada se proyectará?",
+"tp_whenplays":"Después de la cena, en lugar de los discursos...",
+"tq_screen":"¿Dónde se va a reproducir? <span class=\"opt\">pantalla, proyector, televisor — ¿y el sonido es bueno?</span>",
+"tq_contact":"¿Quién es nuestro contacto ese día, por si hay que arreglar algo?",
+"tq_else":"¿Algo más que debamos saber?",
+"s9_h":"Los detalles, exactamente como son",
+"s9_sub":"Pequeñas cosas que marcan una gran diferencia cuando la canción se canta en voz alta.",
+"tq_pron":"¿Cómo se pronuncia cada nombre? <span class=\"opt\">escríbelo tal como suena</span>",
+"th_pron":"Por ejemplo: «Aderinsola — A-de-rin-so-la». Incluye apodos y los nombres de hijos y nietos.",
+"tq_phrases":"Palabras o frases en otro idioma — qué significan y cómo se dicen",
+"th_phrases":"Por ejemplo: «Ọlọ́run ṣé — Dios lo ha hecho — se dice ‘O-lo-run she’».",
+"tq_bday":"Su fecha real de cumpleaños o aniversario <span class=\"opt\">si es distinta a la del evento</span>",
+"tq_style":"Una canción cuyo estilo te encantaría que siguiéramos <span class=\"opt\">un enlace de YouTube o Spotify es perfecto</span>"
+},
+de:{
+"eyebrow_start":"Für Sie gemacht",
+"h1_start":"Starten Sie Ihr Projekt",
+"lead_start":"Sagen Sie uns, für wen es ist, und wir erstellen sofort Ihren Plan: Ihre Termine, was wir von Ihnen brauchen und wie jeder Schritt genau abläuft. Sie zahlen nichts, bis Sie mit dem Plan zufrieden sind.",
+"loading":"Wird geladen…",
+"st_choose":"1 · Wählen Sie Ihr Paket",
+"st_switch":"Sie können das Paket jederzeit vor der Buchung wechseln.",
+"st_ess":"2 · Das Wichtigste",
+"st_ess_sub":"Damit wir Ihren Plan erstellen können. Alles Weitere folgt auf der nächsten Seite, in Ihrem eigenen Tempo.",
+"f_for":"Für wen ist es? <span class=\"opt\">vollständiger Name</span>",
+"f_call":"Wie wird die Person genannt?",
+"f_call_ph":"Mama, Onkel B, Opa…",
+"f_occ":"Der Anlass",
+"f_occ_ph":"70. Geburtstag, Hochzeit, Gedenkfeier…",
+"f_date":"Datum der Feier",
+"f_nodate":"Kein festes Datum",
+"f_you":"Ihr Name",
+"f_rel":"Sie sind ihr/sein…",
+"f_rel_ph":"Tochter, Sohn, Freund…",
+"f_email":"Ihre E-Mail-Adresse",
+"f_wa":"Ihre WhatsApp-Nummer <span class=\"opt\">mit Ländervorwahl</span>",
+"f_lang":"Sprache des Songs",
+"lo_en":"Englisch",
+"lo_yo":"Englisch mit Yoruba-Ausdrücken",
+"lo_ig":"Englisch mit Igbo-Ausdrücken",
+"lo_ha":"Englisch mit Hausa-Ausdrücken",
+"lo_pcm":"Englisch mit Pidgin",
+"lo_other":"Andere (bitte in der Geschichte angeben)",
+"f_mood":"Wie soll er sich anfühlen?",
+"mo_soul":"Warme Soul-Ballade",
+"mo_afro":"Afrobeats-Feier",
+"mo_high":"Highlife, fröhlich",
+"mo_gospel":"Gospel, erhebend",
+"mo_acoustic":"Sanft akustisch",
+"mo_pop":"Schwungvoller Pop",
+"mo_quiet":"Ruhig und nachdenklich",
+"st_create":"Projekt anlegen und meinen Plan ansehen →",
+"st_link":"Ihr Projekt erhält einen privaten Link. Wir schicken ihn Ihnen per E-Mail, damit Sie jederzeit und auf jedem Gerät zurückkehren können.",
+"launch_price":"Einführungspreis",
+"miss_for":"für wen es ist",
+"miss_occ":"den Anlass",
+"miss_date":"das Datum (oder „Kein festes Datum“ ankreuzen)",
+"miss_you":"Ihren Namen",
+"miss_email":"eine gültige E-Mail-Adresse",
+"miss_wa":"Ihre WhatsApp-Nummer",
+"err_add":"Bitte ergänzen Sie: {list}.",
+"creating":"Wird angelegt…",
+"err_create":"Das Projekt konnte nicht angelegt werden. Bitte versuchen Sie es erneut.",
+"tier_for":"{tier} für {name}",
+"nf_h1":"Projekt nicht gefunden",
+"nf_lead":"Bitte prüfen Sie den Link aus Ihrer E-Mail. Wenn er weiterhin nicht funktioniert, schreiben Sie uns – wir finden es.",
+"them":"diese Person",
+"ey_booked":"{tier} · gebucht",
+"ey_plan":"{tier} · Plan",
+"h1_paid":"{tier} für {who}",
+"h1_plan":"Ihr Plan: {tier} für {who}",
+"lead_paid":"Dies ist Ihre private Projektseite. Hier passiert alles: Entwürfe, Freigaben und Lieferung. Bewahren Sie diesen Link gut auf.",
+"lead_plan":"Hier ist Ihr persönlicher Plan. Füllen Sie die Geschichte unten in Ihrem eigenen Tempo aus (sie wird beim Tippen gespeichert). Wenn sie vollständig ist und Sie mit dem Plan zufrieden sind, buchen Sie, um Ihren Termin zu sichern.",
+"round1":"{n} Runde",
+"round2":"{n} Runden",
+"round5":"{n} Runden",
+"sc_today":"Heute",
+"sc_today_t":"Sie vervollständigen die Geschichte auf dieser Seite und buchen. Ihr Termin ist nach der Zahlung reserviert.",
+"sc_lyr_t":"Erster Liedtext-Entwurf auf dieser Seite (innerhalb von 3 Werktagen nach Buchung und vollständiger Geschichte).",
+"sc_5d":"5 Tage",
+"sc_5d_t":"Sie geben den Text frei oder schicken eine einzige Nachricht mit all Ihren Änderungen. Inklusive: {r}.",
+"sc_3wd":"+3 Werktage",
+"sc_3wd_t":"Songversionen zur Auswahl, sobald der Text freigegeben ist.",
+"sc_photos_t":"Alle Fotos hochgeladen und als endgültig bestätigt.",
+"sc_photos_t_nd":"Alle Fotos hochgeladen und als endgültig bestätigt (wir vereinbaren ein Datum mit Ihnen).",
+"sc_film_t":"Filmentwurf auf dieser Seite. Inklusive: {r} Änderungen.",
+"sc_final_t":"Endlieferung: Film, Song, Liedtext und Geschenkseite.",
+"req_people":"Die Menschen um sie/ihn herum (mindestens ein Name)",
+"req_pron":"Wie jeder Name ausgesprochen wird (oder „alle Namen sind einfach“)",
+"req_mem":"Eine Erinnerung, die sie/ihn ausmacht",
+"req_three":"Drei Worte, die die Familie verwenden würde",
+"req_loves":"Was sie/er liebt",
+"req_mood":"Wie sich der Song anfühlen soll",
+"req_leave":"Abschnitt 7: was weggelassen werden soll (oder „nichts wegzulassen“ ankreuzen)",
+"req_photos":"Wie viele Fotos Sie ungefähr zusammenbekommen",
+"pv_pkg":"Ihr Paket",
+"pv_tl":"Ihr Zeitplan",
+"pv_on":"am {date}",
+"pv_days":"noch {n} Tage",
+"pv_soon_b":"Ihr Termin liegt näher als unser Standardzeitplan ({min} Tage).",
+"pv_soon":"Bitte schreiben Sie uns vor der Buchung, und wir sagen Ihnen ehrlich, ob wir es schaffen:",
+"pv_soon2":"Die Buchung für dieses Datum ist pausiert, bis wir es bestätigen.",
+"pv_taste_h":"Ein Vorgeschmack auf den Song",
+"pv_taste_sub":"Sobald Sie ein paar Erinnerungen eingetragen haben, hören Sie die ersten Zeilen, die wir schreiben würden. Kostenlos und in einer Minute erledigt. Den vollständigen Text schreibt unser Team nach der Buchung.",
+"pv_taste_btn":"✨ Zeig mir die ersten Zeilen",
+"pv_note":"<strong>Ihre/seine Geschichte.</strong> Daraus entstehen Song und Film, also seien Sie gern großzügig. Alles wird beim Tippen gespeichert – machen Sie es ruhig in mehreren Etappen und teilen Sie diesen Link mit Familienmitgliedern, die die Geschichten kennen. <b>Abschnitt 7 ist am wichtigsten</b>: was weggelassen werden soll.",
+"pv_nothing":"Es gibt nichts, was wir weglassen oder besonders behutsam behandeln müssen.",
+"pv_book_h":"Buchen und Termin sichern",
+"pv_book_sub":"Vor der Buchung brauchen wir das Wichtigste, damit wir sofort nach Ihrer Zahlung loslegen können:",
+"pv_how":"So funktioniert es, Schritt für Schritt",
+"rule_lyrics":"<b>Liedtext.</b> Sie erhalten hier einen Entwurf. Geben Sie ihn frei oder schicken Sie eine einzige Nachricht mit all Ihren Änderungen ({r} inklusive). <b>Nach der Freigabe ist der Text gesperrt</b> und der Song wird danach aufgenommen.",
+"rule_song":"<b>Song.</b> Sie wählen Ihre Lieblingsversion. Eine Stil-Überarbeitung ist vor Ihrer Freigabe inklusive. <b>Nach der Freigabe ist der Song gesperrt.</b>",
+"rule_photos":"<b>Fotos.</b> Ein Upload-Link für die ganze Familie. Wenn Sie auf „Fotos vollständig“ klicken, wird die Auswahl gesperrt und der Film daraus erstellt.",
+"rule_film":"<b>Film.</b> Sie erhalten hier einen Entwurf. {r} Korrekturen inklusive, mit dem freigegebenen Song und den freigegebenen Fotos (Timing, Reihenfolge, Bildunterschriften, Austausch von Fotos aus Ihren Uploads).",
+"rule_reply":"<b>{d} Tage zum Antworten.</b> Für jeden Entwurf gilt eine Antwortfrist von {d} Tagen. Wir erinnern Sie, bevor sie endet; hören wir nichts von Ihnen, gilt diese Phase als freigegeben, damit Ihr Termin nie gefährdet ist.",
+"rule_after":"<b>Nach der Freigabe.</b> Änderungen an einer gesperrten Phase sind nicht inklusive. Wenn sich etwas ändern muss, fragen Sie uns, und wir nennen Ihnen vorher den Preis (zusätzliche Runden kosten 29 $); ohne Ihr Einverständnis wird nichts gemacht oder berechnet.",
+"rule_refund":"<b>Erstattungen.</b> Volle Erstattung vor Ihrem ersten Liedtext-Entwurf; 50 % danach; keine mehr, sobald der Song freigegeben ist, da er für einen einzigen Menschen gemacht ist. Alle Details in unseren <a href=\"terms.html#madeforyou\" target=\"_blank\">Bedingungen</a>.",
+"agree":"Ich habe gelesen, wie es funktioniert, und stimme den Phasenregeln, Antwortfristen und <a href=\"terms.html#madeforyou\" target=\"_blank\">Bedingungen</a> zu.",
+"pay_btn":"{tier} buchen · {price} →",
+"pn_paused":"Buchung pausiert, bis wir Ihren Termin bestätigen.",
+"pn_ready":"Sichere Zahlung über Stripe. Ihr Projekt geht auf dieser Seite weiter.",
+"pn_todo":"Vervollständigen Sie die Punkte oben, um zu buchen.",
+"saved":"Gespeichert ✓",
+"err_save_conn":"Speichern fehlgeschlagen. Bitte prüfen Sie Ihre Verbindung.",
+"taste_need":"Tragen Sie zuerst ein oder zwei Erinnerungen ein (Abschnitte 4 und 5).",
+"writing":"Wird geschrieben…",
+"taste_note":"Eine erste Skizze aus dem, was Sie bisher geschrieben haben. Nach der Buchung schreiben wir den ganzen Song gemeinsam mit Ihnen, Zeile für Zeile.",
+"taste_err":"Das hat gerade nicht geklappt. Bitte versuchen Sie es in einer Minute erneut.",
+"agree_need":"Bitte setzen Sie das Häkchen, um dem Ablauf zuzustimmen.",
+"opening":"Sichere Kasse wird geöffnet…",
+"stg_lyrics":"1 · Liedtext",
+"stg_song":"2 · Song",
+"stg_photos":"3 · Fotos",
+"stg_film":"4 · Film",
+"pd_where":"Wo wir stehen",
+"pd_booked":"Gebucht am {ts}",
+"pd_event":"Feier am {date}",
+"pd_reply":"Sie haben {d} Tage Zeit, auf jeden Entwurf zu antworten; wir erinnern Sie daran.",
+"pd_story_h":"Ihre Geschichte",
+"pd_story_sub":"Was Sie uns vor der Buchung erzählt haben. Ist Ihnen ein Fehler aufgefallen (ein Name, eine Schreibweise)? Sagen Sie es uns in Ihrer nächsten Antwort zum Liedtext.",
+"pd_show":"Geschichte anzeigen",
+"pd_q":"Fragen? <a href=\"mailto:hello@gatherwall.com\">hello@gatherwall.com</a>. Für Änderungen nutzen Sie bitte die Schaltflächen auf dieser Seite, damit alles an einem Ort ist.",
+"pill_ap":"Freigegeben 🔒 {ts}",
+"pill_auto":"(automatisch, nach {d} Tagen)",
+"pill_you":"Sie sind dran",
+"pill_wait":"Wartet auf den vorherigen Schritt",
+"pill_work":"Wir arbeiten daran",
+"pill_chg":"Änderungen erhalten · neue Version innerhalb von 3 Werktagen",
+"pill_ready":"Bereit für Sie · Antwort bis {date}",
+"ver":"Version {v}",
+"chosen":"✓ gewählt",
+"watch":"▶ Filmentwurf ansehen (Version {v})",
+"ph_link":"📷 Ihr Familien-Upload-Link",
+"ph_share":"· teilen Sie ihn mit allen. Volle Qualität, Fotos und kurze Videos.",
+"ph_pending":"Ihr privater Upload-Link erscheint hier innerhalb von 1 Werktag nach der Buchung. Sammeln Sie schon jetzt 30–60 Fotos, besonders ältere.",
+"ph_confirm":"Bitte bestätigen Sie bis {date}.",
+"ph_confirm_nd":"Bitte bestätigen Sie bis zum vereinbarten Datum.",
+"btn_photos":"Meine Fotos sind vollständig",
+"choose":"Ich wähle Version {v}",
+"ap_song":"Diese Version freigeben",
+"ap_lock":"Freigeben und sperren",
+"req_btn":"Änderungen anfordern (noch {n})",
+"req_lbl":"Alle Ihre Änderungen in einer Nachricht",
+"hint_song":"Sagen Sie uns, welche Stiländerung Sie möchten (Tempo, Stimmung, Stimme). Der Text bleibt wie freigegeben.",
+"hint_film":"Timing, Fotoreihenfolge, Bildunterschriften, Austausch von Fotos aus Ihren Uploads. Song und Fotoauswahl bleiben wie freigegeben.",
+"hint_lyrics":"Seien Sie konkret: welche Zeile, was geändert werden soll und wie. Das zählt als eine Runde.",
+"send_chg":"Meine Änderungen senden",
+"used_up":"Inklusive Runden aufgebraucht. Wenn sich noch etwas ändern muss, schreiben Sie uns, und wir nennen Ihnen vorher den Preis.",
+"hist":"Ihre Änderungen ({n}, {ts}): „{text}“",
+"fin_h":"🎁 Geliefert am {ts}",
+"fin_note":"Bitte laden Sie Ihre Dateien herunter. Sie bleiben 90 Tage nach der Lieferung verfügbar.",
+"describe":"Bitte beschreiben Sie Ihre Änderungen.",
+"cf_send":"Diese Änderungen senden? Damit wird eine Ihrer inklusiven Runden verbraucht. Bitte achten Sie darauf, dass alles in dieser einen Nachricht steht.",
+"err_send":"Senden fehlgeschlagen. Bitte versuchen Sie es erneut.",
+"sent":"Gesendet. Wir melden uns mit einer neuen Version.",
+"cf_lyrics":"Den Liedtext freigeben? Der Text ist dann gesperrt und der Song wird danach aufgenommen. Spätere Änderungen sind nicht inklusive.",
+"cf_song":"Diese Version des Songs freigeben? Sie ist dann gesperrt und der Film wird darauf geschnitten.",
+"cf_photos":"Bestätigen, dass Ihre Fotos vollständig sind? Die Auswahl ist dann gesperrt und der Film wird daraus erstellt. Später hinzugefügte Fotos sind nicht inklusive.",
+"cf_film":"Den Film freigeben? Das ist Ihre endgültige Freigabe, und wir bereiten Ihre Lieferung vor.",
+"err_save":"Speichern fehlgeschlagen. Bitte versuchen Sie es erneut.",
+"approved":"Freigegeben ✓",
+"cb_project":"PROJEKT",
+"cb_call":"Rufname",
+"cb_occ":"Anlass",
+"cb_date":"Datum",
+"cb_nodate":"kein festes Datum",
+"cb_from":"Von",
+"cb_email":"E-Mail",
+"cb_lang":"Sprache",
+"cb_feel":"Stimmung",
+"cb_nothing":"Nichts wegzulassen (bestätigt).",
+"inc_sf1":"Ein eigener Song, geschrieben aus ihrer/seiner Geschichte",
+"inc_sf2":"Ein Film aus ihren/seinen Fotos mit Liedtext zum Mitsingen",
+"inc_sf3":"Ein Familien-Upload-Link für Fotos",
+"inc_sf4":"1 Änderungsrunde beim Liedtext und 1 beim Film",
+"inc_sf5":"Eine private Geschenkseite für die gefeierte Person",
+"inc_sc1":"Alles aus Story Film",
+"inc_sc2":"Zwei Songversionen, auf Wunsch mit Text in zwei Sprachen",
+"inc_sc3":"Eine Gedenk- und Grußwand für Familie und Freunde weltweit",
+"inc_sc4":"Restaurierung wertvoller alter Abzüge",
+"inc_sc5":"Erinnerungsbuch als PDF und eine private Andenkenseite",
+"inc_sc6":"Set für den großen Tag: Bildschirmdatei, Sicherungskopie und Ablaufplan",
+"inc_sc7":"2 Änderungsrunden beim Liedtext und 2 beim Film",
+"s2_h":"Die Menschen um sie/ihn herum",
+"s2_sub":"Namen sind das Stärkste an einem Erinnerungssong. Den eigenen Namen gesungen zu hören, ist das, was Menschen zum Weinen bringt. Bitte nennen Sie uns so viele wie möglich – und sagen Sie uns, wie jeder ausgesprochen wird, wenn es nicht offensichtlich ist.",
+"tq_partner":"Partner/in oder Ehepartner/in – Name, und wie sie sich kennengelernt haben",
+"tp_partner":"Wo, wann, wer zuerst gesprochen hat, was er heute darüber sagt...",
+"tq_children":"Kinder – Namen, der Reihe nach",
+"tp_children":"Name, ungefähr was sie machen oder wie sie sind. Eine Zeile pro Person reicht völlig.",
+"tq_grand":"Enkelkinder – Namen <span class=\"opt\">optional</span>",
+"tq_siblings":"Brüder, Schwestern und alle, die zur Familie zählen",
+"tq_friends":"Die engsten Freunde, die dabei sein werden",
+"s3_h":"Woher sie/er kommt",
+"s3_sub":"Die Geschichte. Eltern, Zuhause, der Weg bis hierher.",
+"tq_born":"Wo wurde sie/er geboren, und wo ist sie/er aufgewachsen?",
+"tq_parents":"Ihre/seine Eltern – Namen, und wie sie waren",
+"th_parents":"Falls ein Elternteil verstorben ist, schreiben Sie es hier und sagen Sie uns in Abschnitt 7, wie Sie ihn würdigen möchten.",
+"tq_famback":"Was hat die Familie gemacht? Wie war das Leben damals?",
+"tq_edu":"Schule, Ausbildung, Beruf – der Weg, den sie/er gegangen ist",
+"tq_places":"Orte, an denen sie/er gelebt hat oder zwischen denen sie/er umgezogen ist",
+"tq_faith":"Glaube, Kirche oder Gemeinschaftsleben <span class=\"opt\">optional, aber oft der Kern von allem</span>",
+"s4_h":"Wer sie/er wirklich ist",
+"s4_sub":"Dieser Abschnitt sorgt dafür, dass der Song nach niemand anderem klingt.",
+"tq_three":"Drei Worte, mit denen die Familie sie/ihn beschreiben würde",
+"tq_saying":"Etwas, das sie/er immer sagt <span class=\"opt\">ein Spruch, ein Rat, eine Standpauke</span>",
+"tq_laugh":"Worüber müssen bei ihr/ihm alle lachen?",
+"tp_laugh":"Die Angewohnheit, die Marotte, das, was sie/er abstreiten würde.",
+"tq_proud":"Worauf ist sie/er am meisten stolz?",
+"tq_quiet":"Womit würde sie/er nie prahlen – sollte es aber?",
+"tq_loves":"Essen, Musik, Vereine, Hobbys – was sie/er liebt",
+"s5_h":"Die Momente",
+"s5_sub":"Zwei oder drei echte Geschichten sind mehr wert als eine Seite voller Adjektive. Kleine sind am besten.",
+"tq_memory":"Eine Erinnerung, die sie/ihn ausmacht",
+"tq_funny":"Eine lustige Geschichte, die alle im Raum wiedererkennen würden",
+"tq_overcame":"Etwas Schweres, das sie/er durchgestanden hat",
+"th_overcame":"Nur wenn es ihre/seine Geschichte ist und sie/er damit einverstanden wäre, dass sie erwähnt wird. Wir gehen behutsam damit um oder lassen sie weg – Sie entscheiden in Abschnitt 7.",
+"tq_onething":"Wenn sie/er heute Abend nur eine Sache über sich hören würde, welche sollte es sein?",
+"s6_h":"Die Musik",
+"s6_sub":"Wir schreiben den Song passend zu ihr/ihm, nicht passend zu den Charts.",
+"tq_music":"Musik, die sie/er liebt – Künstler, Genres, eine Ära",
+"tq_meansong":"Ein Lied, das ihr/ihm schon etwas bedeutet <span class=\"opt\">optional</span>",
+"tq_mood":"Wie soll sich der Song anfühlen?",
+"tp_mood":"Warm und sanft / schwungvoll und lustig / soulig / Gospel / etwas zum Tanzen",
+"tq_language":"Sprache – und alle Wörter oder Ausdrücke in einer anderen Sprache, die wir einbauen sollen",
+"tp_language":"Durchgehend Englisch, aber seine Mutter nannte ihn immer...",
+"s7_h":"Was weggelassen werden soll",
+"s7_sub":"Der wichtigste Abschnitt auf dieser Seite. Wir wissen es lieber jetzt, als vor einem vollen Saal etwas falsch zu machen. Nichts, was Sie hier schreiben, wird jemals jemandem gezeigt.",
+"tq_passed":"Verstorbene – und wie sie in Erinnerung bleiben sollen",
+"th_passed":"Behutsam beim Namen genannt, ohne Namen erwähnt oder gar nicht. Sagen Sie uns, was davon.",
+"tq_nomention":"Personen, die <em>nicht</em> erwähnt werden sollen",
+"th_nomention":"Zerwürfnisse, Scheidungen, schwierige Vergangenheit. Keine Erklärung nötig – ein Name genügt.",
+"tq_avoid":"Themen, die ganz vermieden werden sollen",
+"th_avoid":"Gesundheit, Geld, Arbeit, ein bestimmter Lebensabschnitt, ein alter Spitzname, aus dem sie/er herausgewachsen ist.",
+"tq_upset":"Alles, was sie/ihn in Verlegenheit bringen oder verletzen würde",
+"tq_unsure":"Gibt es etwas, bei dem Sie unsicher sind? <span class=\"opt\">wir fragen, bevor wir es verwenden</span>",
+"s8_h":"Fotos &amp; der große Tag",
+"s8_sub":"Damit der Film zu dem Raum passt, in dem er gezeigt wird.",
+"s8_box":"📷 <b>Fotos kommen nach der Buchung.</b> Ihre Projektseite gibt Ihnen einen privaten Upload-Link zum Teilen mit der Familie: keine App, volle Qualität, Fotos und kurze Videos. Fangen Sie schon jetzt an zu sammeln.",
+"tq_photocount":"Wie viele Fotos bekommen Sie ungefähr zusammen?",
+"tp_photocount":"30–60 sind ideal – besonders alte",
+"tq_video":"Videoclips? <span class=\"opt\">optional</span>",
+"tq_whenplays":"Wann am Abend wird er gezeigt?",
+"tp_whenplays":"Nach dem Essen, statt der Reden...",
+"tq_screen":"Worauf wird er abgespielt? <span class=\"opt\">Bildschirm, Beamer, Fernseher – und gibt es ordentlichen Ton?</span>",
+"tq_contact":"Wer ist am Tag selbst unser Ansprechpartner, falls etwas zu klären ist?",
+"tq_else":"Gibt es sonst noch etwas, das wir wissen sollten?",
+"s9_h":"Die Details ganz genau richtig",
+"s9_sub":"Kleinigkeiten, die einen großen Unterschied machen, wenn der Song laut gesungen wird.",
+"tq_pron":"Wie wird jeder Name ausgesprochen? <span class=\"opt\">schreiben Sie ihn so, wie er klingt</span>",
+"th_pron":"Z. B. „Aderinsola – A-de-rin-so-la“. Mit Spitznamen und den Namen von Kindern und Enkelkindern.",
+"tq_phrases":"Wörter oder Ausdrücke in einer anderen Sprache – was sie bedeuten und wie man sie ausspricht",
+"th_phrases":"Z. B. „Ọlọ́run ṣé – Gott hat es getan – gesprochen ‚O-lo-run schäi‘“.",
+"tq_bday":"Ihr/sein tatsächlicher Geburtstag oder Jahrestag <span class=\"opt\">falls abweichend vom Fest</span>",
+"tq_style":"Ein Song, dessen Stil wir gern übernehmen sollen <span class=\"opt\">ein YouTube- oder Spotify-Link ist perfekt</span>"
+},
+cs:{
+"eyebrow_start":"Vytvořeno pro vás",
+"h1_start":"Začněte svůj projekt",
+"lead_start":"Řekněte nám, pro koho to je, a hned vám připravíme plán: vaše termíny, co od vás potřebujeme a jak přesně probíhá každý krok. Nic neplatíte, dokud nebudete s plánem spokojeni.",
+"loading":"Načítání…",
+"st_choose":"1 · Vyberte si balíček",
+"st_switch":"Balíček můžete kdykoli před rezervací změnit.",
+"st_ess":"2 · To nejdůležitější",
+"st_ess_sub":"Abychom vám mohli sestavit plán. Vše ostatní přijde na další stránce, vlastním tempem.",
+"f_for":"Pro koho to je? <span class=\"opt\">celé jméno</span>",
+"f_call":"Jak mu/jí lidé říkají?",
+"f_call_ph":"Maminka, strejda B, děda…",
+"f_occ":"Příležitost",
+"f_occ_ph":"70. narozeniny, svatba, vzpomínka…",
+"f_date":"Datum události",
+"f_nodate":"Bez pevného data",
+"f_you":"Vaše jméno",
+"f_rel":"Jste jeho/její…",
+"f_rel_ph":"dcera, syn, přítel…",
+"f_email":"Váš e-mail",
+"f_wa":"Vaše číslo na WhatsApp <span class=\"opt\">s předvolbou země</span>",
+"f_lang":"Jazyk písně",
+"lo_en":"Angličtina",
+"lo_yo":"Angličtina s jorubskými výrazy",
+"lo_ig":"Angličtina s igboskými výrazy",
+"lo_ha":"Angličtina s hauskými výrazy",
+"lo_pcm":"Angličtina s pidžinem",
+"lo_other":"Jiný (napište nám v příběhu)",
+"f_mood":"Jakou má mít náladu?",
+"mo_soul":"Hřejivá soulová balada",
+"mo_afro":"Oslava v rytmu afrobeats",
+"mo_high":"Highlife, radostná",
+"mo_gospel":"Gospel, povznášející",
+"mo_acoustic":"Jemná akustická",
+"mo_pop":"Svižný pop",
+"mo_quiet":"Klidná a zamyšlená",
+"st_create":"Vytvořit projekt a zobrazit plán →",
+"st_link":"Váš projekt dostane soukromý odkaz. Pošleme vám ho e-mailem, abyste se mohli kdykoli vrátit, z jakéhokoli zařízení.",
+"launch_price":"zaváděcí cena",
+"miss_for":"pro koho to je",
+"miss_occ":"příležitost",
+"miss_date":"datum (nebo zaškrtněte „Bez pevného data“)",
+"miss_you":"vaše jméno",
+"miss_email":"platný e-mail",
+"miss_wa":"vaše číslo na WhatsApp",
+"err_add":"Doplňte prosím: {list}.",
+"creating":"Vytváříme…",
+"err_create":"Projekt se nepodařilo vytvořit. Zkuste to prosím znovu.",
+"tier_for":"{tier} pro {name}",
+"nf_h1":"Projekt nenalezen",
+"nf_lead":"Zkontrolujte prosím odkaz ze svého e-mailu. Pokud stále nefunguje, napište nám a my ho najdeme.",
+"them":"oslavence",
+"ey_booked":"{tier} · rezervováno",
+"ey_plan":"{tier} · plán",
+"h1_paid":"{tier} pro {who}",
+"h1_plan":"Váš plán: {tier} pro {who}",
+"lead_paid":"Toto je soukromá stránka vašeho projektu. Všechno se děje tady: návrhy, schvalování i předání. Tento odkaz si dobře uschovejte.",
+"lead_plan":"Tady je váš osobní plán. Příběh níže vyplňujte vlastním tempem (ukládá se průběžně při psaní). Až bude kompletní a s plánem budete spokojeni, rezervujte si svůj termín.",
+"round1":"{n} kolo",
+"round2":"{n} kola",
+"round5":"{n} kol",
+"sc_today":"Dnes",
+"sc_today_t":"Dokončíte příběh na této stránce a rezervujete. Po zaplacení je váš termín zajištěn.",
+"sc_lyr_t":"První návrh textu na této stránce (do 3 pracovních dnů od rezervace a kompletního příběhu).",
+"sc_5d":"5 dní",
+"sc_5d_t":"Text schválíte, nebo pošlete jednu zprávu se všemi úpravami. V ceně: {r}.",
+"sc_3wd":"+3 pracovní dny",
+"sc_3wd_t":"Verze písně na výběr, jakmile je text schválen.",
+"sc_photos_t":"Všechny fotky nahrány a potvrzeny jako konečné.",
+"sc_photos_t_nd":"Všechny fotky nahrány a potvrzeny jako konečné (datum s vámi domluvíme).",
+"sc_film_t":"Návrh filmu na této stránce. V ceně: {r} úprav.",
+"sc_final_t":"Konečné předání: film, píseň, text a dárková stránka.",
+"req_people":"Lidé kolem něj/ní (alespoň jedno jméno)",
+"req_pron":"Jak se vyslovuje každé jméno (nebo „všechna jména jsou jednoduchá“)",
+"req_mem":"Vzpomínka, která ho/ji vystihuje",
+"req_three":"Tři slova, která by použila rodina",
+"req_loves":"Co má rád/a",
+"req_mood":"Jakou náladu má píseň mít",
+"req_leave":"Sekce 7: co vynechat (nebo zaškrtněte „není co vynechat“)",
+"req_photos":"Kolik fotek zhruba dokážete sehnat",
+"pv_pkg":"Váš balíček",
+"pv_tl":"Váš harmonogram",
+"pv_on":"dne {date}",
+"pv_days":"zbývá dní: {n}",
+"pv_soon_b":"Vaše datum je blíž, než odpovídá našemu standardnímu harmonogramu ({min} dní).",
+"pv_soon":"Napište nám prosím před rezervací a my vám upřímně řekneme, zda to stihneme:",
+"pv_soon2":"Rezervace na toto datum je pozastavena, dokud ji nepotvrdíme.",
+"pv_taste_h":"Ochutnávka jeho/její písně",
+"pv_taste_sub":"Jakmile vyplníte pár vzpomínek, uslyšíte úvodní verše, které bychom napsali. Zdarma a zabere to jen minutu. Celý text píše náš tým po rezervaci.",
+"pv_taste_btn":"✨ Ukažte mi úvodní verše",
+"pv_note":"<strong>Jeho/její příběh.</strong> Z toho vzniká píseň i film, tak prosím nešetřete detaily. Ukládá se průběžně při psaní, takže to klidně rozdělte do více sezení a sdílejte tento odkaz s rodinou, která příběhy zná. <b>Nejdůležitější je sekce 7</b>: co vynechat.",
+"pv_nothing":"Není nic, co bychom měli vynechat nebo s čím zacházet opatrně.",
+"pv_book_h":"Rezervujte a zajistěte si termín",
+"pv_book_sub":"Před rezervací potřebujeme to nejdůležitější, abychom mohli začít hned po zaplacení:",
+"pv_how":"Jak to funguje, krok za krokem",
+"rule_lyrics":"<b>Text.</b> Návrh dostanete sem. Schvalte ho, nebo pošlete jednu zprávu se všemi úpravami ({r} v ceně). <b>Po schválení je text uzamčen</b> a píseň se podle něj nahraje.",
+"rule_song":"<b>Píseň.</b> Vyberete si oblíbenou verzi. Před schválením je v ceně jedna úprava stylu. <b>Po schválení je píseň uzamčena.</b>",
+"rule_photos":"<b>Fotky.</b> Jeden odkaz pro nahrávání pro celou rodinu. Když stisknete „fotky jsou kompletní“, sada se uzamkne a film se z ní vytvoří.",
+"rule_film":"<b>Film.</b> Návrh dostanete sem. V ceně {r} oprav, se schválenou písní a fotkami (načasování, pořadí, popisky, výměna fotek z vašich nahraných).",
+"rule_reply":"<b>{d} dní na odpověď.</b> Na každý návrh máte lhůtu {d} dní. Před jejím koncem vám připomeneme; pokud se neozvete, považuje se daná fáze za schválenou, aby váš termín nikdy nebyl ohrožen.",
+"rule_after":"<b>Po schválení.</b> Změny v uzamčené fázi nejsou v ceně. Pokud se něco změnit musí, ozvěte se a nejdřív vám pošleme nabídku (každé další kolo stojí 29 $); bez vašeho souhlasu nic neuděláme ani neúčtujeme.",
+"rule_refund":"<b>Vrácení peněz.</b> Plná náhrada před prvním návrhem textu; 50 % po něm; po schválení písně žádná, protože je vytvořena pro jednoho člověka. Všechny podrobnosti najdete v našich <a href=\"terms.html#madeforyou\" target=\"_blank\">podmínkách</a>.",
+"agree":"Přečetl/a jsem si, jak to funguje, a souhlasím s pravidly jednotlivých fází, lhůtami pro odpověď a <a href=\"terms.html#madeforyou\" target=\"_blank\">podmínkami</a>.",
+"pay_btn":"Rezervovat {tier} · {price} →",
+"pn_paused":"Rezervace je pozastavena, dokud nepotvrdíme vaše datum.",
+"pn_ready":"Bezpečná platba přes Stripe. Váš projekt pokračuje na této stránce.",
+"pn_todo":"Pro rezervaci doplňte položky výše.",
+"saved":"Uloženo ✓",
+"err_save_conn":"Uložení se nezdařilo. Zkontrolujte připojení.",
+"taste_need":"Nejdřív přidejte jednu či dvě vzpomínky (sekce 4 a 5).",
+"writing":"Píšeme…",
+"taste_note":"První náčrt z toho, co jste zatím napsali. Po rezervaci s vámi napíšeme celou píseň, verš po verši.",
+"taste_err":"Teď se to nepodařilo napsat. Zkuste to prosím za minutu znovu.",
+"agree_need":"Zaškrtněte prosím políčko, že souhlasíte s postupem.",
+"opening":"Otevíráme zabezpečenou platbu…",
+"stg_lyrics":"1 · Text",
+"stg_song":"2 · Píseň",
+"stg_photos":"3 · Fotky",
+"stg_film":"4 · Film",
+"pd_where":"Jak to vypadá",
+"pd_booked":"Rezervováno {ts}",
+"pd_event":"událost {date}",
+"pd_reply":"Na každý návrh máte {d} dní na odpověď; připomeneme vám to.",
+"pd_story_h":"Váš příběh",
+"pd_story_sub":"Co jste nám řekli před rezervací. Všimli jste si chyby (jméno, pravopis)? Napište nám ji v příští odpovědi k textu.",
+"pd_show":"Zobrazit příběh",
+"pd_q":"Dotazy? <a href=\"mailto:hello@gatherwall.com\">hello@gatherwall.com</a>. Pro změny prosím používejte tlačítka na této stránce, ať je vše na jednom místě.",
+"pill_ap":"Schváleno 🔒 {ts}",
+"pill_auto":"(automaticky, po {d} dnech)",
+"pill_you":"Jste na řadě",
+"pill_wait":"Čeká na předchozí krok",
+"pill_work":"Pracujeme na tom",
+"pill_chg":"Úpravy přijaty · nová verze do 3 pracovních dnů",
+"pill_ready":"Připraveno pro vás · odpovězte do {date}",
+"ver":"Verze {v}",
+"chosen":"✓ vybráno",
+"watch":"▶ Přehrát návrh filmu (verze {v})",
+"ph_link":"📷 Váš rodinný odkaz pro nahrávání",
+"ph_share":"· sdílejte ho se všemi. Plná kvalita, fotky i krátká videa.",
+"ph_pending":"Váš soukromý odkaz pro nahrávání se tu objeví do 1 pracovního dne od rezervace. Začněte shromažďovat 30–60 fotek, hlavně těch starších.",
+"ph_confirm":"Potvrďte prosím do {date}.",
+"ph_confirm_nd":"Potvrďte prosím do domluveného data.",
+"btn_photos":"Moje fotky jsou kompletní",
+"choose":"Vybírám verzi {v}",
+"ap_song":"Schválit tuto verzi",
+"ap_lock":"Schválit a uzamknout",
+"req_btn":"Požádat o úpravy (zbývá: {n})",
+"req_lbl":"Všechny úpravy v jedné zprávě",
+"hint_song":"Napište nám, jakou změnu stylu si přejete (tempo, nálada, hlas). Text zůstává tak, jak byl schválen.",
+"hint_film":"Načasování, pořadí fotek, popisky, výměna fotek z vašich nahraných. Píseň i sada fotek zůstávají tak, jak byly schváleny.",
+"hint_lyrics":"Buďte konkrétní: který verš, co změnit a na co. Počítá se to jako jedno kolo.",
+"send_chg":"Odeslat moje úpravy",
+"used_up":"Kola v ceně jsou vyčerpána. Pokud se ještě něco změnit musí, napište nám e-mail a než cokoli uděláme, pošleme vám nabídku.",
+"hist":"Vaše úpravy ({n}, {ts}): „{text}“",
+"fin_h":"🎁 Předáno {ts}",
+"fin_note":"Stáhněte si prosím své soubory. Zůstanou k dispozici 90 dní po předání.",
+"describe":"Popište prosím své úpravy.",
+"cf_send":"Odeslat tyto úpravy? Využijete tím jedno z kol v ceně. Ujistěte se prosím, že je vše v této jedné zprávě.",
+"err_send":"Odeslání se nezdařilo. Zkuste to prosím znovu.",
+"sent":"Odesláno. Ozveme se s novou verzí.",
+"cf_lyrics":"Schválit text? Text se tím uzamkne a píseň se podle něj nahraje. Pozdější změny nejsou v ceně.",
+"cf_song":"Schválit tuto verzi písně? Tím se uzamkne a film se na ni sestříhá.",
+"cf_photos":"Potvrdit, že jsou vaše fotky kompletní? Sada se tím uzamkne a film se z ní vytvoří. Později přidané fotky nejsou v ceně.",
+"cf_film":"Schválit film? Je to vaše konečné schválení a my připravíme předání.",
+"err_save":"Uložení se nezdařilo. Zkuste to prosím znovu.",
+"approved":"Schváleno ✓",
+"cb_project":"PROJEKT",
+"cb_call":"Oslovení",
+"cb_occ":"Příležitost",
+"cb_date":"Datum",
+"cb_nodate":"bez pevného data",
+"cb_from":"Od",
+"cb_email":"E-mail",
+"cb_lang":"Jazyk",
+"cb_feel":"Nálada",
+"cb_nothing":"Není co vynechat (potvrzeno).",
+"inc_sf1":"Původní píseň napsaná podle jeho/jejího příběhu",
+"inc_sf2":"Film z jeho/jejích fotek s textem ke zpívání",
+"inc_sf3":"Rodinný odkaz pro nahrávání fotek",
+"inc_sf4":"1 kolo úprav textu a 1 kolo úprav filmu",
+"inc_sf5":"Soukromá dárková stránka pro oslavence",
+"inc_sc1":"Vše ze Story Film",
+"inc_sc2":"Dvě verze písně, na přání s textem ve dvou jazycích",
+"inc_sc3":"Zeď vzkazů pro rodinu a přátele z celého světa",
+"inc_sc4":"Restaurování vzácných starých fotografií",
+"inc_sc5":"Pamětní kniha v PDF a soukromá vzpomínková stránka",
+"inc_sc6":"Sada na velký den: soubor pro obrazovku, záloha a program večera",
+"inc_sc7":"2 kola úprav textu a 2 kola úprav filmu",
+"s2_h":"Lidé kolem něj/ní",
+"s2_sub":"Jména jsou v písni na památku tím nejsilnějším. Slyšet své vlastní jméno zpívané – to je to, co lidi rozpláče. Napište nám jich prosím co nejvíc – a pokud to není zřejmé, i jak se každé vyslovuje.",
+"tq_partner":"Partner/ka nebo manžel/ka – jméno a jak se seznámili",
+"tp_partner":"Kde, kdy, kdo promluvil první, co o tom říká dnes...",
+"tq_children":"Děti – jména, popořadě",
+"tp_children":"Jméno a zhruba čím se živí nebo jací jsou. Stačí jeden řádek na každého.",
+"tq_grand":"Vnoučata – jména <span class=\"opt\">nepovinné</span>",
+"tq_siblings":"Bratři, sestry a všichni, kdo se počítají do rodiny",
+"tq_friends":"Nejbližší přátelé, kteří budou přítomni",
+"s3_h":"Odkud pochází",
+"s3_sub":"Historie. Rodiče, domov, cesta, která ho/ji sem přivedla.",
+"tq_born":"Kde se narodil/a a kde vyrůstal/a?",
+"tq_parents":"Jeho/její rodiče – jména a jací byli",
+"th_parents":"Pokud některý z nich zemřel, uveďte to zde a v sekci 7 nám napište, jak byste si přáli, abychom ho uctili.",
+"tq_famback":"Čím se rodina živila? Jaký byl tehdy život?",
+"tq_edu":"Škola, vyučení, práce – cesta, kterou šel/šla",
+"tq_places":"Místa, kde žil/a nebo mezi kterými se stěhoval/a",
+"tq_faith":"Víra, církev nebo život v komunitě <span class=\"opt\">nepovinné, ale často je to jádro všeho</span>",
+"s4_h":"Jaký/jaká doopravdy je",
+"s4_sub":"Díky této sekci nebude píseň znít jako ničí jiná.",
+"tq_three":"Tři slova, kterými by ho/ji rodina popsala",
+"tq_saying":"Něco, co pořád říká <span class=\"opt\">rčení, rada, kázání</span>",
+"tq_laugh":"Čemu se na něm/ní všichni smějí?",
+"tp_laugh":"Zvyk, zvláštnost, věc, kterou by zapřel/a.",
+"tq_proud":"Na co je nejvíc pyšný/á?",
+"tq_quiet":"Čím by se nikdy nechlubil/a – i když by měl/a?",
+"tq_loves":"Jídlo, hudba, oblíbené týmy, koníčky – co má rád/a",
+"s5_h":"Okamžiky",
+"s5_sub":"Dva nebo tři skutečné příběhy jsou víc než stránka přídavných jmen. Nejlepší jsou ty malé.",
+"tq_memory":"Vzpomínka, která ho/ji vystihuje",
+"tq_funny":"Vtipná historka, kterou by všichni v sále poznali",
+"tq_overcame":"Něco těžkého, čím prošel/prošla",
+"th_overcame":"Jen pokud je to jeho/její příběh a byl/a by rád/a, aby zazněl. Pojmeme ho citlivě, nebo ho vynecháme – rozhodnete v sekci 7.",
+"tq_onething":"Kdyby dnes večer měl/a o sobě slyšet jedinou věc, jaká by to měla být?",
+"s6_h":"Hudba",
+"s6_sub":"Píseň píšeme pro něj/ni, ne pro hitparády.",
+"tq_music":"Hudba, kterou má rád/a – interpreti, žánry, éra",
+"tq_meansong":"Píseň, která pro něj/ni už něco znamená <span class=\"opt\">nepovinné</span>",
+"tq_mood":"Jakou náladu má jeho/její píseň mít?",
+"tp_mood":"Hřejivá a jemná / svižná a vtipná / soulová / gospel / něco k tanci",
+"tq_language":"Jazyk – a slova či fráze v jiném jazyce, které máme zahrnout",
+"tp_language":"Celá anglicky, ale maminka mu vždycky říkala...",
+"s7_h":"Co vynechat",
+"s7_sub":"Nejdůležitější sekce na této stránce. Mnohem raději to budeme vědět teď, než abychom se spletli před plným sálem. Nic, co sem napíšete, se nikdy nikomu neukáže.",
+"tq_passed":"Ti, kdo už zemřeli – a jak byste si přáli, aby na ně bylo vzpomenuto",
+"th_passed":"Citlivě jmenovat, zmínit bez jména, nebo vůbec. Napište nám, co platí.",
+"tq_nomention":"Kdo by <em>neměl</em> být zmíněn",
+"th_nomention":"Rozkoly, rozvody, těžká minulost. Žádné vysvětlení není potřeba – stačí jméno.",
+"tq_avoid":"Témata, kterým se úplně vyhnout",
+"th_avoid":"Zdraví, peníze, práce, určité životní období, stará přezdívka, ze které už vyrostl/a.",
+"tq_upset":"Cokoli, co by ho/ji uvedlo do rozpaků nebo rozrušilo",
+"tq_unsure":"Je něco, čím si nejste jisti? <span class=\"opt\">než to použijeme, zeptáme se</span>",
+"s8_h":"Fotky a samotný den",
+"s8_sub":"Aby byl film střižený pro místo, kde se bude promítat.",
+"s8_box":"📷 <b>Fotky přicházejí až po rezervaci.</b> Na stránce projektu dostanete jeden soukromý odkaz pro nahrávání, který můžete sdílet s rodinou: bez aplikace, v plné kvalitě, fotky i krátká videa. Začněte je shromažďovat už teď.",
+"tq_photocount":"Kolik fotek zhruba dokážete sehnat?",
+"tp_photocount":"Ideální je 30–60 – hlavně starých",
+"tq_video":"Nějaká videa? <span class=\"opt\">nepovinné</span>",
+"tq_whenplays":"Kdy během večera se bude promítat?",
+"tp_whenplays":"Po jídle, místo proslovů...",
+"tq_screen":"Na čem se bude přehrávat? <span class=\"opt\">obrazovka, projektor, televize – a je k dispozici slušný zvuk?</span>",
+"tq_contact":"Kdo je v den akce náš kontakt, kdyby bylo potřeba něco vyřešit?",
+"tq_else":"Je ještě něco, co bychom měli vědět?",
+"s9_h":"Aby detaily seděly přesně",
+"s9_sub":"Drobnosti, které dělají velký rozdíl, když se píseň zpívá nahlas.",
+"tq_pron":"Jak se vyslovuje každé jméno? <span class=\"opt\">napište ho tak, jak zní</span>",
+"th_pron":"Např. „Aderinsola – A-de-rin-so-la“. Uveďte i přezdívky a jména dětí a vnoučat.",
+"tq_phrases":"Slova nebo fráze v jiném jazyce – co znamenají a jak se vyslovují",
+"th_phrases":"Např. „Ọlọ́run ṣé – Bůh to vykonal – vyslovuje se ‚O-ló-run še‘“.",
+"tq_bday":"Jeho/její skutečné datum narozenin nebo výročí <span class=\"opt\">pokud se liší od události</span>",
+"tq_style":"Píseň, jejímž stylem bychom se měli inspirovat <span class=\"opt\">odkaz na YouTube nebo Spotify je ideální</span>"
+}
+};
 const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
 const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
 const LYRICS_API='https://gatherwall-lyrics.baba-analytix.workers.dev';
@@ -293,6 +1596,33 @@ const LAUNCH_UNTIL=new Date('2027-01-01T00:00:00Z');
 const Q=new URLSearchParams(location.search);
 let CID=Q.get('p')||'', ADMIN=Q.get('admin')||'', P=null, IS_ADMIN=false;
 const $=id=>document.getElementById(id);
+/* ================= I18N ================= */
+const LANGS=['en','fr','es','de','cs'], LOCALES={en:'en-GB',fr:'fr-FR',es:'es-ES',de:'de-DE',cs:'cs-CZ'};
+function normLang(l){ l=String(l||'').toLowerCase().slice(0,2); if(l==='cz') l='cs'; return LANGS.indexOf(l)>-1?l:''; }
+let LANG=(()=>{ const q=normLang(Q.get('lang')); if(q){ try{ localStorage.setItem('gw_lang',q); }catch(e){} return q; } let s=''; try{ s=normLang(localStorage.getItem('gw_lang')); }catch(e){} return s||'en'; })();
+let LOCALE=LOCALES[LANG];
+function t(k,v){ const D=L[LANG]||L.en; let s=D[k]!=null?D[k]:(L.en[k]!=null?L.en[k]:k); if(v) s=s.replace(/\{(\w+)\}/g,(m,n)=>v[n]!=null?String(v[n]):m); return s; }
+function rounds(n){ return t(n===1?'round1':(n>=2&&n<=4)?'round2':'round5',{n}); }
+function applyT(root){ root.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML=t(el.getAttribute('data-i18n')); }); root.querySelectorAll('[data-i18n-ph]').forEach(el=>{ el.placeholder=t(el.getAttribute('data-i18n-ph')); }); }
+function markLang(){ document.documentElement.lang=LANG; document.querySelectorAll('.lang-btn').forEach(b=>{ const on=b.dataset.lang===LANG; b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false'); }); }
+let NOT_FOUND=false, curFields=null;
+function setLang(l){
+  l=normLang(l); if(!l||l===LANG) return;
+  LANG=l; LOCALE=LOCALES[l]; try{ localStorage.setItem('gw_lang',l); }catch(e){}
+  markLang(); applyT(document);
+  if(!CID){
+    const keep={}; document.querySelectorAll('#app input, #app select').forEach(el=>{ if(el.id) keep[el.id]=el.type==='checkbox'?el.checked:el.value; });
+    const sel=(document.querySelector('.tier.on')||{dataset:{}}).dataset.t;
+    renderStart(sel);
+    Object.keys(keep).forEach(id=>{ const el=$(id); if(!el) return; if(el.type==='checkbox') el.checked=keep[id]; else el.value=keep[id]; });
+  } else if(NOT_FOUND) showNotFound();
+  else if(P&&P.tier){
+    if(saveT&&curFields&&!P.paid){ clearTimeout(saveT); saveT=null; saveAnswers(curFields); }
+    render();
+  }
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+markLang(); applyT(document);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function toast(m){ const t=$('toast'); t.textContent=m; t.style.display='block'; clearTimeout(toast._t); toast._t=setTimeout(()=>t.style.display='none',2600); }
 const TS={'.sv':'timestamp'};
@@ -301,55 +1631,62 @@ async function dbPut(p,v){ return fetch(DB+'/'+p+'.json',{method:'PUT',headers:{
 async function dbPatch(p,v){ return fetch(DB+'/'+p+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)}); }
 function hostCall(op,payload){ return fetch(HOST_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op},payload))}).then(r=>r.json()).catch(()=>({ok:false})); }
 function rnd(n){ const a=new Uint8Array(n); crypto.getRandomValues(a); return Array.from(a,b=>'abcdefghijklmnopqrstuvwxyz0123456789'[b%36]).join(''); }
-function fmt(d){ return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'}); }
-function fmtTs(ts){ return ts? new Date(ts).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : ''; }
+function fmt(d){ return d.toLocaleDateString(LOCALE,{weekday:'short',day:'numeric',month:'short',year:'numeric'}); }
+function fmtTs(ts,loc){ return ts? new Date(ts).toLocaleString(loc||LOCALE,{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : ''; }
 function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
 function addWorkDays(d,n){ const x=new Date(d); while(n>0){ x.setDate(x.getDate()+1); if(x.getDay()%6) n--; } return x; }
 function rememberProject(cid,label){ try{ let a=JSON.parse(localStorage.getItem('gw_my_links')||'[]'); const url=location.origin+'/project.html?p='+cid; if(!a.some(x=>x.url===url)) a.unshift({label,url}); localStorage.setItem('gw_my_links',JSON.stringify(a.slice(0,12))); localStorage.setItem('gw_proj_last',cid); }catch(e){} }
 
 /* ================= START: new project ================= */
-function renderStart(){
-  const t=Q.get('new')==='signature-celebration'?'signature-celebration':'story-film';
+function renderStart(sel){
+  const t0=TIERS[sel]?sel:(Q.get('new')==='signature-celebration'?'signature-celebration':'story-film');
+  $('eyebrow').textContent=t('eyebrow_start'); $('h1').textContent=t('h1_start'); $('lead').textContent=t('lead_start');
+  const opt=(v,k)=>`<option value="${esc(v)}">${k?t(k):esc(v)}</option>`;
   $('app').innerHTML=`
   <div class="pcard">
-    <h2>1 · Choose your package</h2>
-    <div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===t)).join('')}</div>
-    <p class="small" style="margin-top:8px">You can switch package any time before you book.</p>
+    <h2>${t('st_choose')}</h2>
+    <div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===t0)).join('')}</div>
+    <p class="small" style="margin-top:8px">${t('st_switch')}</p>
   </div>
   <div class="pcard">
-    <h2>2 · The essentials</h2>
-    <p class="sub">So we can build your plan. Everything else comes on the next page, at your own pace.</p>
+    <h2>${t('st_ess')}</h2>
+    <p class="sub">${t('st_ess_sub')}</p>
     <div class="grid2">
-      <div><label>Who is it for? <span class="opt">full name</span></label><input type="text" id="b_for"></div>
-      <div><label>What do people call them?</label><input type="text" id="b_call" placeholder="Mummy, Uncle B, Grandpa…"></div>
-      <div><label>The occasion</label><input type="text" id="b_occ" placeholder="70th birthday, wedding, remembrance…"></div>
-      <div><label>Date of the event</label><input type="date" id="b_date"><label class="small" style="font-weight:400;margin-top:6px"><input type="checkbox" id="b_nodate"> No fixed date</label></div>
-      <div><label>Your name</label><input type="text" id="b_you"></div>
-      <div><label>You are their…</label><input type="text" id="b_rel" placeholder="daughter, son, friend…"></div>
-      <div><label>Your email</label><input type="text" id="b_email" inputmode="email"></div>
-      <div><label>Your WhatsApp number <span class="opt">with country code</span></label><input type="text" id="b_wa" inputmode="tel" placeholder="+44 …"></div>
-      <div><label>Song language</label><select id="b_lang"><option>English</option><option>English with Yoruba phrases</option><option>English with Igbo phrases</option><option>English with Hausa phrases</option><option>English with Pidgin</option><option>Français</option><option>Español</option><option>Deutsch</option><option>Čeština</option><option>Other (tell us in the story)</option></select></div>
-      <div><label>How should it feel?</label><select id="b_mood"><option>Warm soul ballad</option><option>Afrobeats celebration</option><option>Highlife, joyful</option><option>Gospel, uplifting</option><option>Gentle acoustic</option><option>Upbeat pop</option><option>Quiet and reflective</option></select></div>
+      <div><label>${t('f_for')}</label><input type="text" id="b_for"></div>
+      <div><label>${t('f_call')}</label><input type="text" id="b_call" placeholder="${esc(t('f_call_ph'))}"></div>
+      <div><label>${t('f_occ')}</label><input type="text" id="b_occ" placeholder="${esc(t('f_occ_ph'))}"></div>
+      <div><label>${t('f_date')}</label><input type="date" id="b_date"><label class="small" style="font-weight:400;margin-top:6px"><input type="checkbox" id="b_nodate"> ${t('f_nodate')}</label></div>
+      <div><label>${t('f_you')}</label><input type="text" id="b_you"></div>
+      <div><label>${t('f_rel')}</label><input type="text" id="b_rel" placeholder="${esc(t('f_rel_ph'))}"></div>
+      <div><label>${t('f_email')}</label><input type="text" id="b_email" inputmode="email"></div>
+      <div><label>${t('f_wa')}</label><input type="text" id="b_wa" inputmode="tel" placeholder="+44 …"></div>
+      <div><label>${t('f_lang')}</label><select id="b_lang">${LANG_OPTS.map(([v,k])=>opt(v,k)).join('')}</select></div>
+      <div><label>${t('f_mood')}</label><select id="b_mood">${MOOD_OPTS.map(([v,k])=>opt(v,k)).join('')}</select></div>
     </div>
-    <div class="btnrow"><button class="b-primary" id="createBtn">Create my project and see my plan →</button></div>
-    <p class="small" style="margin-top:10px">Your project gets a private link. We'll email it to you so you can come back any time, on any device.</p>
+    <div class="btnrow"><button class="b-primary" id="createBtn">${t('st_create')}</button></div>
+    <p class="small" style="margin-top:10px">${t('st_link')}</p>
     <p class="small err" id="startErr" style="color:var(--rose);display:none"></p>
   </div>`;
   document.querySelectorAll('.tier').forEach(el=>el.onclick=()=>{ document.querySelectorAll('.tier').forEach(x=>x.classList.remove('on')); el.classList.add('on'); });
   $('createBtn').onclick=createProject;
 }
-function tierBtn(k,on){ const T=TIERS[k], launch=new Date()<LAUNCH_UNTIL; return `<div class="tier${on?' on':''}" data-t="${k}"><b>${T.name}</b><span>${launch?`<s>${T.price}</s> ${T.launch} launch price`:T.price}</span></div>`; }
+/* Stored values stay in English; only the visible labels are translated. */
+const LANG_OPTS=[['English','lo_en'],['English with Yoruba phrases','lo_yo'],['English with Igbo phrases','lo_ig'],['English with Hausa phrases','lo_ha'],['English with Pidgin','lo_pcm'],['Français'],['Español'],['Deutsch'],['Čeština'],['Other (tell us in the story)','lo_other']];
+const MOOD_OPTS=[['Warm soul ballad','mo_soul'],['Afrobeats celebration','mo_afro'],['Highlife, joyful','mo_high'],['Gospel, uplifting','mo_gospel'],['Gentle acoustic','mo_acoustic'],['Upbeat pop','mo_pop'],['Quiet and reflective','mo_quiet']];
+function optLabel(list,v){ const o=list.find(x=>x[0]===v); return o&&o[1]?t(o[1]):(v||''); }
+function tierBtn(k,on){ const T=TIERS[k], launch=new Date()<LAUNCH_UNTIL; return `<div class="tier${on?' on':''}" data-t="${k}"><b>${T.name}</b><span>${launch?`<s>${T.price}</s> ${T.launch} ${t('launch_price')}`:T.price}</span></div>`; }
 async function createProject(){
   const v=id=>($(id).value||'').trim();
   const basics={for:v('b_for'),call:v('b_call'),occasion:v('b_occ'),date:$('b_nodate').checked?'':v('b_date'),noDate:$('b_nodate').checked,you:v('b_you'),rel:v('b_rel'),email:v('b_email'),wa:v('b_wa'),lang:v('b_lang'),mood:v('b_mood')};
-  const miss=[]; if(!basics.for)miss.push('who it is for'); if(!basics.occasion)miss.push('the occasion'); if(!basics.date&&!basics.noDate)miss.push('the date (or tick “No fixed date”)'); if(!basics.you)miss.push('your name'); if(!/.+@.+\..+/.test(basics.email))miss.push('a valid email'); if(basics.wa.replace(/\D/g,'').length<8)miss.push('your WhatsApp number');
-  if(miss.length){ const e=$('startErr'); e.textContent='Please add '+miss.join(', ')+'.'; e.style.display='block'; return; }
+  const miss=[]; if(!basics.for)miss.push(t('miss_for')); if(!basics.occasion)miss.push(t('miss_occ')); if(!basics.date&&!basics.noDate)miss.push(t('miss_date')); if(!basics.you)miss.push(t('miss_you')); if(!/.+@.+\..+/.test(basics.email))miss.push(t('miss_email')); if(basics.wa.replace(/\D/g,'').length<8)miss.push(t('miss_wa'));
+  if(miss.length){ const e=$('startErr'); e.textContent=t('err_add',{list:miss.join(', ')}); e.style.display='block'; return; }
   const tier=(document.querySelector('.tier.on')||{}).dataset.t||'story-film';
   const cid='p'+rnd(6)+'--'+rnd(16);
-  $('createBtn').disabled=true; $('createBtn').textContent='Creating…';
+  $('createBtn').disabled=true; $('createBtn').textContent=t('creating');
   const r=await dbPut('projects/'+cid,{tier,created:TS,brief:{basics,answers:{}}});
-  if(!r.ok){ $('createBtn').disabled=false; $('createBtn').textContent='Create my project and see my plan →'; toast('Could not create the project. Please try again.'); return; }
-  rememberProject(cid,(TIERS[tier].name)+' for '+basics.for);
+  if(!r.ok){ $('createBtn').disabled=false; $('createBtn').textContent=t('st_create'); toast(t('err_create')); return; }
+  rememberProject(cid,t('tier_for',{tier:TIERS[tier].name,name:basics.for}));
+  try{ window.gwTrack&&window.gwTrack('plans',tier); }catch(e){}
   location.href='project.html?p='+cid;
 }
 
@@ -357,18 +1694,19 @@ async function createProject(){
 async function load(){
   if(!CID){ renderStart(); return; }
   P=await dbGet('projects/'+CID);
-  if(!P||!P.tier){ $('h1').textContent='Project not found'; $('lead').textContent='Please check the link from your email. If it still doesn\'t work, message us and we\'ll find it.'; $('app').innerHTML=''; return; }
+  if(!P||!P.tier){ NOT_FOUND=true; showNotFound(); return; }
   if(ADMIN){ const r=await hostCall('verify',{ev:'admin',key:ADMIN}); IS_ADMIN=!!(r&&r.ok); }
-  rememberProject(CID,TIERS[P.tier].name+' for '+((P.brief&&P.brief.basics&&P.brief.basics.for)||''));
+  rememberProject(CID,t('tier_for',{tier:TIERS[P.tier].name,name:((P.brief&&P.brief.basics&&P.brief.basics.for)||'')}));
   render();
 }
+function showNotFound(){ $('eyebrow').textContent=t('eyebrow_start'); $('h1').textContent=t('nf_h1'); $('lead').textContent=t('nf_lead'); $('app').innerHTML=''; }
 function B(){ return (P.brief&&P.brief.basics)||{}; }
-function who(){ const b=B(); return b.call||b.for||'them'; }
+function who(){ const b=B(); return b.call||b.for||t('them'); }
 function render(){
   const T=TIERS[P.tier];
-  $('eyebrow').textContent=T.name+(P.paid?' · booked':' · plan');
-  $('h1').textContent=(P.paid?'':'Your plan: ')+T.name+' for '+who();
-  $('lead').textContent=P.paid? 'This is your private project page. Everything happens here: drafts, approvals and delivery. Keep this link safe.' : 'Here is your personal plan. Fill in the story below at your own pace (it saves as you type). When it\'s complete and you\'re happy with the plan, book to reserve your date.';
+  $('eyebrow').textContent=t(P.paid?'ey_booked':'ey_plan',{tier:T.name});
+  $('h1').textContent=t(P.paid?'h1_paid':'h1_plan',{tier:T.name,who:who()});
+  $('lead').textContent=t(P.paid?'lead_paid':'lead_plan');
   let h='';
   if(IS_ADMIN) h+=adminPanel();
   h+= P.paid? paidView(T) : planView(T);
@@ -384,67 +1722,67 @@ function schedule(T){
   const days=ev? Math.round((ev-today)/864e5):null;
   const rows=[];
   const book=today;
-  rows.push(['Today','You finish the story on this page and book. Your date is reserved once paid.']);
-  rows.push([fmt(addWorkDays(book,3)),'First lyrics draft on this page (within 3 working days of booking and a complete story).']);
-  rows.push(['5 days','You approve the lyrics or send one message with all your changes. Included: '+T.lyricRounds+' round'+(T.lyricRounds>1?'s':'')+'.']);
-  rows.push(['+3 work days','Song versions to choose from, once the lyrics are approved.']);
-  rows.push([ev?fmt(addDays(ev,-T.lead)):'—','All photos uploaded and confirmed final'+(ev?'':' (we\'ll agree a date with you)')+'.']);
-  rows.push([ev?fmt(addDays(ev,-7)):'—','Film draft on this page. Included: '+T.filmRounds+' round'+(T.filmRounds>1?'s':'')+' of changes.']);
-  rows.push([ev?fmt(addDays(ev,-3)):'—','Final delivery: film, song, lyrics and gift page.']);
+  rows.push([t('sc_today'),t('sc_today_t')]);
+  rows.push([fmt(addWorkDays(book,3)),t('sc_lyr_t')]);
+  rows.push([t('sc_5d'),t('sc_5d_t',{r:rounds(T.lyricRounds)})]);
+  rows.push([t('sc_3wd'),t('sc_3wd_t')]);
+  rows.push([ev?fmt(addDays(ev,-T.lead)):'—',t(ev?'sc_photos_t':'sc_photos_t_nd')]);
+  rows.push([ev?fmt(addDays(ev,-7)):'—',t('sc_film_t',{r:rounds(T.filmRounds)})]);
+  rows.push([ev?fmt(addDays(ev,-3)):'—',t('sc_final_t')]);
   return {rows,days,ev};
 }
 const REQ=[
-  ['Children','The people around them (at least one name)',a=>['Partner / how they met','Children','Grandchildren','Siblings / chosen family','Close friends'].some(q=>a[q])],
-  ['Pronunciation of names','How each name is said (or “all names are straightforward”)'],
-  ['Defining memory','A memory that sums them up'],
-  ['Three words','Three words the family would use'],
-  ['Loves','The things they love'],
-  ['Mood','What their song should feel like'],
-  ['leave','Section 7: what to leave out (or tick “nothing to leave out”)',(a,br)=>br.nothingToAvoid||Object.keys(a).some(q=>q.indexOf('⚠️')===0&&a[q])],
-  ['Photo count','Roughly how many photos you can gather'],
+  ['Children','req_people',a=>['Partner / how they met','Children','Grandchildren','Siblings / chosen family','Close friends'].some(q=>a[q])],
+  ['Pronunciation of names','req_pron'],
+  ['Defining memory','req_mem'],
+  ['Three words','req_three'],
+  ['Loves','req_loves'],
+  ['Mood','req_mood'],
+  ['leave','req_leave',(a,br)=>br.nothingToAvoid||Object.keys(a).some(q=>q.indexOf('⚠️')===0&&a[q])],
+  ['Photo count','req_photos'],
 ];
 function answersByQ(){ const o={}; const A=(P.brief&&P.brief.answers)||{}; Object.keys(A).forEach(k=>{ if(A[k]&&A[k].a) o[A[k].q]=A[k].a; }); return o; }
-function reqStatus(){ const a=answersByQ(), br=P.brief||{}; return REQ.map(([k,label,fn])=>({label,done: fn? !!fn(a,br) : !!a[k]})); }
+function reqStatus(){ const a=answersByQ(), br=P.brief||{}; return REQ.map(([k,label,fn])=>({label:t(label),done: fn? !!fn(a,br) : !!a[k]})); }
 function planView(T){
   const s=schedule(T), b=B();
   const tooSoon = s.days!==null && s.days < T.min;
   const launch=new Date()<LAUNCH_UNTIL;
-  let h=`<div class="pcard"><h2>Your package</h2><div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===P.tier)).join('')}</div>
-    <ul class="rules" style="margin-top:12px">${T.inc.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul></div>`;
-  h+=`<div class="pcard"><h2>Your timeline</h2><p class="sub">${esc(b.occasion||'')}${s.ev?' on '+fmt(s.ev):''}${s.days!==null?' · '+s.days+' days away':''}</p>`;
-  if(tooSoon) h+=`<div class="warn"><b>Your date is closer than our standard schedule (${T.min} days).</b> Please message us before booking and we'll tell you honestly whether we can make it: <a href="mailto:hello@gatherwall.com?subject=${encodeURIComponent('Date check: '+T.name+' for '+(b.for||''))}">hello@gatherwall.com</a>. Booking is paused for this date until we confirm.</div>`;
+  let h=`<div class="pcard"><h2>${t('pv_pkg')}</h2><div class="tiers">${Object.keys(TIERS).map(k=>tierBtn(k,k===P.tier)).join('')}</div>
+    <ul class="rules" style="margin-top:12px">${T.inc.map((x,i)=>'<li>'+esc(t('inc_'+(P.tier==='story-film'?'sf':'sc')+(i+1)))+'</li>').join('')}</ul></div>`;
+  h+=`<div class="pcard"><h2>${t('pv_tl')}</h2><p class="sub">${esc(b.occasion||'')}${s.ev?' '+t('pv_on',{date:fmt(s.ev)}):''}${s.days!==null?' · '+t('pv_days',{n:s.days}):''}</p>`;
+  if(tooSoon) h+=`<div class="warn"><b>${t('pv_soon_b',{min:T.min})}</b> ${t('pv_soon')} <a href="mailto:hello@gatherwall.com?subject=${encodeURIComponent('Date check: '+T.name+' for '+(b.for||''))}">hello@gatherwall.com</a>. ${t('pv_soon2')}</div>`;
   h+=`<ul class="tl">${s.rows.map(r=>`<li><span class="d">${esc(r[0])}</span><span>${esc(r[1])}</span></li>`).join('')}</ul></div>`;
-  h+=`<div class="pcard"><h2>A taste of their song</h2><p class="sub">Once you've filled in a few memories, hear the opening lines we'd write. Free, and only takes a minute. Your full lyrics are written by our team after booking.</p>
+  h+=`<div class="pcard"><h2>${t('pv_taste_h')}</h2><p class="sub">${t('pv_taste_sub')}</p>
     <div id="tasteBox">${P.taste?'<div class="taste">'+esc(P.taste.text)+'</div>':''}</div>
-    ${P.taste?'':'<button class="b-ghost" id="tasteBtn">✨ Show me the opening lines</button>'}</div>`;
-  h+=`<div class="note"><strong>Their story.</strong> This is where the song and film come from, so please be generous. It saves as you type, so do it in a few sittings and share this link with family who know the stories. <b>Section 7 matters most</b>: what to leave out.</div>`;
+    ${P.taste?'':'<button class="b-ghost" id="tasteBtn">'+t('pv_taste_btn')+'</button>'}</div>`;
+  h+=`<div class="note">${t('pv_note')}</div>`;
   h+=`<div id="storyHost"></div>`;
-  h+=`<div class="pcard"><label class="agree" style="margin:0"><input type="checkbox" id="nothingAvoid" ${(P.brief&&P.brief.nothingToAvoid)?'checked':''}> There is nothing we need to leave out or handle carefully.</label></div>`;
+  h+=`<div class="pcard"><label class="agree" style="margin:0"><input type="checkbox" id="nothingAvoid" ${(P.brief&&P.brief.nothingToAvoid)?'checked':''}> ${t('pv_nothing')}</label></div>`;
   const rs=reqStatus(), ready=rs.every(x=>x.done);
-  h+=`<div class="pcard" id="bookCard"><h2>Book and reserve your date</h2>
-    <p class="sub">Before booking we need the essentials, so we can start the moment you pay:</p>
+  h+=`<div class="pcard" id="bookCard"><h2>${t('pv_book_h')}</h2>
+    <p class="sub">${t('pv_book_sub')}</p>
     <ul class="checks" id="checks">${rs.map(x=>`<li class="${x.done?'isdone':''}">${esc(x.label)}</li>`).join('')}</ul>
-    <h3 style="font-size:1.05rem;margin-top:18px">How it works, step by step</h3>
+    <h3 style="font-size:1.05rem;margin-top:18px">${t('pv_how')}</h3>
     <ol class="rules">
-      <li><b>Lyrics.</b> You get a draft here. Approve it, or send one message with all your changes (${T.lyricRounds} round${T.lyricRounds>1?'s':''} included). <b>Once approved, the words are locked</b> and the song is recorded from them.</li>
-      <li><b>Song.</b> You choose your favourite version. One style redo is included before you approve. <b>Once approved, the song is locked.</b></li>
-      <li><b>Photos.</b> One upload link for the whole family. When you press “photos complete”, the set is locked and the film is built from it.</li>
-      <li><b>Film.</b> You get a draft here. ${T.filmRounds} round${T.filmRounds>1?'s':''} of fixes included, using the approved song and photos (timing, order, captions, swaps from your uploads).</li>
-      <li><b>${RESPOND_DAYS} days to reply.</b> Each draft has a ${RESPOND_DAYS}-day reply window. We remind you before it ends; if we don't hear back, that stage counts as approved so your date is never at risk.</li>
-      <li><b>After approval.</b> Changes to a locked stage aren't included. If something must change, ask and we'll quote first (extra rounds are $29); nothing is done or charged without your OK.</li>
-      <li><b>Refunds.</b> Full refund before your first lyrics draft; 50% after it; none once the song is approved, because it's made for one person. Full details in our <a href="terms.html#madeforyou" target="_blank">terms</a>.</li>
+      <li>${t('rule_lyrics',{r:rounds(T.lyricRounds)})}</li>
+      <li>${t('rule_song')}</li>
+      <li>${t('rule_photos')}</li>
+      <li>${t('rule_film',{r:rounds(T.filmRounds)})}</li>
+      <li>${t('rule_reply',{d:RESPOND_DAYS})}</li>
+      <li>${t('rule_after')}</li>
+      <li>${t('rule_refund')}</li>
     </ol>
-    <label class="agree"><input type="checkbox" id="agree"> I've read how it works, and I agree to the stage rules, reply windows and <a href="terms.html#madeforyou" target="_blank">terms</a>.</label>
-    <div class="btnrow"><button class="b-primary" id="payBtn" ${(!ready||tooSoon)?'disabled':''}>Book ${esc(T.name)} · ${launch?T.launch:T.price} →</button></div>
-    <p class="small" id="payNote" style="margin-top:8px">${tooSoon?'Booking paused until we confirm your date.':ready?'Secure payment by Stripe. Your project continues on this page.':'Complete the items above to book.'}</p>
+    <label class="agree"><input type="checkbox" id="agree"> ${t('agree')}</label>
+    <div class="btnrow"><button class="b-primary" id="payBtn" ${(!ready||tooSoon)?'disabled':''}>${t('pay_btn',{tier:esc(T.name),price:launch?T.launch:T.price})}</button></div>
+    <p class="small" id="payNote" style="margin-top:8px">${t(tooSoon?'pn_paused':ready?'pn_ready':'pn_todo')}</p>
   </div>`;
   return h;
 }
 let saveT=null;
 function wirePlan(T){
   document.querySelectorAll('.tier').forEach(el=>el.onclick=async()=>{ if(el.dataset.t===P.tier)return; await dbPut('projects/'+CID+'/tier',el.dataset.t); P.tier=el.dataset.t; render(); });
-  const host=$('storyHost'); host.innerHTML=$('tpl-story').innerHTML;
-  const fields=[...host.querySelectorAll('[data-q]')];
+  const host=$('storyHost'); host.innerHTML=$('tpl-story').innerHTML; applyT(host);
+  const fields=[...host.querySelectorAll('[data-q]')]; curFields=fields;
   const A=(P.brief&&P.brief.answers)||{};
   fields.forEach((f,i)=>{ const k='f'+i; if(A[k]&&A[k].a) f.value=A[k].a; f.addEventListener('input',()=>{ clearTimeout(saveT); saveT=setTimeout(()=>saveAnswers(fields),900); }); });
   $('nothingAvoid').onchange=async e=>{ P.brief.nothingToAvoid=e.target.checked; await dbPatch('projects/'+CID+'/brief',{nothingToAvoid:e.target.checked}); refreshChecks(); };
@@ -456,19 +1794,19 @@ async function saveAnswers(fields){
   const ans={}; fields.forEach((f,i)=>{ const v=f.value.trim(); if(v) ans['f'+i]={q:f.getAttribute('data-q'),a:v.slice(0,6000)}; });
   P.brief.answers=ans;
   const r=await dbPut('projects/'+CID+'/brief/answers',ans);
-  toast(r.ok?'Saved ✓':'Could not save. Check your connection.');
+  toast(r.ok?t('saved'):t('err_save_conn'));
   refreshChecks();
 }
 function refreshChecks(){
   const T=TIERS[P.tier], rs=reqStatus(), ready=rs.every(x=>x.done), s=schedule(T), tooSoon=s.days!==null&&s.days<T.min;
   const c=$('checks'); if(c) c.innerHTML=rs.map(x=>`<li class="${x.done?'isdone':''}">${esc(x.label)}</li>`).join('');
   const pb=$('payBtn'); if(pb) pb.disabled=!ready||tooSoon;
-  const pn=$('payNote'); if(pn) pn.textContent=tooSoon?'Booking paused until we confirm your date.':ready?'Secure payment by Stripe. Your project continues on this page.':'Complete the items above to book.';
+  const pn=$('payNote'); if(pn) pn.textContent=t(tooSoon?'pn_paused':ready?'pn_ready':'pn_todo');
 }
 async function taste(){
   const a=answersByQ(), b=B();
-  if(!(a['Defining memory']||a['Loves']||a['Three words'])){ toast('Add a memory or two first (sections 4 and 5).'); return; }
-  const tb=$('tasteBtn'); tb.disabled=true; tb.textContent='Writing…';
+  if(!(a['Defining memory']||a['Loves']||a['Three words'])){ toast(t('taste_need')); return; }
+  const tb=$('tasteBtn'); tb.disabled=true; tb.textContent=t('writing');
   const story=Object.keys(a).filter(q=>q.indexOf('⚠️')!==0).map(q=>q+': '+a[q]).join('\n').slice(0,3500);
   const avoid=Object.keys(a).filter(q=>q.indexOf('⚠️')===0).map(q=>q+': '+a[q]).join('\n');
   try{
@@ -476,98 +1814,107 @@ async function taste(){
     const d=await r.json(); if(!d.lyrics) throw 0;
     const lines=d.lyrics.split('\n').map(l=>l.trim()).filter(l=>l&&l[0]!=='['&&l[0]!=='(').slice(0,8).join('\n');
     await dbPut('projects/'+CID+'/taste',{text:lines,at:TS});
-    $('tasteBox').innerHTML='<div class="taste">'+esc(lines)+'</div><p class="small">A first sketch from what you\'ve written so far. After booking, we write the full song with you, line by line.</p>'; tb.remove();
-  }catch(e){ tb.disabled=false; tb.textContent='✨ Show me the opening lines'; toast('Couldn\'t write it just now. Please try again in a minute.'); }
+    $('tasteBox').innerHTML='<div class="taste">'+esc(lines)+'</div><p class="small">'+t('taste_note')+'</p>'; tb.remove();
+  }catch(e){ tb.disabled=false; tb.textContent=t('pv_taste_btn'); toast(t('taste_err')); }
 }
 async function book(T){
-  if(!$('agree').checked){ toast('Please tick the box to agree to how it works.'); return; }
-  const pb=$('payBtn'); pb.disabled=true; pb.textContent='Opening secure checkout…';
+  if(!$('agree').checked){ toast(t('agree_need')); return; }
+  const pb=$('payBtn'); pb.disabled=true; pb.textContent=t('opening');
   if(!P.terms){ await dbPut('projects/'+CID+'/terms',{at:TS,v:TERMS_VERSION}); }
   try{ localStorage.setItem('gw_proj_last',CID); }catch(e){}
   location.href='checkout.html?p='+P.tier+'&order='+encodeURIComponent(CID);
 }
 
 /* ================= PAID: stages ================= */
-const STAGES=[['lyrics','1 · Lyrics'],['song','2 · Song'],['photos','3 · Photos'],['film','4 · Film']];
+const STAGES=[['lyrics','stg_lyrics'],['song','stg_song'],['photos','stg_photos'],['film','stg_film']];
 function st(stg){ const ap=(P.approvals||{})[stg], d=(P.drafts||{})[stg], rq=(P.requests||{})[stg]||{}; return {ap,d,rq}; }
 function prevOk(stg){ const A=P.approvals||{}; if(stg==='song') return !!A.lyrics; if(stg==='film') return !!(A.song&&A.photos); return true; }
 function roundsFor(stg){ const T=TIERS[P.tier]; return stg==='lyrics'?T.lyricRounds:stg==='film'?T.filmRounds:stg==='song'?1:0; }
 function paidView(T){
-  let h=`<div class="pcard"><h2>Where things are</h2><p class="sub">Booked ${fmtTs(P.paidAt)}${B().date?' · event '+fmt(new Date(B().date+'T12:00:00')):''}. You have ${RESPOND_DAYS} days to reply to each draft; we'll remind you.</p>`;
-  STAGES.forEach(([k,label])=>{ h+=stageCard(k,label); });
+  let h=`<div class="pcard"><h2>${t('pd_where')}</h2><p class="sub">${t('pd_booked',{ts:fmtTs(P.paidAt)})}${B().date?' · '+t('pd_event',{date:fmt(new Date(B().date+'T12:00:00'))}):''}. ${t('pd_reply',{d:RESPOND_DAYS})}</p>`;
+  STAGES.forEach(([k,label])=>{ h+=stageCard(k,t(label)); });
   if(P.final) h+=finalCard();
   h+=`</div>`;
-  h+=`<div class="pcard"><h2>Your story</h2><p class="sub">What you told us before booking. Spotted something wrong (a name, a spelling)? Tell us in your next reply on the lyrics.</p><details><summary class="small">Show the story</summary><div class="draft">${esc(compileBrief())}</div></details></div>`;
-  h+=`<p class="small" style="text-align:center">Questions? <a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>. For changes, please use the buttons on this page so everything is in one place.</p>`;
+  h+=`<div class="pcard"><h2>${t('pd_story_h')}</h2><p class="sub">${t('pd_story_sub')}</p><details><summary class="small">${t('pd_show')}</summary><div class="draft">${esc(compileBrief(true))}</div></details></div>`;
+  h+=`<p class="small" style="text-align:center">${t('pd_q')}</p>`;
   return h;
 }
 function stageCard(k,label){
   const {ap,d,rq}=st(k), locked=!prevOk(k)&&!ap;
   let pill,body='';
-  if(ap){ pill=`<span class="pill isdone">Approved 🔒 ${fmtTs(ap.at)}${ap.auto?' (automatically, after '+RESPOND_DAYS+' days)':''}</span>`; }
-  else if(k==='photos'){ pill=`<span class="pill you">Your turn</span>`; }
-  else if(locked||!d){ pill=`<span class="pill">${locked?'Waiting on the previous step':'We\'re working on it'}</span>`; }
-  else if(rq['r'+d.v]){ pill=`<span class="pill">Changes received · new version within 3 working days</span>`; }
-  else { pill=`<span class="pill you">Ready for you · reply by ${fmt(addDays(new Date(d.sentAt),RESPOND_DAYS))}</span>`; }
+  if(ap){ pill=`<span class="pill isdone">${t('pill_ap',{ts:fmtTs(ap.at)})}${ap.auto?' '+t('pill_auto',{d:RESPOND_DAYS}):''}</span>`; }
+  else if(k==='photos'){ pill=`<span class="pill you">${t('pill_you')}</span>`; }
+  else if(locked||!d){ pill=`<span class="pill">${t(locked?'pill_wait':'pill_work')}</span>`; }
+  else if(rq['r'+d.v]){ pill=`<span class="pill">${t('pill_chg')}</span>`; }
+  else { pill=`<span class="pill you">${t('pill_ready',{date:fmt(addDays(new Date(d.sentAt),RESPOND_DAYS))})}</span>`; }
   // content
-  if(k==='lyrics' && d) body+=`<div class="draft">${esc(d.text)}</div><p class="small">Version ${d.v}</p>`;
-  if(k==='song' && d) body+=['a','b'].filter(x=>d[x]).map(x=>`<div style="margin:10px 0"><b>Version ${x.toUpperCase()}</b>${ap&&ap.choice===x?' ✓ chosen':''}<br><audio controls preload="none" src="${esc(d[x])}" style="width:100%"></audio></div>`).join('');
-  if(k==='film' && d) body+=`<p style="margin:10px 0"><a class="b-ghost" style="display:inline-block;text-decoration:none;padding:10px 18px;border-radius:999px" href="${esc(d.url)}" target="_blank">▶ Watch film draft (version ${d.v})</a></p>`;
-  if(k==='photos'){ const up=(P.meta||{}).uploadUrl; body+= up? `<p style="margin:10px 0"><a href="${esc(up)}" target="_blank"><b>📷 Your family upload link</b></a> · share it with everyone. Full quality, photos and short videos.</p>` : `<p class="small" style="margin:10px 0">Your private upload link appears here within 1 working day of booking. Start gathering 30–60 photos, older ones especially.</p>`;
-    body+=`<p class="small">Please confirm by ${B().date?fmt(addDays(new Date(B().date+'T12:00:00'),-TIERS[P.tier].lead)):'the date we agree'}.</p>`; }
+  if(k==='lyrics' && d) body+=`<div class="draft">${esc(d.text)}</div><p class="small">${t('ver',{v:d.v})}</p>`;
+  if(k==='song' && d) body+=['a','b'].filter(x=>d[x]).map(x=>`<div style="margin:10px 0"><b>${t('ver',{v:x.toUpperCase()})}</b>${ap&&ap.choice===x?' '+t('chosen'):''}<br><audio controls preload="none" src="${esc(d[x])}" style="width:100%"></audio></div>`).join('');
+  if(k==='film' && d) body+=`<p style="margin:10px 0"><a class="b-ghost" style="display:inline-block;text-decoration:none;padding:10px 18px;border-radius:999px" href="${esc(d.url)}" target="_blank">${t('watch',{v:d.v})}</a></p>`;
+  if(k==='photos'){ const up=(P.meta||{}).uploadUrl; body+= up? `<p style="margin:10px 0"><a href="${esc(up)}" target="_blank"><b>${t('ph_link')}</b></a> ${t('ph_share')}</p>` : `<p class="small" style="margin:10px 0">${t('ph_pending')}</p>`;
+    body+=`<p class="small">${B().date?t('ph_confirm',{date:fmt(addDays(new Date(B().date+'T12:00:00'),-TIERS[P.tier].lead))}):t('ph_confirm_nd')}</p>`; }
   // actions
   if(!ap && !locked){
-    if(k==='photos'){ body+=`<div class="btnrow"><button class="b-primary" data-approve="photos">My photos are complete</button></div>`; }
+    if(k==='photos'){ body+=`<div class="btnrow"><button class="b-primary" data-approve="photos">${t('btn_photos')}</button></div>`; }
     else if(d && !rq['r'+d.v]){
       const used=Object.keys(rq).length, left=roundsFor(k)-used, canReq=left>0 && ((k==='lyrics'||k==='film')? d.v<=roundsFor(k) : d.v===1);
-      body+=`<div class="btnrow">`+(k==='song'?`<select id="songChoice" style="max-width:220px"><option value="a">I choose Version A</option>${d.b?'<option value="b">I choose Version B</option>':''}</select>`:'')+
-        `<button class="b-primary" data-approve="${k}">Approve ${k==='song'?'this version':'and lock'}</button>`+
-        (canReq?`<button class="b-ghost" data-req="${k}">Request changes (${left} left)</button>`:'')+`</div>`+
-        (canReq?`<div id="req_${k}" style="display:none;margin-top:12px"><label>All your changes in one message</label><p class="hint">${k==='song'?'Tell us the style change you\'d like (tempo, feel, voice). The words stay as approved.':k==='film'?'Timing, photo order, captions, swapping photos from your uploads. The song and the photo set stay as approved.':'Be specific: line, what to change, and to what. This counts as one round.'}</p><textarea id="reqText_${k}"></textarea><div class="btnrow"><button class="b-primary" data-send="${k}">Send my changes</button></div></div>`:
-        `<p class="small" style="margin-top:8px">Included rounds used. If something must still change, email us and we'll quote before doing anything.</p>`);
+      body+=`<div class="btnrow">`+(k==='song'?`<select id="songChoice" style="max-width:220px"><option value="a">${t('choose',{v:'A'})}</option>${d.b?'<option value="b">'+t('choose',{v:'B'})+'</option>':''}</select>`:'')+
+        `<button class="b-primary" data-approve="${k}">${t(k==='song'?'ap_song':'ap_lock')}</button>`+
+        (canReq?`<button class="b-ghost" data-req="${k}">${t('req_btn',{n:left})}</button>`:'')+`</div>`+
+        (canReq?`<div id="req_${k}" style="display:none;margin-top:12px"><label>${t('req_lbl')}</label><p class="hint">${t(k==='song'?'hint_song':k==='film'?'hint_film':'hint_lyrics')}</p><textarea id="reqText_${k}"></textarea><div class="btnrow"><button class="b-primary" data-send="${k}">${t('send_chg')}</button></div></div>`:
+        `<p class="small" style="margin-top:8px">${t('used_up')}</p>`);
     }
   }
   // history of requests
-  const hist=Object.keys(rq).sort().map(n=>`<p class="small">Your changes (${n.toUpperCase()}, ${fmtTs(rq[n].at)}): “${esc(rq[n].text)}”</p>`).join('');
+  const hist=Object.keys(rq).sort().map(n=>`<p class="small">${t('hist',{n:n.toUpperCase(),ts:fmtTs(rq[n].at),text:esc(rq[n].text)})}</p>`).join('');
   return `<div class="stage${locked?' locked':''}"><h3>${label} ${pill}</h3>${body}${hist}</div>`;
 }
 function finalCard(){ const f=P.final; const lines=String(f.links||'').split('\n').map(l=>l.split('|')).filter(x=>x[1]);
-  return `<div class="stage" style="border-color:var(--brand)"><h3>🎁 Delivered ${fmtTs(f.at)}</h3>${lines.map(x=>`<p style="margin:8px 0"><a href="${esc(x[1].trim())}" target="_blank"><b>${esc(x[0].trim())}</b></a></p>`).join('')}<p class="small">Please download your files. They stay available for 90 days after delivery.</p></div>`; }
+  return `<div class="stage" style="border-color:var(--brand)"><h3>${t('fin_h',{ts:fmtTs(f.at)})}</h3>${lines.map(x=>`<p style="margin:8px 0"><a href="${esc(x[1].trim())}" target="_blank"><b>${esc(x[0].trim())}</b></a></p>`).join('')}<p class="small">${t('fin_note')}</p></div>`; }
 function wirePaid(){
   document.querySelectorAll('[data-req]').forEach(b=>b.onclick=()=>{ const el=$('req_'+b.dataset.req); el.style.display=el.style.display==='none'?'block':'none'; });
   document.querySelectorAll('[data-send]').forEach(b=>b.onclick=async()=>{
-    const k=b.dataset.send, text=($('reqText_'+k).value||'').trim(); if(text.length<5){ toast('Please describe your changes.'); return; }
-    const d=st(k).d; if(!confirm('Send these changes? This uses one of your included rounds. Please make sure everything is in this one message.')) return;
+    const k=b.dataset.send, text=($('reqText_'+k).value||'').trim(); if(text.length<5){ toast(t('describe')); return; }
+    const d=st(k).d; if(!confirm(t('cf_send'))) return;
     b.disabled=true; const r=await dbPut('projects/'+CID+'/requests/'+k+'/r'+d.v,{text:text.slice(0,3000),at:TS});
-    if(!r.ok){ b.disabled=false; toast('Could not send. Please try again.'); return; } toast('Sent. We\'ll be back with a new version.'); reload();
+    if(!r.ok){ b.disabled=false; toast(t('err_send')); return; } toast(t('sent')); reload();
   });
   document.querySelectorAll('[data-approve]').forEach(b=>b.onclick=async()=>{
     const k=b.dataset.approve;
-    const msg={lyrics:'Approve the lyrics? The words are then locked and the song is recorded from them. Changes after this are not included.',song:'Approve this version of the song? It is then locked and the film is cut to it.',photos:'Confirm your photos are complete? The set is then locked and the film is built from it. Photos added later are not included.',film:'Approve the film? This is your final sign-off and we prepare your delivery.'}[k];
+    const msg=t('cf_'+k);
     if(!confirm(msg)) return;
     const v={at:TS}; if(k==='song') v.choice=($('songChoice')||{}).value||'a'; const d=st(k).d; if(d) v.v=d.v;
     b.disabled=true; const r=await dbPut('projects/'+CID+'/approvals/'+k,v);
-    if(!r.ok){ b.disabled=false; toast('Could not save. Please try again.'); return; } toast('Approved ✓'); reload();
+    if(!r.ok){ b.disabled=false; toast(t('err_save')); return; } toast(t('approved')); reload();
   });
 }
 async function reload(){ P=await dbGet('projects/'+CID); render(); }
-function compileBrief(){
+function compileBrief(loc){
   const b=B(), a=(P.brief&&P.brief.answers)||{};
-  const out=['PROJECT: '+TIERS[P.tier].name+' for '+(b.for||''),'Call them: '+(b.call||''),'Occasion: '+(b.occasion||''),'Date: '+(b.date||'no fixed date'),'From: '+(b.you||'')+' ('+(b.rel||'')+')','Email: '+(b.email||''),'WhatsApp: '+(b.wa||''),'Language: '+(b.lang||''),'Feel: '+(b.mood||''),''];
-  Object.keys(a).sort((x,y)=>+x.slice(1)-+y.slice(1)).forEach(k=>out.push(a[k].q+': '+a[k].a));
-  if(P.brief&&P.brief.nothingToAvoid) out.push('Nothing to leave out (confirmed).');
+  if(!loc || LANG==='en'){
+    const out=['PROJECT: '+TIERS[P.tier].name+' for '+(b.for||''),'Call them: '+(b.call||''),'Occasion: '+(b.occasion||''),'Date: '+(b.date||'no fixed date'),'From: '+(b.you||'')+' ('+(b.rel||'')+')','Email: '+(b.email||''),'WhatsApp: '+(b.wa||''),'Language: '+(b.lang||''),'Feel: '+(b.mood||''),''];
+    Object.keys(a).sort((x,y)=>+x.slice(1)-+y.slice(1)).forEach(k=>out.push(a[k].q+': '+a[k].a));
+    if(P.brief&&P.brief.nothingToAvoid) out.push('Nothing to leave out (confirmed).');
+    return out.join('\n');
+  }
+  // Client view in the chosen language: translate the field labels, never the stored answers.
+  const qLabel={}; const tmp=document.createElement('div'); tmp.innerHTML=$('tpl-story').innerHTML;
+  tmp.querySelectorAll('[data-q]').forEach(f=>{ let p=f.previousElementSibling; while(p&&p.tagName!=='LABEL') p=p.previousElementSibling; if(p&&p.dataset.i18n){ const d=document.createElement('div'); d.innerHTML=t(p.dataset.i18n); d.querySelectorAll('.opt').forEach(x=>x.remove()); qLabel[f.getAttribute('data-q')]=d.textContent.trim(); } });
+  const out=[t('cb_project')+': '+t('tier_for',{tier:TIERS[P.tier].name,name:(b.for||'')}),t('cb_call')+': '+(b.call||''),t('cb_occ')+': '+(b.occasion||''),t('cb_date')+': '+(b.date||t('cb_nodate')),t('cb_from')+': '+(b.you||'')+' ('+(b.rel||'')+')',t('cb_email')+': '+(b.email||''),'WhatsApp: '+(b.wa||''),t('cb_lang')+': '+optLabel(LANG_OPTS,b.lang),t('cb_feel')+': '+optLabel(MOOD_OPTS,b.mood),''];
+  Object.keys(a).sort((x,y)=>+x.slice(1)-+y.slice(1)).forEach(k=>out.push((qLabel[a[k].q]||a[k].q)+': '+a[k].a));
+  if(P.brief&&P.brief.nothingToAvoid) out.push(t('cb_nothing'));
   return out.join('\n');
 }
 
 /* ================= ADMIN ================= */
 function adminPanel(){
-  const d=P.drafts||{}, nv=k=>((d[k]&&d[k].v)||0)+1, A=P.approvals||{}, lockd=k=>A[k]?'<p class="small">🔒 Approved '+fmtTs(A[k].at)+(A[k].auto?' (auto)':'')+(A[k].choice?' · version '+String(A[k].choice).toUpperCase():'')+'. Locked.</p>':'';
-  return `<div class="pcard admin"><h2>Admin · ${P.paid?'paid '+fmtTs(P.paidAt):'not paid yet'}</h2>
-  <p class="small">Terms accepted: ${P.terms?fmtTs(P.terms.at)+' (v'+esc(P.terms.v)+')':'no'}</p>
+  const d=P.drafts||{}, nv=k=>((d[k]&&d[k].v)||0)+1, A=P.approvals||{}, lockd=k=>A[k]?'<p class="small">🔒 Approved '+fmtTs(A[k].at,'en-GB')+(A[k].auto?' (auto)':'')+(A[k].choice?' · version '+String(A[k].choice).toUpperCase():'')+'. Locked.</p>':'';
+  return `<div class="pcard admin"><h2>Admin · ${P.paid?'paid '+fmtTs(P.paidAt,'en-GB'):'not paid yet'}</h2>
+  <p class="small">Terms accepted: ${P.terms?fmtTs(P.terms.at,'en-GB')+' (v'+esc(P.terms.v)+')':'no'}</p>
   <details><summary><b>Full brief</b> (copy for lyrics)</summary><textarea readonly style="min-height:220px">${esc(compileBrief())}</textarea></details>
   <label>Lyrics · send version ${nv('lyrics')}</label><textarea id="ad_lyrics">${esc((d.lyrics&&d.lyrics.text)||'')}</textarea>${A.lyrics?lockd('lyrics'):`<button class="b-primary" data-ad="lyrics">Send lyrics v${nv('lyrics')}</button>`}
   <label>Song · version ${nv('song')} (URLs)</label><input type="text" id="ad_song_a" placeholder="Version A URL" value="${esc((d.song&&d.song.a)||'')}"><input type="text" id="ad_song_b" placeholder="Version B URL (optional)" style="margin-top:6px" value="${esc((d.song&&d.song.b)||'')}">${A.song?lockd('song'):`<button class="b-primary" data-ad="song" style="margin-top:6px">Send song v${nv('song')}</button>`}
-  <label>Family upload link ${A.photos?'· photos confirmed '+fmtTs(A.photos.at):''}</label><input type="text" id="ad_up" value="${esc((P.meta||{}).uploadUrl||'')}"><button class="b-ghost" data-ad="meta" style="margin-top:6px">Save upload link</button>
+  <label>Family upload link ${A.photos?'· photos confirmed '+fmtTs(A.photos.at,'en-GB'):''}</label><input type="text" id="ad_up" value="${esc((P.meta||{}).uploadUrl||'')}"><button class="b-ghost" data-ad="meta" style="margin-top:6px">Save upload link</button>
   <label>Film · version ${nv('film')} (URL)</label><input type="text" id="ad_film" value="${esc((d.film&&d.film.url)||'')}">${A.film?lockd('film'):`<button class="b-primary" data-ad="film" style="margin-top:6px">Send film v${nv('film')}</button>`}
   <label>Final delivery (one per line: Label | URL)</label><textarea id="ad_final">${esc((P.final&&P.final.links)||'')}</textarea><button class="b-primary" data-ad="final">Deliver</button>
   </div>`;

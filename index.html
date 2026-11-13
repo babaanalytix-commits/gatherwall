@@ -507,6 +507,7 @@ body.kioskmode header.nav{display:none;}
 <link rel="alternate" hreflang="de" href="https://gatherwall.com/de/">
 <link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/">
 <link rel="alternate" hreflang="x-default" href="https://gatherwall.com/">
+<script src="/gw-track.js" async></script>
 </head>
 <body>
 
@@ -591,104 +592,104 @@ body.kioskmode header.nav{display:none;}
 <nav class="hc-nav"><div class="in">
   <a class="hc-logo" href="index.html"><i></i>GatherWall</a>
   <div class="hc-links">
-    <a class="hide" href="#family" onclick="location.hash='family';return false;">Tribute Walls</a>
-    <a class="hide" href="keepsake-preview.html">Songs</a>
-    <a href="celebration.html">Made for you</a>
-    <a href="examples.html">Our work</a>
+    <a class="hide" href="#family" onclick="location.hash='family';return false;" data-hc="nav_walls">Tribute Walls</a>
+    <a class="hide" href="keepsake-preview.html" data-hc="nav_songs">Songs</a>
+    <a href="celebration.html" data-hc="nav_made">Made for you</a>
+    <a href="examples.html" data-hc="nav_work">Our work</a>
     <div id="doorLang"></div>
   </div>
 </div></nav>
 
 <header class="hc-hero">
-  <div class="hc-eye">Birthdays · Weddings · Anniversaries · In memory</div>
-  <h1 class="hc-h1">Celebrate the people you love.</h1>
-  <p class="hc-sub">Messages, songs and films that bring everyone together.</p>
+  <div class="hc-eye" data-hc="eye">Birthdays · Weddings · Anniversaries · In memory</div>
+  <h1 class="hc-h1" data-hc="h1">Celebrate the people you love.</h1>
+  <p class="hc-sub" data-hc="sub">Messages, songs and films that bring everyone together.</p>
   <div class="hc-ctas">
-    <a class="hc-pill" href="#hc-products" onclick="document.getElementById('hc-products').scrollIntoView({behavior:'smooth'});return false;">Find your keepsake</a>
-    <a class="hc-tl" href="examples.html">See our work ›</a>
+    <a class="hc-pill" href="#hc-products" onclick="document.getElementById('hc-products').scrollIntoView({behavior:'smooth'});return false;" data-hc="cta_find">Find your keepsake</a>
+    <a class="hc-tl" href="examples.html" data-hc="cta_work">See our work ›</a>
   </div>
 </header>
 
 <section class="hc-show hc-r">
   <div class="hc-film">
     <video src="sample-storyfilm.mp4" poster="sample-storyfilm-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <div class="hc-cap"><b>Fifty Years of Gold</b><span>A GatherWall keepsake: their photos, their story, their song.</span></div>
+    <div class="hc-cap"><b data-hc="film_t">Fifty Years of Gold</b><span data-hc="film_s">A GatherWall keepsake: their photos, their story, their song.</span></div>
   </div>
 </section>
 
 <section class="hc-sec" id="hc-products">
-  <h2 class="hc-h2 hc-r">Three ways to say it.</h2>
-  <p class="hc-lede hc-r">Do it yourself in minutes, or let us make something unforgettable for you.</p>
+  <h2 class="hc-h2 hc-r" data-hc="p_h2">Three ways to say it.</h2>
+  <p class="hc-lede hc-r" data-hc="p_lede">Do it yourself in minutes, or let us make something unforgettable for you.</p>
   <div class="hc-grid">
     <a class="hc-card hc-r" href="#family" onclick="location.hash='family';return false;">
       <div class="hc-img" style="background-image:url(img/family-toast.jpg)"></div>
-      <div class="hc-body"><span class="hc-tag">Tribute Wall</span><h3>Everyone's words, in one place.</h3>
-        <p>Share one link. Family and friends add messages and photos, and it's all revealed on the day, on any screen.</p>
-        <div class="hc-price">From $10 · ready instantly</div><div><span class="hc-pill">Start free</span></div></div>
+      <div class="hc-body"><span class="hc-tag" data-hc="c1_tag">Tribute Wall</span><h3 data-hc="c1_h3">Everyone's words, in one place.</h3>
+        <p data-hc="c1_p">Share one link. Family and friends add messages and photos, and it's all revealed on the day, on any screen.</p>
+        <div class="hc-price" data-hc="c1_price">From $10 · ready instantly</div><div><span class="hc-pill" data-hc="c1_btn">Start free</span></div></div>
     </a>
     <a class="hc-card hc-r" href="keepsake-preview.html">
       <div class="hc-img" style="background-image:url(img/grandma-flower.jpg);background-position:center 35%"></div>
-      <div class="hc-body"><span class="hc-tag">Song</span><h3>A song only they could have.</h3>
-        <p>Tell us their story and read your lyrics free. Love them? Your original song is made in minutes.</p>
-        <div class="hc-price">$39 · lyrics free</div><div><span class="hc-pill">Hear your lyrics</span></div></div>
+      <div class="hc-body"><span class="hc-tag" data-hc="c2_tag">Song</span><h3 data-hc="c2_h3">A song only they could have.</h3>
+        <p data-hc="c2_p">Tell us their story and read your lyrics free. Love them? Your original song is made in minutes.</p>
+        <div class="hc-price" data-hc="c2_price">$39 · lyrics free</div><div><span class="hc-pill" data-hc="c2_btn">Hear your lyrics</span></div></div>
     </a>
     <a class="hc-card feat hc-r" href="celebration.html">
       <div class="hc-img" style="background-image:url(img/family-white.jpg);background-position:center 30%"></div>
-      <div class="hc-body"><span class="hc-tag">Made for you</span><h3>Their life, as a film.</h3>
-        <p>A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.</p>
-        <div class="hc-price"><s>$149</s> From $74.50 · 50% off until 31 Dec</div><div><span class="hc-pill">See how it works</span></div></div>
+      <div class="hc-body"><span class="hc-tag" data-hc="c3_tag">Made for you</span><h3 data-hc="c3_h3">Their life, as a film.</h3>
+        <p data-hc="c3_p">A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.</p>
+        <div class="hc-price" data-hch="c3_price"><s>$149</s> From $74.50 · 50% off until 31 Dec</div><div><span class="hc-pill" data-hc="c3_btn">See how it works</span></div></div>
     </a>
   </div>
-  <p class="hc-more hc-r">Also: <a href="#memorial" onclick="location.hash='memorial';return false;">a memorial page for someone you've lost ›</a> &nbsp;·&nbsp; <a href="#live" onclick="location.hash='live';return false;">a live photo wall for your event ›</a></p>
+  <p class="hc-more hc-r" data-hch="also">Also: <a href="#memorial" onclick="location.hash='memorial';return false;">a memorial page for someone you've lost ›</a> &nbsp;·&nbsp; <a href="#live" onclick="location.hash='live';return false;">a live photo wall for your event ›</a></p>
 </section>
 
 <section class="hc-sec">
-  <h2 class="hc-h2 hc-r">For every family. Every occasion.</h2>
-  <p class="hc-lede hc-r">Owambe or quiet dinner, Lagos or London, a first birthday or a final goodbye.</p>
+  <h2 class="hc-h2 hc-r" data-hc="o_h2">For every family. Every occasion.</h2>
+  <p class="hc-lede hc-r" data-hc="o_lede">Owambe or quiet dinner, Lagos or London, a first birthday or a final goodbye.</p>
   <div class="hc-mo hc-r">
-    <figure class="t"><div style="background-image:url(img/wedding-asooke-pink.jpg);background-position:center 20%"></div><figcaption>Weddings</figcaption></figure>
-    <figure class="w"><div style="background-image:url(img/birthday-cake.jpg);background-position:center 25%"></div><figcaption>Birthdays</figcaption></figure>
-    <figure class="t"><div style="background-image:url(img/anniversary-couple.jpg);background-position:center 30%"></div><figcaption>Anniversaries</figcaption></figure>
-    <figure><div style="background-image:url(img/family-celebration-india.jpg)"></div><figcaption>Family milestones</figcaption></figure>
-    <figure><div style="background-image:url(img/remembrance-candle.jpg)"></div><figcaption>In memory</figcaption></figure>
-    <figure class="w"><div style="background-image:url(img/friends-dinner.jpg);background-position:center 35%"></div><figcaption>Reunions</figcaption></figure>
-    <figure><div style="background-image:url(img/grandma-birthday.jpg)"></div><figcaption>Big birthdays</figcaption></figure>
-    <figure><div style="background-image:url(img/elder-purple.jpg);background-position:center 25%"></div><figcaption>Honouring elders</figcaption></figure>
+    <figure class="t"><div style="background-image:url(img/wedding-asooke-pink.jpg);background-position:center 20%"></div><figcaption data-hc="o_1">Weddings</figcaption></figure>
+    <figure class="w"><div style="background-image:url(img/birthday-cake.jpg);background-position:center 25%"></div><figcaption data-hc="o_2">Birthdays</figcaption></figure>
+    <figure class="t"><div style="background-image:url(img/anniversary-couple.jpg);background-position:center 30%"></div><figcaption data-hc="o_3">Anniversaries</figcaption></figure>
+    <figure><div style="background-image:url(img/family-celebration-india.jpg)"></div><figcaption data-hc="o_4">Family milestones</figcaption></figure>
+    <figure><div style="background-image:url(img/remembrance-candle.jpg)"></div><figcaption data-hc="o_5">In memory</figcaption></figure>
+    <figure class="w"><div style="background-image:url(img/friends-dinner.jpg);background-position:center 35%"></div><figcaption data-hc="o_6">Reunions</figcaption></figure>
+    <figure><div style="background-image:url(img/grandma-birthday.jpg)"></div><figcaption data-hc="o_7">Big birthdays</figcaption></figure>
+    <figure><div style="background-image:url(img/elder-purple.jpg);background-position:center 25%"></div><figcaption data-hc="o_8">Honouring elders</figcaption></figure>
   </div>
 </section>
 
 <section class="hc-sec">
-  <h2 class="hc-h2 hc-r">Simple, from start to finish.</h2>
+  <h2 class="hc-h2 hc-r" data-hc="s_h2">Simple, from start to finish.</h2>
   <div class="hc-steps">
-    <div class="hc-r"><div class="hc-n">1</div><b>Tell us who it's for</b><span>A name, an occasion, a few memories. No account, no app.</span></div>
-    <div class="hc-r"><div class="hc-n">2</div><b>Invite everyone</b><span>One link for family and friends to add their words and photos.</span></div>
-    <div class="hc-r"><div class="hc-n">3</div><b>Share the moment</b><span>Reveal it on the day, and keep it forever.</span></div>
+    <div class="hc-r"><div class="hc-n">1</div><b data-hc="s1_b">Tell us who it's for</b><span data-hc="s1_s">A name, an occasion, a few memories. No account, no app.</span></div>
+    <div class="hc-r"><div class="hc-n">2</div><b data-hc="s2_b">Invite everyone</b><span data-hc="s2_s">One link for family and friends to add their words and photos.</span></div>
+    <div class="hc-r"><div class="hc-n">3</div><b data-hc="s3_b">Share the moment</b><span data-hc="s3_s">Reveal it on the day, and keep it forever.</span></div>
   </div>
 </section>
 
 <section class="hc-sec">
-  <h2 class="hc-h2 hc-r">See what we've made.</h2>
-  <p class="hc-lede hc-r">Real keepsakes, real songs, real words from families.</p>
+  <h2 class="hc-h2 hc-r" data-hc="w_h2">See what we've made.</h2>
+  <p class="hc-lede hc-r" data-hc="w_lede">Real keepsakes, real songs, real words from families.</p>
   <div class="hc-work hc-r">
-    <a href="examples.html">🎬 Examples</a>
-    <a href="samples.html">🎧 Hear real songs</a>
-    <a href="wall-of-love.html">💛 Wall of Love</a>
-    <a href="keepsake-photo-demo.html">🎁 Open a keepsake</a>
-    <a href="keepsake.html?order=ks_qwqageg2">🕊️ A song for Dad</a>
+    <a href="examples.html" data-hc="w_1">🎬 Examples</a>
+    <a href="samples.html" data-hc="w_2">🎧 Hear real songs</a>
+    <a href="wall-of-love.html" data-hc="w_3">💛 Wall of Love</a>
+    <a href="keepsake-photo-demo.html" data-hc="w_4">🎁 Open a keepsake</a>
+    <a href="keepsake.html?order=ks_qwqageg2" data-hc="w_5">🕊️ A song for Dad</a>
   </div>
-  <p class="hc-more hc-r" style="margin-top:22px">Ideas: <a href="gift-for-parents-in-nigeria.html">a gift for parents in Nigeria</a> · <a href="nigerian-70th-birthday-ideas.html">70th birthday ideas</a> · <a href="yoruba-birthday-song.html">a Yoruba birthday song</a> · <a href="owambe-tribute-wall.html">a wall for your owambe</a> · <a href="nigerian-wedding-keepsake.html">wedding keepsakes</a> · <a href="nigerian-burial-memorial-page.html">a memorial page</a></p>
+  <p class="hc-more hc-r" style="margin-top:22px" data-hch="ideas">Ideas: <a href="gift-for-parents-in-nigeria.html">a gift for parents in Nigeria</a> · <a href="nigerian-70th-birthday-ideas.html">70th birthday ideas</a> · <a href="yoruba-birthday-song.html">a Yoruba birthday song</a> · <a href="owambe-tribute-wall.html">a wall for your owambe</a> · <a href="nigerian-wedding-keepsake.html">wedding keepsakes</a> · <a href="nigerian-burial-memorial-page.html">a memorial page</a></p>
 </section>
 
 <section class="hc-quote hc-r">
-  <blockquote>“I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists.”</blockquote>
-  <small>Yomi · Founder of GatherWall</small>
+  <blockquote data-hc="q">“I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists.”</blockquote>
+  <small data-hc="q_by">Yomi · Founder of GatherWall</small>
 </section>
 
 <section class="hc-close">
-  <h2 class="hc-h2 hc-r">Who will you celebrate?</h2>
-  <div class="hc-ctas hc-r"><a class="hc-pill" href="#hc-products" onclick="document.getElementById('hc-products').scrollIntoView({behavior:'smooth'});return false;">Find your keepsake</a></div>
+  <h2 class="hc-h2 hc-r" data-hc="cl_h2">Who will you celebrate?</h2>
+  <div class="hc-ctas hc-r"><a class="hc-pill" href="#hc-products" onclick="document.getElementById('hc-products').scrollIntoView({behavior:'smooth'});return false;" data-hc="cta_find">Find your keepsake</a></div>
   <div class="hc-cap-box">
-    <b>Not ready today?</b><span>Get one free sample verse for someone you love, and early offers.</span>
+    <b data-hc="cap_b">Not ready today?</b><span data-hc="cap_s">Get one free sample verse for someone you love, and early offers.</span>
     <div class="eo-capture" id="eoMount"></div>
       <script>
       /* Lazy-load the EmailOctopus embed so its reCAPTCHA/widget JS never blocks the door's first interaction (INP). Mounts on near-scroll, first interaction, or idle. */
@@ -699,28 +700,14 @@ body.kioskmode header.nav{display:none;}
 
 <footer class="hc-foot"><div class="in">
   <span>© 2026 GatherWall</span>
-  <a href="celebration.html">Made for you</a><a href="examples.html">Our work</a><a href="song-of-your-night.html">Song of Your Night</a><a href="anthem.html">Our anthem</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>
+  <a href="celebration.html" data-hc="nav_made">Made for you</a><a href="examples.html" data-hc="nav_work">Our work</a><a href="song-of-your-night.html" data-hc="f_sotn">Song of Your Night</a><a href="anthem.html" data-hc="f_anthem">Our anthem</a><a href="privacy.html" data-hc="f_priv">Privacy</a><a href="terms.html" data-hc="f_terms">Terms</a><a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>
 </div></footer>
 <script>
 (function(){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });},{threshold:.12});
   document.querySelectorAll('#screen-door .hc-r').forEach(function(el){io.observe(el);}); })();
 </script>
 </div>
-<footer style="background:#14201A;color:#A9B8AE;text-align:center;padding:54px 22px 46px;font-family:'Inter',system-ui,sans-serif;">
-  <div style="font-family:'Fraunces',Georgia,serif;font-size:22px;color:#fff;margin-bottom:6px;">Two ways to hold onto a moment.</div>
-  <div style="max-width:56ch;margin:0 auto;font-size:15px;line-height:1.6;">You're on the <b style="color:#fff;">Keepsakes &amp; Gifts</b> side — something made for someone you love. Running a wedding, party or event instead?</div>
-  <div style="margin-top:22px;display:flex;gap:16px 24px;justify-content:center;flex-wrap:wrap;font-size:14px;max-width:760px;margin-left:auto;margin-right:auto;">
-    <a href="keepsake-song.html" style="color:#E7CE86;text-decoration:none;">🎵 Keepsake song</a>
-    <a href="song-of-your-night.html" style="color:#cdd6cd;text-decoration:none;">✨ Song of Your Night</a>
-    <a href="birthday-song.html" style="color:#cdd6cd;text-decoration:none;">🎂 Birthday song</a>
-    <a href="memorial-page.html" style="color:#cdd6cd;text-decoration:none;">🕊️ Memorial keepsake</a>
-    <a href="#memorywall" onclick="location.hash='memorywall';return false;" style="color:#cdd6cd;text-decoration:none;">🖼️ Memory wall</a>
-    <a href="samples.html" style="color:#cdd6cd;text-decoration:none;">🎧 Hear real keepsakes</a>
-    <a href="wall-of-love.html" style="color:#cdd6cd;text-decoration:none;">💛 Wall of Love</a>
-    <a href="live.html" style="color:#cdd6cd;text-decoration:none;">🎥 Live guest walls</a>
-  </div>
-  <div style="margin-top:26px;font-size:12.5px;color:#7f8c82;">© GatherWall · <a href="mailto:hello@gatherwall.com" style="color:#E7CE86;text-decoration:none;">hello@gatherwall.com</a></div>
-</footer>
+
 </div>
 
 <div id="screen-home" class="screen">
@@ -1905,7 +1892,149 @@ const DOOR={
   de:{h1:"Hören Sie den Text Ihres Liedes — kostenlos.",tag:"Wir verwandeln ein ganzes Leben in ein originales Erinnerungslied — geschrieben und produziert nur für einen geliebten Menschen. Sehen Sie den vollständigen Text kostenlos und zahlen Sie nur, wenn er Ihnen eine Gänsehaut bereitet.",oc:"✨ Ihren Text ansehen — kostenlos →",osub:"Keine Karte · etwa 60 Sekunden · ab 39 $",live:"🎥 Eine lebendige Foto- & Nachrichtenwand für Ihr ganzes Event →",mem:"🕊️ Eine bleibende Gedenkseite für einen verstorbenen Menschen →",mw:"🖼️ Eine Erinnerungswand, die Angehörige mit der Zeit füllen — enthüllt am großen Tag →",expk:"Sehen Sie, was sie öffnen werden",expt:"Fühlen Sie, was sie fühlen werden 💛",expb:"Öffnen Sie ein echtes Erinnerungsstück und sehen Sie, wie ein ganzes Leben aufsteigt — ihre Fotos, Moment für Moment, im Takt eines Liedes, das nur für sie geschrieben wurde.",expc:"🎁 Das Erlebnis öffnen →",remind:"Nicht für heute? Tragen Sie sich für eine Erinnerung vor Ihrem Anlass ein — und frühe Angebote.",remindc:"✉️ Erinnere mich →",hear:"🎧 Ein echtes Erinnerungsstück hören",wol:"💛 Die Wand der Liebe lesen",capH:"Noch nicht bereit? Behalte die Idee im Herzen.",capS:"Erhalte eine kostenlose Beispielstrophe für einen lieben Menschen — und erfahre als Erste(r) von neuen Erinnerungsstücken."}
 };
 function buildDoorLang(){ var bar=document.getElementById('doorLang'); if(!bar)return; bar.innerHTML=''; LANGS.forEach(function(p){ var c=p[0]; var on=c===guestLang; var b=document.createElement('button'); b.textContent=p[1]; b.onclick=function(){ setLang(c); }; b.style.cssText='border:1px solid '+(on?'#2E7D5B':'#E6E2D4')+';background:'+(on?'rgba(46,125,91,.08)':'#fff')+';color:'+(on?'#256048':'#5C6B5E')+';border-radius:999px;padding:5px 12px;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:600;cursor:pointer;'; bar.appendChild(b); }); }
-function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); }
+function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); }
+/* ===== New premium homepage (#screen-door .hc-*) i18n: data-hc = textContent, data-hch = innerHTML (links kept) ===== */
+const HC=(function(){
+  const M='<a href="#memorial" onclick="location.hash=\'memorial\';return false;">', L='<a href="#live" onclick="location.hash=\'live\';return false;">', E='</a>';
+  const G=['<a href="gift-for-parents-in-nigeria.html">','<a href="nigerian-70th-birthday-ideas.html">','<a href="yoruba-birthday-song.html">','<a href="owambe-tribute-wall.html">','<a href="nigerian-wedding-keepsake.html">','<a href="nigerian-burial-memorial-page.html">'];
+  const also=(a,m,l)=>a+' '+M+m+' ›'+E+' &nbsp;·&nbsp; '+L+l+' ›'+E;
+  const ideas=(a,x)=>a+' '+x.map((t,i)=>G[i]+t+E).join(' · ');
+  return {
+  en:{
+    nav_walls:"Tribute Walls",nav_songs:"Songs",nav_made:"Made for you",nav_work:"Our work",
+    eye:"Birthdays · Weddings · Anniversaries · In memory",
+    h1:"Celebrate the people you love.",
+    sub:"Messages, songs and films that bring everyone together.",
+    cta_find:"Find your keepsake",cta_work:"See our work ›",
+    film_t:"Fifty Years of Gold",film_s:"A GatherWall keepsake: their photos, their story, their song.",
+    p_h2:"Three ways to say it.",p_lede:"Do it yourself in minutes, or let us make something unforgettable for you.",
+    c1_tag:"Tribute Wall",c1_h3:"Everyone's words, in one place.",c1_p:"Share one link. Family and friends add messages and photos, and it's all revealed on the day, on any screen.",c1_price:"From $10 · ready instantly",c1_btn:"Start free",
+    c2_tag:"Song",c2_h3:"A song only they could have.",c2_p:"Tell us their story and read your lyrics free. Love them? Your original song is made in minutes.",c2_price:"$39 · lyrics free",c2_btn:"Hear your lyrics",
+    c3_tag:"Made for you",c3_h3:"Their life, as a film.",c3_p:"A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.",c3_price:"<s>$149</s> From $74.50 · 50% off until 31 Dec",c3_btn:"See how it works",
+    also:also("Also:","a memorial page for someone you've lost","a live photo wall for your event"),
+    o_h2:"For every family. Every occasion.",o_lede:"Owambe or quiet dinner, Lagos or London, a first birthday or a final goodbye.",
+    o_1:"Weddings",o_2:"Birthdays",o_3:"Anniversaries",o_4:"Family milestones",o_5:"In memory",o_6:"Reunions",o_7:"Big birthdays",o_8:"Honouring elders",
+    s_h2:"Simple, from start to finish.",
+    s1_b:"Tell us who it's for",s1_s:"A name, an occasion, a few memories. No account, no app.",
+    s2_b:"Invite everyone",s2_s:"One link for family and friends to add their words and photos.",
+    s3_b:"Share the moment",s3_s:"Reveal it on the day, and keep it forever.",
+    w_h2:"See what we've made.",w_lede:"Real keepsakes, real songs, real words from families.",
+    w_1:"🎬 Examples",w_2:"🎧 Hear real songs",w_3:"💛 Wall of Love",w_4:"🎁 Open a keepsake",w_5:"🕊️ A song for Dad",
+    ideas:ideas("Ideas:",["a gift for parents in Nigeria","70th birthday ideas","a Yoruba birthday song","a wall for your owambe","wedding keepsakes","a memorial page"]),
+    q:"“I built the very first one of these for my wife, Veronika — her life story, set to a song written just for her. Watching her face as it played, and feeling the whole room go quiet, I knew we'd captured something money can't buy. That feeling is exactly what I want every family to have — and it's why GatherWall exists.”",
+    q_by:"Yomi · Founder of GatherWall",
+    cl_h2:"Who will you celebrate?",cap_b:"Not ready today?",cap_s:"Get one free sample verse for someone you love, and early offers.",
+    f_sotn:"Song of Your Night",f_anthem:"Our anthem",f_priv:"Privacy",f_terms:"Terms"
+  },
+  fr:{
+    nav_walls:"Murs d'hommage",nav_songs:"Chansons",nav_made:"Sur mesure",nav_work:"Nos réalisations",
+    eye:"Anniversaires · Mariages · Noces · En mémoire",
+    h1:"Célébrez ceux que vous aimez.",
+    sub:"Des messages, des chansons et des films qui rassemblent tout le monde.",
+    cta_find:"Trouvez votre souvenir",cta_work:"Voir nos réalisations ›",
+    film_t:"Cinquante ans d'or",film_s:"Un souvenir GatherWall : leurs photos, leur histoire, leur chanson.",
+    p_h2:"Trois façons de le dire.",p_lede:"Faites-le vous-même en quelques minutes, ou laissez-nous créer pour vous quelque chose d'inoubliable.",
+    c1_tag:"Mur d'hommage",c1_h3:"Les mots de chacun, réunis au même endroit.",c1_p:"Partagez un seul lien. Famille et amis ajoutent messages et photos, et tout est dévoilé le jour J, sur n'importe quel écran.",c1_price:"Dès $10 · prêt instantanément",c1_btn:"Commencer gratuitement",
+    c2_tag:"Chanson",c2_h3:"Une chanson rien que pour eux.",c2_p:"Racontez-nous leur histoire et lisez vos paroles gratuitement. Elles vous plaisent ? Votre chanson originale est prête en quelques minutes.",c2_price:"$39 · paroles offertes",c2_btn:"Découvrir vos paroles",
+    c3_tag:"Sur mesure",c3_h3:"Leur vie, en film.",c3_p:"Une chanson, un film de leurs photos et un livre d'hommage, réalisés par notre équipe avec vous. Découvrez votre projet avant de payer.",c3_price:"<s>$149</s> Dès $74.50 · -50 % jusqu'au 31 déc.",c3_btn:"Voir comment ça marche",
+    also:also("Et aussi :","une page commémorative pour un être cher disparu","un mur photo en direct pour votre événement"),
+    o_h2:"Pour chaque famille. Chaque occasion.",o_lede:"Owambe ou dîner intime, Lagos ou Londres, un premier anniversaire ou un dernier adieu.",
+    o_1:"Mariages",o_2:"Anniversaires",o_3:"Anniversaires de mariage",o_4:"Grandes étapes en famille",o_5:"En mémoire",o_6:"Retrouvailles",o_7:"Anniversaires marquants",o_8:"Honorer nos aînés",
+    s_h2:"Simple, du début à la fin.",
+    s1_b:"Dites-nous pour qui c'est",s1_s:"Un prénom, une occasion, quelques souvenirs. Sans compte, sans appli.",
+    s2_b:"Invitez tout le monde",s2_s:"Un seul lien pour que famille et amis ajoutent leurs mots et leurs photos.",
+    s3_b:"Partagez le moment",s3_s:"Dévoilez-le le jour J, et gardez-le pour toujours.",
+    w_h2:"Découvrez nos créations.",w_lede:"De vrais souvenirs, de vraies chansons, de vrais mots de familles.",
+    w_1:"🎬 Exemples",w_2:"🎧 Écouter de vraies chansons",w_3:"💛 Mur d'amour",w_4:"🎁 Ouvrir un souvenir",w_5:"🕊️ Une chanson pour papa",
+    ideas:ideas("Idées :",["un cadeau pour vos parents au Nigeria","idées pour un 70e anniversaire","une chanson d'anniversaire en yoruba","un mur pour votre owambe","souvenirs de mariage","une page commémorative"]),
+    q:"« J'ai créé le tout premier pour ma femme, Veronika : l'histoire de sa vie, mise en musique dans une chanson écrite rien que pour elle. En voyant son visage pendant qu'elle l'écoutait, et en sentant toute la salle se taire, j'ai su que nous avions saisi quelque chose que l'argent ne peut pas acheter. C'est exactement ce que je souhaite à chaque famille, et c'est pour cela que GatherWall existe. »",
+    q_by:"Yomi · Fondateur de GatherWall",
+    cl_h2:"Qui allez-vous célébrer ?",cap_b:"Pas encore prêt ?",cap_s:"Recevez un couplet d'essai gratuit pour un être cher, et nos offres en avant-première.",
+    f_sotn:"Song of Your Night",f_anthem:"Notre hymne",f_priv:"Confidentialité",f_terms:"Conditions"
+  },
+  es:{
+    nav_walls:"Muros de homenaje",nav_songs:"Canciones",nav_made:"Hecho para ti",nav_work:"Nuestro trabajo",
+    eye:"Cumpleaños · Bodas · Aniversarios · In memoriam",
+    h1:"Celebra a las personas que quieres.",
+    sub:"Mensajes, canciones y películas que unen a todos.",
+    cta_find:"Encuentra tu recuerdo",cta_work:"Mira nuestro trabajo ›",
+    film_t:"Cincuenta años de oro",film_s:"Un recuerdo GatherWall: sus fotos, su historia, su canción.",
+    p_h2:"Tres formas de decirlo.",p_lede:"Hazlo tú mismo en minutos, o deja que creemos algo inolvidable para ti.",
+    c1_tag:"Muro de homenaje",c1_h3:"Las palabras de todos, en un solo lugar.",c1_p:"Comparte un solo enlace. Familiares y amigos añaden mensajes y fotos, y todo se revela el gran día, en cualquier pantalla.",c1_price:"Desde $10 · listo al instante",c1_btn:"Empieza gratis",
+    c2_tag:"Canción",c2_h3:"Una canción solo para ellos.",c2_p:"Cuéntanos su historia y lee tu letra gratis. ¿Te encanta? Tu canción original estará lista en minutos.",c2_price:"$39 · letra gratis",c2_btn:"Escucha tu letra",
+    c3_tag:"Hecho para ti",c3_h3:"Su vida, en película.",c3_p:"Una canción, una película con sus fotos y un libro homenaje, creados por nuestro equipo contigo. Ve tu plan antes de pagar.",c3_price:"<s>$149</s> Desde $74.50 · 50% de descuento hasta el 31 dic.",c3_btn:"Mira cómo funciona",
+    also:also("También:","una página conmemorativa para alguien que has perdido","un muro de fotos en vivo para tu evento"),
+    o_h2:"Para cada familia. Para cada ocasión.",o_lede:"Owambe o cena tranquila, Lagos o Londres, un primer cumpleaños o un último adiós.",
+    o_1:"Bodas",o_2:"Cumpleaños",o_3:"Aniversarios",o_4:"Momentos en familia",o_5:"In memoriam",o_6:"Reencuentros",o_7:"Cumpleaños especiales",o_8:"Honrar a los mayores",
+    s_h2:"Sencillo, de principio a fin.",
+    s1_b:"Cuéntanos para quién es",s1_s:"Un nombre, una ocasión, algunos recuerdos. Sin cuenta, sin app.",
+    s2_b:"Invita a todos",s2_s:"Un solo enlace para que familiares y amigos añadan sus palabras y fotos.",
+    s3_b:"Comparte el momento",s3_s:"Revélalo el gran día, y guárdalo para siempre.",
+    w_h2:"Mira lo que hemos creado.",w_lede:"Recuerdos reales, canciones reales, palabras reales de familias.",
+    w_1:"🎬 Ejemplos",w_2:"🎧 Escucha canciones reales",w_3:"💛 Muro del amor",w_4:"🎁 Abre un recuerdo",w_5:"🕊️ Una canción para papá",
+    ideas:ideas("Ideas:",["un regalo para padres en Nigeria","ideas para un 70.º cumpleaños","una canción de cumpleaños en yoruba","un muro para tu owambe","recuerdos de boda","una página conmemorativa"]),
+    q:"«Creé el primero de todos para mi esposa, Veronika: la historia de su vida convertida en una canción escrita solo para ella. Al ver su rostro mientras sonaba, y sentir cómo toda la sala se quedaba en silencio, supe que habíamos capturado algo que el dinero no puede comprar. Ese sentimiento es exactamente lo que quiero para cada familia, y es la razón por la que existe GatherWall.»",
+    q_by:"Yomi · Fundador de GatherWall",
+    cl_h2:"¿A quién vas a celebrar?",cap_b:"¿Aún no te decides?",cap_s:"Recibe gratis una estrofa de muestra para alguien que quieres, y ofertas anticipadas.",
+    f_sotn:"Song of Your Night",f_anthem:"Nuestro himno",f_priv:"Privacidad",f_terms:"Términos"
+  },
+  de:{
+    nav_walls:"Grußwände",nav_songs:"Songs",nav_made:"Für dich gemacht",nav_work:"Unsere Arbeiten",
+    eye:"Geburtstage · Hochzeiten · Jubiläen · In Erinnerung",
+    h1:"Feiere die Menschen, die du liebst.",
+    sub:"Botschaften, Songs und Filme, die alle zusammenbringen.",
+    cta_find:"Finde dein Andenken",cta_work:"Unsere Arbeiten ansehen ›",
+    film_t:"Fünfzig goldene Jahre",film_s:"Ein GatherWall-Andenken: ihre Fotos, ihre Geschichte, ihr Song.",
+    p_h2:"Drei Wege, es zu sagen.",p_lede:"Mach es selbst in wenigen Minuten – oder lass uns etwas Unvergessliches für dich gestalten.",
+    c1_tag:"Grußwand",c1_h3:"Die Worte aller, an einem Ort.",c1_p:"Teile einen Link. Familie und Freunde fügen Nachrichten und Fotos hinzu – enthüllt wird alles am großen Tag, auf jedem Bildschirm.",c1_price:"Ab $10 · sofort bereit",c1_btn:"Kostenlos starten",
+    c2_tag:"Song",c2_h3:"Ein Song, der nur ihnen gehört.",c2_p:"Erzähl uns ihre Geschichte und lies deinen Songtext kostenlos. Gefällt er dir? Dein eigener Song ist in wenigen Minuten fertig.",c2_price:"$39 · Songtext gratis",c2_btn:"Deinen Songtext entdecken",
+    c3_tag:"Für dich gemacht",c3_h3:"Ihr Leben als Film.",c3_p:"Ein Song, ein Film aus ihren Fotos und ein Erinnerungsbuch – von unserem Team gemeinsam mit dir gestaltet. Sieh deinen Plan, bevor du bezahlst.",c3_price:"<s>$149</s> Ab $74.50 · 50 % Rabatt bis 31. Dez.",c3_btn:"So funktioniert's",
+    also:also("Außerdem:","eine Gedenkseite für einen geliebten Menschen","eine Live-Fotowand für dein Event"),
+    o_h2:"Für jede Familie. Zu jedem Anlass.",o_lede:"Owambe oder ruhiges Abendessen, Lagos oder London, ein erster Geburtstag oder ein letzter Abschied.",
+    o_1:"Hochzeiten",o_2:"Geburtstage",o_3:"Jubiläen",o_4:"Familienmomente",o_5:"In Erinnerung",o_6:"Wiedersehen",o_7:"Runde Geburtstage",o_8:"Unsere Ältesten ehren",
+    s_h2:"Einfach, von Anfang bis Ende.",
+    s1_b:"Sag uns, für wen es ist",s1_s:"Ein Name, ein Anlass, ein paar Erinnerungen. Kein Konto, keine App.",
+    s2_b:"Lade alle ein",s2_s:"Ein Link, über den Familie und Freunde ihre Worte und Fotos beitragen.",
+    s3_b:"Teile den Moment",s3_s:"Enthülle es am großen Tag – und bewahre es für immer.",
+    w_h2:"Sieh dir an, was wir gemacht haben.",w_lede:"Echte Andenken, echte Songs, echte Worte von Familien.",
+    w_1:"🎬 Beispiele",w_2:"🎧 Echte Songs anhören",w_3:"💛 Wand der Liebe",w_4:"🎁 Ein Andenken öffnen",w_5:"🕊️ Ein Song für Papa",
+    ideas:ideas("Ideen:",["ein Geschenk für Eltern in Nigeria","Ideen zum 70. Geburtstag","ein Geburtstagslied auf Yoruba","eine Wand für dein owambe","Hochzeitsandenken","eine Gedenkseite"]),
+    q:"„Das allererste habe ich für meine Frau Veronika gemacht – ihre Lebensgeschichte, vertont in einem Song, der nur für sie geschrieben wurde. Als ich ihr Gesicht sah, während er lief, und spürte, wie der ganze Raum still wurde, wusste ich: Wir hatten etwas eingefangen, das man mit Geld nicht kaufen kann. Genau dieses Gefühl wünsche ich jeder Familie – und genau deshalb gibt es GatherWall.“",
+    q_by:"Yomi · Gründer von GatherWall",
+    cl_h2:"Wen wirst du feiern?",cap_b:"Noch nicht so weit?",cap_s:"Hol dir eine kostenlose Probestrophe für einen geliebten Menschen – und frühe Angebote.",
+    f_sotn:"Song of Your Night",f_anthem:"Unsere Hymne",f_priv:"Datenschutz",f_terms:"AGB"
+  },
+  cs:{
+    nav_walls:"Zdi vzkazů",nav_songs:"Písně",nav_made:"Na míru",nav_work:"Naše práce",
+    eye:"Narozeniny · Svatby · Výročí · Na památku",
+    h1:"Oslavte ty, které milujete.",
+    sub:"Vzkazy, písně a filmy, které spojí všechny dohromady.",
+    cta_find:"Najděte svou památku",cta_work:"Podívejte se na naši práci ›",
+    film_t:"Padesát zlatých let",film_s:"Památka od GatherWall: jejich fotky, jejich příběh, jejich píseň.",
+    p_h2:"Tři způsoby, jak to říct.",p_lede:"Zvládněte to sami za pár minut, nebo nás nechte vytvořit pro vás něco nezapomenutelného.",
+    c1_tag:"Zeď vzkazů",c1_h3:"Slova všech na jednom místě.",c1_p:"Sdílejte jeden odkaz. Rodina a přátelé přidají vzkazy a fotky a vše se odhalí ve velký den, na jakékoli obrazovce.",c1_price:"Od $10 · hotovo okamžitě",c1_btn:"Začít zdarma",
+    c2_tag:"Píseň",c2_h3:"Píseň jen a jen pro ně.",c2_p:"Povězte nám jejich příběh a přečtěte si text zdarma. Líbí se vám? Vaše originální píseň vznikne během pár minut.",c2_price:"$39 · text zdarma",c2_btn:"Zobrazit váš text",
+    c3_tag:"Na míru",c3_h3:"Jejich život jako film.",c3_p:"Píseň, film z jejich fotek a pamětní kniha, které s vámi vytvoří náš tým. Plán uvidíte ještě před zaplacením.",c3_price:"<s>$149</s> Od $74.50 · sleva 50 % do 31. 12.",c3_btn:"Jak to funguje",
+    also:also("Také:","pamětní stránka pro někoho, koho jste ztratili","živá fotostěna pro vaši akci"),
+    o_h2:"Pro každou rodinu. Pro každou příležitost.",o_lede:"Owambe nebo klidná večeře, Lagos nebo Londýn, první narozeniny nebo poslední rozloučení.",
+    o_1:"Svatby",o_2:"Narozeniny",o_3:"Výročí",o_4:"Rodinné milníky",o_5:"Na památku",o_6:"Setkání",o_7:"Kulatiny",o_8:"Úcta ke starším",
+    s_h2:"Jednoduše, od začátku do konce.",
+    s1_b:"Řekněte nám, pro koho to je",s1_s:"Jméno, příležitost, pár vzpomínek. Bez účtu, bez aplikace.",
+    s2_b:"Pozvěte všechny",s2_s:"Jeden odkaz, přes který rodina a přátelé přidají svá slova a fotky.",
+    s3_b:"Sdílejte ten okamžik",s3_s:"Odhalte ho ve velký den a uchovejte navždy.",
+    w_h2:"Podívejte se, co jsme vytvořili.",w_lede:"Skutečné památky, skutečné písně, skutečná slova od rodin.",
+    w_1:"🎬 Ukázky",w_2:"🎧 Poslechněte si skutečné písně",w_3:"💛 Zeď lásky",w_4:"🎁 Otevřete památku",w_5:"🕊️ Píseň pro tátu",
+    ideas:ideas("Nápady:",["dárek pro rodiče v Nigérii","nápady na 70. narozeniny","narozeninová píseň v jorubštině","zeď pro vaši owambe","svatební památky","pamětní stránka"]),
+    q:"„Úplně první jsem vytvořil pro svou ženu Veroniku – příběh jejího života zhudebněný v písni napsané jen pro ni. Když jsem sledoval její tvář, zatímco hrála, a cítil, jak celá místnost ztichla, věděl jsem, že jsme zachytili něco, co se za peníze koupit nedá. Přesně tenhle pocit chci dopřát každé rodině – a proto GatherWall existuje.“",
+    q_by:"Yomi · zakladatel GatherWall",
+    cl_h2:"Koho oslavíte vy?",cap_b:"Ještě nejste rozhodnutí?",cap_s:"Získejte zdarma ukázkovou sloku pro někoho, koho milujete, a nabídky v předstihu.",
+    f_sotn:"Song of Your Night",f_anthem:"Naše hymna",f_priv:"Ochrana soukromí",f_terms:"Podmínky"
+  }};
+})();
+function applyHC(){ try{ const t=HC[guestLang]||HC.en, en=HC.en; document.documentElement.lang=HC[guestLang]?guestLang:'en';
+  document.querySelectorAll('#screen-door [data-hc]').forEach(function(el){ const k=el.getAttribute('data-hc'); const v=(k in t)?t[k]:en[k]; if(v!=null) el.textContent=v; });
+  document.querySelectorAll('#screen-door [data-hch]').forEach(function(el){ const k=el.getAttribute('data-hch'); const v=(k in t)?t[k]:en[k]; if(v!=null) el.innerHTML=v; });
+}catch(e){} }
 
 function route(){
   const {path,ev,kiosk,key,draft,k}=parseHash();

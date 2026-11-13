@@ -4,6 +4,7 @@
    moves any language picker from that bar into the shared header. */
 (function () {
   if (window.__gwHeader) return; window.__gwHeader = true;
+  try { var gt = document.createElement('script'); gt.src = '/gw-track.js'; gt.async = true; (document.head || document.documentElement).appendChild(gt); } catch (e) {}
   var css = '' +
     'body>nav.nav,body>header.nav,body>.gw-old{display:none!important}' +
     '#gwh{position:sticky;top:0;z-index:999;background:rgba(251,251,253,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.07);font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif}' +

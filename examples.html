@@ -393,9 +393,9 @@ img{display:block;max-width:100%;}
       <div class="card" style="border-color:var(--gold);background:rgba(255,255,255,.12);">
         <div class="card-art" style="background:rgba(255,255,255,.1);font-size:2.8rem;">🕊️</div>
         <div class="card-body">
-          <h3 style="color:#fff;">A song for Dad</h3>
-          <p style="color:rgba(255,255,255,.75);">Our founder's own family keepsake: a song for his dad's 3-year remembrance, from his children, with Dad's photos and a sing-along. Made with our $39 Keepsake Song.</p>
-          <a class="card-link" href="keepsake.html?order=ks_qwqageg2" target="_blank" style="color:var(--gold);">Open Dad's keepsake →</a>
+          <h3 style="color:#fff;" data-i18n="dad_title">A song for Dad</h3>
+          <p style="color:rgba(255,255,255,.75);" data-i18n="dad_p">Our founder's own family keepsake: a song for his dad's 3-year remembrance, from his children, with Dad's photos and a sing-along. Made with our $39 Keepsake Song.</p>
+          <a class="card-link" href="keepsake.html?order=ks_qwqageg2" target="_blank" style="color:var(--gold);" data-i18n="dad_link">Open Dad's keepsake →</a>
         </div>
       </div>
 
@@ -572,11 +572,11 @@ img{display:block;max-width:100%;}
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footlinks">
-    <a href="ode.html">Ode hub</a>
+    <a href="ode.html" data-i18n="foot_ode">Ode hub</a>
     <a href="keepsake-song.html" data-i18n="foot_keepsake_song">Keepsake Song</a>
     <a href="memorial-page.html" data-i18n="foot_memorial">Memorial Page</a>
     <a href="wedding-wall.html" data-i18n="foot_wedding_wall">Wedding Wall</a>
-    <a href="wedding-keepsake.html">Wedding Keepsake</a>
+    <a href="wedding-keepsake.html" data-i18n="foot_wkeep">Wedding Keepsake</a>
     <a href="birthday-song.html" data-i18n="foot_birthday_song">Birthday Song</a>
     <a href="examples.html" data-i18n="foot_examples">Examples</a>
     <a href="digital-guestbook.html" data-i18n="foot_digital_gb">Digital Guestbook</a>
@@ -646,7 +646,12 @@ const I18N = {
     foot_samples: "All Samples",
     foot_home: "← GatherWall home",
     doc_title: "GatherWall Examples — See Real Walls, Songs & Memorials",
-    doc_desc: "Hear real keepsake songs, see a live wall demo, and explore memorial examples. Real GatherWall creations — from golden anniversaries to wedding nights."
+    doc_desc: "Hear real keepsake songs, see a live wall demo, and explore memorial examples. Real GatherWall creations — from golden anniversaries to wedding nights.",
+    dad_title: "A song for Dad",
+    dad_p: "Our founder's own family keepsake: a song for his dad's 3-year remembrance, from his children, with Dad's photos and a sing-along. Made with our $39 Keepsake Song.",
+    dad_link: "Open Dad's keepsake →",
+    foot_ode: "Ode hub",
+    foot_wkeep: "Wedding Keepsake"
   },
   fr: {
     nav_back: "← Accueil",
@@ -705,7 +710,12 @@ const I18N = {
     foot_samples: "Tous les exemples",
     foot_home: "← Accueil GatherWall",
     doc_title: "Exemples GatherWall — Voyez de vrais murs, chansons et mémoriaux",
-    doc_desc: "Écoutez de vraies chansons Keepsake, voyez une démo de mur en direct et explorez des exemples de mémoriaux. De vraies créations GatherWall."
+    doc_desc: "Écoutez de vraies chansons Keepsake, voyez une démo de mur en direct et explorez des exemples de mémoriaux. De vraies créations GatherWall.",
+    dad_title: "Une chanson pour Papa",
+    dad_p: "Le souvenir de famille de notre fondateur : une chanson pour les 3 ans de la disparition de son père, offerte par ses enfants, avec les photos de Papa et des paroles à chanter ensemble. Réalisée avec notre Chanson-souvenir à 39 $.",
+    dad_link: "Ouvrir le souvenir de Papa →",
+    foot_ode: "Hub Ode",
+    foot_wkeep: "Souvenir de mariage"
   },
   es: {
     nav_back: "← Inicio",
@@ -764,7 +774,12 @@ const I18N = {
     foot_samples: "Todas las muestras",
     foot_home: "← Inicio de GatherWall",
     doc_title: "Ejemplos de GatherWall — Mira muros, canciones y memoriales reales",
-    doc_desc: "Escucha canciones Keepsake reales, ve una demo de muro en vivo y explora ejemplos de memoriales. Creaciones reales de GatherWall."
+    doc_desc: "Escucha canciones Keepsake reales, ve una demo de muro en vivo y explora ejemplos de memoriales. Creaciones reales de GatherWall.",
+    dad_title: "Una canción para papá",
+    dad_p: "El recuerdo familiar de nuestro fundador: una canción para el tercer aniversario de la partida de su padre, de parte de sus hijos, con las fotos de papá y la letra para cantar juntos. Hecha con nuestra Canción Recuerdo de 39 $.",
+    dad_link: "Abrir el recuerdo de papá →",
+    foot_ode: "Hub Ode",
+    foot_wkeep: "Recuerdo de boda"
   },
   cs: {
     nav_back: "← Domů",
@@ -823,7 +838,12 @@ const I18N = {
     foot_samples: "Všechny ukázky",
     foot_home: "← Domovská stránka GatherWall",
     doc_title: "Ukázky GatherWall — Prohlédněte si skutečné zdi, písně a pamětníky",
-    doc_desc: "Poslechněte si skutečné vzpomínkové písně, prohlédněte si živou ukázku zdi a prozkoumejte pamětníky. Skutečná díla GatherWall."
+    doc_desc: "Poslechněte si skutečné vzpomínkové písně, prohlédněte si živou ukázku zdi a prozkoumejte pamětníky. Skutečná díla GatherWall.",
+    dad_title: "Píseň pro tátu",
+    dad_p: "Rodinná vzpomínka našeho zakladatele: píseň k třetímu výročí úmrtí jeho táty, od jeho dětí, s tátovými fotkami a textem ke zpívání. Vytvořeno s naší Písní na míru za 39 $.",
+    dad_link: "Otevřít vzpomínku na tátu →",
+    foot_ode: "Hub Ode",
+    foot_wkeep: "Svatební vzpomínka"
   },
   de: {
     nav_back: "← Startseite",
@@ -882,7 +902,12 @@ const I18N = {
     foot_samples: "Alle Beispiele",
     foot_home: "← GatherWall Startseite",
     doc_title: "GatherWall Beispiele — Echte Wände, Lieder und Gedenkseiten",
-    doc_desc: "Hören Sie echte Keepsake-Lieder, sehen Sie eine Live-Wand-Demo und entdecken Sie Gedenkbeispiele. Echte GatherWall-Kreationen."
+    doc_desc: "Hören Sie echte Keepsake-Lieder, sehen Sie eine Live-Wand-Demo und entdecken Sie Gedenkbeispiele. Echte GatherWall-Kreationen.",
+    dad_title: "Ein Lied für Papa",
+    dad_p: "Das ganz persönliche Familienandenken unseres Gründers: ein Lied zum dritten Todestag seines Vaters, von seinen Kindern, mit Papas Fotos und Text zum Mitsingen. Entstanden mit unserem Erinnerungslied für 39 $.",
+    dad_link: "Papas Erinnerung öffnen →",
+    foot_ode: "Ode-Hub",
+    foot_wkeep: "Hochzeits-Erinnerung"
   }
 };
 

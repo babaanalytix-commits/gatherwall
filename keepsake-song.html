@@ -358,7 +358,7 @@ details[open] summary::after{content:'−';}
       </li>
       <li>
         <span class="feature-check">🎁</span>
-        <div><strong>A gift reveal card — free</strong><span>Wrap the song in a card they open: your personal message, their name, then a button to play their song. Send the link or print it for the moment you give it. <a href="gift.html?to=Mum&amp;from=Aidan%20%26%20the%20family&amp;msg=Happy%2070th%2C%20Mum.%20We%20turned%20your%20whole%20story%20into%20a%20song%20%E2%80%94%20every%20word%20is%20true.%20We%20love%20you.&amp;song=samples.html" target="_blank" rel="noopener" style="color:#2E7D5B;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(46,125,91,.35);">See the gift card →</a></span></div>
+        <div><strong data-i18n="gift_strong">A gift reveal card — free</strong><span><span data-i18n="gift_span">Wrap the song in a card they open: your personal message, their name, then a button to play their song. Send the link or print it for the moment you give it.</span> <a data-i18n="gift_link" href="gift.html?to=Mum&amp;from=Aidan%20%26%20the%20family&amp;msg=Happy%2070th%2C%20Mum.%20We%20turned%20your%20whole%20story%20into%20a%20song%20%E2%80%94%20every%20word%20is%20true.%20We%20love%20you.&amp;song=samples.html" target="_blank" rel="noopener" style="color:#2E7D5B;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(46,125,91,.35);">See the gift card →</a></span></div>
       </li>
     </ul>
   </div>
@@ -424,7 +424,7 @@ details[open] summary::after{content:'−';}
     <a href="keepsake-song.html" data-i18n="foot_keepsake">Keepsake Song</a>
     <a href="memorial-page.html" data-i18n="foot_memorial">Memorial Page</a>
     <a href="wedding-wall.html" data-i18n="foot_wedding">Wedding Wall</a>
-    <a href="wedding-keepsake.html">Wedding Keepsake</a>
+    <a href="wedding-keepsake.html" data-i18n="foot_wkeep">Wedding Keepsake</a>
     <a href="birthday-song.html" data-i18n="foot_birthday">Birthday Song</a>
     <a href="examples.html" data-i18n="foot_examples">Examples</a>
     <a href="digital-guestbook.html" data-i18n="foot_guestbook">Digital Guestbook</a>
@@ -536,7 +536,11 @@ const I18N = {
     foot_birthday: "Birthday Song",
     foot_examples: "Examples",
     foot_guestbook: "Digital Guestbook",
-    foot_home: "← GatherWall home"
+    foot_home: "← GatherWall home",
+    gift_strong: "A gift reveal card — free",
+    gift_span: "Wrap the song in a card they open: your personal message, their name, then a button to play their song. Send the link or print it for the moment you give it.",
+    gift_link: "See the gift card →",
+    foot_wkeep: "Wedding Keepsake"
   },
   fr: {
     page_title: "Chanson Souvenir Personnalisée — Un Cadeau Né de Leur Histoire",
@@ -640,7 +644,11 @@ const I18N = {
     foot_birthday: "Chanson d'Anniversaire",
     foot_examples: "Exemples",
     foot_guestbook: "Livre d'Or Numérique",
-    foot_home: "← Accueil GatherWall"
+    foot_home: "← Accueil GatherWall",
+    gift_strong: "Une carte cadeau à ouvrir — offerte",
+    gift_span: "Glissez la chanson dans une carte qu'ils ouvrent : votre message personnel, leur prénom, puis un bouton pour écouter leur chanson. Envoyez le lien ou imprimez-la pour le moment où vous l'offrez.",
+    gift_link: "Voir la carte cadeau →",
+    foot_wkeep: "Souvenir de mariage"
   },
   es: {
     page_title: "Canción Recuerdo Personalizada — Un Regalo Nacido de Su Historia",
@@ -744,7 +752,11 @@ const I18N = {
     foot_birthday: "Canción de Cumpleaños",
     foot_examples: "Ejemplos",
     foot_guestbook: "Libro de Visitas Digital",
-    foot_home: "← Inicio GatherWall"
+    foot_home: "← Inicio GatherWall",
+    gift_strong: "Una tarjeta regalo sorpresa — gratis",
+    gift_span: "Envuelve la canción en una tarjeta que abrirán: tu mensaje personal, su nombre y, después, un botón para escuchar su canción. Envía el enlace o imprímela para el momento de dársela.",
+    gift_link: "Ver la tarjeta regalo →",
+    foot_wkeep: "Recuerdo de boda"
   },
   cs: {
     page_title: "Personalizovaná Vzpomínková Píseň — Dar Vzniklý z Jejich Příběhu",
@@ -848,7 +860,11 @@ const I18N = {
     foot_birthday: "Narozeninová Píseň",
     foot_examples: "Ukázky",
     foot_guestbook: "Digitální Kniha Hostů",
-    foot_home: "← Domů GatherWall"
+    foot_home: "← Domů GatherWall",
+    gift_strong: "Dárkové přání k rozbalení — zdarma",
+    gift_span: "Zabalte píseň do přání, které otevřou: váš osobní vzkaz, jejich jméno a pak tlačítko, kterým si píseň pustí. Pošlete odkaz, nebo přání vytiskněte na chvíli, kdy dárek předáváte.",
+    gift_link: "Prohlédnout dárkové přání →",
+    foot_wkeep: "Svatební vzpomínka"
   },
   de: {
     page_title: "Personalisiertes Erinnerungslied — Ein Geschenk aus ihrer Geschichte",
@@ -952,7 +968,11 @@ const I18N = {
     foot_birthday: "Geburtstagslied",
     foot_examples: "Beispiele",
     foot_guestbook: "Digitales Gästebuch",
-    foot_home: "← GatherWall Startseite"
+    foot_home: "← GatherWall Startseite",
+    gift_strong: "Eine Geschenkkarte zum Öffnen — gratis",
+    gift_span: "Verpacken Sie das Lied in eine Karte zum Öffnen: Ihre persönliche Nachricht, der Name, dann ein Button, der das Lied abspielt. Schicken Sie den Link oder drucken Sie die Karte für den Moment der Übergabe aus.",
+    gift_link: "Geschenkkarte ansehen →",
+    foot_wkeep: "Hochzeits-Erinnerung"
   }
 };
 

@@ -136,7 +136,10 @@ section{padding:72px 0;}
   <a class="logo" href="index.html"><span class="dot"></span>GatherWall</a>
   <div class="lang-switcher" role="group" aria-label="Language">
     <button class="lang-btn active" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" onclick="setLang('fr')" aria-pressed="false">FR</button>
+    <button class="lang-btn" onclick="setLang('es')" aria-pressed="false">ES</button>
     <button class="lang-btn" onclick="setLang('cs')" aria-pressed="false">CS</button>
+    <button class="lang-btn" onclick="setLang('de')" aria-pressed="false">DE</button>
   </div>
   <a class="back" href="index.html" data-i18n="nav_back">← GatherWall</a>
 </div></nav>
@@ -161,7 +164,7 @@ section{padding:72px 0;}
   <div class="steps">
     <div class="step"><div class="step-num">1</div>
       <h3 data-i18n="s1h">Tell us your story</h3>
-      <p data-i18n="s1p">A short guided form: how you met, the names that matter, the moments you want remembered — and anyone you want honoured.</p><p style="margin-top:8px;"><a href="story-form.html" style="color:var(--brand);font-weight:600;font-size:.92rem;">Preview the form →</a></p></div>
+      <p data-i18n="s1p">A short guided form: how you met, the names that matter, the moments you want remembered — and anyone you want honoured.</p><p style="margin-top:8px;"><a href="story-form.html" style="color:var(--brand);font-weight:600;font-size:.92rem;" data-i18n="s1link">Preview the form →</a></p></div>
     <div class="step"><div class="step-num">2</div>
       <h3 data-i18n="s2h">Read the lyrics — free</h3>
       <p data-i18n="s2p">We write the words by hand from what you've told us. You read every line and approve them before anything is produced.</p></div>
@@ -200,39 +203,39 @@ section{padding:72px 0;}
 <!-- TIERS -->
 <section class="band" id="tiers"><div class="wrap">
   <p class="section-label" data-i18n="tiers_label">What's included</p>
-  <h2 class="section-title" data-i18n="tiers_h2">Three ways to keep the day</h2>
+  <h2 class="section-title" data-i18n="tiers_h2">Two ways to keep the day</h2>
   <p class="section-sub" data-i18n="tiers_sub">Every one includes original songs written from your story and a private page. Prices in USD, one-time.</p>
 
   <div class="tiers">
     <div class="tier">
-      <h3>Story Film</h3>
-      <p class="tier-for">One original song and a film of your photos and clips. Lovely for an engagement, an anniversary or a smaller day.</p>
+      <h3 data-i18n="t1h">Story Film</h3>
+      <p class="tier-for" data-i18n="t1for">One original song and a film of your photos and clips. Lovely for an engagement, an anniversary or a smaller day.</p>
       <div class="price"><sup>$</sup>74.50 <s style="font-size:.42em;opacity:.5;font-weight:500">$149</s></div>
-      <p class="price-once"><b style="color:#8A6A1F">50% off until 31 Dec</b> · one-time</p>
+      <p class="price-once" data-i18n="price_once"><b style="color:#8A6A1F">50% off until 31 Dec</b> · one-time</p>
       <ul>
-        <li><span class="tick">✓</span><span>An original song from your story (two versions to choose from)</span></li>
-        <li><span class="tick">✓</span><span>A film from your photos &amp; clips, lyrics on screen</span></li>
-        <li><span class="tick">✓</span><span>Lyrics you approve before we produce</span></li>
-        <li><span class="tick">✓</span><span>1 round of changes · book 3 weeks ahead</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t1a">An original song from your story (two versions to choose from)</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t1b">A film from your photos &amp; clips, lyrics on screen</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t1c">Lyrics you approve before we produce</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t1d">1 round of changes · book 3 weeks ahead</span></li>
       </ul>
-      <a class="btn-ghost" href="project.html?new=story-film">Choose Story Film</a>
+      <a class="btn-ghost" href="project.html?new=story-film" data-i18n="t1cta">Choose Story Film</a>
     </div>
 
     <div class="tier featured">
-      <span class="tier-flag">Most couples pick this</span>
-      <h3>Signature</h3>
-      <p class="tier-for">The whole celebration: your song, your film, and every guest's words, kept forever.</p>
+      <span class="tier-flag" data-i18n="flag">Most couples pick this</span>
+      <h3 data-i18n="t2h">Signature</h3>
+      <p class="tier-for" data-i18n="t2for">The whole celebration: your song, your film, and every guest's words, kept forever.</p>
       <div class="price"><sup>$</sup>149.50 <s style="font-size:.42em;opacity:.5;font-weight:500">$299</s></div>
-      <p class="price-once"><b style="color:#8A6A1F">50% off until 31 Dec</b> · one-time</p>
+      <p class="price-once" data-i18n="price_once"><b style="color:#8A6A1F">50% off until 31 Dec</b> · one-time</p>
       <ul>
-        <li><span class="tick">✓</span><span>Everything in Story Film</span></li>
-        <li><span class="tick">✓</span><span>A guest tribute wall, revealed on the day</span></li>
-        <li><span class="tick">✓</span><span>A guestbook PDF of every message and photo</span></li>
-        <li><span class="tick">✓</span><span>A private keepsake page &amp; download folder</span></li>
-        <li><span class="tick">✓</span><span>A gift link you can send to each other or your parents</span></li>
-        <li><span class="tick">✓</span><span>2 rounds of changes · book 4 weeks ahead</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2a">Everything in Story Film</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2b">A guest tribute wall, revealed on the day</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2c">A guestbook PDF of every message and photo</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2d">A private keepsake page &amp; download folder</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2e">A gift link you can send to each other or your parents</span></li>
+        <li><span class="tick">✓</span><span data-i18n="t2f">2 rounds of changes · book 4 weeks ahead</span></li>
       </ul>
-      <a class="btn-primary" href="project.html?new=signature-celebration">Choose Signature</a>
+      <a class="btn-primary" href="project.html?new=signature-celebration" data-i18n="t2cta">Choose Signature</a>
     </div>
   </div>
   <p class="vat" data-i18n="vat">Prices exclude VAT. Local VAT is added at checkout where it applies — you'll see the exact total before you pay.</p>
@@ -294,7 +297,7 @@ section{padding:72px 0;}
 </footer>
 
 <script>
-const HTML_KEYS = new Set(['w1','w2','w3','w4','w5','case_form']);
+const HTML_KEYS = new Set(['w1','w2','w3','w4','w5','case_form','price_once']);
 const I18N = {
   en: {
     page_title: "Wedding Keepsake — Your Whole Wedding Day, As a Film and a Song",
@@ -309,12 +312,13 @@ const I18N = {
     hero_lead: "Ne sestřih na cizí hudbu. Píšeme původní písně z vašeho příběhu — jak jste se potkali, kdo je pro vás důležitý, okamžiky, na které nechcete zapomenout — a na ně sestříháme vaše fotky a videa. Všechno na soukromé stránce, kterou můžete poslat komukoli.",
     cta_free: "✨ Text písně zdarma",
     cta_tiers: "Co je v ceně →",
-    hero_note: "Bez karty · od 149 $ · česky i anglicky",
+    hero_note: "Osobní přístup · sleva 50 % do 31. prosince · česky i anglicky",
     how_label: "Jak to funguje",
     how_h2: "Čtyři kroky a zhruba dva týdny",
     how_sub: "Vy pošlete materiál a příběh. Zbytek uděláme my.",
     s1h: "Řekněte nám svůj příběh",
     s1p: "Krátký formulář: jak jste se potkali, jména, na kterých záleží, okamžiky, které chcete uchovat — a koho chcete připomenout.",
+    s1link: "Náhled formuláře →",
     s2h: "Přečtěte si text — zdarma",
     s2p: "Text napíšeme ručně z toho, co nám řeknete. Přečtete si každý řádek a schválíte ho dřív, než cokoli vyrobíme.",
     s3h: "Postavíme vzpomínku",
@@ -326,33 +330,26 @@ const I18N = {
     case_sub: "Balíček Signature není ukázka — přesně tohle jsme vytvořili pro jeden pár: šest písní, celý svatební film, samostatné poděkování rodině a dvojjazyčnou stránku.",
     case_form: "<strong>Podívejte se, na co se ptáme.</strong> Každá vzpomínka začíná jedním formulářem — jména, příběh, okamžiky a co vynechat. <a href=\"story-form.html\" style=\"color:var(--brand);font-weight:600;\">Náhled formuláře →</a>",
     tiers_label: "Co je v ceně",
-    tiers_h2: "Tři způsoby, jak si den uchovat",
+    tiers_h2: "Dva způsoby, jak si den uchovat",
     tiers_sub: "Každý obsahuje původní písně z vašeho příběhu a soukromou stránku. Ceny v USD, jednorázově.",
     t1h: "Filmový příběh",
-    t1for: "Jedna píseň, jeden film. Ideální pro zásnuby, výročí nebo menší den.",
-    once: "jednorázově", once2: "jednorázově", once3: "jednorázově",
-    t1a: "Jedna původní píseň z vašeho příběhu",
-    t1b: "Krátký film z vašich fotek a klipů",
-    t1c: "Soukromá stránka pro sdílení",
-    t1d: "Text schválíte před výrobou",
+    t1for: "Jedna původní píseň a film z vašich fotek a klipů. Ideální pro zásnuby, výročí nebo menší den.",
+    price_once: "<b style=\"color:#8A6A1F\">Sleva 50 % do 31. 12.</b> · jednorázově",
+    t1a: "Původní píseň z vašeho příběhu (dvě verze na výběr)",
+    t1b: "Film z vašich fotek a klipů, text na obrazovce",
+    t1c: "Text schválíte před výrobou",
+    t1d: "1 kolo úprav · objednejte 3 týdny předem",
     t1cta: "Vybrat Filmový příběh",
-    flag: "Nejčastější volba",
-    t2h: "Svatební vzpomínka",
-    t2for: "Celý svatební den od začátku do konce, sestříhaný na tři vaše písně.",
-    t2a: "Tři původní písně z vašeho příběhu",
-    t2b: "Celý svatební film sestříhaný na ně",
-    t2c: "Text na obrazovce v rytmu zpěvu",
-    t2d: "Soukromá stránka ve vašem jazyce",
-    t2e: "Všechno ke stažení a uchování",
-    t2cta: "Vybrat Svatební vzpomínku",
-    t3h: "Signature",
-    t3for: "Všechno, co umíme — celé album, oba filmy, kompletně.",
-    t3a: "Album šesti písní z vašeho příběhu",
-    t3b: "Celý svatební film",
-    t3c: "Samostatný film s poděkováním rodině",
-    t3d: "Fotogalerie a sdílecí karta k odkazu",
-    t3e: "Přednostní zpracování",
-    t3cta: "Vybrat Signature",
+    flag: "Nejčastější volba párů",
+    t2h: "Signature",
+    t2for: "Celá oslava: vaše píseň, váš film a slova všech hostů, uchovaná navždy.",
+    t2a: "Vše z balíčku Filmový příběh",
+    t2b: "Vzkazová zeď hostů, odhalená v den svatby",
+    t2c: "Kniha hostů v PDF se všemi vzkazy a fotkami",
+    t2d: "Soukromá stránka se vzpomínkou a složka ke stažení",
+    t2e: "Dárkový odkaz, který můžete poslat sobě navzájem nebo rodičům",
+    t2f: "2 kola úprav · objednejte 4 týdny předem",
+    t2cta: "Vybrat Signature",
     vat: "Ceny bez DPH. Místní DPH se přidá při platbě, kde se uplatňuje — přesnou částku uvidíte před zaplacením.",
     why_label: "Čím se to liší",
     why_h2: "Kameraman natočí den. My vyprávíme příběh.",
@@ -380,8 +377,239 @@ const I18N = {
     cta_free2: "✨ Text písně zdarma",
     foot_home2: "Domů", foot_keepsake: "Píseň na míru", foot_wedding: "Svatební zeď",
     foot_memorial: "Vzpomínková stránka", foot_examples: "Ukázky", foot_home: "← Zpět na GatherWall"
+  },
+  fr: {
+    page_title: "Souvenir de mariage — toute votre journée, en film et en chanson",
+    page_desc: "Des chansons originales écrites à partir de votre histoire, un film de mariage monté sur elles et une page privée à partager avec tous vos proches. À partir de 149 $.",
+    nav_back: "← GatherWall",
+    hero_eyebrow: "Souvenir de mariage",
+    hero_h1: "Toute votre journée de mariage — en film, avec une chanson écrite pour vous",
+    hero_lead: "Pas un best-of monté sur la musique de quelqu'un d'autre. Nous écrivons des chansons originales à partir de votre histoire — votre rencontre, les personnes qui comptent, les moments que vous ne voulez surtout pas oublier — puis nous montons vos photos et vos vidéos sur ces chansons, et réunissons le tout sur une page privée que vous pouvez envoyer à qui vous voulez.",
+    cta_free: "✨ Découvrez vos paroles — gratuit",
+    cta_tiers: "Voir ce qui est inclus →",
+    hero_note: "Service personnalisé · -50 % jusqu'au 31 décembre · anglais et tchèque",
+    how_label: "Comment ça marche",
+    how_h2: "Quatre étapes, environ deux semaines",
+    how_sub: "Vous nous envoyez la matière et l'histoire. Nous nous occupons du reste.",
+    s1h: "Racontez-nous votre histoire",
+    s1p: "Un court formulaire guidé : votre rencontre, les prénoms qui comptent, les moments à garder — et les personnes que vous voulez honorer.",
+    s1link: "Aperçu du formulaire →",
+    s2h: "Lisez les paroles — gratuitement",
+    s2p: "Nous écrivons les paroles à la main à partir de ce que vous nous confiez. Vous lisez chaque ligne et les validez avant toute production.",
+    s3h: "Nous créons votre souvenir",
+    s3p: "Les chansons sont produites, vos photos et vidéos sont montées dessus, et les paroles s'affichent à l'écran au rythme de la voix.",
+    s4h: "Vous recevez un lien privé",
+    s4p: "Tout tient sur une seule page — le film, les chansons, les paroles. Envoyez-la à qui vous voulez. Elle est à vous, pour toujours.",
+    case_label: "Un vrai projet",
+    case_h2: "Conçu pour un vrai mariage",
+    case_sub: "La formule Signature ci-dessous n'est pas une maquette — c'est exactement ce que nous avons créé pour un couple : six chansons, un film de mariage complet, un film de remerciement séparé pour leur famille et une page bilingue.",
+    case_form: "<strong>Voyez exactement ce que nous demandons.</strong> Chaque souvenir commence par un seul formulaire guidé — les prénoms, l'histoire, les moments, et ce qu'il faut laisser de côté. <a href=\"story-form.html\" style=\"color:var(--brand);font-weight:600;\">Aperçu du formulaire →</a>",
+    tiers_label: "Ce qui est inclus",
+    tiers_h2: "Deux façons de garder la journée",
+    tiers_sub: "Chaque formule comprend des chansons originales écrites à partir de votre histoire et une page privée. Prix en USD, paiement unique.",
+    t1h: "Story Film",
+    t1for: "Une chanson originale et un film de vos photos et vidéos. Idéal pour des fiançailles, un anniversaire de mariage ou une journée plus intime.",
+    price_once: "<b style=\"color:#8A6A1F\">-50 % jusqu'au 31 déc.</b> · paiement unique",
+    t1a: "Une chanson originale tirée de votre histoire (deux versions au choix)",
+    t1b: "Un film de vos photos et vidéos, paroles à l'écran",
+    t1c: "Des paroles que vous validez avant la production",
+    t1d: "1 série de modifications · à réserver 3 semaines à l'avance",
+    t1cta: "Choisir Story Film",
+    flag: "Le choix de la plupart des couples",
+    t2h: "Signature",
+    t2for: "Toute la fête : votre chanson, votre film et les mots de chaque invité, gardés pour toujours.",
+    t2a: "Tout ce que comprend Story Film",
+    t2b: "Un mur d'hommages des invités, dévoilé le jour J",
+    t2c: "Un livre d'or en PDF avec chaque message et chaque photo",
+    t2d: "Une page souvenir privée et un dossier de téléchargement",
+    t2e: "Un lien cadeau à vous envoyer l'un à l'autre ou à vos parents",
+    t2f: "2 séries de modifications · à réserver 4 semaines à l'avance",
+    t2cta: "Choisir Signature",
+    vat: "Prix hors TVA. La TVA locale est ajoutée au paiement le cas échéant — vous verrez le montant exact avant de payer.",
+    why_label: "Ce qui fait la différence",
+    why_h2: "Un vidéaste filme la journée. Nous racontons l'histoire.",
+    w1: "<strong>La musique est à vous.</strong> Pas un morceau sous licence déjà utilisé par des milliers d'autres couples — des mots écrits sur vous, vos prénoms, vos lieux.",
+    w2: "<strong>Vous lisez les paroles avant de vous engager.</strong> Les paroles viennent d'abord, et gratuitement. Rien n'est produit tant que vous n'avez pas dit oui.",
+    w3: "<strong>On y retrouve les gens, pas seulement la fête.</strong> Parents, grands-parents, ceux qui n'ont pas pu venir — chacun peut y trouver sa place.",
+    w4: "<strong>Anglais et tchèque, en langue native.</strong> Nous écrivons dans l'une ou l'autre langue, ou mélangeons les deux dans une même chanson — sans traduction après coup.",
+    w5: "<strong>Un seul lien suffit.</strong> Aucun téléchargement à courir après, pas de clé USB oubliée dans un tiroir. Envoyez le lien, il s'ouvre sur n'importe quel téléphone.",
+    g_h: "Vous l'adorez, ou nous vous remboursons",
+    g_p: "Vous validez chaque parole avant toute production. Si le souvenir terminé ne vous touche toujours pas, nous le retravaillons une fois — ou nous vous remboursons intégralement.",
+    faq_label: "Questions",
+    faq_h2: "Ce que les couples nous demandent",
+    q1: "Combien de temps cela prend-il ?",
+    a1: "Environ deux semaines à partir du jour où vous envoyez vos photos et vidéos. Si vous en avez besoin pour une date précise, dites-le-nous d'abord et nous vous confirmerons avant le paiement.",
+    q2: "De quoi avez-vous besoin de notre part ?",
+    a2: "Vos photos et éventuelles vidéos, ainsi que l'histoire de la journée. Un court formulaire guidé vous accompagne — inutile d'écrire quoi que ce soit de parfait.",
+    q3: "Les chansons peuvent-elles être dans notre langue ?",
+    a3: "Oui. Nous écrivons nativement en anglais et en tchèque, et pouvons mélanger les deux dans une même chanson. Autres langues sur demande — renseignez-vous avant d'acheter.",
+    q4: "Comment les chansons sont-elles réellement créées ?",
+    a4: "Les paroles sont écrites à la main à partir de votre histoire. La musique est produite dans notre studio IA et vérifiée avant livraison, si bien que chaque arrangement est original et pas un morceau de banque sonore. Nous le disons franchement, parce que pour nous, ce sont les mots qui comptent.",
+    q5: "Qui peut voir notre page ?",
+    a5: "Uniquement les personnes à qui vous envoyez le lien. Elle est privée par défaut, n'est jamais listée publiquement ni indexée par les moteurs de recherche.",
+    q6: "Notre mariage a déjà eu lieu. Est-il trop tard ?",
+    a6: "Pas du tout. La plupart de nos créations sont réalisées après le jour J, à partir de photos que vous avez déjà. Les anniversaires de mariage sont l'une des raisons les plus fréquentes de commander.",
+    cta_free2: "✨ Découvrez vos paroles — gratuit",
+    foot_home2: "Accueil", foot_keepsake: "Chanson souvenir", foot_wedding: "Mur de mariage",
+    foot_memorial: "Page commémorative", foot_examples: "Exemples", foot_home: "← Accueil GatherWall"
+  },
+  es: {
+    page_title: "Recuerdo de boda — todo vuestro día, en una película y una canción",
+    page_desc: "Canciones originales escritas a partir de vuestra historia, una película de boda montada sobre ellas y una página privada para compartir con todos. Desde 149 $.",
+    nav_back: "← GatherWall",
+    hero_eyebrow: "Recuerdo de boda",
+    hero_h1: "Todo el día de vuestra boda — en una película, con una canción escrita para vosotros",
+    hero_lead: "No es un resumen con la música de otra persona. Escribimos canciones originales a partir de vuestra historia — cómo os conocisteis, las personas que importan, los momentos que no queréis olvidar — y luego montamos vuestras fotos y vídeos sobre ellas, todo en una página privada que podéis enviar a quien queráis.",
+    cta_free: "✨ Mira tu letra — gratis",
+    cta_tiers: "Ver qué incluye →",
+    hero_note: "Servicio personal · 50 % de descuento hasta el 31 de diciembre · inglés y checo",
+    how_label: "Cómo funciona",
+    how_h2: "Cuatro pasos y unas dos semanas",
+    how_sub: "Vosotros nos enviáis el material y la historia. Nosotros hacemos el resto.",
+    s1h: "Contadnos vuestra historia",
+    s1p: "Un formulario guiado y breve: cómo os conocisteis, los nombres que importan, los momentos que queréis recordar — y a quién queréis homenajear.",
+    s1link: "Ver el formulario →",
+    s2h: "Leed la letra — gratis",
+    s2p: "Escribimos la letra a mano a partir de lo que nos contáis. Leéis cada verso y la aprobáis antes de que produzcamos nada.",
+    s3h: "Creamos el recuerdo",
+    s3p: "Se producen las canciones, vuestras fotos y vídeos se montan sobre ellas y la letra aparece en pantalla al ritmo de la voz.",
+    s4h: "Recibís un enlace privado",
+    s4p: "Todo está en una sola página — la película, las canciones, las letras. Enviadla a quien queráis. Es vuestra para siempre.",
+    case_label: "Un caso real",
+    case_h2: "Creado para una boda real",
+    case_sub: "El paquete Signature de abajo no es una maqueta — es exactamente lo que hicimos para una pareja: seis canciones, una película completa de la boda, una película de agradecimiento aparte para su familia y una página bilingüe.",
+    case_form: "<strong>Mirad exactamente qué preguntamos.</strong> Cada recuerdo empieza con un único formulario guiado — los nombres, la historia, los momentos y lo que hay que dejar fuera. <a href=\"story-form.html\" style=\"color:var(--brand);font-weight:600;\">Ver el formulario de la historia →</a>",
+    tiers_label: "Qué incluye",
+    tiers_h2: "Dos formas de guardar el día",
+    tiers_sub: "Todas incluyen canciones originales escritas a partir de vuestra historia y una página privada. Precios en USD, pago único.",
+    t1h: "Story Film",
+    t1for: "Una canción original y una película con vuestras fotos y vídeos. Ideal para una pedida, un aniversario o un día más íntimo.",
+    price_once: "<b style=\"color:#8A6A1F\">50 % de descuento hasta el 31 dic.</b> · pago único",
+    t1a: "Una canción original sobre vuestra historia (dos versiones para elegir)",
+    t1b: "Una película con vuestras fotos y vídeos, con la letra en pantalla",
+    t1c: "Letra que aprobáis antes de producir",
+    t1d: "1 ronda de cambios · reservad con 3 semanas de antelación",
+    t1cta: "Elegir Story Film",
+    flag: "La que eligen la mayoría de parejas",
+    t2h: "Signature",
+    t2for: "Toda la celebración: vuestra canción, vuestra película y las palabras de cada invitado, guardadas para siempre.",
+    t2a: "Todo lo de Story Film",
+    t2b: "Un muro de homenajes de los invitados, revelado el gran día",
+    t2c: "Un libro de firmas en PDF con cada mensaje y cada foto",
+    t2d: "Una página privada de recuerdo y una carpeta de descarga",
+    t2e: "Un enlace de regalo para enviaros el uno al otro o a vuestros padres",
+    t2f: "2 rondas de cambios · reservad con 4 semanas de antelación",
+    t2cta: "Elegir Signature",
+    vat: "Precios sin IVA. El IVA local se añade al pagar cuando corresponde — veréis el total exacto antes de pagar.",
+    why_label: "Por qué es diferente",
+    why_h2: "Un videógrafo graba el día. Nosotros contamos la historia.",
+    w1: "<strong>La música es vuestra.</strong> No una pista con licencia que ya han usado miles de parejas — palabras escritas sobre vosotros, vuestros nombres, vuestros lugares.",
+    w2: "<strong>Leéis la letra antes de comprometeros.</strong> La letra va primero y es gratis. No se produce nada hasta que le dais el sí.",
+    w3: "<strong>Recoge a las personas, no solo la fiesta.</strong> Padres, abuelos, quienes no pudieron estar — todos pueden aparecer en la canción.",
+    w4: "<strong>Inglés y checo, de forma nativa.</strong> Escribimos en cualquiera de los dos, o mezclamos ambos en una misma canción — sin traducir después.",
+    w5: "<strong>Un solo enlace lo hace todo.</strong> Sin descargas que perseguir ni memorias USB olvidadas en un cajón. Enviad el enlace y se abre en cualquier móvil.",
+    g_h: "Os encanta, o os devolvemos el dinero",
+    g_p: "Aprobáis cada verso antes de que produzcamos nada. Si el recuerdo terminado aun así no os emociona, lo rehacemos una vez — o os devolvemos el importe íntegro.",
+    faq_label: "Preguntas",
+    faq_h2: "Lo que nos preguntan las parejas",
+    q1: "¿Cuánto tarda?",
+    a1: "Unas dos semanas desde el día en que nos enviáis las fotos y vídeos. Si lo necesitáis para una fecha concreta, decídnoslo primero y os lo confirmaremos antes del pago.",
+    q2: "¿Qué necesitáis de nosotros?",
+    a2: "Vuestras fotos y los vídeos que tengáis, además de la historia del día. Un breve formulario guiado os acompaña — no hace falta escribir nada perfecto.",
+    q3: "¿Pueden estar las canciones en nuestro idioma?",
+    a3: "Sí. Escribimos de forma nativa en inglés y en checo, y podemos mezclar ambos en una misma canción. Otros idiomas bajo petición — preguntad antes de comprar.",
+    q4: "¿Cómo se crean realmente las canciones?",
+    a4: "Las letras se escriben a mano a partir de vuestra historia. La música se produce en nuestro estudio de IA y se revisa antes de la entrega, así que cada arreglo es original y no una pista de catálogo. Lo decimos abiertamente porque creemos que lo que importa son las palabras.",
+    q5: "¿Quién puede ver nuestra página?",
+    a5: "Solo las personas a las que enviéis el enlace. Es privada por defecto y nunca se publica ni la indexan los buscadores.",
+    q6: "Ya nos hemos casado. ¿Es demasiado tarde?",
+    a6: "En absoluto. La mayor parte de lo que creamos se hace después del día, con fotos que ya tenéis. Los aniversarios son uno de los motivos más habituales para encargarlo.",
+    cta_free2: "✨ Mira tu letra — gratis",
+    foot_home2: "Inicio", foot_keepsake: "Canción recuerdo", foot_wedding: "Muro de boda",
+    foot_memorial: "Página conmemorativa", foot_examples: "Ejemplos", foot_home: "← Inicio de GatherWall"
+  },
+  de: {
+    page_title: "Hochzeits-Erinnerung — Ihr ganzer Hochzeitstag als Film und Song",
+    page_desc: "Originalsongs nach Ihrer Geschichte, ein Hochzeitsfilm, der darauf geschnitten ist, und eine private Seite zum Teilen mit allen. Ab 149 $.",
+    nav_back: "← GatherWall",
+    hero_eyebrow: "Hochzeits-Erinnerung",
+    hero_h1: "Ihr ganzer Hochzeitstag — als Film, mit einem Song, der für Sie geschrieben wurde",
+    hero_lead: "Kein Highlight-Video zur Musik anderer Leute. Wir schreiben Originalsongs nach Ihrer Geschichte — wie Sie sich kennengelernt haben, die Menschen, die Ihnen wichtig sind, die Momente, die Sie nie vergessen möchten — schneiden Ihre Fotos und Clips darauf und bringen alles auf eine private Seite, die Sie an jeden schicken können.",
+    cta_free: "✨ Ihren Songtext ansehen — kostenlos",
+    cta_tiers: "Was enthalten ist →",
+    hero_note: "Persönlicher Service · 50 % Rabatt bis 31. Dezember · Englisch & Tschechisch",
+    how_label: "So funktioniert's",
+    how_h2: "Vier Schritte, etwa zwei Wochen",
+    how_sub: "Sie schicken uns das Material und die Geschichte. Den Rest übernehmen wir.",
+    s1h: "Erzählen Sie uns Ihre Geschichte",
+    s1p: "Ein kurzes, geführtes Formular: wie Sie sich kennengelernt haben, die Namen, die zählen, die Momente, die bleiben sollen — und wen Sie ehren möchten.",
+    s1link: "Formular ansehen →",
+    s2h: "Den Text lesen — kostenlos",
+    s2p: "Wir schreiben den Text von Hand aus dem, was Sie uns erzählen. Sie lesen jede Zeile und geben sie frei, bevor irgendetwas produziert wird.",
+    s3h: "Wir gestalten die Erinnerung",
+    s3p: "Die Songs werden produziert, Ihre Fotos und Clips darauf geschnitten, und der Text erscheint im Takt des Gesangs auf dem Bildschirm.",
+    s4h: "Sie erhalten einen privaten Link",
+    s4p: "Alles auf einer Seite — der Film, die Songs, die Texte. Schicken Sie sie, wem Sie möchten. Sie gehört Ihnen, für immer.",
+    case_label: "Ein echtes Projekt",
+    case_h2: "Für eine echte Hochzeit gemacht",
+    case_sub: "Das Signature-Paket unten ist kein Entwurf — genau das haben wir für ein Paar gestaltet: sechs Songs, einen kompletten Hochzeitsfilm, einen eigenen Dankesfilm für die Familie und eine zweisprachige Seite.",
+    case_form: "<strong>Sehen Sie genau, was wir fragen.</strong> Jede Erinnerung beginnt mit einem geführten Formular — die Namen, die Geschichte, die Momente und was weggelassen werden soll. <a href=\"story-form.html\" style=\"color:var(--brand);font-weight:600;\">Formular ansehen →</a>",
+    tiers_label: "Was enthalten ist",
+    tiers_h2: "Zwei Wege, den Tag festzuhalten",
+    tiers_sub: "Jedes Paket enthält Originalsongs nach Ihrer Geschichte und eine private Seite. Preise in USD, einmalig.",
+    t1h: "Story Film",
+    t1for: "Ein Originalsong und ein Film aus Ihren Fotos und Clips. Wunderschön für eine Verlobung, einen Jahrestag oder einen kleineren Tag.",
+    price_once: "<b style=\"color:#8A6A1F\">50 % Rabatt bis 31. Dez.</b> · einmalig",
+    t1a: "Ein Originalsong nach Ihrer Geschichte (zwei Versionen zur Auswahl)",
+    t1b: "Ein Film aus Ihren Fotos & Clips, mit Text auf dem Bildschirm",
+    t1c: "Text, den Sie vor der Produktion freigeben",
+    t1d: "1 Änderungsrunde · 3 Wochen im Voraus buchen",
+    t1cta: "Story Film wählen",
+    flag: "Die Wahl der meisten Paare",
+    t2h: "Signature",
+    t2for: "Die ganze Feier: Ihr Song, Ihr Film und die Worte jedes Gastes, für immer bewahrt.",
+    t2a: "Alles aus Story Film",
+    t2b: "Eine Gäste-Grußwand, am großen Tag enthüllt",
+    t2c: "Ein Gästebuch als PDF mit jeder Nachricht und jedem Foto",
+    t2d: "Eine private Erinnerungsseite & ein Download-Ordner",
+    t2e: "Ein Geschenklink, den Sie einander oder Ihren Eltern schicken können",
+    t2f: "2 Änderungsrunden · 4 Wochen im Voraus buchen",
+    t2cta: "Signature wählen",
+    vat: "Preise ohne MwSt. Die lokale MwSt. wird beim Bezahlen hinzugefügt, wo sie anfällt — Sie sehen den genauen Betrag vor der Zahlung.",
+    why_label: "Was es anders macht",
+    why_h2: "Ein Videograf filmt den Tag. Wir erzählen die Geschichte.",
+    w1: "<strong>Die Musik gehört Ihnen.</strong> Kein lizenzierter Titel, den schon Tausende Paare verwendet haben — Worte über Sie, Ihre Namen, Ihre Orte.",
+    w2: "<strong>Sie lesen den Text, bevor Sie sich festlegen.</strong> Der Text kommt zuerst und ist kostenlos. Nichts wird produziert, bevor Sie Ja gesagt haben.",
+    w3: "<strong>Es hält die Menschen fest, nicht nur die Party.</strong> Eltern, Großeltern, alle, die nicht dabei sein konnten — sie alle können darin vorkommen.",
+    w4: "<strong>Englisch und Tschechisch, muttersprachlich.</strong> Wir schreiben in einer der beiden Sprachen oder mischen beide in einem Song — nicht nachträglich übersetzt.",
+    w5: "<strong>Ein Link für alles.</strong> Keine Downloads, denen man hinterherlaufen muss, kein USB-Stick in der Schublade. Link verschicken — er öffnet sich auf jedem Handy.",
+    g_h: "Sie lieben es — oder Sie bekommen Ihr Geld zurück",
+    g_p: "Sie geben jede Zeile frei, bevor wir etwas produzieren. Wenn Sie die fertige Erinnerung trotzdem nicht berührt, überarbeiten wir sie einmal — oder erstatten Ihnen den vollen Betrag.",
+    faq_label: "Fragen",
+    faq_h2: "Was Paare uns fragen",
+    q1: "Wie lange dauert es?",
+    a1: "Etwa zwei Wochen ab dem Tag, an dem Sie Ihre Fotos und Clips schicken. Wenn Sie es zu einem bestimmten Datum brauchen, sagen Sie es uns vorher — wir bestätigen es vor der Zahlung.",
+    q2: "Was brauchen Sie von uns?",
+    a2: "Ihre Fotos und eventuelle Videoclips, dazu die Geschichte hinter dem Tag. Ein kurzes, geführtes Formular hilft Ihnen dabei — Sie müssen nichts Ausgefeiltes schreiben.",
+    q3: "Können die Songs in unserer Sprache sein?",
+    a3: "Ja. Wir schreiben muttersprachlich auf Englisch und Tschechisch und können beide in einem Song mischen. Andere Sprachen auf Anfrage — fragen Sie vor dem Kauf.",
+    q4: "Wie entstehen die Songs eigentlich?",
+    a4: "Die Texte werden von Hand nach Ihrer Geschichte geschrieben. Die Musik entsteht in unserem KI-Studio und wird vor der Auslieferung geprüft, sodass jedes Arrangement für Sie original ist und kein Archivtitel. Wir sagen das offen, weil für uns die Worte das Entscheidende sind.",
+    q5: "Wer kann unsere Seite sehen?",
+    a5: "Nur die Menschen, denen Sie den Link schicken. Sie ist standardmäßig privat und wird nie öffentlich gelistet oder von Suchmaschinen indexiert.",
+    q6: "Wir hatten unsere Hochzeit schon. Ist es zu spät?",
+    a6: "Überhaupt nicht. Das meiste, was wir gestalten, entsteht nach dem Tag — aus Fotos, die Sie schon haben. Hochzeitstage sind einer der häufigsten Anlässe für eine Bestellung.",
+    cta_free2: "✨ Ihren Songtext ansehen — kostenlos",
+    foot_home2: "Startseite", foot_keepsake: "Erinnerungssong", foot_wedding: "Hochzeitswand",
+    foot_memorial: "Gedenkseite", foot_examples: "Beispiele", foot_home: "← GatherWall Startseite"
   }
 };
+
+// Capture the page's original English so switching back to EN restores it.
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  if (I18N.en[key] === undefined) I18N.en[key] = HTML_KEYS.has(key) ? el.innerHTML : el.textContent;
+});
 
 function setLang(code) {
   const dict = I18N[code];
@@ -408,7 +636,6 @@ function setLang(code) {
 (function() {
   let saved = 'en';
   try { saved = localStorage.getItem('gw_lang') || 'en'; } catch(e) {}
-  // This page ships EN + CS. Any other saved choice falls back to English.
   if (!I18N[saved]) saved = 'en';
   setLang(saved);
 })();

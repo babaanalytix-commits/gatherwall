@@ -79,6 +79,14 @@ input[type=password],input[type=text]{width:100%;font:inherit;padding:11px 13px;
 .view{display:none}.view.on{display:block}
 .note{font-size:12.5px;color:var(--muted);margin-top:10px}
 .scroll{overflow-x:auto}
+.gl{display:block;font-weight:600;font-size:13.5px;margin:14px 0 6px}
+select,textarea{width:100%;font:inherit;font-size:14.5px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+textarea{line-height:1.5;resize:vertical}
+.row{display:flex;gap:8px;align-items:center}.row input{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 11px;font:500 12.5px Inter,sans-serif;cursor:pointer;color:#424245}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.sm{padding:8px 13px;font-size:13px}.btn.ghost.sm{display:inline-block;text-decoration:none;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -96,6 +104,7 @@ input[type=password],input[type=text]{width:100%;font:inherit;padding:11px 13px;
   <a class="logo" href="/"><i></i>GatherWall</a><span class="pill">Admin</span>
   <nav class="tabs" id="tabs">
     <button data-v="overview" class="on">Today</button>
+    <button data-v="grow">Grow</button>
     <button data-v="projects">Made for you</button>
     <button data-v="songs">Songs</button>
     <button data-v="walls">Walls &amp; memorials</button>
@@ -124,6 +133,9 @@ input[type=password],input[type=text]{width:100%;font:inherit;padding:11px 13px;
       </div>
     </div>
   </section>
+
+  <!-- GROW -->
+  <section class="view" id="v-grow"><div id="growBox"><p class="empty">Loading…</p></div></section>
 
   <!-- PROJECTS -->
   <section class="view" id="v-projects">
@@ -180,6 +192,7 @@ input[type=password],input[type=text]{width:100%;font:inherit;padding:11px 13px;
 </div>
 </div>
 
+<script src="/admin-grow.js"></script>
 <script>
 const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
 const D=864e5, RESP=5;
@@ -200,10 +213,11 @@ async function start(){
   const v=await call('verify'); if(!v.ok){ KEY=''; try{localStorage.removeItem('gw_admin_key')}catch(e){} $('loginBox').style.display='block'; $('keyErr').textContent='That key did not work.'; return; }
   $('appBox').style.display='block';
   const h=new Date().getHours(); $('greet').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+', Yomi';
-  const [pr,ad,ml,lv]=await Promise.all([call('admin.get',{path:'projects'}),call('admin.get',{path:'admin'}),call('admin.get',{path:'mail'}),call('admin.get',{path:'love/messages'})]);
+  const [pr,ad,ml,lv,tr]=await Promise.all([call('admin.get',{path:'projects'}),call('admin.get',{path:'admin'}),call('admin.get',{path:'mail'}),call('admin.get',{path:'love/messages'}),call('admin.get',{path:'track'})]);
   const DATA={projects:(pr&&pr.data)||{},summary:((ad&&ad.data)||{}).summary||{},inbox:((ad&&ad.data)||{}).inbox||{},mail:(ml&&ml.data)||{},love:(lv&&lv.data)||{}};
   window.DATA=DATA;
   renderAll(DATA);
+  try{ window.renderGrow($('growBox'),(tr&&tr.data)||{}); }catch(e){ $('growBox').innerHTML='<p class="empty">Grow tab failed to load: '+esc(e.message)+'</p>'; }
   call('admin.analytics',{days:30}).then(renderVisitors);
 }
 $('keyBtn').onclick=()=>{ KEY=$('keyIn').value.trim(); try{localStorage.setItem('gw_admin_key',KEY)}catch(e){} $('loginBox').style.display='none'; start(); };
