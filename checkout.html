@@ -138,8 +138,8 @@
     'song-of-your-night':       'https://buy.stripe.com/eVq3cwf0y3dz9nk9h09AA06', // $39
     'signature-celebration':    'https://buy.stripe.com/eVqdRabOm9BX574dxg9AA0c', // $299 Signature (was $649 link aFa14o7y66pL1US3WG9AA0b)
     'story-film':               'https://buy.stripe.com/eVq7sM8Ca8xT7fc8cW9AA07', // $149
-    'wedding-keepsake':         'https://buy.stripe.com/5kQ14o05E8xT430gJs9AA08', // $349
-    'wedding-keepsake-signature':'https://buy.stripe.com/28E7sMdWu3dz430bp89AA09' // $649
+    // retired: 'wedding-keepsake' $349 (Stripe link deactivated)
+    // retired: 'wedding-keepsake-signature' $649 (Stripe link deactivated)
   };
   var SUPPORT_EMAIL = 'hello@gatherwall.com';
 
@@ -215,6 +215,9 @@
       amt:'$39',per:{en:'one-time',fr:'paiement unique',es:'pago único',cs:'jednorázově',de:'einmalig'}}
   };
   function param(n){return new URLSearchParams(location.search).get(n);}
+  // Retired Nov 2026: the old $349/$649 wedding packages now go to the current made-for-you plan pages.
+  var RETIRED={'wedding-keepsake':'story-film','wedding-keepsake-signature':'signature-celebration'};
+  if(RETIRED[param('p')]){ location.replace('project.html?new='+RETIRED[param('p')]); }
   var slug=param('p'); if(!CATALOG[slug]) slug='live-tribute-wall';
   var LANG='en';
   function pickLang(){
