@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Mira & Domča · váš svatební dárek</title>
+<meta property="og:title" content="Mira & Domča 💛 váš svatební dárek">
+<meta property="og:description" content="Film, písně a texty z vaší svatby, všechno na jednom místě.">
+<meta property="og:image" content="https://gatherwall.com/md/md-card.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F3EC;--ink:#20242b;--muted:#7b7568;--gold:#C2A058;--deep:#1c2027;--line:#e7e0d4;--card:#fffdf9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+a{color:var(--deep)}
+#welcome{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 30%,#3a3326,#14161a 75%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:opacity .8s}
+#welcome.gone{opacity:0;pointer-events:none}
+#welcome img{width:180px;height:180px;border-radius:50%;object-fit:cover;border:5px solid var(--gold);box-shadow:0 10px 40px rgba(0,0,0,.5);animation:rise 1.2s ease}
+#welcome .to{margin-top:26px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#e4c77a}
+#welcome h1{font-family:Fraunces,serif;font-size:clamp(36px,7vw,58px);font-weight:600;line-height:1.1;margin:10px 0 8px}
+#welcome p{max-width:460px;opacity:.85}
+#welcome button{margin-top:28px;background:var(--gold);color:#1b1b1b;border:0;border-radius:999px;padding:15px 34px;font:600 16px Inter,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+@keyframes rise{from{transform:translateY(20px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.lgsw{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:4px}
+.lgsw button{border:1px solid rgba(255,255,255,.4);background:rgba(20,22,26,.55);color:#fff;border-radius:999px;padding:5px 11px;font:600 12px Inter,sans-serif;cursor:pointer}
+.lgsw button.on{background:var(--gold);color:#1b1b1b;border-color:var(--gold)}
+.hero{position:relative;color:#fff;text-align:center;padding:60px 20px 80px;background:#14161a url(md/md-hero.jpg) center/cover}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,17,20,.45),rgba(15,17,20,.75))}
+.hero>*{position:relative}
+.hero img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--gold)}
+.hero h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(32px,6vw,50px);margin-top:14px;line-height:1.1}
+.hero p{opacity:.9;margin-top:6px;font-family:Fraunces,serif;font-style:italic}
+.hero .dates{margin-top:14px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.hero .dates span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:5px 14px;font-size:13px}
+nav{position:sticky;top:0;z-index:5;background:rgba(247,243,236,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;justify-content:center}
+nav a{white-space:nowrap;text-decoration:none;color:var(--deep);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:999px}
+nav a:hover{background:#ece5d8}
+.wrap{max-width:780px;margin:-44px auto 0;padding:0 16px 40px;position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 24px;margin-bottom:22px;box-shadow:0 6px 24px rgba(0,0,0,.05);scroll-margin-top:70px}
+.num{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.card h2{font-family:Fraunces,serif;font-weight:600;font-size:26px;color:var(--deep);margin:2px 0 6px}
+.card .lead{color:var(--muted);margin-bottom:16px}
+.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#111}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:11px 18px;font-weight:600;font-size:14.5px;border:1.5px solid var(--deep);color:var(--deep);background:#fff;cursor:pointer;font-family:inherit}
+.btn.solid{background:var(--deep);color:#fff}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1b1b1b}
+.btn small{font-weight:400;opacity:.75}
+.song{display:grid;grid-template-columns:28px 1fr auto;gap:4px 10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
+.song:first-of-type{border-top:0}
+.song .n{color:var(--gold);font-weight:600}
+.song b{font-family:Fraunces,serif;font-size:17px;font-weight:600}
+.song span{display:block;font-size:12.5px;color:var(--muted)}
+.song audio{grid-column:2/4;width:100%;height:36px}
+.song .mini{font-size:13px;text-decoration:none;font-weight:600;color:var(--deep);white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:6px 0 4px}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+@media(max-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.grid img:nth-child(n+10){display:none}}
+.note{font-size:13.5px;color:var(--muted);margin-top:10px}
+.gw{max-width:780px;margin:10px auto 0;padding:0 16px 50px;text-align:center}
+.gw .box{border-top:1px solid var(--line);padding-top:26px}
+.gw h3{font-family:Fraunces,serif;font-weight:600;color:var(--deep);font-size:21px}
+.gw p{color:var(--muted);font-size:14.5px;margin:4px auto 16px;max-width:520px}
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
+@media(max-width:600px){.offers{grid-template-columns:1fr}}
+.offer{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.offer b{display:block;color:var(--deep)}.offer span{font-size:13.5px;color:var(--muted)}
+.offer em{display:inline-block;margin-top:8px;font-style:normal;font-weight:600;color:var(--deep);font-size:14px}
+.foot{font-size:12.5px;color:var(--muted);margin-top:24px}
+</style>
+</head>
+<body>
+<div class="lgsw"><button data-l="cs">CZ</button><button data-l="en">EN</button></div>
+
+<div id="welcome">
+  <img src="md/md-portrait.jpg" alt="Mira & Domča">
+  <div class="to" data-cs="Pro Miru a Domču, s láskou" data-en="For Mira & Domča, with love"></div>
+  <h1>Mira &amp; Domča</h1>
+  <p data-cs="Všechno, co vzniklo z vaší svatby, na jednom místě: film, vaše písně s texty a poděkování od rodiny." data-en="Everything made from your wedding, in one place: the film, your songs with lyrics, and a thank-you from the family."></p>
+  <button onclick="openGift()" data-cs="Otevřít dárek ✨" data-en="Open your gift ✨"></button>
+</div>
+
+<header class="hero">
+  <img src="md/md-portrait.jpg" alt="">
+  <h1>Mira &amp; Domča</h1>
+  <p data-cs="Naše místo je tam, kde jsme spolu." data-en="Our place is wherever we are together."></p>
+  <div class="dates"><span data-cs="💍 Svatba · 29. srpna 2026" data-en="💍 Wedding · 29 August 2026"></span></div>
+</header>
+
+<nav>
+  <a href="#film" data-cs="🎬 Film" data-en="🎬 Film"></a><a href="#songs" data-cs="🎵 Písně" data-en="🎵 Songs"></a><a href="#thanks" data-cs="💛 Od rodiny" data-en="💛 From the family"></a><a href="#photos" data-cs="📷 Fotky" data-en="📷 Photos"></a><a href="#all" data-cs="⬇️ Stáhnout vše" data-en="⬇️ Download all"></a>
+</nav>
+
+<main class="wrap">
+  <section class="card" id="film">
+    <span class="num" data-cs="01 · Film" data-en="01 · The film"></span>
+    <h2 data-cs="Váš den, jako film" data-en="Your day, as a film"></h2>
+    <p class="lead" data-cs="Sedm minut a čtyřicet šest vteřin: od ozdobených aut ráno přes obřad, rodinu, bílého koně a západ slunce až po první tanec, dort a prskavky. S vaší písní „Naše místo“ a texty na obrazovce." data-en="Seven minutes and forty-six seconds: from the decorated cars in the morning through the ceremony, the family, the white horse and the sunset, to the first dance, the cake and the sparklers. Set to your song “Naše místo”, with the lyrics on screen."></p>
+    <div class="video" id="filmBox"></div>
+    <div class="btns">
+      <a class="btn solid" id="dlHD" target="_blank" rel="noopener"><span data-cs="⬇️ Stáhnout pro televizi" data-en="⬇️ Download for the TV"></span> <small>HD · 290 MB</small></a>
+      <a class="btn" id="dlPhone" target="_blank" rel="noopener"><span data-cs="⬇️ Stáhnout do telefonu" data-en="⬇️ Download for phones"></span> <small>65 MB</small></a>
+    </div>
+  </section>
+
+  <section class="card" id="songs">
+    <span class="num" data-cs="02 · Písně" data-en="02 · The songs"></span>
+    <h2 data-cs="Vaše album" data-en="Your album"></h2>
+    <p class="lead" data-cs="Šest písní napsaných z vašeho příběhu: jak jste se potkali v Disco 1, Praha a Šumperk, Tobík, babička i slib, že nás nedostanou." data-en="Six songs written from your story: meeting at Disco 1, Prague and Šumperk, Tobík, grandma, and the promise that they won't get you."></p>
+    <div id="songList"></div>
+    <div class="btns">
+      <a class="btn gold" href="mirodomca-song.html" data-cs="🎤 Zpívejte s textem" data-en="🎤 Sing along with the lyrics"></a>
+      <a class="btn" href="md/md-lyrics.pdf" target="_blank" data-cs="📄 Texty písní (PDF)" data-en="📄 Printable lyrics (PDF)"></a>
+    </div>
+  </section>
+
+  <section class="card" id="thanks">
+    <span class="num" data-cs="03 · Od rodiny" data-en="03 · From the family"></span>
+    <h2 data-cs="Děkujeme vám" data-en="Thank you"></h2>
+    <p class="lead" data-cs="Krátký film a píseň od všech, kdo s vámi ten den slavili." data-en="A short film and song from everyone who celebrated with you that day."></p>
+    <div class="video" id="thanksBox"></div>
+    <div class="btns"><a class="btn" id="dlThanks" target="_blank" rel="noopener"><span data-cs="⬇️ Stáhnout film" data-en="⬇️ Download the film"></span> <small>60 MB</small></a></div>
+  </section>
+
+  <section class="card" id="photos">
+    <span class="num" data-cs="04 · Fotky" data-en="04 · Photos"></span>
+    <h2 data-cs="Několik našich oblíbených" data-en="A few of our favourites"></h2>
+    <p class="lead" data-cs="Z profesionálních fotek, které jsou ve filmu. Celé album najdete u svého fotografa." data-en="From the professional photos used in the film. The full album is with your photographer."></p>
+    <div class="grid">
+      <img src="md/md-k1.jpg" alt=""><img src="md/md-k2.jpg" alt=""><img src="md/md-k3.jpg" alt=""><img src="md/md-k4.jpg" alt=""><img src="md/md-k5.jpg" alt="">
+      <img src="md/md-k6.jpg" alt=""><img src="md/md-k7.jpg" alt=""><img src="md/md-k8.jpg" alt=""><img src="md/md-k9.jpg" alt=""><img src="md/md-k10.jpg" alt="">
+    </div>
+    <div class="btns"><a class="btn" href="https://eu.zonerama.com/UnlockAlbum/17106248" target="_blank" rel="noopener" data-cs="📷 Celé album u fotografa" data-en="📷 Full album with the photographer"></a></div>
+  </section>
+
+  <section class="card" id="all">
+    <span class="num" data-cs="05 · Na památku" data-en="05 · Keep everything"></span>
+    <h2 data-cs="Stáhněte si vše" data-en="Download it all"></h2>
+    <p class="lead" data-cs="Jedna složka se vším: film ve dvou velikostech, film od rodiny, všech šest písní a texty. Uložte si ji do počítače nebo telefonu, ať to máte navždy." data-en="One folder with everything: the film in two sizes, the family's film, all six songs and the lyrics. Save it to your computer or phone to keep forever."></p>
+    <div class="btns"><a class="btn solid" id="dlAll" target="_blank" rel="noopener" data-cs="📁 Otevřít složku s dárkem" data-en="📁 Open the gift folder"></a></div>
+  </section>
+</main>
+
+<footer class="gw">
+  <div class="box">
+    <h3 data-cs="Slavíte brzy někoho blízkého?" data-en="Celebrating someone soon?"></h3>
+    <p data-cs="Tento dárek vytvořilo GatherWall. Píseň na míru nebo film z fotek můžete mít i vy." data-en="This gift was made with GatherWall. You can have a custom song or a photo film too."></p>
+    <div class="offers">
+      <a class="offer" href="keepsake-preview.html" target="_blank"><b data-cs="🎵 Píseň na míru" data-en="🎵 A personal song"></b><span data-cs="Řekněte nám jejich příběh a přečtěte si text zdarma. Píseň za 39 $." data-en="Tell us their story and read the lyrics free. The song is $39."></span><br><em data-cs="Vytvořit píseň ▸" data-en="Create a song ▸"></em></a>
+      <a class="offer" href="celebration.html" target="_blank"><b data-cs="🎬 Film s písní" data-en="🎬 A film with a song"></b><span data-cs="Píseň a film z vašich fotek, s námi krok za krokem." data-en="A song and a film of your photos, made with you step by step."></span><br><em data-cs="Jak to funguje ▸" data-en="How it works ▸"></em></a>
+    </div>
+    <p class="foot" data-cs="S láskou vytvořilo GatherWall · od Yomiho a Veroniky" data-en="Made with love by GatherWall · from Yomi and Veronika"></p>
+  </div>
+</footer>
+
+<script>
+const DRIVE = { folder:'1vowloo4QN3HqlDWRqj0nUDvWkBEyYIA7', hd:'1L7p6bdukjts2uDP-HU4E5BOSi-CsKqfN', phone:'1Ci9Ptd8d_ohzLaXaXOc8fkJ31FHuQjvz', thanks:'1HmRq_1S21jrA_b9lGlQAZz1S7KHG0Yor' };
+const SONGS=[['Naše místo','Česká soulová balada','Czech soul ballad','md/md-01-nase-misto.mp3','01 Naše místo.mp3'],['A nás nedostanou','Soul · anglicky a česky','Soul · English & Czech','md/md-02-a-nas-nedostanou.mp3','02 A nás nedostanou.mp3'],['Disco 1','Hip-hop / R&B · dvojjazyčně','Hip-hop / R&B · bilingual','md/md-03-disco-1.mp3','03 Disco 1.mp3'],['Ty a já','Melodické R&B · dvojjazyčně','Melodic R&B · bilingual','md/md-04-ty-a-ja.mp3','04 Ty a já.mp3'],['A nás nedostanou — Klub','Párty hymna','Party anthem','md/md-05-klub.mp3','05 A nás nedostanou – Klub.mp3'],['Děkujeme vám','Poděkování od rodiny','The family\'s thank-you','md/md-06-dekujeme.mp3','06 Děkujeme vám.mp3']];
+let L=(new URLSearchParams(location.search).get('lang')||(()=>{try{return localStorage.getItem('gw_lang')}catch(e){return null}})()||'cs'); if(L!=='en') L='cs';
+function renderSongs(){ document.getElementById('songList').innerHTML=SONGS.map((s,i)=>'<div class="song"><div class="n">'+String(i+1).padStart(2,'0')+'</div><div><b>'+s[0]+'</b><span>'+(L==='en'?s[2]:s[1])+'</span></div><div><a class="mini" href="mirodomca-song.html?s='+(i+1)+'">🎤</a> &nbsp;<a class="mini" href="'+s[3]+'" download="'+s[4]+'">⬇️ MP3</a></div><audio controls preload="none" src="'+s[3]+'"></audio></div>').join(''); }
+function applyLang(l){ L=l; try{localStorage.setItem('gw_lang',l)}catch(e){} document.documentElement.lang=l;
+  document.querySelectorAll('[data-cs]').forEach(el=>{ el.textContent=el.getAttribute('data-'+l); });
+  document.querySelectorAll('.lgsw button').forEach(b=>b.classList.toggle('on',b.dataset.l===l)); renderSongs();
+  document.querySelectorAll('.video .soon').forEach(e=>e.textContent=l==='en'?'The film will appear here shortly':'Film se tu brzy objeví'); }
+document.querySelectorAll('.lgsw button').forEach(b=>b.onclick=()=>applyLang(b.dataset.l));
+const view=id=>'https://drive.google.com/file/d/'+id+'/view';
+function setLink(el,id){ const a=document.getElementById(el); if(id){ a.href=view(id);} else { a.removeAttribute('href'); a.style.opacity=.5; } }
+setLink('dlHD',DRIVE.hd); setLink('dlPhone',DRIVE.phone); setLink('dlThanks',DRIVE.thanks);
+(function(){ const a=document.getElementById('dlAll'); if(DRIVE.folder) a.href='https://drive.google.com/drive/folders/'+DRIVE.folder; else { a.removeAttribute('href'); a.style.opacity=.5; } })();
+function embed(box,id){ document.getElementById(box).innerHTML=id?'<iframe src="https://drive.google.com/file/d/'+id+'/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>':'<div class="soon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ccc"></div>'; }
+embed('filmBox',DRIVE.phone); embed('thanksBox',DRIVE.thanks);
+function openGift(){ document.getElementById('welcome').classList.add('gone'); try{sessionStorage.setItem('mdopen','1')}catch(e){} }
+try{ if(sessionStorage.getItem('mdopen')) document.getElementById('welcome').classList.add('gone'); }catch(e){}
+applyLang(L);
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+</body>
+</html>
