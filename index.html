@@ -522,10 +522,14 @@ body.kioskmode header.nav{display:none;}
 #screen-door .hc-logo i{width:20px;height:19px;background:url(favicon.svg) center/contain no-repeat}
 #screen-door .hc-links{display:flex;gap:24px;margin-left:auto;color:#424245;align-items:center}
 #screen-door .hc-links a:hover{color:#1d1d1f}
-#screen-door #doorLang{display:flex;gap:3px}
-#screen-door #doorLang button{border:0;background:transparent;font:500 12px Inter,sans-serif;color:#6e6e73;padding:4px 6px;border-radius:6px;cursor:pointer}
-#screen-door #doorLang button.on{background:#e8e8ed;color:#1d1d1f}
-@media(max-width:700px){#screen-door .hc-links .hide{display:none}#screen-door .hc-nav .in{gap:12px}#screen-door .hc-links{gap:14px}}
+#screen-door .hc-desk{display:flex;gap:24px}
+#screen-door .hc-lang{display:flex;align-items:center;gap:2px;font-size:13px;color:#6e6e73}
+#screen-door #doorLang{border:1px solid #e3e3e8;background:#fff;font:600 12px Inter,sans-serif;color:#1d1d1f;padding:4px 6px;border-radius:999px;cursor:pointer}
+#screen-door .hc-menu{display:none;border:1px solid #e3e3e8;background:#fff;border-radius:999px;padding:6px 12px;font:600 13px Inter,sans-serif;color:#1d1d1f;cursor:pointer}
+#screen-door .hc-drop{display:none}
+@media(max-width:760px){#screen-door .hc-desk{display:none}#screen-door .hc-menu{display:block}#screen-door .hc-nav .in{gap:10px;padding:0 14px}#screen-door .hc-links{gap:8px}
+#screen-door .hc-drop.open{display:flex;flex-direction:column;border-top:1px solid rgba(0,0,0,.06);padding:6px 14px 12px;background:rgba(251,251,253,.98)}
+#screen-door .hc-drop a{padding:12px 4px;font-size:16px;color:#1d1d1f;border-bottom:1px solid #f0f0f3;text-decoration:none}}
 #screen-door .hc-hero{text-align:center;padding:100px 22px 64px}
 #screen-door .hc-eye{font-size:14px;font-weight:600;color:#B8913F}
 #screen-door .hc-h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(44px,8vw,84px);line-height:1.02;letter-spacing:-.02em;margin:12px auto 18px;max-width:12ch;color:#1d1d1f}
@@ -592,13 +596,18 @@ body.kioskmode header.nav{display:none;}
 <nav class="hc-nav"><div class="in">
   <a class="hc-logo" href="index.html"><i></i>GatherWall</a>
   <div class="hc-links">
-    <a class="hide" href="#family" onclick="location.hash='family';return false;" data-hc="nav_walls">Tribute Walls</a>
-    <a class="hide" href="keepsake-preview.html" data-hc="nav_songs">Songs</a>
+    <span class="hc-desk"><a href="#family" onclick="location.hash='family';return false;" data-hc="nav_walls">Tribute Walls</a>
+    <a href="keepsake-preview.html" data-hc="nav_songs">Songs</a>
     <a href="celebration.html" data-hc="nav_made">Made for you</a>
-    <a href="examples.html" data-hc="nav_work">Our work</a>
-    <div id="doorLang"></div>
+    <a href="examples.html" data-hc="nav_work">Our work</a></span>
+    <label class="hc-lang" title="Language">🌐 <select id="doorLang" aria-label="Language"></select></label>
+    <button class="hc-menu" type="button" aria-expanded="false" onclick="var d=document.getElementById('hcDrop');var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">Menu ☰</button>
   </div>
-</div></nav>
+</div>
+<div class="hc-drop" id="hcDrop" onclick="if(event.target.tagName==='A')this.classList.remove('open')"><a href="#family" onclick="location.hash='family';return false;" data-hc="nav_walls">Tribute Walls</a>
+    <a href="keepsake-preview.html" data-hc="nav_songs">Songs</a>
+    <a href="celebration.html" data-hc="nav_made">Made for you</a>
+    <a href="examples.html" data-hc="nav_work">Our work</a></div></nav>
 
 <header class="hc-hero">
   <div class="hc-eye" data-hc="eye">Birthdays · Weddings · Anniversaries · In memory</div>
@@ -637,7 +646,7 @@ body.kioskmode header.nav{display:none;}
       <div class="hc-img" style="background-image:url(img/family-white.jpg);background-position:center 30%"></div>
       <div class="hc-body"><span class="hc-tag" data-hc="c3_tag">Made for you</span><h3 data-hc="c3_h3">Their life, as a film.</h3>
         <p data-hc="c3_p">A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.</p>
-        <div class="hc-price" data-hch="c3_price"><s>$149</s> From $74.50 · 50% off until 31 Dec</div><div><span class="hc-pill" data-hc="c3_btn">See how it works</span></div></div>
+        <div class="hc-price" data-hch="c3_price"><s>$149</s> From $74.50 · 50% off until 31 Dec 2026</div><div><span class="hc-pill" data-hc="c3_btn">See how it works</span></div></div>
     </a>
   </div>
   <p class="hc-more hc-r" data-hch="also">Also: <a href="#memorial" onclick="location.hash='memorial';return false;">a memorial page for someone you've lost ›</a> &nbsp;·&nbsp; <a href="#live" onclick="location.hash='live';return false;">a live photo wall for your event ›</a></p>
@@ -777,7 +786,7 @@ body.kioskmode header.nav{display:none;}
     <div class="section-head"><span class="pill" id="h_priPill">Live Tribute Wall · pricing</span>
       <h2 id="h_priH2">Simple pricing — pay per event, or go monthly</h2>
       <p data-i18n="priSub">Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.</p>
-      <p class="muted" style="font-size:13.5px;margin-top:8px;">Prices exclude VAT. Local VAT is added at checkout where it applies — e.g. a $10 item is about $12 with 20% VAT.</p></div>
+      <p class="muted" style="font-size:13.5px;margin-top:8px;">Prices are in USD and include any applicable taxes. The price you see is the price you pay.</p></div>
 
     <div class="pg-label" data-i18n="prG1">Pay per event</div>
     <div class="prices">
@@ -809,7 +818,7 @@ body.kioskmode header.nav{display:none;}
       <div style="flex:1;min-width:260px;">
         <h3 style="font-size:22px;margin-bottom:6px;">Signature Celebration — their life as a song and a film</h3>
         <p class="muted" style="font-size:15px;">For milestone birthdays, anniversaries and thanksgivings. We work with your family: an original song from their story (in English and your language of home), a photo film with sing-along lyrics, a tribute wall and a keepsake book. Personal service · 2–3 weeks · limited places.</p>
-        <p style="margin-top:8px;font-weight:600;color:#8A6A1F;">50% off until 31 December — from $74.50 <s style="opacity:.55;font-weight:400">$149</s></p>
+        <p style="margin-top:8px;font-weight:600;color:#8A6A1F;">50% off until 31 December 2026 — from $74.50 <s style="opacity:.55;font-weight:400">$149</s></p>
       </div>
       <a class="btn btn-primary" href="celebration.html">See made-for-you packages ▸</a>
     </div>
@@ -916,7 +925,7 @@ body.kioskmode header.nav{display:none;}
       <div class="muted" id="modeFamilyNote" style="display:none;font-size:12.5px;margin-top:8px;">Family Memory Walls are filled over time — everyone adds photos &amp; messages whenever they like, then you reveal it on the day. (Collecting beforehand is built in.)</div>
     </div>
 
-    <div class="field" id="tierField"><label>Choose your wall tier <span style="font-weight:400;color:var(--muted);">· prices + VAT where applicable</span></label>
+    <div class="field" id="tierField"><label>Choose your wall tier <span style="font-weight:400;color:var(--muted);">· prices include any taxes</span></label>
       <div class="opts" id="optTier">
         <span class="opt on" data-grp="tier" data-val="basic" onclick="pickTier(this)">Basic · $10<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Photos + messages · up to 30 posts</b></span>
         <span class="opt" data-grp="tier" data-val="plus" onclick="pickTier(this)">Plus · $15<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Up to 100 posts · slideshow</b></span>
@@ -1006,7 +1015,7 @@ body.kioskmode header.nav{display:none;}
       <div class="ff-tags"><span>Free to build &amp; collect</span><span>Fills over time</span><span>Reveal on the day</span></div>
     </div>
     <div class="ff-right">
-      <div class="fmt-price">Free to start · $10 + VAT to reveal</div>
+      <div class="fmt-price">Free to start · $10 to reveal</div>
       <button class="btn btn-primary" onclick="startFamilyWall()">Create a Memory Wall ▸</button>
       <a class="fmt-demo" onclick="loadDemoAndWall()">▸ See an example wall</a>
     </div>
@@ -1031,8 +1040,8 @@ body.kioskmode header.nav{display:none;}
   <div class="choose-cards">
     <div class="fmt">
       <div class="fmt-emoji">🎬</div>
-      <h3>Animated Keepsake Story</h3>
-      <p>A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.</p>
+      <h3>Keepsake Song</h3>
+      <p>An original song written from their story, with their photos and the lyrics moving together. Read the lyrics free first; ready in minutes.</p>
       <div class="fmt-price">$39 one-time</div>
       <button class="btn btn-ghost" onclick="location.href='keepsake-preview.html'">✨ See your lyrics — free ▸</button>
       <a class="fmt-demo" href="keepsake-birthday-demo.html" target="_blank">▸ Hear a real example</a>
@@ -1332,8 +1341,7 @@ body.kioskmode header.nav{display:none;}
 <div id="enquireModal" class="modal-overlay"><div class="modal">
   <h3 id="enqTitle">Enquire</h3>
   <p class="muted" id="enqText"></p>
-  <a class="btn btn-primary" id="enqMail" href="#">✉ Send enquiry</a>
-  <button class="btn btn-primary" id="enqPay" style="display:none;" onclick="buy('animated-keepsake-story')">Continue to payment — $39 ▸</button>
+  <a class="btn btn-primary" id="enqMail" href="mailto:hello@gatherwall.com">✉ Send enquiry</a>
   <button class="btn btn-ghost" onclick="closeEnquire()">Close</button>
 </div></div>
 
@@ -1426,7 +1434,7 @@ const HOME_I18N={
     fmtG1:"For DJs, MCs & event planners",fmtG2:"For families & loved ones",ffTagWhite:"White-label",ffTagResell:"Resell to your clients",ffTagUnlimited:"Unlimited events",
     fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event · From $25/mo",fmtWallC:"Create a wall ▸",
     fmtMemT:"Memorial & Eulogy",fmtMemB:"For a funeral or memorial service — a life story and eulogy, candle-lighting, a life timeline, and shared memories. A lasting place to remember, online to keep.",fmtMemP:"$10 one-time",fmtMemC:"Create a memorial ▸",
-    fmtKeepT:"Animated Keepsake Story",fmtKeepB:"A bespoke song and animated story of their life, made for you — played at the event and kept forever. Our signature gift.",fmtKeepP:"$39 one-time",fmtKeepC:"Create your keepsake ▸",
+    fmtKeepT:"Keepsake Song",fmtKeepB:"An original song written from their story, with their photos and the lyrics moving together. Read the lyrics free first; ready in minutes.",fmtKeepP:"$39 one-time",fmtKeepC:"Create your keepsake ▸",
     priSub:"Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.",
     prG1:"Pay per event",prG2:"Monthly — for DJs, MCs, planners & venues",
     prBasicT:"Basic",prBasicU:" / event",prBasicD:"A clean wall for one celebration.",prBasicA:"Up to 30 posts",prBasicB:"Photos + text tributes",prBasicC:"Live auto-scrolling big screen",
@@ -1457,7 +1465,7 @@ const HOME_I18N={
     fmtG1:"Pour DJ, animateurs & organisateurs",fmtG2:"Pour les familles & les proches",ffTagWhite:"Marque blanche",ffTagResell:"Revendez à vos clients",ffTagUnlimited:"Événements illimités",
     fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement · Dès 25 $/mois",fmtWallC:"Créer un mur ▸",
     fmtMemT:"Mémorial & Hommage",fmtMemB:"Pour des obsèques ou une cérémonie d'hommage — récit de vie et éloge funèbre, allumage de bougies, frise chronologique et souvenirs partagés. Un lieu durable pour se souvenir, conservé en ligne.",fmtMemP:"10 $ · paiement unique",fmtMemC:"Créer un mémorial ▸",
-    fmtKeepT:"Histoire animée souvenir",fmtKeepB:"Une chanson et une histoire animée de leur vie, faites sur mesure — diffusées lors de l'événement et gardées pour toujours. Notre cadeau signature.",fmtKeepP:"39 $ · paiement unique",fmtKeepC:"Créer le souvenir ▸",
+    fmtKeepT:"Chanson-souvenir",fmtKeepB:"Une chanson originale écrite à partir de leur histoire, avec leurs photos et les paroles qui défilent. Lisez les paroles gratuitement ; prête en quelques minutes.",fmtKeepP:"39 $ · paiement unique",fmtKeepC:"Créer le souvenir ▸",
     priSub:"Pour une seule fête, ou — si vous êtes DJ, animateur, organisateur ou salle — passez au mois et utilisez-le à chaque prestation. Prix en USD.",
     prG1:"À l'événement",prG2:"Au mois — pour DJ, animateurs, organisateurs & salles",
     prBasicT:"Basique",prBasicU:" / événement",prBasicD:"Un mur épuré pour une fête.",prBasicA:"Jusqu'à 30 messages",prBasicB:"Photos + textes",prBasicC:"Grand écran à défilement automatique",
@@ -1488,7 +1496,7 @@ const HOME_I18N={
     fmtG1:"Para DJ, presentadores y organizadores",fmtG2:"Para familias y seres queridos",ffTagWhite:"Marca blanca",ffTagResell:"Revende a tus clientes",ffTagUnlimited:"Eventos ilimitados",
     fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento · Desde 25 $/mes",fmtWallC:"Crear un muro ▸",
     fmtMemT:"Memorial y Homenaje",fmtMemB:"Para un funeral o una ceremonia de homenaje — una historia de vida y un elogio, encendido de velas, una línea de tiempo y recuerdos compartidos. Un lugar duradero para recordar, conservado en línea.",fmtMemP:"10 $ · pago único",fmtMemC:"Crear un memorial ▸",
-    fmtKeepT:"Historia animada de recuerdo",fmtKeepB:"Una canción e historia animada de su vida, hecha a medida — reproducida en el evento y guardada para siempre. Nuestro regalo estrella.",fmtKeepP:"39 $ · pago único",fmtKeepC:"Crear el recuerdo ▸",
+    fmtKeepT:"Canción Recuerdo",fmtKeepB:"Una canción original escrita a partir de su historia, con sus fotos y la letra en movimiento. Lee la letra gratis primero; lista en minutos.",fmtKeepP:"39 $ · pago único",fmtKeepC:"Crear el recuerdo ▸",
     priSub:"Para una sola celebración, o — si eres DJ, presentador, organizador o local — pásate al mes y úsalo en cada evento. Precios en USD.",
     prG1:"Por evento",prG2:"Al mes — para DJ, presentadores, organizadores y locales",
     prBasicT:"Básico",prBasicU:" / evento",prBasicD:"Un muro limpio para una celebración.",prBasicA:"Hasta 30 publicaciones",prBasicB:"Fotos + textos",prBasicC:"Pantalla con desplazamiento automático",
@@ -1519,7 +1527,7 @@ const HOME_I18N={
     fmtG1:"Pro DJ, moderátory a organizátory",fmtG2:"Pro rodiny a blízké",ffTagWhite:"Vlastní značka",ffTagResell:"Prodávejte klientům",ffTagUnlimited:"Neomezené akce",
     fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce · Od 25 $/měs",fmtWallC:"Vytvořit zeď ▸",
     fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Pro pohřeb nebo smuteční obřad — životní příběh a smuteční řeč, zapalování svíček, časová osa života a sdílené vzpomínky. Trvalé místo pro vzpomínání, uchované online.",fmtMemP:"10 $ · jednorázově",fmtMemC:"Vytvořit vzpomínku ▸",
-    fmtKeepT:"Animovaný vzpomínkový příběh",fmtKeepB:"Originální píseň a animovaný příběh jejich života, na míru — přehraný na akci a uchovaný navždy. Náš výjimečný dárek.",fmtKeepP:"39 $ · jednorázově",fmtKeepC:"Vytvořit vzpomínku ▸",
+    fmtKeepT:"Píseň na míru",fmtKeepB:"Originální píseň napsaná podle jejich příběhu, s jejich fotkami a textem. Text si přečtete zdarma předem; hotovo za pár minut.",fmtKeepP:"39 $ · jednorázově",fmtKeepC:"Vytvořit vzpomínku ▸",
     priSub:"Pro jednu oslavu, nebo — pokud jste DJ, moderátor, organizátor či místo konání — přejděte na měsíční plán a využijte ho u každé akce. Ceny v USD.",
     prG1:"Za akci",prG2:"Měsíčně — pro DJ, moderátory, organizátory a místa",
     prBasicT:"Základní",prBasicU:" / akce",prBasicD:"Čistá zeď pro jednu oslavu.",prBasicA:"Až 30 příspěvků",prBasicB:"Fotky + texty",prBasicC:"Automatické posouvání na obrazovce",
@@ -1550,7 +1558,7 @@ const HOME_I18N={
     fmtG1:"Für DJs, Moderatoren & Planer",fmtG2:"Für Familien & Angehörige",ffTagWhite:"White-Label",ffTagResell:"An Kunden weiterverkaufen",ffTagUnlimited:"Unbegrenzte Events",
     fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event · Ab 25 $/Mon.",fmtWallC:"Wand erstellen ▸",
     fmtMemT:"Gedenken & Nachruf",fmtMemB:"Für eine Trauerfeier oder Gedenkfeier — eine Lebensgeschichte und ein Nachruf, Kerzen anzünden, eine Lebenslinie und geteilte Erinnerungen. Ein bleibender Ort zum Erinnern, online aufbewahrt.",fmtMemP:"10 $ · einmalig",fmtMemC:"Gedenkseite erstellen ▸",
-    fmtKeepT:"Animierte Andenken-Geschichte",fmtKeepB:"Ein maßgefertigtes Lied und eine animierte Geschichte ihres Lebens — beim Event abgespielt und für immer aufbewahrt. Unser Signature-Geschenk.",fmtKeepP:"39 $ · einmalig",fmtKeepC:"Andenken erstellen ▸",
+    fmtKeepT:"Erinnerungslied",fmtKeepB:"Ein Originallied nach ihrer Geschichte, mit ihren Fotos und dem Text in Bewegung. Text zuerst kostenlos lesen; in Minuten fertig.",fmtKeepP:"39 $ · einmalig",fmtKeepC:"Andenken erstellen ▸",
     priSub:"Für eine einzelne Feier, oder — als DJ, Moderator, Planer oder Location — monatlich für jede Buchung. Preise in USD.",
     prG1:"Pro Event",prG2:"Monatlich — für DJs, Moderatoren, Planer & Locations",
     prBasicT:"Basis",prBasicU:" / Event",prBasicD:"Eine klare Wand für eine Feier.",prBasicA:"Bis zu 30 Beiträge",prBasicB:"Fotos + Texte",prBasicC:"Automatisch scrollende Leinwand",
@@ -1891,7 +1899,7 @@ const DOOR={
   cs:{h1:"Poslechněte si text své písně — zdarma.",tag:"Proměníme celý životní příběh v originální vzpomínkovou píseň — napsanou a vyprodukovanou jen pro někoho, koho milujete. Prohlédněte si celý text zdarma a zaplaťte, jen pokud vám naskočí husí kůže.",oc:"✨ Zobrazit text — zdarma →",osub:"Bez karty · asi 60 sekund · od 39 $",live:"🎥 Živá zeď fotek a vzkazů pro celou vaši akci →",mem:"🕊️ Trvalá vzpomínková stránka pro blízkého, který odešel →",mw:"🖼️ Zeď vzpomínek, kterou blízcí plní postupně — odhalená v den oslavy →",expk:"Podívejte se, co otevřou",expt:"Pociťte, co pocítí i oni 💛",expb:"Otevřete skutečnou vzpomínku a sledujte, jak ožívá celý život — jejich fotky, okamžik za okamžikem, v rytmu písně napsané jen pro ně.",expc:"🎁 Otevřít zážitek →",remind:"Ne pro dnešek? Přidejte se k seznamu pro připomenutí před vaší událostí — a nabídky předem.",remindc:"✉️ Připomenout →",hear:"🎧 Poslechnout skutečnou vzpomínku",wol:"💛 Přečíst Zeď lásky",capH:"Ještě nejste připraveni? Nechte si nápad po ruce.",capS:"Získejte jednu ukázkovou sloku zdarma pro někoho, koho milujete — a buďte první, kdo se dozví o novinkách."},
   de:{h1:"Hören Sie den Text Ihres Liedes — kostenlos.",tag:"Wir verwandeln ein ganzes Leben in ein originales Erinnerungslied — geschrieben und produziert nur für einen geliebten Menschen. Sehen Sie den vollständigen Text kostenlos und zahlen Sie nur, wenn er Ihnen eine Gänsehaut bereitet.",oc:"✨ Ihren Text ansehen — kostenlos →",osub:"Keine Karte · etwa 60 Sekunden · ab 39 $",live:"🎥 Eine lebendige Foto- & Nachrichtenwand für Ihr ganzes Event →",mem:"🕊️ Eine bleibende Gedenkseite für einen verstorbenen Menschen →",mw:"🖼️ Eine Erinnerungswand, die Angehörige mit der Zeit füllen — enthüllt am großen Tag →",expk:"Sehen Sie, was sie öffnen werden",expt:"Fühlen Sie, was sie fühlen werden 💛",expb:"Öffnen Sie ein echtes Erinnerungsstück und sehen Sie, wie ein ganzes Leben aufsteigt — ihre Fotos, Moment für Moment, im Takt eines Liedes, das nur für sie geschrieben wurde.",expc:"🎁 Das Erlebnis öffnen →",remind:"Nicht für heute? Tragen Sie sich für eine Erinnerung vor Ihrem Anlass ein — und frühe Angebote.",remindc:"✉️ Erinnere mich →",hear:"🎧 Ein echtes Erinnerungsstück hören",wol:"💛 Die Wand der Liebe lesen",capH:"Noch nicht bereit? Behalte die Idee im Herzen.",capS:"Erhalte eine kostenlose Beispielstrophe für einen lieben Menschen — und erfahre als Erste(r) von neuen Erinnerungsstücken."}
 };
-function buildDoorLang(){ var bar=document.getElementById('doorLang'); if(!bar)return; bar.innerHTML=''; LANGS.forEach(function(p){ var c=p[0]; var on=c===guestLang; var b=document.createElement('button'); b.textContent=p[1]; b.onclick=function(){ setLang(c); }; b.style.cssText='border:1px solid '+(on?'#2E7D5B':'#E6E2D4')+';background:'+(on?'rgba(46,125,91,.08)':'#fff')+';color:'+(on?'#256048':'#5C6B5E')+';border-radius:999px;padding:5px 12px;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:600;cursor:pointer;'; bar.appendChild(b); }); }
+function buildDoorLang(){ var sel=document.getElementById('doorLang'); if(!sel)return; sel.innerHTML=''; LANGS.forEach(function(p){ var o=document.createElement('option'); o.value=p[0]; o.textContent=p[0]==='cs'?'CS':p[0].toUpperCase(); if(p[0]===guestLang)o.selected=true; sel.appendChild(o); }); sel.onchange=function(){ setLang(sel.value); }; }
 function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); }
 /* ===== New premium homepage (#screen-door .hc-*) i18n: data-hc = textContent, data-hch = innerHTML (links kept) ===== */
 const HC=(function(){
@@ -1910,7 +1918,7 @@ const HC=(function(){
     p_h2:"Three ways to say it.",p_lede:"Do it yourself in minutes, or let us make something unforgettable for you.",
     c1_tag:"Tribute Wall",c1_h3:"Everyone's words, in one place.",c1_p:"Share one link. Family and friends add messages and photos, and it's all revealed on the day, on any screen.",c1_price:"From $10 · ready instantly",c1_btn:"Start free",
     c2_tag:"Song",c2_h3:"A song only they could have.",c2_p:"Tell us their story and read your lyrics free. Love them? Your original song is made in minutes.",c2_price:"$39 · lyrics free",c2_btn:"Hear your lyrics",
-    c3_tag:"Made for you",c3_h3:"Their life, as a film.",c3_p:"A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.",c3_price:"<s>$149</s> From $74.50 · 50% off until 31 Dec",c3_btn:"See how it works",
+    c3_tag:"Made for you",c3_h3:"Their life, as a film.",c3_p:"A song, a film of their photos and a tribute book, made by our team with you. See your plan before you pay.",c3_price:"<s>$149</s> From $74.50 · 50% off until 31 Dec 2026",c3_btn:"See how it works",
     also:also("Also:","a memorial page for someone you've lost","a live photo wall for your event"),
     o_h2:"For every family. Every occasion.",o_lede:"Owambe or quiet dinner, Lagos or London, a first birthday or a final goodbye.",
     o_1:"Weddings",o_2:"Birthdays",o_3:"Anniversaries",o_4:"Family milestones",o_5:"In memory",o_6:"Reunions",o_7:"Big birthdays",o_8:"Honouring elders",
@@ -1936,7 +1944,7 @@ const HC=(function(){
     p_h2:"Trois façons de le dire.",p_lede:"Faites-le vous-même en quelques minutes, ou laissez-nous créer pour vous quelque chose d'inoubliable.",
     c1_tag:"Mur d'hommage",c1_h3:"Les mots de chacun, réunis au même endroit.",c1_p:"Partagez un seul lien. Famille et amis ajoutent messages et photos, et tout est dévoilé le jour J, sur n'importe quel écran.",c1_price:"Dès $10 · prêt instantanément",c1_btn:"Commencer gratuitement",
     c2_tag:"Chanson",c2_h3:"Une chanson rien que pour eux.",c2_p:"Racontez-nous leur histoire et lisez vos paroles gratuitement. Elles vous plaisent ? Votre chanson originale est prête en quelques minutes.",c2_price:"$39 · paroles offertes",c2_btn:"Découvrir vos paroles",
-    c3_tag:"Sur mesure",c3_h3:"Leur vie, en film.",c3_p:"Une chanson, un film de leurs photos et un livre d'hommage, réalisés par notre équipe avec vous. Découvrez votre projet avant de payer.",c3_price:"<s>$149</s> Dès $74.50 · -50 % jusqu'au 31 déc.",c3_btn:"Voir comment ça marche",
+    c3_tag:"Sur mesure",c3_h3:"Leur vie, en film.",c3_p:"Une chanson, un film de leurs photos et un livre d'hommage, réalisés par notre équipe avec vous. Découvrez votre projet avant de payer.",c3_price:"<s>$149</s> Dès $74.50 · -50 % jusqu'au 31 déc. 2026",c3_btn:"Voir comment ça marche",
     also:also("Et aussi :","une page commémorative pour un être cher disparu","un mur photo en direct pour votre événement"),
     o_h2:"Pour chaque famille. Chaque occasion.",o_lede:"Owambe ou dîner intime, Lagos ou Londres, un premier anniversaire ou un dernier adieu.",
     o_1:"Mariages",o_2:"Anniversaires",o_3:"Anniversaires de mariage",o_4:"Grandes étapes en famille",o_5:"En mémoire",o_6:"Retrouvailles",o_7:"Anniversaires marquants",o_8:"Honorer nos aînés",
@@ -1962,7 +1970,7 @@ const HC=(function(){
     p_h2:"Tres formas de decirlo.",p_lede:"Hazlo tú mismo en minutos, o deja que creemos algo inolvidable para ti.",
     c1_tag:"Muro de homenaje",c1_h3:"Las palabras de todos, en un solo lugar.",c1_p:"Comparte un solo enlace. Familiares y amigos añaden mensajes y fotos, y todo se revela el gran día, en cualquier pantalla.",c1_price:"Desde $10 · listo al instante",c1_btn:"Empieza gratis",
     c2_tag:"Canción",c2_h3:"Una canción solo para ellos.",c2_p:"Cuéntanos su historia y lee tu letra gratis. ¿Te encanta? Tu canción original estará lista en minutos.",c2_price:"$39 · letra gratis",c2_btn:"Escucha tu letra",
-    c3_tag:"Hecho para ti",c3_h3:"Su vida, en película.",c3_p:"Una canción, una película con sus fotos y un libro homenaje, creados por nuestro equipo contigo. Ve tu plan antes de pagar.",c3_price:"<s>$149</s> Desde $74.50 · 50% de descuento hasta el 31 dic.",c3_btn:"Mira cómo funciona",
+    c3_tag:"Hecho para ti",c3_h3:"Su vida, en película.",c3_p:"Una canción, una película con sus fotos y un libro homenaje, creados por nuestro equipo contigo. Ve tu plan antes de pagar.",c3_price:"<s>$149</s> Desde $74.50 · 50% de descuento hasta el 31 dic. 2026",c3_btn:"Mira cómo funciona",
     also:also("También:","una página conmemorativa para alguien que has perdido","un muro de fotos en vivo para tu evento"),
     o_h2:"Para cada familia. Para cada ocasión.",o_lede:"Owambe o cena tranquila, Lagos o Londres, un primer cumpleaños o un último adiós.",
     o_1:"Bodas",o_2:"Cumpleaños",o_3:"Aniversarios",o_4:"Momentos en familia",o_5:"In memoriam",o_6:"Reencuentros",o_7:"Cumpleaños especiales",o_8:"Honrar a los mayores",
@@ -1988,7 +1996,7 @@ const HC=(function(){
     p_h2:"Drei Wege, es zu sagen.",p_lede:"Mach es selbst in wenigen Minuten – oder lass uns etwas Unvergessliches für dich gestalten.",
     c1_tag:"Grußwand",c1_h3:"Die Worte aller, an einem Ort.",c1_p:"Teile einen Link. Familie und Freunde fügen Nachrichten und Fotos hinzu – enthüllt wird alles am großen Tag, auf jedem Bildschirm.",c1_price:"Ab $10 · sofort bereit",c1_btn:"Kostenlos starten",
     c2_tag:"Song",c2_h3:"Ein Song, der nur ihnen gehört.",c2_p:"Erzähl uns ihre Geschichte und lies deinen Songtext kostenlos. Gefällt er dir? Dein eigener Song ist in wenigen Minuten fertig.",c2_price:"$39 · Songtext gratis",c2_btn:"Deinen Songtext entdecken",
-    c3_tag:"Für dich gemacht",c3_h3:"Ihr Leben als Film.",c3_p:"Ein Song, ein Film aus ihren Fotos und ein Erinnerungsbuch – von unserem Team gemeinsam mit dir gestaltet. Sieh deinen Plan, bevor du bezahlst.",c3_price:"<s>$149</s> Ab $74.50 · 50 % Rabatt bis 31. Dez.",c3_btn:"So funktioniert's",
+    c3_tag:"Für dich gemacht",c3_h3:"Ihr Leben als Film.",c3_p:"Ein Song, ein Film aus ihren Fotos und ein Erinnerungsbuch – von unserem Team gemeinsam mit dir gestaltet. Sieh deinen Plan, bevor du bezahlst.",c3_price:"<s>$149</s> Ab $74.50 · 50 % Rabatt bis 31. Dez. 2026",c3_btn:"So funktioniert's",
     also:also("Außerdem:","eine Gedenkseite für einen geliebten Menschen","eine Live-Fotowand für dein Event"),
     o_h2:"Für jede Familie. Zu jedem Anlass.",o_lede:"Owambe oder ruhiges Abendessen, Lagos oder London, ein erster Geburtstag oder ein letzter Abschied.",
     o_1:"Hochzeiten",o_2:"Geburtstage",o_3:"Jubiläen",o_4:"Familienmomente",o_5:"In Erinnerung",o_6:"Wiedersehen",o_7:"Runde Geburtstage",o_8:"Unsere Ältesten ehren",
@@ -2014,7 +2022,7 @@ const HC=(function(){
     p_h2:"Tři způsoby, jak to říct.",p_lede:"Zvládněte to sami za pár minut, nebo nás nechte vytvořit pro vás něco nezapomenutelného.",
     c1_tag:"Zeď vzkazů",c1_h3:"Slova všech na jednom místě.",c1_p:"Sdílejte jeden odkaz. Rodina a přátelé přidají vzkazy a fotky a vše se odhalí ve velký den, na jakékoli obrazovce.",c1_price:"Od $10 · hotovo okamžitě",c1_btn:"Začít zdarma",
     c2_tag:"Píseň",c2_h3:"Píseň jen a jen pro ně.",c2_p:"Povězte nám jejich příběh a přečtěte si text zdarma. Líbí se vám? Vaše originální píseň vznikne během pár minut.",c2_price:"$39 · text zdarma",c2_btn:"Zobrazit váš text",
-    c3_tag:"Na míru",c3_h3:"Jejich život jako film.",c3_p:"Píseň, film z jejich fotek a pamětní kniha, které s vámi vytvoří náš tým. Plán uvidíte ještě před zaplacením.",c3_price:"<s>$149</s> Od $74.50 · sleva 50 % do 31. 12.",c3_btn:"Jak to funguje",
+    c3_tag:"Na míru",c3_h3:"Jejich život jako film.",c3_p:"Píseň, film z jejich fotek a pamětní kniha, které s vámi vytvoří náš tým. Plán uvidíte ještě před zaplacením.",c3_price:"<s>$149</s> Od $74.50 · sleva 50 % do 31. 12. 2026",c3_btn:"Jak to funguje",
     also:also("Také:","pamětní stránka pro někoho, koho jste ztratili","živá fotostěna pro vaši akci"),
     o_h2:"Pro každou rodinu. Pro každou příležitost.",o_lede:"Owambe nebo klidná večeře, Lagos nebo Londýn, první narozeniny nebo poslední rozloučení.",
     o_1:"Svatby",o_2:"Narozeniny",o_3:"Výročí",o_4:"Rodinné milníky",o_5:"Na památku",o_6:"Setkání",o_7:"Kulatiny",o_8:"Úcta ke starším",
@@ -2041,7 +2049,7 @@ function route(){
   if(path==='guest'&&ev){return renderGuest(ev,kiosk);}
   if(path==='wall'&&ev){return renderWall(ev);}
   if(path==='manage'&&ev){return renderManage(ev,key);}
-  if(path==='builder'){return openBuilder();}
+  if(path==='builder'){location.replace('keepsake-preview.html');return;}
   if(path==='create'){wallKind='live';applyVibe('brand');applyTierGating();return go('create');}
   if(path==='live'||path==='home'){applyVibe('brand');return go('home');}
   // Ode hub deep-links into the family/individual build flows
@@ -2445,7 +2453,7 @@ function showShare(e){
       card.style.display= e.revealed ? 'none' : '';
       if(cardTitle) cardTitle.textContent='Reveal it on the day';
       if(note) note.textContent='Everyone can add to this wall right now — collecting is free. When you want the finished, polished wall to show on a big screen (and to share the reveal), reveal it for a one-time $10.';
-      if(btn) btn.textContent='Reveal / show on the day — $10 + VAT ▸';
+      if(btn) btn.textContent='Reveal / show on the day — $10 ▸';
       // hide the "preview big screen" ghost button under the publish card during collection
       const prevBtn=card.querySelector('.btn-ghost'); if(prevBtn) prevBtn.style.display='';
     }

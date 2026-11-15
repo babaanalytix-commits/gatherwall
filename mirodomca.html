@@ -33,7 +33,8 @@ a{color:var(--deep)}
 .hero p{opacity:.9;margin-top:6px;font-family:Fraunces,serif;font-style:italic}
 .hero .dates{margin-top:14px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .hero .dates span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:5px 14px;font-size:13px}
-nav{position:sticky;top:0;z-index:5;background:rgba(247,243,236,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;justify-content:center}
+nav{position:sticky;top:0;z-index:5;background:rgba(247,243,236,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;justify-content:flex-start}
+nav>:first-child{margin-left:auto}nav>:last-child{margin-right:auto}@media(max-width:760px){nav{padding-right:100px}}
 nav a{white-space:nowrap;text-decoration:none;color:var(--deep);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:999px}
 nav a:hover{background:#ece5d8}
 .wrap{max-width:780px;margin:-44px auto 0;padding:0 16px 40px;position:relative}
