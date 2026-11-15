@@ -158,9 +158,9 @@ nav a:hover{background:#ece5d8}
 <script>
 const DRIVE = { folder:'1vowloo4QN3HqlDWRqj0nUDvWkBEyYIA7', hd:'1L7p6bdukjts2uDP-HU4E5BOSi-CsKqfN', phone:'1Ci9Ptd8d_ohzLaXaXOc8fkJ31FHuQjvz', thanks:'1HmRq_1S21jrA_b9lGlQAZz1S7KHG0Yor' };
 const SONGS=[['Naše místo','Česká soulová balada','Czech soul ballad','md/md-01-nase-misto.mp3','01 Naše místo.mp3'],['A nás nedostanou','Soul · anglicky a česky','Soul · English & Czech','md/md-02-a-nas-nedostanou.mp3','02 A nás nedostanou.mp3'],['Disco 1','Hip-hop / R&B · dvojjazyčně','Hip-hop / R&B · bilingual','md/md-03-disco-1.mp3','03 Disco 1.mp3'],['Ty a já','Melodické R&B · dvojjazyčně','Melodic R&B · bilingual','md/md-04-ty-a-ja.mp3','04 Ty a já.mp3'],['A nás nedostanou — Klub','Párty hymna','Party anthem','md/md-05-klub.mp3','05 A nás nedostanou – Klub.mp3'],['Děkujeme vám','Poděkování od rodiny','The family\'s thank-you','md/md-06-dekujeme.mp3','06 Děkujeme vám.mp3']];
-let L=(new URLSearchParams(location.search).get('lang')||(()=>{try{return localStorage.getItem('gw_lang')}catch(e){return null}})()||'cs'); if(L!=='en') L='cs';
+let L=(new URLSearchParams(location.search).get('lang')||(()=>{try{return localStorage.getItem('md_lang')}catch(e){return null}})()||'cs'); if(L!=='en') L='cs';
 function renderSongs(){ document.getElementById('songList').innerHTML=SONGS.map((s,i)=>'<div class="song"><div class="n">'+String(i+1).padStart(2,'0')+'</div><div><b>'+s[0]+'</b><span>'+(L==='en'?s[2]:s[1])+'</span></div><div><a class="mini" href="mirodomca-song.html?s='+(i+1)+'">🎤</a> &nbsp;<a class="mini" href="'+s[3]+'" download="'+s[4]+'">⬇️ MP3</a></div><audio controls preload="none" src="'+s[3]+'"></audio></div>').join(''); }
-function applyLang(l){ L=l; try{localStorage.setItem('gw_lang',l)}catch(e){} document.documentElement.lang=l;
+function applyLang(l){ L=l; try{localStorage.setItem('md_lang',l)}catch(e){} document.documentElement.lang=l;
   document.querySelectorAll('[data-cs]').forEach(el=>{ el.textContent=el.getAttribute('data-'+l); });
   document.querySelectorAll('.lgsw button').forEach(b=>b.classList.toggle('on',b.dataset.l===l)); renderSongs();
   document.querySelectorAll('.video .soon').forEach(e=>e.textContent=l==='en'?'The film will appear here shortly':'Film se tu brzy objeví'); }
