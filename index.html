@@ -652,12 +652,17 @@ body.kioskmode header.nav{display:none;}
 </style>
 <script>
 var REAL_KEEPSAKES=[
+  { id:'mirodomca', video:'md/md-teaser-web.mp4', img:'md/md-card.jpg', link:'cs/svatebni-pisen-a-film.html',
+    tag:{en:'Wedding · Czechia',fr:'Mariage · Tchéquie',es:'Boda · Chequia',de:'Hochzeit · Tschechien',cs:'Svatba · Česko'},
+    t:{en:'Mira & Domča',fr:'Mira & Domča',es:'Mira & Domča',de:'Mira & Domča',cs:'Mira & Domča'},
+    s:{en:'A Czech wedding: six songs written from their story, and a film made from their photographer\'s pictures.',fr:'Un mariage tchèque : six chansons écrites à partir de leur histoire, et un film réalisé avec les photos de leur photographe.',es:'Una boda checa: seis canciones escritas a partir de su historia y una película hecha con las fotos de su fotógrafo.',de:'Eine tschechische Hochzeit: sechs Songs nach ihrer Geschichte und ein Film aus den Bildern ihres Fotografen.',cs:'Česká svatba: šest písní napsaných podle jejich příběhu a film z fotek jejich fotografa.'},
+    q:null },
   { id:'dad', img:'img/remembrance-candle.jpg', audio:'https://cdn.mureka.ai/cos-prod/open/song/20261111/145791664652289-SGo9yhQitXaWuVKcFjrUqn.mp3', link:'keepsake.html?order=ks_qwqageg2',
     tag:{en:'Remembrance',fr:'Souvenir',es:'Recuerdo',de:'Erinnerung',cs:'Vzpomínka'},
     t:{en:'A song for Dad',fr:'Une chanson pour Papa',es:'Una canción para papá',de:'Ein Lied für Papa',cs:'Píseň pro tátu'},
     s:{en:"Our founder's own family: a song for Dad's 3-year remembrance, from his children, with his photos and a sing-along.",fr:"La famille de notre fondateur : une chanson pour les 3 ans de la disparition de Papa, de la part de ses enfants, avec ses photos et les paroles.",es:"La familia de nuestro fundador: una canción para el tercer aniversario de papá, de parte de sus hijos, con sus fotos y la letra.",de:"Die Familie unseres Gründers: ein Lied zum dritten Todestag von Papa, von seinen Kindern, mit seinen Fotos und Text zum Mitsingen.",cs:"Rodina našeho zakladatele: píseň k třetímu výročí úmrtí táty, od jeho dětí, s jeho fotkami a textem ke zpívání."},
     q:null }
-  /* Mira & Domča: add after the couple says yes (teaser md/md-teaser.mp4, demo copy of their page, their review).
+  /* Mira & Domča: approved 16 Nov 2026 (photos: Marek Mach, approved). Add their review as q:{text:{...},who:'Mira & Domča'} when it arrives.
      Sam's 70th: add after 6 Dec 2026 and only with the family's yes. */
 ];
 function renderReal(){
