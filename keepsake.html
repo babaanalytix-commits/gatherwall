@@ -257,5 +257,7 @@ function downloadKeepsake(){
 }
 </script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<script>/* Keepsake pages are a sales channel: tag first-touch source so sales from guests show up as from=keepsake. Never overwrite an existing (unexpired) source. */
+(function(){try{var s=JSON.parse(localStorage.getItem('gw_src')||'null');if(s&&Date.now()-s.t<30*864e5)return;localStorage.setItem('gw_src',JSON.stringify({from:'keepsake',c:('song-'+String(new URLSearchParams(location.search).get('order')||'').toLowerCase().replace(/[^a-z0-9-]/g,'')).slice(0,40),t:Date.now()}));}catch(e){}})();</script>
 </body>
 </html>

@@ -622,9 +622,74 @@ body.kioskmode header.nav{display:none;}
 <section class="hc-show hc-r">
   <div class="hc-film">
     <video src="sample-storyfilm.mp4" poster="sample-storyfilm-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <span id="hc-sample" style="position:absolute;left:14px;top:14px;background:rgba(0,0,0,.5);color:#fff;font:600 12px Inter,sans-serif;padding:4px 10px;border-radius:999px">Sample film</span>
     <div class="hc-cap"><b data-hc="film_t">Fifty Years of Gold</b><span data-hc="film_s">A GatherWall keepsake: their photos, their story, their song.</span></div>
   </div>
 </section>
+
+<!-- Real keepsakes: only real work from real families, shown with their clear permission.
+     Add a family to REAL_KEEPSAKES (below) only after they have said yes. Never link a #host= URL; use a public demo copy (no control panel, noindex). -->
+<section class="hc-sec hc-real" id="hc-real" style="display:none">
+  <h2 class="hc-h2" id="rk_h2"></h2>
+  <p class="hc-lede" id="rk_lede"></p>
+  <div class="rk-rail" id="rk_rail"></div>
+</section>
+<style>
+#screen-door .hc-real{padding-top:44px}
+#screen-door .rk-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;justify-content:center}
+#screen-door .rk-card{flex:0 0 290px;scroll-snap-align:start;background:#fff;border:1px solid #ececf0;border-radius:20px;overflow:hidden;text-align:left;box-shadow:0 10px 30px -18px rgba(0,0,0,.25)}
+#screen-door .rk-media{position:relative;aspect-ratio:4/3;background:#111 center/cover no-repeat}
+#screen-door .rk-media video{width:100%;height:100%;object-fit:cover;display:block}
+#screen-door .rk-tag{position:absolute;left:12px;top:12px;background:rgba(0,0,0,.55);color:#fff;font:600 12px Inter,sans-serif;padding:4px 10px;border-radius:999px}
+#screen-door .rk-b{padding:16px 18px 18px}
+#screen-door .rk-b h3{font-family:Fraunces,Georgia,serif;font-size:20px;margin:0 0 6px}
+#screen-door .rk-b p{font-size:14.5px;color:#55555b;margin:0 0 10px;line-height:1.5}
+#screen-door .rk-q{font-family:Fraunces,Georgia,serif;font-style:italic;color:#2c2c2e!important}
+#screen-door .rk-act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#screen-door .rk-play{border:0;background:#2E7D5B;color:#fff;border-radius:999px;padding:9px 16px;font:600 14px Inter,sans-serif;cursor:pointer}
+#screen-door .rk-act a{color:#2E7D5B;font-weight:600;font-size:14px;text-decoration:none}
+@media(max-width:700px){#screen-door .rk-rail{justify-content:flex-start}#screen-door .rk-card{flex-basis:82%}}
+</style>
+<script>
+var REAL_KEEPSAKES=[
+  { id:'dad', img:'img/remembrance-candle.jpg', audio:'https://cdn.mureka.ai/cos-prod/open/song/20261111/145791664652289-SGo9yhQitXaWuVKcFjrUqn.mp3', link:'keepsake.html?order=ks_qwqageg2',
+    tag:{en:'Remembrance',fr:'Souvenir',es:'Recuerdo',de:'Erinnerung',cs:'Vzpomínka'},
+    t:{en:'A song for Dad',fr:'Une chanson pour Papa',es:'Una canción para papá',de:'Ein Lied für Papa',cs:'Píseň pro tátu'},
+    s:{en:"Our founder's own family: a song for Dad's 3-year remembrance, from his children, with his photos and a sing-along.",fr:"La famille de notre fondateur : une chanson pour les 3 ans de la disparition de Papa, de la part de ses enfants, avec ses photos et les paroles.",es:"La familia de nuestro fundador: una canción para el tercer aniversario de papá, de parte de sus hijos, con sus fotos y la letra.",de:"Die Familie unseres Gründers: ein Lied zum dritten Todestag von Papa, von seinen Kindern, mit seinen Fotos und Text zum Mitsingen.",cs:"Rodina našeho zakladatele: píseň k třetímu výročí úmrtí táty, od jeho dětí, s jeho fotkami a textem ke zpívání."},
+    q:null }
+  /* Mira & Domča: add after the couple says yes (teaser md/md-teaser.mp4, demo copy of their page, their review).
+     Sam's 70th: add after 6 Dec 2026 and only with the family's yes. */
+];
+function renderReal(){
+  var L=(typeof guestLang!=='undefined'&&guestLang)||'en', sec=document.getElementById('hc-real'); if(!sec) return;
+  var T={h2:{en:'Real keepsakes, from real families.',fr:'De vrais souvenirs, de vraies familles.',es:'Recuerdos reales, de familias reales.',de:'Echte Andenken, von echten Familien.',cs:'Skutečné dárky od skutečných rodin.'},
+    lede:{en:'Every one here was made for a real family and is shared with their permission.',fr:'Chacun a été créé pour une vraie famille et est partagé avec son accord.',es:'Cada uno se hizo para una familia real y se comparte con su permiso.',de:'Jedes wurde für eine echte Familie gemacht und wird mit ihrer Erlaubnis gezeigt.',cs:'Každý vznikl pro skutečnou rodinu a sdílíme ho s jejím souhlasem.'},
+    play:{en:'▶ Play the song',fr:'▶ Écouter',es:'▶ Escuchar',de:'▶ Anhören',cs:'▶ Pustit píseň'},
+    pause:{en:'❚❚ Pause',fr:'❚❚ Pause',es:'❚❚ Pausa',de:'❚❚ Pause',cs:'❚❚ Pauza'},
+    open:{en:'See the full keepsake ›',fr:'Voir le souvenir ›',es:'Ver el recuerdo ›',de:'Ganzes Andenken ansehen ›',cs:'Celý dárek ›'}};
+  var g=function(o){ return (o&&(o[L]||o.en))||''; };
+  var sm=document.getElementById('hc-sample'); if(sm) sm.textContent=g({en:'Sample film',fr:'Film d’exemple',es:'Película de ejemplo',de:'Beispielfilm',cs:'Ukázkový film'});
+  if(!REAL_KEEPSAKES.length){ sec.style.display='none'; return; }
+  document.getElementById('rk_h2').textContent=g(T.h2); document.getElementById('rk_lede').textContent=g(T.lede);
+  var rail=document.getElementById('rk_rail'); rail.innerHTML='';
+  REAL_KEEPSAKES.forEach(function(k){
+    var c=document.createElement('div'); c.className='rk-card';
+    var media=k.video?'<div class="rk-media"><video src="'+k.video+'" poster="'+(k.img||'')+'" autoplay muted loop playsinline preload="none"></video><span class="rk-tag">'+g(k.tag)+'</span></div>'
+                     :'<div class="rk-media" style="background-image:url('+k.img+')"><span class="rk-tag">'+g(k.tag)+'</span></div>';
+    c.innerHTML=media+'<div class="rk-b"><h3></h3><p class="rk-s"></p>'+(k.q?'<p class="rk-q"></p>':'')+'<div class="rk-act">'+(k.audio?'<button class="rk-play" type="button"></button>':'')+'<a target="_blank" rel="noopener"></a></div></div>';
+    c.querySelector('h3').textContent=g(k.t); c.querySelector('.rk-s').textContent=g(k.s);
+    if(k.q){ c.querySelector('.rk-q').textContent='“'+g(k.q.text)+'” — '+k.q.who; }
+    var a=c.querySelector('.rk-act a'); a.href=k.link; a.textContent=g(T.open);
+    if(k.audio){ var b=c.querySelector('.rk-play'); b.textContent=g(T.play); b.onclick=function(){
+      var au=window._rkAudio; if(au&&au._id===k.id&&!au.paused){ au.pause(); b.textContent=g(T.play); return; }
+      if(au){ au.pause(); document.querySelectorAll('#rk_rail .rk-play').forEach(function(x){ x.textContent=g(T.play); }); }
+      au=window._rkAudio=new Audio(k.audio); au._id=k.id; au.play(); b.textContent=g(T.pause); au.onended=function(){ b.textContent=g(T.play); }; }; }
+    rail.appendChild(c);
+  });
+  sec.style.display='';
+}
+document.addEventListener('DOMContentLoaded',renderReal);
+</script>
 
 <section class="hc-sec" id="hc-products">
   <h2 class="hc-h2 hc-r" data-hc="p_h2">Three ways to say it.</h2>
@@ -1900,7 +1965,7 @@ const DOOR={
   de:{h1:"Hören Sie den Text Ihres Liedes — kostenlos.",tag:"Wir verwandeln ein ganzes Leben in ein originales Erinnerungslied — geschrieben und produziert nur für einen geliebten Menschen. Sehen Sie den vollständigen Text kostenlos und zahlen Sie nur, wenn er Ihnen eine Gänsehaut bereitet.",oc:"✨ Ihren Text ansehen — kostenlos →",osub:"Keine Karte · etwa 60 Sekunden · ab 39 $",live:"🎥 Eine lebendige Foto- & Nachrichtenwand für Ihr ganzes Event →",mem:"🕊️ Eine bleibende Gedenkseite für einen verstorbenen Menschen →",mw:"🖼️ Eine Erinnerungswand, die Angehörige mit der Zeit füllen — enthüllt am großen Tag →",expk:"Sehen Sie, was sie öffnen werden",expt:"Fühlen Sie, was sie fühlen werden 💛",expb:"Öffnen Sie ein echtes Erinnerungsstück und sehen Sie, wie ein ganzes Leben aufsteigt — ihre Fotos, Moment für Moment, im Takt eines Liedes, das nur für sie geschrieben wurde.",expc:"🎁 Das Erlebnis öffnen →",remind:"Nicht für heute? Tragen Sie sich für eine Erinnerung vor Ihrem Anlass ein — und frühe Angebote.",remindc:"✉️ Erinnere mich →",hear:"🎧 Ein echtes Erinnerungsstück hören",wol:"💛 Die Wand der Liebe lesen",capH:"Noch nicht bereit? Behalte die Idee im Herzen.",capS:"Erhalte eine kostenlose Beispielstrophe für einen lieben Menschen — und erfahre als Erste(r) von neuen Erinnerungsstücken."}
 };
 function buildDoorLang(){ var sel=document.getElementById('doorLang'); if(!sel)return; sel.innerHTML=''; LANGS.forEach(function(p){ var o=document.createElement('option'); o.value=p[0]; o.textContent=p[0]==='cs'?'CS':p[0].toUpperCase(); if(p[0]===guestLang)o.selected=true; sel.appendChild(o); }); sel.onchange=function(){ setLang(sel.value); }; }
-function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); }
+function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); if(window.renderReal) renderReal(); }
 /* ===== New premium homepage (#screen-door .hc-*) i18n: data-hc = textContent, data-hch = innerHTML (links kept) ===== */
 const HC=(function(){
   const M='<a href="#memorial" onclick="location.hash=\'memorial\';return false;">', L='<a href="#live" onclick="location.hash=\'live\';return false;">', E='</a>';

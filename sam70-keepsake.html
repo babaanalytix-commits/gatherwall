@@ -233,5 +233,7 @@ function copy(id){ const t=document.getElementById(id).textContent; (navigator.c
 function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2200); }
 </script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<script>/* Keepsake pages are a sales channel: tag first-touch source so sales from guests show up as from=keepsake. Never overwrite an existing (unexpired) source. */
+(function(){try{var s=JSON.parse(localStorage.getItem('gw_src')||'null');if(s&&Date.now()-s.t<30*864e5)return;localStorage.setItem('gw_src',JSON.stringify({from:'keepsake',c:'sam70',t:Date.now()}));}catch(e){}})();</script>
 </body>
 </html>
