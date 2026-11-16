@@ -25,6 +25,8 @@
   ];
   // Ready-to-use messages, written in Yomi's voice. {link} is replaced with the tracked link.
   const MSG = {
+    xmas: "Can't make it home for Christmas this year? 🎄 You can still be in the room. Send Mum and Dad a Christmas song with their names in it (ready in minutes), a family wall full of messages and voice notes, or a film with a message from every child abroad. Hear our carol here:\n{link}",
+    czwedding: "Svatební píseň v češtině napsaná podle vašeho příběhu a film z vašich fotek. Podívejte se na ukázku Miry a Domči:\n{link}",
     gift: "Living abroad and can't be home for Mum or Dad's big day? You can still be in the room. GatherWall turns their life story into an original song (with Yoruba, Igbo or Pidgin if you like), or gathers the whole family's messages on one wall for the party. Read the lyrics free first. 💛\n{link}",
     '70th': "Planning a 70th for Mummy or Daddy? Beyond the aso-ebi and cake, here are ideas that put their life story at the centre: a song written about them, a wall of messages from family worldwide, and a film for the big screen.\n{link}",
     yoruba: "Imagine Mummy hearing her name, her hometown and her favourite saying in a song made just for her, in English with Yoruba (or Igbo) woven in. You read the lyrics free before paying, and it's ready in minutes. 🎶\n{link}",
@@ -38,6 +40,8 @@
     examples: "See what families have made with GatherWall: songs, films and tribute walls.\n{link}"
   };
   const SHORT = { // short captions for Instagram/TikTok/X
+    xmas: "Can't make it home for Christmas? Send Mum & Dad a song with their names in it. 🎄 {link}",
+    czwedding: "Vaše svatba jako píseň a film. 💍 {link}",
     gift: "Abroad and can't be home for their big day? Send a song made from their life. 💛 Link in bio: {link}",
     '70th': "70th birthday ideas that make the whole room go quiet. ✨ {link}",
     yoruba: "Her name. Her hometown. Her favourite saying. In a song. 🎶 {link}",
@@ -128,7 +132,7 @@
       const link = linkFor(pid, state.ch, camp);
       $('gLink').value = link;
       const short = ['instagram', 'tiktok', 'x'].includes(state.ch);
-      $('gMsg').value = (short ? SHORT[pid] : MSG[pid]).replace('{link}', link);
+      $('gMsg').value = String((short ? SHORT[pid] : MSG[pid]) || '{link}').replace('{link}', link);
       $('gShare').innerHTML = shareButtons(link, $('gMsg').value);
       $('gHint').textContent = state.ch === 'instagram' || state.ch === 'tiktok' ? 'Instagram and TikTok don\'t accept web links in posts: copy the caption, put the link in your bio or story link sticker.' : state.ch === 'wa-status' ? 'Tap WhatsApp, then choose “My status”, or copy the message and paste it into a status.' : state.ch === 'ads-meta' ? 'Use this link as the ad\'s website URL so ad results appear separately.' : '';
     }
