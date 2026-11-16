@@ -173,6 +173,17 @@ textarea{line-height:1.5;resize:vertical}
 
   <!-- TOOLS -->
   <section class="view" id="v-links">
+    <div class="card" id="mailCard"><h2>Send an email from hello@gatherwall.com</h2>
+      <p class="sub">For partners, photographers and customers. It arrives from <b>hello@gatherwall.com</b>; replies come back to that address.</p>
+      <div style="display:grid;gap:10px;max-width:720px">
+        <label style="font-size:13px;color:#5f6368">From name<input id="mFrom" value="Yomi · GatherWall" style="display:block;width:100%;padding:10px 12px;border:1px solid #e3e3e8;border-radius:10px;font:15px Inter,sans-serif;margin-top:4px"></label>
+        <label style="font-size:13px;color:#5f6368">To (email)<input id="mTo" type="email" placeholder="name@example.com" style="display:block;width:100%;padding:10px 12px;border:1px solid #e3e3e8;border-radius:10px;font:15px Inter,sans-serif;margin-top:4px"></label>
+        <label style="font-size:13px;color:#5f6368">Subject<input id="mSubj" style="display:block;width:100%;padding:10px 12px;border:1px solid #e3e3e8;border-radius:10px;font:15px Inter,sans-serif;margin-top:4px"></label>
+        <label style="font-size:13px;color:#5f6368">Message<textarea id="mText" rows="12" style="display:block;width:100%;padding:10px 12px;border:1px solid #e3e3e8;border-radius:10px;font:15px/1.5 Inter,sans-serif;margin-top:4px"></textarea></label>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" id="mSend" type="button">Send email</button><span id="mMsg" style="font-size:14px;color:#5f6368"></span></div>
+      </div>
+      <div id="mSent" style="margin-top:16px;font-size:13.5px;color:#5f6368"></div>
+    </div>
     <div class="card"><h2>Tools</h2><p class="sub">Everything that runs GatherWall, in one place.</p>
       <div class="links">
         <a href="https://dashboard.stripe.com/payments" target="_blank"><b>Stripe</b><span>Payments, refunds, coupons</span></a>
@@ -330,6 +341,23 @@ function renderVisitors(r){
   <div class="card"><h2>Devices</h2>${list(acc.byDevice||[],g=>g.dimensions.deviceType,g=>g.count||0)}</div></div>`;
 }
 start();
+
+/* ---- Send email from hello@gatherwall.com (via the worker; admin key required) ---- */
+(function(){
+  const $=id=>document.getElementById(id); if(!$('mSend')) return;
+  async function loadSent(){ const r=await call('admin.get',{path:'admin/sent'}); const d=(r&&r.data)||{}; const rows=Object.keys(d).sort().reverse().slice(0,8).map(k=>{const x=d[k]||{};return '<div>'+new Date(+k).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' · '+String(x.to||'').replace(/</g,'&lt;')+' · '+String(x.subject||'').replace(/</g,'&lt;')+'</div>';}); $('mSent').innerHTML=rows.length?'<b>Recently sent</b>'+rows.join(''):''; }
+  $('mSend').onclick=async function(){
+    const to=$('mTo').value.trim(), subject=$('mSubj').value.trim(), text=$('mText').value, fromName=$('mFrom').value.trim()||'GatherWall';
+    if(!to||!subject||!text.trim()){ $('mMsg').textContent='Add an email, a subject and a message.'; return; }
+    if(!confirm('Send this email to '+to+'?\n\nSubject: '+subject)) return;
+    this.disabled=true; $('mMsg').textContent='Sending…';
+    const r=await call('admin.mail',{to,subject,text,fromName});
+    this.disabled=false;
+    if(r&&r.ok){ $('mMsg').textContent='✓ Sent to '+to; $('mText').value=''; $('mSubj').value=''; loadSent(); }
+    else { $('mMsg').textContent='Not sent: '+((r&&r.error)||'network error'); }
+  };
+  setTimeout(loadSent,1500);
+})();
 </script>
 </body>
 </html>
