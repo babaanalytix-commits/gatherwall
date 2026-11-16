@@ -751,7 +751,7 @@ document.addEventListener('DOMContentLoaded',renderReal);
     <a href="keepsake-photo-demo.html" data-hc="w_4">🎁 Open a keepsake</a>
     <a href="keepsake.html?order=ks_qwqageg2" data-hc="w_5">🕊️ A song for Dad</a>
   </div>
-  <p class="hc-more hc-r" style="margin-top:22px" data-hch="ideas">Ideas: <a href="gift-for-parents-in-nigeria.html">a gift for parents in Nigeria</a> · <a href="nigerian-70th-birthday-ideas.html">70th birthday ideas</a> · <a href="yoruba-birthday-song.html">a Yoruba birthday song</a> · <a href="owambe-tribute-wall.html">a wall for your owambe</a> · <a href="nigerian-wedding-keepsake.html">wedding keepsakes</a> · <a href="nigerian-burial-memorial-page.html">a memorial page</a></p>
+  <p class="hc-more hc-r" style="margin-top:22px" data-hch="ideas">Ideas: <a href="christmas.html">🎄 Christmas from far away</a> · <a href="gift-for-parents-in-nigeria.html">a gift for parents in Nigeria</a> · <a href="nigerian-70th-birthday-ideas.html">70th birthday ideas</a> · <a href="yoruba-birthday-song.html">a Yoruba birthday song</a> · <a href="owambe-tribute-wall.html">a wall for your owambe</a> · <a href="nigerian-wedding-keepsake.html">wedding keepsakes</a> · <a href="nigerian-burial-memorial-page.html">a memorial page</a></p>
 </section>
 
 <section class="hc-quote hc-r">
@@ -1971,7 +1971,9 @@ const HC=(function(){
   const M='<a href="#memorial" onclick="location.hash=\'memorial\';return false;">', L='<a href="#live" onclick="location.hash=\'live\';return false;">', E='</a>';
   const G=['<a href="gift-for-parents-in-nigeria.html">','<a href="nigerian-70th-birthday-ideas.html">','<a href="yoruba-birthday-song.html">','<a href="owambe-tribute-wall.html">','<a href="nigerian-wedding-keepsake.html">','<a href="nigerian-burial-memorial-page.html">'];
   const also=(a,m,l)=>a+' '+M+m+' ›'+E+' &nbsp;·&nbsp; '+L+l+' ›'+E;
-  const ideas=(a,x)=>a+' '+x.map((t,i)=>G[i]+t+E).join(' · ');
+  const XM={en:'🎄 Christmas from far away',fr:'🎄 Noël loin de la famille',es:'🎄 Navidad lejos de casa',cs:'🎄 Vánoce na dálku',de:'🎄 Weihnachten aus der Ferne'};
+  const xl=function(f){ if(/cadeau/.test(f)) return 'fr'; if(/regalo/.test(f)) return 'es'; if(/Geschenk/.test(f)) return 'de'; if(/dárek/.test(f)) return 'cs'; return 'en'; };
+  const ideas=(a,x)=>a+' <a href="christmas.html">'+XM[xl(x[0])]+'</a> · '+x.map((t,i)=>G[i]+t+E).join(' · ');
   return {
   en:{
     nav_walls:"Tribute Walls",nav_songs:"Songs",nav_made:"Made for you",nav_work:"Our work",

@@ -498,6 +498,8 @@ const STYLES = [
    style:"celebratory Afro-pop / Afrobeat, warm percussion, danceable, joyful"},
   {label:{en:"Country & folk",fr:"Country & folk",es:"Country y folk",cs:"Country a folk",de:"Country & Folk"},
    style:"warm country folk, storytelling, acoustic guitar, sincere"},
+  {label:{en:"Christmas carol",fr:"Chant de Noël",es:"Villancico",cs:"Vánoční koleda",de:"Weihnachtslied"},
+   style:"joyful Christmas carol, sleigh bells, warm choir backing vocals, festive and heartfelt, gentle Afro-gospel feel"},
   {label:{en:"Smooth R&B",fr:"R&B tout en douceur",es:"R&B suave",cs:"Plynulé R&B",de:"Sanftes R&B"},
    style:"smooth modern R&B, soulful vocal, lush and tender"}
 ];
@@ -665,6 +667,16 @@ $("lang").onchange=e=>applyLang(e.target.value);
   if(!l){ const n=(navigator.language||"en").slice(0,2); if(I18N[n]) l=n; }
   if(!I18N[l]) l="en";
   $("lang").value=l; applyLang(l);
+})();
+
+/* Seasonal pre-fill: keepsake-preview.html?occasion=christmas (used by christmas.html). */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search), occ=(q.get("occasion")||"").toLowerCase();
+    if(occ!=="christmas") return;
+    var o=$("f_occasion"); if(o&&!o.value) o.value="Christmas";
+    var sel=$("f_style"); if(sel){ for(var i=0;i<STYLES.length;i++){ if(STYLES[i].label.en==="Christmas carol"){ sel.selectedIndex=i; break; } } }
+  }catch(e){}
 })();
 
 /* The Song of Your Night: pre-fill from a live wall's guest messages. */

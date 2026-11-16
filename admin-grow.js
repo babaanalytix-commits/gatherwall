@@ -2,6 +2,7 @@
 (function () {
   const SITE = 'https://gatherwall.com/';
   const PAGES = [
+    { id: 'xmas', path: 'christmas.html', name: '🎄 Christmas from far away (seasonal)' },
     { id: 'gift', path: 'gift-for-parents-in-nigeria.html', name: 'Gift for parents in Nigeria (from abroad)' },
     { id: '70th', path: 'nigerian-70th-birthday-ideas.html', name: '70th birthday ideas' },
     { id: 'yoruba', path: 'yoruba-birthday-song.html', name: 'Yoruba / Igbo birthday song' },
