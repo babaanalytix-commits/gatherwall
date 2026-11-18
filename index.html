@@ -621,7 +621,8 @@ body.kioskmode header.nav{display:none;}
 
 <section class="hc-show hc-r">
   <div class="hc-film">
-    <video src="tp/tom-priya-hero.mp4" poster="tp/tom-priya-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video id="heroVid" src="tp/tom-priya-hero.mp4" poster="tp/tom-priya-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <button type="button" id="heroSnd" onclick="var v=document.getElementById('heroVid');v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play();}this.textContent=v.muted?'🔇 Tap for sound':'🔊 Sound on';" style="position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 14px;font:600 13px Inter,sans-serif;cursor:pointer">🔇 Tap for sound</button>
     <a href="sample-keepsake.html" style="position:absolute;right:14px;top:14px;background:#fff;color:#1d1d1f;font:600 13px Inter,sans-serif;padding:7px 13px;border-radius:999px;text-decoration:none;z-index:2">See how it's delivered ›</a>
     <span id="hc-sample" style="position:absolute;left:14px;top:14px;background:rgba(0,0,0,.5);color:#fff;font:600 12px Inter,sans-serif;padding:4px 10px;border-radius:999px">Sample film</span>
     <div class="hc-cap"><b data-hc="film_t">Tom &amp; Priya</b><span data-hc="film_s">A GatherWall keepsake: their photos, their story, their song.</span></div>
