@@ -75,6 +75,7 @@ nav a:hover{background:#ece5d8}
 .lockbox{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;background:#2a2d33;color:#fff}
 .pv{background:#fff6e5;border:1px solid #f0dcb0;border-radius:14px;padding:12px 16px;font-size:14px;margin-bottom:18px}
 .pvpill{position:fixed;top:10px;left:10px;z-index:60;background:#20242b;color:#fff;font:700 11px Inter,sans-serif;letter-spacing:.1em;padding:5px 10px;border-radius:999px}
+#songList b,#songList span{filter:blur(5px);user-select:none}
 </style>
 </head>
 <body>
@@ -92,8 +93,8 @@ nav a:hover{background:#ece5d8}
 <header class="hero">
   <img src="md/md-portrait.jpg" alt="">
   <h1>Mira &amp; Domča</h1>
-  <p data-cs="Naše místo je tam, kde jsme spolu." data-en="Our place is wherever we are together."></p>
-  <div class="dates"><span data-cs="💍 Svatba · 29. srpna 2026" data-en="💍 Wedding · 29 August 2026"></span></div>
+  <p data-cs="Váš den, vaše slova, vaše písně." data-en="Your day, your words, your songs."></p>
+  <div class="dates"><span data-cs="💍 Svatební dárek" data-en="💍 Wedding gift"></span></div>
 </header>
 
 <nav>
@@ -105,7 +106,7 @@ nav a:hover{background:#ece5d8}
   <section class="card" id="film">
     <span class="num" data-cs="01 · Film" data-en="01 · The film"></span>
     <h2 data-cs="Váš den, jako film" data-en="Your day, as a film"></h2>
-    <p class="lead" data-cs="Sedm minut a čtyřicet šest vteřin: od ozdobených aut ráno přes obřad, rodinu, bílého koně a západ slunce až po první tanec, dort a prskavky. S vaší písní „Naše místo“ a texty na obrazovce." data-en="Seven minutes and forty-six seconds: from the decorated cars in the morning through the ceremony, the family, the white horse and the sunset, to the first dance, the cake and the sparklers. Set to your song “Naše místo”, with the lyrics on screen."></p>
+    <p class="lead" data-cs="Váš svatební den jako film, sestříhaný na vaši píseň, s textem na obrazovce. Ke zhlédnutí v televizi i v telefonu." data-en="Your wedding day as a film, cut to your song, with the lyrics on screen. Ready for the TV and for phones."></p>
     <div class="video" id="filmBox"></div>
     <div class="btns">
       <a class="btn solid" id="dlHD" target="_blank" rel="noopener"><span data-cs="⬇️ Stáhnout pro televizi" data-en="⬇️ Download for the TV"></span> <small>HD · 290 MB</small></a>
@@ -116,7 +117,7 @@ nav a:hover{background:#ece5d8}
   <section class="card" id="songs">
     <span class="num" data-cs="02 · Písně" data-en="02 · The songs"></span>
     <h2 data-cs="Vaše album" data-en="Your album"></h2>
-    <p class="lead" data-cs="Šest písní napsaných z vašeho příběhu: jak jste se potkali v Disco 1, Praha a Šumperk, Tobík, babička i slib, že nás nedostanou." data-en="Six songs written from your story: meeting at Disco 1, Prague and Šumperk, Tobík, grandma, and the promise that they won't get you."></p>
+    <p class="lead" data-cs="Písně napsané z vašeho příběhu: jak jste se poznali, místa a lidé, na kterých vám záleží, i velké chvíle vašeho života. Může v nich být cokoli, co chcete." data-en="Songs written from your story: how you met, the places and people that matter to you, and the big moments of your life. They can include anything you like."></p>
     <div id="songList"></div>
     <div class="btns">
       <a class="btn gold locked" data-cs="🎤 Zpívejte s textem" data-en="🎤 Sing along with the lyrics"></a>
@@ -146,7 +147,7 @@ nav a:hover{background:#ece5d8}
   <section class="card" id="all">
     <span class="num" data-cs="05 · Na památku" data-en="05 · Keep everything"></span>
     <h2 data-cs="Stáhněte si vše" data-en="Download it all"></h2>
-    <p class="lead" data-cs="Jedna složka se vším: film ve dvou velikostech, film od rodiny, všech šest písní a texty. Uložte si ji do počítače nebo telefonu, ať to máte navždy." data-en="One folder with everything: the film in two sizes, the family's film, all six songs and the lyrics. Save it to your computer or phone to keep forever."></p>
+    <p class="lead" data-cs="Jedna složka se vším: filmy, písně a texty. Uložte si ji do počítače nebo telefonu." data-en="One folder with everything: the films, the songs and the lyrics. Save it to your computer or phone."></p>
     <div class="btns"><a class="btn solid" id="dlAll" target="_blank" rel="noopener" data-cs="📁 Otevřít složku s dárkem" data-en="📁 Open the gift folder"></a></div>
   </section>
 </main>
@@ -165,7 +166,7 @@ nav a:hover{background:#ece5d8}
 
 <script>
 const DRIVE = { folder:'', hd:'', phone:'', thanks:'' };
-const SONGS=[['Naše místo','Česká soulová balada','Czech soul ballad','','01 Naše místo.mp3'],['A nás nedostanou','Soul · anglicky a česky','Soul · English & Czech','','02 A nás nedostanou.mp3'],['Disco 1','Hip-hop / R&B · dvojjazyčně','Hip-hop / R&B · bilingual','','03 Disco 1.mp3'],['Ty a já','Melodické R&B · dvojjazyčně','Melodic R&B · bilingual','','04 Ty a já.mp3'],['A nás nedostanou — Klub','Párty hymna','Party anthem','','05 A nás nedostanou – Klub.mp3'],['Děkujeme vám','Poděkování od rodiny','The family\'s thank-you','','06 Děkujeme vám.mp3']];
+const SONGS=[['Píseň 1 · Song 1','Vaše píseň','Your song','',''] ,['Píseň 2 · Song 2','Vaše píseň','Your song','',''] ,['Píseň 3 · Song 3','Vaše píseň','Your song','',''] ,['Píseň 4 · Song 4','Vaše píseň','Your song','',''] ,['Píseň 5 · Song 5','Vaše píseň','Your song','',''] ,['Píseň 6 · Song 6','Vaše píseň','Your song','',''] ];
 let L=(new URLSearchParams(location.search).get('lang')||(()=>{try{return localStorage.getItem('mdp_lang')}catch(e){return null}})()||'en'); if(L!=='cs') L='en';
 function renderSongs(){ document.getElementById('songList').innerHTML=SONGS.map((s,i)=>'<div class="song"><div class="n">'+String(i+1).padStart(2,'0')+'</div><div><b>'+s[0]+'</b><span>'+(L==='en'?s[2]:s[1])+'</span></div><div><a class="mini" href="mirodomca-song.html?s='+(i+1)+'">🎤</a> &nbsp;<a class="mini" href="'+s[3]+'" download="'+s[4]+'">⬇️ MP3</a></div><audio controls preload="none" src="'+s[3]+'"></audio></div>').join(''); }
 function applyLang(l){ L=l; try{localStorage.setItem('mdp_lang',l)}catch(e){} document.documentElement.lang=l;
