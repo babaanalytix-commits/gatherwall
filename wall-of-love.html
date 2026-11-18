@@ -109,8 +109,8 @@
     <div class="hint" data-i="formHint">A sentence or two is perfect. Your note appears once we've had a quick look.</div>
     <div class="frow">
       <input id="who" maxlength="40" data-ph="phName" placeholder="Your name (or how to sign it) — optional">
-      <textarea id="msg" maxlength="160" data-ph="phMsg" placeholder="What did GatherWall or Ode mean to you?"></textarea>
-      <div class="counter"><span id="cc">0</span>/160</div>
+      <textarea id="msg" maxlength="400" data-ph="phMsg" placeholder="What did GatherWall or Ode mean to you?"></textarea>
+      <div class="counter"><span id="cc">0</span>/400</div>
       <button class="btn" id="send" data-i="send">Send my message</button>
     </div>
     <div class="ok" id="ok" style="display:none"></div>
@@ -209,7 +209,7 @@ $("send").addEventListener("click",async()=>{
   try{ const last=+(localStorage.getItem("gw_love_msg")||0); if(Date.now()-last<25000){ err.textContent=t().errRate; err.style.display="block"; return; } }catch(e){}
   const btn=$("send"); btn.disabled=true; btn.textContent=t().sending;
   try{
-    const r=await fetch(FIREBASE_DB+"/love/messages.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({msg:msg.slice(0,160),from:from.slice(0,40),approved:false,ts:Date.now()})});
+    const r=await fetch(FIREBASE_DB+"/love/messages.json",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({msg:msg.slice(0,400),from:from.slice(0,40),approved:false,ts:Date.now()})});
     if(!r.ok) throw new Error("save failed");
     try{ localStorage.setItem("gw_love_msg",Date.now()); }catch(e){}
     $("msg").value=""; $("who").value=""; $("cc").textContent="0";
