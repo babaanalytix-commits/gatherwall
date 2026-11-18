@@ -697,6 +697,38 @@ function renderReal(){
 document.addEventListener('DOMContentLoaded',renderReal);
 </script>
 
+<!-- What they say: approved Wall of Love messages, newest first. Approving a message in moderation puts it here automatically. -->
+<section class="hc-sec" id="hc-say" style="display:none;padding-top:20px">
+  <h2 class="hc-h2" id="say_h2">What they say.</h2>
+  <div class="say-wrap"><div class="say-track" id="say_track"></div></div>
+  <p style="text-align:center;margin-top:12px"><a href="wall-of-love.html" id="say_more" style="color:#2E7D5B;font-weight:600;text-decoration:none">Read the Wall of Love ›</a></p>
+</section>
+<style>
+#screen-door .say-wrap{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+#screen-door .say-track{display:flex;gap:16px;width:max-content;padding:6px 0}
+#screen-door .say-track.run{animation:sayrun 60s linear infinite}#screen-door .say-wrap:hover .say-track{animation-play-state:paused}
+@keyframes sayrun{to{transform:translateX(-50%)}}
+#screen-door .say-c{width:330px;flex:none;background:#fff;border:1px solid #ececf0;border-radius:18px;padding:18px 20px;text-align:left}
+#screen-door .say-c p{font-family:Fraunces,Georgia,serif;font-size:16px;line-height:1.5;color:#2c2c2e;margin:0 0 10px}
+#screen-door .say-c b{font-size:13px;color:#9a7740}
+@media(max-width:700px){#screen-door .say-c{width:270px}}
+</style>
+<script>
+(function(){
+  var T={h:{en:'What they say.',fr:'Ce qu\'ils en disent.',es:'Lo que dicen.',de:'Was sie sagen.',cs:'Co říkají.'},m:{en:'Read the Wall of Love ›',fr:'Lire le Mur d\'amour ›',es:'Lee el Muro del Amor ›',de:'Zur Wall of Love ›',cs:'Přečíst Wall of Love ›'}};
+  function lang(){ return (typeof guestLang!=='undefined'&&guestLang)||'en'; }
+  function esc(x){ return String(x||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  window.renderSay=function(){ var l=lang(); var h=document.getElementById('say_h2'); if(h) h.textContent=T.h[l]||T.h.en; var m=document.getElementById('say_more'); if(m) m.textContent=T.m[l]||T.m.en; };
+  fetch('https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app/love/messages.json').then(function(r){return r.json();}).then(function(d){
+    var list=Object.keys(d||{}).map(function(k){return d[k];}).filter(function(m){return m&&m.approved===true&&m.msg;}).sort(function(a,b){return (b.ts||0)-(a.ts||0);}).slice(0,10);
+    if(!list.length) return;
+    var html=list.map(function(m){ return '<div class="say-c"><p>“'+esc(m.msg)+'”</p><b>— '+esc(m.from||'A GatherWall family')+'</b></div>'; }).join('');
+    var tr=document.getElementById('say_track'); tr.innerHTML= list.length>1 ? html+html+html+html : html; if(list.length>1) tr.classList.add('run'); else tr.style.margin='0 auto';
+    document.getElementById('hc-say').style.display=''; renderSay();
+  }).catch(function(){});
+})();
+</script>
+
 <section class="hc-sec" id="hc-products">
   <h2 class="hc-h2 hc-r" data-hc="p_h2">Three ways to say it.</h2>
   <p class="hc-lede hc-r" data-hc="p_lede">Do it yourself in minutes, or let us make something unforgettable for you.</p>
@@ -1971,7 +2003,7 @@ const DOOR={
   de:{h1:"Hören Sie den Text Ihres Liedes — kostenlos.",tag:"Wir verwandeln ein ganzes Leben in ein originales Erinnerungslied — geschrieben und produziert nur für einen geliebten Menschen. Sehen Sie den vollständigen Text kostenlos und zahlen Sie nur, wenn er Ihnen eine Gänsehaut bereitet.",oc:"✨ Ihren Text ansehen — kostenlos →",osub:"Keine Karte · etwa 60 Sekunden · ab 39 $",live:"🎥 Eine lebendige Foto- & Nachrichtenwand für Ihr ganzes Event →",mem:"🕊️ Eine bleibende Gedenkseite für einen verstorbenen Menschen →",mw:"🖼️ Eine Erinnerungswand, die Angehörige mit der Zeit füllen — enthüllt am großen Tag →",expk:"Sehen Sie, was sie öffnen werden",expt:"Fühlen Sie, was sie fühlen werden 💛",expb:"Öffnen Sie ein echtes Erinnerungsstück und sehen Sie, wie ein ganzes Leben aufsteigt — ihre Fotos, Moment für Moment, im Takt eines Liedes, das nur für sie geschrieben wurde.",expc:"🎁 Das Erlebnis öffnen →",remind:"Nicht für heute? Tragen Sie sich für eine Erinnerung vor Ihrem Anlass ein — und frühe Angebote.",remindc:"✉️ Erinnere mich →",hear:"🎧 Ein echtes Erinnerungsstück hören",wol:"💛 Die Wand der Liebe lesen",capH:"Noch nicht bereit? Behalte die Idee im Herzen.",capS:"Erhalte eine kostenlose Beispielstrophe für einen lieben Menschen — und erfahre als Erste(r) von neuen Erinnerungsstücken."}
 };
 function buildDoorLang(){ var sel=document.getElementById('doorLang'); if(!sel)return; sel.innerHTML=''; LANGS.forEach(function(p){ var o=document.createElement('option'); o.value=p[0]; o.textContent=p[0]==='cs'?'CS':p[0].toUpperCase(); if(p[0]===guestLang)o.selected=true; sel.appendChild(o); }); sel.onchange=function(){ setLang(sel.value); }; }
-function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); if(window.renderReal) renderReal(); }
+function applyDoorLang(){ const t=DOOR[guestLang]||DOOR.en; const S=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;}; S('d_h1',t.h1);S('d_tag',t.tag);S('d_ode_c',t.oc);S('d_ode_sub',t.osub);S('d_live',t.live);S('d_mw',t.mw);S('d_mem',t.mem);S('d_exp_k',t.expk);S('d_exp_t',t.expt);S('d_exp_b',t.expb);S('d_exp_c',t.expc);S('d_remind',t.remind);S('d_remindc',t.remindc);S('d_hear',t.hear);S('d_wol',t.wol);S('d_cap_h',t.capH);S('d_cap_sub',t.capS); applyHC(); if(window.renderReal) renderReal(); if(window.renderSay) renderSay(); }
 /* ===== New premium homepage (#screen-door .hc-*) i18n: data-hc = textContent, data-hch = innerHTML (links kept) ===== */
 const HC=(function(){
   const M='<a href="#memorial" onclick="location.hash=\'memorial\';return false;">', L='<a href="#live" onclick="location.hash=\'live\';return false;">', E='</a>';
