@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sing along · Tom & Priya (sample) · GatherWall</title>
+<meta property="og:title" content="Mira & Domča 🎵 zpívejte s námi">
+<meta property="og:image" content="https://gatherwall.com/md/md-card.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F3EC;--ink:#20242b;--muted:#7b7568;--gold:#C2A058;--deep:#1c2027;--line:#e7e0d4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+.top{position:sticky;top:0;z-index:5;background:var(--deep);color:#fff;padding:14px 16px 14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.in{max-width:640px;margin:0 auto}
+.hd{display:flex;gap:12px;align-items:center}
+.hd img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:3px solid var(--gold)}
+.hd h1{font-family:Fraunces,serif;font-weight:600;font-size:21px;line-height:1.15}
+.hd p{font-size:12.5px;color:#d9cfb8}
+.hd .lg{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:4px 10px;font:600 12px Inter,sans-serif;cursor:pointer}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-top:12px;padding-bottom:2px}
+.tabs button{flex:none;border:1px solid rgba(255,255,255,.3);background:transparent;color:#e9e3d6;border-radius:999px;padding:6px 12px;font:500 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--gold);color:#1b1b1b;border-color:var(--gold)}
+audio{width:100%;margin-top:10px}
+.wrap{max-width:640px;margin:0 auto;padding:20px 18px 90px}
+.meta{color:var(--muted);font-size:13.5px;margin-bottom:6px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
+.btn{display:inline-block;text-decoration:none;border:1.5px solid var(--deep);color:var(--deep);border-radius:999px;padding:7px 14px;font-weight:600;font-size:13.5px;background:#fff}
+.st{margin:0 0 16px;padding:6px 0}
+.ln{font-size:19px;padding:4px 10px;border-radius:8px;transition:background .25s,color .25s;cursor:pointer}
+.ln.par{font-style:italic;color:var(--muted)}
+.ln.on{background:#fff;color:#000;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.07);border-left:4px solid var(--gold)}
+.ln.past{color:#9a9488}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--muted);margin-bottom:16px}
+.foot{text-align:center;font-size:12.5px;color:var(--muted);margin-top:30px}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div class="hd"><img src="img/wedding-white-nigeria.jpg" alt=""><div><h1 id="ttl"></h1><p id="sub"></p></div><button class="lg" id="lg" style="display:none"></button></div>
+  <div class="tabs" id="tabs"></div>
+  <audio id="a" controls preload="metadata"></audio>
+</div></div>
+<div class="wrap">
+  <div class="meta" id="meta"></div>
+  <div class="btns"><a class="btn" id="dl">⬇️ MP3</a><a class="btn" id="pdf" style="display:none"></a><a class="btn" href="sample-keepsake.html" id="back">← Dárek</a></div>
+  <div class="note" id="nt"></div>
+  <div id="ly"></div>
+  <p class="foot">S láskou vytvořilo <a href="index.html" style="color:inherit">GatherWall</a></p>
+</div>
+<script>
+const SONGS=[{"n": "The Night We Became Us", "cz": "Soulful pop", "en": "Soulful pop \u00b7 made from guests' messages", "src": "the-night-we-became-us.mp3", "dl": "The Night We Became Us.mp3", "st": [["You walked in and the whole room went still", "rain on our first date \u2014 and it's raining still", "Best friends first, and forever after", "a home we'll fill with all this laughter", "And Aunt Mary always knew", "some hearts were only ever meant for you"], ["This is the night we became us", "two families now one home, one love", "Still dancing in the kitchen, fifty years from now", "they were always meant to be, somehow"], ["You make the ordinary days feel like a celebration", "the whole gang's right behind us for the long road of elation", "Mum said the room went quiet when she walked through the door", "and I knew right then I'd love her more and more"], ["This is the night we became us", "two families now one home, one love", "Still dancing in the kitchen, fifty years from now", "they were always meant to be, somehow"], ["From everyone who loves us \u2014 every word, every line \u2014", "became this song tonight: your voices, yours and mine"], ["Here's to the adventure", "here's to us \u2014 this is the night we became us", "The night we became us"]], "t": [9.0, 13.5, 18.6, 24.1, 29.2, 34.0, 39.0, 44.9, 49.5, 55.5, 60.5, 68.5, 73.5, 78.5, 84.5, 89.5, 94.5, 100.5, 104.5, 110.5, 116.5, 121.5, 129.5]}];
+const T={cs:{sub:'Tom & Priya · sample',sync:'Press play and the words follow the song. Tap any line to jump there.',stat:'',pdf:'',back:'← Back to the keepsake',lg:''},en:{sub:'Tom & Priya · sample',sync:'Press play and the words follow the song. Tap any line to jump there.',stat:'',pdf:'',back:'← Back to the keepsake',lg:''}};
+let L='en';
+let SI=Math.max(0,Math.min(SONGS.length-1,(+new URLSearchParams(location.search).get('s')||1)-1));
+const a=document.getElementById('a'); let lines=[],cur=-1;
+function ui(){ const t=T[L]; document.getElementById('sub').textContent=t.sub; document.getElementById('pdf').textContent=t.pdf; document.getElementById('back').textContent=t.back; document.getElementById('lg').textContent=t.lg; document.documentElement.lang=L; show(SI,false); }
+function show(i,play){
+  SI=i; const s=SONGS[i]; document.getElementById('ttl').textContent=s.n; document.getElementById('meta').textContent=(L==='en'?s.en:s.cz);
+  const dl=document.getElementById('dl'); dl.href=s.src; dl.setAttribute('download',s.dl);
+  document.getElementById('nt').textContent=s.t?T[L].sync:T[L].stat;
+  if(a.getAttribute('src')!==s.src){ a.src=s.src; }
+  let k=0; document.getElementById('ly').innerHTML=s.st.map(st=>'<div class="st">'+st.map(l=>'<div class="ln'+(l.startsWith('(')?' par':'')+'" data-k="'+(k++)+'">'+l.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>').join('')+'</div>').join('');
+  lines=[...document.querySelectorAll('.ln')]; cur=-1;
+  document.querySelectorAll('#tabs button').forEach((b,j)=>b.classList.toggle('on',j===i));
+  if(play) a.play().catch(()=>{});
+}
+document.getElementById('tabs').innerHTML=SONGS.map((s,i)=>'<button onclick="show('+i+',true)">'+(i+1)+' · '+s.n+'</button>').join('');
+document.getElementById('lg').onclick=()=>{ L=L==='cs'?'en':'cs'; try{localStorage.setItem('md_lang',L)}catch(e){} ui(); };
+document.getElementById('ly').addEventListener('click',e=>{ const el=e.target.closest('.ln'); const t=SONGS[SI].t; if(el&&t){ a.currentTime=t[+el.dataset.k]; a.play(); } });
+a.addEventListener('timeupdate',()=>{ const t=SONGS[SI].t; if(!t) return; let i=-1; for(let k=0;k<t.length;k++) if(a.currentTime>=t[k]-0.15) i=k;
+  if(i!==cur){ cur=i; lines.forEach((el,k)=>{ el.classList.toggle('on',k===i); el.classList.toggle('past',k<i); });
+    if(i>=0){ const el=lines[i]; const y=el.getBoundingClientRect().top+scrollY-document.querySelector('.top').offsetHeight-120; scrollTo({top:y,behavior:'smooth'}); } } });
+a.addEventListener('ended',()=>{ if(SI<SONGS.length-1) show(SI+1,true); });
+ui();
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
+<script>/* Keepsake pages are a sales channel: tag first-touch source so sales from guests show up as from=keepsake. Never overwrite an existing (unexpired) source. */
+(function(){try{var s=JSON.parse(localStorage.getItem('gw_src')||'null');if(s&&Date.now()-s.t<30*864e5)return;localStorage.setItem('gw_src',JSON.stringify({from:'keepsake',c:'sample',t:Date.now()}));}catch(e){}})();</script>
+</body>
+</html>
