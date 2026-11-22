@@ -16,12 +16,13 @@ header{background:#fff;border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:12px;min-height:66px}
 header img{height:40px;max-width:180px;object-fit:contain}
 header b{font-family:Fraunces,serif;font-size:20px}
-header a.cta{margin-left:auto;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 16px;font-size:14px}
+header a.cta{background:var(--brand);color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 16px;font-size:14px}
 .hero{background:var(--brand);color:#fff;padding:56px 0 50px}
 .hero h1{font-size:clamp(30px,5vw,48px);line-height:1.1;max-width:760px}
 .hero p{font-size:18px;opacity:.9;margin-top:12px;max-width:640px;line-height:1.5}
 .hero .ac{display:inline-block;margin-top:18px;width:60px;height:4px;border-radius:4px;background:var(--accent)}
 section{padding:42px 0}
+.lb{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font:600 12.5px Inter,sans-serif;cursor:pointer}.lb.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .how div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
 .how b{display:block;font-family:Fraunces,serif;font-size:20px;margin:6px 0 4px}
@@ -47,7 +48,7 @@ footer a{color:var(--muted)}
 <body>
 <div id="nf" style="display:none"><h1>Page not found</h1><p style="margin:12px 0 18px;color:var(--muted)">This page doesn't exist or has moved.</p><a href="/">Go to GatherWall ›</a></div>
 <div id="pp" style="display:none">
-  <header><div class="wrap"><span id="hLogo"></span><b id="hName"></b><a class="cta" href="#ask" id="hCta"></a></div></header>
+  <header><div class="wrap"><span id="hLogo"></span><b id="hName"></b><span id="lsw" style="margin-left:auto;display:flex;gap:6px"></span><a class="cta" style="margin-left:10px" href="#ask" id="hCta"></a></div></header>
   <div class="hero"><div class="wrap"><h1 id="hTitle"></h1><p id="hTag"></p><span class="ac"></span></div></div>
   <section><div class="wrap"><h2 id="tHow" style="font-size:28px;margin-bottom:16px"></h2><div class="how" id="how"></div></div></section>
   <section style="padding-top:0"><div class="wrap"><h2 id="tOff" style="font-size:28px"></h2><div class="offers" id="offers"></div></div></section>
@@ -69,6 +70,7 @@ footer a{color:var(--muted)}
 const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz';
 const T={
  en:{cta:'Ask about your event',title:n=>'Memories your guests create, kept forever',how:'How it works',h:[['📱','Guests scan a QR code','No app. Messages, photos and memories from any phone, even from family abroad.'],['🖥️','It appears live','Everything shows on the big screen as it arrives, approved by us first.'],['🎁','You keep it all','After the event you receive every message and photo in one beautiful page.']],off:'What we offer',about:'About us',ask:'Ask about your event',askSub:'Tell us a little about it and we will get back to you.',name:'Your name',email:'Email',phone:'Phone (optional)',date:'Date',guests:'Guests',what:'What are you interested in?',note:'Anything else?',send:'Send request',ok:'Thank you! We will be in touch soon.',pow:'Powered by',other:'Something else'},
+ de:{cta:'Fragen Sie nach Ihrem Event',title:n=>'Erinnerungen, die Ihre Gäste schaffen, für immer bewahrt',how:'So funktioniert es',h:[['📱','Gäste scannen einen QR-Code','Keine App. Nachrichten, Fotos und Erinnerungen von jedem Handy, auch von Familie im Ausland.'],['🖥️','Alles erscheint live','Alles erscheint auf der großen Leinwand, sobald es ankommt, nach unserer Freigabe.'],['🎁','Sie behalten alles','Nach dem Event erhalten Sie alle Nachrichten und Fotos auf einer schönen Seite.']],off:'Unser Angebot',about:'Über uns',ask:'Fragen Sie nach Ihrem Event',askSub:'Erzählen Sie uns kurz davon, wir melden uns bei Ihnen.',name:'Ihr Name',email:'E-Mail',phone:'Telefon (optional)',date:'Datum',guests:'Gäste',what:'Wofür interessieren Sie sich?',note:'Noch etwas?',send:'Anfrage senden',ok:'Danke! Wir melden uns bald.',pow:'Bereitgestellt von',other:'Etwas anderes'},
  cs:{cta:'Zeptejte se na svou akci',title:n=>'Vzpomínky, které vytvoří vaši hosté, navždy uložené',how:'Jak to funguje',h:[['📱','Hosté naskenují QR kód','Bez aplikace. Vzkazy, fotky a vzpomínky z jakéhokoli telefonu, i od rodiny v zahraničí.'],['🖥️','Vše se objeví živě','Vše se ukazuje na velké obrazovce, jak to přichází, a my to nejdřív schválíme.'],['🎁','Vše si necháte','Po akci dostanete všechny vzkazy a fotky na jedné krásné stránce.']],off:'Co nabízíme',about:'O nás',ask:'Zeptejte se na svou akci',askSub:'Napište nám pár slov a ozveme se vám.',name:'Vaše jméno',email:'E-mail',phone:'Telefon (nepovinné)',date:'Datum',guests:'Počet hostů',what:'O co máte zájem?',note:'Ještě něco?',send:'Odeslat poptávku',ok:'Děkujeme! Brzy se vám ozveme.',pow:'Běží na',other:'Něco jiného'}
 };
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -78,7 +80,13 @@ if(!m){ document.getElementById('nf').style.display=''; }
 else { SLUG=m[1];
   fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op:'pub.get',slug:SLUG})}).then(r=>r.json()).then(r=>{
     if(!r.ok){ document.getElementById('nf').style.display=''; return; }
-    const p=r.p; t=T[p.lang]||T.en; document.documentElement.lang=p.lang||'en';
+    P=r.p; let q='';try{q=new URLSearchParams(location.search).get('lang')||localStorage.getItem('gw_plang')||'';}catch(e){} paint(T[q]?q:(P.lang||'en'));
+  }).catch(()=>{ document.getElementById('nf').style.display=''; });
+}
+let P=null;
+function paint(L){ const base=P; const tr=(P.tr&&P.tr[L]&&L!==P.lang)?P.tr[L]:null; const p=Object.assign({},base,tr?{tagline:tr.tagline||base.tagline,about:tr.about||base.about,offers:(tr.offers&&tr.offers.length)?tr.offers:base.offers}:{});
+    t=T[L]||T.en; document.documentElement.lang=L;
+    document.getElementById('lsw').innerHTML=Object.keys(T).map(k=>'<button class="lb'+(k===L?' on':'')+'" onclick="try{localStorage.setItem(\'gw_plang\',\''+k+'\')}catch(e){};paint(\''+k+'\')">'+k.toUpperCase()+'</button>').join('');
     document.documentElement.style.setProperty('--brand',p.color||'#2E7D5B'); document.documentElement.style.setProperty('--accent',p.accent||'#C9A54C');
     document.title=p.name+' · '+(t.title());
     const $=id=>document.getElementById(id);
@@ -94,7 +102,6 @@ else { SLUG=m[1];
     $('bSend').textContent=t.send; $('fPow').textContent=t.pow;
     $('fContact').innerHTML=esc(p.name)+(p.phone?' · '+esc(p.phone):'')+(p.website?' · <a href="'+esc(p.website)+'" target="_blank" rel="noopener">'+esc(p.website.replace(/^https?:\/\//,''))+'</a>':'');
     $('pp').style.display='';
-  }).catch(()=>{ document.getElementById('nf').style.display=''; });
 }
 function send(e){ e.preventDefault(); const f=e.target, b=document.getElementById('bSend'); b.disabled=true;
   const d={op:'pub.request',slug:SLUG}; new FormData(f).forEach((v,k)=>d[k]=v);

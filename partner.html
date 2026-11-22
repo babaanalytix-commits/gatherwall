@@ -91,6 +91,14 @@ textarea{min-height:90px;resize:vertical}
       <div id="offers"></div>
       <button class="btn g s" style="margin-top:12px" onclick="addOffer()">+ Add an offer</button>
     </div>
+    <div class="card">
+      <h2 style="font-size:22px">Other languages</h2>
+      <p class="muted small">Your page has a language switch (EN · CS · DE). Add your own wording for other languages; anything left empty shows in your main language.</p>
+      <label>Language</label><select id="trLang" onchange="paintTr()"><option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option></select>
+      <label>One line about you</label><input id="trTag" maxlength="140" oninput="trSet('tagline',this.value)">
+      <label>About</label><textarea id="trAbout" maxlength="900" oninput="trSet('about',this.value)"></textarea>
+      <div id="trOffers"></div>
+    </div>
     <div class="row" style="align-items:center"><div style="flex:0 0 auto"><button class="btn" id="saveBrand" onclick="saveBrand()">Save brand &amp; page</button></div><div><a id="viewPage" target="_blank" class="small">View my page ›</a></div></div>
   </section>
 </div>
@@ -98,7 +106,7 @@ textarea{min-height:90px;resize:vertical}
 <div class="modal" id="newM"><div class="box">
   <h2 style="font-size:24px">New event</h2>
   <p class="muted small" id="freeLine"></p>
-  <label>Event name (shown big on the wall)</label><input id="nName" placeholder="e.g. Anna &amp; Tom · Grandma Jo, 1938–2026 · Perk Christmas party">
+  <label>Event name (shown big on the wall)</label><input id="nName" placeholder="e.g. Anna &amp; Tom · Grandma Jo, 1938–2026 · Company Christmas party">
   <div class="row"><div><label>Type</label><select id="nKind"><option value="wedding">Wedding</option><option value="celebration">Birthday or celebration</option><option value="memorial">Memorial or funeral</option><option value="corporate">Corporate or conference</option><option value="community">Community memories</option><option value="feedback">Private guest feedback</option></select></div><div><label>Date</label><input type="date" id="nDate"></div></div>
   <label>"Hosted by" line (optional)</label><input id="nHost" placeholder="e.g. The Novák family">
   <div class="row"><div><label>Customer name (optional)</label><input id="nCust"></div><div><label>Customer email (optional)</label><input id="nCustE" type="email"></div></div>
@@ -145,7 +153,7 @@ function load(){
 }
 function render(){
   document.documentElement.style.setProperty('--brand',P.color||'#2E7D5B'); document.documentElement.style.setProperty('--accent',P.accent||'#C9A54C');
-  $('brand').innerHTML=(P.logo?'<img src="'+esc(P.logo)+'" alt="">':'')+'<span>'+esc(P.name)+'</span>';
+  $('brand').innerHTML=P.logo?'<img src="'+esc(P.logo)+'" alt="'+esc(P.name)+'">':'<span>'+esc(P.name)+'</span>';
   $('founding').style.display=P.founding?'':'none';
   $('pageLine').innerHTML='Your customer page: <a href="'+esc(P.page)+'" target="_blank">'+esc(P.page.replace('https://',''))+'</a>';
   $('viewPage').href=P.page;
@@ -160,7 +168,7 @@ function render(){
     :'<div class="card empty">No requests yet. Share your page link on your website, social media and WhatsApp.</div>';
   $('bName').value=P.name||''; $('bWeb').value=P.website||''; $('bColor').value=P.color||'#2E7D5B'; $('bAccent').value=P.accent||'#C9A54C'; $('bCity').value=P.city||''; $('bPhone').value=P.phone||''; $('bTag').value=P.tagline||''; $('bAbout').value=P.about||''; $('bLang').value=P.lang||'en';
   if(P.logo){ $('bLogoPrev').src=P.logo; $('bLogoPrev').style.display=''; }
-  OFF=(P.offers||[]).slice(); if(!OFF.length) OFF=defaultOffers(P.type,P.lang); paintOffers();
+  OFF=(P.offers||[]).slice(); if(!OFF.length) OFF=defaultOffers(P.type,P.lang); paintOffers(); TR=JSON.parse(JSON.stringify(P.tr||{})); $('trLang').value=(P.lang==='en'?'cs':'en'); paintTr();
 }
 function defaultOffers(t,lang){
   const venue=t==='venue'||t==='hotel';
@@ -173,11 +181,17 @@ function defaultOffers(t,lang){
 }
 let OFF=[];
 function paintOffers(){ $('offers').innerHTML=OFF.map((o,i)=>'<div class="offer"><div class="row"><div><label>Title</label><input value="'+esc(o.t)+'" oninput="OFF['+i+'].t=this.value"></div><div style="max-width:200px"><label>Your price (optional)</label><input value="'+esc(o.price)+'" oninput="OFF['+i+'].price=this.value" placeholder="e.g. 3 900 Kč"></div></div><label>Description</label><textarea oninput="OFF['+i+'].d=this.value">'+esc(o.d)+'</textarea><button class="btn g s" style="margin-top:8px" onclick="OFF.splice('+i+',1);paintOffers()">Remove</button></div>').join(''); }
+let TR={};
+function trCur(){ const L=$('trLang').value; TR[L]=TR[L]||{tagline:'',about:'',offers:[]}; return TR[L]; }
+function trSet(k,v){ trCur()[k]=v; }
+function paintTr(){ const x=trCur(); $('trTag').value=x.tagline||''; $('trAbout').value=x.about||'';
+  $('trOffers').innerHTML=OFF.map((o,i)=>{ const q=(x.offers&&x.offers[i])||{}; return '<div class="offer"><p class="small muted">Offer '+(i+1)+': '+esc(o.t)+'</p><label>Title</label><input value="'+esc(q.t||'')+'" oninput="trOff('+i+',\'t\',this.value)"><label>Description</label><textarea oninput="trOff('+i+',\'d\',this.value)">'+esc(q.d||'')+'</textarea></div>'; }).join(''); }
+function trOff(i,k,v){ const x=trCur(); x.offers=x.offers||[]; while(x.offers.length<=i) x.offers.push({t:'',d:'',price:''}); x.offers[i][k]=v; if(k==='t'&&OFF[i]) x.offers[i].price=OFF[i].price||''; }
 function addOffer(){ if(OFF.length>=8) return toast('Up to 8 offers'); OFF.push({t:'',d:'',price:''}); paintOffers(); }
 $('bLogo').addEventListener('change',function(){ const f=this.files[0]; if(!f) return; if(f.size>2400000) return toast('Please use a logo under 2.4 MB');
   toast('Uploading logo…'); fetch(MEDIA+'?scope=logo&ev='+PID+'&key='+encodeURIComponent(KEY),{method:'POST',headers:{'Content-Type':f.type},body:f}).then(r=>r.json()).then(j=>{ if(!j.ok) return toast(j.error||'Upload failed'); P.logo=j.url; $('bLogoPrev').src=j.url; $('bLogoPrev').style.display=''; toast('Logo uploaded. Press Save to apply it.'); }).catch(()=>toast('Upload failed')); });
 function saveBrand(){ const b=$('saveBrand'); b.disabled=true;
-  call('brand.save',{fields:{name:$('bName').value,website:$('bWeb').value,color:$('bColor').value,accent:$('bAccent').value,city:$('bCity').value,phone:$('bPhone').value,tagline:$('bTag').value,about:$('bAbout').value,lang:$('bLang').value,logo:P.logo||'',offers:OFF}}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not save'); toast('Saved. Your page and events are updated.'); load(); }); }
+  call('brand.save',{fields:{name:$('bName').value,website:$('bWeb').value,color:$('bColor').value,accent:$('bAccent').value,city:$('bCity').value,phone:$('bPhone').value,tagline:$('bTag').value,about:$('bAbout').value,lang:$('bLang').value,logo:P.logo||'',offers:OFF,tr:TR}}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not save'); toast('Saved. Your page and events are updated.'); load(); }); }
 function openNew(req){ ['nName','nDate','nHost','nCust','nCustE','nReq'].forEach(i=>$(i).value=''); $('nMod').checked=true;
   $('freeLine').textContent=P.founding&&!P.freeUsed?'Your first event is free as a Founding Partner.':'Pilot: events are recorded on your account; we agree billing with you separately.';
   if(req){ $('nName').value=req.name; $('nCust').value=req.name; $('nCustE').value=req.email; $('nDate').value=/^\d{4}-\d\d-\d\d$/.test(req.date)?req.date:''; $('nReq').value=req.id; }

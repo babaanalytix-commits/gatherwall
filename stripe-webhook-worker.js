@@ -242,7 +242,7 @@ async function handleMedia(request, env) {
 // partnerpub/<slug>       public branding for the hosted page (served through this worker)
 // usage/<pid>/<ev>        one line per activated event (the usage ledger)
 const PTYPES = ['dj', 'mc', 'venue', 'hotel', 'planner', 'photographer', 'memorial', 'other'];
-const PUB_FIELDS = ['name', 'type', 'logo', 'color', 'accent', 'tagline', 'about', 'website', 'phone', 'city', 'offers', 'lang'];
+const PUB_FIELDS = ['name', 'type', 'logo', 'color', 'accent', 'tagline', 'about', 'website', 'phone', 'city', 'offers', 'lang', 'tr'];
 function pubOf(p) { const o = { slug: p.slug }; PUB_FIELDS.forEach(k => { if (p[k] != null && p[k] !== '') o[k] = p[k]; }); return o; }
 function brandOf(p) { return { name: p.name || '', logo: p.logo || '', color: p.color || '', website: p.website || '', slug: p.slug || '' }; }
 function dashLink(pid, key) { return SITE_URL + 'partner.html#pid=' + pid + '&key=' + key; }
@@ -353,6 +353,7 @@ async function handleBiz(request, env) {
     if (f.accent != null) up.accent = okColor(f.accent) || '#C9A54C';
     if (f.logo != null) up.logo = f.logo === '' ? '' : (okMediaUrl(f.logo) ? f.logo : p.logo || '');
     if (f.lang != null) up.lang = f.lang === 'cs' ? 'cs' : 'en';
+    if (f.tr && typeof f.tr === 'object') { up.tr = {}; ['en', 'cs', 'de', 'fr', 'es'].forEach(L => { const x = f.tr[L]; if (!x || typeof x !== 'object') return; const o = { tagline: clip(x.tagline, 140), about: clip(x.about, 900) }; if (Array.isArray(x.offers)) o.offers = x.offers.slice(0, 8).map(q => ({ t: clip(q && q.t, 80), d: clip(q && q.d, 300), price: clip(q && q.price, 40) })); if (o.tagline || o.about || (o.offers && o.offers.some(q => q.t))) up.tr[L] = o; }); }
     if (Array.isArray(f.offers)) up.offers = f.offers.slice(0, 8).map(o => ({ t: clip(o && o.t, 80), d: clip(o && o.d, 300), price: clip(o && o.price, 40) })).filter(o => o.t);
     await patchFirebase('partners/' + pid, up, AUTH);
     const np = Object.assign({}, p, up);
