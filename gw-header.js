@@ -27,7 +27,7 @@
     '<a href="/index.html#family"' + on(['digital-guestbook.html','wedding-wall.html','live.html','memorial-page.html','wall-of-love.html']) + '>Tribute Walls</a>' +
     '<a href="/keepsake-preview.html"' + on(['keepsake-preview.html','keepsake-song.html','birthday-song.html','song-of-your-night.html','free-song-lyrics-preview.html','affordable-personalised-song.html','keepsake-song-vs-songfinch.html','create-song.html']) + '>Songs</a>' +
     '<a href="/celebration.html"' + on(['celebration.html','wedding-keepsake.html','story-form.html']) + '>Made for you</a>' +
-    '<a href="/examples.html"' + on(['examples.html','samples.html','anthem.html','ode.html']) + '>Our work</a>';
+    '<a href="/examples.html"' + on(['examples.html','samples.html','anthem.html','ode.html']) + '>Our work</a><a href="/business.html"' + on(['business.html','pro-firmy.html','partner.html']) + '>For business</a>';
   var h = document.createElement('header'); h.id = 'gwh';
   h.innerHTML = '<div class="in"><a class="lg" href="/index.html"><i></i>GatherWall</a>' +
     '<button class="mb" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle(\'open\')">Menu ☰</button>' +

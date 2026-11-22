@@ -156,10 +156,13 @@ function render(){
     :'<div class="card empty">No requests yet. Share your page link on your website, social media and WhatsApp.</div>';
   $('bName').value=P.name||''; $('bWeb').value=P.website||''; $('bColor').value=P.color||'#2E7D5B'; $('bAccent').value=P.accent||'#C9A54C'; $('bCity').value=P.city||''; $('bPhone').value=P.phone||''; $('bTag').value=P.tagline||''; $('bAbout').value=P.about||''; $('bLang').value=P.lang||'en';
   if(P.logo){ $('bLogoPrev').src=P.logo; $('bLogoPrev').style.display=''; }
-  OFF=(P.offers||[]).slice(); if(!OFF.length) OFF=defaultOffers(P.type); paintOffers();
+  OFF=(P.offers||[]).slice(); if(!OFF.length) OFF=defaultOffers(P.type,P.lang); paintOffers();
 }
-function defaultOffers(t){
+function defaultOffers(t,lang){
   const venue=t==='venue'||t==='hotel';
+  if((lang||P.lang)==='cs') return [{t:'Živá zeď hostů',d:'Hosté naskenují QR kód a z telefonu posílají vzkazy a fotky. Vše se živě objevuje na velké obrazovce a novomanželé si vše nechají i po svatbě.',price:''},
+    {t:'Vzpomínková zeď',d:'Důstojné místo, kde rodina a přátelé, blízcí i vzdálení, sdílejí vzpomínky a fotky. Promítnuté při rozloučení a uchované pro rodinu.',price:''},
+    venue?{t:'Soukromá zpětná vazba hostů',d:'Soukromá stránka, kde nám hosté řeknou, jak byli spokojeni. Jde přímo našemu týmu.',price:'V ceně'}:{t:'Přání písní na zdi',d:'Hosté posílají přání písní a věnování přímo DJovi přes stejný QR kód.',price:'V ceně'}];
   return [{t:'Live guest wall',d:'Guests scan a QR code and post messages and photos from their phones. Everything appears live on the big screen, and the couple keeps it all afterwards.',price:''},
     {t:'Memory wall for a loved one',d:'A gentle place for family and friends, near or far, to share memories and photos. Shown at the service and kept for the family.',price:''},
     venue?{t:'Private guest feedback',d:'A private page where guests tell us how their stay was. It goes straight to our team.',price:'Included'}:{t:'Song requests on the wall',d:'Guests send song requests and dedications straight to the DJ from the same QR code.',price:'Included'}];
