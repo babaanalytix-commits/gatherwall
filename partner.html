@@ -53,6 +53,7 @@ textarea{min-height:90px;resize:vertical}
 <div class="top"><div class="in">
   <div class="brand" id="brand"><span>GatherWall Business</span></div>
   <span class="badge" id="founding" style="display:none">Founding Partner</span>
+  <a href="#" onclick="localStorage.removeItem('gw_partner');location.href='/business.html';return false" class="small muted" style="order:9">Sign out</a>
   <div class="tabs"><button class="on" data-t="events">Events</button><button data-t="requests">Requests <span id="rqN"></span></button><button data-t="brand">Brand &amp; page</button></div>
 </div></div>
 <div class="wrap">
@@ -121,7 +122,10 @@ textarea{min-height:90px;resize:vertical}
 
 <script>
 const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz', MEDIA='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/media';
-const H=new URLSearchParams(location.hash.slice(1)); const PID=H.get('pid')||'', KEY=H.get('key')||'';
+const H=new URLSearchParams(location.hash.slice(1)); let SV={}; try{ SV=JSON.parse(localStorage.getItem('gw_partner')||'{}'); }catch(e){}
+const PID=H.get('pid')||SV.pid||'', KEY=H.get('key')||SV.key||'';
+// Remember this device so the partner can come back to gatherwall.com/partner.html without the email; hide the key from the address bar.
+if(H.get('pid')&&H.get('key')){ try{ localStorage.setItem('gw_partner',JSON.stringify({pid:PID,key:KEY})); }catch(e){} history.replaceState(null,'',location.pathname); }
 let P=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -135,7 +139,7 @@ const KINDS={wedding:'Wedding',celebration:'Celebration',memorial:'Memorial',cor
 function load(){
   if(!PID||!KEY){ $('gate').style.display=''; return; }
   call('me').then(r=>{
-    if(!r.ok){ $('gate').style.display=''; $('gateMsg').textContent=r.error||$('gateMsg').textContent; return; }
+    if(!r.ok){ try{ localStorage.removeItem('gw_partner'); }catch(e){} $('gate').style.display=''; $('gateMsg').textContent=r.error||$('gateMsg').textContent; return; }
     P=r.p; render(); show(document.querySelector('.tabs button.on').dataset.t);
   });
 }
