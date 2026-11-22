@@ -79,15 +79,15 @@ nav a:hover{background:#ece5d8}
   <section class="card" id="photos"><span class="num">02</span><h2 id="tP"></h2><p class="lead" id="lP"></p><div class="grid" id="grid"></div></section>
   <section class="card" id="keep"><span class="num">03</span><h2 id="tK"></h2><p class="lead" id="lK"></p>
     <div class="btns"><button class="btn solid" id="dlAll" onclick="dlZip()"></button><button class="btn" id="prBtn" onclick="window.print()"></button><button class="btn" id="shBtn" onclick="share()"></button></div>
-    <p class="note" id="dlNote"></p></section>
+    <p class="note" id="dlNote"></p><p class="note" id="privNote"></p></section>
 </div>
 <div class="foot" id="foot"></div>
 <div id="lb" onclick="this.style.display='none'"><img alt=""></div>
 <script>
 const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
 const T={
- en:{to:'Your keepsake',sub:'Every message and photo your guests shared, kept in one place for you.',open:'Open your keepsake ✨',words:'Their words',wl:n=>n+' messages from the people who were there, and those who joined from afar.',photos:'Photos',pl:n=>n+' photos shared by your guests. Tap one to see it full size.',keep:'Keep everything',kl:'Download every photo, save the messages as a PDF, or share this page with family.',dl:'⬇ Download all photos',pr:'🖨 Save messages as PDF',sh:'🔗 Share this page',msgs:'messages',ph:'photos',nophotos:'No photos were shared.',nomsg:'No messages yet.',from:n=>'With love from '+n,pow:'Powered by',zip:'Preparing your photos…',done:'Downloaded.',copied:'Link copied',wantB:'Want one for your own celebration?',song:'🎵 Song request'},
- cs:{to:'Vaše vzpomínka',sub:'Všechny vzkazy a fotky od vašich hostů, uložené na jednom místě.',open:'Otevřete svou vzpomínku ✨',words:'Jejich slova',wl:n=>n+' vzkazů od těch, kdo byli s vámi, i od těch, kdo se připojili z dálky.',photos:'Fotky',pl:n=>n+' fotek od vašich hostů. Klepnutím fotku zvětšíte.',keep:'Uchovejte si vše',kl:'Stáhněte si všechny fotky, uložte vzkazy jako PDF nebo stránku sdílejte s rodinou.',dl:'⬇ Stáhnout všechny fotky',pr:'🖨 Uložit vzkazy jako PDF',sh:'🔗 Sdílet stránku',msgs:'vzkazů',ph:'fotek',nophotos:'Nebyly sdíleny žádné fotky.',nomsg:'Zatím žádné vzkazy.',from:n=>'S láskou od '+n,pow:'Běží na',zip:'Připravujeme fotky…',done:'Staženo.',copied:'Odkaz zkopírován',wantB:'Chcete něco takového i na svou oslavu?',song:'🎵 Přání písně'}
+ en:{to:'Your keepsake',sub:'Every message and photo your guests shared, kept in one place for you.',open:'Open your keepsake ✨',words:'Their words',wl:n=>n+' messages from the people who were there, and those who joined from afar.',photos:'Photos',pl:n=>n+' photos shared by your guests. Tap one to see it full size.',keep:'Keep everything',kl:'Download every photo, save the messages as a PDF, or share this page with family.',dl:'⬇ Download everything (photos + messages)',pr:'🖨 Save messages as PDF',sh:'🔗 Share this page',msgs:'messages',ph:'photos',nophotos:'No photos were shared.',nomsg:'No messages yet.',from:n=>'With love from '+n,pow:'Powered by',zip:'Preparing your photos…',done:'Downloaded.',copied:'Link copied',priv:'Anyone with this link can view this page, so share it with people you trust.',wantB:'Want one for your own celebration?',song:'🎵 Song request'},
+ cs:{to:'Vaše vzpomínka',sub:'Všechny vzkazy a fotky od vašich hostů, uložené na jednom místě.',open:'Otevřete svou vzpomínku ✨',words:'Jejich slova',wl:n=>n+' vzkazů od těch, kdo byli s vámi, i od těch, kdo se připojili z dálky.',photos:'Fotky',pl:n=>n+' fotek od vašich hostů. Klepnutím fotku zvětšíte.',keep:'Uchovejte si vše',kl:'Stáhněte si všechny fotky, uložte vzkazy jako PDF nebo stránku sdílejte s rodinou.',dl:'⬇ Stáhnout vše (fotky + vzkazy)',pr:'🖨 Uložit vzkazy jako PDF',sh:'🔗 Sdílet stránku',msgs:'vzkazů',ph:'fotek',nophotos:'Nebyly sdíleny žádné fotky.',nomsg:'Zatím žádné vzkazy.',from:n=>'S láskou od '+n,pow:'Běží na',zip:'Připravujeme fotky…',done:'Staženo.',copied:'Odkaz zkopírován',priv:'Stránku uvidí každý, kdo má odkaz. Sdílejte ji jen s lidmi, kterým důvěřujete.',wantB:'Chcete něco takového i na svou oslavu?',song:'🎵 Přání písně'}
 };
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const $=id=>document.getElementById(id);
@@ -100,7 +100,7 @@ Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()),fetch(DB+'/tribut
   E=e; const b=e.brand||{}; if(b.color) document.documentElement.style.setProperty('--brand',b.color);
   document.title=e.name+' · '+t.to;
   const list=Object.entries(tr||{}).map(([id,x])=>Object.assign({id},x)).filter(x=>x.approved!==false&&(x.msg||x.photo||x.songTitle)).sort((a,c)=>(a.ts||0)-(c.ts||0));
-  PH=list.filter(x=>x.photo).map(x=>({src:x.photo,name:x.name||''}));
+  window.LIST=list; PH=list.filter(x=>x.photo).map(x=>({src:x.photo,name:x.name||''}));
   const nM=list.filter(x=>x.msg||x.songTitle).length;
   const cover=e.portrait||(PH[0]&&PH[0].src)||'';
   if(b.logo){ $('wLogo').style.display='block'; $('wLogo').querySelector('img').src=b.logo; $('hLogo').style.display='inline-block'; $('hLogo').querySelector('img').src=b.logo; }
@@ -110,20 +110,20 @@ Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()),fetch(DB+'/tribut
   $('stats').innerHTML='<span>💬 '+nM+' '+t.msgs+'</span><span>📷 '+PH.length+' '+t.ph+'</span>'+(e.date?'<span>📅 '+esc(e.date)+'</span>':'');
   $('nW').textContent=t.words; $('nP').textContent=t.photos; $('nK').textContent=t.keep;
   $('tW').textContent=t.words; $('lW').textContent=t.wl(nM); $('tP').textContent=t.photos; $('lP').textContent=PH.length?t.pl(PH.length):t.nophotos;
-  $('tK').textContent=t.keep; $('lK').textContent=t.kl; $('dlAll').textContent=t.dl; $('prBtn').textContent=t.pr; $('shBtn').textContent=t.sh;
-  if(!PH.length) $('dlAll').style.display='none';
+  $('tK').textContent=t.keep; $('privNote').textContent='🔒 '+t.priv; $('lK').textContent=t.kl; $('dlAll').textContent=t.dl; $('prBtn').textContent=t.pr; $('shBtn').textContent=t.sh;
+  
   $('msgs').innerHTML=list.length?list.map(x=>'<div class="m">'+(x.photo?'<img loading="lazy" src="'+esc(x.photo)+'" alt="" onclick="zoom(this.src)">':'')+(x.songTitle?'<div class="song">'+t.song+': '+esc(x.songTitle)+(x.songFor?' · '+esc(x.songFor):'')+'</div>':'')+(x.msg?'<p>'+esc(x.msg)+'</p>':'')+'<b>— '+esc(x.name||'')+'</b></div>').join(''):'<p class="empty">'+t.nomsg+'</p>';
   $('grid').innerHTML=PH.map(p=>'<img loading="lazy" src="'+esc(p.src)+'" alt="" onclick="zoom(this.src)">').join('');
   if(!PH.length) $('photos').style.display='none';
-  $('foot').innerHTML=(b.name?'<div class="from">'+esc(t.from(b.name))+'</div>'+(b.website?'<a href="'+esc(b.website)+'" target="_blank" rel="noopener">'+esc(b.website.replace(/^https?:\/\//,''))+'</a><br>':''):'<div class="from">'+t.wantB+'</div><a href="/">gatherwall.com</a><br>')+'<span style="opacity:.7">'+t.pow+' <a href="/">GatherWall</a></span>';
+  $('foot').innerHTML=(b.name?'<div class="from">'+esc(t.from(b.name))+'</div>'+(b.website?'<a href="'+esc(b.website)+'" target="_blank" rel="noopener">'+esc(b.website.replace(/^https?:\/\//,''))+'</a><br>':''):'<div class="from">'+t.wantB+'</div><a href="/">gatherwall.com</a><br>')+'<span style="opacity:.7">'+t.pow+' <a href="'+(b.name?'/business.html?from=keepsake&c=powered':'/')+'">GatherWall</a></span>';
 }).catch(()=>{ document.body.innerHTML='<p class="empty" style="padding:80px 20px">Could not load this keepsake. Please check your connection.</p>'; });
 function zoom(s){ const l=$('lb'); l.querySelector('img').src=s; l.style.display='flex'; }
 function share(){ const u=location.href; if(navigator.share) navigator.share({title:E?E.name:'Keepsake',url:u}).catch(()=>{}); else navigator.clipboard.writeText(u).then(()=>{ $('dlNote').textContent=t.copied; }); }
 async function dlZip(){
   const btn=$('dlAll'); btn.disabled=true; $('dlNote').textContent=t.zip;
-  try{ const z=new JSZip(); let i=0;
+  try{ const z=new JSZip(); let i=0; z.file('messages.txt', (E.name||'')+'\n\n'+(window.LIST||[]).filter(x=>x.msg||x.songTitle).map(x=>(x.songTitle?'[Song] '+x.songTitle+(x.songFor?' · '+x.songFor:'')+'\n':'')+(x.msg||'')+'\n— '+(x.name||'')).join('\n\n----------\n\n'));
     for(const p of PH){ i++; const u=p.src.startsWith('data:')?p.src:p.src+(p.src.includes('?')?'&':'?')+'dl=1'; const blob=await fetch(u,{mode:p.src.startsWith('data:')?undefined:'cors',cache:'no-store'}).then(r=>r.blob()); const ext=(blob.type.split('/')[1]||'jpg').replace('jpeg','jpg'); z.file(String(i).padStart(3,'0')+'-'+(p.name||'guest').replace(/[^\w\- ]+/g,'').trim().slice(0,30)+'.'+ext, blob); }
-    const out=await z.generateAsync({type:'blob'}); const a=document.createElement('a'); a.href=URL.createObjectURL(out); a.download=(E.name||'keepsake').replace(/[^\w\- ]+/g,'').trim()+' - photos.zip'; a.click(); $('dlNote').textContent=t.done;
+    const out=await z.generateAsync({type:'blob'}); const a=document.createElement('a'); a.href=URL.createObjectURL(out); a.download=(E.name||'keepsake').replace(/[^\w\- ]+/g,'').trim()+' - keepsake.zip'; a.click(); $('dlNote').textContent=t.done;
   }catch(e){ $('dlNote').textContent='Some photos could not be downloaded. Tap a photo and save it instead.'; }
   btn.disabled=false; }
 </script>

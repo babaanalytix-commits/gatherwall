@@ -608,7 +608,8 @@ body.kioskmode header.nav{display:none;}
 <div class="hc-drop" id="hcDrop" onclick="if(event.target.tagName==='A')this.classList.remove('open')"><a href="#family" onclick="location.hash='family';return false;" data-hc="nav_walls">Tribute Walls</a>
     <a href="keepsake-preview.html" data-hc="nav_songs">Songs</a>
     <a href="celebration.html" data-hc="nav_made">Made for you</a>
-    <a href="examples.html" data-hc="nav_work">Our work</a></div></nav>
+    <a href="examples.html" data-hc="nav_work">Our work</a>
+    <a href="business.html?from=home&amp;c=menu" style="opacity:.75">For business</a></div></nav>
 
 <header class="hc-hero">
   <div class="hc-eye" data-hc="eye">Birthdays · Weddings · Anniversaries · In memory</div>
@@ -814,7 +815,7 @@ document.addEventListener('DOMContentLoaded',renderReal);
 
 <footer class="hc-foot"><div class="in">
   <span>© 2026 GatherWall</span>
-  <a href="celebration.html" data-hc="nav_made">Made for you</a><a href="examples.html" data-hc="nav_work">Our work</a><a href="song-of-your-night.html" data-hc="f_sotn">Song of Your Night</a><a href="anthem.html" data-hc="f_anthem">Our anthem</a><a href="privacy.html" data-hc="f_priv">Privacy</a><a href="terms.html" data-hc="f_terms">Terms</a><a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>
+  <a href="celebration.html" data-hc="nav_made">Made for you</a><a href="examples.html" data-hc="nav_work">Our work</a><a href="song-of-your-night.html" data-hc="f_sotn">Song of Your Night</a><a href="anthem.html" data-hc="f_anthem">Our anthem</a><a href="business.html?from=home&amp;c=footer">For business</a><a href="privacy.html" data-hc="f_priv">Privacy</a><a href="terms.html" data-hc="f_terms">Terms</a><a href="mailto:hello@gatherwall.com">hello@gatherwall.com</a>
 </div></footer>
 <script>
 (function(){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });},{threshold:.12});
@@ -928,31 +929,11 @@ document.addEventListener('DOMContentLoaded',renderReal);
       <a class="btn btn-primary" href="celebration.html">See made-for-you packages ▸</a>
     </div>
 
-    <div class="pg-label" data-i18n="prG2">Monthly — for DJs, MCs, planners &amp; venues</div>
-    <div class="prices">
-      <div class="price">
-        <h3 data-i18n="prHostT">Host</h3>
-        <div class="amt">$25<span data-i18n="prHostU"> / month</span></div>
-        <p class="muted" data-i18n="prHostD">For regular events.</p>
-        <ul><li data-i18n="prHostA">Everything in Unlimited</li><li data-i18n="prHostB">Up to 3 events / month</li><li data-i18n="prHostC">Voice notes shown as on-screen text</li></ul>
-        <button class="btn btn-ghost" onclick="go('promonthly')">Coming soon · join waitlist ▸</button>
-      </div>
-      <div class="price feat">
-        <h3 data-i18n="prProT2">Pro</h3>
-        <div class="amt">$40<span data-i18n="prProU2"> / month</span></div>
-        <p class="muted" data-i18n="prProD2">For busy pros.</p>
-        <ul><li data-i18n="prProA">Everything in Host</li><li data-i18n="prProB">Up to 7 events / month</li><li data-i18n="prProC">Video tributes + priority support</li></ul>
-        <button class="btn btn-primary" onclick="go('promonthly')">Coming soon · join waitlist ▸</button>
-      </div>
-      <div class="price">
-        <h3 data-i18n="prEntT">Enterprise</h3>
-        <div class="amt amt-cust" data-i18n="prEntAmt">Custom</div>
-        <p class="muted" data-i18n="prEntD">White-label for venues &amp; agencies.</p>
-        <ul><li data-i18n="prEntA">Your brand &amp; own domain</li><li data-i18n="prEntB">Unlimited events</li><li data-i18n="prEntC">Onboarding &amp; support</li></ul>
-        <button class="btn btn-ghost" data-i18n="prCtaEnt" onclick="enquire('White-label / Enterprise')">Talk to us ▸</button>
-      </div>
+    <div class="pg-label">For DJs, MCs, venues &amp; hotels</div>
+    <div class="card" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:18px">
+      <div style="max-width:620px"><b style="font-size:17px">Run GatherWall under your own brand</b><p class="muted" style="margin-top:4px">Offer live guest walls and keepsakes to your customers at your own price, from one dashboard. Founding partners get their first event free.</p></div>
+      <a class="btn btn-primary" href="/business.html?from=home&amp;c=pricing">GatherWall Business ›</a>
     </div>
-
     <p class="price-note" data-i18n="prNote">Personalised backgrounds, slideshow and downloads start at the $20 tier. Voice notes appear as text on the big screen. Video tributes phase in on monthly plans.</p>
   </div>
 </section>
@@ -1036,7 +1017,7 @@ document.addEventListener('DOMContentLoaded',renderReal);
         <span class="opt" data-grp="tier" data-val="plus" onclick="pickTier(this)">Plus · $15<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Up to 100 posts · slideshow</b></span>
         <span class="opt" data-grp="tier" data-val="unlimited" onclick="pickTier(this)">Unlimited · $20<b style="font-family:var(--ui);font-size:10px;font-weight:600;color:var(--muted);display:block;margin-top:2px;">Unlimited posts · custom background · download</b></span>
       </div>
-      <div class="muted" style="font-size:12.5px;margin-top:8px;">Running lots of events? Monthly Host &amp; Pro plans (voice notes &amp; video tributes) are launching soon — <a href="mailto:hello@gatherwall.com?subject=Wall%20Pro%20waitlist" style="color:var(--brand);">join the waitlist</a> for early access.</div>
+      <div class="muted" style="font-size:12.5px;margin-top:8px;">Running events for clients? <a href="/business.html?from=home&amp;c=builder" style="color:var(--brand);">See GatherWall Business ›</a></div>
     </div>
 
     <div class="field"><label>Experience options</label>
@@ -1163,21 +1144,10 @@ document.addEventListener('DOMContentLoaded',renderReal);
 </div></header>
 <div class="app-pad"><div class="wrap" style="max-width:620px;">
   <div class="back" onclick="go('home')">← Back</div>
-  <span class="pill">Live Tribute Wall — Pro</span>
+  <span class="pill">GatherWall Business</span>
   <h1 style="font-size:34px;margin:12px 0 6px;">Run the wall at every booking</h1>
-  <p class="muted" style="margin-bottom:22px;">For DJs, MCs, planners and venues — use the Live Tribute Wall across all your events, with your logo on screen.</p>
-  <div class="card" style="margin-bottom:18px;">
-    <h3 style="font-size:20px;margin-bottom:12px;">Coming soon</h3>
-    <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px;">
-      <li>🎚️ <b>Host — $25/mo</b> — up to 3 events / month · everything in Unlimited · voice notes shown as on-screen text.</li>
-      <li>⭐ <b>Pro — $40/mo</b> — up to 7 events / month · everything in Host · video tributes · priority support.</li>
-    </ul>
-    <p class="muted" style="font-size:14px;margin-top:16px;">Not on sale yet — join the waitlist below for first access and a founding-member rate.</p>
-  </div>
-  <div class="card" style="border:2px solid var(--brand);">
-    <p class="muted" style="font-size:14px;margin-bottom:14px;">Monthly Host &amp; Pro plans are launching soon. Want first access — and a founding-member rate? Join the waitlist and we'll email you the moment they're live.</p>
-    <a class="btn btn-primary" style="width:100%;justify-content:center;" href="mailto:hello@gatherwall.com?subject=Wall%20Pro%20waitlist&body=I'd%20like%20early%20access%20to%20the%20monthly%20Host%2FPro%20plans.">Join the Pro waitlist ▸</a>
-  </div>
+  <p class="muted" style="margin-bottom:22px;">For DJs, MCs, planners and venues: branded guest walls and keepsakes for your customers, at your own price, from one dashboard. Founding partners get their first event free.</p>
+  <a class="btn btn-primary" style="width:100%;justify-content:center;" href="/business.html?from=home&amp;c=promonthly">Go to GatherWall Business ›</a>
 </div></div>
 </div>
 
@@ -1537,7 +1507,7 @@ const HOME_I18N={
     vibMemT:"In Memory",vibMemB:"A gentle space to share memories and love.",vibCorpT:"Corporate",vibCorpB:"Awards nights, farewells, company milestones.",
     fmtSub:"Two ways in — a live wall that event pros run and resell, and bespoke keepsakes families create for the people they love.",
     fmtG1:"For DJs, MCs & event planners",fmtG2:"For families & loved ones",ffTagWhite:"White-label",ffTagResell:"Resell to your clients",ffTagUnlimited:"Unlimited events",
-    fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event · From $25/mo",fmtWallC:"Create a wall ▸",
+    fmtWallT:"Live Tribute Wall",fmtWallB:"Guests post live; tributes float onto the big screen all evening. Birthdays, weddings, retirements, corporate.",fmtWallP:"From $10 / event",fmtWallC:"Create a wall ▸",
     fmtMemT:"Memorial & Eulogy",fmtMemB:"For a funeral or memorial service — a life story and eulogy, candle-lighting, a life timeline, and shared memories. A lasting place to remember, online to keep.",fmtMemP:"$10 one-time",fmtMemC:"Create a memorial ▸",
     fmtKeepT:"Keepsake Song",fmtKeepB:"An original song written from their story, with their photos and the lyrics moving together. Read the lyrics free first; ready in minutes.",fmtKeepP:"$39 one-time",fmtKeepC:"Create your keepsake ▸",
     priSub:"Run a single celebration, or — if you're a DJ, MC, planner or venue — go monthly and use it across every booking. Prices in USD.",
@@ -1568,7 +1538,7 @@ const HOME_I18N={
     vibMemT:"En mémoire",vibMemB:"Un espace doux pour partager souvenirs et amour.",vibCorpT:"Entreprise",vibCorpB:"Soirées de remise de prix, départs, jalons d'entreprise.",
     fmtSub:"Deux approches — un mur en direct que les pros animent et revendent, et des souvenirs sur mesure que les familles créent pour ceux qu'elles aiment.",
     fmtG1:"Pour DJ, animateurs & organisateurs",fmtG2:"Pour les familles & les proches",ffTagWhite:"Marque blanche",ffTagResell:"Revendez à vos clients",ffTagUnlimited:"Événements illimités",
-    fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement · Dès 25 $/mois",fmtWallC:"Créer un mur ▸",
+    fmtWallT:"Mur d'hommage en direct",fmtWallB:"Les invités publient en direct ; les hommages défilent sur grand écran toute la soirée. Anniversaires, mariages, retraites, entreprise.",fmtWallP:"À partir de 10 $ / événement",fmtWallC:"Créer un mur ▸",
     fmtMemT:"Mémorial & Hommage",fmtMemB:"Pour des obsèques ou une cérémonie d'hommage — récit de vie et éloge funèbre, allumage de bougies, frise chronologique et souvenirs partagés. Un lieu durable pour se souvenir, conservé en ligne.",fmtMemP:"10 $ · paiement unique",fmtMemC:"Créer un mémorial ▸",
     fmtKeepT:"Chanson-souvenir",fmtKeepB:"Une chanson originale écrite à partir de leur histoire, avec leurs photos et les paroles qui défilent. Lisez les paroles gratuitement ; prête en quelques minutes.",fmtKeepP:"39 $ · paiement unique",fmtKeepC:"Créer le souvenir ▸",
     priSub:"Pour une seule fête, ou — si vous êtes DJ, animateur, organisateur ou salle — passez au mois et utilisez-le à chaque prestation. Prix en USD.",
@@ -1599,7 +1569,7 @@ const HOME_I18N={
     vibMemT:"En memoria",vibMemB:"Un espacio sereno para compartir recuerdos y cariño.",vibCorpT:"Empresa",vibCorpB:"Galas de premios, despedidas, hitos de empresa.",
     fmtSub:"Dos caminos — un muro en directo que los profesionales gestionan y revenden, y recuerdos a medida que las familias crean para quienes aman.",
     fmtG1:"Para DJ, presentadores y organizadores",fmtG2:"Para familias y seres queridos",ffTagWhite:"Marca blanca",ffTagResell:"Revende a tus clientes",ffTagUnlimited:"Eventos ilimitados",
-    fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento · Desde 25 $/mes",fmtWallC:"Crear un muro ▸",
+    fmtWallT:"Muro de homenaje en directo",fmtWallB:"Los invitados publican en directo; los homenajes recorren la gran pantalla toda la noche. Cumpleaños, bodas, jubilaciones, empresa.",fmtWallP:"Desde 10 $ / evento",fmtWallC:"Crear un muro ▸",
     fmtMemT:"Memorial y Homenaje",fmtMemB:"Para un funeral o una ceremonia de homenaje — una historia de vida y un elogio, encendido de velas, una línea de tiempo y recuerdos compartidos. Un lugar duradero para recordar, conservado en línea.",fmtMemP:"10 $ · pago único",fmtMemC:"Crear un memorial ▸",
     fmtKeepT:"Canción Recuerdo",fmtKeepB:"Una canción original escrita a partir de su historia, con sus fotos y la letra en movimiento. Lee la letra gratis primero; lista en minutos.",fmtKeepP:"39 $ · pago único",fmtKeepC:"Crear el recuerdo ▸",
     priSub:"Para una sola celebración, o — si eres DJ, presentador, organizador o local — pásate al mes y úsalo en cada evento. Precios en USD.",
@@ -1630,7 +1600,7 @@ const HOME_I18N={
     vibMemT:"Na památku",vibMemB:"Jemný prostor pro sdílení vzpomínek a lásky.",vibCorpT:"Firemní",vibCorpB:"Předávání cen, rozloučení, firemní milníky.",
     fmtSub:"Dvě cesty — živá zeď, kterou profesionálové provozují a prodávají dál, a originální vzpomínky, které rodiny tvoří pro své blízké.",
     fmtG1:"Pro DJ, moderátory a organizátory",fmtG2:"Pro rodiny a blízké",ffTagWhite:"Vlastní značka",ffTagResell:"Prodávejte klientům",ffTagUnlimited:"Neomezené akce",
-    fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce · Od 25 $/měs",fmtWallC:"Vytvořit zeď ▸",
+    fmtWallT:"Živá zeď vzkazů",fmtWallB:"Hosté přispívají živě; vzkazy plují přes velkou obrazovku celý večer. Narozeniny, svatby, odchody do důchodu, firmy.",fmtWallP:"Od 10 $ / akce",fmtWallC:"Vytvořit zeď ▸",
     fmtMemT:"Vzpomínka & Rozloučení",fmtMemB:"Pro pohřeb nebo smuteční obřad — životní příběh a smuteční řeč, zapalování svíček, časová osa života a sdílené vzpomínky. Trvalé místo pro vzpomínání, uchované online.",fmtMemP:"10 $ · jednorázově",fmtMemC:"Vytvořit vzpomínku ▸",
     fmtKeepT:"Píseň na míru",fmtKeepB:"Originální píseň napsaná podle jejich příběhu, s jejich fotkami a textem. Text si přečtete zdarma předem; hotovo za pár minut.",fmtKeepP:"39 $ · jednorázově",fmtKeepC:"Vytvořit vzpomínku ▸",
     priSub:"Pro jednu oslavu, nebo — pokud jste DJ, moderátor, organizátor či místo konání — přejděte na měsíční plán a využijte ho u každé akce. Ceny v USD.",
@@ -1661,7 +1631,7 @@ const HOME_I18N={
     vibMemT:"Im Gedenken",vibMemB:"Ein sanfter Raum, um Erinnerungen und Liebe zu teilen.",vibCorpT:"Firmen",vibCorpB:"Preisverleihungen, Abschiede, Firmenmeilensteine.",
     fmtSub:"Zwei Wege — eine Live-Wand, die Profis betreiben und weiterverkaufen, und maßgefertigte Andenken, die Familien für ihre Liebsten erstellen.",
     fmtG1:"Für DJs, Moderatoren & Planer",fmtG2:"Für Familien & Angehörige",ffTagWhite:"White-Label",ffTagResell:"An Kunden weiterverkaufen",ffTagUnlimited:"Unbegrenzte Events",
-    fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event · Ab 25 $/Mon.",fmtWallC:"Wand erstellen ▸",
+    fmtWallT:"Live-Erinnerungswand",fmtWallB:"Gäste posten live; Botschaften ziehen den ganzen Abend über die große Leinwand. Geburtstage, Hochzeiten, Ruhestand, Firmen.",fmtWallP:"Ab 10 $ / Event",fmtWallC:"Wand erstellen ▸",
     fmtMemT:"Gedenken & Nachruf",fmtMemB:"Für eine Trauerfeier oder Gedenkfeier — eine Lebensgeschichte und ein Nachruf, Kerzen anzünden, eine Lebenslinie und geteilte Erinnerungen. Ein bleibender Ort zum Erinnern, online aufbewahrt.",fmtMemP:"10 $ · einmalig",fmtMemC:"Gedenkseite erstellen ▸",
     fmtKeepT:"Erinnerungslied",fmtKeepB:"Ein Originallied nach ihrer Geschichte, mit ihren Fotos und dem Text in Bewegung. Text zuerst kostenlos lesen; in Minuten fertig.",fmtKeepP:"39 $ · einmalig",fmtKeepC:"Andenken erstellen ▸",
     priSub:"Für eine einzelne Feier, oder — als DJ, Moderator, Planer oder Location — monatlich für jede Buchung. Preise in USD.",
@@ -1759,7 +1729,7 @@ function applyBrand(e){
   if(nav){ if(!nav.dataset.orig) nav.dataset.orig=nav.innerHTML;
     nav.innerHTML = b&&b.name ? (b.logo?'<img src="'+escapeHTML(b.logo)+'" alt="'+escapeHTML(b.name)+'" style="height:40px;max-width:220px;object-fit:contain;vertical-align:middle">':'<span class="dot"></span>'+escapeHTML(b.name)) : nav.dataset.orig;
     nav.onclick = b&&b.website ? ()=>{ window.open(b.website,'_blank','noopener'); } : goHome; }
-  const gr=document.getElementById('guestRefer'); if(gr&&b&&b.name){ gr.textContent='Powered by GatherWall'; gr.style.fontWeight='500'; gr.style.opacity='.75'; }
+  const gr=document.getElementById('guestRefer'); if(gr&&b&&b.name){ gr.href='/business.html?from=guest&c=powered'; gr.textContent='Powered by GatherWall'; gr.style.fontWeight='500'; gr.style.opacity='.75'; }
   let wb=document.getElementById('wallBrand'); const row=document.querySelector('#screen-wall .wall-title-row');
   if(b&&b.name&&row){ if(!wb){ wb=document.createElement('div'); wb.id='wallBrand'; wb.style.cssText='margin-left:auto;display:flex;align-items:center;gap:10px;font-weight:600;opacity:.9'; row.appendChild(wb); }
     wb.innerHTML=(b.logo?'<span style="background:#fff;border-radius:14px;padding:8px 14px;display:inline-flex"><img src="'+escapeHTML(b.logo)+'" alt="" style="height:40px;max-width:200px;object-fit:contain"></span>':'<span>'+escapeHTML(b.name)+'</span>'); wb.style.display='flex'; }

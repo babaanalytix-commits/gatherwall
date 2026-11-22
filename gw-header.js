@@ -28,8 +28,21 @@
     '<a href="/keepsake-preview.html"' + on(['keepsake-preview.html','keepsake-song.html','birthday-song.html','song-of-your-night.html','free-song-lyrics-preview.html','affordable-personalised-song.html','keepsake-song-vs-songfinch.html','create-song.html']) + '>Songs</a>' +
     '<a href="/celebration.html"' + on(['celebration.html','wedding-keepsake.html','story-form.html']) + '>Made for you</a>' +
     '<a href="/examples.html"' + on(['examples.html','samples.html','anthem.html','ode.html']) + '>Our work</a><a href="/business.html"' + on(['business.html','pro-firmy.html','partner.html']) + '>For business</a>';
+  // GatherWall Business pages get their own header: logo goes to the business home, B2B links only.
+  var biz = ['business.html','for-djs.html','for-venues.html','pro-firmy.html','partner.html'].indexOf(p) > -1;
+  var home = '/index.html', brand = 'GatherWall';
+  if (biz) {
+    var cs = p === 'pro-firmy.html';
+    home = cs ? '/cs/pro-firmy.html' : '/business.html'; brand = 'GatherWall <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d2b;margin-left:4px">Business</span>';
+    links = '<a href="/for-djs.html"' + on(['for-djs.html']) + '>' + (cs ? 'Pro DJe' : 'For DJs & MCs') + '</a>' +
+      '<a href="/for-venues.html"' + on(['for-venues.html']) + '>' + (cs ? 'Pro sály a hotely' : 'For venues & hotels') + '</a>' +
+      '<a href="' + home + '#see">' + (cs ? 'Jak to vypadá' : 'How it looks') + '</a>' +
+      '<a href="/partner.html">' + (cs ? 'Přihlášení partnera' : 'Partner login') + '</a>' +
+      '<a href="' + home + '#apply" style="color:#2E7D5B;font-weight:600">' + (cs ? 'Stát se partnerem' : 'Become a partner') + '</a>' +
+      '<a href="/index.html" style="opacity:.6">' + (cs ? 'Pro rodiny ›' : 'For families ›') + '</a>';
+  }
   var h = document.createElement('header'); h.id = 'gwh';
-  h.innerHTML = '<div class="in"><a class="lg" href="/index.html"><i></i>GatherWall</a>' +
+  h.innerHTML = '<div class="in"><a class="lg" href="' + home + '"><i></i>' + brand + '</a>' +
     '<button class="mb" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle(\'open\')">Menu ☰</button>' +
     '<nav class="ln">' + links + '<span class="ex" id="gwhx"></span></nav></div>';
 

@@ -23,8 +23,8 @@
   function render() {
     var n = document.querySelector('[data-gw-try]'); if (!n) return;
     var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
-    n.innerHTML = '<div class="gwt"><div class="a"><h3>Try it now</h3><p>Scan with your phone, post a message or photo, and watch it appear on the screen.</p><div id="gwtQr"></div><a href="' + GUEST + '" target="_blank">Or open the guest page ›</a></div>' +
-      '<div class="b"><div class="hd"><span class="dot"></span>Live screen</div><a class="open" href="' + SCREEN + '" target="_blank">Open full screen ›</a><div class="feed" id="gwtFeed"></div></div></div>';
+    n.innerHTML = '<div class="gwt"><div class="a"><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8a6d2b;font-weight:600">1 · What your guests see</div><h3>Scan and post</h3><p>Scan with your phone and post a message or photo, just as a guest would. This demo wall is cleared every day.</p><div id="gwtQr"></div><a href="' + GUEST + '" target="_blank">Or open the guest page ›</a></div>' +
+      '<div class="b"><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#c9a54c;font-weight:600;margin-bottom:6px">2 · What everyone sees on the big screen</div><div class="hd"><span class="dot"></span>Live now</div><a class="open" href="' + SCREEN + '" target="_blank">Open full screen ›</a><div class="feed" id="gwtFeed"></div></div></div>';
     var go = function () { if (window.QRCode) new QRCode(document.getElementById('gwtQr'), { text: GUEST, width: 180, height: 180 }); };
     if (window.QRCode) go(); else { var s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'; s.onload = go; document.head.appendChild(s); }
     var f = document.getElementById('gwtFeed'); poll(f); setInterval(function () { poll(f); }, 4000);
