@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Partner dashboard · GatherWall Business</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--ink:#1d1d1f;--muted:#6e6e73;--line:#e8e8ed;--bg:#f5f5f7;--card:#fff;--brand:#2E7D5B;--accent:#C9A54C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+a{color:var(--brand)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .in{max-width:1080px;margin:0 auto;padding:0 18px;min-height:60px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-weight:600;font-size:19px}
+.brand img{height:36px;max-width:140px;object-fit:contain}
+.badge{font-size:11.5px;font-weight:600;background:#f3ecd9;color:#7a5d17;border-radius:999px;padding:3px 9px}
+.tabs{display:flex;gap:4px;margin-left:auto}
+.tabs button{border:0;background:none;font:500 14px Inter,sans-serif;color:#424245;padding:8px 13px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 18px 70px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.muted{color:var(--muted)}.small{font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+input,select,textarea{width:100%;font:15px Inter,sans-serif;padding:11px 12px;border:1px solid #d2d2d7;border-radius:12px;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:11px 18px;font:600 14.5px Inter,sans-serif;cursor:pointer;text-decoration:none;background:var(--ink);color:#fff}
+.btn.g{background:#fff;color:var(--ink);border:1.5px solid #d2d2d7}.btn.s{padding:8px 13px;font-size:13px}
+.btn:disabled{opacity:.5}
+.ev h3{font-size:19px;margin-bottom:2px}
+.ev .meta{font-size:13px;color:var(--muted);margin-bottom:10px}
+.ev .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;background:#eef6f1;color:#1f6b49}
+.pill.o{background:#fff4e5;color:#8a5a00}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+#msg{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1d1d1f;color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;display:none;z-index:50}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:40;padding:16px}
+.modal .box{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:22px}
+.qrcard{border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center}
+.qrcard img,.qrcard canvas{margin:12px auto}
+.link{font-size:12.5px;word-break:break-all;color:var(--muted)}
+.offer{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
+@media print{body *{visibility:hidden}#printArea,#printArea *{visibility:visible}#printArea{position:absolute;left:0;top:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div class="brand" id="brand"><span>GatherWall Business</span></div>
+  <span class="badge" id="founding" style="display:none">Founding Partner</span>
+  <div class="tabs"><button class="on" data-t="events">Events</button><button data-t="requests">Requests <span id="rqN"></span></button><button data-t="brand">Brand &amp; page</button></div>
+</div></div>
+<div class="wrap">
+  <div id="gate" class="card" style="display:none"><h2>This link isn't working</h2><p class="muted" style="margin-top:8px" id="gateMsg">Please open the dashboard link from your welcome email, or contact hello@gatherwall.com.</p></div>
+
+  <section id="t-events" style="display:none">
+    <div class="card">
+      <div class="row" style="align-items:center"><div><h2 style="font-size:24px">Your events</h2><p class="muted small" id="pageLine"></p></div>
+      <div style="flex:0 0 auto"><button class="btn" onclick="openNew()">+ New event</button></div></div>
+    </div>
+    <div id="evList" class="grid"></div>
+  </section>
+
+  <section id="t-requests" style="display:none">
+    <div class="card"><h2 style="font-size:24px">Requests from your page</h2><p class="muted small">Customers who asked about an experience on your GatherWall page. Create their event in one click.</p></div>
+    <div id="rqList"></div>
+  </section>
+
+  <section id="t-brand" style="display:none">
+    <div class="card">
+      <h2 style="font-size:24px">Your brand</h2>
+      <p class="muted small">Your logo, name and colours appear on every guest page, big screen and on your customer page. Changes apply to existing events too.</p>
+      <div class="row"><div><label>Business name</label><input id="bName"></div><div><label>Website</label><input id="bWeb" placeholder="https://"></div></div>
+      <label>Logo (PNG or JPG, ideally on a transparent or white background)</label>
+      <div class="row" style="align-items:center"><div style="flex:0 0 auto"><img id="bLogoPrev" alt="" style="height:54px;max-width:200px;object-fit:contain;display:none;border:1px solid var(--line);border-radius:10px;padding:4px;background:#fff"></div>
+        <div><input type="file" id="bLogo" accept="image/png,image/jpeg,image/webp"></div></div>
+      <div class="row"><div><label>Main colour</label><input type="color" id="bColor" style="height:46px;padding:4px"></div><div><label>Accent colour</label><input type="color" id="bAccent" style="height:46px;padding:4px"></div><div><label>City</label><input id="bCity"></div><div><label>Phone</label><input id="bPhone"></div></div>
+      <label>One line about you (shown at the top of your page)</label><input id="bTag" maxlength="140">
+      <label>About (a short paragraph for your customer page)</label><textarea id="bAbout" maxlength="900"></textarea>
+      <label>Page language</label><select id="bLang"><option value="en">English</option><option value="cs">Čeština</option></select>
+    </div>
+    <div class="card">
+      <h2 style="font-size:22px">What you offer</h2>
+      <p class="muted small">These appear on your customer page. You set your own prices; customers pay you directly.</p>
+      <div id="offers"></div>
+      <button class="btn g s" style="margin-top:12px" onclick="addOffer()">+ Add an offer</button>
+    </div>
+    <div class="row" style="align-items:center"><div style="flex:0 0 auto"><button class="btn" id="saveBrand" onclick="saveBrand()">Save brand &amp; page</button></div><div><a id="viewPage" target="_blank" class="small">View my page ›</a></div></div>
+  </section>
+</div>
+
+<div class="modal" id="newM"><div class="box">
+  <h2 style="font-size:24px">New event</h2>
+  <p class="muted small" id="freeLine"></p>
+  <label>Event name (shown big on the wall)</label><input id="nName" placeholder="e.g. Anna &amp; Tom · Grandma Jo, 1938–2026 · Perk Christmas party">
+  <div class="row"><div><label>Type</label><select id="nKind"><option value="wedding">Wedding</option><option value="celebration">Birthday or celebration</option><option value="memorial">Memorial or funeral</option><option value="corporate">Corporate or conference</option><option value="community">Community memories</option><option value="feedback">Private guest feedback</option></select></div><div><label>Date</label><input type="date" id="nDate"></div></div>
+  <label>"Hosted by" line (optional)</label><input id="nHost" placeholder="e.g. The Novák family">
+  <div class="row"><div><label>Customer name (optional)</label><input id="nCust"></div><div><label>Customer email (optional)</label><input id="nCustE" type="email"></div></div>
+  <label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" id="nMod" checked style="width:auto"> Approve messages before they appear on the big screen</label>
+  <input type="hidden" id="nReq">
+  <div class="row" style="margin-top:16px"><button class="btn" id="nGo" onclick="createEv()">Create event</button><button class="btn g" onclick="closeM('newM')">Cancel</button></div>
+</div></div>
+
+<div class="modal" id="kitM"><div class="box">
+  <div id="printArea"><div class="qrcard" id="qrCard"></div></div>
+  <div class="acts row" style="margin-top:14px"><button class="btn" onclick="window.print()">Print table card</button><button class="btn g" onclick="dlQR()">Download QR</button><button class="btn g" onclick="closeM('kitM')">Close</button></div>
+</div></div>
+
+<div class="modal" id="hoM"><div class="box">
+  <h2 style="font-size:22px">Hand over to your customer</h2>
+  <p class="muted small" style="margin-top:6px">We email them the guest link, big-screen link and their own control panel. They keep access to the wall and everything guests share, even after the event.</p>
+  <label>Customer name</label><input id="hName"><label>Customer email</label><input id="hEmail" type="email"><input type="hidden" id="hEv">
+  <div class="row" style="margin-top:16px"><button class="btn" id="hGo" onclick="handover()">Send their links</button><button class="btn g" onclick="closeM('hoM')">Cancel</button></div>
+</div></div>
+<div id="msg"></div>
+
+<script>
+const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz', MEDIA='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/media';
+const H=new URLSearchParams(location.hash.slice(1)); const PID=H.get('pid')||'', KEY=H.get('key')||'';
+let P=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const m=$('msg');m.textContent=t;m.style.display='block';clearTimeout(m._t);m._t=setTimeout(()=>m.style.display='none',3200);}
+function call(op,x){return fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op,pid:PID,key:KEY},x||{}))}).then(r=>r.json()).catch(()=>({ok:false,error:'Could not reach the server'}));}
+function openM(id){$(id).style.display='flex';} function closeM(id){$(id).style.display='none';}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+function show(t){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));['events','requests','brand'].forEach(x=>$('t-'+x).style.display=x===t?'':'none');}
+const KINDS={wedding:'Wedding',celebration:'Celebration',memorial:'Memorial',corporate:'Corporate',community:'Community memories',feedback:'Guest feedback'};
+
+function load(){
+  if(!PID||!KEY){ $('gate').style.display=''; return; }
+  call('me').then(r=>{
+    if(!r.ok){ $('gate').style.display=''; $('gateMsg').textContent=r.error||$('gateMsg').textContent; return; }
+    P=r.p; render(); show(document.querySelector('.tabs button.on').dataset.t);
+  });
+}
+function render(){
+  document.documentElement.style.setProperty('--brand',P.color||'#2E7D5B'); document.documentElement.style.setProperty('--accent',P.accent||'#C9A54C');
+  $('brand').innerHTML=(P.logo?'<img src="'+esc(P.logo)+'" alt="">':'')+'<span>'+esc(P.name)+'</span>';
+  $('founding').style.display=P.founding?'':'none';
+  $('pageLine').innerHTML='Your customer page: <a href="'+esc(P.page)+'" target="_blank">'+esc(P.page.replace('https://',''))+'</a>';
+  $('viewPage').href=P.page;
+  const ev=P.events||[];
+  $('evList').innerHTML=ev.length?ev.map(e=>'<div class="card ev"><h3>'+esc(e.name)+'</h3><div class="meta">'+esc(KINDS[e.kind]||e.kind)+(e.date?' · '+esc(e.date):'')+' · '+(e.posts||0)+' posts'+(e.free?' · <span class="pill">Free founding event</span>':'')+'</div>'+
+    (e.handedOver?'<span class="pill">Handed over to '+esc(e.handedOver.email||'')+'</span>':'<span class="pill o">Not handed over yet</span>')+
+    '<div class="acts"><button class="btn s" onclick="kit(\''+e.id+'\')">QR &amp; table card</button><a class="btn g s" target="_blank" href="'+esc(e.links.screen)+'">Big screen</a><a class="btn g s" target="_blank" href="'+esc(e.links.manage)+'">Moderate</a><a class="btn g s" target="_blank" href="'+esc(e.links.guest)+'">Guest page</a><button class="btn g s" onclick="ho(\''+e.id+'\')">Hand over</button></div></div>').join('')
+    :'<div class="card empty">No events yet. Create your first one: it takes 20 seconds.'+(P.founding&&!P.freeUsed?'<br><b>Your first event is free.</b>':'')+'</div>';
+  const rq=P.requests||[]; const nNew=rq.filter(x=>x.status==='new').length; $('rqN').textContent=nNew?'('+nNew+')':'';
+  $('rqList').innerHTML=rq.length?rq.map(x=>'<div class="card"><div class="row" style="align-items:flex-start"><div><h3 style="font-size:18px">'+esc(x.name)+' · '+esc(x.what||'')+'</h3><p class="small muted">'+(x.date?esc(x.date)+' · ':'')+(x.guests?esc(x.guests)+' guests · ':'')+'<a href="mailto:'+esc(x.email)+'">'+esc(x.email)+'</a>'+(x.phone?' · '+esc(x.phone):'')+'</p>'+(x.note?'<p style="margin-top:8px">'+esc(x.note)+'</p>':'')+'</div>'+
+    '<div style="flex:0 0 auto;text-align:right"><span class="pill'+(x.status==='new'?' o':'')+'">'+esc(x.status)+'</span><div class="acts" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">'+(x.status!=='created'?'<button class="btn s" onclick="fromReq(\''+x.id+'\')">Create event</button>':'')+(x.status==='new'?'<button class="btn g s" onclick="rqSet(\''+x.id+'\',\'contacted\')">Mark contacted</button>':'')+'<button class="btn g s" onclick="rqSet(\''+x.id+'\',\'closed\')">Close</button></div></div></div></div>').join('')
+    :'<div class="card empty">No requests yet. Share your page link on your website, social media and WhatsApp.</div>';
+  $('bName').value=P.name||''; $('bWeb').value=P.website||''; $('bColor').value=P.color||'#2E7D5B'; $('bAccent').value=P.accent||'#C9A54C'; $('bCity').value=P.city||''; $('bPhone').value=P.phone||''; $('bTag').value=P.tagline||''; $('bAbout').value=P.about||''; $('bLang').value=P.lang||'en';
+  if(P.logo){ $('bLogoPrev').src=P.logo; $('bLogoPrev').style.display=''; }
+  OFF=(P.offers||[]).slice(); if(!OFF.length) OFF=defaultOffers(P.type); paintOffers();
+}
+function defaultOffers(t){
+  const venue=t==='venue'||t==='hotel';
+  return [{t:'Live guest wall',d:'Guests scan a QR code and post messages and photos from their phones. Everything appears live on the big screen, and the couple keeps it all afterwards.',price:''},
+    {t:'Memory wall for a loved one',d:'A gentle place for family and friends, near or far, to share memories and photos. Shown at the service and kept for the family.',price:''},
+    venue?{t:'Private guest feedback',d:'A private page where guests tell us how their stay was. It goes straight to our team.',price:'Included'}:{t:'Song requests on the wall',d:'Guests send song requests and dedications straight to the DJ from the same QR code.',price:'Included'}];
+}
+let OFF=[];
+function paintOffers(){ $('offers').innerHTML=OFF.map((o,i)=>'<div class="offer"><div class="row"><div><label>Title</label><input value="'+esc(o.t)+'" oninput="OFF['+i+'].t=this.value"></div><div style="max-width:200px"><label>Your price (optional)</label><input value="'+esc(o.price)+'" oninput="OFF['+i+'].price=this.value" placeholder="e.g. 3 900 Kč"></div></div><label>Description</label><textarea oninput="OFF['+i+'].d=this.value">'+esc(o.d)+'</textarea><button class="btn g s" style="margin-top:8px" onclick="OFF.splice('+i+',1);paintOffers()">Remove</button></div>').join(''); }
+function addOffer(){ if(OFF.length>=8) return toast('Up to 8 offers'); OFF.push({t:'',d:'',price:''}); paintOffers(); }
+$('bLogo').addEventListener('change',function(){ const f=this.files[0]; if(!f) return; if(f.size>2400000) return toast('Please use a logo under 2.4 MB');
+  toast('Uploading logo…'); fetch(MEDIA+'?scope=logo&ev='+PID+'&key='+encodeURIComponent(KEY),{method:'POST',headers:{'Content-Type':f.type},body:f}).then(r=>r.json()).then(j=>{ if(!j.ok) return toast(j.error||'Upload failed'); P.logo=j.url; $('bLogoPrev').src=j.url; $('bLogoPrev').style.display=''; toast('Logo uploaded. Press Save to apply it.'); }).catch(()=>toast('Upload failed')); });
+function saveBrand(){ const b=$('saveBrand'); b.disabled=true;
+  call('brand.save',{fields:{name:$('bName').value,website:$('bWeb').value,color:$('bColor').value,accent:$('bAccent').value,city:$('bCity').value,phone:$('bPhone').value,tagline:$('bTag').value,about:$('bAbout').value,lang:$('bLang').value,logo:P.logo||'',offers:OFF}}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not save'); toast('Saved. Your page and events are updated.'); load(); }); }
+function openNew(req){ ['nName','nDate','nHost','nCust','nCustE','nReq'].forEach(i=>$(i).value=''); $('nMod').checked=true;
+  $('freeLine').textContent=P.founding&&!P.freeUsed?'Your first event is free as a Founding Partner.':'Pilot: events are recorded on your account; we agree billing with you separately.';
+  if(req){ $('nName').value=req.name; $('nCust').value=req.name; $('nCustE').value=req.email; $('nDate').value=/^\d{4}-\d\d-\d\d$/.test(req.date)?req.date:''; $('nReq').value=req.id; }
+  openM('newM'); setTimeout(()=>$('nName').focus(),50); }
+function fromReq(id){ const r=(P.requests||[]).find(x=>x.id===id); openNew(r); }
+function rqSet(id,v){ call('request.update',{rid:id,val:v}).then(()=>load()); }
+function createEv(){ const b=$('nGo'); b.disabled=true;
+  call('event.create',{name:$('nName').value,kind:$('nKind').value,date:$('nDate').value,host:$('nHost').value,customerName:$('nCust').value,customerEmail:$('nCustE').value,moderation:$('nMod').checked,requestId:$('nReq').value||undefined}).then(r=>{ b.disabled=false;
+    if(!r.ok) return toast(r.error||'Could not create the event'); closeM('newM'); toast('Event created'); P._last=r.id; load(); setTimeout(()=>kit(r.id, r.links, $('nName').value),400); }); }
+let QRURL='';
+function kit(id, links, name){ const e=(P.events||[]).find(x=>x.id===id)||{links,name}; const L=e.links||links;
+  $('qrCard').innerHTML=(P.logo?'<img src="'+esc(P.logo)+'" style="height:56px;max-width:220px;object-fit:contain">':'<h3>'+esc(P.name)+'</h3>')+'<h2 style="font-size:28px;margin-top:8px">'+esc(e.name||name||'')+'</h2><p class="muted" style="margin-top:6px">Scan to leave a message or photo</p><div id="qrBox"></div><p class="link">'+esc(L.guest)+'</p><p class="small muted" style="margin-top:10px">No app needed · Powered by GatherWall</p>';
+  QRURL=L.guest; new QRCode($('qrBox'),{text:L.guest,width:220,height:220,colorDark:'#111',colorLight:'#fff'}); openM('kitM'); }
+function dlQR(){ const c=document.querySelector('#qrBox canvas'); if(!c) return; const a=document.createElement('a'); a.href=c.toDataURL('image/png'); a.download='gatherwall-qr.png'; a.click(); }
+function ho(id){ const e=(P.events||[]).find(x=>x.id===id)||{}; $('hEv').value=id; $('hName').value=(e.customer&&e.customer.name)||''; $('hEmail').value=(e.customer&&e.customer.email)||''; openM('hoM'); }
+function handover(){ const b=$('hGo'); b.disabled=true; call('event.handover',{ev:$('hEv').value,name:$('hName').value,email:$('hEmail').value}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not send'); closeM('hoM'); toast('Links sent to your customer'); load(); }); }
+load();
+</script>
+</body>
+</html>

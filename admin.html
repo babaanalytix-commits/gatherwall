@@ -110,6 +110,7 @@ textarea{line-height:1.5;resize:vertical}
     <button data-v="walls">Walls &amp; memorials</button>
     <button data-v="messages">Messages</button>
     <button data-v="visitors">Visitors</button>
+    <button data-v="partners">Partners <span class="b" id="ptB" style="display:none"></span></button>
     <button data-v="money">Money</button>
     <button data-v="links">Tools</button>
   </nav>
@@ -146,6 +147,11 @@ textarea{line-height:1.5;resize:vertical}
   <!-- SONGS -->
   <section class="view" id="v-songs">
     <div class="card"><h2>$39 Keepsake songs</h2><p class="sub">Fully automatic. Only flagged rows need a look. Updated hourly.</p><div class="scroll"><table id="songTable"></table></div></div>
+  </section>
+
+  <!-- PARTNERS (GatherWall Business) -->
+  <section class="view" id="v-partners">
+    <div class="card"><h2>Partners</h2><p class="sub">Applications from <a href="/business.html" target="_blank">gatherwall.com/business</a>. Approve to create their dashboard and page. The dashboard link is emailed to them and shown here so you can also send it on WhatsApp.</p><div id="ptList"><p class="empty">Loading…</p></div></div>
   </section>
 
   <!-- WALLS -->
@@ -231,6 +237,20 @@ async function start(){
   try{ window.renderGrow($('growBox'),(tr&&tr.data)||{}); }catch(e){ $('growBox').innerHTML='<p class="empty">Grow tab failed to load: '+esc(e.message)+'</p>'; }
   call('admin.analytics',{days:30}).then(renderVisitors);
 }
+/* ---------- partners ---------- */
+const BIZ='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz';
+const bcall=(op,p)=>fetch(BIZ,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op,key:KEY},p||{}))}).then(r=>r.json()).catch(()=>({ok:false,error:'offline'}));
+const slugify=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);
+function loadPartners(){ bcall('admin.list').then(r=>{ const box=$('ptList'); if(!r.ok){ box.innerHTML='<p class="empty">Could not load partners.</p>'; return; }
+  const ps=Object.values(r.partners||{}).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)); const pend=ps.filter(p=>p.status==='pending').length;
+  $('ptB').style.display=pend?'':'none'; $('ptB').textContent=pend;
+  box.innerHTML=ps.length?'<div class="scroll"><table><tr><th>Business</th><th>Type</th><th>Contact</th><th>Status</th><th>Events</th><th></th></tr>'+ps.map(p=>'<tr><td><b>'+esc(p.name)+'</b><br><span class="sub">'+esc(p.city||'')+(p.website?' · <a href="'+esc(p.website)+'" target="_blank">site</a>':'')+(p.slug?' · <a href="/p/'+esc(p.slug)+'" target="_blank">/p/'+esc(p.slug)+'</a>':'')+'</span>'+(p.note?'<br><span class="sub">'+esc(p.note)+'</span>':'')+'</td><td>'+esc(p.type)+'</td><td>'+esc(p.contact||'')+'<br><span class="sub">'+esc(p.email)+(p.phone?' · '+esc(p.phone):'')+'</span></td><td>'+esc(p.status)+(p.founding?'<br><span class="sub">'+(p.freeUsed?'free event used':'free event available')+'</span>':'')+'</td><td>'+(p.eventCount||0)+(p.billable?' ('+p.billable+' billable)':'')+(p.requests?'<br><span class="sub">'+p.requests+' requests</span>':'')+'</td><td style="white-space:nowrap">'+
+    (p.status==='pending'?'<input id="sl_'+p.pid+'" value="'+esc(slugify(p.name))+'" style="width:140px;padding:6px;border:1px solid #ddd;border-radius:8px"> <button class="btn" onclick="ptApprove(\''+p.pid+'\')">Approve</button> <button class="btn ghost" onclick="ptSet(\''+p.pid+'\',\'declined\')">Decline</button>':
+     p.status==='active'?'<button class="btn ghost" onclick="ptLink(\''+p.pid+'\')">Dashboard link</button> <button class="btn ghost" onclick="ptSet(\''+p.pid+'\',\'suspended\')">Suspend</button>':'<button class="btn ghost" onclick="ptSet(\''+p.pid+'\',\'active\')">Reactivate</button>')+'</td></tr>').join('')+'</table></div>':'<p class="empty">No partner applications yet.</p>'; }); }
+function ptApprove(pid){ const slug=$('sl_'+pid).value.trim(); bcall('admin.approve',{pid,slug}).then(r=>{ if(!r.ok) return alert(r.error||'Could not approve'); prompt('Approved. Their dashboard link (also emailed to them):',r.link); loadPartners(); }); }
+function ptLink(pid){ bcall('admin.link',{pid}).then(r=>r.ok?prompt('Dashboard link (keep private, send only to the partner):',r.link):alert('No link')); }
+function ptSet(pid,val){ if(!confirm('Set this partner to '+val+'?')) return; bcall('admin.status',{pid,val}).then(()=>loadPartners()); }
+setTimeout(()=>{ if(KEY) loadPartners(); },1500);
 $('keyBtn').onclick=()=>{ KEY=$('keyIn').value.trim(); try{localStorage.setItem('gw_admin_key',KEY)}catch(e){} $('loginBox').style.display='none'; start(); };
 $('keyIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('keyBtn').click(); });
 $('logout').onclick=()=>{ try{localStorage.removeItem('gw_admin_key')}catch(e){} location.reload(); };

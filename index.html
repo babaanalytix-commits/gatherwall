@@ -1747,6 +1747,23 @@ function getEvent(id, cb){
 }
 /* HOST GATEWAY: control-panel actions are checked privately by our server, which holds the keys. */
 const HOST_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/host';
+const MEDIA_API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/media';
+function upPhoto(ev, dataUrl){
+  return fetch(dataUrl).then(r=>r.blob()).then(b=>fetch(MEDIA_API+'?ev='+encodeURIComponent(ev),{method:'POST',headers:{'Content-Type':b.type||'image/jpeg'},body:b}))
+    .then(r=>r.json()).then(j=>j&&j.ok&&j.url?j.url:null).catch(()=>null);
+}
+/* Partner branding (GatherWall Business): events created by a partner carry e.brand = {name, logo, color, website}. */
+function applyBrand(e){
+  const b=e&&e.brand; const nav=document.querySelector('#screen-guest .nav .logo');
+  if(nav){ if(!nav.dataset.orig) nav.dataset.orig=nav.innerHTML;
+    nav.innerHTML = b&&b.name ? ((b.logo?'<img src="'+escapeHTML(b.logo)+'" alt="" style="height:34px;max-width:140px;object-fit:contain;margin-right:8px;vertical-align:middle">':'<span class="dot"></span>')+escapeHTML(b.name)) : nav.dataset.orig;
+    nav.onclick = b&&b.website ? ()=>{ window.open(b.website,'_blank','noopener'); } : goHome; }
+  const gr=document.getElementById('guestRefer'); if(gr&&b&&b.name){ gr.textContent='Powered by GatherWall'; gr.style.fontWeight='500'; gr.style.opacity='.75'; }
+  let wb=document.getElementById('wallBrand'); const row=document.querySelector('#screen-wall .wall-title-row');
+  if(b&&b.name&&row){ if(!wb){ wb=document.createElement('div'); wb.id='wallBrand'; wb.style.cssText='margin-left:auto;display:flex;align-items:center;gap:10px;font-weight:600;opacity:.9'; row.appendChild(wb); }
+    wb.innerHTML=(b.logo?'<img src="'+escapeHTML(b.logo)+'" alt="" style="height:44px;max-width:180px;object-fit:contain">':'<span>'+escapeHTML(b.name)+'</span>'); wb.style.display='flex'; }
+  else if(wb){ wb.style.display='none'; }
+}
 function hostCall(op, payload){
   return fetch(HOST_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({op:op},payload))})
     .then(r=>r.json()).catch(()=>({ok:false,error:'Could not reach the server — check your connection'}));
@@ -2785,6 +2802,7 @@ function renderGuest(id, kiosk){
     // Ensure the form is visible again (in case it was hidden by a prior not-live view)
     const gCard=document.querySelector('#screen-guest .card'); if(gCard) gCard.style.display='';
     const gNL=document.getElementById('guestNotLive'); if(gNL) gNL.style.display='none';
+    applyBrand(e);
     guestEv=id; guestKiosk=!!kiosk; document.body.classList.toggle('kioskmode', guestKiosk);
     // Referral loop: every guest just experienced the product → point them to make their own.
     const gr=document.getElementById('guestRefer'); if(gr){ gr.href=baseURL(); gr.style.display=guestKiosk?'none':'flex'; }
@@ -2902,6 +2920,11 @@ function submitTribute(){
   const moder=!!(guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation);
   const t={msg,name,photo:photoData,video:videoData,audio:audioData,ts:Date.now(),approved:!moder};
   if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor; }
+  // Photos go to fast file storage (R2); the wall keeps only the link. Falls back to inline if storage is unreachable.
+  if(USE_FB && t.photo && /^data:image/.test(t.photo) && !window._noR2){
+    const btn=document.getElementById('t_addBtn'); if(btn) btn.disabled=true;
+    return upPhoto(guestEv,t.photo).then(u=>{ if(btn) btn.disabled=false; if(u) photoData=u; else window._noR2=true; submitTribute(); });
+  }
   t.ek=Math.random().toString(36).slice(2,8)+Math.random().toString(36).slice(2,8);
   addTrib(guestEv,t, ok=>{
     if(!ok){ toast('Could not add — try a smaller/no photo or check connection'); return; }
@@ -3011,7 +3034,7 @@ function renderWall(id){
       watchPublished(id, ()=>{ stopWatchPublished(); renderWall(id); });
       go('wall'); return;
     }
-    wallEv=id; wallEvObj=e; lastCount=-1; applyVibe(e.vibe,e.color);
+    wallEv=id; wallEvObj=e; lastCount=-1; applyVibe(e.vibe,e.color); applyBrand(e);
     document.getElementById('wallTitle').textContent=e.name;
     setPortrait('wallPortrait', e);
     document.getElementById('wallHost').innerHTML=hostHTML(e);

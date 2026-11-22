@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GatherWall</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#2E7D5B;--accent:#C9A54C;--ink:#1d1d1f;--muted:#6b6b70;--line:#ece6da}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fbf9f5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header{background:#fff;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:12px;min-height:66px}
+header img{height:40px;max-width:180px;object-fit:contain}
+header b{font-family:Fraunces,serif;font-size:20px}
+header a.cta{margin-left:auto;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 16px;font-size:14px}
+.hero{background:var(--brand);color:#fff;padding:56px 0 50px}
+.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.1;max-width:760px}
+.hero p{font-size:18px;opacity:.9;margin-top:12px;max-width:640px;line-height:1.5}
+.hero .ac{display:inline-block;margin-top:18px;width:60px;height:4px;border-radius:4px;background:var(--accent)}
+section{padding:42px 0}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.how div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.how b{display:block;font-family:Fraunces,serif;font-size:20px;margin:6px 0 4px}
+.how span{font-size:26px}
+.offers{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:18px}
+.off{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column}
+.off h3{font-size:21px}.off p{color:var(--muted);line-height:1.5;margin-top:8px;flex:1}
+.off .pr{margin-top:12px;font-weight:600;color:var(--brand)}
+.about{font-size:17px;line-height:1.65;max-width:720px;color:#33363a}
+form{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;max-width:640px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+input,select,textarea{width:100%;font:15px Inter,sans-serif;padding:11px 12px;border:1px solid #d6d1c7;border-radius:12px;background:#fff}
+textarea{min-height:90px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+button{margin-top:16px;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:13px 22px;font:600 15px Inter,sans-serif;cursor:pointer}
+footer{padding:30px 0 50px;color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--muted)}
+@media(max-width:700px){.how{grid-template-columns:1fr}}
+#nf{padding:80px 20px;text-align:center}
+#nf a{color:var(--brand);font-weight:600}
+</style>
+</head>
+<body>
+<div id="nf" style="display:none"><h1>Page not found</h1><p style="margin:12px 0 18px;color:var(--muted)">This page doesn't exist or has moved.</p><a href="/">Go to GatherWall ›</a></div>
+<div id="pp" style="display:none">
+  <header><div class="wrap"><span id="hLogo"></span><b id="hName"></b><a class="cta" href="#ask" id="hCta"></a></div></header>
+  <div class="hero"><div class="wrap"><h1 id="hTitle"></h1><p id="hTag"></p><span class="ac"></span></div></div>
+  <section><div class="wrap"><h2 id="tHow" style="font-size:28px;margin-bottom:16px"></h2><div class="how" id="how"></div></div></section>
+  <section style="padding-top:0"><div class="wrap"><h2 id="tOff" style="font-size:28px"></h2><div class="offers" id="offers"></div></div></section>
+  <section id="aboutS" style="padding-top:0;display:none"><div class="wrap"><h2 id="tAbout" style="font-size:28px;margin-bottom:12px"></h2><p class="about" id="about"></p></div></section>
+  <section id="ask" style="padding-top:0"><div class="wrap">
+    <h2 id="tAsk" style="font-size:28px;margin-bottom:6px"></h2><p id="tAskSub" style="color:var(--muted);margin-bottom:14px"></p>
+    <form id="f" onsubmit="return send(event)">
+      <div class="row"><div><label id="lName"></label><input name="name" required></div><div><label id="lEmail"></label><input name="email" type="email" required></div></div>
+      <div class="row"><div><label id="lPhone"></label><input name="phone"></div><div><label id="lDate"></label><input name="date" type="date"></div><div style="max-width:140px"><label id="lGuests"></label><input name="guests" inputmode="numeric"></div></div>
+      <label id="lWhat"></label><select name="what" id="sWhat"></select>
+      <label id="lNote"></label><textarea name="note"></textarea>
+      <input name="hp" style="display:none" tabindex="-1" autocomplete="off">
+      <button id="bSend"></button>
+    </form>
+  </div></section>
+  <footer><span id="fContact"></span><br><span id="fPow"></span> <a href="https://gatherwall.com/business.html">GatherWall</a></footer>
+</div>
+<script>
+const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz';
+const T={
+ en:{cta:'Ask about your event',title:n=>'Memories your guests create, kept forever',how:'How it works',h:[['📱','Guests scan a QR code','No app. Messages, photos and memories from any phone, even from family abroad.'],['🖥️','It appears live','Everything shows on the big screen as it arrives, approved by us first.'],['🎁','You keep it all','After the event you receive every message and photo in one beautiful page.']],off:'What we offer',about:'About us',ask:'Ask about your event',askSub:'Tell us a little about it and we will get back to you.',name:'Your name',email:'Email',phone:'Phone (optional)',date:'Date',guests:'Guests',what:'What are you interested in?',note:'Anything else?',send:'Send request',ok:'Thank you! We will be in touch soon.',pow:'Powered by',other:'Something else'},
+ cs:{cta:'Zeptejte se na svou akci',title:n=>'Vzpomínky, které vytvoří vaši hosté, navždy uložené',how:'Jak to funguje',h:[['📱','Hosté naskenují QR kód','Bez aplikace. Vzkazy, fotky a vzpomínky z jakéhokoli telefonu, i od rodiny v zahraničí.'],['🖥️','Vše se objeví živě','Vše se ukazuje na velké obrazovce, jak to přichází, a my to nejdřív schválíme.'],['🎁','Vše si necháte','Po akci dostanete všechny vzkazy a fotky na jedné krásné stránce.']],off:'Co nabízíme',about:'O nás',ask:'Zeptejte se na svou akci',askSub:'Napište nám pár slov a ozveme se vám.',name:'Vaše jméno',email:'E-mail',phone:'Telefon (nepovinné)',date:'Datum',guests:'Počet hostů',what:'O co máte zájem?',note:'Ještě něco?',send:'Odeslat poptávku',ok:'Děkujeme! Brzy se vám ozveme.',pow:'Běží na',other:'Něco jiného'}
+};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const m=location.pathname.match(/^\/p\/([a-z0-9-]{3,40})\/?$/);
+let SLUG='',t=T.en;
+if(!m){ document.getElementById('nf').style.display=''; }
+else { SLUG=m[1];
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op:'pub.get',slug:SLUG})}).then(r=>r.json()).then(r=>{
+    if(!r.ok){ document.getElementById('nf').style.display=''; return; }
+    const p=r.p; t=T[p.lang]||T.en; document.documentElement.lang=p.lang||'en';
+    document.documentElement.style.setProperty('--brand',p.color||'#2E7D5B'); document.documentElement.style.setProperty('--accent',p.accent||'#C9A54C');
+    document.title=p.name+' · '+(t.title());
+    const $=id=>document.getElementById(id);
+    $('hLogo').innerHTML=p.logo?'<img src="'+esc(p.logo)+'" alt="">':''; $('hName').textContent=p.logo?'':p.name; $('hCta').textContent=t.cta;
+    $('hTitle').textContent=p.tagline||t.title(); $('hTag').textContent=p.tagline?t.title():(p.name+(p.city?' · '+p.city:''));
+    $('tHow').textContent=t.how; $('how').innerHTML=t.h.map(x=>'<div><span>'+x[0]+'</span><b>'+x[1]+'</b><p style="color:var(--muted);line-height:1.5">'+x[2]+'</p></div>').join('');
+    const offs=p.offers||[]; $('tOff').textContent=t.off;
+    $('offers').innerHTML=offs.map(o=>'<div class="off"><h3>'+esc(o.t)+'</h3><p>'+esc(o.d)+'</p>'+(o.price?'<div class="pr">'+esc(o.price)+'</div>':'')+'</div>').join('');
+    if(!offs.length) $('tOff').parentNode.parentNode.style.display='none';
+    if(p.about){ $('aboutS').style.display=''; $('tAbout').textContent=t.about; $('about').textContent=p.about; }
+    ['ask','askSub','name','email','phone','date','guests','what','note'].forEach(k=>{ const el=$((k==='ask'||k==='askSub')?('t'+k[0].toUpperCase()+k.slice(1)):('l'+k[0].toUpperCase()+k.slice(1))); if(el) el.textContent=t[k]; });
+    $('sWhat').innerHTML=offs.map(o=>'<option>'+esc(o.t)+'</option>').join('')+'<option>'+t.other+'</option>';
+    $('bSend').textContent=t.send; $('fPow').textContent=t.pow;
+    $('fContact').innerHTML=esc(p.name)+(p.phone?' · '+esc(p.phone):'')+(p.website?' · <a href="'+esc(p.website)+'" target="_blank" rel="noopener">'+esc(p.website.replace(/^https?:\/\//,''))+'</a>':'');
+    $('pp').style.display='';
+  }).catch(()=>{ document.getElementById('nf').style.display=''; });
+}
+function send(e){ e.preventDefault(); const f=e.target, b=document.getElementById('bSend'); b.disabled=true;
+  const d={op:'pub.request',slug:SLUG}; new FormData(f).forEach((v,k)=>d[k]=v);
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{ b.disabled=false; if(!r.ok){ alert(r.error||'Sorry, something went wrong.'); return; } f.innerHTML='<h3 style="font-size:22px">'+t.ok+'</h3>'; }).catch(()=>{ b.disabled=false; alert('Sorry, something went wrong.'); });
+  return false; }
+</script>
+</body>
+</html>
