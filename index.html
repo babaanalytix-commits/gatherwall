@@ -2858,6 +2858,7 @@ function applyGuestLang(){
   if(bk==='feedback'||bk==='community'){
     const lf=document.getElementById('t_leaveFor'); if(lf) lf.textContent='';
     const pb=document.getElementById('promptBox'); if(pb) pb.style.display=bk==='feedback'?'none':'';
+    if(bk==='feedback'){ ['gestureBox','guestVibe'].forEach(id=>{ const x=document.getElementById(id); if(x) x.style.display='none'; }); }
     if(bk==='feedback'){ setTxt('t_footer', cz?'Vaši zprávu uvidí jen náš tým. Děkujeme!':'Only our team sees your message. Thank you!'); setTxt('t_addBtn', cz?'Odeslat':'Send');
       if(ta) ta.setAttribute('placeholder', cz?'Co se vám líbilo a co můžeme zlepšit?':'What did you enjoy, and what could we do better?'); }
     else { setTxt('t_footer', cz?'Vaše vzpomínka se objeví na zdi po schválení.':'Your memory will appear on the wall once approved.');
