@@ -267,6 +267,7 @@ footer .logo{color:#fff;}
 #spotlight.on{display:flex;}
 .sp-card{max-width:1000px;text-align:center;animation:pop .8s ease both;}
 .sp-photo img{max-width:360px;max-height:42vh;border-radius:18px;border:1.5px solid var(--brand);margin-bottom:26px;}
+.mg-msg,.sp-msg,.trib .msg,#myPosts .m,.mine .m{white-space:pre-line;}
 .sp-msg{font-family:var(--display);font-size:clamp(30px,5.4vw,60px);line-height:1.22;color:var(--ink);}
 .sp-from{margin-top:24px;font-size:clamp(17px,2.4vw,26px);font-weight:700;color:var(--brand);}
 .sp-heart{margin-top:16px;}
@@ -3217,7 +3218,7 @@ function exportAlbum(){
     h1{text-align:center;color:${accent}}.sub{text-align:center;color:#666;margin-bottom:26px}
     .c{border:1px solid #eee;border-radius:14px;padding:18px;margin-bottom:14px;break-inside:avoid}
     .c img{max-width:200px;border-radius:10px;display:block;margin-bottom:10px}
-    .m{font-size:18px}.n{color:${accent};font-weight:bold;margin-top:8px}
+    .m{font-size:18px;white-space:pre-line}.n{color:${accent};font-weight:bold;margin-top:8px}
     .tag{color:#6b4cff;font-weight:bold;font-size:12px;text-transform:uppercase}
     @media print{.noprint{display:none}}</style></head><body>
     <h1>${escapeHTML(e.name)}</h1><div class="sub">${list.length} tributes · GatherWall</div>
