@@ -158,7 +158,7 @@ textarea{line-height:1.5;resize:vertical}
     <div class="grid">
       <div class="card"><h2>Email</h2><p class="sub" id="mailSub">GatherWall-related threads in your Gmail, last 30 days. Click to open in Gmail.</p><div id="mailFull"></div>
         <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn ghost" href="https://mail.google.com/mail/u/0/#inbox" target="_blank">Open Gmail</a><a class="btn ghost" href="https://web.whatsapp.com/" target="_blank">Open WhatsApp Web</a></div></div>
-      <div class="card"><h2>Wall of Love</h2><p class="sub">Messages waiting for your approval.</p><div id="loveList"></div><p class="note">Approve or remove with your moderation link (in your admin note).</p></div>
+      <div class="card"><h2>Wall of Love</h2><p class="sub">Messages waiting for your approval.</p><div id="loveList"></div><p class="note">Approved messages appear on the Wall of Love and in the homepage review strip.</p></div>
     </div>
   </section>
 
@@ -309,7 +309,8 @@ function renderAll(X){
   $('mailMini').innerHTML=items.length?items.slice(0,5).map(mailRow).join(''):'<p class="empty">No GatherWall emails yet.</p>';
   $('mailFull').innerHTML=items.length?items.map(mailRow).join(''):'<p class="empty">No GatherWall emails yet.</p>';
   if(X.inbox.at) $('mailSub').textContent='GatherWall-related threads in your Gmail, last 30 days · updated '+ago(X.inbox.at)+'. Click to open in Gmail.';
-  $('loveList').innerHTML=pendLove.length?pendLove.map(([k,m])=>`<div class="task"><span class="dot a"></span><div><div class="t">“${esc(m.msg)}”</div><div class="m">${esc(m.from||'Anonymous')} · ${ago(m.ts)}</div></div></div>`).join(''):'<p class="empty">Nothing waiting.</p>';
+  $('loveList').innerHTML=pendLove.length?pendLove.map(([k,m])=>`<div class="task"><span class="dot a"></span><div style="flex:1"><div class="t">“${esc(m.msg)}”</div><div class="m">${esc(m.from||'Anonymous')} · ${ago(m.ts)}</div><div style="margin-top:8px;display:flex;gap:8px"><button class="btn" data-love="${k}" data-val="1">✓ Approve</button><button class="btn ghost" data-love="${k}" data-val="del">Delete</button></div></div></div>`).join(''):'<p class="empty">Nothing waiting.</p>';
+  $('loveList').onclick=async e=>{ const b=e.target.closest('[data-love]'); if(!b) return; if(b.dataset.val==='del'&&!confirm('Delete this message for good?')) return; b.disabled=true; const r=await call('admin.love',{rid:b.dataset.love,val:b.dataset.val==='del'?'delete':true}); if(r&&r.ok){ b.closest('.task').style.opacity=.35; b.closest('div').innerHTML=b.dataset.val==='del'?'Deleted':'✓ Approved, live on the homepage'; } else { b.disabled=false; alert('Not saved: '+((r&&r.error)||'network error')); } };
   // ---- money
   const byP={}; sales.forEach(m=>{ const k=m.slug||'other'; byP[k]=byP[k]||{n:0,a:0}; byP[k].n++; byP[k].a+=(+m.amount||0)/100; });
   const months={}; sales.forEach(m=>{ const d=new Date(m.ts); const k=d.toLocaleDateString('en-GB',{month:'short',year:'numeric'}); months[k]=(months[k]||0)+(+m.amount||0)/100; });
