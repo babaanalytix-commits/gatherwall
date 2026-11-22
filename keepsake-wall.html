@@ -122,7 +122,7 @@ function share(){ const u=location.href; if(navigator.share) navigator.share({ti
 async function dlZip(){
   const btn=$('dlAll'); btn.disabled=true; $('dlNote').textContent=t.zip;
   try{ const z=new JSZip(); let i=0;
-    for(const p of PH){ i++; const blob=await fetch(p.src).then(r=>r.blob()); const ext=(blob.type.split('/')[1]||'jpg').replace('jpeg','jpg'); z.file(String(i).padStart(3,'0')+'-'+(p.name||'guest').replace(/[^\w\- ]+/g,'').trim().slice(0,30)+'.'+ext, blob); }
+    for(const p of PH){ i++; const u=p.src.startsWith('data:')?p.src:p.src+(p.src.includes('?')?'&':'?')+'dl=1'; const blob=await fetch(u,{mode:p.src.startsWith('data:')?undefined:'cors',cache:'no-store'}).then(r=>r.blob()); const ext=(blob.type.split('/')[1]||'jpg').replace('jpeg','jpg'); z.file(String(i).padStart(3,'0')+'-'+(p.name||'guest').replace(/[^\w\- ]+/g,'').trim().slice(0,30)+'.'+ext, blob); }
     const out=await z.generateAsync({type:'blob'}); const a=document.createElement('a'); a.href=URL.createObjectURL(out); a.download=(E.name||'keepsake').replace(/[^\w\- ]+/g,'').trim()+' - photos.zip'; a.click(); $('dlNote').textContent=t.done;
   }catch(e){ $('dlNote').textContent='Some photos could not be downloaded. Tap a photo and save it instead.'; }
   btn.disabled=false; }
