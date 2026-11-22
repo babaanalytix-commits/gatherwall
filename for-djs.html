@@ -69,6 +69,7 @@ button{margin-top:18px;background:var(--ink);color:#fff;border:0;border-radius:9
   <div class="btns"><a class="btn p" href="#apply">Become a partner (first event free)</a><a class="btn q" href="#see">See exactly how it looks</a></div>
 </div></div>
 <section><div class="wrap"><div class="prods"><div><span>🎵</span><div><b>Song requests to you</b><p>Requests and dedications come from the same QR code. No shouting over the music.</p></div></div><div><span>🖥️</span><div><b>A live wall on your screen</b><p>Messages and photos appear as guests post them. You or the host approve first.</p></div></div><div><span>🏷️</span><div><b>Your brand, not ours</b><p>Your logo and colours on the screen, the guest page and the couple’s keepsake.</p></div></div><div><span>💷</span><div><b>A new upgrade to sell</b><p>Add it to your packages or sell it as an extra. You set the price and keep the margin.</p></div></div><div><span>📲</span><div><b>No app, no fuss</b><p>Guests use any phone. Family abroad can join from the same link.</p></div></div><div><span>✨</span><div><b>Coming: Song of Your Night</b><p>A song made from the guests’ own words, ready for the last dance. A paid add-on, priced per song.</p></div></div></div></div></section>
+<section id="try" style="padding-top:0"><div class="wrap"><h2>Try it yourself, right now</h2><p class="lead" style="margin-bottom:18px">This is a real GatherWall. Post from your phone and it appears on the live screen below within seconds.</p><div data-gw-try></div></div></section>
 <section id="see" style="padding-top:0"><div class="wrap">
   <h2>See it from both sides</h2>
   <p class="lead">These are real screens from a demo account. Switch between what you see and what your customers and their guests see.</p>
@@ -111,5 +112,6 @@ function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementByI
 function side(k,b){ document.querySelectorAll('.sides button').forEach(x=>x.classList.toggle('on',x===b)); document.getElementById('s-biz').style.display=k==='biz'?'':'none'; document.getElementById('s-cust').style.display=k==='cust'?'':'none'; }
 (function(){ try{ var q=new URLSearchParams(location.search), w=(q.get('for')||'').replace(/[<>]/g,'').slice(0,60); if(w){ var b=document.getElementById('pfor'); b.textContent='Prepared for '+w; b.style.display='block'; var n=document.querySelector('#f input[name=name]'); if(n&&!n.value) n.value=w; } }catch(e){} })();
 </script>
+<script src="/gw-try.js" defer></script>
 </body>
 </html>

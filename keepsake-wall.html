@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Your keepsake · GatherWall</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<style>
+:root{--bg:#F7F3EC;--ink:#20242b;--muted:#7b7568;--gold:#C2A058;--deep:#1c2027;--line:#e7e0d4;--card:#fffdf9;--brand:#1c2027}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+#welcome{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 30%,#3a3326,#14161a 75%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:opacity .8s}
+#welcome.gone{opacity:0;pointer-events:none}
+#welcome .lg{background:#fff;border-radius:16px;padding:10px 16px;margin-bottom:22px;display:none}#welcome .lg img{height:44px;max-width:220px;object-fit:contain;display:block}
+#welcome .ph{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid var(--gold);box-shadow:0 10px 40px rgba(0,0,0,.5);animation:rise 1.2s ease;display:none}
+#welcome .to{margin-top:24px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#e4c77a}
+#welcome h1{font-family:Fraunces,serif;font-size:clamp(34px,7vw,56px);font-weight:600;line-height:1.1;margin:10px 0 8px}
+#welcome p{max-width:460px;opacity:.85}
+#welcome button{margin-top:28px;background:var(--gold);color:#1b1b1b;border:0;border-radius:999px;padding:15px 34px;font:600 16px Inter,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+@keyframes rise{from{transform:translateY(20px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.hero{position:relative;color:#fff;text-align:center;padding:56px 20px 84px;background:#14161a center/cover}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,17,20,.45),rgba(15,17,20,.78))}
+.hero>*{position:relative}
+.hero .lg{display:inline-block;background:#fff;border-radius:14px;padding:8px 14px;margin-bottom:16px}.hero .lg img{height:38px;max-width:200px;object-fit:contain;display:block}
+.hero h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(32px,6vw,50px);line-height:1.1}
+.hero p{opacity:.9;margin-top:6px;font-family:Fraunces,serif;font-style:italic}
+.stats{margin-top:14px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.stats span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:5px 14px;font-size:13px}
+nav{position:sticky;top:0;z-index:5;background:rgba(247,243,236,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px}
+nav>:first-child{margin-left:auto}nav>:last-child{margin-right:auto}
+nav a{white-space:nowrap;text-decoration:none;color:var(--deep);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:999px}
+nav a:hover{background:#ece5d8}
+.wrap{max-width:820px;margin:-44px auto 0;padding:0 16px 40px;position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 24px;margin-bottom:22px;box-shadow:0 6px 24px rgba(0,0,0,.05);scroll-margin-top:70px}
+.num{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.card h2{font-family:Fraunces,serif;font-weight:600;font-size:26px;color:var(--deep);margin:2px 0 6px}
+.lead{color:var(--muted);margin-bottom:16px}
+.msgs{columns:2;column-gap:12px}@media(max-width:620px){.msgs{columns:1}}
+.m{break-inside:avoid;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px}
+.m img{width:100%;border-radius:12px;margin-bottom:10px;cursor:zoom-in;display:block}
+.m p{font-family:Fraunces,serif;font-size:17px;line-height:1.5;white-space:pre-line}
+.m b{display:block;font-size:13px;color:var(--gold);margin-top:8px}
+.m .song{font-size:13px;color:var(--muted);margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}@media(max-width:620px){.grid{grid-template-columns:repeat(3,1fr)}}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:zoom-in}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:11px 18px;font-weight:600;font-size:14.5px;border:1.5px solid var(--deep);color:var(--deep);background:#fff;cursor:pointer;font-family:inherit}
+.btn.solid{background:var(--deep);color:#fff}.btn:disabled{opacity:.5}
+.note{font-size:13.5px;color:var(--muted);margin-top:10px}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:80;padding:20px}#lb img{max-width:100%;max-height:100%;border-radius:10px}
+.foot{max-width:820px;margin:0 auto;padding:10px 16px 50px;text-align:center;color:var(--muted);font-size:13.5px}
+.foot .from{font-family:Fraunces,serif;font-size:19px;color:var(--deep);margin-bottom:6px}
+.foot a{color:var(--deep)}
+.empty{color:var(--muted);text-align:center;padding:20px}
+@media print{#welcome,nav,.btns,.noprint,#lb{display:none!important}.wrap{margin:0}.card{box-shadow:none;break-inside:avoid-page}.hero{color:#000;background:none!important}.hero:before{display:none}.msgs{columns:2}}
+</style>
+</head>
+<body>
+<div id="welcome">
+  <div class="lg" id="wLogo"><img alt=""></div>
+  <img class="ph" id="wPhoto" alt="">
+  <div class="to" id="wTo"></div>
+  <h1 id="wName">…</h1>
+  <p id="wSub"></p>
+  <button id="wBtn" onclick="openGift()"></button>
+</div>
+<header class="hero" id="hero">
+  <div class="lg" id="hLogo" style="display:none"><img alt=""></div>
+  <h1 id="hName"></h1>
+  <p id="hSub"></p>
+  <div class="stats" id="stats"></div>
+</header>
+<nav><a href="#words" id="nW"></a><a href="#photos" id="nP"></a><a href="#keep" id="nK"></a></nav>
+<div class="wrap">
+  <section class="card" id="words"><span class="num">01</span><h2 id="tW"></h2><p class="lead" id="lW"></p><div class="msgs" id="msgs"></div></section>
+  <section class="card" id="photos"><span class="num">02</span><h2 id="tP"></h2><p class="lead" id="lP"></p><div class="grid" id="grid"></div></section>
+  <section class="card" id="keep"><span class="num">03</span><h2 id="tK"></h2><p class="lead" id="lK"></p>
+    <div class="btns"><button class="btn solid" id="dlAll" onclick="dlZip()"></button><button class="btn" id="prBtn" onclick="window.print()"></button><button class="btn" id="shBtn" onclick="share()"></button></div>
+    <p class="note" id="dlNote"></p></section>
+</div>
+<div class="foot" id="foot"></div>
+<div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+<script>
+const DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const T={
+ en:{to:'Your keepsake',sub:'Every message and photo your guests shared, kept in one place for you.',open:'Open your keepsake ✨',words:'Their words',wl:n=>n+' messages from the people who were there, and those who joined from afar.',photos:'Photos',pl:n=>n+' photos shared by your guests. Tap one to see it full size.',keep:'Keep everything',kl:'Download every photo, save the messages as a PDF, or share this page with family.',dl:'⬇ Download all photos',pr:'🖨 Save messages as PDF',sh:'🔗 Share this page',msgs:'messages',ph:'photos',nophotos:'No photos were shared.',nomsg:'No messages yet.',from:n=>'With love from '+n,pow:'Powered by',zip:'Preparing your photos…',done:'Downloaded.',copied:'Link copied',wantB:'Want one for your own celebration?',song:'🎵 Song request'},
+ cs:{to:'Vaše vzpomínka',sub:'Všechny vzkazy a fotky od vašich hostů, uložené na jednom místě.',open:'Otevřete svou vzpomínku ✨',words:'Jejich slova',wl:n=>n+' vzkazů od těch, kdo byli s vámi, i od těch, kdo se připojili z dálky.',photos:'Fotky',pl:n=>n+' fotek od vašich hostů. Klepnutím fotku zvětšíte.',keep:'Uchovejte si vše',kl:'Stáhněte si všechny fotky, uložte vzkazy jako PDF nebo stránku sdílejte s rodinou.',dl:'⬇ Stáhnout všechny fotky',pr:'🖨 Uložit vzkazy jako PDF',sh:'🔗 Sdílet stránku',msgs:'vzkazů',ph:'fotek',nophotos:'Nebyly sdíleny žádné fotky.',nomsg:'Zatím žádné vzkazy.',from:n=>'S láskou od '+n,pow:'Běží na',zip:'Připravujeme fotky…',done:'Staženo.',copied:'Odkaz zkopírován',wantB:'Chcete něco takového i na svou oslavu?',song:'🎵 Přání písně'}
+};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+const ev=(new URLSearchParams(location.search).get('ev')||'').replace(/[^A-Za-z0-9_-]/g,'');
+let L=(new URLSearchParams(location.search).get('lang')||navigator.language||'en').slice(0,2).toLowerCase(); if(!T[L]) L='en'; const t=T[L];
+let E=null, PH=[];
+function openGift(){ $('welcome').classList.add('gone'); }
+Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()),fetch(DB+'/tributes/'+ev+'.json').then(r=>r.json())]).then(([e,tr])=>{
+  if(!e||!e.name){ document.body.innerHTML='<p class="empty" style="padding:80px 20px">This keepsake could not be found.</p>'; return; }
+  E=e; const b=e.brand||{}; if(b.color) document.documentElement.style.setProperty('--brand',b.color);
+  document.title=e.name+' · '+t.to;
+  const list=Object.entries(tr||{}).map(([id,x])=>Object.assign({id},x)).filter(x=>x.approved!==false&&(x.msg||x.photo||x.songTitle)).sort((a,c)=>(a.ts||0)-(c.ts||0));
+  PH=list.filter(x=>x.photo).map(x=>({src:x.photo,name:x.name||''}));
+  const nM=list.filter(x=>x.msg||x.songTitle).length;
+  const cover=e.portrait||(PH[0]&&PH[0].src)||'';
+  if(b.logo){ $('wLogo').style.display='block'; $('wLogo').querySelector('img').src=b.logo; $('hLogo').style.display='inline-block'; $('hLogo').querySelector('img').src=b.logo; }
+  if(cover){ $('wPhoto').src=cover; $('wPhoto').style.display='block'; $('hero').style.backgroundImage='url("'+cover.replace(/"/g,'')+'")'; }
+  $('wTo').textContent=t.to; $('wName').textContent=e.name; $('wSub').textContent=t.sub; $('wBtn').textContent=t.open;
+  $('hName').textContent=e.name; $('hSub').textContent=b.name?t.from(b.name):(e.host?t.from(e.host):'');
+  $('stats').innerHTML='<span>💬 '+nM+' '+t.msgs+'</span><span>📷 '+PH.length+' '+t.ph+'</span>'+(e.date?'<span>📅 '+esc(e.date)+'</span>':'');
+  $('nW').textContent=t.words; $('nP').textContent=t.photos; $('nK').textContent=t.keep;
+  $('tW').textContent=t.words; $('lW').textContent=t.wl(nM); $('tP').textContent=t.photos; $('lP').textContent=PH.length?t.pl(PH.length):t.nophotos;
+  $('tK').textContent=t.keep; $('lK').textContent=t.kl; $('dlAll').textContent=t.dl; $('prBtn').textContent=t.pr; $('shBtn').textContent=t.sh;
+  if(!PH.length) $('dlAll').style.display='none';
+  $('msgs').innerHTML=list.length?list.map(x=>'<div class="m">'+(x.photo?'<img loading="lazy" src="'+esc(x.photo)+'" alt="" onclick="zoom(this.src)">':'')+(x.songTitle?'<div class="song">'+t.song+': '+esc(x.songTitle)+(x.songFor?' · '+esc(x.songFor):'')+'</div>':'')+(x.msg?'<p>'+esc(x.msg)+'</p>':'')+'<b>— '+esc(x.name||'')+'</b></div>').join(''):'<p class="empty">'+t.nomsg+'</p>';
+  $('grid').innerHTML=PH.map(p=>'<img loading="lazy" src="'+esc(p.src)+'" alt="" onclick="zoom(this.src)">').join('');
+  if(!PH.length) $('photos').style.display='none';
+  $('foot').innerHTML=(b.name?'<div class="from">'+esc(t.from(b.name))+'</div>'+(b.website?'<a href="'+esc(b.website)+'" target="_blank" rel="noopener">'+esc(b.website.replace(/^https?:\/\//,''))+'</a><br>':''):'<div class="from">'+t.wantB+'</div><a href="/">gatherwall.com</a><br>')+'<span style="opacity:.7">'+t.pow+' <a href="/">GatherWall</a></span>';
+}).catch(()=>{ document.body.innerHTML='<p class="empty" style="padding:80px 20px">Could not load this keepsake. Please check your connection.</p>'; });
+function zoom(s){ const l=$('lb'); l.querySelector('img').src=s; l.style.display='flex'; }
+function share(){ const u=location.href; if(navigator.share) navigator.share({title:E?E.name:'Keepsake',url:u}).catch(()=>{}); else navigator.clipboard.writeText(u).then(()=>{ $('dlNote').textContent=t.copied; }); }
+async function dlZip(){
+  const btn=$('dlAll'); btn.disabled=true; $('dlNote').textContent=t.zip;
+  try{ const z=new JSZip(); let i=0;
+    for(const p of PH){ i++; const blob=await fetch(p.src).then(r=>r.blob()); const ext=(blob.type.split('/')[1]||'jpg').replace('jpeg','jpg'); z.file(String(i).padStart(3,'0')+'-'+(p.name||'guest').replace(/[^\w\- ]+/g,'').trim().slice(0,30)+'.'+ext, blob); }
+    const out=await z.generateAsync({type:'blob'}); const a=document.createElement('a'); a.href=URL.createObjectURL(out); a.download=(E.name||'keepsake').replace(/[^\w\- ]+/g,'').trim()+' - photos.zip'; a.click(); $('dlNote').textContent=t.done;
+  }catch(e){ $('dlNote').textContent='Some photos could not be downloaded. Tap a photo and save it instead.'; }
+  btn.disabled=false; }
+</script>
+</body>
+</html>

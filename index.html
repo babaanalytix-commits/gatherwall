@@ -2625,6 +2625,7 @@ function songOfYourNight(e){
 /* The "Song of Your Night" card — reused on the host's share + manage screens. */
 function renderSongCard(e, screenSel, cardId){
   screenSel=screenSel||'#screen-share'; cardId=cardId||'songCard';
+  if(e && e.partner){ const old=document.getElementById(cardId); if(old) old.remove(); return; }  // partner events: no GatherWall upsell
   if(!e || e.kind==='memorial') return;
   const wrap=document.querySelector(screenSel+' .wrap'); if(!wrap) return;
   let box=document.getElementById(cardId);
@@ -2929,6 +2930,15 @@ function submitTribute(){
   const songEl=document.getElementById('tSong'), songForEl=document.getElementById('tSongFor');
   const song=songEl?songEl.value.trim():''; const songFor=songForEl?songForEl.value.trim():'';
   if(!msg && !audioData && !song && !photoData){ toast('Add a message, voice note, photo or song'); return; }
+  if(guestEvObj && guestEvObj.bizKind==='feedback'){ // private feedback → only the partner can read it
+    const btn=document.getElementById('t_addBtn'); if(btn) btn.disabled=true;
+    const send=ph=>fetch('https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op:'fb.post',ev:guestEv,msg,name,photo:ph||undefined})}).then(r=>r.json()).catch(()=>({ok:false}));
+    (photoData&&/^data:image/.test(photoData)?upPhoto(guestEv,photoData):Promise.resolve(photoData||null)).then(send).then(r=>{ if(btn) btn.disabled=false;
+      if(!r||!r.ok){ toast('Could not send — please try again'); return; }
+      document.getElementById('tMsg').value=''; document.getElementById('tName').value=''; photoData=null; showPhotoPreview();
+      toast(guestLang==='cs'?'Děkujeme! Vaši zprávu jsme předali týmu.':'Thank you! Your message has gone to our team.'); });
+    return;
+  }
   const moder=!!(guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation);
   const t={msg,name,photo:photoData,video:videoData,audio:audioData,ts:Date.now(),approved:!moder};
   if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor; }
@@ -3155,6 +3165,12 @@ function renderManage(id, key){
     ['All','Pending','Songs'].forEach(k=>{const el=document.getElementById('mgFilter'+k);if(el)el.classList.toggle('on',k==='All');});
     go('manage');
     try{ renderSongCard(e,'#screen-manage','songCardMg'); }catch(_){}
+    try{ // Every wall ends in the same keepsake page (B2C and B2B).
+      const wrap=document.querySelector('#screen-manage .wrap'); let kc=document.getElementById('keepCardMg');
+      if(wrap){ if(!kc){ kc=document.createElement('div'); kc.id='keepCardMg'; kc.className='card'; kc.style.cssText='margin-top:18px;border:1px solid var(--line)'; wrap.appendChild(kc); }
+        const ku=location.origin+'/keepsake-wall.html?ev='+encodeURIComponent(id);
+        kc.innerHTML='<div style="font-weight:700;font-size:15px;margin-bottom:5px;">🎁 Your keepsake page</div><p class="muted" style="font-size:13.5px;margin-bottom:13px;">Every approved message and photo in one beautiful page to keep: download all photos, save the messages as a PDF, share it with family.</p><a class="btn btn-primary" style="width:100%;justify-content:center;" target="_blank" href="'+ku+'">Open the keepsake page ›</a>'; }
+    }catch(_){}
     // LIVE listener: new guest posts (and approvals) update the panel in real time,
     // so the host sees pending posts arrive the moment guests submit them.
     watchManageTrib(id, list=>{ mgCache=list||[]; mgPaint(); });

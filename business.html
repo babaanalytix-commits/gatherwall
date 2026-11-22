@@ -83,6 +83,7 @@ button{margin-top:18px;background:var(--ink);color:#fff;border:0;border-radius:9
   </div>
 </div></section>
 
+<section id="try" style="padding-top:0"><div class="wrap"><h2>Try it yourself, right now</h2><p class="lead" style="margin-bottom:18px">This is a real GatherWall. Post from your phone and it appears on the live screen below within seconds.</p><div data-gw-try></div></div></section>
 <section id="see" style="padding-top:0"><div class="wrap">
   <h2>See it from both sides</h2>
   <p class="lead">These are real screens from a demo account. Switch between what you see and what your customers and their guests see.</p>
@@ -152,5 +153,6 @@ function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementByI
   return false; }
 </script>
 <script>function side(k,b){ document.querySelectorAll('.sides button').forEach(x=>x.classList.toggle('on',x===b)); document.getElementById('s-biz').style.display=k==='biz'?'':'none'; document.getElementById('s-cust').style.display=k==='cust'?'':'none'; }</script>
+<script src="/gw-try.js" defer></script>
 </body>
 </html>

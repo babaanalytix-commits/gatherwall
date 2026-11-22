@@ -120,6 +120,7 @@ textarea{min-height:90px;resize:vertical}
   <div class="acts row" style="margin-top:14px"><button class="btn" onclick="window.print()">Print table card</button><button class="btn g" onclick="dlQR()">Download QR</button><button class="btn g" onclick="closeM('kitM')">Close</button></div>
 </div></div>
 
+<div class="modal" id="fbM"><div class="box"><h2 style="font-size:22px">Guest feedback</h2><p class="muted small" style="margin:6px 0 12px">Private: only your team can read these.</p><div id="fbList"></div><div class="row" style="margin-top:14px"><button class="btn g" onclick="closeM('fbM')">Close</button></div></div></div>
 <div class="modal" id="hoM"><div class="box">
   <h2 style="font-size:22px">Hand over to your customer</h2>
   <p class="muted small" style="margin-top:6px">We email them the guest link, big-screen link and their own control panel. They keep access to the wall and everything guests share, even after the event.</p>
@@ -160,7 +161,7 @@ function render(){
   const ev=P.events||[];
   $('evList').innerHTML=ev.length?ev.map(e=>'<div class="card ev"><h3>'+esc(e.name)+'</h3><div class="meta">'+esc(KINDS[e.kind]||e.kind)+(e.date?' · '+esc(e.date):'')+' · '+(e.posts||0)+' posts'+(e.free?' · <span class="pill">Free founding event</span>':'')+'</div>'+
     (e.handedOver?'<span class="pill">Handed over to '+esc(e.handedOver.email||'')+'</span>':'<span class="pill o">Not handed over yet</span>')+
-    '<div class="acts"><button class="btn s" onclick="kit(\''+e.id+'\')">QR &amp; table card</button><a class="btn g s" target="_blank" href="'+esc(e.links.screen)+'">Big screen</a><a class="btn g s" target="_blank" href="'+esc(e.links.manage)+'">Moderate</a><a class="btn g s" target="_blank" href="'+esc(e.links.guest)+'">Guest page</a><button class="btn g s" onclick="ho(\''+e.id+'\')">Hand over</button></div></div>').join('')
+    '<div class="acts"><button class="btn s" onclick="kit(\''+e.id+'\')">QR &amp; table card</button>'+(e.kind==='feedback'?'<button class="btn g s" onclick="fbOpen(\''+e.id+'\')">Read feedback</button><a class="btn g s" target="_blank" href="'+esc(e.links.guest)+'">Guest page</a>':'<a class="btn g s" target="_blank" href="'+esc(e.links.screen)+'">Big screen</a><a class="btn g s" target="_blank" href="'+esc(e.links.manage)+'">Moderate</a><a class="btn g s" target="_blank" href="'+esc(e.links.guest)+'">Guest page</a><a class="btn g s" target="_blank" href="'+esc(e.links.keepsake)+'">Keepsake</a><button class="btn g s" onclick="ho(\''+e.id+'\')">Hand over</button>')+'</div></div>').join('')
     :'<div class="card empty">No events yet. Create your first one: it takes 20 seconds.'+(P.founding&&!P.freeUsed?'<br><b>Your first event is free.</b>':'')+'</div>';
   const rq=P.requests||[]; const nNew=rq.filter(x=>x.status==='new').length; $('rqN').textContent=nNew?'('+nNew+')':'';
   $('rqList').innerHTML=rq.length?rq.map(x=>'<div class="card"><div class="row" style="align-items:flex-start"><div><h3 style="font-size:18px">'+esc(x.name)+' · '+esc(x.what||'')+'</h3><p class="small muted">'+(x.date?esc(x.date)+' · ':'')+(x.guests?esc(x.guests)+' guests · ':'')+'<a href="mailto:'+esc(x.email)+'">'+esc(x.email)+'</a>'+(x.phone?' · '+esc(x.phone):'')+'</p>'+(x.note?'<p style="margin-top:8px">'+esc(x.note)+'</p>':'')+'</div>'+
@@ -208,6 +209,7 @@ function kit(id, links, name){ const e=(P.events||[]).find(x=>x.id===id)||{links
 function dlQR(){ const c=document.querySelector('#qrBox canvas'); if(!c) return; const a=document.createElement('a'); a.href=c.toDataURL('image/png'); a.download='gatherwall-qr.png'; a.click(); }
 function ho(id){ const e=(P.events||[]).find(x=>x.id===id)||{}; $('hEv').value=id; $('hName').value=(e.customer&&e.customer.name)||''; $('hEmail').value=(e.customer&&e.customer.email)||''; openM('hoM'); }
 function handover(){ const b=$('hGo'); b.disabled=true; call('event.handover',{ev:$('hEv').value,name:$('hName').value,email:$('hEmail').value}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not send'); closeM('hoM'); toast('Links sent to your customer'); load(); }); }
+function fbOpen(id){ $('fbList').innerHTML='<p class="muted">Loading…</p>'; openM('fbM'); call('fb.list',{ev:id}).then(r=>{ const it=(r&&r.items)||[]; $('fbList').innerHTML=it.length?it.map(x=>'<div class="offer">'+(x.photo?'<img src="'+esc(x.photo)+'" style="max-width:100%;border-radius:10px;margin-bottom:8px">':'')+'<p style="white-space:pre-line">'+esc(x.msg)+'</p><p class="small muted" style="margin-top:6px">— '+esc(x.name)+' · '+new Date(x.ts).toLocaleString()+'</p></div>').join(''):'<p class="muted">No feedback yet.</p>'; }); }
 load();
 </script>
 </body>

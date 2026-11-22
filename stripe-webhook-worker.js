@@ -246,7 +246,7 @@ const PUB_FIELDS = ['name', 'type', 'logo', 'color', 'accent', 'tagline', 'about
 function pubOf(p) { const o = { slug: p.slug }; PUB_FIELDS.forEach(k => { if (p[k] != null && p[k] !== '') o[k] = p[k]; }); return o; }
 function brandOf(p) { return { name: p.name || '', logo: p.logo || '', color: p.color || '', website: p.website || '', slug: p.slug || '' }; }
 function dashLink(pid, key) { return SITE_URL + 'partner.html#pid=' + pid + '&key=' + key; }
-function evLinks(id, mk) { return { guest: SITE_URL + 'index.html#guest?ev=' + id, screen: SITE_URL + 'index.html#wall?ev=' + id, manage: SITE_URL + 'index.html#manage?ev=' + id + '&key=' + mk }; }
+function evLinks(id, mk) { return { guest: SITE_URL + 'index.html#guest?ev=' + id, screen: SITE_URL + 'index.html#wall?ev=' + id, manage: SITE_URL + 'index.html#manage?ev=' + id + '&key=' + mk, keepsake: SITE_URL + 'keepsake-wall.html?ev=' + id }; }
 async function queueMail(AUTH, to, subject, intro, rows, note) {
   if (!okEmail(to)) return null;
   return patchFirebase('mail/biz_' + Date.now() + '_' + rnd(4), { kind: 'custom', to, subject, intro, rows: rows || [], note: note || '', ts: Date.now(), sent: false }, AUTH);
@@ -276,6 +276,16 @@ async function handleBiz(request, env) {
     const p = await getFirebase('partnerpub/' + b.slug, AUTH);
     if (!p || p.off) return R({ ok: false }, 404);
     delete p.pid; return R({ ok: true, p });
+  }
+  if (op === 'fb.post') {
+    if (b.hp) return R({ ok: true });
+    const ev = b.ev; if (!okId(ev)) return R({ ok: false }, 400);
+    const e = await getFirebase('events/' + ev, AUTH);
+    if (!e || e.bizKind !== 'feedback') return R({ ok: false, error: 'not found' }, 404);
+    const msg = clip(b.msg, 3000); if (!msg && !b.photo) return R({ ok: false, error: 'Please write a few words.' }, 400);
+    const rec = { msg, name: clip(b.name, 80) || 'A guest', ts: Date.now() }; if (okMediaUrl(b.photo)) rec.photo = b.photo;
+    await patchFirebase('feedback/' + ev + '/f' + Date.now().toString(36) + rnd(4), rec, AUTH);
+    return R({ ok: true });
   }
   if (op === 'pub.request') {
     if (b.hp) return R({ ok: true });
@@ -337,7 +347,7 @@ async function handleBiz(request, env) {
 
   if (op === 'me') {
     const evs = p.events || {}, ids = Object.keys(evs).sort((a, x) => (evs[x].createdAt || 0) - (evs[a].createdAt || 0)).slice(0, 40);
-    await Promise.all(ids.map(async id => { const t = await fetch(FIREBASE_DB + '/tributes/' + id + '.json?shallow=true&auth=' + encodeURIComponent(AUTH)).then(x => x.ok ? x.json() : null).catch(() => null); evs[id].posts = t ? Object.keys(t).length : 0; evs[id].links = evLinks(id, evs[id].mk || ''); delete evs[id].mk; }));
+    await Promise.all(ids.map(async id => { const t = await fetch(FIREBASE_DB + '/' + (evs[id].kind === 'feedback' ? 'feedback' : 'tributes') + '/' + id + '.json?shallow=true&auth=' + encodeURIComponent(AUTH)).then(x => x.ok ? x.json() : null).catch(() => null); evs[id].posts = t ? Object.keys(t).length : 0; evs[id].links = evLinks(id, evs[id].mk || ''); delete evs[id].mk; }));
     const out = Object.assign({}, p); out.events = ids.map(id => Object.assign({ id }, evs[id]));
     out.requests = Object.entries(p.requests || {}).map(([id, r]) => Object.assign({ id }, r)).sort((a, x) => x.ts - a.ts).slice(0, 50);
     out.page = SITE_URL + 'p/' + p.slug;
@@ -387,9 +397,15 @@ async function handleBiz(request, env) {
     const email = clip(b.email, 120), name = clip(b.name, 80) || (rec.customer && rec.customer.name) || '';
     if (!okEmail(email)) return R({ ok: false, error: 'Add a valid email' }, 400);
     const L = evLinks(id, rec.mk);
-    await queueMail(AUTH, email, '“' + rec.name + '”: your GatherWall links from ' + p.name, '<b>' + eh(p.name) + '</b> has set up your GatherWall for <b>' + eh(rec.name) + '</b>. These links are yours to keep. The wall and everything guests share stay available to you, even after the event.', [['Share with guests (QR or link)', L.guest, 'Open the guest page'], ['Big screen', L.screen, 'Open the big screen'], ['Your control panel (keep private)', L.manage, 'Open control panel']], 'From the control panel you can approve messages, download photos and keep everything. Questions? Reply to this email.');
+    const rowsH = [['Share with guests (QR or link)', L.guest, 'Open the guest page'], ['Big screen', L.screen, 'Open the big screen'], ['Your control panel (keep private)', L.manage, 'Open control panel'], ['Your keepsake (every message and photo, to keep)', L.keepsake, 'Open your keepsake']];
+    await queueMail(AUTH, email, '“' + rec.name + '”: your GatherWall links from ' + p.name, '<b>' + eh(p.name) + '</b> has set up your GatherWall for <b>' + eh(rec.name) + '</b>. These links are yours to keep. The wall and everything guests share stay available to you, even after the event.', rowsH, 'From the control panel you can approve messages, download photos and keep everything. Questions? Reply to this email.');
     await patchFirebase('partners/' + pid + '/events/' + id, { customer: { name, email }, handedOver: { email, at: Date.now() } }, AUTH);
     return R({ ok: true });
+  }
+  if (op === 'fb.list') {
+    if (!okId(b.ev) || !(p.events && p.events[b.ev])) return R({ ok: false }, 404);
+    const f = await getFirebase('feedback/' + b.ev, AUTH) || {};
+    return R({ ok: true, items: Object.entries(f).map(([id, x]) => Object.assign({ id }, x)).sort((a, c) => c.ts - a.ts) });
   }
   if (op === 'request.update') {
     if (!okId(b.rid) || !(p.requests && p.requests[b.rid])) return R({ ok: false }, 404);
