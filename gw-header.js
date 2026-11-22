@@ -19,7 +19,7 @@
     '#gwh .mb{display:none;margin-left:auto;background:none;border:0;font:600 14px Inter,sans-serif;color:#1d1d1f;cursor:pointer;padding:8px}' +
     '@media(max-width:720px){#gwh .ln{display:none;position:absolute;top:52px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fbfbfd;border-bottom:1px solid #e8e8ed;padding:6px 20px 14px}' +
       '#gwh .ln.open{display:flex}#gwh .ln a{padding:11px 0;width:100%;border-bottom:1px solid #f0f0f3;font-size:16px}#gwh .mb{display:block}#gwh .ex{margin-left:0}}';
-  var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st);
+  var st = document.createElement('style'); st.textContent = css + '#gwh .ln a{white-space:nowrap}'; (document.head || document.documentElement).appendChild(st);
 
   var p = location.pathname.replace(/^.*\//, '') || 'index.html';
   function on(names) { return names.indexOf(p) > -1 ? ' class="on"' : ''; }
@@ -34,12 +34,12 @@
   if (biz) {
     var cs = p === 'pro-firmy.html';
     home = cs ? '/cs/pro-firmy.html' : '/business.html'; brand = 'GatherWall <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d2b;margin-left:4px">Business</span>';
-    links = '<a href="/for-djs.html"' + on(['for-djs.html']) + '>' + (cs ? 'Pro DJe' : 'For DJs & MCs') + '</a>' +
-      '<a href="/for-venues.html"' + on(['for-venues.html']) + '>' + (cs ? 'Pro sály a hotely' : 'For venues & hotels') + '</a>' +
+    links = '<a href="/for-djs.html"' + on(['for-djs.html']) + '>' + (cs ? 'DJové' : 'DJs & MCs') + '</a>' +
+      '<a href="/for-venues.html"' + on(['for-venues.html']) + '>' + (cs ? 'Sály a hotely' : 'Venues & hotels') + '</a>' +
       '<a href="' + home + '#see">' + (cs ? 'Jak to vypadá' : 'How it looks') + '</a>' +
-      '<a href="/partner.html">' + (cs ? 'Přihlášení partnera' : 'Partner login') + '</a>' +
+      '<a href="/partner.html">' + (cs ? 'Přihlásit' : 'Log in') + '</a>' +
       '<a href="' + home + '#apply" style="color:#2E7D5B;font-weight:600">' + (cs ? 'Stát se partnerem' : 'Become a partner') + '</a>' +
-      '<a href="/index.html" style="opacity:.6">' + (cs ? 'Pro rodiny ›' : 'For families ›') + '</a>';
+      '<a href="/index.html" style="opacity:.6">' + (cs ? 'Rodiny ›' : 'Families ›') + '</a>';
   }
   var h = document.createElement('header'); h.id = 'gwh';
   h.innerHTML = '<div class="in"><a class="lg" href="' + home + '"><i></i>' + brand + '</a>' +
