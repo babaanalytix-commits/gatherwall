@@ -75,6 +75,7 @@ nav a:hover{background:#ece5d8}
 </header>
 <nav><a href="#words" id="nW"></a><a href="#photos" id="nP"></a><a href="#keep" id="nK"></a></nav>
 <div class="wrap">
+  <div data-gw-gift data-to="them" id="giftBox"></div>
   <section class="card" id="words"><span class="num">01</span><h2 id="tW"></h2><p class="lead" id="lW"></p><div class="msgs" id="msgs"></div></section>
   <section class="card" id="photos"><span class="num">02</span><h2 id="tP"></h2><p class="lead" id="lP"></p><div class="grid" id="grid"></div></section>
   <section class="card" id="keep"><span class="num">03</span><h2 id="tK"></h2><p class="lead" id="lK"></p>
@@ -105,7 +106,7 @@ Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()),fetch(DB+'/tribut
   const cover=e.portrait||(PH[0]&&PH[0].src)||'';
   if(b.logo){ $('wLogo').style.display='block'; $('wLogo').querySelector('img').src=b.logo; $('hLogo').style.display='inline-block'; $('hLogo').querySelector('img').src=b.logo; }
   if(cover){ $('wPhoto').src=cover; $('wPhoto').style.display='block'; $('hero').style.backgroundImage='url("'+cover.replace(/"/g,'')+'")'; }
-  $('wTo').textContent=t.to; $('wName').textContent=e.name; $('wSub').textContent=t.sub; $('wBtn').textContent=t.open;
+  const GIFT=/[?&]gift=1/.test(location.search); if(!GIFT) $('wTo').textContent=t.to; $('wName').textContent=e.name; $('wSub').textContent=t.sub; $('wBtn').textContent=GIFT?(L==='cs'?'Otevřít dárek ✨':'Open your gift ✨'):t.open;
   $('hName').textContent=e.name; $('hSub').textContent=b.name?t.from(b.name):(e.host?t.from(e.host):'');
   $('stats').innerHTML='<span>💬 '+nM+' '+t.msgs+'</span><span>📷 '+PH.length+' '+t.ph+'</span>'+(e.date?'<span>📅 '+esc(e.date)+'</span>':'');
   $('nW').textContent=t.words; $('nP').textContent=t.photos; $('nK').textContent=t.keep;
@@ -115,6 +116,7 @@ Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()),fetch(DB+'/tribut
   $('msgs').innerHTML=list.length?list.map(x=>'<div class="m">'+(x.photo?'<img loading="lazy" src="'+esc(x.photo)+'" alt="" onclick="zoom(this.src)">':'')+(x.songTitle?'<div class="song">'+t.song+': '+esc(x.songTitle)+(x.songFor?' · '+esc(x.songFor):'')+'</div>':'')+(x.msg?'<p>'+esc(x.msg)+'</p>':'')+'<b>— '+esc(x.name||'')+'</b></div>').join(''):'<p class="empty">'+t.nomsg+'</p>';
   $('grid').innerHTML=PH.map(p=>'<img loading="lazy" src="'+esc(p.src)+'" alt="" onclick="zoom(this.src)">').join('');
   if(!PH.length) $('photos').style.display='none';
+  $('giftBox').setAttribute('data-to',e.name); if(window.gwGiftBox) gwGiftBox();
   $('foot').innerHTML=(b.name?'<div class="from">'+esc(t.from(b.name))+'</div>'+(b.website?'<a href="'+esc(b.website)+'" target="_blank" rel="noopener">'+esc(b.website.replace(/^https?:\/\//,''))+'</a><br>':''):'<div class="from">'+t.wantB+'</div><a href="/">gatherwall.com</a><br>')+'<span style="opacity:.7">'+t.pow+' <a href="'+(b.name?'/business.html?from=keepsake&c=powered':'/')+'">GatherWall</a></span>';
 }).catch(()=>{ document.body.innerHTML='<p class="empty" style="padding:80px 20px">Could not load this keepsake. Please check your connection.</p>'; });
 function zoom(s){ const l=$('lb'); l.querySelector('img').src=s; l.style.display='flex'; }
@@ -127,5 +129,6 @@ async function dlZip(){
   }catch(e){ $('dlNote').textContent='Some photos could not be downloaded. Tap a photo and save it instead.'; }
   btn.disabled=false; }
 </script>
+<script src="/gw-gift.js"></script>
 </body>
 </html>

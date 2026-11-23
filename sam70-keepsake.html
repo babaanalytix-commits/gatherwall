@@ -103,6 +103,8 @@ ul.check li:before{content:"✓";position:absolute;left:4px;color:var(--brand);f
 
 <main class="wrap">
 
+  <div id="giftSlot" hidden data-gw-owner><div data-gw-gift data-to="Brother Sam" data-from-hint="Biola"></div></div>
+
   <section class="card" id="film">
     <span class="num">01 · The film</span>
     <h2>His story, in pictures and song</h2>
@@ -166,7 +168,7 @@ ul.check li:before{content:"✓";position:absolute;left:4px;color:var(--brand);f
     <div class="btns"><a class="btn solid" id="dlAlbum" target="_blank" rel="noopener">⬇️ Download all 74 photos <small>zip · 57 MB</small></a></div>
   </section>
 
-  <section class="card" id="day">
+  <section class="card" id="day" data-gw-owner>
     <span class="num">05 · On the day</span>
     <h2>Making the moment go smoothly</h2>
     <ul class="check">
@@ -221,6 +223,7 @@ document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComp
 const hk = (location.hash.match(/host=([A-Za-z0-9_-]+)/) || [])[1];
 if (hk) {
   document.getElementById('hostBox').hidden = false;
+  document.getElementById('giftSlot').hidden = false;
   document.getElementById('manageLink').href = 'index.html#manage?ev=mrilot&key=' + hk;
   document.getElementById('wTo').textContent = 'For Sister Biola, with love';
 }
@@ -235,5 +238,6 @@ function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5e4fea1704504af5a13c3c3319d523ea"}'></script>
 <script>/* Keepsake pages are a sales channel: tag first-touch source so sales from guests show up as from=keepsake. Never overwrite an existing (unexpired) source. */
 (function(){try{var s=JSON.parse(localStorage.getItem('gw_src')||'null');if(s&&Date.now()-s.t<30*864e5)return;localStorage.setItem('gw_src',JSON.stringify({from:'keepsake',c:'sam70',t:Date.now()}));}catch(e){}})();</script>
+<script src="/gw-gift.js"></script>
 </body>
 </html>
