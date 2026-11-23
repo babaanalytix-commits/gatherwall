@@ -109,10 +109,10 @@ ul.check li:before{content:"✓";position:absolute;left:4px;color:var(--brand);f
     <span class="num">New · The song from his wall</span>
     <h2>“What They Say About You”</h2>
     <p class="lead">A song made from the tribute wall itself. Every verse line is a real message from someone who loves him, sung with their name, and the film shows their photo and their own words as their line plays. The chorus is what everyone said: never a dull moment, never a stranger in the room.</p>
-    <div class="video" style="padding-top:56.25%"><video controls playsinline preload="metadata" poster="sam70-wall-poster.jpg" src="sam70-wall-film.mp4" style="position:absolute;inset:0;width:100%;height:100%;background:#000"></video></div>
-    <div class="song"><b>Just the song <span class="tag">4 min 33</span></b><audio controls preload="none" src="sam70-wall-song.mp3"></audio></div>
+    <div class="video" style="padding-top:56.25%"><video id="wallFilm" controls playsinline preload="metadata" poster="sam70-wall-poster.jpg?v=2" style="position:absolute;inset:0;width:100%;height:100%;background:#000"></video></div>
+    <div class="song"><b>Just the song <span class="tag">4 min 46</span></b><audio controls preload="none" src="sam70-wall-song.mp3?v=2"></audio></div>
     <div class="btns">
-      <a class="btn solid" href="sam70-wall-film.mp4" download="Brother Sam at 70 - What They Say About You.mp4">⬇️ Download the film</a>
+      <a class="btn solid" href="sam70-wall-film.mp4?v=2" download="Brother Sam at 70 - What They Say About You.mp4">⬇️ Download the film <small>phone size</small></a>
       <a class="btn" href="sam70-wall-song.mp3" download="Brother Sam at 70 - What They Say About You.mp3">⬇️ Download the song MP3</a>
     </div>
     <p class="note">Voices in the song: Shola, Michelle, Mayo &amp; Steph, John &amp; Catherine, Dr Ola, Mori, Deji, Aunty K, Kayode &amp; Yewande, Temilola, Nathaniel, Ayoyimika, Helen, Annette, Dapo and Wuraola. Every name from the wall rolls at the end.</p>
@@ -252,5 +252,12 @@ function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.
 <script>/* Keepsake pages are a sales channel: tag first-touch source so sales from guests show up as from=keepsake. Never overwrite an existing (unexpired) source. */
 (function(){try{var s=JSON.parse(localStorage.getItem('gw_src')||'null');if(s&&Date.now()-s.t<30*864e5)return;localStorage.setItem('gw_src',JSON.stringify({from:'keepsake',c:'sam70',t:Date.now()}));}catch(e){}})();</script>
 <script src="/gw-gift.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<script>
+(function(){var v=document.getElementById('wallFilm'),u='sam70wall/film.m3u8';
+ if(v.canPlayType('application/vnd.apple.mpegurl')) v.src=u;
+ else if(window.Hls&&Hls.isSupported()){var h=new Hls({startLevel:0,capLevelToPlayerSize:false});h.loadSource(u);h.attachMedia(v);}
+ else v.src='sam70-wall-film.mp4?v=2';})();
+</script>
 </body>
 </html>
