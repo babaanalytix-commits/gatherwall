@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embed demo · GatherWall on your own website</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:#f4efe9;color:#2a2224}
+.bar{background:#1d1d1f;color:#fff;text-align:center;padding:10px 14px;font-size:14px}.bar a{color:#C9A54C;font-weight:600}
+.site{max-width:1080px;margin:0 auto;padding:0 20px}
+.top{display:flex;align-items:center;gap:22px;padding:18px 0;border-bottom:1px solid #e3d9d0}.top img{height:40px}.top nav{margin-left:auto;display:flex;gap:20px;font-size:14px;color:#6b5a5d}
+.hero{padding:44px 0 26px}.hero h1{font-family:Fraunces,serif;font-size:40px;color:#7A2E3A}.hero p{color:#6b5a5d;margin-top:8px;max-width:640px;line-height:1.55}
+h2{font-family:Fraunces,serif;font-size:28px;color:#7A2E3A;margin:34px 0 6px}.sub{color:#6b5a5d;margin-bottom:14px}
+.note{display:inline-block;background:#fff3d6;border:1px dashed #c9a54c;border-radius:10px;padding:4px 10px;font-size:12.5px;margin-bottom:10px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:860px){.cols{grid-template-columns:1fr}}
+footer{padding:40px 0;color:#8a7b7e;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<div class="bar">This is a pretend venue website showing GatherWall <b>embedded</b> with two lines of code. <a href="/for-venues.html#embed">How to add it to yours ›</a></div>
+<div class="site">
+  <div class="top"><img src="https://media.gatherwall.com/p/ptugpg58bfet/logo-64ugq6.png" alt="Rosewood Hall"><nav><span>Weddings</span><span>Events</span><span>Rooms</span><span>Contact</span></nav></div>
+  <div class="hero"><h1>Weddings at Rosewood Hall</h1><p>Your day, your guests, your memories. Every wedding here can include a live guest wall: guests scan a QR code, their messages and photos appear on the screen, and you keep everything afterwards.</p></div>
+  <span class="note">Embedded: the venue's GatherWall page (offers and enquiry form)</span>
+  <div class="gatherwall" data-partner="rosewood-hall"></div>
+  <div class="cols">
+    <div><h2>Leave a message</h2><p class="sub">For guests of Emma &amp; James</p><span class="note">Embedded: guest form</span><div class="gatherwall" data-guest="b7ft5pz84c"></div></div>
+    <div><h2>The live wall</h2><p class="sub">Updates as guests post</p><span class="note">Embedded: live wall</span><div class="gatherwall" data-wall="b7ft5pz84c" data-height="760"></div></div>
+  </div>
+  <footer>Rosewood Hall is a demo venue · GatherWall Business</footer>
+</div>
+<script src="/embed.js" async></script>
+</body>
+</html>

@@ -44,6 +44,13 @@ footer a{color:var(--muted)}
 #nf{padding:80px 20px;text-align:center}
 #nf a{color:var(--brand);font-weight:600}
 </style>
+<script>
+/* Embedded on a partner's website (embed.js): hide our own chrome and report height to the host page. */
+(function(){ try{ var q=new URLSearchParams(location.search); if(q.get('embed')!=='1') return; var fid=q.get('fid')||''; document.documentElement.classList.add('gw-embed');
+  var st=document.createElement('style'); st.textContent='.gw-embed #gwh,.gw-embed header.nav,.gw-embed .hc-nav,.gw-embed #guestRefer,.gw-embed footer,.gw-embed #pp>header{display:none!important}.gw-embed body{background:transparent}'; document.head.appendChild(st);
+  var last=0; setInterval(function(){ var h=document.documentElement.scrollHeight; if(Math.abs(h-last)>4){ last=h; parent.postMessage({gwH:h,fid:fid},'*'); } },500);
+}catch(e){} })();
+</script>
 </head>
 <body>
 <div id="nf" style="display:none"><h1>Page not found</h1><p style="margin:12px 0 18px;color:var(--muted)">This page doesn't exist or has moved.</p><a href="/">Go to GatherWall ›</a></div>
