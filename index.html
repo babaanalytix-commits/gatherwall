@@ -512,7 +512,7 @@ body.kioskmode header.nav{display:none;}
 <script>
 /* Embedded on a partner's website (embed.js): hide our own chrome and report height to the host page. */
 (function(){ try{ var q=new URLSearchParams(location.search); if(q.get('embed')!=='1') return; var fid=q.get('fid')||''; document.documentElement.classList.add('gw-embed');
-  var st=document.createElement('style'); st.textContent='.gw-embed #gwh,.gw-embed header.nav,.gw-embed .hc-nav,.gw-embed #guestRefer,.gw-embed footer{display:none!important}.gw-embed body{background:transparent}'; document.head.appendChild(st);
+  var st=document.createElement('style'); st.textContent='.gw-embed #gwh,.gw-embed header.nav,.gw-embed .hc-nav,.gw-embed #guestRefer,.gw-embed footer{display:none!important}.gw-embed body{background:transparent}.gw-embed .wall-modes .btn{display:none!important}'; document.head.appendChild(st);
   var last=0; setInterval(function(){ var h=document.documentElement.scrollHeight; if(Math.abs(h-last)>4){ last=h; parent.postMessage({gwH:h,fid:fid},'*'); } },500);
 }catch(e){} })();
 </script>
