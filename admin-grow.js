@@ -11,8 +11,8 @@
     { id: 'memorial', path: 'nigerian-burial-memorial-page.html', name: 'Burial / remembrance memorial page' },
     { id: 'wedding', path: 'nigerian-wedding-keepsake.html', name: 'Nigerian wedding keepsakes' },
     { id: 'dad', path: 'keepsake.html?order=ks_qwqageg2', name: 'A song for Dad (real example)' },
-    { id: 'lyrics', path: 'keepsake-preview.html', name: '$39 song: free lyrics preview' },
-    { id: 'madeforyou', path: 'celebration.html', name: 'Made for you (film, from $74.50)' },
+    { id: 'lyrics', path: 'keepsake-preview.html', name: '$19 song: free lyrics preview' },
+    { id: 'madeforyou', path: 'celebration.html', name: 'Made for you (film, from $49)' },
     { id: 'home', path: '', name: 'Homepage' },
     { id: 'examples', path: 'examples.html', name: 'Examples of our work' }
   ];
@@ -34,7 +34,7 @@
     memorial: "When we lose someone, the family is everywhere: Lagos, London, Houston. A memorial page lets everyone share memories, light a candle and read their life story in one place, before and after the burial. Free to build.\n{link}",
     wedding: "For the couple who has everything: a song about how they met, a live wall for guests' wishes at the reception, and a film of their story. Perfect from family abroad who can't make it home. 💍\n{link}",
     dad: "For Dad's 3-year remembrance, my siblings and I gave him a song made from his life, with his photos. Hearing it brought all of us to tears. This is why I built GatherWall. Have a listen. 🕊️\n{link}",
-    lyrics: "Tell us about someone you love and read the lyrics of their own song, free, in about a minute. If they give you goosebumps, the full song is $39 and ready in minutes. 🎶\n{link}",
+    lyrics: "Tell us about someone you love and read the lyrics of their own song, free, in about a minute. If they give you goosebumps, the full song is $19 and ready in minutes. 🎶\n{link}",
     madeforyou: "For the milestone that deserves everything: we write their song with you, gather the family's photos and make a film for the big screen. See your plan and dates free before you pay. 50% off until 31 December.\n{link}",
     home: "GatherWall: songs, tribute walls and films that bring the whole family together, at home and abroad. 💛\n{link}",
     examples: "See what families have made with GatherWall: songs, films and tribute walls.\n{link}"
@@ -74,9 +74,9 @@
     ['2026-12-20', 'Travel home / Christmas reunions', 'Owambe wall, family walls', 'owambe'],
     ['2026-12-31', 'Launch offer ends', 'Last call: made for you at 50% off', 'madeforyou'],
     ['2027-01-10', 'New Year thanksgivings', '70th ideas, Yoruba song', '70th'],
-    ['2027-02-14', "Valentine's Day", 'Wedding keepsakes, $39 song', 'wedding'],
-    ['2027-03-07', 'Mothering Sunday (UK & Nigeria)', '$39 song for Mum', 'yoruba'],
-    ['2027-05-09', "Mother's Day (US & Canada)", '$39 song for Mum', 'yoruba'],
+    ['2027-02-14', "Valentine's Day", 'Wedding keepsakes, $19 song', 'wedding'],
+    ['2027-03-07', 'Mothering Sunday (UK & Nigeria)', '$19 song for Mum', 'yoruba'],
+    ['2027-05-09', "Mother's Day (US & Canada)", '$19 song for Mum', 'yoruba'],
     ['2027-06-20', "Father's Day (UK, US)", 'Song for Dad', 'dad'],
     ['2027-07-01', 'Summer owambe & wedding season', 'Owambe wall to planners', 'owambe'],
     ['2027-10-01', 'Nigerian Independence Day', 'Diaspora gift page', 'gift']

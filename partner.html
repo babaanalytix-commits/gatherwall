@@ -196,7 +196,7 @@ $('bLogo').addEventListener('change',function(){ const f=this.files[0]; if(!f) r
 function saveBrand(){ const b=$('saveBrand'); b.disabled=true;
   call('brand.save',{fields:{name:$('bName').value,website:$('bWeb').value,color:$('bColor').value,accent:$('bAccent').value,city:$('bCity').value,phone:$('bPhone').value,tagline:$('bTag').value,about:$('bAbout').value,lang:$('bLang').value,logo:P.logo||'',offers:OFF,tr:TR}}).then(r=>{ b.disabled=false; if(!r.ok) return toast(r.error||'Could not save'); toast('Saved. Your page and events are updated.'); load(); }); }
 function openNew(req){ ['nName','nDate','nHost','nCust','nCustE','nReq'].forEach(i=>$(i).value=''); $('nMod').checked=true;
-  $('freeLine').textContent=P.founding&&!P.freeUsed?'Your first event is free as a Founding Partner.':'Pilot: events are recorded on your account; we agree billing with you separately.';
+  $('freeLine').textContent=P.founding&&!P.freeUsed?'Your first event is free as a Founding Partner.':'$4 per event, billed monthly. Drafts and tests are free.';
   if(req){ $('nName').value=req.name; $('nCust').value=req.name; $('nCustE').value=req.email; $('nDate').value=/^\d{4}-\d\d-\d\d$/.test(req.date)?req.date:''; $('nReq').value=req.id; }
   openM('newM'); setTimeout(()=>$('nName').focus(),50); }
 function fromReq(id){ const r=(P.requests||[]).find(x=>x.id===id); openNew(r); }

@@ -12,7 +12,7 @@
         ["💌", "Everyone's words", "Messages and photos from family and guests."],
         ["⬇️", "Download everything", "Keep your own copy. The page stays online 12 months, renewed free."]
       ],
-      note: "The $39 song comes with the song, sing-along lyrics and keepsake page. The film and family sections come with made-for-you.",
+      note: "The $19 song comes with the song, sing-along lyrics and keepsake page. The film and family sections come with made-for-you.",
       cta: "Open a sample keepsake ›", href: "/sample-keepsake.html",
       cta2: "See a real one (preview) ›", href2: "/mirodomca-preview.html?lang=en"
     },
@@ -26,7 +26,7 @@
         ["💌", "Slova všech blízkých", "Vzkazy a fotky od rodiny a hostů."],
         ["⬇️", "Stáhněte si vše", "Vlastní kopie navždy. Stránka je online 12 měsíců, prodloužení zdarma."]
       ],
-      note: "Píseň za 39 $ obsahuje píseň, text ke zpívání a vzpomínkovou stránku. Film a části od rodiny jsou součástí balíčku na míru.",
+      note: "Píseň za 19 $ obsahuje píseň, text ke zpívání a vzpomínkovou stránku. Film a části od rodiny jsou součástí balíčku na míru.",
       cta: "Prohlédnout ukázku Miry a Domči ›", href: "/mirodomca-preview.html?lang=cs",
       cta2: "Anglická ukázka (Tom & Priya) ›", href2: "/sample-keepsake.html"
     }
