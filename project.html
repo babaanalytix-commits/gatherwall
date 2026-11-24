@@ -1592,7 +1592,7 @@ const TIERS={
   'signature-celebration':{name:'Signature Celebration',price:'$99',launch:'$99',lead:21,min:28,lyricRounds:2,filmRounds:2,
     inc:['Everything in Story Film','Two song versions, lyrics in two languages if you like','A tribute wall for family and friends worldwide','Restoration of treasured old prints','Tribute book PDF and a private keepsake page','On-the-day kit: screen file, backup and running order','2 rounds of changes on the lyrics and 2 on the film']}
 };
-const LAUNCH_UNTIL=new Date('2027-01-01T00:00:00Z');
+const LAUNCH_UNTIL=new Date(0); // launch offer ended 24 Nov 2026 (prices simplified to $49/$99)
 const Q=new URLSearchParams(location.search);
 let CID=Q.get('p')||'', ADMIN=Q.get('admin')||'', P=null, IS_ADMIN=false;
 const $=id=>document.getElementById(id);

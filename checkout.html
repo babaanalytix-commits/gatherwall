@@ -216,6 +216,7 @@
   function param(n){return new URLSearchParams(location.search).get(n);}
   // Retired Nov 2026: the old $99/$149 wedding packages now go to the current made-for-you plan pages.
   var RETIRED={'wedding-keepsake':'story-film','wedding-keepsake-signature':'signature-celebration'};
+  if(param('p')==='wall-pro'){ location.replace('/business.html'); } // monthly Pro plan retired -> GatherWall Business ($4/event)
   if(RETIRED[param('p')]){ location.replace('project.html?new='+RETIRED[param('p')]); }
   var slug=param('p'); if(!CATALOG[slug]) slug='live-tribute-wall';
   var LANG='en';
@@ -257,7 +258,7 @@
   // "Request a secure payment link" (email) if card payments ever go down.
   var PAYMENTS_LIVE = true;
   // Launch offer: 50% off made-for-you packages until 31 Dec 2026 (Stripe promo code, auto-applied).
-  var LAUNCH = { code:'LAUNCH50', until:new Date('2027-01-01T00:00:00Z'), slugs:{'story-film':'$49','wedding-keepsake':'$99','wedding-keepsake-signature':'$49','signature-celebration':'$99'} };
+  var LAUNCH = { code:'LAUNCH50', until:new Date('2027-01-01T00:00:00Z'), slugs:{} }; // Ended 24 Nov 2026: prices simplified to $49/$99 (no discount, no promo code)
   function launchOn(s){ return !!(LAUNCH.slugs[s] && new Date() < LAUNCH.until); }
   function buildPayUrl(slug){
     if(!PAYMENTS_LIVE) return null;

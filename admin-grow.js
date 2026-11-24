@@ -35,7 +35,7 @@
     wedding: "For the couple who has everything: a song about how they met, a live wall for guests' wishes at the reception, and a film of their story. Perfect from family abroad who can't make it home. 💍\n{link}",
     dad: "For Dad's 3-year remembrance, my siblings and I gave him a song made from his life, with his photos. Hearing it brought all of us to tears. This is why I built GatherWall. Have a listen. 🕊️\n{link}",
     lyrics: "Tell us about someone you love and read the lyrics of their own song, free, in about a minute. If they give you goosebumps, the full song is $19 and ready in minutes. 🎶\n{link}",
-    madeforyou: "For the milestone that deserves everything: we write their song with you, gather the family's photos and make a film for the big screen. See your plan and dates free before you pay. 50% off until 31 December.\n{link}",
+    madeforyou: "For the milestone that deserves everything: we write their song with you, gather the family's photos and make a film for the big screen. See your plan and dates free before you pay.\n{link}",
     home: "GatherWall: songs, tribute walls and films that bring the whole family together, at home and abroad. 💛\n{link}",
     examples: "See what families have made with GatherWall: songs, films and tribute walls.\n{link}"
   };
@@ -50,7 +50,7 @@
     wedding: "Your love story, sung, shared and kept. 💍 {link}",
     dad: "We gave Dad a song for his 3-year remembrance. 🕊️ {link}",
     lyrics: "Read the lyrics of their song free in 60 seconds. 🎶 {link}",
-    madeforyou: "Their life, as a film. 50% off until 31 Dec. 🎬 {link}",
+    madeforyou: "Their life, as a film. 🎬 {link}",
     home: "Celebrate the people you love. 💛 {link}",
     examples: "Real keepsakes made with GatherWall. {link}"
   };
@@ -67,12 +67,12 @@
     { d: 'Day 4', ch: 'instagram', page: 'yoruba', tip: 'Reel: 20-sec screen recording of the free lyrics preview.' },
     { d: 'Day 5', ch: 'planner', page: 'owambe', tip: 'Message 3 event planners / MCs with the outreach script.' },
     { d: 'Day 6', ch: 'church', page: '70th', tip: 'Message your church events/welfare team; offer a free wall.' },
-    { d: 'Day 7', ch: 'tiktok', page: 'madeforyou', tip: 'Video: "I live abroad, here\'s what I sent my parents." Mention 50% off ends 31 Dec.' }
+    { d: 'Day 7', ch: 'tiktok', page: 'madeforyou', tip: 'Video: "I live abroad, here\'s what I sent my parents."' }
   ];
   const CAL = [
-    ['2026-12-01', 'December push begins', 'Gift page + 50% offer (ends 31 Dec)', 'gift'],
+    ['2026-12-01', 'December push begins', 'Gift page push (song $19, film $49)', 'gift'],
     ['2026-12-20', 'Travel home / Christmas reunions', 'Owambe wall, family walls', 'owambe'],
-    ['2026-12-31', 'Launch offer ends', 'Last call: made for you at 50% off', 'madeforyou'],
+    ['2026-12-20', 'Last Christmas orders', 'Last call: made for you before Christmas', 'madeforyou'],
     ['2027-01-10', 'New Year thanksgivings', '70th ideas, Yoruba song', '70th'],
     ['2027-02-14', "Valentine's Day", 'Wedding keepsakes, $19 song', 'wedding'],
     ['2027-03-07', 'Mothering Sunday (UK & Nigeria)', '$19 song for Mum', 'yoruba'],
