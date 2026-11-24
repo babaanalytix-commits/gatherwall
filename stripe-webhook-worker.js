@@ -378,14 +378,18 @@ async function handleBiz(request, env) {
     const kind = ['wedding', 'celebration', 'memorial', 'corporate', 'feedback', 'community'].indexOf(b.kind) > -1 ? b.kind : 'celebration';
     const vibe = { wedding: 'wedding', celebration: 'celebration', memorial: 'memorial', corporate: 'celebration', feedback: 'celebration', community: 'celebration' }[kind];
     const id = 'b' + rnd(9), mk = rnd(24), now = Date.now();
-    const free = !!(p.founding && !p.freeUsed);
+    // Sales demos: an admin can pre-load a demo event on a prospect's account without using their free event or billing them.
+    let demo = false; if (b.demo === true && typeof b.ak === 'string') { const ak = await getFirebase('hostkeys/admin', AUTH); demo = !!ak && safeEqual(b.ak, ak); }
+    const free = !demo && !!(p.founding && !p.freeUsed);
     const opts = { music: 'off', compose: 'ai', photos: true, video: false, voice: false, dedications: kind === 'wedding' || kind === 'celebration', moderation: b.moderation !== false };
     const ev = { id, name, kind: kind === 'memorial' ? 'family' : 'live', vibe, color: p.color || '#2E7D5B', host: clip(b.host, 80) || p.name, hostLink: p.website || '', date: clip(b.date, 20), mode: b.mode === 'before' ? 'before' : 'live', tier: 'unlimited', opts, published: true, paidAt: now, paidTier: 'partner', partner: pid, brand: brandOf(p), bizKind: kind, createdAt: now };
     let r = await patchFirebase('hostkeys', { [id]: mk }, AUTH); if (!r.ok) return R({ ok: false, error: 'Could not create the event' }, 500);
     r = await patchFirebase('events/' + id, ev, AUTH); if (!r.ok) return R({ ok: false, error: 'Could not create the event' }, 500);
     const cust = { name: clip(b.customerName, 80), email: okEmail(clip(b.customerEmail, 120)) ? clip(b.customerEmail, 120) : '' };
     await patchFirebase('partners/' + pid + '/events/' + id, { name, kind, date: ev.date, createdAt: now, mk, customer: cust, handedOver: false, free }, AUTH);
-    await patchFirebase('usage/' + pid + '/' + id, { ts: now, kind, billable: !free, founding: free }, AUTH);
+    if (demo) { ev.demo = true; await patchFirebase('events/' + id, { demo: true }, AUTH); }
+    await patchFirebase('partners/' + pid + '/events/' + id, demo ? { demo: true } : {}, AUTH);
+    if (!demo) await patchFirebase('usage/' + pid + '/' + id, { ts: now, kind, billable: !free, founding: free }, AUTH);
     if (free) await patchFirebase('partners/' + pid, { freeUsed: true }, AUTH);
     if (b.requestId && okId(b.requestId)) await patchFirebase('partners/' + pid + '/requests/' + b.requestId, { status: 'created', ev: id }, AUTH);
     await notify(env, '🎟️ Partner event: ' + p.name + ' → ' + name, ['Partner: ' + p.name, 'Event: ' + name + ' (' + kind + ')', 'Date: ' + (ev.date || '-'), free ? 'Founding Partner free event' : 'Billable event (pilot: record only)', 'Wall: ' + SITE_URL + 'index.html#wall?ev=' + id]);
