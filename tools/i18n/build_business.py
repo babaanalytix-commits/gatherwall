@@ -1,6 +1,6 @@
 import re, json, importlib.util, sys, html
 SRC=open('business.html').read()
-seg=json.load(open('tools/i18n/seg.json'))
+seg=json.load(open('tools/i18n/seg.json'))  # EN strings; if you change business.html copy, add the new strings here and to each tr_*.py
 URL={'en':'/business.html','fr':'/fr/business.html','es':'/es/business.html','de':'/de/business.html','cs':'/cs/pro-firmy.html'}
 LBL={'en':'EN','fr':'FR','es':'ES','de':'DE','cs':'CS'}
 OLD_SW='· <a href="/cs/pro-firmy.html" style="color:#fff;opacity:.7;font-weight:500">Čeština</a>'
@@ -13,7 +13,10 @@ def switcher(cur):
 HREF=''.join(f'<link rel="alternate" hreflang="{l}" href="https://gatherwall.com{u}">\n' for l,u in URL.items())+'<link rel="alternate" hreflang="x-default" href="https://gatherwall.com/business.html">\n'
 def build(lang):
     s=SRC
-    assert OLD_SW in s; s=s.replace(OLD_SW,switcher(lang))
+    # business.html (EN) is the source; it may already carry the switcher and hreflang block from a previous build
+    if OLD_SW in s: s=s.replace(OLD_SW,switcher(lang))
+    else: s=re.sub(r'<span style="white-space:nowrap">· .*?</span>',lambda m_:switcher(lang),s,count=1)
+    s=re.sub(r'<link rel="alternate" hreflang=[^>]*>\n','',s)
     s=s.replace('<link rel="canonical" href="https://gatherwall.com/business.html">\n',f'<link rel="canonical" href="https://gatherwall.com{URL[lang]}">\n'+HREF)
     if lang=='en': return s
     spec=importlib.util.spec_from_file_location('t',f'tools/i18n/tr_{lang}.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
