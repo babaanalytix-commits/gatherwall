@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GatherWall for wedding photographers · Deliver more than photos</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Add a guest message wall, the couple's own song and a song from their guests' messages to your wedding packages, under your brand.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1d1f;--muted:#6b6b70;--line:#ece6da;--brand:#2a2420;--g:#2E7D5B;--gold:#C9A54C;--cream:#fbf9f5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.015em}
+img,video{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.k{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.btn{display:inline-block;border-radius:999px;padding:15px 24px;font-weight:600;text-decoration:none;font-size:16px;text-align:center}
+.btn.p{background:var(--gold);color:#1d1d1f}.btn.q{border:1.5px solid rgba(255,255,255,.55);color:#fff}.btn.d{background:var(--ink);color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+section{padding:56px 0}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.08;margin:8px 0 12px}
+.lead{color:var(--muted);font-size:17px;line-height:1.55;max-width:680px}
+.hero{position:relative;color:#fff;padding:0;background:#111}
+.hero .bg{position:absolute;inset:0;background:url('/md/md-hero.jpg') center 30%/cover;opacity:.55}
+.hero .in{position:relative;padding:70px 0 54px;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.7))}
+.hero h1{font-size:clamp(38px,6.5vw,66px);line-height:1.02;margin:12px 0 14px;max-width:760px}
+.hero p{font-size:18px;line-height:1.5;color:#eee6dc;max-width:600px}
+.offer{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.o{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column}
+.o .ic{font-size:28px}.o h3{font-size:22px;margin:8px 0 6px;line-height:1.15}.o p{color:var(--muted);line-height:1.55;font-size:15px;flex:1}
+.o .pr{margin-top:14px;background:#f6f1e6;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45}
+.o .pr b{color:#7a5b10}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.why div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.why b{display:block;font-size:17px;margin-bottom:4px}.why p{color:var(--muted);font-size:15px;line-height:1.5}
+.ex{background:#1f1a14;color:#fff}.ex .lead{color:#d9cfbf}
+.exg{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin-top:22px;align-items:start}
+.exg video{border-radius:16px;width:100%}
+.exg .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:18px}
+.exg .card p{color:#d9cfbf;line-height:1.55;font-size:15px;margin-bottom:10px}
+.exg audio{width:100%;margin:6px 0 12px}
+.exg a{color:var(--gold);font-weight:600}
+.steps{counter-reset:s;margin-top:20px;display:grid;gap:10px;max-width:760px}
+.steps div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px 16px 60px;position:relative;line-height:1.5}
+.steps div:before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.steps b{display:block}
+.code{background:#16201b;color:#cfe;border-radius:14px;padding:14px;font:13px ui-monospace,Menlo,monospace;overflow:auto;margin-top:14px;white-space:pre}
+form{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;max-width:640px;margin-top:20px}
+label.f{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+form input,form textarea{width:100%;font:15px Inter,sans-serif;padding:12px;border:1px solid #d6d1c7;border-radius:12px;background:#fff}
+.frow{display:flex;gap:10px;flex-wrap:wrap}.frow>*{flex:1;min-width:180px}
+form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:15px 24px;font:600 16px Inter,sans-serif;cursor:pointer}
+.fp{margin-top:12px;font-size:14px;color:var(--muted);text-align:center}
+.faq details{border:1px solid #e6dccb;border-radius:14px;padding:14px 16px;margin-bottom:10px;background:#fff}
+.faq summary{font-weight:700;cursor:pointer;font-size:16px}.faq details p{margin:10px 0 0;color:#555;line-height:1.55}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:none}.sticky a{display:block;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media(max-width:820px){.offer,.why,.exg{grid-template-columns:1fr}.sticky{display:block}body{padding-bottom:76px}}
+</style>
+</head>
+<body>
+<script src="/gw-header.js"></script>
+
+<div class="hero"><div class="bg"></div><div class="in"><div class="wrap">
+  <div class="k">For wedding photographers</div>
+  <h1>Deliver more than photos.</h1>
+  <p>Add a guest message wall, the couple's own song and a song from their guests' words to your wedding packages. All under your name, delivered alongside your gallery.</p>
+  <div class="btns"><a class="btn p" href="#apply">Get your first wedding free</a><a class="btn q" href="#example">See a real example</a></div>
+</div></div></div>
+
+<section><div class="wrap">
+  <div class="k">Three ways to grow every booking</div>
+  <h2>Add one, or all three.</h2>
+  <div class="offer">
+    <div class="o"><div class="ic">💬</div><h3>Guest message wall</h3>
+      <p>A QR card on the tables, or a page on your own website. Guests leave the couple messages and photos on the day, from any phone, with no app. Family abroad can join from the link.</p>
+      <div class="pr">Your cost <b>$4 a wedding</b>. Sell it as an add-on or include it in your top package.</div></div>
+    <div class="o"><div class="ic">🎵</div><h3>A song from the guests</h3>
+      <p>We turn what the guests wrote into an original song, the Song of Your Night. The couple hear their friends' words set to music.</p>
+      <div class="pr">Your cost <b>$10 a song</b>. You set the price.</div></div>
+    <div class="o"><div class="ic">💍</div><h3>The couple's own song and film</h3>
+      <p>A song written from how they met, set to a film of <i>your</i> photos. Mira &amp; Domča's became an album of six songs and a film of their day.</p>
+      <div class="pr">Partner pricing: <b>ask us</b>. A premium add-on for your top packages.</div></div>
+  </div>
+</div></section>
+
+<section id="example" class="ex"><div class="wrap">
+  <div class="k">A real wedding</div>
+  <h2>Mira &amp; Domča</h2>
+  <p class="lead">Their photographer's pictures, their story as six songs, and a film that ends with their first dance. Delivered on one keepsake page.</p>
+  <div class="exg">
+    <video controls playsinline preload="none" poster="/md/md-hero.jpg" src="/md/md-teaser-web.mp4"></video>
+    <div class="card">
+      <p><b style="color:#fff">"Naše místo"</b>, the first song on their album, a Czech soul ballad about where they met.</p>
+      <audio controls preload="none" src="/md/md-01-nase-misto.mp3"></audio>
+      <p><b style="color:#fff">Song of Your Night</b>: an example made from guests' messages.</p>
+      <audio controls preload="none" src="/the-night-we-became-us.mp3"></audio>
+      <a href="/mirodomca-preview.html?lang=en" target="_blank">Open their full keepsake ›</a>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="k">Why photographers add it</div>
+  <h2>It keeps working after you've delivered.</h2>
+  <div class="why">
+    <div><b>Your name in every guest's hand</b><p>Every guest who scans the QR sees your brand. That's 100+ people a wedding who might be getting married next.</p></div>
+    <div><b>A bigger, better delivery day</b><p>Gallery, film, songs and every message on one keepsake page with your logo. Couples share it, and your name goes with it.</p></div>
+    <div><b>An upsell that doesn't need your time</b><p>No editing hours. We make the songs and run the wall. You set the price and keep the margin.</p></div>
+    <div><b>On your own website</b><p>Paste two lines of code and the guest form or wall appears inside your site, in your branding.</p></div>
+  </div>
+  <div class="code">&lt;div class="gatherwall" data-partner="your-page"&gt;&lt;/div&gt;
+&lt;script src="https://gatherwall.com/embed.js" async&gt;&lt;/script&gt;</div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2>How it fits your workflow</h2>
+  <div class="steps">
+    <div><b>At booking</b>Offer the wall and songs as an add-on. Create the event in your dashboard in 20 seconds.</div>
+    <div><b>On the day</b>Put out the QR table cards. Guests post messages and photos. You keep shooting.</div>
+    <div><b>After the wedding</b>We make the song from the guests' messages, or from the couple's story if they chose the album.</div>
+    <div><b>Delivery</b>Hand over one keepsake page: your gallery link, the film, the songs and every message.</div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap faq">
+  <h2>Questions photographers ask</h2>
+  <details><summary>Does it compete with my photos?</summary><p>No. Guest photos are the casual phone shots from tables and the dance floor. Your work stays the centrepiece, and the film is built from your photos.</p></details>
+  <details><summary>Is my logo on everything?</summary><p>Yes: the guest page, the QR card, the handover and the keepsake. A small "Powered by GatherWall" line stays at the bottom.</p></details>
+  <details><summary>How long does a song take?</summary><p>A Song of Your Night from the guests' messages is quick. A full song and film from the couple's story takes 2–3 weeks.</p></details>
+  <details><summary>How long is everything kept online?</summary><p>90 days after the event, and the couple can download every photo and message in one tap to keep.</p></details>
+  <details><summary>Is there a monthly fee?</summary><p>No monthly fee, no contract and no set-up cost. Your first wedding is free.</p></details>
+</div></section>
+
+<section id="apply" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="k">Free first wedding</div>
+  <h2>Add it to your next wedding.</h2>
+  <p class="lead">We'll set up your branded dashboard within one working day.</p>
+  <form id="f" onsubmit="return apply(event)">
+    <div class="frow"><div><label class="f">Studio or business name</label><input name="name" required></div><div><label class="f">Your name</label><input name="contact"></div></div>
+    <div class="frow"><div><label class="f">Email</label><input name="email" type="email" required></div><div><label class="f">Phone or WhatsApp</label><input name="phone"></div></div>
+    <div class="frow"><div><label class="f">Website or Instagram</label><input name="website"></div><div><label class="f">Weddings a year</label><input name="note" placeholder="e.g. 25"></div></div>
+    <input type="hidden" name="type" value="photographer">
+    <input name="hp" style="display:none" tabindex="-1" autocomplete="off">
+    <button id="b">Get my free first wedding</button>
+    <p class="fp">No card needed. Takes one minute.</p>
+  </form>
+  <p style="margin-top:18px"><a href="/business-new.html" style="color:var(--ink);font-weight:600">DJs, venues and other businesses ›</a></p>
+</div></section>
+
+<div class="sticky"><a class="btn p" href="#apply">Get your first wedding free</a></div>
+
+<script>
+function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementById('b'); b.disabled=true;
+  const d={op:'apply',lang:'en',page:'for-photographers'}; new FormData(f).forEach((v,k)=>d[k]=v);
+  try{ const s=JSON.parse(localStorage.getItem('gw_src')||'{}'); d.from=s.from||''; d.c=s.c||''; }catch(x){}
+  fetch('https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{
+    b.disabled=false; if(!r.ok){ alert(r.error||'Sorry, something went wrong.'); return; }
+    f.innerHTML='<h3 style="font-size:24px">Thank you! 🎉</h3><p class="fp" style="font-size:16px;text-align:left">We have your details and will be in touch within one working day with your dashboard.</p>';
+  }).catch(()=>{ b.disabled=false; alert('Sorry, something went wrong. Please email hello@gatherwall.com'); });
+  return false; }
+</script>
+<script>(function(){var s=document.querySelector('.sticky'),a=document.getElementById('apply');if(!s||!a||!window.IntersectionObserver)return;new IntersectionObserver(function(e){s.style.visibility=e[0].isIntersecting?'hidden':'visible';}).observe(a);})();</script>
+</body>
+</html>
