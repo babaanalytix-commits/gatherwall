@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GatherWall para profesionales de bodas · El extra al que toda pareja dice que sí</title>
+<link rel="canonical" href="https://gatherwall.com/es/business.html">
+<link rel="alternate" hreflang="en" href="https://gatherwall.com/business.html">
+<link rel="alternate" hreflang="fr" href="https://gatherwall.com/fr/business.html">
+<link rel="alternate" hreflang="es" href="https://gatherwall.com/es/business.html">
+<link rel="alternate" hreflang="de" href="https://gatherwall.com/de/business.html">
+<link rel="alternate" hreflang="cs" href="https://gatherwall.com/cs/pro-firmy.html">
+<link rel="alternate" hreflang="x-default" href="https://gatherwall.com/business.html">
+<meta name="description" content="Peticiones de canciones votadas por los invitados, un muro en vivo y canciones creadas a partir de la historia de la pareja. Con tu marca, para DJ, fotógrafos y espacios de bodas. 4 $ por evento.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1d1f;--muted:#6b6b70;--line:#ece6da;--brand:#16201b;--g:#2E7D5B;--gold:#C9A54C;--cream:#fbf9f5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.015em}
+img,video{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.k{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.btn{display:inline-block;border-radius:999px;padding:15px 24px;font-weight:600;text-decoration:none;font-size:16px;text-align:center}
+.btn.p{background:var(--gold);color:#1d1d1f}.btn.q{border:1.5px solid rgba(255,255,255,.55);color:#fff}.btn.d{background:var(--ink);color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+section{padding:56px 0}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.08;margin:8px 0 12px}
+.lead{color:var(--muted);font-size:17px;line-height:1.55;max-width:680px}
+
+/* hero */
+.hero{background:var(--brand);color:#fff;padding:44px 0 40px;overflow:hidden}
+.hero h1{font-size:clamp(36px,6vw,62px);line-height:1.02;margin:12px 0 14px;max-width:780px}
+.hero p{font-size:18px;line-height:1.5;color:#d5ddd8;max-width:620px}
+.hero .shot{margin-top:30px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.hero .cap{font-size:13.5px;color:#9fb0a7;margin-top:10px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pills span{font-size:13.5px;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 12px;color:#e8eee9}
+
+/* lanes */
+.tabs{display:flex;gap:8px;margin:18px 0 0;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:11px 18px;font:600 15px Inter,sans-serif;cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+.lane{display:none;margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+.lane.on{display:block}
+.lane h3{font-size:26px;line-height:1.15}
+.lane ul{list-style:none;margin:14px 0}.lane li{padding:9px 0 9px 30px;position:relative;line-height:1.5;border-bottom:1px solid #f1ece2}
+.lane li:before{content:"✓";position:absolute;left:4px;color:var(--g);font-weight:700}
+.lane .earn{background:#f6f1e6;border-radius:14px;padding:14px 16px;font-size:15.5px;line-height:1.5;margin-top:6px}
+.lane .earn b{color:#7a5b10}
+.lane a.more{display:inline-block;margin-top:14px;font-weight:600;color:var(--ink)}
+
+/* phones */
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.ph{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px}
+.ph img{border-radius:14px;border:1px solid #eee}
+.ph b{display:block;font-size:17px;margin:12px 4px 4px}.ph p{color:var(--muted);font-size:14.5px;line-height:1.5;margin:0 4px 4px}
+.ph .n{font-family:Fraunces,serif;color:var(--gold);font-size:22px;margin:10px 4px 0}
+
+/* moment */
+.moment{background:#1f1a14;color:#fff}
+.moment .lead{color:#d9cfbf}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.mcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px}
+.mcard h3{font-size:22px;margin-bottom:6px}.mcard p{color:#d9cfbf;line-height:1.55;font-size:15px}
+.mcard audio{width:100%;margin-top:14px}
+.mcard video{border-radius:14px;margin-top:14px;width:100%}
+.mcard a{color:var(--gold);font-weight:600;display:inline-block;margin-top:12px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1d1d1f;background:var(--gold);border-radius:999px;padding:4px 10px;margin-bottom:10px}
+
+/* calc */
+.calc{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:22px;max-width:720px}
+.calc .row{display:flex;gap:14px;flex-wrap:wrap}.calc .row>div{flex:1;min-width:200px}
+.calc label{display:block;font-size:13px;font-weight:600;margin:6px 0}
+.calc input[type=range]{width:100%;accent-color:var(--g)}
+.calc .v{font-family:Fraunces,serif;font-size:26px}
+.calc .out{margin-top:18px;background:var(--brand);color:#fff;border-radius:16px;padding:18px}
+.calc .out .big{font-family:Fraunces,serif;font-size:clamp(34px,6vw,48px);color:var(--gold);line-height:1}
+.calc .out p{color:#c9d1cc;font-size:14.5px;margin-top:6px;line-height:1.5}
+
+/* steps + price */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.c{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
+.c .n{font-family:Fraunces,serif;color:var(--gold);font-size:28px}.c h3{font-size:20px;margin:4px 0 6px}.c p{color:var(--muted);line-height:1.5;font-size:15px}
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.price div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.price b{display:block;font-family:Fraunces,serif;font-size:30px}.price span{display:block;font-weight:600;margin:2px 0 6px}.price p{color:var(--muted);font-size:14.5px;line-height:1.5}
+
+/* others + form */
+.others{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.others a{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.others a small{display:block;color:var(--muted);font-weight:400;margin-top:4px;font-size:13.5px;line-height:1.4}
+form{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;max-width:640px;margin-top:20px}
+label.f{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+form input,form select,form textarea{width:100%;font:15px Inter,sans-serif;padding:12px;border:1px solid #d6d1c7;border-radius:12px;background:#fff}
+form textarea{min-height:80px}
+.frow{display:flex;gap:10px;flex-wrap:wrap}.frow>*{flex:1;min-width:180px}
+form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:15px 24px;font:600 16px Inter,sans-serif;cursor:pointer}
+.fp{margin-top:12px;font-size:14px;color:var(--muted);text-align:center}
+.faq details{border:1px solid #e6dccb;border-radius:14px;padding:14px 16px;margin-bottom:10px;background:#fff}
+.faq summary{font-weight:700;cursor:pointer;font-size:16px}.faq details p{margin:10px 0 0;color:#555;line-height:1.55}
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:none}
+.sticky a{display:block;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+@media(max-width:820px){
+  .phones,.mgrid,.three,.price{grid-template-columns:1fr}
+  .others{grid-template-columns:1fr 1fr}
+  .sticky{display:block}
+  body{padding-bottom:76px}
+}
+</style>
+</head>
+<body>
+<script src="/gw-header.js"></script>
+
+<!-- HERO -->
+<div class="hero"><div class="wrap">
+  <div class="k">Para DJ, fotógrafos y espacios de bodas <span style="white-space:nowrap">· <a href="/business.html" hreflang="en" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">EN</a> <a href="/fr/business.html" hreflang="fr" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">FR</a> <b style="color:#fff">ES</b> <a href="/de/business.html" hreflang="de" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">DE</a> <a href="/cs/pro-firmy.html" hreflang="cs" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">CS</a></span></div>
+  <h1>El extra al que toda pareja dice que sí.</h1>
+  <p>Los invitados piden canciones y votan, llenan un muro en vivo con mensajes, y la pareja se lleva una canción creada a partir de su propia historia. Todo con tu marca. Tú pones el precio y nosotros cobramos <b style="color:#fff">4 $ por evento</b>.</p>
+  <div class="btns"><a class="btn p" href="#apply">Tu primer evento gratis</a><a class="btn q" href="#see">Verlo en acción</a></div>
+  <div class="pills"><span>Sin app para los invitados</span><span>Tu logo en todo</span><span>Sin cuota mensual</span><span>Inglés · Yoruba · Checo · Alemán · Francés · Español</span></div>
+  <div class="shot"><img src="/biz/dj-wall.jpg" alt="Un GatherWall en vivo en la pantalla grande de una boda, con la marca Soundwave DJs, mensajes, fotos y peticiones de canciones" loading="eager"></div>
+  <div class="cap">Un muro de demostración real: la boda de Tunde &amp; Aisha, presentada por Soundwave DJs. Los mensajes, fotos y peticiones aparecen en cuanto los invitados los publican.</div>
+</div></div>
+
+<!-- LANES -->
+<section id="lanes"><div class="wrap">
+  <div class="k">Pensado para tu trabajo</div>
+  <h2>Elige tu perfil.</h2>
+  <p class="lead">Una plataforma, tres formas de ganar con ella. Elige la tuya para ver qué podrías ofrecer.</p>
+  <div class="tabs" role="tablist">
+    <button class="on" onclick="lane('dj',this)">🎧 DJ y presentadores</button>
+    <button onclick="lane('ph',this)">📷 Fotógrafos</button>
+    <button onclick="lane('ve',this)">🏛️ Espacios</button>
+  </div>
+
+  <div class="lane on" id="l-dj">
+    <h3>Deja que la pista te diga qué poner.</h3>
+    <ul>
+      <li><b>Peticiones de canciones que votan los invitados.</b> Eligen canciones reales (sin escribir), pulsan +1 y tú ves una lista ordenada en vivo.</li>
+      <li><b>Dedicatorias para el presentador</b> para leer en voz alta, además de anuncios en la pantalla grande.</li>
+      <li><b>Un muro en vivo en tu pantalla</b> con mensajes y fotos que tú apruebas primero.</li>
+      <li><b>Song of Your Night:</b> una canción hecha con las palabras de los invitados, para el último baile.</li>
+    </ul>
+    <div class="earn">Añade una mejora «Muro en vivo y peticiones de canciones» por <b>$49</b>. Te cuesta <b>$4</b>. Te quedas <b>45 $ por boda</b>, sin trabajo extra esa noche.</div>
+    <a class="more" href="/for-djs.html">Todo para DJ ›</a>
+  </div>
+
+  <div class="lane" id="l-ph">
+    <h3>Entrega más que fotos.</h3>
+    <ul>
+      <li><b>Un muro de mensajes en tu propia web.</b> Los invitados escanean un código QR en la boda y dejan a la pareja mensajes y fotos. Con tu nombre.</li>
+      <li><b>La canción de la pareja.</b> Escrita a partir de su historia, como el álbum de seis canciones de Mira &amp; Domča.</li>
+      <li><b>Una canción con los mensajes de los invitados:</b> la Song of Your Night, hecha con lo que escribió cada uno.</li>
+      <li><b>Una sola página de recuerdo</b> con el enlace a tu galería, la película, las canciones y cada mensaje, todo con tu logo.</li>
+    </ul>
+    <div class="earn">Cada invitado que escanea ve tu nombre. La pareja comparte el recuerdo con la familia, y ahí empieza tu próxima reserva.</div>
+    <a class="more" href="/for-photographers.html">Todo para fotógrafos ›</a>
+  </div>
+
+  <div class="lane" id="l-ve">
+    <h3>Una mejora premium para cada boda que acoges.</h3>
+    <ul>
+      <li><b>Muro de invitados en vivo</b> en tus pantallas, con la marca de tu espacio.</li>
+      <li><b>Opiniones privadas de los invitados</b> que van a tu equipo, nunca a reseñas públicas.</li>
+      <li><b>Muros de recuerdos y de comunidad</b> para aniversarios y la historia de tu espacio.</li>
+      <li><b>Páginas para invitados en cinco idiomas</b> para bodas internacionales.</li>
+    </ul>
+    <div class="earn">Inclúyelo en tus paquetes de boda o véndelo como extra. Un coste de 4 $ frente a una mejora de <b>$100–$150</b> .</div>
+    <a class="more" href="/for-venues.html">Todo para espacios ›</a>
+  </div>
+</div></section>
+
+<!-- SEE IT -->
+<section id="see" style="padding-top:10px"><div class="wrap">
+  <div class="k">Lo que pasa esa noche</div>
+  <h2>Tres toques para los invitados. Una lista para ti.</h2>
+  <p class="lead">Pruébalo como invitado: abre la página de invitados en tu móvil, pide una canción o deja un mensaje y mira cómo aparece en la pantalla grande.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/dj-guest.jpg" alt="Móvil de un invitado: canción actual y las más pedidas con botones de voto" loading="lazy"><div class="n">1</div><b>Los invitados escanean y eligen una canción</b><p>Desde el QR de su mesa. Ven lo que suena y votan lo siguiente.</p></div>
+    <div class="ph"><img src="/biz/dj-list.jpg" alt="Consola del DJ: canciones ordenadas por votos, con quién las pidió y para quién" loading="lazy"><div class="n">2</div><b>Tú ves una lista ordenada</b><p>Las más pedidas primero, con quién pidió y para quién. Marca «sonada» sobre la marcha.</p></div>
+    <div class="ph"><img src="/biz/dj-wall.jpg" alt="Muro en pantalla grande con mensajes y dedicatorias" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:62% 0"><div class="n">3</div><b>Todo el salón lo ve en vivo</b><p>Dedicatorias y mensajes en la pantalla grande. La pareja se lo queda todo después.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/index.html#guest?ev=bhibjbt7x6" target="_blank">Probar la página de invitados ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bhibjbt7x6" target="_blank">Abrir la pantalla grande ›</a></div>
+</div></section>
+
+<!-- THE MOMENT -->
+<section class="moment"><div class="wrap">
+  <div class="k">Lo que nadie más ofrece</div>
+  <h2>Canciones que escucharán durante años.</h2>
+  <p class="lead">Muros de invitados hay en todas partes. Una canción escrita a partir de la historia de la pareja, o de lo que escribieron sus invitados esa noche, no. Es la mejora de la que las parejas hablan a sus amigos.</p>
+  <div class="mgrid">
+    <div class="mcard">
+      <span class="tag">Con los mensajes de los invitados</span>
+      <h3>Song of Your Night</h3>
+      <p>Convertimos los mensajes del muro en una canción original, lista para el último baile con la letra en pantalla.</p>
+      <audio controls preload="none" src="/the-night-we-became-us.mp3"></audio>
+      <p style="font-size:13.5px;margin-top:8px">Tu coste: <b style="color:#fff">10 $ por canción</b>. Tú pones el precio.</p>
+    </div>
+    <div class="mcard">
+      <span class="tag">Con la historia de la pareja</span>
+      <h3>Su propio álbum y película</h3>
+      <p>Mira &amp; Domča recibieron canciones sobre cómo se conocieron y una película hecha con las fotos de su fotógrafo. Todo en una página de recuerdo.</p><p style="font-size:13.5px;margin-top:8px">Precio para socios: <b style="color:#fff">$10</b> por la canción de la pareja, <b style="color:#fff">$29</b> con película.</p>
+      <video controls playsinline preload="none" poster="/md/md-hero.jpg" src="/md/md-teaser-web.mp4"></video>
+      <p style="margin-top:14px;font-family:Fraunces,serif;font-size:17px;line-height:1.45;color:#fff">«¡Absolutamente brillante, sencillamente increíble! Un enfoque profesional y, sobre todo, un gran ojo para el detalle. Un recuerdo para toda la vida.»</p><p style="font-size:13.5px;color:#d9cfbf;margin-top:4px">Míra &amp; Domča</p><a href="/mirodomca-preview.html?lang=en" target="_blank">Ver su recuerdo ›</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- CALCULATOR -->
+<section id="earn"><div class="wrap">
+  <div class="k">Tus números</div>
+  <h2>¿Cuánto te sumaría al año?</h2>
+  <div class="calc">
+    <div class="row">
+      <div><label for="n">Bodas al mes</label><div class="v" id="nv">6</div><input id="n" type="range" min="1" max="30" value="6" oninput="calc()"></div>
+      <div><label for="pr">Precio de tu mejora ($)</label><div class="v" id="pv">$49</div><input id="pr" type="range" min="10" max="250" step="5" value="49" oninput="calc()"></div>
+    </div>
+    <label class="f" style="display:flex;gap:8px;align-items:center;font-weight:500;font-size:14.5px;margin-top:14px"><input id="half" type="checkbox" checked onchange="calc()" style="width:auto"> Solo la mitad de las parejas dice que sí</label>
+    <div class="out"><div class="big" id="yr">$1,620</div><p id="ex">extra al año, tras nuestros 4 $ por evento.</p></div>
+  </div>
+</div></section>
+
+<!-- HOW + PRICE -->
+<section style="padding-top:0"><div class="wrap">
+  <h2>Listo en un día. Cada evento en 20 segundos.</h2>
+  <p class="lead">Los socios pagan aproximadamente la mitad de nuestros precios para clientes, así que puedes vender a nuestros precios o a los tuyos y quedarte la diferencia. Las canciones son extras opcionales: una canción está lista en un día desde que llegan los mensajes, y canción + película tarda 2–3 semanas. Por ahora pides las canciones por email (hello@gatherwall.com) y te facturamos; pronto podrás pedirlas desde tu panel.</p>
+  <div class="three">
+    <div class="c"><div class="n">1</div><h3>Lo adaptamos a tu marca</h3><p>Envía tu logo. Tu panel y tu página para clientes estarán listos en un día laborable.</p></div>
+    <div class="c"><div class="n">2</div><h3>Crea cada evento</h3><p>Nombres de la pareja y fecha, 20 segundos. Imprime la tarjeta QR de mesa o muéstrala en tu pantalla.</p></div>
+    <div class="c"><div class="n">3</div><h3>Entrégalo</h3><p>Con un toque pasa a la pareja: cada mensaje y foto en su página de recuerdo, con tu nombre.</p></div>
+  </div>
+  <div class="price" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div><b>Gratis</b><span>Tu primer evento</span><p>Sin tarjeta. Pruébalo en una boda real.</p></div>
+    <div><b>$4</b><span>Por evento después</span><p>Sin cuota mensual ni coste de alta. Borradores y pruebas gratis.</p></div>
+    <div><b>$10</b><span>Song of Your Night</span><p>Una canción con los mensajes de los invitados. El cliente paga 19 $.</p></div>
+    <div><b>$10</b><span>La canción de la pareja</span><p>Escrita a partir de su historia. El cliente paga 19 $.</p></div>
+    <div><b>$29</b><span>Canción + película</span><p>Su canción con una película de las fotos de la boda. El cliente paga 49 $.</p></div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section style="padding-top:0"><div class="wrap faq">
+  <h2>Preguntas de profesionales</h2>
+  <details><summary>¿Me dará más trabajo esa noche?</summary><p>No. Creas el evento con antelación, el QR va en las mesas o en tu pantalla y los invitados hacen el resto. Tú o los novios podéis aprobar mensajes desde el móvil.</p></details>
+  <details><summary>¿Va mi logo en todo?</summary><p>Sí: página de invitados, pantalla grande, tarjeta QR, entrega y recuerdo. Abajo queda una pequeña línea «Powered by GatherWall».</p></details>
+  <details><summary>¿Y si el wifi del espacio es malo?</summary><p>Los invitados publican con sus propios datos móviles. La pantalla grande solo necesita una conexión básica y sigue mostrando lo que tiene si se corta la señal.</p></details>
+  <details><summary>¿Puedo cobrar lo que quiera?</summary><p>Sí. Tus clientes te pagan a ti. Nosotros cobramos 4 $ por evento, más las canciones que añadas.</p></details>
+  <details><summary>¿Necesito una web?</summary><p>No. Tienes tu propia página de GatherWall con tu marca para compartir en Instagram o WhatsApp. Si tienes web, también puedes insertar el formulario o el muro con dos líneas de código.</p></details>
+  <details><summary>¿Qué pasa si dejo de usar GatherWall?</summary><p>Nada se rompe para tus parejas: los eventos que hayas hecho siguen en línea sus 90 días completos, y lo que hayan descargado es suyo. Simplemente dejas de pagar. Sin contrato ni cuota mensual.</p></details>
+  <details><summary>¿Qué se queda la pareja?</summary><p>Su propia página de recuerdo con cada mensaje y foto, en línea 90 días y descargable con un toque, para quedársela. Con tu nombre.</p></details>
+</div></section>
+
+<!-- OTHERS -->
+<section style="padding-top:0"><div class="wrap">
+  <h2 style="font-size:26px">También para</h2>
+  <div class="others">
+    <a href="/for-venues.html">🏨 Hoteles<small>Bodas, congresos y opiniones privadas de huéspedes</small></a>
+    <a href="/business.html#apply">📋 Organizadores<small>Todos los eventos de tus clientes en un panel</small></a>
+    <a href="/business.html#apply">🕊️ Servicios funerarios<small>Un muro de homenaje sereno al que la familia se une desde cualquier lugar</small></a>
+    <a href="/embed-demo.html">🧩 Tu web<small>Insértalo con dos líneas de código</small></a>
+  </div>
+</div></section>
+
+<!-- APPLY -->
+<section id="apply" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="k">Primer evento gratis</div>
+  <h2>Pruébalo en tu próxima boda.</h2>
+  <p class="lead">Cuéntanos quién eres. Preparamos tu panel con tu marca en un día laborable.</p>
+  <form id="f" onsubmit="return apply(event)">
+    <div class="frow"><div><label class="f">Nombre del negocio</label><input name="name" required></div><div><label class="f">Tu nombre</label><input name="contact"></div></div>
+    <div class="frow"><div><label class="f">Email</label><input name="email" type="email" required></div><div><label class="f">Teléfono o WhatsApp</label><input name="phone"></div></div>
+    <div class="frow"><div><label class="f">Soy</label><select name="type" id="ftype"><option value="dj">DJ / presentador</option><option value="photographer">Fotógrafo</option><option value="venue">Espacio de eventos</option><option value="hotel">Hotel</option><option value="planner">Organizador de eventos</option><option value="memorial">Servicios funerarios</option><option value="other">Otro</option></select></div><div><label class="f">Ciudad</label><input name="city"></div></div>
+    <label class="f">Web o Instagram</label><input name="website">
+    <input name="hp" style="display:none" tabindex="-1" autocomplete="off">
+    <button id="b">Conseguir mi primer evento gratis</button>
+    <p class="fp">Sin tarjeta. Tarda un minuto.</p>
+  </form>
+</div></section>
+
+<div class="sticky"><a class="btn p" href="#apply">Tu primer evento gratis</a></div>
+
+<script>
+function lane(k,b){document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.lane').forEach(x=>x.classList.toggle('on',x.id==='l-'+k));var m={dj:'dj',ph:'photographer',ve:'venue'};var s=document.getElementById('ftype');if(s)s.value=m[k];}
+function calc(){var n=+document.getElementById('n').value,p=+document.getElementById('pr').value,h=document.getElementById('half').checked?0.5:1;
+  document.getElementById('nv').textContent=n;document.getElementById('pv').textContent='$'+p;
+  var yr=Math.round(n*12*h*(p-4));document.getElementById('yr').textContent='$'+yr.toLocaleString('es-ES');
+  document.getElementById('ex').textContent='extra al año con '+Math.round(n*12*h)+' mejoras, tras nuestros 4 $ por evento.';}
+calc();
+(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:0,photographer:1,photographers:1,venue:2,venues:2};if(t&&m[t]!=null){var b=document.querySelectorAll('.tabs button')[m[t]];b&&b.click();}})();
+function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementById('b'); b.disabled=true;
+  const d={op:'apply',lang:'es',page:'business'}; new FormData(f).forEach((v,k)=>d[k]=v);
+  try{ const s=JSON.parse(localStorage.getItem('gw_src')||'{}'); d.from=s.from||''; d.c=s.c||''; }catch(x){}
+  fetch('https://gatherwall-stripe-webhook.baba-analytix.workers.dev/biz',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json()).then(r=>{
+    b.disabled=false; if(!r.ok){ alert(r.error||'Lo sentimos, algo ha fallado.'); return; }
+    f.innerHTML='<h3 style="font-size:24px">¡Gracias! 🎉</h3><p class="fp" style="font-size:16px;text-align:left">Tenemos tus datos y te contactaremos en un día laborable con tu panel.</p>';
+  }).catch(()=>{ b.disabled=false; alert('Lo sentimos, algo ha fallado. Escríbenos a hello@gatherwall.com'); });
+  return false; }
+</script>
+<script>(function(){var s=document.querySelector('.sticky'),a=document.getElementById('apply');if(!s||!a||!window.IntersectionObserver)return;new IntersectionObserver(function(e){s.style.visibility=e[0].isIntersecting?'hidden':'visible';}).observe(a);})();</script>
+</body>
+</html>
