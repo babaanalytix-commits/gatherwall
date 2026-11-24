@@ -2902,7 +2902,8 @@ function submitTribute(){
   }
   const moder=!!(guestEvObj && guestEvObj.opts && guestEvObj.opts.moderation);
   const t={msg,name,photo:photoData,video:videoData,audio:audioData,ts:Date.now(),approved:!moder};
-  if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor; }
+  if(song){ t.type='song'; t.songTitle=song; t.songFor=songFor;
+    const sp=window.gwSongPick&&gwSongPick.get(); if(sp){ t.songId=sp.id; t.songName=sp.title; t.songArtist=sp.artist; t.songArt=sp.art; if(sp.preview) t.songPreview=sp.preview; } }
   // Photos go to fast file storage (R2); the wall keeps only the link. Falls back to inline if storage is unreachable.
   if(USE_FB && t.photo && /^data:image/.test(t.photo) && !window._noR2){
     const btn=document.getElementById('t_addBtn'); if(btn) btn.disabled=true;
@@ -2915,7 +2916,7 @@ function submitTribute(){
     document.getElementById('tMsg').value='';document.getElementById('tName').value='';
     document.getElementById('tPhoto').value='';photoData=null;
     if(tv)tv.value=''; videoData=null; audioData=null; showVoicePreview();
-    if(songEl)songEl.value=''; if(songForEl)songForEl.value='';
+    if(songEl)songEl.value=''; if(songForEl)songForEl.value=''; if(window.gwSongPick) gwSongPick.clear();
     closeCamera(); showPhotoPreview();
     document.querySelectorAll('#promptChips .opt').forEach(o=>o.classList.remove('on'));
     document.getElementById('tMsg').setAttribute('placeholder',L().msgPh);
@@ -3053,7 +3054,7 @@ function tribCard(t){
   if(t.type==='song'){
     return `<div class="trib song-card">
       <div class="song-tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>
-      <div class="msg">“${escapeHTML(t.songTitle||t.msg||'')}”</div>
+      ${t.songArt?`<div style="display:flex;gap:12px;align-items:center;margin:6px 0"><img src="${escapeHTML(t.songArt)}" alt="" style="width:64px;height:64px;border-radius:10px;object-fit:cover;margin:0"><div><div class="msg" style="margin:0">${escapeHTML(t.songName||t.songTitle)}</div><div style="color:var(--muted);font-size:14px">${escapeHTML(t.songArtist||'')}</div></div></div>`:`<div class="msg">“${escapeHTML(t.songTitle||t.msg||'')}”</div>`}
       ${t.msg&&t.songTitle?`<div class="from" style="color:var(--muted);font-weight:400;margin-top:6px;">${escapeHTML(t.msg)}</div>`:''}
       <div class="from">— ${escapeHTML(t.name)}</div>${heart}</div>`;
   }
@@ -3080,7 +3081,7 @@ function renderSpot(){
   const t=wallList[spotIdx];
   const tag = t.type==='song' ? `<div class="song-tag" style="font-size:18px;margin-bottom:10px;">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>` : '';
   const body = t.type==='song' ? escapeHTML(t.songTitle||t.msg||'') : escapeHTML(t.msg||(t.audio?'🎤 Voice tribute':''));
-  card.innerHTML=`${t.photo?`<div class="sp-photo"><img src="${t.photo}" alt=""></div>`:''}
+  card.innerHTML=`${t.photo?`<div class="sp-photo"><img src="${t.photo}" alt=""></div>`:(t.songArt?`<div class="sp-photo"><img src="${escapeHTML(t.songArt)}" alt=""></div>`:'')}
     ${tag}<div class="sp-msg">“${body}”</div>
     ${t.audio?`<audio controls src="${t.audio}" style="margin-top:18px;width:min(420px,80vw)"></audio>`:''}
     <div class="sp-from">— ${escapeHTML(t.name)}</div>
@@ -3320,5 +3321,6 @@ if(location.hash){route();} else {applyVibe('brand');go('door');}
   a.addEventListener('ended',function(){ btn.innerHTML='↻ Play it again'; set('💛'); cur=-1; });
 })();
 </script>
+<script src="/gw-songpick.js"></script>
 </body>
 </html>

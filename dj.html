@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DJ request list · GatherWall</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0f1014;color:#f3f1ea;font-family:Inter,system-ui,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #23252d;position:sticky;top:0;background:#0f1014;z-index:5}
+header img{height:36px;border-radius:6px;background:#fff;padding:3px}
+header h1{font-size:19px;margin:0;font-weight:800}header .sub{font-size:13px;color:#9a9caa}
+.live{margin-left:auto;font-size:12px;color:#7ee2a8;display:flex;align-items:center;gap:6px}.live:before{content:'';width:8px;height:8px;border-radius:50%;background:#3ddc84;animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.3}}
+.wrap{display:grid;grid-template-columns:1fr 300px;gap:20px;padding:20px;max-width:1200px;margin:0 auto}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.side{order:-1}}
+.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs button{background:#1b1d24;color:#cfd0d8;border:0;border-radius:999px;padding:9px 16px;font:600 14px Inter;cursor:pointer}.tabs button.on{background:#c9a54c;color:#111}
+.req{display:flex;gap:14px;align-items:center;background:#181a21;border:1px solid #23252d;border-radius:16px;padding:12px;margin-bottom:10px}
+.req.new{animation:n 2.5s}@keyframes n{0%{border-color:#c9a54c;box-shadow:0 0 0 3px rgba(201,165,76,.35)}}
+.rank{font-size:22px;font-weight:800;color:#c9a54c;width:34px;text-align:center;flex:none}
+.req img,.ph{width:64px;height:64px;border-radius:10px;object-fit:cover;flex:none;background:#2a2c35;display:flex;align-items:center;justify-content:center;font-size:26px}
+.info{flex:1;min-width:0}.info b{font-size:17px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.info .a{color:#a7a9b6;font-size:14px}
+.ded{font-size:13px;color:#d9c48f;margin-top:5px;line-height:1.45}.ded i{color:#b9bac4}
+.votes{text-align:center;flex:none;min-width:56px}.votes b{font-size:24px;display:block}.votes span{font-size:11px;color:#8d8f9b;text-transform:uppercase;letter-spacing:.06em}
+.acts{display:flex;flex-direction:column;gap:6px;flex:none}.acts button{border:0;border-radius:10px;padding:8px 10px;font:600 13px Inter;cursor:pointer;background:#262934;color:#eee}.acts .done{background:#2f6b47;color:#fff}
+.side .card{background:#181a21;border:1px solid #23252d;border-radius:16px;padding:16px;margin-bottom:14px}
+.side h3{margin:0 0 8px;font-size:15px}.side p{margin:0;color:#a7a9b6;font-size:13.5px;line-height:1.5}
+#qr{background:#fff;padding:10px;border-radius:12px;display:inline-block;margin-top:10px}
+.stat{display:flex;gap:10px}.stat div{flex:1;background:#101116;border-radius:12px;padding:10px;text-align:center}.stat b{font-size:22px;display:block}.stat span{font-size:11px;color:#8d8f9b;text-transform:uppercase}
+.empty{color:#8d8f9b;padding:40px 10px;text-align:center}
+.shout{border-left:3px solid #c9a54c;padding:6px 10px;margin:8px 0;font-size:13.5px;color:#ddd}.shout small{display:block;color:#8d8f9b}
+.btn{display:inline-block;margin-top:10px;background:#c9a54c;color:#111;border-radius:999px;padding:9px 14px;font:700 13px Inter;text-decoration:none;border:0;cursor:pointer}
+</style>
+</head>
+<body>
+<header><img id="logo" hidden alt=""><div><h1 id="title">DJ request list</h1><div class="sub" id="sub">Loading…</div></div><div class="live">Live</div></header>
+<div class="wrap">
+  <main>
+    <div class="tabs"><button class="on" data-t="next">🎧 Up next</button><button data-t="played">✓ Played</button><button data-t="shout">📣 Shout-outs</button></div>
+    <div id="list"></div>
+  </main>
+  <aside class="side">
+    <div class="card"><div class="stat"><div><b id="sReq">0</b><span>Requests</span></div><div><b id="sSongs">0</b><span>Songs</span></div><div><b id="sPeople">0</b><span>Guests</span></div></div></div>
+    <div class="card"><h3>📱 Guests request here</h3><p>Show this on the screen or on table cards. Guests tap a song from the catalogue (no typing), add who it's for, and it lands here instantly.</p><div id="qr"></div><br><a class="btn" id="guestLink" target="_blank" rel="noopener">Open the guest page</a></div>
+    <div class="card"><h3>How the ranking works</h3><p>The more guests ask for a song, or ❤ it on the wall, the higher it climbs. Tap <b>Played</b> to move it off the list. Your played list stays on this device.</p></div>
+  </aside>
+</div>
+<script>
+(function(){
+  var DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+  var q=new URLSearchParams(location.search), ev=(q.get('ev')||'').replace(/[^a-z0-9]/gi,'');
+  var tab='next', seen={}, first=true, played={};
+  try{ played=JSON.parse(localStorage.getItem('gw_dj_played_'+ev)||'{}'); }catch(e){}
+  function save(){ try{ localStorage.setItem('gw_dj_played_'+ev,JSON.stringify(played)); }catch(e){} }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); }
+  var guest=location.origin+'/index.html#guest?ev='+ev;
+  document.getElementById('guestLink').href=guest;
+  try{ new QRCode(document.getElementById('qr'),{text:guest,width:150,height:150}); }catch(e){}
+  if(!ev){ document.getElementById('sub').textContent='Missing event link'; return; }
+  fetch(DB+'/events/'+ev+'.json').then(function(r){return r.json();}).then(function(e){
+    if(!e) { document.getElementById('sub').textContent='Event not found'; return; }
+    document.getElementById('title').textContent='🎧 '+(e.name||'Song requests');
+    document.getElementById('sub').textContent=[e.host,e.date].filter(Boolean).join(' · ')||'Live song requests';
+    var logo=(e.brand&&e.brand.logo)||''; if(logo){ var l=document.getElementById('logo'); l.src=logo; l.hidden=false; }
+  });
+  var groups=[], shouts=[];
+  function load(){
+    fetch(DB+'/tributes/'+ev+'.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+      var list=Object.values(d||{}), g={}, people={}; shouts=[];
+      list.forEach(function(t){
+        if(t.name) people[t.name]=1;
+        if(t.type!=='song'){ return; }
+        var k=t.songId?('id'+t.songId):('t'+norm(t.songTitle));
+        if(!g[k]) g[k]={k:k,title:t.songName||t.songTitle,artist:t.songArtist||'',art:t.songArt||'',preview:t.songPreview||'',n:0,hearts:0,first:t.ts||0,ded:[]};
+        var x=g[k]; x.n++; x.hearts+=(t.hearts||0); x.first=Math.min(x.first,t.ts||x.first);
+        if(t.songFor||t.msg) x.ded.push({for:t.songFor,from:t.name,msg:t.msg});
+        if(t.songFor) shouts.push({for:t.songFor,from:t.name,msg:t.msg,song:x.title,ts:t.ts||0});
+      });
+      groups=Object.values(g).sort(function(a,b){ return (b.n+b.hearts*0.5)-(a.n+a.hearts*0.5) || a.first-b.first; });
+      shouts.sort(function(a,b){return b.ts-a.ts;});
+      document.getElementById('sReq').textContent=groups.reduce(function(s,x){return s+x.n;},0);
+      document.getElementById('sSongs').textContent=groups.length;
+      document.getElementById('sPeople').textContent=Object.keys(people).length;
+      render();
+    }).catch(function(){});
+  }
+  var audio=null;
+  function render(){
+    var box=document.getElementById('list');
+    if(tab==='shout'){
+      box.innerHTML=shouts.length?shouts.map(function(s){return '<div class="shout">📣 <b>'+esc(s.for)+'</b> — from '+esc(s.from||'a guest')+' · “'+esc(s.song)+'”'+(s.msg?'<small>'+esc(s.msg)+'</small>':'')+'</div>';}).join(''):'<div class="empty">No shout-outs yet. When a guest dedicates a song to someone, the MC sees it here.</div>';
+      return;
+    }
+    var rows=groups.filter(function(x){ return tab==='played'?played[x.k]:!played[x.k]; });
+    if(!rows.length){ box.innerHTML='<div class="empty">'+(tab==='played'?'Nothing marked as played yet.':'No requests yet. Put the QR code on screen and they\'ll start coming in.')+'</div>'; return; }
+    box.innerHTML=rows.map(function(x,i){
+      var isNew=!first&&!seen[x.k+':'+x.n];
+      return '<div class="req'+(isNew?' new':'')+'"><div class="rank">'+(tab==='next'?(i+1):'✓')+'</div>'+
+        (x.art?'<img src="'+esc(x.art)+'" alt="">':'<div class="ph">🎵</div>')+
+        '<div class="info"><b>'+esc(x.title)+'</b><div class="a">'+esc(x.artist||'typed by a guest')+'</div>'+
+        (x.ded.length?'<div class="ded">'+x.ded.slice(0,3).map(function(d){return (d.for?'for <b>'+esc(d.for)+'</b> ':'')+'— '+esc(d.from||'a guest')+(d.msg?' <i>“'+esc(d.msg.slice(0,90))+'”</i>':'');}).join('<br>')+(x.ded.length>3?'<br>+ '+(x.ded.length-3)+' more':'')+'</div>':'')+
+        '</div><div class="votes"><b>'+x.n+'</b><span>'+(x.n===1?'request':'requests')+'</span>'+(x.hearts?'<span>❤ '+x.hearts+'</span>':'')+'</div>'+
+        '<div class="acts">'+(x.preview?'<button data-pv="'+esc(x.preview)+'">▶ Preview</button>':'')+'<button class="done" data-k="'+esc(x.k)+'">'+(tab==='played'?'↺ Undo':'✓ Played')+'</button></div></div>';
+    }).join('');
+    groups.forEach(function(x){ seen[x.k+':'+x.n]=1; }); first=false;
+    box.querySelectorAll('[data-k]').forEach(function(b){ b.onclick=function(){ var k=b.getAttribute('data-k'); if(played[k]) delete played[k]; else played[k]=Date.now(); save(); render(); }; });
+    box.querySelectorAll('[data-pv]').forEach(function(b){ b.onclick=function(){ if(audio){ audio.pause(); var same=audio.src===b.getAttribute('data-pv'); audio=null; if(same) return; } audio=new Audio(b.getAttribute('data-pv')); audio.play(); }; });
+  }
+  document.querySelectorAll('.tabs button').forEach(function(b){ b.onclick=function(){ document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); tab=b.getAttribute('data-t'); render(); }; });
+  load(); setInterval(load,6000);
+})();
+</script>
+</body>
+</html>
