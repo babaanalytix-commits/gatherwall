@@ -28,19 +28,37 @@
     '<a href="/keepsake-preview.html"' + on(['keepsake-preview.html','keepsake-song.html','birthday-song.html','song-of-your-night.html','free-song-lyrics-preview.html','affordable-personalised-song.html','keepsake-song-vs-songfinch.html','create-song.html']) + '>Songs</a>' +
     '<a href="/celebration.html"' + on(['celebration.html','wedding-keepsake.html','story-form.html']) + '>Made for you</a>' +
     '<a href="/examples.html"' + on(['examples.html','samples.html','anthem.html','ode.html']) + '>Our work</a><a href="/business.html"' + on(['business.html','pro-firmy.html','partner.html']) + '>For business</a>';
-  // GatherWall Business pages get their own header: logo goes to the business home, B2B links only.
+  // GatherWall Business pages get their own header: logo goes to the business home, B2B links only, in the page's language.
   var biz = ['business.html','business-old.html','for-djs.html','for-photographers.html','for-venues.html','pro-firmy.html','partner.html'].indexOf(p) > -1;
   var home = '/index.html', brand = 'GatherWall';
   if (biz) {
-    var cs = p === 'pro-firmy.html';
-    home = cs ? '/cs/pro-firmy.html' : '/business.html'; brand = 'GatherWall <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d2b;margin-left:4px">Business</span>';
-    links = '<a href="/for-djs.html"' + on(['for-djs.html']) + '>' + (cs ? 'DJové' : 'DJs & MCs') + '</a>' +
-      (cs ? '' : '<a href="/for-photographers.html"' + on(['for-photographers.html']) + '>Photographers</a>') +
-      '<a href="/for-venues.html"' + on(['for-venues.html']) + '>' + (cs ? 'Sály a hotely' : 'Venues & hotels') + '</a>' +
-      '<a href="' + home + '#see">' + (cs ? 'Jak to vypadá' : 'How it looks') + '</a>' +
-      '<a href="/partner.html">' + (cs ? 'Přihlásit' : 'Log in') + '</a>' +
-      '<a href="' + home + '#apply" style="color:#2E7D5B;font-weight:600">' + (cs ? 'Stát se partnerem' : 'Become a partner') + '</a>' +
-      '<a href="/index.html" style="opacity:.6">' + (cs ? 'Rodiny ›' : 'Families ›') + '</a>';
+    var m = location.pathname.match(/^\/(fr|es|de|cs)\//), bl = m ? m[1] : 'en';
+    var pre = bl === 'en' ? '/' : '/' + bl + '/';
+    var bhome = function (l) { return l === 'cs' ? '/cs/pro-firmy.html' : (l === 'en' ? '/' : '/' + l + '/') + 'business.html'; };
+    var BT = {
+      en: ['DJs & MCs', 'Photographers', 'Venues & planners', 'Log in', 'Become a partner', 'Families ›'],
+      fr: ['DJ & animateurs', 'Photographes', 'Lieux & organisateurs', 'Connexion', 'Devenir partenaire', 'Familles ›'],
+      es: ['DJ y presentadores', 'Fotógrafos', 'Espacios y organizadores', 'Entrar', 'Hazte socio', 'Familias ›'],
+      de: ['DJs & Moderatoren', 'Fotografen', 'Locations & Planer', 'Anmelden', 'Partner werden', 'Familien ›'],
+      cs: ['DJové a moderátoři', 'Fotografové', 'Místa a plánovači', 'Přihlásit', 'Stát se partnerem', 'Rodiny ›']
+    }[bl];
+    home = bhome(bl); brand = 'GatherWall <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d2b;margin-left:4px">Business</span>';
+    var fam = bl === 'en' ? '/index.html' : '/' + bl + '/index.html';
+    links = '<a href="' + pre + 'for-djs.html"' + on(['for-djs.html']) + '>' + BT[0] + '</a>' +
+      '<a href="' + pre + 'for-photographers.html"' + on(['for-photographers.html']) + '>' + BT[1] + '</a>' +
+      '<a href="' + pre + 'for-venues.html"' + on(['for-venues.html']) + '>' + BT[2] + '</a>' +
+      '<a href="/partner.html">' + BT[3] + '</a>' +
+      '<a href="' + home + '#apply" style="color:#2E7D5B;font-weight:600">' + BT[4] + '</a>' +
+      '<a href="' + fam + '" style="opacity:.6">' + BT[5] + '</a>';
+    // language switcher: same page in each language (business home in Czech is pro-firmy.html)
+    var page = (p === 'pro-firmy.html') ? 'business.html' : p;
+    if (page !== 'partner.html' && page !== 'business-old.html') {
+      var sw = ['en','fr','es','de','cs'].map(function (l) {
+        var u = page === 'business.html' ? bhome(l) : (l === 'en' ? '/' : '/' + l + '/') + page;
+        return l === bl ? '<b style="color:#1d1d1f;font-size:12px">' + l.toUpperCase() + '</b>' : '<a href="' + u + location.search + location.hash + '" hreflang="' + l + '" style="font-size:12px;opacity:.7">' + l.toUpperCase() + '</a>';
+      }).join(' ');
+      links += '<span style="display:flex;gap:8px;align-items:center">' + sw + '</span>';
+    }
   }
   var h = document.createElement('header'); h.id = 'gwh';
   h.innerHTML = '<div class="in"><a class="lg" href="' + home + '"><i></i>' + brand + '</a>' +
