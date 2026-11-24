@@ -137,6 +137,7 @@ body.screen #scr{display:grid}
   function loadTribs(){ return fetch(DB+'/tributes/'+ev+'.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var list=Object.entries(d||{}).map(function(p){ var t=p[1]; t.rid=t.rid||p[0]; return t; }), g={}; shouts=[]; msgs=[];
     list.forEach(function(t){
+      if(t.songFor) t.songFor=String(t.songFor).replace(/^\s*for\s+/i,'');
       if(t.type!=='song'){ if(t.msg && t.approved!==false) msgs.push(t); return; }
       var k=t.songId?('id'+t.songId):('t'+norm(t.songTitle));
       if(!g[k]) g[k]={k:k,title:t.songName||t.songTitle,artist:t.songArtist||'',art:t.songArt||'',preview:t.songPreview||'',n:0,hearts:0,first:t.ts||0,ded:[]};
