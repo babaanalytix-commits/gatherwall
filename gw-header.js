@@ -29,12 +29,13 @@
     '<a href="/celebration.html"' + on(['celebration.html','wedding-keepsake.html','story-form.html']) + '>Made for you</a>' +
     '<a href="/examples.html"' + on(['examples.html','samples.html','anthem.html','ode.html']) + '>Our work</a><a href="/business.html"' + on(['business.html','pro-firmy.html','partner.html']) + '>For business</a>';
   // GatherWall Business pages get their own header: logo goes to the business home, B2B links only.
-  var biz = ['business.html','for-djs.html','for-venues.html','pro-firmy.html','partner.html'].indexOf(p) > -1;
+  var biz = ['business.html','business-old.html','for-djs.html','for-photographers.html','for-venues.html','pro-firmy.html','partner.html'].indexOf(p) > -1;
   var home = '/index.html', brand = 'GatherWall';
   if (biz) {
     var cs = p === 'pro-firmy.html';
     home = cs ? '/cs/pro-firmy.html' : '/business.html'; brand = 'GatherWall <span style="font-family:Inter,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d2b;margin-left:4px">Business</span>';
     links = '<a href="/for-djs.html"' + on(['for-djs.html']) + '>' + (cs ? 'DJové' : 'DJs & MCs') + '</a>' +
+      (cs ? '' : '<a href="/for-photographers.html"' + on(['for-photographers.html']) + '>Photographers</a>') +
       '<a href="/for-venues.html"' + on(['for-venues.html']) + '>' + (cs ? 'Sály a hotely' : 'Venues & hotels') + '</a>' +
       '<a href="' + home + '#see">' + (cs ? 'Jak to vypadá' : 'How it looks') + '</a>' +
       '<a href="/partner.html">' + (cs ? 'Přihlásit' : 'Log in') + '</a>' +
