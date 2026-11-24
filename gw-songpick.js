@@ -68,6 +68,44 @@
       timer = setTimeout(function () { search(q); }, 280);
     });
   }
+  /* ---- Guest side of the DJ toolkit: "Now playing" + vote for songs others requested ---- */
+  var DB = 'https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app', panel, votes = {};
+  function evId() { var m = location.hash.match(/[?&]ev=([A-Za-z0-9]+)/); return m ? m[1] : ''; }
+  function vote(ev, g) {
+    if (votes[g.k]) return; votes[g.k] = 1; try { localStorage.setItem('gw_votes_' + ev, JSON.stringify(votes)); } catch (e) {}
+    try { window.firebase.database().ref('tributes/' + ev + '/' + g.rid + '/hearts').transaction(function (h) { return (h || 0) + 1; }); } catch (e) {}
+    g.v++; drawVotes(ev, lastGroups, lastNow);
+  }
+  var lastGroups = [], lastNow = null;
+  function drawVotes(ev, groups, now) {
+    if (!panel) return;
+    if (!groups.length && !now) { panel.style.display = 'none'; return; }
+    panel.style.display = 'block';
+    panel.innerHTML = (now ? '<div class="gwsp-pick" style="border-color:#3ddc84;background:#f1fbf5"><img src="' + esc(now.art || '') + '" alt="" onerror="this.style.display=\'none\'"><div class="gwsp-t"><span style="color:#1f8a4c;font-weight:700;font-size:11.5px;letter-spacing:.06em">▶ NOW PLAYING</span><b>' + esc(now.title) + '</b><span>' + esc(now.artist || '') + '</span></div></div>' : '') +
+      (groups.length ? '<div class="gwsp-box" style="display:block"><div class="gwsp-hd">🔥 Most requested · tap to vote</div>' + groups.slice(0, 6).map(function (g, i) {
+        var on = votes[g.k];
+        return '<div class="gwsp-row" data-v="' + i + '">' + (g.art ? '<img src="' + esc(g.art) + '" alt="">' : '<img alt="" style="visibility:hidden">') + '<div class="gwsp-t"><b>' + esc(g.title) + '</b><span>' + esc(g.artist || '') + ' · ' + g.v + ' vote' + (g.v === 1 ? '' : 's') + '</span></div><button type="button" class="gwsp-play" style="width:auto;padding:0 12px;' + (on ? 'background:#c9a54c;color:#fff' : '') + '">' + (on ? '✓ Voted' : '＋1') + '</button></div>';
+      }).join('') + '</div>' : '');
+    panel.querySelectorAll('[data-v]').forEach(function (r) { r.onclick = function () { vote(ev, groups[+r.getAttribute('data-v')]); }; });
+  }
+  function pollVotes() {
+    var ev = evId(), f = document.getElementById('songField');
+    if (!ev || !f || f.style.display === 'none' || !/#guest/.test(location.hash)) return;
+    if (!panel) { panel = document.createElement('div'); panel.style.marginTop = '10px'; f.appendChild(panel); try { votes = JSON.parse(localStorage.getItem('gw_votes_' + ev) || '{}'); } catch (e) {} }
+    Promise.all([fetch(DB + '/tributes/' + ev + '.json', { cache: 'no-store' }).then(function (r) { return r.json(); }), fetch(DB + '/events/' + ev + '/djNow.json', { cache: 'no-store' }).then(function (r) { return r.json(); }), fetch(DB + '/events/' + ev + '/djPlayed.json', { cache: 'no-store' }).then(function (r) { return r.json(); })])
+      .then(function (a) {
+        var g = {}, played = a[2] || {};
+        Object.entries(a[0] || {}).forEach(function (p) {
+          var t = p[1]; if (t.type !== 'song') return;
+          var k = t.songId ? ('id' + t.songId) : ('t' + String(t.songTitle || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim());
+          if (!g[k]) g[k] = { k: k, rid: t.rid || p[0], title: t.songName || t.songTitle, artist: t.songArtist || '', art: t.songArt || '', v: 0 };
+          g[k].v += 1 + (t.hearts || 0);
+        });
+        lastNow = a[1]; lastGroups = Object.values(g).filter(function (x) { return !played[x.k] && !(lastNow && lastNow.k === x.k); }).sort(function (x, y) { return y.v - x.v; });
+        drawVotes(ev, lastGroups, lastNow);
+      }).catch(function () {});
+  }
   window.gwSongPick = { get: function () { return chosen; }, clear: clear, init: init };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  setTimeout(pollVotes, 1500); setInterval(pollVotes, 15000);
 })();
