@@ -10,7 +10,7 @@
     '.gwt .dot{width:9px;height:9px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.7);animation:gwp 1.6s infinite}@keyframes gwp{70%{box-shadow:0 0 0 9px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}' +
     '.gwt .feed{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.gwt .feed{grid-template-columns:1fr}}' +
     '.gwt .it{background:#22302a;border-radius:14px;padding:12px;animation:gwin .5s ease}.gwt .it img{width:100%;max-height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px}.gwt .it p{font-family:Fraunces,serif;font-size:16px;line-height:1.4;white-space:pre-line}.gwt .it b{display:block;color:#7fd4a8;font-size:12.5px;margin-top:6px}' +
-    '@keyframes gwin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.gwt .b .open{position:absolute;right:16px;top:14px;color:#cfe;font-size:13px}';
+    '@keyframes gwin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.gwt .b .open{position:absolute;right:16px;top:44px;color:#cfe;font-size:13px}';
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var last = '';
   function poll(box) {
