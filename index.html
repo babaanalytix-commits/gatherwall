@@ -3053,7 +3053,7 @@ function tribCard(t){
   const heart=`<button class="heart" data-rid="${t.rid||''}" onclick="heartTribute('${t.rid||''}')">❤ ${t.hearts||0}</button>`;
   if(t.type==='song'){
     return `<div class="trib song-card">
-      <div class="song-tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>
+      <div class="song-tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(String(t.songFor).replace(/^\s*for\s+/i,''))):''}</div>
       ${t.songArt?`<div style="display:flex;gap:12px;align-items:center;margin:6px 0"><img src="${escapeHTML(t.songArt)}" alt="" style="width:64px;height:64px;border-radius:10px;object-fit:cover;margin:0"><div><div class="msg" style="margin:0">${escapeHTML(t.songName||t.songTitle)}</div><div style="color:var(--muted);font-size:14px">${escapeHTML(t.songArtist||'')}</div></div></div>`:`<div class="msg">“${escapeHTML(t.songTitle||t.msg||'')}”</div>`}
       ${t.msg&&t.songTitle?`<div class="from" style="color:var(--muted);font-weight:400;margin-top:6px;">${escapeHTML(t.msg)}</div>`:''}
       <div class="from">— ${escapeHTML(t.name)}</div>${heart}</div>`;
@@ -3079,7 +3079,7 @@ function renderSpot(){
   if(!wallList.length){ card.innerHTML='<div class="sp-msg">No tributes yet…</div>'; if(dots)dots.innerHTML=''; return; }
   if(spotIdx>=wallList.length) spotIdx=0;
   const t=wallList[spotIdx];
-  const tag = t.type==='song' ? `<div class="song-tag" style="font-size:18px;margin-bottom:10px;">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div>` : '';
+  const tag = t.type==='song' ? `<div class="song-tag" style="font-size:18px;margin-bottom:10px;">🎵 Song request${t.songFor?(' · for '+escapeHTML(String(t.songFor).replace(/^\s*for\s+/i,''))):''}</div>` : '';
   const body = t.type==='song' ? escapeHTML(t.songTitle||t.msg||'') : escapeHTML(t.msg||(t.audio?'🎤 Voice tribute':''));
   card.innerHTML=`${t.photo?`<div class="sp-photo"><img src="${t.photo}" alt=""></div>`:(t.songArt?`<div class="sp-photo"><img src="${escapeHTML(t.songArt)}" alt=""></div>`:'')}
     ${tag}<div class="sp-msg">“${body}”</div>
@@ -3157,7 +3157,7 @@ function mgCard(t){
   const pend=t.approved!==true;
   const badges=(pend?'<span class="badge pend">Pending</span>':'')+(t.type==='song'?'<span class="badge song">🎵 Song</span>':'')+(t.pinned?'<span class="badge song">📌 Pinned</span>':'')+(t.editedAt?'<span class="badge">✏️ Edited</span>':'');
   const media=t.photo?`<img src="${t.photo}" alt="">`:'';
-  const main=t.type==='song'?(escapeHTML(t.songTitle||'')+(t.songFor?(' · for '+escapeHTML(t.songFor)):'')):escapeHTML(t.msg||(t.audio?'🎤 Voice note':''));
+  const main=t.type==='song'?(escapeHTML(t.songTitle||'')+(t.songFor?(' · for '+escapeHTML(String(t.songFor).replace(/^\s*for\s+/i,''))):'')):escapeHTML(t.msg||(t.audio?'🎤 Voice note':''));
   return `<div class="mg-card ${pend?'pending':''}">${media}<div class="mg-body">
     <div>${badges}</div><div class="mg-msg">${main}</div>
     ${t.audio?`<audio controls src="${t.audio}" style="margin-top:8px;width:100%"></audio>`:''}
@@ -3189,7 +3189,7 @@ function exportAlbum(){
     const w=window.open('','_blank'); if(!w){toast('Allow pop-ups to export the album');return;}
     const cards=list.map(t=>`<div class="c">
       ${t.photo?`<img src="${t.photo}">`:''}
-      ${t.type==='song'?`<div class="tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(t.songFor)):''}</div><div class="m">${escapeHTML(t.songTitle||'')}</div>`:`<div class="m">${escapeHTML(t.msg||(t.audio?'[voice note]':''))}</div>`}
+      ${t.type==='song'?`<div class="tag">🎵 Song request${t.songFor?(' · for '+escapeHTML(String(t.songFor).replace(/^\s*for\s+/i,''))):''}</div><div class="m">${escapeHTML(t.songTitle||'')}</div>`:`<div class="m">${escapeHTML(t.msg||(t.audio?'[voice note]':''))}</div>`}
       <div class="n">— ${escapeHTML(t.name)}</div></div>`).join('');
     w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHTML(e.name)} — album</title>
     <style>body{font-family:Georgia,serif;color:#1F2622;max-width:760px;margin:0 auto;padding:40px}
