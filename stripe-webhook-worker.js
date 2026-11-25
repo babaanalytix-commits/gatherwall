@@ -419,7 +419,25 @@ async function handleBiz(request, env) {
   return R({ ok: false, error: 'unknown op' }, 400);
 }
 
+// ================= NIGHTLY DEMO RESET (Cron Trigger) =================
+// Sales demo walls stay unmoderated so prospects can post and see it live. Every night anything posted after
+// the seed time is removed, and the DJ/MC state goes back to the seeded "now playing".
+const DEMO_WALLS = { bhibjbt7x6: 1795597419000, bm84evsszv: 1795597419000 };
+async function resetDemoWalls(env) {
+  const AUTH = env && env.FIREBASE_DB_SECRET; if (!AUTH) return { ok: false };
+  const out = {};
+  for (const [ev, cutoff] of Object.entries(DEMO_WALLS)) {
+    const t = await getFirebase('tributes/' + ev, AUTH) || {};
+    const del = Object.keys(t).filter(rid => (t[rid] && (t[rid].ts || 0)) > cutoff);
+    for (const rid of del) { await fbDelete('tributes/' + ev + '/' + rid, AUTH); await fbDelete('editkeys/' + ev + '/' + rid, AUTH); }
+    await patchFirebase('events/' + ev, { djPlayed: null, mcShow: null, mcDone: null }, AUTH);
+    out[ev] = del.length;
+  }
+  return { ok: true, removed: out };
+}
+
 export default {
+  async scheduled(event, env, ctx) { ctx.waitUntil(resetDemoWalls(env)); },
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
     if (path === '/media') return handleMedia(request, env);
