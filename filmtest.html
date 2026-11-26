@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Night · film test</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,system-ui,sans-serif;background:#111;color:#eee;padding:16px;max-width:560px;margin:auto}
+h1{font-size:22px;margin:6px 0}p{color:#aaa;margin:6px 0 12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.row label{font-size:13px;color:#aaa;width:100%}
+button,select{font:600 15px system-ui;border:0;border-radius:12px;padding:12px 14px;background:#2a2a30;color:#fff}
+button.go{background:#d4af37;color:#111;width:100%;font-size:17px;padding:16px}
+button.on{background:#d4af37;color:#111}
+#bar{height:10px;background:#2a2a30;border-radius:6px;overflow:hidden;margin:12px 0}#bar i{display:block;height:100%;width:0;background:#d4af37}
+#out{white-space:pre-wrap;font:12.5px ui-monospace,monospace;background:#1b1b20;border-radius:12px;padding:12px;margin-top:12px}
+video{width:100%;border-radius:12px;margin-top:12px;background:#000}
+canvas{width:120px;border-radius:8px;display:block;margin:10px auto}
+.warn{background:#3a2e12;color:#f3d98a;border-radius:10px;padding:10px;font-size:13.5px}
+</style>
+</head>
+<body>
+<h1>🎬 My Night: film test</h1>
+<p>This makes a vertical guest film on <b>this phone</b>, then lets you save it and share it to WhatsApp or Instagram. Please run it on an iPhone and on an Android, then tap <b>Copy results</b> and send them to Claude.</p>
+<div class="row"><label>Photos</label><button data-n="5">5</button><button data-n="15" class="on">15</button><button data-n="30">30</button><button id="mine">📷 Use my own photos</button><input id="file" type="file" accept="image/*" multiple hidden></div>
+<div class="row"><label>Length</label><button data-d="30">30 s</button><button data-d="45" class="on">45 s</button><button data-d="60">60 s</button></div>
+<div class="row"><label>Size</label><button data-s="1080" class="on">1080×1920</button><button data-s="720">720×1280</button></div>
+<div class="warn">Keep the screen on and this page open while it records (it takes as long as the film).</div>
+<div class="row"><button class="go" id="go">Make my film</button></div>
+<div id="bar"><i></i></div>
+<canvas id="cv"></canvas>
+<video id="vid" controls playsinline hidden></video>
+<div class="row"><button id="save" hidden>⬇️ Save to phone</button><button id="share" hidden>📤 Share (WhatsApp / Instagram)</button><button id="copy">📋 Copy results</button></div>
+<div id="out"></div>
+<script>
+(function(){
+const SAMPLE=['img/wedding-white-nigeria.jpg','img/wedding-asooke-gold.jpg','img/family-toast.jpg','img/anniversary-couple.jpg','img/wedding-asooke-pink.jpg','img/friends-dinner.jpg','img/family-celebration-india.jpg','img/birthday-cake.jpg','img/elder-purple.jpg','img/grandma-birthday.jpg','img/family-white.jpg','img/grandma-flower.jpg','img/remembrance-candle.jpg'];
+const SONG='a-wall-of-love.mp3', SONG_START=30;
+let N=15,D=45,S=1080,mine=null,blob=null,ext='mp4';
+const out=document.getElementById('out'), log=m=>{out.textContent+=m+'\n';};
+log('Device: '+navigator.userAgent);
+const mimes=['video/mp4;codecs=avc1.42E01E,mp4a.40.2','video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+const MR=window.MediaRecorder; const mime=MR?mimes.find(m=>MR.isTypeSupported&&MR.isTypeSupported(m)):null;
+log('MediaRecorder: '+(MR?'yes':'NO')+' · format: '+(mime||'none')+' · canvas.captureStream: '+(!!HTMLCanvasElement.prototype.captureStream));
+function pick(attr,set){ document.querySelectorAll('['+attr+']').forEach(b=>b.onclick=()=>{ document.querySelectorAll('['+attr+']').forEach(x=>x.classList.remove('on')); b.classList.add('on'); set(+b.getAttribute(attr)); if(attr==='data-n') mine=null; }); }
+pick('data-n',v=>N=v); pick('data-d',v=>D=v); pick('data-s',v=>S=v);
+document.getElementById('mine').onclick=()=>document.getElementById('file').click();
+document.getElementById('file').onchange=e=>{ mine=[...e.target.files].slice(0,30); log('Own photos chosen: '+mine.length); };
+function load(src){ return new Promise((ok,no)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>ok(i); i.onerror=no; i.src=src; }); }
+async function loadMine(f){ const u=URL.createObjectURL(f); try{ if(window.createImageBitmap){ const b=await createImageBitmap(f); return b; } return await load(u); }catch(e){ return await load(u); } }
+function ss(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+document.getElementById('go').onclick=async()=>{
+  const go=document.getElementById('go'); go.disabled=true; go.textContent='Preparing…'; blob=null;
+  document.getElementById('save').hidden=document.getElementById('share').hidden=true; document.getElementById('vid').hidden=true;
+  const t0=performance.now();
+  try{
+    let imgs=[];
+    if(mine&&mine.length){ for(const f of mine) imgs.push(await loadMine(f)); }
+    else { for(let i=0;i<N;i++) imgs.push(await load(SAMPLE[i%SAMPLE.length])); }
+    const W=S===1080?1080:720, H=S===1080?1920:1280;
+    const cv=document.getElementById('cv'); cv.width=W; cv.height=H; const c=cv.getContext('2d');
+    // audio
+    const AC=window.AudioContext||window.webkitAudioContext; const ac=new AC(); await ac.resume();
+    const buf=await fetch(SONG).then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>ac.decodeAudioData(a,ok,no)));
+    const src=ac.createBufferSource(); src.buffer=buf; const gain=ac.createGain(); const dest=ac.createMediaStreamDestination();
+    src.connect(gain); gain.connect(dest); gain.connect(ac.destination);
+    gain.gain.setValueAtTime(0,ac.currentTime); gain.gain.linearRampToValueAtTime(1,ac.currentTime+1); gain.gain.setValueAtTime(1,ac.currentTime+D-2); gain.gain.linearRampToValueAtTime(0,ac.currentTime+D);
+    log('Load time: '+((performance.now()-t0)/1000).toFixed(1)+' s · photos: '+imgs.length+' · '+W+'×'+H+' · '+D+' s');
+    // timeline: title 3s, photos, end card 4s
+    const TITLE=3, END=4, per=(D-TITLE-END)/imgs.length;
+    function cover(img,u,i){ const iw=img.width,ih=img.height, s=Math.max(W/iw,H/ih)*(1.04+0.08*ss(u)); const dw=iw*s,dh=ih*s; const dx=(W-dw)/2+(i%2?1:-1)*20*(u-.5), dy=(H-dh)/2; c.drawImage(img,dx,dy,dw,dh); }
+    function frame(t){
+      c.fillStyle='#0d0c10'; c.fillRect(0,0,W,H);
+      if(t<TITLE){ cover(imgs[0],t/TITLE,0); c.fillStyle='rgba(0,0,0,.55)'; c.fillRect(0,0,W,H); c.globalAlpha=Math.min(1,t/0.8); c.fillStyle='#fff'; c.textAlign='center'; c.font='600 '+(W*0.075)+'px Georgia,serif'; c.fillText('Ama',W/2,H*0.44); c.font=(W*0.042)+'px Georgia,serif'; c.fillStyle='#e4c77a'; c.fillText('at the Perk Winter Ball',W/2,H*0.5); c.globalAlpha=1; return; }
+      const pt=t-TITLE;
+      if(pt<imgs.length*per){ const i=Math.floor(pt/per), u=(pt-i*per)/per; cover(imgs[i],u,i);
+        const fade=0.6; if(u*per<fade && i>0){ c.globalAlpha=1-(u*per/fade); cover(imgs[i-1],1,i-1); c.globalAlpha=1; } return; }
+      const e=(pt-imgs.length*per)/END; c.globalAlpha=Math.min(1,e*3); c.fillStyle='#fff'; c.textAlign='center'; c.font='600 '+(W*0.06)+'px Georgia,serif'; c.fillText('Hotel Perk',W/2,H*0.42); c.font=(W*0.035)+'px system-ui'; c.fillStyle='#ccc'; c.fillText('Photos by Studio Example',W/2,H*0.48); c.fillStyle='#888'; c.font=(W*0.028)+'px system-ui'; c.fillText('Made with GatherWall',W/2,H*0.9); c.globalAlpha=1;
+    }
+    frame(0);
+    if(!MR||!mime||!cv.captureStream){ log('❌ This browser cannot record a film. Fallback: render on the server.'); go.disabled=false; go.textContent='Make my film'; return; }
+    const vs=cv.captureStream(30); const stream=new MediaStream([...vs.getVideoTracks(),...dest.stream.getAudioTracks()]);
+    const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:S===1080?6000000:3500000,audioBitsPerSecond:128000});
+    const chunks=[]; rec.ondata=null; rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
+    let frames=0, late=0, hidden=0; document.addEventListener('visibilitychange',()=>{ if(document.hidden) hidden++; });
+    const done=new Promise(ok=>rec.onstop=ok);
+    go.textContent='Recording… keep this screen open';
+    rec.start(1000); const startAt=ac.currentTime+0.05; src.start(startAt,SONG_START,D+0.5);
+    const r0=performance.now(); let last=0;
+    await new Promise(ok=>{ function loop(){ const t=ac.currentTime-startAt; if(t>=D){ ok(); return; } if(t>=0){ frame(t); frames++; const now=performance.now(); if(last&&now-last>70) late++; last=now; document.querySelector('#bar i').style.width=(100*t/D)+'%'; } requestAnimationFrame(loop); } loop(); });
+    rec.stop(); src.stop(); await done; ac.close();
+    const rt=(performance.now()-r0)/1000;
+    blob=new Blob(chunks,{type:mime.split(';')[0]}); ext=mime.includes('mp4')?'mp4':'webm';
+    const v=document.getElementById('vid'); v.src=URL.createObjectURL(blob); v.hidden=false;
+    await new Promise(ok=>{ v.onloadedmetadata=ok; setTimeout(ok,3000); });
+    log('✅ Done. Record time: '+rt.toFixed(1)+' s · frames drawn: '+frames+' (~'+(frames/D).toFixed(0)+' fps) · slow frames: '+late+' · screen hidden: '+hidden);
+    log('File: '+ext.toUpperCase()+' · '+(blob.size/1048576).toFixed(1)+' MB · plays: '+(isFinite(v.duration)?v.duration.toFixed(1)+' s':'unknown length')+' · '+v.videoWidth+'×'+v.videoHeight);
+    document.getElementById('save').hidden=false;
+    const file=new File([blob],'my-night.'+ext,{type:blob.type});
+    if(navigator.canShare&&navigator.canShare({files:[file]})) document.getElementById('share').hidden=false; else log('Share sheet with a file: not supported here (Save, then share from Photos/Gallery).');
+  }catch(e){ log('❌ Error: '+(e&&e.message||e)); }
+  go.disabled=false; go.textContent='Make my film again';
+};
+document.getElementById('save').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-night.'+ext; document.body.appendChild(a); a.click(); a.remove(); log('Save tapped.'); };
+document.getElementById('share').onclick=async()=>{ try{ await navigator.share({files:[new File([blob],'my-night.'+ext,{type:blob.type})],title:'My Night'}); log('Share sheet opened OK.'); }catch(e){ log('Share: '+e.message); } };
+document.getElementById('copy').onclick=()=>{ navigator.clipboard.writeText(out.textContent).then(()=>document.getElementById('copy').textContent='Copied ✓'); };
+})();
+</script>
+</body>
+</html>
