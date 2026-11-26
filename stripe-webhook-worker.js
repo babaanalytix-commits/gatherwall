@@ -226,6 +226,11 @@ async function handleMedia(request, env) {
     const k = await getFirebase('partnerkeys/' + ev, AUTH);
     if (!okId(ev) || !k || !safeEqual(String(u.searchParams.get('key') || ''), k)) return hostCors(request, json({ ok: false, error: 'not allowed' }, 403));
     key = 'p/' + ev + '/logo-' + rnd(6) + '.' + IMG_TYPES[type];
+  } else if (scope === 'pro') {
+    // Photographer upload: checked against prokeys/<ev>/key (set when the host invites a photographer).
+    const pk = okId(ev) ? await getFirebase('prokeys/' + ev + '/key', AUTH) : null;
+    if (!pk || !safeEqual(String(u.searchParams.get('key') || ''), pk)) return hostCors(request, json({ ok: false, error: 'not allowed' }, 403));
+    key = 'w/' + ev + '/pro/' + (u.searchParams.get('t') === '1' ? 't-' : '') + Date.now().toString(36) + rnd(6) + '.' + IMG_TYPES[type];
   } else {
     if (!okId(ev) || !(await getFirebase('events/' + ev + '/name', AUTH))) return hostCors(request, json({ ok: false, error: 'wall not found' }, 404));
     key = 'w/' + ev + '/' + Date.now().toString(36) + rnd(6) + '.' + IMG_TYPES[type];
@@ -234,6 +239,99 @@ async function handleMedia(request, env) {
   if (buf.byteLength < 100 || buf.byteLength > 2500000) return hostCors(request, json({ ok: false, error: 'photo too large' }, 413));
   await env.MEDIA.put(key, buf, { httpMetadata: { contentType: type, cacheControl: 'public, max-age=31536000, immutable' } });
   return hostCors(request, json({ ok: true, url: MEDIA_BASE + key }));
+}
+
+// ================= EVENT GALLERY (/gallery) =================
+// prokeys/<ev>        { key, name, website, ts }  private (admin secret only)
+// gallery/<ev>/<id>   { url, thumb, w, h, by, cat, taken, ts, status: draft|published|hidden, star }  private; served by op 'list'
+// events/<ev>/photog  { name, website }  public credit line
+const GAL_CATS = ['arrivals', 'reception', 'dinner', 'speeches', 'dancing', 'portraits', 'moments'];
+async function handleGallery(request, env) {
+  if (request.method === 'OPTIONS') return hostCors(request, new Response(null, { status: 204 }));
+  const AUTH = env && env.FIREBASE_DB_SECRET; const R = (o, s) => hostCors(request, json(o, s || 200));
+  if (!AUTH) return R({ ok: false, error: 'not configured' }, 500);
+  let b; try { b = await request.json(); } catch (e) { return R({ ok: false, error: 'bad json' }, 400); }
+  const op = String(b.op || ''), ev = b.ev;
+  if (!okId(ev)) return R({ ok: false, error: 'bad event' }, 400);
+  const hk = await getFirebase('hostkeys/' + ev, AUTH);
+  const isHost = !!hk && typeof b.key === 'string' && safeEqual(b.key, hk);
+  const pro = await getFirebase('prokeys/' + ev, AUTH);
+  const isPro = !!(pro && pro.key) && typeof b.pk === 'string' && safeEqual(b.pk, pro.key);
+  if (op === 'list') {
+    const g = await getFirebase('gallery/' + ev, AUTH) || {};
+    const all = isHost || isPro;
+    const items = Object.entries(g).map(([id, x]) => Object.assign({ id }, x)).filter(x => all ? true : x.status === 'published').sort((a, z) => (a.taken || a.ts) - (z.taken || z.ts));
+    return R({ ok: true, items, photog: pro ? { name: pro.name || '', website: pro.website || '' } : null, role: isHost ? 'host' : isPro ? 'pro' : 'guest' });
+  }
+  // ---- My Night: one private record per guest, keyed by a random 16-char guest id (the id is the secret) ----
+  const okGid = (g) => typeof g === 'string' && /^[a-z0-9]{16}$/.test(g);
+  if (op === 'mn.get') {
+    if (!okGid(b.gid)) return R({ ok: false }, 400);
+    const m = await getFirebase('mynight/' + ev + '/' + b.gid, AUTH) || {};
+    return R({ ok: true, m: { picks: m.picks || [], mine: m.mine || [], name: m.name || '', msg: m.msg || '', saved: !!m.email } });
+  }
+  if (op === 'mn.save') {
+    if (!okGid(b.gid)) return R({ ok: false }, 400);
+    const ids = (a, n) => (Array.isArray(a) ? a : []).filter(x => typeof x === 'string' && /^[A-Za-z0-9_-]{2,40}$/.test(x)).slice(0, n);
+    const f = { ts: Date.now() };
+    if (b.picks) f.picks = ids(b.picks, 60); if (b.mine) f.mine = ids(b.mine, 30);
+    if (b.name != null) f.name = String(b.name).slice(0, 40); if (b.msg != null) f.msg = String(b.msg).slice(0, 140);
+    await patchFirebase('mynight/' + ev + '/' + b.gid, f, AUTH); return R({ ok: true });
+  }
+  if (op === 'mn.email') {
+    if (!okGid(b.gid) || !okEmail(String(b.email || ''))) return R({ ok: false, error: 'Please add a valid email' }, 400);
+    const email = String(b.email).slice(0, 120);
+    await patchFirebase('mynight/' + ev + '/' + b.gid, { email, consent: b.consent === true, ts: Date.now() }, AUTH);
+    const e = await getFirebase('events/' + ev, AUTH) || {};
+    await queueMail(AUTH, email, 'Your night at ' + (e.name || 'the event') + ' 💛', 'Here is your personal My Night page: your photos, your messages and your own film. Open it on any phone.', [['My Night', SITE_URL + 'mynight.html?ev=' + ev + '&g=' + b.gid, 'Open My Night']], e.brand && e.brand.name ? 'With love from ' + e.brand.name + '.' : '');
+    return R({ ok: true });
+  }
+  if (op === 'song') {   // host: the Song of the Night used in every guest's film
+    if (!isHost) return R({ ok: false, error: 'not allowed' }, 403);
+    const url = String(b.url || ''); if (url && !/^https:\/\/(gatherwall\.com|media\.gatherwall\.com|cdn\.mureka\.ai)\//.test(url)) return R({ ok: false, error: 'Use a GatherWall or Mureka song link' }, 400);
+    await patchFirebase('events/' + ev, { nightSong: url ? { url, start: Math.max(0, Math.min(600, +b.start || 0)), title: String(b.title || '').slice(0, 80) } : null }, AUTH);
+    return R({ ok: true });
+  }
+  if (op === 'report') {   // any guest: "Remove this photo" hides it at once and tells the host
+    if (!okId(b.id)) return R({ ok: false }, 400);
+    const x = await getFirebase('gallery/' + ev + '/' + b.id, AUTH); if (!x) return R({ ok: false }, 404);
+    await patchFirebase('gallery/' + ev + '/' + b.id, { status: 'hidden', reported: Date.now() }, AUTH);
+    await notify(env, '🚩 Photo removed by a guest', ['Event: ' + ev, 'Photo: ' + x.url, 'It is hidden. Restore it from the gallery host view if it was a mistake.']);
+    return R({ ok: true });
+  }
+  if (op === 'invite') {
+    if (!isHost) return R({ ok: false, error: 'Invalid host link' }, 403);
+    const name = String(b.name || '').slice(0, 80).trim(); if (!name) return R({ ok: false, error: 'Add the photographer’s name' }, 400);
+    const website = /^https?:\/\//.test(b.website || '') ? String(b.website).slice(0, 160) : (b.website ? 'https://' + String(b.website).slice(0, 150) : '');
+    const key = (pro && pro.key) || rnd(24);
+    await patchFirebase('prokeys/' + ev, { key, name, website, ts: Date.now() }, AUTH);
+    await patchFirebase('events/' + ev, { photog: { name, website } }, AUTH);
+    return R({ ok: true, link: SITE_URL + 'pro-upload.html?ev=' + ev + '#k=' + key });
+  }
+  if (op === 'add') {
+    if (!isPro && !isHost) return R({ ok: false, error: 'This upload link is not valid' }, 403);
+    const pre = MEDIA_BASE + 'w/' + ev + '/pro/';
+    if (typeof b.url !== 'string' || !b.url.startsWith(pre) || typeof b.thumb !== 'string' || !b.thumb.startsWith(pre)) return R({ ok: false, error: 'bad photo' }, 400);
+    const id = 'g' + Date.now().toString(36) + rnd(4);
+    const rec = { url: b.url, thumb: b.thumb, w: Math.min(+b.w || 0, 10000), h: Math.min(+b.h || 0, 10000), by: 'pro', cat: GAL_CATS.indexOf(b.cat) > -1 ? b.cat : 'moments', taken: +b.taken || 0, ts: Date.now(), status: 'draft' };
+    await patchFirebase('gallery/' + ev + '/' + id, rec, AUTH);
+    return R({ ok: true, id });
+  }
+  if (op === 'publish') {
+    if (!isPro && !isHost) return R({ ok: false, error: 'not allowed' }, 403);
+    const g = await getFirebase('gallery/' + ev, AUTH) || {}; const up = {};
+    Object.keys(g).forEach(id => { if (g[id].status === 'draft') up[id + '/status'] = 'published'; });
+    if (Object.keys(up).length) await patchFirebase('gallery/' + ev, up, AUTH);
+    if (Object.keys(up).length) await patchFirebase('events/' + ev, { galleryAt: Date.now() }, AUTH);
+    return R({ ok: true, published: Object.keys(up).length });
+  }
+  if (op === 'set') {   // host: hide / show / star (highlights used for every guest's default film)
+    if (!isHost) return R({ ok: false, error: 'not allowed' }, 403);
+    if (!okId(b.id)) return R({ ok: false }, 400);
+    const f = {}; if (['published', 'hidden'].indexOf(b.status) > -1) f.status = b.status; if (typeof b.star === 'boolean') f.star = b.star || null; if (typeof b.child === 'boolean') f.child = b.child || null;
+    await patchFirebase('gallery/' + ev + '/' + b.id, f, AUTH); return R({ ok: true });
+  }
+  return R({ ok: false, error: 'unknown op' }, 400);
 }
 
 // ================= GATHERWALL BUSINESS (/biz) =================
@@ -442,6 +540,7 @@ export default {
     const path = new URL(request.url).pathname;
     if (path === '/media') return handleMedia(request, env);
     if (path === '/biz') return handleBiz(request, env);
+    if (path === '/gallery') return handleGallery(request, env);
     if (path === '/host') return handleHost(request, env);
     if (request.method === 'GET') return new Response('ok', { status: 200 });
     if (request.method !== 'POST') return json({ ignored: true }, 200);

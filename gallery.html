@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Event gallery · GatherWall</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--c:#1c2027;--a:#c9a54c}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 Inter,system-ui,sans-serif;background:#f6f3ee;color:#1c2027}
+.hero{background:var(--c);color:#fff;padding:26px 18px 22px;text-align:center}
+.hero img{height:46px;border-radius:8px;background:#fff;padding:4px;margin-bottom:8px}
+.hero h1{font:600 clamp(26px,6vw,40px) Fraunces,serif;margin:0}.hero .by{opacity:.85;font-size:14px;margin-top:4px}.hero .by a{color:#fff}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 12px 70px}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}.filters button{flex:none;border:1px solid #e0d6c3;background:#fff;border-radius:999px;padding:8px 14px;font:600 14px Inter;cursor:pointer}.filters button.on{background:var(--c);color:#fff;border-color:var(--c)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+@media(max-width:520px){.grid{grid-template-columns:repeat(3,1fr);gap:3px}}
+.ph{position:relative;aspect-ratio:1;overflow:hidden;border-radius:8px;background:#e8e1d4;cursor:pointer}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .pk{position:absolute;right:5px;bottom:5px;background:var(--a);color:#111;border-radius:999px;font:700 11px Inter;padding:2px 7px}
+.ph .st{position:absolute;left:5px;top:5px;background:rgba(0,0,0,.65);color:#fff;border-radius:6px;font:700 10.5px Inter;padding:2px 6px}
+.ph.hid img{opacity:.35}
+.empty{text-align:center;padding:50px 16px;color:#6b6b70}.empty b{display:block;font:600 22px Fraunces,serif;color:#1c2027;margin-bottom:6px}
+#lb{position:fixed;inset:0;background:rgba(8,8,10,.96);display:none;flex-direction:column;z-index:20}#lb.on{display:flex}
+#lb .img{flex:1;display:flex;align-items:center;justify-content:center;padding:12px;min-height:0}#lb img{max-width:100%;max-height:100%;object-fit:contain}
+#lb .bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px 12px 22px}
+#lb button,#lb a{border:0;border-radius:999px;padding:12px 16px;font:700 14.5px Inter;cursor:pointer;text-decoration:none;background:#2a2a30;color:#fff}
+#lb .in{background:var(--a);color:#111}#lb .in.on{background:#3ddc84}
+#lb .x{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.12);width:44px;height:44px;padding:0}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);width:44px;height:60px;padding:0;font-size:22px}
+.host{background:#fff;border:1.5px solid var(--a);border-radius:18px;padding:16px;margin-bottom:14px}
+.host h3{margin:0 0 6px;font:600 20px Fraunces,serif}.host input{font:15px Inter;padding:10px 12px;border:1px solid #d9cdb3;border-radius:10px;margin:4px 6px 4px 0}
+.host button,.host a.b{font:700 14px Inter;border:0;border-radius:999px;padding:10px 14px;background:var(--c);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;margin:4px 6px 0 0}
+.host code{word-break:break-all;font-size:12.5px;background:#f6f3ee;padding:6px 8px;border-radius:8px;display:block;margin-top:8px}
+.note{color:#6b6b70;font-size:13.5px}
+.mine{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:var(--c);color:#fff;border-radius:999px;padding:12px 18px;font:700 15px Inter;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.25);display:none;z-index:10}
+footer{text-align:center;color:#8a8a8f;font-size:12.5px;padding:10px}
+</style>
+</head>
+<body>
+<div class="hero"><img id="logo" hidden alt=""><h1 id="title">Event gallery</h1><div class="by" id="by"></div></div>
+<div class="wrap">
+  <div class="host" id="host" hidden>
+    <h3>Host tools</h3>
+    <div id="inv"><b>Invite your photographer</b><div class="note">They get a private link to upload a sneak peek. They’re credited on the gallery and on every guest’s film.</div>
+      <input id="pn" placeholder="Photographer or studio name"><input id="pw" placeholder="Website or Instagram (optional)"><button id="pi">Create upload link</button><div id="po"></div></div>
+    <div style="margin-top:12px"><b>Song of the Night</b><div class="note">The song every guest’s film is set to. Paste a gatherwall.com or media.gatherwall.com link and the second it should start from (usually the chorus).</div>
+      <input id="su" placeholder="https://gatherwall.com/…mp3" style="width:min(100%,420px)"><input id="ss" placeholder="Start (seconds)" style="width:140px"><button id="sb">Save song</button> <span class="note" id="so"></span></div>
+    <div style="margin-top:12px"><b>Highlights</b><div class="note">Tap a photo, then ⭐ to make it a highlight. Every guest’s film starts with their own photos plus your highlights (aim for about 15). You can also hide photos.</div><button id="pubAll">Publish drafts</button></div>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden><b>Your photos arrive soon 📸</b>The photographer’s sneak peek will appear here. Guests’ photos from the wall show up as soon as they’re posted.</div>
+</div>
+<a class="mine" id="mine" href="#">💛 My Night (0)</a>
+<div id="lb"><button class="x" id="lx">✕</button><button class="nav" id="lp" style="left:8px">‹</button><button class="nav" id="ln" style="right:8px">›</button><div class="img"><img id="li" alt=""></div><div class="bar" id="lbar"></div></div>
+<footer>Photos are private to this event. <span id="pcredit"></span> · GatherWall</footer>
+<script>
+(function(){
+const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev', DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const ev=(new URLSearchParams(location.search).get('ev')||'').replace(/[^a-z0-9]/gi,''), hk=(location.hash.match(/k=([A-Za-z0-9_-]+)/)||[])[1]||'';
+const $=id=>document.getElementById(id), esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const post=d=>fetch(API+'/gallery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({ev,key:hk||undefined},d))}).then(r=>r.json());
+const CATS={arrivals:'Arrivals',reception:'Reception',dinner:'Dinner',speeches:'Speeches',dancing:'Dancing',portraits:'Portraits',moments:'Special moments'};
+let items=[], filter='all', role='guest', E={}, cur=-1, view=[];
+let picks=[]; try{ picks=JSON.parse(localStorage.getItem('gw_picks_'+ev)||'[]'); }catch(e){}
+function savePicks(){ try{ localStorage.setItem('gw_picks_'+ev,JSON.stringify(picks.slice(0,60))); }catch(e){} window.dispatchEvent(new Event('gw-picks')); const m=$('mine'); m.textContent='💛 My Night ('+picks.length+')'; m.style.display=picks.length?'block':'none'; }
+async function load(){
+  const [e,g,t]=await Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()), post({op:'list'}), fetch(DB+'/tributes/'+ev+'.json').then(r=>r.json()).catch(()=>null)]);
+  if(!e){ $('title').textContent='Gallery not found'; return; }
+  E=e; role=g.role||'guest';
+  const color=e.color||(e.brand&&e.brand.color); if(color) document.documentElement.style.setProperty('--c',color);
+  $('title').textContent=e.name||'Event gallery'; document.title=(e.name||'Gallery')+' · photos';
+  if(e.brand&&e.brand.logo){ $('logo').src=e.brand.logo; $('logo').hidden=false; }
+  const ph=g.photog||e.photog; if(ph&&ph.name){ const n=ph.website?'<a href="'+esc(ph.website)+'" target="_blank" rel="noopener">'+esc(ph.name)+'</a>':esc(ph.name); $('by').innerHTML='Photos by '+n+(e.brand&&e.brand.name?' · '+esc(e.brand.name):''); $('pcredit').innerHTML='Photos by '+n; }
+  else if(e.brand&&e.brand.name) $('by').textContent=e.brand.name;
+  items=(g.items||[]).map(x=>Object.assign(x,{src:'pro'}));
+  Object.entries(t||{}).forEach(([rid,x])=>{ if(x&&x.photo&&/^https:\/\//.test(x.photo)&&x.approved!==false) items.push({id:'t_'+rid,url:x.photo,thumb:x.photo,by:'guest',cat:'guests',status:'published',name:x.name,ts:x.ts||0}); });
+  if(role==='host'){ $('host').hidden=false; if(ph&&ph.name){ $('pn').value=ph.name; $('pw').value=ph.website||''; } if(e.nightSong){ $('su').value=e.nightSong.url||''; $('ss').value=e.nightSong.start||0; } }
+  filters(); render(); savePicks();
+}
+function filters(){ const cats=[...new Set(items.filter(x=>x.by==='pro').map(x=>x.cat))]; const hasG=items.some(x=>x.by==='guest');
+  const opts=[['all','All']].concat(role==='host'?[['star','⭐ Highlights']]:[]).concat(cats.map(c=>[c,CATS[c]||c])).concat(hasG?[['guests',"Guests’ photos"]]:[]).concat([['mine','💛 Mine']]);
+  $('filters').innerHTML=opts.map(o=>'<button data-f="'+o[0]+'" class="'+(filter===o[0]?'on':'')+'">'+esc(o[1])+'</button>').join('');
+  $('filters').querySelectorAll('button').forEach(b=>b.onclick=()=>{ filter=b.getAttribute('data-f'); filters(); render(); }); }
+function visible(){ return items.filter(x=>{ if(filter==='all') return true; if(filter==='guests') return x.by==='guest'; if(filter==='mine') return picks.indexOf(x.id)>-1; if(filter==='star') return x.star; return x.cat===filter; }); }
+function render(){ view=visible(); $('empty').hidden=!!items.length;
+  $('grid').innerHTML=view.map((x,i)=>'<div class="ph'+(x.status==='hidden'?' hid':'')+'" data-i="'+i+'"><img loading="lazy" src="'+esc(x.thumb)+'" alt="">'+(picks.indexOf(x.id)>-1?'<span class="pk">💛</span>':'')+(role==='host'&&(x.status!=='published'||x.star)?'<span class="st">'+(x.star?'⭐ ':'')+(x.status==='published'?'':x.status)+'</span>':'')+'</div>').join('');
+  $('grid').querySelectorAll('.ph').forEach(d=>d.onclick=()=>open(+d.getAttribute('data-i'))); }
+function open(i){ cur=i; const x=view[i]; if(!x) return; $('li').src=x.url; $('lb').classList.add('on');
+  const isPick=picks.indexOf(x.id)>-1;
+  let h='<button class="in'+(isPick?' on':'')+'" id="bIn">'+(isPick?'💛 In My Night':"🙋 I’m in this")+'</button><a href="'+esc(x.url)+'" download target="_blank" rel="noopener">⬇️ Download</a>';
+  if(role==='host'&&x.by==='pro') h+='<button id="bStar">'+(x.star?'★ Highlight':'☆ Make highlight')+'</button><button id="bHide">'+(x.status==='hidden'?'👁 Show':'🙈 Hide')+'</button>';
+  else if(x.by==='pro') h+='<button id="bRep">Remove this photo</button>';
+  $('lbar').innerHTML=h;
+  $('bIn').onclick=()=>{ const k=picks.indexOf(x.id); if(k>-1) picks.splice(k,1); else { if(picks.length>=60){ alert('You can pick up to 60 photos.'); return; } picks.push(x.id); } savePicks(); open(cur); render(); };
+  if($('bStar')) $('bStar').onclick=async()=>{ x.star=!x.star; await post({op:'set',id:x.id,star:!!x.star}); open(cur); render(); };
+  if($('bHide')) $('bHide').onclick=async()=>{ x.status=x.status==='hidden'?'published':'hidden'; await post({op:'set',id:x.id,status:x.status}); open(cur); render(); };
+  if($('bRep')) $('bRep').onclick=async()=>{ if(!confirm('Remove this photo for everyone? The host will be told.')) return; await post({op:'report',id:x.id}); items=items.filter(y=>y!==x); close(); render(); };
+}
+function close(){ $('lb').classList.remove('on'); }
+$('lx').onclick=close; $('lp').onclick=()=>open(Math.max(0,cur-1)); $('ln').onclick=()=>open(Math.min(view.length-1,cur+1));
+document.addEventListener('keydown',e=>{ if(!$('lb').classList.contains('on')) return; if(e.key==='Escape') close(); if(e.key==='ArrowLeft') $('lp').click(); if(e.key==='ArrowRight') $('ln').click(); });
+$('mine').onclick=e=>{ e.preventDefault(); location.href='/mynight.html?ev='+ev; };
+$('pi').onclick=async()=>{ const r=await post({op:'invite',name:$('pn').value,website:$('pw').value}); if(!r.ok){ alert(r.error||'Could not create the link'); return; }
+  const txt='Hi! Here is your private upload link for '+(E.name||'the event')+'. Drop in a sneak peek of your favourites and they appear in the guests’ gallery, credited to you: '+r.link;
+  $('po').innerHTML='<code>'+esc(r.link)+'</code><a class="b" target="_blank" href="https://wa.me/?text='+encodeURIComponent(txt)+'">Send on WhatsApp</a><button id="pc">Copy link</button>';
+  $('pc').onclick=()=>navigator.clipboard.writeText(r.link).then(()=>$('pc').textContent='Copied ✓'); };
+$('sb').onclick=async()=>{ const r=await post({op:'song',url:$('su').value.trim(),start:+$('ss').value||0}); $('so').textContent=r.ok?'✓ Saved':(r.error||'Error'); };
+$('pubAll').onclick=async()=>{ const r=await post({op:'publish'}); alert(r.ok?('Published '+r.published+' photos'):(r.error||'Error')); load(); };
+load();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Night · GatherWall</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--c:#1c2027;--a:#c9a54c}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 Inter,system-ui,sans-serif;background:#f6f3ee;color:#1c2027}
+.hero{background:var(--c);color:#fff;padding:28px 18px 24px;text-align:center}
+.hero img{height:44px;border-radius:8px;background:#fff;padding:4px;margin-bottom:8px}
+.hero .k{font:700 12px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--a)}
+.hero h1{font:600 clamp(28px,7vw,42px)/1.15 Fraunces,serif;margin:6px 0 4px}.hero p{margin:0;opacity:.85}
+.wrap{max-width:640px;margin:0 auto;padding:14px 14px 60px}
+.card{background:#fff;border:1px solid #e6dccb;border-radius:18px;padding:16px;margin-bottom:14px}
+.card h2{font:600 21px Fraunces,serif;margin:0 0 6px}
+.note{color:#6b6b70;font-size:13.5px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.strip div{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#eee}.strip img{width:100%;height:100%;object-fit:cover}
+.strip button{position:absolute;right:4px;top:4px;border:0;border-radius:50%;width:26px;height:26px;background:rgba(0,0,0,.6);color:#fff;font-size:13px;cursor:pointer}
+.strip .l{position:absolute;left:4px;bottom:4px;font:700 10px Inter;background:rgba(0,0,0,.55);color:#fff;border-radius:6px;padding:1px 5px}
+.msg{border-left:3px solid var(--a);padding:6px 10px;margin:8px 0;font-family:Fraunces,serif;font-size:17px}
+input[type=text],input[type=email]{width:100%;font:15px Inter;padding:11px 12px;border:1px solid #d9cdb3;border-radius:12px;margin:5px 0}
+.btn{display:inline-block;border:0;border-radius:999px;padding:13px 18px;font:700 15px Inter;cursor:pointer;text-decoration:none;background:var(--c);color:#fff;margin:6px 6px 0 0}
+.btn.g{background:var(--a);color:#111}.btn.w{background:#fff;color:#1c2027;border:1.5px solid #1c2027}
+.big{width:100%;font-size:17px;padding:16px}
+#bar{height:10px;background:#eee4d2;border-radius:6px;overflow:hidden;margin:12px 0}#bar i{display:block;height:100%;width:0;background:var(--a)}
+video{width:100%;max-width:340px;border-radius:14px;display:block;margin:12px auto 0;background:#000}
+canvas{display:none}
+label.ck{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:#444;margin-top:6px}
+footer{text-align:center;color:#8a8a8f;font-size:12.5px;padding:10px}
+</style>
+</head>
+<body>
+<div class="hero"><img id="logo" hidden alt=""><div class="k">My Night</div><h1 id="title">Your night</h1><p id="sub"></p></div>
+<div class="wrap">
+  <div class="card" id="filmCard">
+    <h2>🎬 Your own film</h2>
+    <p class="note" id="filmNote">Your photos, set to the Song of the Night. Made right here on your phone in under a minute, ready for WhatsApp and Instagram.</p>
+    <input type="text" id="nm" placeholder="Your name for the title (e.g. Ama)" maxlength="40">
+    <button class="btn g big" id="make">Make my film</button>
+    <div id="rec" hidden><div id="bar"><i></i></div><div class="note">Recording… keep this screen open (about <span id="secs">45</span> seconds).</div></div>
+    <video id="vid" controls playsinline hidden></video>
+    <div id="after" hidden><button class="btn" id="share">📤 Share</button><button class="btn w" id="save">⬇️ Save</button></div>
+    <canvas id="cv"></canvas>
+  </div>
+  <div class="card">
+    <h2>📸 Your photos <span class="note" id="cnt"></span></h2>
+    <p class="note" id="phNote">These go into your film. Tap ✕ to leave one out.</p>
+    <div class="strip" id="strip"></div>
+    <a class="btn w" id="pickMore" href="#">🙋 Find more photos of me</a>
+  </div>
+  <div class="card" id="msgCard" hidden><h2>💬 What you wrote</h2><div id="msgs"></div></div>
+  <div class="card">
+    <h2>💛 Save my night</h2>
+    <p class="note">Get a link to this page by email, to open it later or on another phone.</p>
+    <input type="email" id="em" placeholder="Your email">
+    <label class="ck"><input type="checkbox" id="mk"> <span id="mkl">I’d like to hear about future events from the venue.</span></label>
+    <button class="btn" id="emb">Email me my link</button> <span class="note" id="emo"></span>
+  </div>
+</div>
+<footer><span id="credit"></span> · Made with GatherWall · Photos are private to this event</footer>
+<script>
+(function(){
+const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev', DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const q=new URLSearchParams(location.search), ev=(q.get('ev')||'').replace(/[^a-z0-9]/gi,'');
+const $=id=>document.getElementById(id), esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const post=d=>fetch(API+'/gallery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({ev},d))}).then(r=>r.json());
+function newGid(){ const a=new Uint8Array(16); crypto.getRandomValues(a); return [...a].map(x=>'abcdefghijkmnpqrstuvwxyz23456789'[x%32]).join(''); }
+let gid=q.get('g'); if(!/^[a-z0-9]{16}$/.test(gid||'')){ gid=localStorage.getItem('gw_gid_'+ev); if(!gid){ gid=newGid(); } }
+try{ localStorage.setItem('gw_gid_'+ev,gid); }catch(e){}
+let E={}, gal=[], tribs={}, picks=[], mine=[], drop=[], photos=[], blob=null, ext='mp4';
+try{ picks=JSON.parse(localStorage.getItem('gw_picks_'+ev)||'[]'); }catch(e){}
+try{ mine=JSON.parse(localStorage.getItem('gw_mine_'+ev)||'[]').map(x=>x.rid); }catch(e){}
+try{ drop=JSON.parse(localStorage.getItem('gw_drop_'+ev)||'[]'); }catch(e){}
+$('pickMore').href='/gallery.html?ev='+ev;
+async function load(){
+  const [e,g,t,m]=await Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()), post({op:'list'}), fetch(DB+'/tributes/'+ev+'.json').then(r=>r.json()).catch(()=>null), post({op:'mn.get',gid})]);
+  if(!e){ $('title').textContent='Page not found'; return; }
+  E=e; gal=(g.items||[]); tribs=t||{};
+  const color=e.color||(e.brand&&e.brand.color); if(color) document.documentElement.style.setProperty('--c',color);
+  if(e.brand&&e.brand.logo){ $('logo').src=e.brand.logo; $('logo').hidden=false; }
+  $('title').textContent='Your night at '+(e.name||'the event'); $('sub').textContent=[e.brand&&e.brand.name,e.date].filter(Boolean).join(' · ');
+  const ph=g.photog||e.photog; if(ph&&ph.name) $('credit').textContent='Photos by '+ph.name;
+  if(e.brand&&e.brand.name) $('mkl').textContent='I’d like to hear about future events from '+e.brand.name+'.';
+  if(m.ok){ const s=m.m; picks=[...new Set(picks.concat(s.picks||[]))].slice(0,60); mine=[...new Set(mine.concat(s.mine||[]))].slice(0,30); if(s.name&&!$('nm').value) $('nm').value=s.name; if(s.saved) $('emo').textContent='✓ Saved'; }
+  post({op:'mn.save',gid,picks,mine});
+  build();
+}
+function build(){
+  const byId={}; gal.forEach(x=>byId[x.id]=x);
+  const own=mine.map(r=>tribs[r]).filter(Boolean);
+  const msgs=own.filter(x=>x.msg); $('msgCard').hidden=!msgs.length; $('msgs').innerHTML=msgs.map(x=>'<div class="msg">“'+esc(x.msg)+'”</div>').join('');
+  let list=[];
+  own.forEach((x,i)=>{ if(x.photo) list.push({id:'t_'+mine[i],url:x.photo,thumb:x.photo,l:'You'}); });
+  picks.forEach(id=>{ if(byId[id]) list.push({id,url:byId[id].url,thumb:byId[id].thumb,l:'Picked'}); else if(/^t_/.test(id)&&tribs[id.slice(2)]&&tribs[id.slice(2)].photo) list.push({id,url:tribs[id.slice(2)].photo,thumb:tribs[id.slice(2)].photo,l:'Picked'}); });
+  const auto=gal.filter(x=>x.star&&!x.child).concat(gal.filter(x=>!x.star&&!x.child));
+  for(const x of auto){ if(list.length>=15) break; if(!list.some(y=>y.id===x.id)) list.push({id:x.id,url:x.url,thumb:x.thumb,l:x.star?'Highlight':''}); }
+  list=list.filter((x,i,a)=>a.findIndex(y=>y.id===x.id)===i && drop.indexOf(x.id)<0).slice(0,20);
+  photos=list; $('cnt').textContent='('+list.length+')';
+  if(!gal.length) $('phNote').textContent=list.length?'These go into your film. The photographer’s photos arrive soon, then your film gets even better.':'Your photos arrive soon 📸 The photographer’s sneak peek will appear here.';
+  $('strip').innerHTML=list.map((x,i)=>'<div><img src="'+esc(x.thumb)+'" alt="">'+(x.l?'<span class="l">'+x.l+'</span>':'')+'<button data-i="'+i+'" aria-label="Leave out">✕</button></div>').join('');
+  $('strip').querySelectorAll('button').forEach(b=>b.onclick=()=>{ const x=photos[+b.getAttribute('data-i')]; drop.push(x.id); const k=picks.indexOf(x.id); if(k>-1){ picks.splice(k,1); try{localStorage.setItem('gw_picks_'+ev,JSON.stringify(picks));}catch(e){} post({op:'mn.save',gid,picks}); } try{localStorage.setItem('gw_drop_'+ev,JSON.stringify(drop));}catch(e){} build(); });
+  $('make').disabled=!list.length;
+}
+// ---------- film ----------
+const mimes=['video/mp4;codecs=avc1.42E01E,mp4a.40.2','video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+function load1(src){ return new Promise((ok,no)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>ok(i); i.onerror=no; i.src=src; }); }
+function ss(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+$('make').onclick=async()=>{
+  const MR=window.MediaRecorder, mime=MR?mimes.find(m=>MR.isTypeSupported&&MR.isTypeSupported(m)):null, cv=$('cv');
+  if(!MR||!mime||!cv.captureStream){ alert('This browser can’t make the film. Please open this page in Safari (iPhone) or Chrome (Android).'); return; }
+  const name=$('nm').value.trim(); post({op:'mn.save',gid,name});
+  $('make').disabled=true; $('make').textContent='Getting your photos…'; $('vid').hidden=true; $('after').hidden=true;
+  try{
+    const imgs=[]; for(const p of photos){ try{ imgs.push(await load1(p.url)); }catch(e){} }
+    if(!imgs.length) throw new Error('Could not load your photos');
+    let logo=null; if(E.brand&&E.brand.logo){ try{ logo=await load1(E.brand.logo); }catch(e){} }
+    const W=1080,H=1920; cv.width=W; cv.height=H; const c=cv.getContext('2d');
+    const D=Math.max(30,Math.min(60,7+imgs.length*3)), TITLE=3, END=4, per=(D-TITLE-END)/imgs.length;
+    const song=(E.nightSong&&E.nightSong.url)?E.nightSong:{url:'/a-wall-of-love.mp3',start:30};
+    const AC=window.AudioContext||window.webkitAudioContext; const ac=new AC(); await ac.resume();
+    let buf; try{ buf=await fetch(song.url).then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>ac.decodeAudioData(a,ok,no))); }catch(e){ buf=await fetch('/a-wall-of-love.mp3').then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>ac.decodeAudioData(a,ok,no))); song.start=30; }
+    const src=ac.createBufferSource(); src.buffer=buf; const gain=ac.createGain(), dest=ac.createMediaStreamDestination(); src.connect(gain); gain.connect(dest); gain.connect(ac.destination);
+    const t0=ac.currentTime; gain.gain.setValueAtTime(0,t0); gain.gain.linearRampToValueAtTime(1,t0+1); gain.gain.setValueAtTime(1,t0+D-2.5); gain.gain.linearRampToValueAtTime(0,t0+D);
+    const ev2=E.name||'', who=name||'My night', brand=(E.brand&&E.brand.name)||'', photog=(E.photog&&E.photog.name)||'';
+    function cover(img,u,i){ const s=Math.max(W/img.width,H/img.height)*(1.03+0.07*ss(u)); const dw=img.width*s,dh=img.height*s; c.drawImage(img,(W-dw)/2+(i%2?1:-1)*24*(u-.5),(H-dh)/2,dw,dh); }
+    function text(t,y,font,col){ c.fillStyle=col; c.textAlign='center'; c.font=font; c.fillText(t,W/2,y); }
+    function frame(t){
+      c.fillStyle='#0d0c10'; c.fillRect(0,0,W,H);
+      if(t<TITLE){ cover(imgs[0],t/TITLE,0); c.fillStyle='rgba(0,0,0,.55)'; c.fillRect(0,0,W,H); c.globalAlpha=Math.min(1,t/0.8);
+        text(who,H*0.44,'600 '+(who.length>14?70:88)+'px Georgia,serif','#fff'); text(ev2?('at '+ev2):'',H*0.5,'italic 46px Georgia,serif','#e4c77a'); c.globalAlpha=1; return; }
+      const pt=t-TITLE;
+      if(pt<imgs.length*per){ const i=Math.min(imgs.length-1,Math.floor(pt/per)), u=(pt-i*per)/per; cover(imgs[i],u,i); if(u*per<0.6&&i>0){ c.globalAlpha=1-(u*per/0.6); cover(imgs[i-1],1,i-1); c.globalAlpha=1; } return; }
+      const e=(pt-imgs.length*per)/END; c.globalAlpha=Math.min(1,e*3);
+      if(logo){ const lh=180, lw=logo.width*lh/logo.height; c.fillStyle='#fff'; c.fillRect(W/2-lw/2-20,H*0.30-20,lw+40,lh+40); c.drawImage(logo,W/2-lw/2,H*0.30,lw,lh); }
+      if(brand) text(brand,H*0.47,'600 64px Georgia,serif','#fff'); if(photog) text('Photos by '+photog,H*0.52,'40px system-ui','#ccc'); text('Made with GatherWall',H*0.9,'32px system-ui','#888'); c.globalAlpha=1;
+    }
+    frame(0);
+    const stream=new MediaStream([...cv.captureStream(30).getVideoTracks(),...dest.stream.getAudioTracks()]);
+    const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:3000000,audioBitsPerSecond:128000}); const chunks=[];
+    rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); }; const done=new Promise(ok=>rec.onstop=ok);
+    $('rec').hidden=false; $('secs').textContent=Math.round(D); $('make').textContent='Making your film…';
+    rec.start(1000); const startAt=ac.currentTime+0.05; src.start(startAt,song.start||0,D+0.5);
+    await new Promise(ok=>{ (function loop(){ const t=ac.currentTime-startAt; if(t>=D){ ok(); return; } if(t>=0){ frame(t); $('bar').firstChild.style.width=(100*t/D)+'%'; } requestAnimationFrame(loop); })(); });
+    rec.stop(); try{src.stop();}catch(e){} await done; ac.close();
+    blob=new Blob(chunks,{type:mime.split(';')[0]}); ext=mime.indexOf('mp4')>-1?'mp4':'webm';
+    $('vid').src=URL.createObjectURL(blob); $('vid').hidden=false; $('after').hidden=false; $('rec').hidden=true;
+    const f=new File([blob],'my-night.'+ext,{type:blob.type}); $('share').hidden=!(navigator.canShare&&navigator.canShare({files:[f]}));
+  }catch(e){ alert('Sorry, the film could not be made: '+(e.message||e)); $('rec').hidden=true; }
+  $('make').disabled=false; $('make').textContent='Make it again';
+};
+$('save').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-night.'+ext; document.body.appendChild(a); a.click(); a.remove(); };
+$('share').onclick=async()=>{ try{ await navigator.share({files:[new File([blob],'my-night.'+ext,{type:blob.type})],title:'My night at '+(E.name||'the event')}); }catch(e){} };
+$('emb').onclick=async()=>{ const r=await post({op:'mn.email',gid,email:$('em').value.trim(),consent:$('mk').checked}); $('emo').textContent=r.ok?'✓ Sent. Check your inbox.':(r.error||'Could not send'); };
+window.addEventListener('pageshow',()=>{ try{ const p=JSON.parse(localStorage.getItem('gw_picks_'+ev)||'[]'); if(p.join()!==picks.join()){ picks=[...new Set(picks.concat(p))]; post({op:'mn.save',gid,picks}); build(); } }catch(e){} });
+load();
+})();
+</script>
+</body>
+</html>

@@ -2951,7 +2951,8 @@ function renderMine(){
     if(++done===mine.length){
       const html=rows.filter(Boolean).join('');
       box.style.display=html?'':'none';
-      box.innerHTML=html?`<div class="card" style="padding:14px 18px"><b style="font-size:14.5px">Your messages</b><span class="muted" style="font-size:12.5px"> · only you can see this</span>${html}</div>`:'';
+      const mn=(guestEvObj&&guestEvObj.partner)?`<a href="/mynight.html?ev=${encodeURIComponent(guestEv)}" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">💛 My Night: your photos &amp; your own film ›</a>`:'';
+      box.innerHTML=html?`<div class="card" style="padding:14px 18px"><b style="font-size:14.5px">Your messages</b><span class="muted" style="font-size:12.5px"> · only you can see this</span>${html}${mn}</div>`:'';
     }
   }));
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Photographer upload · GatherWall</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 Inter,system-ui,sans-serif;background:#f6f3ee;color:#1c2027}
+.wrap{max-width:900px;margin:0 auto;padding:22px 18px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:14px}header img{height:40px;border-radius:8px;background:#fff;padding:3px}
+h1{font:600 26px Fraunces,serif;margin:0}.sub{color:#6b6b70;font-size:14px}
+.card{background:#fff;border:1px solid #e6dccb;border-radius:18px;padding:18px;margin-bottom:14px}
+.drop{border:2px dashed #c9a54c;border-radius:16px;padding:30px 16px;text-align:center;background:#fffaf0;cursor:pointer}
+.drop.over{background:#fdf0cf}.drop b{font-size:17px}
+select,button{font:600 15px Inter;border-radius:12px;padding:11px 14px;border:1px solid #d9cdb3;background:#fff}
+button.p{background:#1c2027;color:#fff;border:0}button.g{background:#c9a54c;color:#111;border:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#bar{height:10px;background:#eee4d2;border-radius:6px;overflow:hidden;margin:12px 0 6px}#bar i{display:block;height:100%;width:0;background:#c9a54c;transition:width .3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:12px}
+.grid div{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#eee}.grid img{width:100%;height:100%;object-fit:cover}
+.grid span{position:absolute;left:6px;top:6px;font:700 10.5px Inter;background:rgba(0,0,0,.6);color:#fff;border-radius:6px;padding:2px 6px}
+.grid .pub span{background:#2f7d4f}.grid .err{outline:3px solid #c0392b}
+.note{font-size:13.5px;color:#6b6b70}
+</style>
+</head>
+<body><div class="wrap">
+<header><img id="logo" hidden alt=""><div><h1 id="title">Upload your photos</h1><div class="sub" id="sub">Loading…</div></div></header>
+<div class="card" id="bad" hidden><b>This upload link isn’t valid.</b><p class="note">Ask the host or venue to send you a new photographer link.</p></div>
+<div id="main" hidden>
+  <div class="card">
+    <div class="row" style="margin-bottom:12px"><label for="cat"><b>Part of the night</b></label>
+      <select id="cat"><option value="arrivals">Arrivals</option><option value="reception">Reception</option><option value="dinner">Dinner</option><option value="speeches">Speeches</option><option value="dancing">Dancing</option><option value="portraits">Portraits</option><option value="moments" selected>Special moments</option></select></div>
+    <div class="drop" id="drop"><b>📷 Drop your photos here</b><br><span class="note">or tap to choose. A sneak peek of 30–60 favourites is perfect. JPEGs straight from your edit; we resize them for phones and films (your originals stay with you).</span></div>
+    <input id="file" type="file" accept="image/*" multiple hidden>
+    <div id="bar"><i></i></div><div class="note" id="stat">No photos yet.</div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><div><b>Your uploads</b><div class="note">Guests see nothing until you publish.</div></div><button class="g" id="pub">Publish to guests</button></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+</div>
+<script>
+(function(){
+const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev', DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
+const ev=(new URLSearchParams(location.search).get('ev')||'').replace(/[^a-z0-9]/gi,''), pk=(location.hash.match(/k=([A-Za-z0-9_-]+)/)||[])[1]||'';
+const $=id=>document.getElementById(id), post=d=>fetch(API+'/gallery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({ev,pk},d))}).then(r=>r.json());
+let queue=[],done=0,fail=0,total=0,running=0;
+fetch(DB+'/events/'+ev+'.json').then(r=>r.json()).then(e=>{ if(!e){ $('bad').hidden=false; $('sub').textContent=''; return; }
+  $('title').textContent=e.name||'Upload your photos'; $('sub').textContent='Photographer upload'+((e.brand&&e.brand.name)?' · '+e.brand.name:'')+(e.photog&&e.photog.name?' · '+e.photog.name:'');
+  if(e.brand&&e.brand.logo){ $('logo').src=e.brand.logo; $('logo').hidden=false; } });
+post({op:'list'}).then(r=>{ if(!r.ok||r.role==='guest'){ $('bad').hidden=false; return; } $('main').hidden=false; (r.items||[]).filter(x=>x.by==='pro').forEach(x=>tile(x.thumb,x.status)); count(); });
+function tile(src,status){ const d=document.createElement('div'); if(status==='published') d.className='pub'; d.innerHTML='<img loading="lazy" src="'+src+'"><span>'+(status==='published'?'Live':'Draft')+'</span>'; $('grid').prepend(d); return d; }
+function count(){ const n=$('grid').children.length; $('stat').textContent=total?('Uploaded '+done+' of '+total+(fail?' · '+fail+' failed (tap Retry)':'')):(n?n+' photos uploaded.':'No photos yet.'); $('bar').firstChild.style.width=total?(100*done/total)+'%':'0'; }
+function resize(file,max,q){ return new Promise((ok,no)=>{ const u=URL.createObjectURL(file), img=new Image(); img.onload=()=>{ const s=Math.min(1,max/Math.max(img.width,img.height)), w=Math.round(img.width*s), h=Math.round(img.height*s); const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h); c.toBlob(b=>{ URL.revokeObjectURL(u); b?ok({b,w,h}):no(new Error('resize')); },'image/jpeg',q); }; img.onerror=()=>no(new Error('not an image')); img.src=u; }); }
+async function up(blob,thumb){ for(let a=0;a<3;a++){ try{ const r=await fetch(API+'/media?scope=pro&ev='+ev+'&key='+encodeURIComponent(pk)+(thumb?'&t=1':''),{method:'POST',headers:{'Content-Type':'image/jpeg'},body:blob}).then(r=>r.json()); if(r.ok) return r.url; }catch(e){} await new Promise(r=>setTimeout(r,1500*(a+1))); } throw new Error('upload failed'); }
+async function one(f){ const t=tile(URL.createObjectURL(f),'draft'); t.querySelector('span').textContent='…';
+  try{ const big=await resize(f,2400,0.85), sm=await resize(f,480,0.75); const url=await up(big.b,false), th=await up(sm.b,true);
+    const r=await post({op:'add',url,thumb:th,w:big.w,h:big.h,cat:$('cat').value,taken:f.lastModified||0}); if(!r.ok) throw new Error(r.error);
+    t.querySelector('span').textContent='Draft'; done++; }catch(e){ t.classList.add('err'); t.querySelector('span').textContent='Retry'; t.onclick=()=>{ t.remove(); fail--; total--; add([f]); }; fail++; }
+  count(); }
+function pump(){ while(running<3&&queue.length){ running++; one(queue.shift()).finally(()=>{ running--; pump(); }); } }
+function add(files){ files=[...files].filter(f=>/^image\//.test(f.type)); total+=files.length; queue.push(...files); count(); pump(); }
+$('drop').onclick=()=>$('file').click(); $('file').onchange=e=>add(e.target.files);
+['dragover','dragenter'].forEach(k=>$('drop').addEventListener(k,e=>{e.preventDefault();$('drop').classList.add('over');}));
+['dragleave','drop'].forEach(k=>$('drop').addEventListener(k,e=>{e.preventDefault();$('drop').classList.remove('over');}));
+$('drop').addEventListener('drop',e=>add(e.dataTransfer.files));
+window.addEventListener('beforeunload',e=>{ if(queue.length||running){ e.preventDefault(); e.returnValue=''; } });
+$('pub').onclick=async()=>{ $('pub').disabled=true; const r=await post({op:'publish'}); $('pub').disabled=false; if(r.ok){ $('pub').textContent='✓ Published '+r.published+' photos'; document.querySelectorAll('#grid div:not(.err)').forEach(d=>{ d.className='pub'; d.querySelector('span').textContent='Live'; }); } else alert(r.error||'Could not publish'); };
+})();
+</script>
+</body>
+</html>
