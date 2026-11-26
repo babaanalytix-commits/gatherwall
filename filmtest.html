@@ -80,7 +80,7 @@ document.getElementById('go').onclick=async()=>{
     frame(0);
     if(!MR||!mime||!cv.captureStream){ log('❌ This browser cannot record a film. Fallback: render on the server.'); go.disabled=false; go.textContent='Make my film'; return; }
     const vs=cv.captureStream(30); const stream=new MediaStream([...vs.getVideoTracks(),...dest.stream.getAudioTracks()]);
-    const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:S===1080?6000000:3500000,audioBitsPerSecond:128000});
+    const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:S===1080?3000000:2000000,audioBitsPerSecond:128000});
     const chunks=[]; rec.ondata=null; rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
     let frames=0, late=0, hidden=0; document.addEventListener('visibilitychange',()=>{ if(document.hidden) hidden++; });
     const done=new Promise(ok=>rec.onstop=ok);
