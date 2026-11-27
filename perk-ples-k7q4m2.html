@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zimní ples Perk · každý host odejde s vlastním filmem</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 Inter,system-ui,sans-serif;background:#f7f3ec;color:#1d1b19}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.hero{background:#1d1b19;color:#fff;padding:56px 0 44px;text-align:center}
+.k{font:700 12px Inter;letter-spacing:.16em;text-transform:uppercase;color:#d4af37}
+h1{font:600 clamp(32px,6vw,52px)/1.1 Fraunces,serif;margin:14px 0}.hero p{font-size:18px;opacity:.88;max-width:620px;margin:0 auto}
+.lang{position:absolute;top:14px;right:16px}.lang button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:999px;padding:6px 12px;font:700 12.5px Inter;cursor:pointer}
+section{padding:40px 0}h2{font:600 clamp(24px,4vw,32px) Fraunces,serif;margin:0 0 10px}
+.step{display:flex;gap:16px;background:#fff;border:1px solid #e6dccb;border-radius:18px;padding:18px;margin-bottom:12px;align-items:flex-start}
+.n{flex:none;width:36px;height:36px;border-radius:50%;background:#d4af37;color:#111;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step b{font-size:17px}.step p{margin:4px 0 8px;color:#5c5a57}
+.btn{display:inline-block;background:#1d1b19;color:#fff;border-radius:999px;padding:11px 18px;font:700 14.5px Inter;text-decoration:none;margin:4px 8px 0 0}
+.btn.g{background:#d4af37;color:#111}
+#qr{background:#fff;padding:8px;border-radius:12px;display:inline-block;border:1px solid #e6dccb}
+.guests{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:600px){.guests{grid-template-columns:1fr}}
+.guests a{background:#fff;border:1px solid #e6dccb;border-radius:16px;padding:16px;text-decoration:none;color:#1d1b19;text-align:center}.guests b{display:block;font:600 20px Fraunces,serif}
+.money{background:linear-gradient(135deg,#2a2214,#1d1b19);color:#f5efe2;border-radius:22px;padding:26px}
+.money table{width:100%;border-collapse:collapse;margin-top:8px}.money td{padding:9px 0;border-bottom:1px solid #4a3f28}.money td:last-child{text-align:right;font-weight:700}
+.money tr.t td{color:#d4af37;font-size:19px;border:0}
+ul.p{padding-left:20px}ul.p li{margin:6px 0}
+.cta{text-align:center;padding:50px 0 70px}
+[data-l="en"]{display:none}body.en [data-l="cs"]{display:none}body.en [data-l="en"]{display:revert}
+small.f{display:block;text-align:center;color:#8a8478;padding-bottom:26px}
+</style>
+</head>
+<body>
+<div class="hero"><div class="lang"><button onclick="document.body.classList.toggle('en')">CS / EN</button></div><div class="wrap">
+  <div class="k">Perk · GatherWall · My Night</div>
+  <h1 data-l="cs">Každý host odejde<br>s vlastním filmem.</h1><h1 data-l="en">Every guest leaves<br>with their own film.</h1>
+  <p data-l="cs">Ukázka: <b>Zimní ples Perk</b>. Fotograf nahraje ukázku z večera, hosté si najdou své fotky a jejich telefon z nich za minutu udělá krátký film s písní Perku. S vaším logem, připravený pro WhatsApp a Instagram.</p>
+  <p data-l="en">Demo: <b>Perk Winter Ball</b>. The photographer uploads a sneak peek, guests find their photos, and their phone turns them into a short film with Perk's song in a minute. With your logo, ready for WhatsApp and Instagram.</p>
+</div></div>
+
+<section><div class="wrap">
+  <h2 data-l="cs">Vyzkoušejte to na svém telefonu (2 minuty)</h2><h2 data-l="en">Try it on your phone (2 minutes)</h2>
+  <div class="step"><div class="n">1</div><div><b data-l="cs">Host naskenuje QR kód na stole</b><b data-l="en">A guest scans the QR code on the table</b>
+    <p data-l="cs">Bez aplikace a bez registrace. Na plese může poslat vzkaz nebo fotku na velkou obrazovku.</p><p data-l="en">No app, no sign-up. On the night they can post a message or photo to the big screen.</p><div id="qr"></div></div></div>
+  <div class="step"><div class="n">2</div><div><b data-l="cs">Druhý den: galerie od fotografa</b><b data-l="en">Next day: the photographer's gallery</b>
+    <p data-l="cs">Fotograf nahraje ukázku z večera přes soukromý odkaz. Galerie nese značku Perku a fotograf je uveden, takže získává nové zakázky.</p><p data-l="en">The photographer uploads a sneak peek via a private link. The gallery carries Perk's brand and credits the photographer, which brings them new clients.</p>
+    <a class="btn" href="/gallery.html?ev=btipdh6yi8&lang=cs" target="_blank"><span data-l="cs">Otevřít galerii ›</span><span data-l="en">Open the gallery ›</span></a></div></div>
+  <div class="step"><div class="n">3</div><div><b data-l="cs">„Jsem na fotce“</b><b data-l="en">"I'm in this"</b>
+    <p data-l="cs">Host klepne na fotky, kde je. Žádné rozpoznávání obličejů. Kdo nevybere nic, dostane film z nejlepších fotek večera.</p><p data-l="en">Guests tap the photos they're in. No face recognition. Anyone who picks nothing still gets a film of the night's best photos.</p></div></div>
+  <div class="step"><div class="n">4</div><div><b data-l="cs">„Vytvořit můj film“</b><b data-l="en">"Make my film"</b>
+    <p data-l="cs">Telefon vytvoří 30–60sekundový film na výšku: jméno hosta, jeho fotky, píseň Perku a na konci logo Perku. Sdílí se jedním klepnutím.</p><p data-l="en">The phone makes a 30–60 second vertical film: the guest's name, their photos, Perk's song and Perk's logo at the end. Shared in one tap.</p>
+    <a class="btn g" href="/mynight.html?ev=btipdh6yi8&g=f6vkx3j3eudw8jjx&lang=cs" target="_blank"><span data-l="cs">Vytvořit film jako Jana ›</span><span data-l="en">Make a film as Jana ›</span></a></div></div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2 data-l="cs">Tři hosté, tři různé filmy</h2><h2 data-l="en">Three guests, three different films</h2>
+  <div class="guests">
+    <a href="/mynight.html?ev=btipdh6yi8&g=f6vkx3j3eudw8jjx&lang=cs" target="_blank"><b>Jana</b><span data-l="cs">tanec a přátelé</span><span data-l="en">dancing and friends</span></a>
+    <a href="/mynight.html?ev=btipdh6yi8&g=qn2gyyn4hwq3qfvt&lang=cs" target="_blank"><b>Tomáš</b><span data-l="cs">přípitky a parket</span><span data-l="en">toasts and the dance floor</span></a>
+    <a href="/mynight.html?ev=btipdh6yi8&g=ffdimv7ri6s6ya8a&lang=cs" target="_blank"><b>Babička Marie</b><span data-l="cs">„Tančila jsem tu v roce 1968“</span><span data-l="en">"I danced here in 1968"</span></a>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap"><div class="money">
+  <h2 data-l="cs" style="color:#fff">Co z toho má Perk</h2><h2 data-l="en" style="color:#fff">What Perk gets</h2>
+  <p data-l="cs" style="margin:0">Perk platí jednu pevnou částku za akci. Kolik zaplatí hosté (nebo zda je film v ceně vstupenky), určujete vy, a vše si necháváte.</p>
+  <p data-l="en" style="margin:0">Perk pays one fixed fee per event. You decide what guests pay (or include the film in the ticket), and you keep all of it.</p>
+  <table>
+    <tr><td data-l="cs">Ples pro 300 hostů, film si koupí čtvrtina hostů za 150 Kč</td><td data-l="en">300-guest ball, a quarter of guests buy a film at 150 Kč</td><td>11 250 Kč</td></tr>
+    <tr><td data-l="cs">My Night pro celou akci (píseň + filmy pro všechny hosty)</td><td data-l="en">My Night for the whole event (song + films for every guest)</td><td>– 900 Kč</td></tr>
+    <tr class="t"><td data-l="cs">Zůstává Perku</td><td data-l="en">Perk keeps</td><td>10 350 Kč</td></tr>
+  </table>
+  <p data-l="cs" style="opacity:.8;font-size:14px;margin:12px 0 0">Samotná zeď hostů: 90 Kč za akci. Galerie a stránka „Můj večer“ jsou v ceně. Bez měsíčních poplatků a bez smlouvy. První akce zdarma.</p>
+  <p data-l="en" style="opacity:.8;font-size:14px;margin:12px 0 0">The guest wall alone: 90 Kč per event. The gallery and My Night page are included. No monthly fee, no contract. First event free.</p>
+</div></div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <h2 data-l="cs">Soukromí</h2><h2 data-l="en">Privacy</h2>
+  <ul class="p" data-l="cs"><li>Žádné rozpoznávání obličejů. Hosté si fotky vybírají sami.</li><li>Galerie je soukromá pro akci. Každý host může fotku jedním klepnutím skrýt a Perk dostane zprávu.</li><li>Vše se po 90 dnech maže. Hosté si mezitím film i fotky uloží.</li><li>Perk je správcem údajů, GatherWall zpracovatelem. Smlouvu o zpracování (GDPR) dodáme.</li></ul>
+  <ul class="p" data-l="en"><li>No face recognition. Guests pick their own photos.</li><li>The gallery is private to the event. Any guest can hide a photo in one tap and Perk is told.</li><li>Everything is deleted after 90 days. Guests save their film and photos before then.</li><li>Perk is the data controller, GatherWall the processor. We provide the GDPR data-processing agreement.</li></ul>
+</div></section>
+
+<div class="cta"><div class="wrap">
+  <h2 data-l="cs">Vyzkoušíme to na vašem příštím plese?</h2><h2 data-l="en">Shall we run it at your next ball?</h2>
+  <p data-l="cs">První akce je zdarma. Rádi vše ukážeme za 20 minut.</p><p data-l="en">The first event is free. Happy to show you everything in 20 minutes.</p>
+  <a class="btn g" href="mailto:hello@gatherwall.com?subject=Perk%20%C3%97%20GatherWall"><span data-l="cs">Domluvit ukázku</span><span data-l="en">Book a demo</span></a>
+  <a class="btn" href="/perk-grand-k7q4m2.html"><span data-l="cs">Píseň Grandu ›</span><span data-l="en">The Grand's song ›</span></a>
+</div></div>
+<small class="f">Soukromá ukázka pro Perk · fotky z ukázky jsou ilustrační (Unsplash) · GatherWall</small>
+<script>try{ new QRCode(document.getElementById('qr'),{text:location.origin+'/index.html#guest?ev=btipdh6yi8',width:140,height:140}); }catch(e){}</script>
+</body>
+</html>

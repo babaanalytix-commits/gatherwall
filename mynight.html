@@ -66,6 +66,10 @@ footer{text-align:center;color:#8a8a8f;font-size:12.5px;padding:10px}
 (function(){
 const API='https://gatherwall-stripe-webhook.baba-analytix.workers.dev', DB='https://tributewall-27c75-default-rtdb.europe-west1.firebasedatabase.app';
 const q=new URLSearchParams(location.search), ev=(q.get('ev')||'').replace(/[^a-z0-9]/gi,'');
+const LANG=((q.get('lang')||navigator.language||'en').toLowerCase().indexOf('cs')===0)?'cs':'en';
+const CS={'My Night':'Můj večer','Your night':'Váš večer','🎬 Your own film':'🎬 Váš vlastní film','Your photos, set to the Song of the Night. Made right here on your phone in under a minute, ready for WhatsApp and Instagram.':'Vaše fotky s Písní večera. Vznikne přímo ve vašem telefonu za necelou minutu, připravený pro WhatsApp a Instagram.','Your name for the title (e.g. Ama)':'Vaše jméno do titulku (např. Jana)','Make my film':'Vytvořit můj film','Recording… keep this screen open (about':'Natáčím… nechte obrazovku zapnutou (asi','seconds).':'sekund).','📤 Share':'📤 Sdílet','⬇️ Save':'⬇️ Uložit','📸 Your photos':'📸 Vaše fotky','These go into your film. Tap ✕ to leave one out.':'Tyto fotky budou ve vašem filmu. Klepnutím na ✕ fotku vynecháte.','🙋 Find more photos of me':'🙋 Najít další fotky se mnou','💬 What you wrote':'💬 Co jste napsali','💛 Save my night':'💛 Uložit můj večer','Get a link to this page by email, to open it later or on another phone.':'Pošleme vám odkaz e-mailem, abyste stránku otevřeli později nebo na jiném telefonu.','Your email':'Váš e-mail','I’d like to hear about future events from the venue.':'Chci dostávat novinky o akcích.','Email me my link':'Poslat odkaz e-mailem','Made with GatherWall':'Vytvořeno s GatherWall','Photos are private to this event':'Fotky jsou soukromé pro tuto akci','You':'Vy','Picked':'Vybráno','Highlight':'Výběr','Your night at ':'Váš večer · ','Photos by ':'Foto: ','Getting your photos…':'Načítám fotky…','Making your film…':'Vytvářím film…','Make it again':'Vytvořit znovu','✓ Sent. Check your inbox.':'✓ Odesláno. Zkontrolujte e-mail.','✓ Saved':'✓ Uloženo','Your photos arrive soon 📸 The photographer’s sneak peek will appear here.':'Fotky brzy dorazí 📸 Ukázka od fotografa se objeví zde.','These go into your film. The photographer’s photos arrive soon, then your film gets even better.':'Tyto fotky budou ve vašem filmu. Fotky od fotografa brzy dorazí a film bude ještě lepší.','at ':'','My night':'Můj večer','I’d like to hear about future events from ':'Chci dostávat novinky o akcích od ','Sorry, the film could not be made: ':'Omlouváme se, film se nepodařilo vytvořit: '};
+const T=s=>LANG==='cs'&&CS[s]!=null?CS[s]:s;
+if(LANG==='cs'){ document.documentElement.lang='cs'; const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); const ns=[]; while(w.nextNode()) ns.push(w.currentNode); ns.forEach(n=>{ const t=n.nodeValue.trim(); if(t&&CS[t]) n.nodeValue=n.nodeValue.replace(t,CS[t]); }); document.querySelectorAll('[placeholder]').forEach(el=>{ const p=el.getAttribute('placeholder'); if(CS[p]) el.setAttribute('placeholder',CS[p]); }); }
 const $=id=>document.getElementById(id), esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const post=d=>fetch(API+'/gallery',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({ev},d))}).then(r=>r.json());
 function newGid(){ const a=new Uint8Array(16); crypto.getRandomValues(a); return [...a].map(x=>'abcdefghijkmnpqrstuvwxyz23456789'[x%32]).join(''); }
@@ -75,17 +79,17 @@ let E={}, gal=[], tribs={}, picks=[], mine=[], drop=[], photos=[], blob=null, ex
 try{ picks=JSON.parse(localStorage.getItem('gw_picks_'+ev)||'[]'); }catch(e){}
 try{ mine=JSON.parse(localStorage.getItem('gw_mine_'+ev)||'[]').map(x=>x.rid); }catch(e){}
 try{ drop=JSON.parse(localStorage.getItem('gw_drop_'+ev)||'[]'); }catch(e){}
-$('pickMore').href='/gallery.html?ev='+ev;
+$('pickMore').href='/gallery.html?ev='+ev+(LANG==='cs'?'&lang=cs':'');
 async function load(){
   const [e,g,t,m]=await Promise.all([fetch(DB+'/events/'+ev+'.json').then(r=>r.json()), post({op:'list'}), fetch(DB+'/tributes/'+ev+'.json').then(r=>r.json()).catch(()=>null), post({op:'mn.get',gid})]);
   if(!e){ $('title').textContent='Page not found'; return; }
   E=e; gal=(g.items||[]); tribs=t||{};
   const color=e.color||(e.brand&&e.brand.color); if(color) document.documentElement.style.setProperty('--c',color);
   if(e.brand&&e.brand.logo){ $('logo').src=e.brand.logo; $('logo').hidden=false; }
-  $('title').textContent='Your night at '+(e.name||'the event'); $('sub').textContent=[e.brand&&e.brand.name,e.date].filter(Boolean).join(' · ');
-  const ph=g.photog||e.photog; if(ph&&ph.name) $('credit').textContent='Photos by '+ph.name;
-  if(e.brand&&e.brand.name) $('mkl').textContent='I’d like to hear about future events from '+e.brand.name+'.';
-  if(m.ok){ const s=m.m; picks=[...new Set(picks.concat(s.picks||[]))].slice(0,60); mine=[...new Set(mine.concat(s.mine||[]))].slice(0,30); if(s.name&&!$('nm').value) $('nm').value=s.name; if(s.saved) $('emo').textContent='✓ Saved'; }
+  $('title').textContent=T('Your night at ')+(e.name||''); $('sub').textContent=[e.brand&&e.brand.name,e.date].filter(Boolean).join(' · ');
+  const ph=g.photog||e.photog; if(ph&&ph.name) $('credit').textContent=T('Photos by ')+ph.name;
+  if(e.brand&&e.brand.name) $('mkl').textContent=T('I’d like to hear about future events from ')+e.brand.name+'.';
+  if(m.ok){ const s=m.m; picks=[...new Set(picks.concat(s.picks||[]))].slice(0,60); mine=[...new Set(mine.concat(s.mine||[]))].slice(0,30); if(s.name&&!$('nm').value) $('nm').value=s.name; if(s.saved) $('emo').textContent=T('✓ Saved'); }
   post({op:'mn.save',gid,picks,mine});
   build();
 }
@@ -94,13 +98,13 @@ function build(){
   const own=mine.map(r=>tribs[r]).filter(Boolean);
   const msgs=own.filter(x=>x.msg); $('msgCard').hidden=!msgs.length; $('msgs').innerHTML=msgs.map(x=>'<div class="msg">“'+esc(x.msg)+'”</div>').join('');
   let list=[];
-  own.forEach((x,i)=>{ if(x.photo) list.push({id:'t_'+mine[i],url:x.photo,thumb:x.photo,l:'You'}); });
-  picks.forEach(id=>{ if(byId[id]) list.push({id,url:byId[id].url,thumb:byId[id].thumb,l:'Picked'}); else if(/^t_/.test(id)&&tribs[id.slice(2)]&&tribs[id.slice(2)].photo) list.push({id,url:tribs[id.slice(2)].photo,thumb:tribs[id.slice(2)].photo,l:'Picked'}); });
+  own.forEach((x,i)=>{ if(x.photo) list.push({id:'t_'+mine[i],url:x.photo,thumb:x.photo,l:T('You')}); });
+  picks.forEach(id=>{ if(byId[id]) list.push({id,url:byId[id].url,thumb:byId[id].thumb,l:T('Picked')}); else if(/^t_/.test(id)&&tribs[id.slice(2)]&&tribs[id.slice(2)].photo) list.push({id,url:tribs[id.slice(2)].photo,thumb:tribs[id.slice(2)].photo,l:T('Picked')}); });
   const auto=gal.filter(x=>x.star&&!x.child).concat(gal.filter(x=>!x.star&&!x.child));
-  for(const x of auto){ if(list.length>=15) break; if(!list.some(y=>y.id===x.id)) list.push({id:x.id,url:x.url,thumb:x.thumb,l:x.star?'Highlight':''}); }
+  for(const x of auto){ if(list.length>=15) break; if(!list.some(y=>y.id===x.id)) list.push({id:x.id,url:x.url,thumb:x.thumb,l:x.star?T('Highlight'):''}); }
   list=list.filter((x,i,a)=>a.findIndex(y=>y.id===x.id)===i && drop.indexOf(x.id)<0).slice(0,20);
   photos=list; $('cnt').textContent='('+list.length+')';
-  if(!gal.length) $('phNote').textContent=list.length?'These go into your film. The photographer’s photos arrive soon, then your film gets even better.':'Your photos arrive soon 📸 The photographer’s sneak peek will appear here.';
+  if(!gal.length) $('phNote').textContent=list.length?T('These go into your film. The photographer’s photos arrive soon, then your film gets even better.'):T('Your photos arrive soon 📸 The photographer’s sneak peek will appear here.');
   $('strip').innerHTML=list.map((x,i)=>'<div><img src="'+esc(x.thumb)+'" alt="">'+(x.l?'<span class="l">'+x.l+'</span>':'')+'<button data-i="'+i+'" aria-label="Leave out">✕</button></div>').join('');
   $('strip').querySelectorAll('button').forEach(b=>b.onclick=()=>{ const x=photos[+b.getAttribute('data-i')]; drop.push(x.id); const k=picks.indexOf(x.id); if(k>-1){ picks.splice(k,1); try{localStorage.setItem('gw_picks_'+ev,JSON.stringify(picks));}catch(e){} post({op:'mn.save',gid,picks}); } try{localStorage.setItem('gw_drop_'+ev,JSON.stringify(drop));}catch(e){} build(); });
   $('make').disabled=!list.length;
@@ -113,7 +117,7 @@ $('make').onclick=async()=>{
   const MR=window.MediaRecorder, mime=MR?mimes.find(m=>MR.isTypeSupported&&MR.isTypeSupported(m)):null, cv=$('cv');
   if(!MR||!mime||!cv.captureStream){ alert('This browser can’t make the film. Please open this page in Safari (iPhone) or Chrome (Android).'); return; }
   const name=$('nm').value.trim(); post({op:'mn.save',gid,name});
-  $('make').disabled=true; $('make').textContent='Getting your photos…'; $('vid').hidden=true; $('after').hidden=true;
+  $('make').disabled=true; $('make').textContent=T('Getting your photos…'); $('vid').hidden=true; $('after').hidden=true;
   try{
     const imgs=[]; for(const p of photos){ try{ imgs.push(await load1(p.url)); }catch(e){} }
     if(!imgs.length) throw new Error('Could not load your photos');
@@ -125,13 +129,13 @@ $('make').onclick=async()=>{
     let buf; try{ buf=await fetch(song.url).then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>ac.decodeAudioData(a,ok,no))); }catch(e){ buf=await fetch('/a-wall-of-love.mp3').then(r=>r.arrayBuffer()).then(a=>new Promise((ok,no)=>ac.decodeAudioData(a,ok,no))); song.start=30; }
     const src=ac.createBufferSource(); src.buffer=buf; const gain=ac.createGain(), dest=ac.createMediaStreamDestination(); src.connect(gain); gain.connect(dest); gain.connect(ac.destination);
     const t0=ac.currentTime; gain.gain.setValueAtTime(0,t0); gain.gain.linearRampToValueAtTime(1,t0+1); gain.gain.setValueAtTime(1,t0+D-2.5); gain.gain.linearRampToValueAtTime(0,t0+D);
-    const ev2=E.name||'', who=name||'My night', brand=(E.brand&&E.brand.name)||'', photog=(E.photog&&E.photog.name)||'';
+    const ev2=E.name||'', who=name||T('My night'), brand=(E.brand&&E.brand.name)||'', photog=(E.photog&&E.photog.name)||'';
     function cover(img,u,i){ const s=Math.max(W/img.width,H/img.height)*(1.03+0.07*ss(u)); const dw=img.width*s,dh=img.height*s; c.drawImage(img,(W-dw)/2+(i%2?1:-1)*24*(u-.5),(H-dh)/2,dw,dh); }
     function text(t,y,font,col){ c.fillStyle=col; c.textAlign='center'; c.font=font; c.fillText(t,W/2,y); }
     function frame(t){
       c.fillStyle='#0d0c10'; c.fillRect(0,0,W,H);
       if(t<TITLE){ cover(imgs[0],t/TITLE,0); c.fillStyle='rgba(0,0,0,.55)'; c.fillRect(0,0,W,H); c.globalAlpha=Math.min(1,t/0.8);
-        text(who,H*0.44,'600 '+(who.length>14?70:88)+'px Georgia,serif','#fff'); text(ev2?('at '+ev2):'',H*0.5,'italic 46px Georgia,serif','#e4c77a'); c.globalAlpha=1; return; }
+        text(who,H*0.44,'600 '+(who.length>14?70:88)+'px Georgia,serif','#fff'); text(ev2?(T('at ')+ev2):'',H*0.5,'italic 46px Georgia,serif','#e4c77a'); c.globalAlpha=1; return; }
       const pt=t-TITLE;
       if(pt<imgs.length*per){ const i=Math.min(imgs.length-1,Math.floor(pt/per)), u=(pt-i*per)/per; cover(imgs[i],u,i); if(u*per<0.6&&i>0){ c.globalAlpha=1-(u*per/0.6); cover(imgs[i-1],1,i-1); c.globalAlpha=1; } return; }
       const e=(pt-imgs.length*per)/END; c.globalAlpha=Math.min(1,e*3);
@@ -142,19 +146,19 @@ $('make').onclick=async()=>{
     const stream=new MediaStream([...cv.captureStream(30).getVideoTracks(),...dest.stream.getAudioTracks()]);
     const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:3000000,audioBitsPerSecond:128000}); const chunks=[];
     rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); }; const done=new Promise(ok=>rec.onstop=ok);
-    $('rec').hidden=false; $('secs').textContent=Math.round(D); $('make').textContent='Making your film…';
+    $('rec').hidden=false; $('secs').textContent=Math.round(D); $('make').textContent=T('Making your film…');
     rec.start(1000); const startAt=ac.currentTime+0.05; src.start(startAt,song.start||0,D+0.5);
     await new Promise(ok=>{ (function loop(){ const t=ac.currentTime-startAt; if(t>=D){ ok(); return; } if(t>=0){ frame(t); $('bar').firstChild.style.width=(100*t/D)+'%'; } requestAnimationFrame(loop); })(); });
     rec.stop(); try{src.stop();}catch(e){} await done; ac.close();
     blob=new Blob(chunks,{type:mime.split(';')[0]}); ext=mime.indexOf('mp4')>-1?'mp4':'webm';
     $('vid').src=URL.createObjectURL(blob); $('vid').hidden=false; $('after').hidden=false; $('rec').hidden=true;
     const f=new File([blob],'my-night.'+ext,{type:blob.type}); $('share').hidden=!(navigator.canShare&&navigator.canShare({files:[f]}));
-  }catch(e){ alert('Sorry, the film could not be made: '+(e.message||e)); $('rec').hidden=true; }
-  $('make').disabled=false; $('make').textContent='Make it again';
+  }catch(e){ alert(T('Sorry, the film could not be made: ')+(e.message||e)); $('rec').hidden=true; }
+  $('make').disabled=false; $('make').textContent=T('Make it again');
 };
 $('save').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-night.'+ext; document.body.appendChild(a); a.click(); a.remove(); };
 $('share').onclick=async()=>{ try{ await navigator.share({files:[new File([blob],'my-night.'+ext,{type:blob.type})],title:'My night at '+(E.name||'the event')}); }catch(e){} };
-$('emb').onclick=async()=>{ const r=await post({op:'mn.email',gid,email:$('em').value.trim(),consent:$('mk').checked}); $('emo').textContent=r.ok?'✓ Sent. Check your inbox.':(r.error||'Could not send'); };
+$('emb').onclick=async()=>{ const r=await post({op:'mn.email',gid,email:$('em').value.trim(),consent:$('mk').checked}); $('emo').textContent=r.ok?T('✓ Sent. Check your inbox.'):(r.error||'Could not send'); };
 window.addEventListener('pageshow',()=>{ try{ const p=JSON.parse(localStorage.getItem('gw_picks_'+ev)||'[]'); if(p.join()!==picks.join()){ picks=[...new Set(picks.concat(p))]; post({op:'mn.save',gid,picks}); build(); } }catch(e){} });
 load();
 })();
