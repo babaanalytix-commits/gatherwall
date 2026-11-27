@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex"><link rel="canonical" href="https://gatherwall.com/for-venues.html">
+<meta name="robots" content="noindex"><link rel="canonical" href="https://gatherwall.com/business.html?for=planners">
 <title>GatherWall Business</title>
 <script>
 /* Short marketing link gatherwall.com/planners : picks the visitor's language (unless fixed) and tags the visit for tracking. */
 (function(){
-  var T={"en": "/for-venues.html", "fr": "/fr/for-venues.html", "es": "/es/for-venues.html", "de": "/de/for-venues.html", "cs": "/cs/for-venues.html"}, forced='', h='#planners';
+  var T={"en": "/business.html", "fr": "/fr/business.html", "es": "/es/business.html", "de": "/de/business.html", "cs": "/cs/pro-firmy.html"}, forced='', h='';
   var lang=forced;
   if(!lang){ var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']);
     for(var i=0;i<ls.length&&!lang;i++){ var c=String(ls[i]).slice(0,2).toLowerCase(); if(T[c]) lang=c; } }
   if(!lang) lang='en';
   var q=new URLSearchParams(location.search);
   if(!q.get('from')) q.set('from','link');
+  if(!q.get('for')) q.set('for','planners');
   if(!q.get('c')) q.set('c','planners');
   location.replace(T[lang]+'?'+q.toString()+(location.hash||h));
 })();
 </script></head>
-<body><p><a href="/for-venues.html">GatherWall Business</a></p></body></html>
+<body><p><a href="/business.html?for=planners">GatherWall Business</a></p></body></html>
