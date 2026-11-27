@@ -109,6 +109,10 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   .sticky{display:block}
   body{padding-bottom:76px}
 }
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 18px}.who span{font-size:14px;opacity:.75;margin-right:2px}
+.who button{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:9px 15px;font:700 14.5px Inter,system-ui,sans-serif;cursor:pointer}
+.who button.on{background:#fff;color:var(--ink);border-color:#fff}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -117,20 +121,35 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- HERO -->
 <div class="hero"><div class="wrap">
   <div class="k">For wedding DJs, photographers and venues <span style="white-space:nowrap">· <b style="color:#fff">EN</b> <a href="/fr/business.html" hreflang="fr" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">FR</a> <a href="/es/business.html" hreflang="es" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">ES</a> <a href="/de/business.html" hreflang="de" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">DE</a> <a href="/cs/pro-firmy.html" hreflang="cs" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">CS</a></span></div>
-  <h1>The wedding extra every couple says yes to.</h1>
-  <p>Guests request and vote on songs, fill a live wall with messages, and the couple go home with a song made from their own story. All under your brand. You set the price, and we charge <b style="color:#fff">$4 an event</b>.</p>
+  <div class="who" role="tablist"><span>I'm a</span><button data-w="dj" class="on" onclick="aud('dj')">🎧 DJ or MC</button><button data-w="ph" onclick="aud('ph')">📷 Photographer</button><button data-w="ve" onclick="aud('ve')">🏛️ Venue or planner</button></div>
+  <div data-a="dj">
+    <h1>The wedding extra every couple says yes to.</h1>
+    <p>Guests request and vote on songs, fill a live wall with messages, and the couple go home with a song made from their own story. All under your brand. You set the price, and we charge <b style="color:#fff">$4 an event</b>.</p>
+  </div>
+  <div data-a="ph" hidden>
+    <h1>Every guest leaves with your photos, and their own film.</h1>
+    <p>Upload a sneak peek after the wedding. Guests open your gallery from the QR on their table, tap “I’m in this”, and their phone turns their photos into a short film that ends with your name. Hundreds of guests sharing your work. You set the price, and we charge <b style="color:#fff">$4 an event</b>.</p>
+  </div>
+  <div data-a="ve" hidden>
+    <h1>Weddings your couples talk about for years.</h1>
+    <p>Guests fill your screens with messages and photos during dinner and the speeches. The couple keep it all on a keepsake page with your venue’s name, and every guest can make their own film of the night that ends with your logo. Include it in your packages, and we charge <b style="color:#fff">$4 an event</b>.</p>
+  </div>
   <div class="btns"><a class="btn p" href="#apply">Get your first event free</a><a class="btn q" href="#see">See it in action</a></div>
   <div class="pills"><span>No app for guests</span><span>Your logo on everything</span><span>No monthly fee</span><span>English · Yoruba · Czech · German · French · Spanish</span></div>
-  <div class="shot"><img src="/biz/dj-wall.jpg" alt="A live GatherWall on the big screen at a wedding, branded Soundwave DJs, with guest messages, photos and song requests" loading="eager"></div>
-  <div class="cap">A real demo wall: Tunde &amp; Aisha's wedding, presented by Soundwave DJs. Messages, photos and song requests appear as guests post them.</div>
+  <div data-a="dj"><div class="shot"><img src="/biz/dj-wall.jpg" alt="A live GatherWall on the big screen at a wedding, branded Soundwave DJs, with guest messages, photos and song requests" loading="eager"></div>
+  <div class="cap">A real demo wall: Tunde &amp; Aisha's wedding, presented by Soundwave DJs. Messages, photos and song requests appear as guests post them.</div></div>
+  <div data-a="ph" hidden><div class="shot"><img src="/biz/ph-hero.jpg" alt="Three phone screens: a guest tapping I'm in this on a gallery photo, their My Night page, and their own film" loading="lazy"></div>
+  <div class="cap">A real demo: the Perk Winter Ball. A guest picks the photos they’re in, and their phone makes their film in under a minute.</div></div>
+  <div data-a="ve" hidden><div class="shot"><img src="/biz/ve-wall.jpg" alt="A live wedding guest wall on the big screen at Rosewood Hall, with guests' messages and photos" loading="lazy"></div>
+  <div class="cap">A real demo wall: Emma &amp; James at Rosewood Hall. Messages and photos appear on your screens as guests post them.</div></div>
 </div></div>
 
 <!-- LANES -->
 <section id="lanes"><div class="wrap">
   <div class="k">Built for how you work</div>
-  <h2>Pick your lane.</h2>
-  <p class="lead">Same platform, three ways to earn from it. Choose yours to see what you would offer.</p>
-  <div class="tabs" role="tablist">
+  <h2>What you would offer.</h2>
+  <p class="lead">One platform with everything: guest walls, song requests, galleries, guest films and keepsakes. Here is what matters most for your business. Switch at the top to see the others.</p>
+  <div class="tabs" role="tablist" hidden>
     <button class="on" onclick="lane('dj',this)">🎧 DJs &amp; MCs</button>
     <button onclick="lane('ph',this)">📷 Photographers</button>
     <button onclick="lane('ve',this)">🏛️ Venues &amp; planners</button>
@@ -151,25 +170,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   <div class="lane" id="l-ph">
     <h3>Deliver more than photos.</h3>
     <ul>
-      <li><b>A guest message wall on your own website.</b> Guests scan a QR code at the wedding and leave the couple messages and photos. It carries your name.</li>
-      <li><b>The couple's own song.</b> Written from their story, like Mira &amp; Domča's album of six songs.</li>
-      <li><b>A song from the guests' messages:</b> the Song of Your Night, made from what everyone wrote.</li>
-      <li><b>One keepsake page</b> with your gallery link, the film, the songs and every message, all with your logo.</li>
+      <li><b>Your sneak peek in a branded gallery.</b> Drag in your favourites through a private link. Guests open it from the same QR code, credited to you on every page.</li>
+      <li><b>“I’m in this.”</b> Guests tap the photos they’re in. No face recognition, no app.</li>
+      <li><b>Every guest’s own film.</b> Their phone turns their photos into a vertical film set to the Song of the Night, ending with “Photos by” you. Made for WhatsApp and Instagram.</li>
+      <li><b>QR photo sharing.</b> Guests add their own phone photos to the same gallery, so the couple get every angle in one place.</li>
+      <li><b>The couple's own song and film.</b> Written from their story and set to your pictures, like Mira &amp; Domča's album.</li>
     </ul>
-    <div class="earn">Every guest who scans sees your name. The couple share the keepsake with family, and your next booking enquiry starts there.</div>
+    <div class="earn">Sell “My Night films for every guest” at <b>$99–$199</b>. It costs you <b>$39 an event</b>. And every film a guest shares carries your name to their friends.</div>
     <a class="more" href="/for-photographers.html">Everything for photographers ›</a>
   </div>
 
   <div class="lane" id="l-ve">
     <h3>A premium upgrade for every wedding you host or plan.</h3>
     <ul>
-      <li><b>Live guest wall</b> on your screens, in your venue's branding.</li>
+      <li><b>A welcome QR and live guest wall</b> on your screens during dinner and the speeches, in your branding.</li>
+      <li><b>The couple’s keepsake:</b> every message and photo on one page with your name, ready to share with family abroad.</li>
+      <li><b>Every guest leaves with their own film</b> of the night, ending with your logo. Hundreds of shares on WhatsApp and Instagram after every wedding.</li>
+      <li><b>Photographer’s gallery included:</b> invite the couple’s photographer and their sneak peek lands in your branded gallery.</li>
       <li><b>Private guest feedback</b> that goes to your team, never to public reviews.</li>
-      <li><b>Memory and community walls</b> for anniversaries and your venue's own story.</li>
-      <li><b>Guest pages in five languages</b> for international weddings.</li>
       <li><b>For event planners:</b> every client wedding in one dashboard, under your brand, whatever the venue.</li>
     </ul>
-    <div class="earn">Include it in wedding packages or sell it as an extra. A $4 cost against a <b>$100–$150</b> upgrade.</div>
+    <div class="earn">Include it in wedding packages or sell it as an extra. A $4 cost against a <b>$100–$150</b> upgrade, or $39 with guest films for everyone.</div>
     <a class="more" href="/for-venues.html">Everything for venues &amp; planners ›</a>
   </div>
 </div></section>
@@ -177,6 +198,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- SEE IT -->
 <section id="see" style="padding-top:10px"><div class="wrap">
   <div class="k">What happens on the night</div>
+  <div data-a="ph" hidden>
+  <h2>Your photos, in every guest’s pocket.</h2>
+  <p class="lead">Try it as a guest: open the demo gallery, tap “I’m in this” on a few photos, then make your own film.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-gallery.jpg" alt="Branded event gallery credited to the photographer" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:30% 0"><div class="n">1</div><b>Upload your sneak peek</b><p>Drag in a folder through your private link. It lands in a gallery with your credit, and guests see nothing until you publish.</p></div>
+    <div class="ph"><img src="/biz/ph-pick.jpg" alt="Guest tapping I'm in this on a photo" loading="lazy"><div class="n">2</div><b>Guests find themselves</b><p>From the same QR code. They tap “I’m in this”, download their favourites, and add their own phone photos.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's own vertical film" loading="lazy"><div class="n">3</div><b>Their film, your name</b><p>Their phone makes a 30–60 second film ending with “Photos by” you. Shared to WhatsApp and Instagram in one tap.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/gallery.html?ev=btipdh6yi8&amp;lang=en" target="_blank">Open the demo gallery ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Make a film as a guest ›</a></div>
+  </div>
+  <div data-a="ve" hidden>
+  <h2>A wedding that keeps going after the last dance.</h2>
+  <p class="lead">Try it as a guest: open the guest page on your phone, leave a message or photo, then watch it appear on the big screen.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-wall.jpg" alt="Wedding guest wall on the big screen" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:0 0"><div class="n">1</div><b>On the night</b><p>A welcome QR on the tables. Messages and photos appear on your screens during dinner and the speeches, approved first if you like.</p></div>
+    <div class="ph"><img src="/biz/ph-mynight.jpg" alt="A guest's My Night page with their photos" loading="lazy"><div class="n">2</div><b>The next day</b><p>The couple get their keepsake page. Every guest gets their own page with their messages, the photographer’s pictures and their film.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's film ending with the venue logo" loading="lazy"><div class="n">3</div><b>Your name travels</b><p>Every film ends with your logo. Hundreds of guests share them, and your next couples see your venue at its best.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/index.html#guest?ev=bgftnwib88" target="_blank">Try the guest page ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bgftnwib88" target="_blank">Open the big screen ›</a></div>
+  </div>
+  <div data-a="dj">
   <h2>Three taps for guests. One list for you.</h2>
   <p class="lead">Try it as a guest: open the guest page on your phone, request a song or leave a message, then watch it appear on the big screen.</p>
   <div class="phones">
@@ -185,14 +227,25 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div class="ph"><img src="/biz/dj-wall.jpg" alt="Big screen wall with messages and song dedications" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:62% 0"><div class="n">3</div><b>The room sees it live</b><p>Dedications and messages on the big screen. The couple get it all afterwards.</p></div>
   </div>
   <div class="btns"><a class="btn d" href="/index.html#guest?ev=bhibjbt7x6" target="_blank">Try the guest page ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bhibjbt7x6" target="_blank">Open the big screen ›</a></div>
+  </div>
 </div></section>
 
 <!-- THE MOMENT -->
 <section class="moment"><div class="wrap">
   <div class="k">The part nobody else offers</div>
-  <h2>Songs they'll play for years.</h2>
-  <p class="lead">Guest walls are everywhere. A song written from the couple's story, or from what their guests wrote on the night, is not. It's the upgrade couples tell their friends about.</p>
+  <div data-a="dj"><h2>Songs they'll play for years.</h2>
+  <p class="lead">Guest walls are everywhere. A song written from the couple's story, or from what their guests wrote on the night, is not. It's the upgrade couples tell their friends about.</p></div>
+  <div data-a="ph ve" hidden><h2>Every guest goes home with their own film.</h2>
+  <p class="lead">QR photo sharing is everywhere. A personal film for every guest, made from their own photos and set to a song written for the night, is not. It’s what people share the next morning.</p></div>
   <div class="mgrid">
+    <div class="mcard" data-a="ph ve" hidden>
+      <span class="tag">For every guest</span>
+      <h3>My Night</h3>
+      <p>Each guest gets a private page with their messages, the photos they’re in and a 30–60 second vertical film made on their own phone, set to the Song of the Night and ending with your name and logo.</p>
+      <img src="/biz/ph-film.jpg" alt="A guest's My Night film" loading="lazy" style="width:100%;max-width:260px;border-radius:14px;display:block;margin:10px auto">
+      <p style="font-size:13.5px;margin-top:8px">Your cost: <b style="color:#fff">$39 an event</b>, with the Song of the Night and unlimited films for every guest. You set what guests pay, or include it.</p>
+      <a href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Make a demo film ›</a>
+    </div>
     <div class="mcard">
       <span class="tag">From the guests' messages</span>
       <h3>Song of Your Night</h3>
@@ -200,7 +253,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
       <audio controls preload="none" src="/the-night-we-became-us.mp3"></audio>
       <p style="font-size:13.5px;margin-top:8px">Your cost: <b style="color:#fff">$10 a song</b>. You set the price.</p>
     </div>
-    <div class="mcard">
+    <div class="mcard" data-a="dj ph">
       <span class="tag">From the couple's story</span>
       <h3>Their own album and film</h3>
       <p>Mira &amp; Domča got songs about how they met, plus a film made from their photographer's pictures. Delivered on one keepsake page.</p><p style="font-size:13.5px;margin-top:8px">Partner price: <b style="color:#fff">$10</b> for the couple's song, <b style="color:#fff">$29</b> with a film.</p>
@@ -239,6 +292,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div><b>$10</b><span>Song of Your Night</span><p>A song from the guests' messages. Customers pay $19.</p></div>
     <div><b>$10</b><span>The couple's own song</span><p>Written from their story. Customers pay $19.</p></div>
     <div><b>$29</b><span>Song + film</span><p>Their song set to a film of the wedding photos. Customers pay $49.</p></div>
+    <div><b>$39</b><span>My Night for every guest</span><p>The Song of the Night plus unlimited films for every guest. Customers pay $59. The gallery is free with any wall.</p></div>
   </div>
 </div></section>
 
@@ -290,7 +344,15 @@ function calc(){var n=+document.getElementById('n').value,p=+document.getElement
   var yr=Math.round(n*12*h*(p-4));document.getElementById('yr').textContent='$'+yr.toLocaleString('en-US');
   document.getElementById('ex').textContent='extra a year from '+Math.round(n*12*h)+' upgrades, after our $4 per event.';}
 calc();
-(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:0,photographer:1,photographers:1,venue:2,venues:2};if(t&&m[t]!=null){var b=document.querySelectorAll('.tabs button')[m[t]];b&&b.click();}})();
+function aud(k,quiet){
+  document.querySelectorAll('[data-a]').forEach(function(el){ el.hidden=el.getAttribute('data-a').split(' ').indexOf(k)<0; });
+  document.querySelectorAll('.who button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-w')===k); });
+  var i={dj:0,ph:1,ve:2}[k]; var tb=document.querySelectorAll('.tabs button')[i]; if(tb) lane(k,tb);
+  var pr=document.getElementById('pr'); if(pr){ pr.value={dj:49,ph:149,ve:100}[k]; calc(); }
+  try{ localStorage.setItem('gw_biz_aud',k); }catch(e){}
+  if(!quiet){ var u=new URL(location.href); u.searchParams.set('for',{dj:'djs',ph:'photographers',ve:'venues'}[k]); history.replaceState(null,'',u); }
+}
+(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:'dj',djs:'dj',mc:'dj',photographer:'ph',photographers:'ph',photo:'ph',venue:'ve',venues:'ve',planner:'ve',planners:'ve',hotel:'ve'};var k=m[t];if(!k){try{k=localStorage.getItem('gw_biz_aud');}catch(e){}}if(k&&k!=='dj')aud(k,true);})();
 function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementById('b'); b.disabled=true;
   const d={op:'apply',lang:'en',page:'business'}; new FormData(f).forEach((v,k)=>d[k]=v);
   try{ const s=JSON.parse(localStorage.getItem('gw_src')||'{}'); d.from=s.from||''; d.c=s.c||''; }catch(x){}
