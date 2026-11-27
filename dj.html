@@ -104,7 +104,7 @@ body.screen #scr{display:grid}
   function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); }
   function link(m){ return location.pathname+'?ev='+ev+(m&&m!=='dj'?'&mode='+m:'')+(KEY?'#k='+KEY:''); }
   var guest=location.origin+'/index.html#guest?ev='+ev;
-  if(!ev){ document.getElementById('sub').textContent='This link is missing the event. Open it from your dashboard.'; return; }
+  if(!ev){ location.replace('/dj/'+location.search); return; }   // gatherwall.com/dj is also the short marketing link for DJs
 
   // ---- mode switch
   document.querySelectorAll('.modes a').forEach(function(a){ var m=a.getAttribute('data-m'); a.href=link(m); if(m===mode) a.classList.add('on'); if(m==='screen') a.target='_blank'; });
