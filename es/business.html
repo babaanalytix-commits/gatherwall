@@ -109,6 +109,10 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   .sticky{display:block}
   body{padding-bottom:76px}
 }
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 18px}.who span{font-size:14px;opacity:.75;margin-right:2px}
+.who button{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:9px 15px;font:700 14.5px Inter,system-ui,sans-serif;cursor:pointer}
+.who button.on{background:#fff;color:var(--ink);border-color:#fff}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -117,20 +121,35 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- HERO -->
 <div class="hero"><div class="wrap">
   <div class="k">Para DJ, fotógrafos y espacios de bodas <span style="white-space:nowrap">· <a href="/es/business.html" hreflang="en" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">EN</a> <a href="/fr/business.html" hreflang="fr" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">FR</a> <b style="color:#fff">ES</b> <a href="/de/business.html" hreflang="de" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">DE</a> <a href="/cs/pro-firmy.html" hreflang="cs" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">CS</a></span></div>
-  <h1>El extra al que toda pareja dice que sí.</h1>
-  <p>Los invitados piden canciones y votan, llenan un muro en vivo con mensajes, y la pareja se lleva una canción creada a partir de su propia historia. Todo con tu marca. Tú pones el precio y nosotros cobramos <b style="color:#fff">4 $ por evento</b>.</p>
+  <div class="who" role="tablist"><span>Soy</span><button data-w="dj" class="on" onclick="aud('dj')">🎧 DJ o maestro de ceremonias</button><button data-w="ph" onclick="aud('ph')">📷 Fotógrafo</button><button data-w="ve" onclick="aud('ve')">🏛️ Lugar u organizador</button></div>
+  <div data-a="dj">
+    <h1>El extra al que toda pareja dice que sí.</h1>
+    <p>Los invitados piden canciones y votan, llenan un muro en vivo con mensajes, y la pareja se lleva una canción creada a partir de su propia historia. Todo con tu marca. Tú pones el precio y nosotros cobramos <b style="color:#fff">4 $ por evento</b>.</p>
+  </div>
+  <div data-a="ph" hidden>
+    <h1>Cada invitado se lleva tus fotos y su propia película.</h1>
+    <p>Después de la boda, sube un adelanto. Los invitados abren tu galería desde el QR de su mesa, tocan «Salgo en esta» y su móvil convierte sus fotos en una película corta que termina con tu nombre. Cientos de invitados compartiendo tu trabajo. Tú pones el precio y nosotros cobramos <b style="color:#fff">4 $ por evento</b>.</p>
+  </div>
+  <div data-a="ve" hidden>
+    <h1>Bodas de las que tus parejas hablarán durante años.</h1>
+    <p>Durante la cena y los discursos, los invitados llenan tus pantallas de mensajes y fotos. La pareja lo guarda todo en una página de recuerdo con el nombre de tu espacio, y cada invitado puede crear su propia película de la noche que termina con tu logo. Inclúyelo en tus paquetes y nosotros cobramos <b style="color:#fff">4 $ por evento</b>.</p>
+  </div>
   <div class="btns"><a class="btn p" href="#apply">Tu primer evento gratis</a><a class="btn q" href="#see">Verlo en acción</a></div>
   <div class="pills"><span>Sin app para los invitados</span><span>Tu logo en todo</span><span>Sin cuota mensual</span><span>Inglés · Yoruba · Checo · Alemán · Francés · Español</span></div>
-  <div class="shot"><img src="/biz/dj-wall.jpg" alt="Un GatherWall en vivo en la pantalla grande de una boda, con la marca Soundwave DJs, mensajes, fotos y peticiones de canciones" loading="eager"></div>
-  <div class="cap">Un muro de demostración real: la boda de Tunde &amp; Aisha, presentada por Soundwave DJs. Los mensajes, fotos y peticiones aparecen en cuanto los invitados los publican.</div>
+  <div data-a="dj"><div class="shot"><img src="/biz/dj-wall.jpg" alt="Un GatherWall en vivo en la pantalla grande de una boda, con la marca Soundwave DJs, mensajes, fotos y peticiones de canciones" loading="eager"></div>
+  <div class="cap">Un muro de demostración real: la boda de Tunde &amp; Aisha, presentada por Soundwave DJs. Los mensajes, fotos y peticiones aparecen en cuanto los invitados los publican.</div></div>
+  <div data-a="ph" hidden><div class="shot"><img src="/biz/ph-hero.jpg" alt="Three phone screens: a guest tapping I'm in this on a gallery photo, their My Night page, and their own film" loading="lazy"></div>
+  <div class="cap">Una demo real: el baile de invierno del Perk. Un invitado elige las fotos en las que sale y su móvil crea su película en menos de un minuto.</div></div>
+  <div data-a="ve" hidden><div class="shot"><img src="/biz/ve-wall.jpg" alt="A live wedding guest wall on the big screen at Rosewood Hall, with guests' messages and photos" loading="lazy"></div>
+  <div class="cap">Un muro de demo real: Emma &amp; James en Rosewood Hall. Los mensajes y fotos aparecen en tus pantallas en cuanto los invitados los publican.</div></div>
 </div></div>
 
 <!-- LANES -->
 <section id="lanes"><div class="wrap">
   <div class="k">Pensado para tu trabajo</div>
-  <h2>Elige tu perfil.</h2>
-  <p class="lead">Una plataforma, tres formas de ganar con ella. Elige la tuya para ver qué podrías ofrecer.</p>
-  <div class="tabs" role="tablist">
+  <h2>Lo que ofrecerías.</h2>
+  <p class="lead">Una sola plataforma con todo: muros de invitados, peticiones de canciones, galerías, películas de los invitados y páginas de recuerdo. Aquí está lo que más importa para tu negocio. Cambia arriba para ver lo demás.</p>
+  <div class="tabs" role="tablist" hidden>
     <button class="on" onclick="lane('dj',this)">🎧 DJ y presentadores</button>
     <button onclick="lane('ph',this)">📷 Fotógrafos</button>
     <button onclick="lane('ve',this)">🏛️ Espacios y organizadores</button>
@@ -151,25 +170,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   <div class="lane" id="l-ph">
     <h3>Entrega más que fotos.</h3>
     <ul>
-      <li><b>Un muro de mensajes en tu propia web.</b> Los invitados escanean un código QR en la boda y dejan a la pareja mensajes y fotos. Con tu nombre.</li>
-      <li><b>La canción de la pareja.</b> Escrita a partir de su historia, como el álbum de seis canciones de Mira &amp; Domča.</li>
-      <li><b>Una canción con los mensajes de los invitados:</b> la Song of Your Night, hecha con lo que escribió cada uno.</li>
-      <li><b>Una sola página de recuerdo</b> con el enlace a tu galería, la película, las canciones y cada mensaje, todo con tu logo.</li>
+      <li><b>Tu adelanto en una galería con tu marca.</b> Arrastra tus favoritas con un enlace privado. Los invitados la abren desde el mismo QR y apareces como autor en cada página.</li>
+      <li><b>«Salgo en esta».</b> Los invitados tocan las fotos en las que salen. Sin reconocimiento facial, sin app.</li>
+      <li><b>Una película para cada invitado.</b> Su móvil convierte sus fotos en una película vertical con la Canción de la noche, que termina con «Fotos de» ti. Hecha para WhatsApp e Instagram.</li>
+      <li><b>Fotos compartidas por QR.</b> Los invitados añaden sus propias fotos del móvil a la misma galería, para que la pareja tenga todos los ángulos en un sitio.</li>
+      <li><b>La canción y la película de la pareja.</b> Escritas a partir de su historia y con tus fotos, como el álbum de Míra &amp; Domča.</li>
     </ul>
-    <div class="earn">Cada invitado que escanea ve tu nombre. La pareja comparte el recuerdo con la familia, y ahí empieza tu próxima reserva.</div>
+    <div class="earn">Vende «películas Mi noche para todos los invitados» por <b>$99–$199</b>. Te cuesta <b>39 $ por evento</b>. Y cada película que comparte un invitado lleva tu nombre a sus amigos.</div>
     <a class="more" href="/es/for-photographers.html">Todo para fotógrafos ›</a>
   </div>
 
   <div class="lane" id="l-ve">
     <h3>Una mejora premium para cada boda que acoges u organizas.</h3>
     <ul>
-      <li><b>Muro de invitados en vivo</b> en tus pantallas, con la marca de tu espacio.</li>
+      <li><b>Un QR de bienvenida y un muro de invitados en directo</b> en tus pantallas durante la cena y los discursos, con tu marca.</li>
+      <li><b>La página de recuerdo de la pareja:</b> todos los mensajes y fotos en una página con tu nombre, lista para compartir con la familia en el extranjero.</li>
+      <li><b>Cada invitado se lleva su propia película</b> de la noche, que termina con tu logo. Cientos de envíos por WhatsApp e Instagram después de cada boda.</li>
+      <li><b>Galería del fotógrafo incluida:</b> invita al fotógrafo de la pareja y su adelanto llega a tu galería.</li>
       <li><b>Opiniones privadas de los invitados</b> que van a tu equipo, nunca a reseñas públicas.</li>
-      <li><b>Muros de recuerdos y de comunidad</b> para aniversarios y la historia de tu espacio.</li>
-      <li><b>Páginas para invitados en cinco idiomas</b> para bodas internacionales.</li>
       <li><b>Para organizadores de eventos:</b> todas las bodas de tus clientes en un panel, con tu marca, sea cual sea el espacio.</li>
     </ul>
-    <div class="earn">Inclúyelo en tus paquetes de boda o véndelo como extra. Un coste de 4 $ frente a una mejora de <b>$100–$150</b> .</div>
+    <div class="earn">Inclúyelo en tus paquetes de boda o véndelo como extra. Un coste de 4 $ frente a una mejora de <b>$100–$150</b> como extra, o 39 $ con películas para todos los invitados.</div>
     <a class="more" href="/es/for-venues.html">Todo para espacios y organizadores ›</a>
   </div>
 </div></section>
@@ -177,6 +198,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- SEE IT -->
 <section id="see" style="padding-top:10px"><div class="wrap">
   <div class="k">Lo que pasa esa noche</div>
+  <div data-a="ph" hidden>
+  <h2>Tus fotos en el bolsillo de cada invitado.</h2>
+  <p class="lead">Pruébalo como invitado: abre la galería de demo, toca «Salgo en esta» en algunas fotos y crea tu propia película.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-gallery.jpg" alt="Branded event gallery credited to the photographer" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:30% 0"><div class="n">1</div><b>Sube tu adelanto</b><p>Arrastra una carpeta con tu enlace privado. Llega a una galería con tu nombre y los invitados no ven nada hasta que publicas.</p></div>
+    <div class="ph"><img src="/biz/ph-pick.jpg" alt="Guest tapping I'm in this on a photo" loading="lazy"><div class="n">2</div><b>Los invitados se encuentran</b><p>Desde el mismo QR. Tocan «Salgo en esta», descargan sus favoritas y añaden sus propias fotos.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's own vertical film" loading="lazy"><div class="n">3</div><b>Su película, tu nombre</b><p>Su móvil crea una película de 30 a 60 segundos que termina con «Fotos de» ti. Se comparte en WhatsApp e Instagram con un toque.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/gallery.html?ev=btipdh6yi8&amp;lang=en" target="_blank">Abrir la galería de demo ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Crear una película como invitado ›</a></div>
+  </div>
+  <div data-a="ve" hidden>
+  <h2>Una boda que sigue después del último baile.</h2>
+  <p class="lead">Pruébalo como invitado: abre la página de invitados en tu móvil, deja un mensaje o una foto y mira cómo aparece en la pantalla grande.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-wall.jpg" alt="Wedding guest wall on the big screen" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:0 0"><div class="n">1</div><b>Esa noche</b><p>Un QR de bienvenida en las mesas. Los mensajes y fotos aparecen en tus pantallas durante la cena y los discursos, con aprobación previa si quieres.</p></div>
+    <div class="ph"><img src="/biz/ph-mynight.jpg" alt="A guest's My Night page with their photos" loading="lazy"><div class="n">2</div><b>Al día siguiente</b><p>La pareja recibe su página de recuerdo. Cada invitado recibe su propia página con sus mensajes, las fotos del fotógrafo y su película.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's film ending with the venue logo" loading="lazy"><div class="n">3</div><b>Tu nombre viaja</b><p>Cada película termina con tu logo. Cientos de invitados la comparten y tus próximas parejas ven tu espacio en su mejor momento.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/index.html#guest?ev=bgftnwib88" target="_blank">Probar la página de invitados ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bgftnwib88" target="_blank">Abrir la pantalla grande ›</a></div>
+  </div>
+  <div data-a="dj">
   <h2>Tres toques para los invitados. Una lista para ti.</h2>
   <p class="lead">Pruébalo como invitado: abre la página de invitados en tu móvil, pide una canción o deja un mensaje y mira cómo aparece en la pantalla grande.</p>
   <div class="phones">
@@ -185,14 +227,25 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div class="ph"><img src="/biz/dj-wall.jpg" alt="Muro en pantalla grande con mensajes y dedicatorias" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:62% 0"><div class="n">3</div><b>Todo el salón lo ve en vivo</b><p>Dedicatorias y mensajes en la pantalla grande. La pareja se lo queda todo después.</p></div>
   </div>
   <div class="btns"><a class="btn d" href="/index.html#guest?ev=bhibjbt7x6" target="_blank">Probar la página de invitados ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bhibjbt7x6" target="_blank">Abrir la pantalla grande ›</a></div>
+  </div>
 </div></section>
 
 <!-- THE MOMENT -->
 <section class="moment"><div class="wrap">
   <div class="k">Lo que nadie más ofrece</div>
-  <h2>Canciones que escucharán durante años.</h2>
-  <p class="lead">Muros de invitados hay en todas partes. Una canción escrita a partir de la historia de la pareja, o de lo que escribieron sus invitados esa noche, no. Es la mejora de la que las parejas hablan a sus amigos.</p>
+  <div data-a="dj"><h2>Canciones que escucharán durante años.</h2>
+  <p class="lead">Muros de invitados hay en todas partes. Una canción escrita a partir de la historia de la pareja, o de lo que escribieron sus invitados esa noche, no. Es la mejora de la que las parejas hablan a sus amigos.</p></div>
+  <div data-a="ph ve" hidden><h2>Cada invitado se va a casa con su propia película.</h2>
+  <p class="lead">Compartir fotos por QR lo ofrece cualquiera. Una película personal para cada invitado, con sus propias fotos y una canción escrita para esa noche, no. Es lo que se comparte a la mañana siguiente.</p></div>
   <div class="mgrid">
+    <div class="mcard" data-a="ph ve" hidden>
+      <span class="tag">Para cada invitado</span>
+      <h3>Mi noche</h3>
+      <p>Cada invitado recibe una página privada con sus mensajes, las fotos en las que sale y una película vertical de 30 a 60 segundos hecha en su propio móvil, con la Canción de la noche y que termina con tu nombre y tu logo.</p>
+      <img src="/biz/ph-film.jpg" alt="A guest's My Night film" loading="lazy" style="width:100%;max-width:260px;border-radius:14px;display:block;margin:10px auto">
+      <p style="font-size:13.5px;margin-top:8px">Tu coste: <b style="color:#fff">39 $ por evento</b>, con la Canción de la noche y películas ilimitadas para cada invitado. Tú decides cuánto pagan los invitados, o lo incluyes.</p>
+      <a href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Crear una película de demo ›</a>
+    </div>
     <div class="mcard">
       <span class="tag">Con los mensajes de los invitados</span>
       <h3>Song of Your Night</h3>
@@ -200,7 +253,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
       <audio controls preload="none" src="/the-night-we-became-us.mp3"></audio>
       <p style="font-size:13.5px;margin-top:8px">Tu coste: <b style="color:#fff">10 $ por canción</b>. Tú pones el precio.</p>
     </div>
-    <div class="mcard">
+    <div class="mcard" data-a="dj ph">
       <span class="tag">Con la historia de la pareja</span>
       <h3>Su propio álbum y película</h3>
       <p>Mira &amp; Domča recibieron canciones sobre cómo se conocieron y una película hecha con las fotos de su fotógrafo. Todo en una página de recuerdo.</p><p style="font-size:13.5px;margin-top:8px">Precio para socios: <b style="color:#fff">$10</b> por la canción de la pareja, <b style="color:#fff">$29</b> con película.</p>
@@ -239,6 +292,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div><b>$10</b><span>Song of Your Night</span><p>Una canción con los mensajes de los invitados. El cliente paga 19 $.</p></div>
     <div><b>$10</b><span>La canción de la pareja</span><p>Escrita a partir de su historia. El cliente paga 19 $.</p></div>
     <div><b>$29</b><span>Canción + película</span><p>Su canción con una película de las fotos de la boda. El cliente paga 49 $.</p></div>
+    <div><b>$39</b><span>Mi noche para cada invitado</span><p>La Canción de la noche más películas ilimitadas para cada invitado. Los clientes pagan 59 $. La galería es gratis con cualquier muro.</p></div>
   </div>
 </div></section>
 
@@ -290,7 +344,15 @@ function calc(){var n=+document.getElementById('n').value,p=+document.getElement
   var yr=Math.round(n*12*h*(p-4));document.getElementById('yr').textContent='$'+yr.toLocaleString('es-ES');
   document.getElementById('ex').textContent='extra al año con '+Math.round(n*12*h)+' mejoras, tras nuestros 4 $ por evento.';}
 calc();
-(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:0,photographer:1,photographers:1,venue:2,venues:2};if(t&&m[t]!=null){var b=document.querySelectorAll('.tabs button')[m[t]];b&&b.click();}})();
+function aud(k,quiet){
+  document.querySelectorAll('[data-a]').forEach(function(el){ el.hidden=el.getAttribute('data-a').split(' ').indexOf(k)<0; });
+  document.querySelectorAll('.who button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-w')===k); });
+  var i={dj:0,ph:1,ve:2}[k]; var tb=document.querySelectorAll('.tabs button')[i]; if(tb) lane(k,tb);
+  var pr=document.getElementById('pr'); if(pr){ pr.value={dj:49,ph:149,ve:100}[k]; calc(); }
+  try{ localStorage.setItem('gw_biz_aud',k); }catch(e){}
+  if(!quiet){ var u=new URL(location.href); u.searchParams.set('for',{dj:'djs',ph:'photographers',ve:'venues'}[k]); history.replaceState(null,'',u); }
+}
+(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:'dj',djs:'dj',mc:'dj',photographer:'ph',photographers:'ph',photo:'ph',venue:'ve',venues:'ve',planner:'ve',planners:'ve',hotel:'ve'};var k=m[t];if(!k){try{k=localStorage.getItem('gw_biz_aud');}catch(e){}}if(k&&k!=='dj')aud(k,true);})();
 function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementById('b'); b.disabled=true;
   const d={op:'apply',lang:'es',page:'business'}; new FormData(f).forEach((v,k)=>d[k]=v);
   try{ const s=JSON.parse(localStorage.getItem('gw_src')||'{}'); d.from=s.from||''; d.c=s.c||''; }catch(x){}
