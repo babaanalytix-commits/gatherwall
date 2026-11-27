@@ -109,6 +109,10 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   .sticky{display:block}
   body{padding-bottom:76px}
 }
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 18px}.who span{font-size:14px;opacity:.75;margin-right:2px}
+.who button{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:9px 15px;font:700 14.5px Inter,system-ui,sans-serif;cursor:pointer}
+.who button.on{background:#fff;color:var(--ink);border-color:#fff}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -117,20 +121,35 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- HERO -->
 <div class="hero"><div class="wrap">
   <div class="k">Pro svatební DJe, fotografy a místa <span style="white-space:nowrap">· <a href="/cs/pro-firmy.html" hreflang="en" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">EN</a> <a href="/fr/business.html" hreflang="fr" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">FR</a> <a href="/es/business.html" hreflang="es" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">ES</a> <a href="/de/business.html" hreflang="de" style="color:#fff;opacity:.65;font-weight:500;text-decoration:none">DE</a> <b style="color:#fff">CS</b></span></div>
-  <h1>Bonus, kterému řekne ano každý pár.</h1>
-  <p>Hosté si přejí písně a hlasují, plní živou zeď vzkazy a pár si odnese píseň podle svého vlastního příběhu. Vše pod vaší značkou. Cenu určujete vy, my si účtujeme <b style="color:#fff">4 $ za akci</b>.</p>
+  <div class="who" role="tablist"><span>Jsem</span><button data-w="dj" class="on" onclick="aud('dj')">🎧 DJ nebo moderátor</button><button data-w="ph" onclick="aud('ph')">📷 Fotograf</button><button data-w="ve" onclick="aud('ve')">🏛️ Místo nebo plánovač</button></div>
+  <div data-a="dj">
+    <h1>Bonus, kterému řekne ano každý pár.</h1>
+    <p>Hosté si přejí písně a hlasují, plní živou zeď vzkazy a pár si odnese píseň podle svého vlastního příběhu. Vše pod vaší značkou. Cenu určujete vy, my si účtujeme <b style="color:#fff">4 $ za akci</b>.</p>
+  </div>
+  <div data-a="ph" hidden>
+    <h1>Každý host odejde s vašimi fotkami a vlastním filmem.</h1>
+    <p>Po svatbě nahrajete ukázku fotek. Hosté otevřou vaši galerii z QR kódu na stole, klepnou na „Jsem na fotce“ a jejich telefon z fotek udělá krátký film zakončený vaším jménem. Stovky hostů sdílí vaši práci. Cenu určujete vy a my účtujeme <b style="color:#fff">4 $ za akci</b>.</p>
+  </div>
+  <div data-a="ve" hidden>
+    <h1>Svatby, o kterých se mluví ještě roky.</h1>
+    <p>Hosté během večeře a proslovů zaplní vaše obrazovky vzkazy a fotkami. Pár si vše nechá na vzpomínkové stránce s názvem vašeho místa a každý host si může vytvořit vlastní film z večera zakončený vaším logem. Zahrňte to do balíčků a my účtujeme <b style="color:#fff">4 $ za akci</b>.</p>
+  </div>
   <div class="btns"><a class="btn p" href="#apply">První akce zdarma</a><a class="btn q" href="#see">Ukázat v akci</a></div>
   <div class="pills"><span>Hosté nepotřebují aplikaci</span><span>Vaše logo všude</span><span>Žádný měsíční poplatek</span><span>Angličtina · Jorubština · Čeština · Němčina · Francouzština · Španělština</span></div>
-  <div class="shot"><img src="/biz/dj-wall.jpg" alt="Živá GatherWall na velkém plátně na svatbě, ve značce Soundwave DJs, se vzkazy, fotkami a přáními písní" loading="eager"></div>
-  <div class="cap">Skutečná ukázková zeď: svatba Tunde &amp; Aisha, kterou uvádí Soundwave DJs. Vzkazy, fotky a přání písní se objevují hned, jak je hosté pošlou.</div>
+  <div data-a="dj"><div class="shot"><img src="/biz/dj-wall.jpg" alt="Živá GatherWall na velkém plátně na svatbě, ve značce Soundwave DJs, se vzkazy, fotkami a přáními písní" loading="eager"></div>
+  <div class="cap">Skutečná ukázková zeď: svatba Tunde &amp; Aisha, kterou uvádí Soundwave DJs. Vzkazy, fotky a přání písní se objevují hned, jak je hosté pošlou.</div></div>
+  <div data-a="ph" hidden><div class="shot"><img src="/biz/ph-hero.jpg" alt="Three phone screens: a guest tapping I'm in this on a gallery photo, their My Night page, and their own film" loading="lazy"></div>
+  <div class="cap">Skutečná ukázka: Zimní ples Perk. Host si vybere fotky, na kterých je, a jeho telefon z nich za necelou minutu udělá film.</div></div>
+  <div data-a="ve" hidden><div class="shot"><img src="/biz/ve-wall.jpg" alt="A live wedding guest wall on the big screen at Rosewood Hall, with guests' messages and photos" loading="lazy"></div>
+  <div class="cap">Skutečná ukázková zeď: Emma &amp; James v Rosewood Hall. Vzkazy a fotky se objevují na vašich obrazovkách, jak je hosté posílají.</div></div>
 </div></div>
 
 <!-- LANES -->
 <section id="lanes"><div class="wrap">
   <div class="k">Vytvořeno pro vaši práci</div>
-  <h2>Vyberte si svůj obor.</h2>
-  <p class="lead">Jedna platforma, tři způsoby, jak na ní vydělat. Vyberte ten svůj a podívejte se, co byste mohli nabízet.</p>
-  <div class="tabs" role="tablist">
+  <h2>Co budete nabízet.</h2>
+  <p class="lead">Jedna platforma se vším: zdi hostů, přání písní, galerie, filmy hostů a vzpomínkové stránky. Tady je to nejdůležitější pro vaši firmu. Nahoře můžete přepnout na ostatní.</p>
+  <div class="tabs" role="tablist" hidden>
     <button class="on" onclick="lane('dj',this)">🎧 DJové a moderátoři</button>
     <button onclick="lane('ph',this)">📷 Fotografové</button>
     <button onclick="lane('ve',this)">🏛️ Místa a plánovači</button>
@@ -151,25 +170,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
   <div class="lane" id="l-ph">
     <h3>Dodejte víc než fotky.</h3>
     <ul>
-      <li><b>Zeď vzkazů hostů na vašem vlastním webu.</b> Hosté na svatbě naskenují QR kód a nechají páru vzkazy a fotky. S vaším jménem.</li>
-      <li><b>Vlastní píseň páru.</b> Napsaná podle jejich příběhu, jako album šesti písní Míry &amp; Domči.</li>
-      <li><b>Píseň ze vzkazů hostů:</b> Song of Your Night vytvořená z toho, co všichni napsali.</li>
-      <li><b>Jedna stránka na památku</b> s odkazem na vaši galerii, filmem, písněmi a všemi vzkazy, vše s vaším logem.</li>
+      <li><b>Vaše ukázka ve značkové galerii.</b> Oblíbené fotky přetáhnete přes soukromý odkaz. Hosté galerii otevřou ze stejného QR kódu a na každé stránce jste uvedeni jako autor.</li>
+      <li><b>„Jsem na fotce.“</b> Hosté klepnou na fotky, na kterých jsou. Bez rozpoznávání obličejů, bez aplikace.</li>
+      <li><b>Vlastní film pro každého hosta.</b> Jejich telefon z fotek udělá film na výšku s Písní večera, zakončený „Foto:“ a vaším jménem. Připravený pro WhatsApp a Instagram.</li>
+      <li><b>Sdílení fotek přes QR.</b> Hosté přidají vlastní fotky z telefonu do stejné galerie, takže pár má všechny pohledy na jednom místě.</li>
+      <li><b>Vlastní píseň a film páru.</b> Napsané podle jejich příběhu a s vašimi fotkami, jako album Míry a Domči.</li>
     </ul>
-    <div class="earn">Každý host, který naskenuje kód, uvidí vaše jméno. Pár sdílí památku s rodinou a tam začíná vaše další poptávka.</div>
+    <div class="earn">Prodávejte „filmy My Night pro všechny hosty“ za <b>$99–$199</b>. Vás stojí <b>39 $ za akci</b>. A každý film, který host sdílí, nese vaše jméno k jeho přátelům.</div>
     <a class="more" href="/cs/for-photographers.html">Vše pro fotografy ›</a>
   </div>
 
   <div class="lane" id="l-ve">
     <h3>Prémiový doplněk pro každou svatbu, kterou hostíte nebo plánujete.</h3>
     <ul>
-      <li><b>Živá zeď hostů</b> na vašich obrazovkách, ve značce vašeho místa.</li>
+      <li><b>Uvítací QR a živá zeď hostů</b> na vašich obrazovkách během večeře a proslovů, ve vaší značce.</li>
+      <li><b>Vzpomínková stránka páru:</b> všechny vzkazy a fotky na jedné stránce s vaším jménem, připravené ke sdílení s rodinou v zahraničí.</li>
+      <li><b>Každý host odejde s vlastním filmem</b> z večera, zakončeným vaším logem. Stovky sdílení na WhatsAppu a Instagramu po každé svatbě.</li>
+      <li><b>Galerie fotografa v ceně:</b> pozvěte fotografa páru a jeho ukázka se objeví ve vaší značkové galerii.</li>
       <li><b>Soukromá zpětná vazba hostů</b> která jde vašemu týmu, nikdy do veřejných recenzí.</li>
-      <li><b>Zdi vzpomínek a komunity</b> pro výročí a příběh vašeho místa.</li>
-      <li><b>Stránky pro hosty v pěti jazycích</b> pro mezinárodní svatby.</li>
       <li><b>Pro plánovače akcí:</b> všechny svatby vašich klientů v jednom panelu, pod vaší značkou, ať je místo jakékoli.</li>
     </ul>
-    <div class="earn">Zařaďte ho do svatebních balíčků nebo prodávejte jako doplněk. Náklad 4 $ proti doplňku za <b>$100–$150</b> .</div>
+    <div class="earn">Zařaďte ho do svatebních balíčků nebo prodávejte jako doplněk. Náklad 4 $ proti doplňku za <b>$100–$150</b> doplňku, nebo 39 $ s filmy pro všechny hosty.</div>
     <a class="more" href="/cs/for-venues.html">Vše pro místa a plánovače ›</a>
   </div>
 </div></section>
@@ -177,6 +198,27 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
 <!-- SEE IT -->
 <section id="see" style="padding-top:10px"><div class="wrap">
   <div class="k">Co se děje během večera</div>
+  <div data-a="ph" hidden>
+  <h2>Vaše fotky v kapse každého hosta.</h2>
+  <p class="lead">Vyzkoušejte to jako host: otevřete ukázkovou galerii, klepněte u několika fotek na „Jsem na fotce“ a pak si vytvořte vlastní film.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-gallery.jpg" alt="Branded event gallery credited to the photographer" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:30% 0"><div class="n">1</div><b>Nahrajete ukázku</b><p>Přes soukromý odkaz přetáhnete složku. Fotky se objeví v galerii s vaším jménem a hosté nic neuvidí, dokud je nezveřejníte.</p></div>
+    <div class="ph"><img src="/biz/ph-pick.jpg" alt="Guest tapping I'm in this on a photo" loading="lazy"><div class="n">2</div><b>Hosté najdou sami sebe</b><p>Ze stejného QR kódu. Klepnou na „Jsem na fotce“, stáhnou si oblíbené a přidají vlastní fotky z telefonu.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's own vertical film" loading="lazy"><div class="n">3</div><b>Jejich film, vaše jméno</b><p>Telefon vytvoří 30–60sekundový film zakončený „Foto:“ a vaším jménem. Na WhatsApp a Instagram jedním klepnutím.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/gallery.html?ev=btipdh6yi8&amp;lang=en" target="_blank">Otevřít ukázkovou galerii ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Vytvořit film jako host ›</a></div>
+  </div>
+  <div data-a="ve" hidden>
+  <h2>Svatba, která pokračuje i po posledním tanci.</h2>
+  <p class="lead">Vyzkoušejte to jako host: otevřete stránku pro hosty na telefonu, pošlete vzkaz nebo fotku a sledujte, jak se objeví na velké obrazovce.</p>
+  <div class="phones">
+    <div class="ph"><img src="/biz/ve-wall.jpg" alt="Wedding guest wall on the big screen" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:0 0"><div class="n">1</div><b>Během večera</b><p>Uvítací QR na stolech. Vzkazy a fotky se objevují na vašich obrazovkách během večeře a proslovů, podle potřeby po schválení.</p></div>
+    <div class="ph"><img src="/biz/ph-mynight.jpg" alt="A guest's My Night page with their photos" loading="lazy"><div class="n">2</div><b>Druhý den</b><p>Pár dostane vzpomínkovou stránku. Každý host dostane vlastní stránku se svými vzkazy, fotkami od fotografa a svým filmem.</p></div>
+    <div class="ph"><img src="/biz/ph-film.jpg" alt="A guest's film ending with the venue logo" loading="lazy"><div class="n">3</div><b>Vaše jméno cestuje</b><p>Každý film končí vaším logem. Sdílí ho stovky hostů a vaše příští páry uvidí vaše místo v nejlepším světle.</p></div>
+  </div>
+  <div class="btns"><a class="btn d" href="/index.html#guest?ev=bgftnwib88" target="_blank">Vyzkoušet stránku pro hosty ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bgftnwib88" target="_blank">Otevřít velké plátno ›</a></div>
+  </div>
+  <div data-a="dj">
   <h2>Tři klepnutí pro hosty. Jeden seznam pro vás.</h2>
   <p class="lead">Vyzkoušejte si to jako host: otevřete stránku pro hosty v telefonu, přejte si píseň nebo nechte vzkaz a sledujte, jak se objeví na velkém plátně.</p>
   <div class="phones">
@@ -185,14 +227,25 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div class="ph"><img src="/biz/dj-wall.jpg" alt="Zeď na velkém plátně se vzkazy a věnováními písní" loading="lazy" style="aspect-ratio:9/16;object-fit:cover;object-position:62% 0"><div class="n">3</div><b>Celý sál to vidí živě</b><p>Věnování a vzkazy na velkém plátně. Pár pak dostane všechno.</p></div>
   </div>
   <div class="btns"><a class="btn d" href="/index.html#guest?ev=bhibjbt7x6" target="_blank">Vyzkoušet stránku pro hosty ›</a><a class="btn d" style="background:#fff;color:var(--ink);border:1.5px solid var(--ink)" href="/index.html#wall?ev=bhibjbt7x6" target="_blank">Otevřít velké plátno ›</a></div>
+  </div>
 </div></section>
 
 <!-- THE MOMENT -->
 <section class="moment"><div class="wrap">
   <div class="k">Co nikdo jiný nenabízí</div>
-  <h2>Písně, které budou poslouchat roky.</h2>
-  <p class="lead">Zdi pro hosty jsou všude. Píseň napsaná podle příběhu páru nebo podle toho, co hosté ten večer napsali, ne. Tohle je doplněk, o kterém páry vyprávějí přátelům.</p>
+  <div data-a="dj"><h2>Písně, které budou poslouchat roky.</h2>
+  <p class="lead">Zdi pro hosty jsou všude. Píseň napsaná podle příběhu páru nebo podle toho, co hosté ten večer napsali, ne. Tohle je doplněk, o kterém páry vyprávějí přátelům.</p></div>
+  <div data-a="ph ve" hidden><h2>Každý host odejde domů s vlastním filmem.</h2>
+  <p class="lead">Sdílení fotek přes QR nabízí každý. Osobní film pro každého hosta z jeho vlastních fotek, s písní napsanou pro ten večer, nenabízí nikdo. Právě ten se druhý den ráno sdílí.</p></div>
   <div class="mgrid">
+    <div class="mcard" data-a="ph ve" hidden>
+      <span class="tag">Pro každého hosta</span>
+      <h3>Můj večer</h3>
+      <p>Každý host dostane soukromou stránku se svými vzkazy, fotkami, na kterých je, a 30–60sekundovým filmem na výšku vytvořeným v jeho vlastním telefonu, s Písní večera a zakončeným vaším jménem a logem.</p>
+      <img src="/biz/ph-film.jpg" alt="A guest's My Night film" loading="lazy" style="width:100%;max-width:260px;border-radius:14px;display:block;margin:10px auto">
+      <p style="font-size:13.5px;margin-top:8px">Vaše cena: <b style="color:#fff">39 $ za akci</b>, včetně Písně večera a neomezených filmů pro všechny hosty. Kolik zaplatí hosté, určujete vy, nebo to zahrnete v ceně.</p>
+      <a href="/mynight.html?ev=btipdh6yi8&amp;g=f6vkx3j3eudw8jjx&amp;lang=en" target="_blank">Vytvořit ukázkový film ›</a>
+    </div>
     <div class="mcard">
       <span class="tag">Ze vzkazů hostů</span>
       <h3>Song of Your Night</h3>
@@ -200,7 +253,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
       <audio controls preload="none" src="/the-night-we-became-us.mp3"></audio>
       <p style="font-size:13.5px;margin-top:8px">Vaše cena: <b style="color:#fff">10 $ za píseň</b>. Cenu určujete vy.</p>
     </div>
-    <div class="mcard">
+    <div class="mcard" data-a="dj ph">
       <span class="tag">Z příběhu páru</span>
       <h3>Jejich vlastní album a film</h3>
       <p>Míra &amp; Domča dostali písně o tom, jak se poznali, a film z fotek jejich fotografa. Vše na jedné stránce na památku.</p><p style="font-size:13.5px;margin-top:8px">Partnerská cena: <b style="color:#fff">$10</b> za píseň páru, <b style="color:#fff">$29</b> s filmem.</p>
@@ -239,6 +292,7 @@ form button{margin-top:18px;width:100%;background:var(--ink);color:#fff;border:0
     <div><b>$10</b><span>Song of Your Night</span><p>Píseň ze vzkazů hostů. Zákazník platí 19 $.</p></div>
     <div><b>$10</b><span>Vlastní píseň páru</span><p>Napsaná podle jejich příběhu. Zákazník platí 19 $.</p></div>
     <div><b>$29</b><span>Píseň + film</span><p>Jejich píseň k filmu ze svatebních fotek. Zákazník platí 49 $.</p></div>
+    <div><b>$39</b><span>Můj večer pro všechny hosty</span><p>Píseň večera a neomezené filmy pro všechny hosty. Zákazníci platí 59 $. Galerie je zdarma ke každé zdi.</p></div>
   </div>
 </div></section>
 
@@ -290,7 +344,15 @@ function calc(){var n=+document.getElementById('n').value,p=+document.getElement
   var yr=Math.round(n*12*h*(p-4));document.getElementById('yr').textContent='$'+yr.toLocaleString('cs-CZ');
   document.getElementById('ex').textContent='navíc za rok z '+Math.round(n*12*h)+' doplňků, po odečtení našich 4 $ za akci.';}
 calc();
-(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:0,photographer:1,photographers:1,venue:2,venues:2};if(t&&m[t]!=null){var b=document.querySelectorAll('.tabs button')[m[t]];b&&b.click();}})();
+function aud(k,quiet){
+  document.querySelectorAll('[data-a]').forEach(function(el){ el.hidden=el.getAttribute('data-a').split(' ').indexOf(k)<0; });
+  document.querySelectorAll('.who button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-w')===k); });
+  var i={dj:0,ph:1,ve:2}[k]; var tb=document.querySelectorAll('.tabs button')[i]; if(tb) lane(k,tb);
+  var pr=document.getElementById('pr'); if(pr){ pr.value={dj:49,ph:149,ve:100}[k]; calc(); }
+  try{ localStorage.setItem('gw_biz_aud',k); }catch(e){}
+  if(!quiet){ var u=new URL(location.href); u.searchParams.set('for',{dj:'djs',ph:'photographers',ve:'venues'}[k]); history.replaceState(null,'',u); }
+}
+(function(){var t=new URLSearchParams(location.search).get('for');var m={dj:'dj',djs:'dj',mc:'dj',photographer:'ph',photographers:'ph',photo:'ph',venue:'ve',venues:'ve',planner:'ve',planners:'ve',hotel:'ve'};var k=m[t];if(!k){try{k=localStorage.getItem('gw_biz_aud');}catch(e){}}if(k&&k!=='dj')aud(k,true);})();
 function apply(e){ e.preventDefault(); const f=e.target,b=document.getElementById('b'); b.disabled=true;
   const d={op:'apply',lang:'cs',page:'business'}; new FormData(f).forEach((v,k)=>d[k]=v);
   try{ const s=JSON.parse(localStorage.getItem('gw_src')||'{}'); d.from=s.from||''; d.c=s.c||''; }catch(x){}
