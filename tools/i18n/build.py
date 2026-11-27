@@ -86,5 +86,5 @@ if __name__ == '__main__':
             s, miss = build(lang, page, D)
             os.makedirs(os.path.dirname(out_path(lang, page)), exist_ok=True)
             open(out_path(lang, page), 'w').write(s)
-            if miss: ok = False; print(f'{lang} {page}: UNTRANSLATED', miss[:8])
+            if miss: ok = False; print(f'{lang} {page}: UNTRANSLATED', json.dumps(miss, ensure_ascii=False))
     print('done' if ok else 'done, with untranslated strings above')
